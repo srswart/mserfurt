@@ -1,0 +1,18 @@
+component:
+  id: substrate
+  name: "Vellum Substrate"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "weather/substrate/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

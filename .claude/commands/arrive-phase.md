@@ -53,29 +53,32 @@ Generate the full set of initial advances and the implementation plan in one pas
 
 ### Advance Template
 
-Each advance file goes at: `arrive/systems/<system>/advances/ADV-<COMPONENT>-001.md`
+Each advance file goes at: `arrive/systems/<system>/advances/ADV-<SYSTEM-PREFIX>-<COMPONENT>-001.md`
 
-Use this structure:
+Use system prefixes: XL → `ADV-XL-`, ScribeSim → `ADV-SS-`, Weather → `ADV-WX-`
+
+Use this structure (canonical schema from `arrive template render --kind advance --json`):
 
 ```markdown
 ---
-advance_id: ADV-<COMPONENT>-001
-system_id: <system>
-title: "<Component> — Initial Implementation"
-status: planned
-started_at: ~
-implementation_completed_at: ~
-review_time_estimate_minutes: <estimate>
-review_time_actual_minutes: ~
-components: [<component_id>]
-risk_flags: [<applicable flags from registry vocabulary>]
-evidence:
-  - tdd:red-green
-  - tidy:preparatory
-  - tests:unit
-tech_direction: [TD-001]
-pipeline_position: <1|2|3>
-depends_on_advances: [<ADV-IDs from upstream systems if applicable>]
+advance:
+  id: ADV-<SYSTEM-PREFIX>-<COMPONENT>-001
+  title: "<Component> — Initial Implementation"
+  system: <system>
+  primary_component: <component_id>
+  components: [<component_id>]
+  started_at: ~
+  implementation_completed_at: ~
+  review_time_estimate_minutes: <estimate>
+  review_time_actual_minutes: ~
+  pr_links: []
+  reviewability_score: 0
+  risk_flags: [<applicable flags>]
+  evidence:
+    - tdd:red-green
+    - tidy:preparatory
+    - tests:unit
+  status: planned
 ---
 
 ## Objective
@@ -318,14 +321,14 @@ contract_checkpoints:
       - "Final images importable to eScriptorium"
 ```
 
-### Naming Disambiguation
+### Naming Convention
 
-Since multiple systems share component names (cli, tests, groundtruth), advance IDs are scoped by system directory:
-- `arrive/systems/xl/advances/ADV-CLI-001.md` — XL's CLI
-- `arrive/systems/scribesim/advances/ADV-CLI-001.md` — ScribeSim's CLI
-- `arrive/systems/weather/advances/ADV-CLI-001.md` — Weather's CLI
+Advance IDs are globally unique across the entire repo. Use system prefixes:
+- XL: `ADV-XL-CLI-001`, `ADV-XL-TESTS-001`, etc.
+- ScribeSim: `ADV-SS-CLI-001`, `ADV-SS-TESTS-001`, etc.
+- Weather: `ADV-WX-CLI-001`, `ADV-WX-TESTS-001`, etc.
 
-The advance_id alone (e.g., `ADV-CLI-001`) is unique **within** a system. Cross-system references use the form `<system>/ADV-<COMPONENT>-<SEQ>` (e.g., `xl/ADV-EXPORT-001`).
+Files are named to match: `arrive/systems/xl/advances/ADV-XL-CLI-001.md`
 
 ---
 

@@ -1,0 +1,19 @@
+component:
+  id: tests
+  name: "ScribeSim Test Suite"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/tests/**"
+    - "tests/scribesim/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

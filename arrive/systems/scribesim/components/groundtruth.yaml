@@ -1,0 +1,18 @@
+component:
+  id: groundtruth
+  name: "PAGE XML Ground Truth"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/groundtruth/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

@@ -1,0 +1,18 @@
+component:
+  id: folio
+  name: "Folio Structuring"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "xl/folio/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

@@ -1,0 +1,18 @@
+component:
+  id: groundtruth
+  name: "PAGE XML Coordinate Update"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "weather/groundtruth/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

@@ -1,0 +1,18 @@
+component:
+  id: ink
+  name: "Iron Gall Ink Aging"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "weather/ink/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

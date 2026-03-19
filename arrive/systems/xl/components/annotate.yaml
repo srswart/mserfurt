@@ -1,0 +1,18 @@
+component:
+  id: annotate
+  name: "CLIO-7 Annotation"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "xl/annotate/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

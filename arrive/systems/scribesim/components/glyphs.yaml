@@ -1,0 +1,18 @@
+component:
+  id: glyphs
+  name: "Glyph Catalog (German Bastarda)"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/glyphs/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

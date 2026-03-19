@@ -1,0 +1,18 @@
+component:
+  id: hand
+  name: "Scribal Hand Model"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/hand/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

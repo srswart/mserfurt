@@ -1,0 +1,18 @@
+component:
+  id: export
+  name: "Export (JSON, PAGE XML, Manifest)"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "xl/export/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

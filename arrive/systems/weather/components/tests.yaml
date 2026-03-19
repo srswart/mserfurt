@@ -1,0 +1,19 @@
+component:
+  id: tests
+  name: "Weather Test Suite"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "weather/tests/**"
+    - "tests/weather/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

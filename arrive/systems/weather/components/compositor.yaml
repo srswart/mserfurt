@@ -1,0 +1,19 @@
+component:
+  id: compositor
+  name: "Effect Compositor"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "weather/compositor.py"
+    - "weather/compositor/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

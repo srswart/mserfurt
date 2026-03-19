@@ -1,0 +1,18 @@
+component:
+  id: damage
+  name: "Targeted Damage (Water, Missing Corner)"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "weather/damage/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

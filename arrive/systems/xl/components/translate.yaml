@@ -1,0 +1,18 @@
+component:
+  id: translate
+  name: "Reverse Translation Engine"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "xl/translate/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

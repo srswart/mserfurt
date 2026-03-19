@@ -1,0 +1,19 @@
+component:
+  id: tests
+  name: "XL Test Suite"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "xl/tests/**"
+    - "tests/xl/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

@@ -1,0 +1,18 @@
+component:
+  id: optics
+  name: "Digitization Artifacts"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "weather/optics/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

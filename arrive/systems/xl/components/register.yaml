@@ -1,0 +1,18 @@
+component:
+  id: register
+  name: "Hybrid Register Engine"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "xl/register/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

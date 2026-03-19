@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xl"
+version = "0.1.0"
+description = "XL — Reverse Translation & Folio Structuring (MS Erfurt Phase 1)"
+requires-python = ">=3.11"
+dependencies = [
+    "click>=8.1",
+]
+
+[project.scripts]
+xl = "xl.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["xl*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

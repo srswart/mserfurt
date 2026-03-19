@@ -1,0 +1,18 @@
+component:
+  id: render
+  name: "Bézier Stroke Renderer (Rust)"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim-render/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

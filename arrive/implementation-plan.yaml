@@ -1,285 +1,277 @@
-plan_id: ms-erfurt-impl-001
-name: "MS Erfurt Pipeline — Implementation Plan"
-created_at: 2026-03-19T00:00:00Z
-status: active
-
-# Sequencing rationale:
-# XL must produce folio JSON + manifest before ScribeSim can render,
-# and ScribeSim must produce images + heatmaps before Weather can age them.
-# Within each phase, components can be partially parallelized where they
-# don't depend on each other.
-#
-# Contract checkpoints between phases validate TD-001 conformance before
-# the next phase begins.
-
-phases:
-  # ─── PHASE 1: XL ─────────────────────────────────────────────────
-  - phase_id: 1
-    name: "XL — Reverse Translation & Folio Structuring"
-    system: xl
-    status: planned
-    depends_on: []
-    passes:
-      - pass_id: 1a
-        name: "Foundation"
-        description: >
-          CLI scaffolding and manuscript ingestion. These have no internal
-          dependencies and can be developed in parallel.
-        items:
-          - advance: ADV-CLI-001
-            system: xl
-            status: planned
-            depends_on: []
-            description: "CLI driver with translate, manifest, validate, preview subcommands"
-          - advance: ADV-INGEST-001
-            system: xl
-            status: planned
-            depends_on: []
-            description: "English manuscript parsing, CLIO-7 apparatus extraction, section segmentation"
-
-      - pass_id: 1b
-        name: "Core Pipeline"
-        description: >
-          Translation, register classification, and folio structuring.
-          translate and register both depend on ingest output. folio depends
-          on both translate and register being complete.
-        items:
-          - advance: ADV-TRANSLATE-001
-            system: xl
-            status: planned
-            depends_on: [ADV-INGEST-001]
-            description: "Claude API translation with GPT-4 validation, verbatim insertions"
-          - advance: ADV-REGISTER-001
-            system: xl
-            status: planned
-            depends_on: [ADV-INGEST-001]
-            description: "Hybrid register engine: parse hints, validate, resolve {mixed} to clause-level"
-          - advance: ADV-FOLIO-001
-            system: xl
-            status: planned
-            depends_on: [ADV-TRANSLATE-001, ADV-REGISTER-001]
-            description: "Distribute translated text across 17 folios, respecting CLIO-7 constraints"
-
-      - pass_id: 1c
-        name: "Output & Enrichment"
-        description: >
-          Annotation attachment, export to all formats, and comprehensive
-          test suite. Sequential: annotate → export → tests.
-        items:
-          - advance: ADV-ANNOTATE-001
-            system: xl
-            status: planned
-            depends_on: [ADV-FOLIO-001]
-            description: "Attach damage, lacuna, confidence, hand-note annotations from CLIO-7"
-          - advance: ADV-EXPORT-001
-            system: xl
-            status: planned
-            depends_on: [ADV-FOLIO-001, ADV-ANNOTATE-001]
-            description: "Per-folio JSON, JSONL, PAGE XML (text-only), manifest JSON writers"
-          - advance: ADV-TESTS-001
-            system: xl
-            status: planned
-            depends_on: [ADV-EXPORT-001]
-            description: "Golden tests for 5 representative folios, round-trip validation"
-
-  # ─── PHASE 2: SCRIBESIM ──────────────────────────────────────────
-  - phase_id: 2
-    name: "ScribeSim — Scribal Hand Simulation"
-    system: scribesim
-    status: planned
-    depends_on: [1]
-    passes:
-      - pass_id: 2a
-        name: "Foundation"
-        description: >
-          CLI scaffolding, hand model definition, and glyph catalog.
-          All three can be developed in parallel — they are independent.
-        items:
-          - advance: ADV-CLI-001
-            system: scribesim
-            status: planned
-            depends_on: []
-            description: "CLI driver with render, render-batch, hand, groundtruth subcommands"
-          - advance: ADV-HAND-001
-            system: scribesim
-            status: planned
-            depends_on: []
-            description: "Base hand (konrad_erfurt_1457.toml) + modifier stack from CLIO-7 hand notes"
-          - advance: ADV-GLYPHS-001
-            system: scribesim
-            status: planned
-            depends_on: []
-            description: "German Bastarda glyph catalog: ~90 glyphs as Bézier stroke sequences"
-
-      - pass_id: 2b
-        name: "Rendering Pipeline"
-        description: >
-          Page layout engine and Rust stroke renderer. Layout depends on
-          glyphs + hand being defined. Render depends on layout.
-        items:
-          - advance: ADV-LAYOUT-001
-            system: scribesim
-            status: planned
-            depends_on: [ADV-GLYPHS-001, ADV-HAND-001]
-            description: "Page layout: ruling, margins, Knuth-Plass line breaking, lacuna handling"
-          - advance: ADV-RENDER-001
-            system: scribesim
-            status: planned
-            depends_on: [ADV-LAYOUT-001]
-            description: "Rust Bézier rasterizer: virtual nib, pressure-to-width, ink flow, heatmap"
-
-      - pass_id: 2c
-        name: "Output & Ground Truth"
-        description: >
-          PAGE XML ground truth generation and comprehensive test suite.
-        items:
-          - advance: ADV-GROUNDTRUTH-001
-            system: scribesim
-            status: planned
-            depends_on: [ADV-RENDER-001]
-            description: "PAGE XML 2019: glyph-level polygons, baselines, TextEquiv, register tags"
-          - advance: ADV-TESTS-001
-            system: scribesim
-            status: planned
-            depends_on: [ADV-RENDER-001, ADV-GROUNDTRUTH-001]
-            description: "Golden image tests, IoU validation, hand variation, determinism"
-
-  # ─── PHASE 3: WEATHER ────────────────────────────────────────────
-  - phase_id: 3
-    name: "Weather — Manuscript Aging & Weathering"
-    system: weather
-    status: planned
-    depends_on: [2]
-    passes:
-      - pass_id: 3a
-        name: "Foundation"
-        description: >
-          CLI scaffolding, vellum substrate generation, and ink aging.
-          All three can be developed in parallel.
-        items:
-          - advance: ADV-CLI-001
-            system: weather
-            status: planned
-            depends_on: []
-            description: "CLI driver with apply, apply-batch, preview, groundtruth-update, catalog"
-          - advance: ADV-SUBSTRATE-001
-            system: weather
-            status: planned
-            depends_on: []
-            description: "Vellum texture (Perlin noise), color (two stocks), translucency"
-          - advance: ADV-INK-001
-            system: weather
-            status: planned
-            depends_on: []
-            description: "Iron gall ink aging: fade (black→brown), bleed, flake (pressure-targeted)"
-
-      - pass_id: 3b
-        name: "Effects Pipeline"
-        description: >
-          Targeted damage, general aging, and digitization artifacts.
-          damage and aging both depend on substrate + ink. optics depends
-          on substrate only.
-        items:
-          - advance: ADV-DAMAGE-001
-            system: weather
-            status: planned
-            depends_on: [ADV-SUBSTRATE-001, ADV-INK-001]
-            description: "Water damage (f04r-f05v, directional from above) + missing corner (f04v)"
-          - advance: ADV-AGING-001
-            system: weather
-            status: planned
-            depends_on: [ADV-SUBSTRATE-001, ADV-INK-001]
-            description: "Edge darkening, foxing (light, dry archive), binding shadow"
-          - advance: ADV-OPTICS-001
-            system: weather
-            status: planned
-            depends_on: [ADV-SUBSTRATE-001]
-            description: "Digitization: page curl (sinusoidal), camera vignette, lighting gradient"
-
-      - pass_id: 3c
-        name: "Compositing & Output"
-        description: >
-          Manifest-driven effect compositor, PAGE XML coordinate updates,
-          and comprehensive test suite.
-        items:
-          - advance: ADV-COMPOSITOR-001
-            system: weather
-            status: planned
-            depends_on: [ADV-DAMAGE-001, ADV-AGING-001, ADV-OPTICS-001]
-            description: "Manifest-driven per-folio dispatch, effect stacking, transform chaining"
-          - advance: ADV-GROUNDTRUTH-001
-            system: weather
-            status: planned
-            depends_on: [ADV-COMPOSITOR-001]
-            description: "PAGE XML coordinate update, damage zone annotation, legibility scores"
-          - advance: ADV-TESTS-001
-            system: weather
-            status: planned
-            depends_on: [ADV-COMPOSITOR-001, ADV-GROUNDTRUTH-001]
-            description: "Effect isolation, compositing order, dispatch accuracy, determinism"
-
-# ─── CONTRACT CHECKPOINTS ────────────────────────────────────────────
-# Validation gates between phases ensuring TD-001 conformance.
-
-contract_checkpoints:
-  - after_phase: 1
-    name: "XL → ScribeSim Contract Gate"
-    validate:
-      - "Folio JSON conforms to TD-001-A schema (all 17 folios)"
-      - "manifest.json conforms to TD-001-B schema"
-      - "PAGE XML validates against 2019 schema (TD-001-C)"
-      - "All folio IDs follow TD-001-G convention (f{NN}{r|v})"
-      - "Folio f04r-f05v carry water damage annotations"
-      - "Folio f04v carries missing_corner damage annotation"
-      - "Folio f07r hand_notes include variable ink density"
-      - "Folio f14r-f17v marked as irregular vellum stock"
-      - "manifest.json gap entry exists for f05v-f06r (1-3 missing folios)"
-
-  - after_phase: 2
-    name: "ScribeSim → Weather Contract Gate"
-    validate:
-      - "ScribeSim consumes all 17 XL folio JSON files without error"
-      - "Page images at 300 DPI with correct dimensions (TD-001-G naming)"
-      - "Pressure heatmaps conform to TD-001-F (grayscale, 8-bit, same dimensions)"
-      - "PAGE XML conforms to TD-001-C (glyph-level, pixel coordinates, baselines)"
-      - "Hand parameters conform to TD-001-D (konrad_erfurt_1457.toml)"
-      - "Per-folio hand variation applied: f06r pressure, f07r ink density, f07v scale, f14r+ fatigue"
-      - "Glyph bounding box IoU ≥ 0.95"
-      - "Kraken default segmentation achieves ≥ 90% line detection"
-
-  - after_phase: 3
-    name: "Weather → eScriptorium Final Gate"
-    validate:
-      - "Weather consumes all 17 ScribeSim outputs without error"
-      - "Weathering profile conforms to TD-001-E (ms-erfurt-560yr.toml)"
-      - "Updated PAGE XML conforms to TD-001-C (damage annotations, adjusted coordinates)"
-      - "Water damage on f04r-f05v visually consistent with exposure from above"
-      - "Missing corner on f04v renders as torn vellum along grain direction"
-      - "f14r-f17v show different vellum tone (irregular stock)"
-      - "Ground truth coordinate accuracy ≤ 2px after geometric distortion"
-      - "Damaged glyphs on f04r-f05v annotated with legibility scores"
-      - "Complete 17-folio set imports into eScriptorium as single document"
-      - "Kraken CER ≤ 10% on non-damaged folios"
-
-# ─── SUMMARY ─────────────────────────────────────────────────────────
-summary:
-  total_advances: 24
-  phases: 3
-  passes: 9
-  components:
-    xl: [cli, ingest, translate, register, folio, annotate, export, tests]
-    scribesim: [cli, hand, glyphs, layout, render, groundtruth, tests]
-    weather: [cli, substrate, ink, damage, aging, optics, compositor, groundtruth, tests]
-  critical_path:
-    - xl/ADV-INGEST-001
-    - xl/ADV-TRANSLATE-001
-    - xl/ADV-FOLIO-001
-    - xl/ADV-EXPORT-001
-    - scribesim/ADV-GLYPHS-001
-    - scribesim/ADV-LAYOUT-001
-    - scribesim/ADV-RENDER-001
-    - weather/ADV-DAMAGE-001
-    - weather/ADV-COMPOSITOR-001
-  next_actionable:
-    - xl/ADV-CLI-001
-    - xl/ADV-INGEST-001
+schema_version: 1
+metadata:
+  created_at: 2026-03-19T00:00:00Z
+  updated_at: 2026-03-19T05:35:17.667965Z
+  generated_by: arrive-phase bootstrap
+passes:
+- id: pass-1a
+  title: 'Pass 1a: XL Foundation'
+  order: 1
+  phases:
+  - id: xl-foundation
+    title: CLI scaffolding and manuscript ingestion
+    order: 1
+    items:
+    - id: ADV-XL-CLI-001
+      advance_id: ADV-XL-CLI-001
+      title: XL CLI — translate, manifest, validate, preview subcommands
+      status: in_progress
+      owner: shawn
+      dependencies: []
+      notes: No internal dependencies. Parallel with ingest.
+    - id: ADV-XL-INGEST-001
+      advance_id: ADV-XL-INGEST-001
+      title: Manuscript Ingestion — English parsing, CLIO-7 extraction, segmentation
+      status: planned
+      owner: shawn
+      dependencies: []
+      notes: No internal dependencies. Parallel with cli.
+- id: pass-1b
+  title: 'Pass 1b: XL Core Pipeline'
+  order: 2
+  phases:
+  - id: xl-core
+    title: Translation, register classification, and folio structuring
+    order: 1
+    items:
+    - id: ADV-XL-TRANSLATE-001
+      advance_id: ADV-XL-TRANSLATE-001
+      title: Reverse Translation — Claude API with GPT-4 validation, verbatim insertions
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-INGEST-001
+      notes: Depends on ingest. Parallel with register.
+    - id: ADV-XL-REGISTER-001
+      advance_id: ADV-XL-REGISTER-001
+      title: Register Engine — parse hints, validate, resolve {mixed} to clause-level
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-INGEST-001
+      notes: Depends on ingest. Parallel with translate.
+    - id: ADV-XL-FOLIO-001
+      advance_id: ADV-XL-FOLIO-001
+      title: Folio Structuring — distribute text across 17 folios per CLIO-7 constraints
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-TRANSLATE-001
+      - ADV-XL-REGISTER-001
+      notes: Depends on both translate and register.
+- id: pass-1c
+  title: 'Pass 1c: XL Output & Enrichment'
+  order: 3
+  phases:
+  - id: xl-output
+    title: Annotation, export, and test suite
+    order: 1
+    items:
+    - id: ADV-XL-ANNOTATE-001
+      advance_id: ADV-XL-ANNOTATE-001
+      title: CLIO-7 Annotation — damage, lacuna, confidence, hand-note attachment
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-FOLIO-001
+      notes: Depends on folio structuring.
+    - id: ADV-XL-EXPORT-001
+      advance_id: ADV-XL-EXPORT-001
+      title: Export — per-folio JSON, JSONL, PAGE XML (text-only), manifest JSON
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-FOLIO-001
+      - ADV-XL-ANNOTATE-001
+      notes: Depends on folio + annotate.
+    - id: ADV-XL-TESTS-001
+      advance_id: ADV-XL-TESTS-001
+      title: XL Tests — golden tests for 5 representative folios, round-trip validation
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-EXPORT-001
+      notes: 'Contract checkpoint after: validate TD-001-A, TD-001-B, TD-001-C, TD-001-G.'
+- id: pass-2a
+  title: 'Pass 2a: ScribeSim Foundation'
+  order: 4
+  phases:
+  - id: scribesim-foundation
+    title: CLI, hand model, and glyph catalog
+    order: 1
+    items:
+    - id: ADV-SS-CLI-001
+      advance_id: ADV-SS-CLI-001
+      title: ScribeSim CLI — render, render-batch, hand, groundtruth subcommands
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-TESTS-001
+      notes: Blocked until XL phase completes. Parallel with hand and glyphs.
+    - id: ADV-SS-HAND-001
+      advance_id: ADV-SS-HAND-001
+      title: Hand Model — base hand (konrad_erfurt_1457.toml) + CLIO-7 modifier stack
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-TESTS-001
+      notes: Blocked until XL phase completes. Parallel with cli and glyphs.
+    - id: ADV-SS-GLYPHS-001
+      advance_id: ADV-SS-GLYPHS-001
+      title: Glyph Catalog — ~90 German Bastarda glyphs as Bézier stroke sequences
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-XL-TESTS-001
+      notes: Blocked until XL phase completes. Parallel with cli and hand.
+- id: pass-2b
+  title: 'Pass 2b: ScribeSim Rendering Pipeline'
+  order: 5
+  phases:
+  - id: scribesim-rendering
+    title: Page layout engine and Rust stroke renderer
+    order: 1
+    items:
+    - id: ADV-SS-LAYOUT-001
+      advance_id: ADV-SS-LAYOUT-001
+      title: Layout — ruling, margins, Knuth-Plass line breaking, lacuna handling
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-GLYPHS-001
+      - ADV-SS-HAND-001
+      notes: Depends on glyphs + hand.
+    - id: ADV-SS-RENDER-001
+      advance_id: ADV-SS-RENDER-001
+      title: Render — Rust Bézier rasterizer, virtual nib, pressure-to-width, ink flow, heatmap
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-LAYOUT-001
+      notes: Depends on layout. Critical path component.
+- id: pass-2c
+  title: 'Pass 2c: ScribeSim Output & Ground Truth'
+  order: 6
+  phases:
+  - id: scribesim-output
+    title: PAGE XML ground truth and test suite
+    order: 1
+    items:
+    - id: ADV-SS-GROUNDTRUTH-001
+      advance_id: ADV-SS-GROUNDTRUTH-001
+      title: Ground Truth — PAGE XML 2019 glyph-level polygons, baselines, register tags
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-RENDER-001
+      notes: Depends on render.
+    - id: ADV-SS-TESTS-001
+      advance_id: ADV-SS-TESTS-001
+      title: ScribeSim Tests — golden images, IoU validation, hand variation, determinism
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-RENDER-001
+      - ADV-SS-GROUNDTRUTH-001
+      notes: 'Contract checkpoint after: validate TD-001-C, TD-001-D, TD-001-F.'
+- id: pass-3a
+  title: 'Pass 3a: Weather Foundation'
+  order: 7
+  phases:
+  - id: weather-foundation
+    title: CLI, vellum substrate, and ink aging
+    order: 1
+    items:
+    - id: ADV-WX-CLI-001
+      advance_id: ADV-WX-CLI-001
+      title: Weather CLI — apply, apply-batch, preview, groundtruth-update, catalog
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-TESTS-001
+      notes: Blocked until ScribeSim phase completes. Parallel with substrate and ink.
+    - id: ADV-WX-SUBSTRATE-001
+      advance_id: ADV-WX-SUBSTRATE-001
+      title: Substrate — vellum texture (Perlin noise), color (two stocks), translucency
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-TESTS-001
+      notes: Blocked until ScribeSim phase completes. Parallel with cli and ink.
+    - id: ADV-WX-INK-001
+      advance_id: ADV-WX-INK-001
+      title: Ink Aging — fade (black→brown), bleed, flake (pressure-targeted)
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-TESTS-001
+      notes: Blocked until ScribeSim phase completes. Parallel with cli and substrate.
+- id: pass-3b
+  title: 'Pass 3b: Weather Effects Pipeline'
+  order: 8
+  phases:
+  - id: weather-effects
+    title: Targeted damage, general aging, and digitization artifacts
+    order: 1
+    items:
+    - id: ADV-WX-DAMAGE-001
+      advance_id: ADV-WX-DAMAGE-001
+      title: Damage — water (f04r-f05v, from above) + missing corner (f04v)
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-SUBSTRATE-001
+      - ADV-WX-INK-001
+      notes: Depends on substrate + ink. Critical path.
+    - id: ADV-WX-AGING-001
+      advance_id: ADV-WX-AGING-001
+      title: Aging — edge darkening, foxing (light, dry archive), binding shadow
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-SUBSTRATE-001
+      - ADV-WX-INK-001
+      notes: Depends on substrate + ink. Parallel with damage.
+    - id: ADV-WX-OPTICS-001
+      advance_id: ADV-WX-OPTICS-001
+      title: Optics — page curl, camera vignette, lighting gradient
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-SUBSTRATE-001
+      notes: Depends on substrate only. Parallel with damage and aging.
+- id: pass-3c
+  title: 'Pass 3c: Weather Compositing & Output'
+  order: 9
+  phases:
+  - id: weather-compositing
+    title: Effect compositor, PAGE XML updates, and test suite
+    order: 1
+    items:
+    - id: ADV-WX-COMPOSITOR-001
+      advance_id: ADV-WX-COMPOSITOR-001
+      title: Compositor — manifest-driven per-folio dispatch, effect stacking, transforms
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-DAMAGE-001
+      - ADV-WX-AGING-001
+      - ADV-WX-OPTICS-001
+      notes: Depends on all three effect components.
+    - id: ADV-WX-GROUNDTRUTH-001
+      advance_id: ADV-WX-GROUNDTRUTH-001
+      title: Ground Truth — PAGE XML coordinate update, damage annotation, legibility scores
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-COMPOSITOR-001
+      notes: Depends on compositor.
+    - id: ADV-WX-TESTS-001
+      advance_id: ADV-WX-TESTS-001
+      title: Weather Tests — effect isolation, compositing order, dispatch, determinism
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-COMPOSITOR-001
+      - ADV-WX-GROUNDTRUTH-001
+      notes: 'Final contract checkpoint: TD-001-E, TD-001-C. Full eScriptorium import test.'
