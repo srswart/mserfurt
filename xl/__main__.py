@@ -1,6 +1,9 @@
 """Entry point for the xl CLI."""
 
 import click
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 @click.group()
