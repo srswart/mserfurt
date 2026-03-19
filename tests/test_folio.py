@@ -62,13 +62,19 @@ def _register_map(*entries: tuple[int, int, str]) -> RegisterMap:
 def _make_full_manuscript() -> tuple[list[TranslatedSection], RegisterMap]:
     """
     Create a 7-section manuscript with enough text to fill pages.
-    ~40 words/passage, multiple passages per section.
+    Each passage is ~120 chars (2 lines at 60 chars/line) with count-based suffix
+    so tests can identify which section/passage produced each line.
     """
-    lorem = "Ich schrieb dies nieder in der Stille des Klosters und bedachte was verloren und was gewonnen war"
+    # ~100 chars base text + numeric suffix keeps lines identifiable
+    base = (
+        "Ich schrieb dies nieder in der Stille des Klosters "
+        "und bedachte alles was verloren und was gewonnen war "
+        "und welche Worte bleiben mochten fur die Nachkommenden"
+    )
 
     def long_section(num, title, folio_ref, passage_count=12, register="de"):
         passages = [
-            _translated(lorem, lorem + f" ({num}-{i})", register=register)
+            _translated(base, base + f" ({num}-{i})", register=register)
             for i in range(passage_count)
         ]
         return _section(num, title, folio_ref, passages)
@@ -78,10 +84,10 @@ def _make_full_manuscript() -> tuple[list[TranslatedSection], RegisterMap]:
         _section(1, "Opening Declaration", "f01r", [
             _translated("Here begins.", "Incipit quod scriba scribere non potuit abstinere.", register="mixed"),
         ]),
-        # Section 2: press meditation — 6 pages worth
-        long_section(2, "Press Meditation", "f01r-f03v", passage_count=20),
-        # Section 3: Peter narrative — 4 damaged pages
-        long_section(3, "Peter Narrative", "f04r-f05v", passage_count=16),
+        # Section 2: press meditation — 6 pages (~192 lines at 32/page); 70 passages × 3 lines each
+        long_section(2, "Press Meditation", "f01r-f03v", passage_count=70),
+        # Section 3: Peter narrative — 4 damaged pages (~90 lines total); 35 passages
+        long_section(3, "Peter Narrative", "f04r-f05v", passage_count=35),
         # Section 4: Workshop + Demetrios — 14 pages (split across f06-f06v and f08-f13v)
         long_section(4, "Workshop Visits", "f06r onward", passage_count=48),
         # Section 5: Eckhart confession — pinned to f07r-f07v
