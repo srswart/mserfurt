@@ -1,0 +1,138 @@
+system:
+  id: weather
+  name: "Weather — Manuscript Aging & Weathering"
+  description: >
+    Takes ScribeSim page images and applies 560 years of aging plus targeted
+    damage (water on f04r-f05v, missing corner on f04v). Produces weathered
+    page images and updated PAGE XML for eScriptorium import.
+  roots:
+    - "weather/**"
+    - "weather-fx/**"
+  default_branch: main
+
+pipeline:
+  position: 3
+  inputs:
+    - "Page images from ScribeSim ({folio_id}.png)"
+    - "Pressure heatmaps from ScribeSim ({folio_id}_pressure.png)"
+    - "PAGE XML from ScribeSim ({folio_id}.xml)"
+    - "manifest.json from XL"
+    - "shared/profiles/ms-erfurt-560yr.toml"
+  outputs:
+    - "Weathered page images ({folio_id}_weathered.png)"
+    - "Updated PAGE XML ({folio_id}_weathered.xml) — damage annotations, adjusted coordinates"
+  depends_on: [scribesim, xl]
+  consumers: []
+  contracts:
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-b-manifest-json
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-c-page-xml
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-e-weathering-profile-toml
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-f-pressure-heatmap-png
+
+policies:
+  advance_required_on_pr: true
+  resident_gates:
+    require_owner_approval: true
+    require_invariant_impact_statement: true
+    require_rollback_plan: true
+    require_evidence_links: true
+
+reviewability:
+  thresholds:
+    green: 30
+    yellow: 60
+  scoring_rules_version: 1
+
+components:
+  - id: cli
+    name: "Weather CLI"
+    type: service
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/cli.py"
+        - "weather/cli/**"
+
+  - id: substrate
+    name: "Vellum Substrate"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/substrate/**"
+
+  - id: ink
+    name: "Iron Gall Ink Aging"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/ink/**"
+
+  - id: damage
+    name: "Targeted Damage (Water, Missing Corner)"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/damage/**"
+
+  - id: aging
+    name: "General Aging Effects"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/aging/**"
+
+  - id: optics
+    name: "Digitization Artifacts"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/optics/**"
+
+  - id: compositor
+    name: "Effect Compositor"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/compositor.py"
+        - "weather/compositor/**"
+
+  - id: groundtruth
+    name: "PAGE XML Coordinate Update"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/groundtruth/**"
+
+  - id: tests
+    name: "Weather Test Suite"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "weather/tests/**"
+        - "tests/weather/**"

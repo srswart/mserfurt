@@ -1,0 +1,78 @@
+---
+advance_id: ADV-TESTS-001
+system_id: xl
+title: "Tests — Initial Implementation"
+status: planned
+started_at: ~
+implementation_completed_at: ~
+review_time_estimate_minutes: 30
+review_time_actual_minutes: ~
+components: [tests]
+risk_flags: [new_dependency]
+evidence:
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+tech_direction: [TD-001]
+pipeline_position: 1
+depends_on_advances: [xl/ADV-EXPORT-001]
+---
+
+## Objective
+
+Build golden tests for 5 representative folios covering the key manuscript variants — clean text, damaged text, Eckhart passage, Psalter citation, and finis section — plus round-trip validation (ingest -> translate -> folio -> export -> re-ingest produces equivalent structure) and register consistency checks across the full 17-folio output.
+
+## Behavioral Change
+
+After this advance:
+- Golden test fixtures exist for 5 folios: 1r (clean homiletic text, high confidence, single register {de}), 4v (damaged, water_damage + ink_fade annotations, reduced line count, confidence < 0.5 on affected lines), 7r (Eckhart *Reden der Unterweisung*, {de} with embedded {la} citations, {verbatim:eckhart} passages), 10r (Psalter citations, {verbatim:psalms} register, Latin text), 14r (finis section, final homily, clean text)
+- Round-trip validation confirms that exporting folios to JSON and re-parsing them produces structurally identical `Folio` objects (line counts, language tags, annotation positions all match)
+- Register consistency checks verify that no folio contains unresolved {mixed} tags, all {verbatim:*} sections match their reference table entries exactly, and language transitions between adjacent lines are plausible (no German-to-Latin switch mid-sentence)
+- All golden tests run in CI without API calls (using cached/mocked translation fixtures)
+
+## Pipeline Context
+
+- **Position**: Phase 1 (XL — Reverse Translation & Folio Structuring)
+- **Upstream**: Consumes final export output (JSON, manifest, PAGE XML) from the full pipeline
+- **Downstream**: Test results gate promotion to ScribeSim; failing golden tests block the pipeline
+- **Contracts**: Validates all three contracts — TD-001-A (Folio JSON structure), TD-001-B (Manifest completeness), TD-001-C (PAGE XML validity)
+
+## Component Impact
+
+```yaml
+components: [tests]
+system: xl
+```
+
+## Planned Implementation Tasks
+
+- [ ] Create feature branch: `feat/xl-tests-init`
+- [ ] Tidy: Create `tests/golden/` directory structure with subdirectories per folio (1r, 4v, 7r, 10r, 14r); create fixture generation script that runs the pipeline once with live API calls and snapshots the output as golden files; create mock translation fixtures for CI
+- [ ] Test: Write golden comparison tests — each test loads the golden fixture, runs the pipeline with mocked APIs, and asserts structural equality (line count, language tags, annotation types, confidence ranges); write round-trip test; write register consistency test that scans all 17 folios for violations
+- [ ] Implement: Build golden test framework with snapshot comparison (JSON diff for folio files, XML structural diff for PAGE XML); build round-trip validator that re-ingests exported JSON and compares to original `Folio` objects; build register consistency scanner that checks cross-folio language coherence; build CI configuration that runs all tests without API credentials
+- [ ] Validate: Run full test suite against a fresh pipeline execution and verify all 5 golden tests pass, round-trip validation passes, and register consistency finds no violations on well-formed input
+
+## Risk + Rollback
+
+**Risks:**
+- Golden fixtures become stale if upstream components change their output format; the fixture generation script must be re-run after any schema change
+- Mocked translation fixtures may not capture edge cases that only appear with live API calls; periodic live-API test runs are needed to catch drift
+
+**Rollback:**
+- Revert the `feat/xl-tests-init` branch; tests have no production side effects
+
+## Evidence
+
+| Type | Status | Notes |
+|------|--------|-------|
+| tdd:red-green | pending | |
+| tidy:preparatory | pending | |
+| tests:unit | pending | |
+
+## Changes Made
+
+_No changes yet._
+
+## Check for Understanding
+
+_To be generated after implementation._

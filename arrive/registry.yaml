@@ -1,0 +1,86 @@
+# ARRIVE Registry - Repo-wide defaults and shared configuration
+registry:
+  repo_id: 041-mserfurt
+  name: "MS Erfurt Aug. 12°47"
+  description: "Three-phase manuscript simulation pipeline: reverse translation, scribal rendering, and aging"
+
+defaults:
+  default_branch: main
+  # Advance ID format: ADV-<PRIMARY_COMPONENT>-<SEQ:3>
+  # Example: ADV-STATUS-001, ADV-AUTH-002, ADV-REVIEWABILITY-003
+  # The primary component identifies what was mainly changed
+  advance_id_format: "ADV-{COMPONENT}-{SEQ:3}"
+  
+vocabulary:
+  stages:
+    - incubating   # Early stage, flexible, learning/rapid iteration
+    - candidate    # Stabilized enough for normal governance
+    - resident     # High trust + high scrutiny; stricter gates
+
+  component_types:
+    - service
+    - library
+    - ui-area
+    - infra
+    - data-contract
+    - crosscutting
+
+  risk_flags:
+    - resident_touched
+    - migration
+    - auth
+    - concurrency
+    - caching
+    - public_api
+    - new_dependency
+
+  evidence_types:
+    - ci:passed
+    - tests:unit
+    - tests:integration
+    - tests:e2e
+    - review:owner
+    - docs:updated
+    - tdd:red-green        # Tests written first, then implementation
+    - tidy:preparatory     # Tidying commits preceded feature work
+
+  commit_prefixes:
+    - tidy     # Preparatory refactoring (no behavior change)
+    - test     # New or modified tests
+    - feat     # New feature implementation
+    - fix      # Bug fix implementation
+    - docs     # Documentation only
+    - chore    # Build, CI, tooling changes
+
+  # File annotation format for tagging scattered files
+  annotation:
+    pattern: "@arrive component:"  # Pattern to search for
+    scan_lines: 50                 # Scan first N lines of each file
+    extensions:                    # File extensions to scan for annotations
+      - .rs
+      - .ts
+      - .tsx
+      - .js
+      - .jsx
+      - .py
+      - .go
+      - .java
+      - .kt
+      - .swift
+      - .yaml
+      - .yml
+      - .toml
+
+systems:
+  - ms-erfurt
+  - xl
+  - scribesim
+  - weather
+
+# context_repositories:
+#   - id: sibling-lib
+#     path: ../sibling-lib
+#     role: library          # library | framework | app | reference
+#     description: "Short description of what this repo provides"
+#     relevance:
+#       - "When to use this repo and what to look for"

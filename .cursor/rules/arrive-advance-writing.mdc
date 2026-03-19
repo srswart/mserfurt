@@ -1,0 +1,180 @@
+---
+description: "Rules for writing Advance outcome records"
+globs:
+  - "arrive/systems/**/advances/**"
+---
+
+# Advance Writing Rules
+
+Advances are outcome records, not full specifications.
+
+## Required Sections
+
+Every Advance must include:
+
+### 0. Time Tracking (Frontmatter)
+
+Every Advance must capture when work started and when implementation finished:
+
+```yaml
+started_at: 2026-01-11T09:00:00Z
+implementation_completed_at: 2026-01-11T09:30:00Z # or ~ if not done yet
+review_time_estimate_minutes: 20
+review_time_actual_minutes: ~
+```
+
+- **Format**: ISO 8601 / RFC 3339 timestamps (use `Z` / UTC).
+- **Creation**: When an advance is drafted, `started_at` should be set immediately.
+- **Completion**: When implementation is finished (usually when status becomes `complete`), set `implementation_completed_at`.
+- **Review-time**: Keep `review_time_estimate_minutes` current during implementation; set `review_time_actual_minutes` after review.
+
+### 1. Objective
+What is the goal of this change?
+
+### 2. Behavioral Change
+What is now different? Describe the observable outcome.
+
+### 3. Component Impact
+List all impacted components:
+```yaml
+components: [component-a, component-b]
+```
+
+### 4. Risk + Rollback
+Required if any risk flags are present:
+- What could go wrong?
+- How do we roll back?
+
+### 5. Evidence
+What validates this change?
+
+**Required for all changes:**
+- `tdd:red-green` - Tests written first, implementation made them pass
+- `tidy:preparatory` - Tidying commits preceded feature work
+
+**Test evidence:**
+- `tests:unit` - Unit tests passing
+- `tests:integration` - Integration tests passing
+- `tests:e2e` - End-to-end tests passing
+
+**Other evidence:**
+- `ci:passed` - CI pipeline passed
+- `review:owner` - Owner review completed
+
+When pipeline checks are disabled, record externally-run checks the same way:
+- run `arrive pr check --strict --json` before merge
+- capture provider/run metadata with `arrive evidence record ...`
+
+### 6. Check for Understanding (CFU)
+After implementation is marked complete, each advance should include:
+
+```markdown
+## Check for Understanding
+```
+
+CFU questions must be advance-driven:
+- source topics from Objective, Behavioral Change, and Risk + Rollback
+- ground questions in files changed under that advance (prefer `Changes Made` paths)
+- avoid generic repo-wide questions not tied to this advance
+
+When questions are weak, regenerate for the same advance:
+- `arrive advance cfu <ADV-ID> --refresh`
+- optionally request a variant: `arrive advance cfu <ADV-ID> --refresh --reroll`
+
+## Development Practice Compliance
+
+Advances should document adherence to Tidy First and TDD:
+
+### Commit Sequence
+The advance should reflect commits in order: `tidy → test → feat/fix`
+
+### TDD Compliance
+- [ ] Tests were written before implementation
+- [ ] Tests failed initially (red phase documented)
+- [ ] Implementation made tests pass (green phase)
+
+### Tidy First Compliance
+- [ ] Preparatory refactoring in separate commits
+- [ ] No behavior changes in tidy commits
+- [ ] Tidying labeled with `tidy:` prefix
+
+## Tech Direction References
+
+If a tech direction applies to this advance:
+- Reference it in the advance header or objective
+- Note which decisions (TD-001, TD-002, etc.) guided the implementation
+- Flag any deviations from the tech direction
+
+**Example:**
+```markdown
+## Objective
+
+Implement status engine per [Tech Direction: Server Sync](../../docs/tech-direction/server-sync.md).
+
+Follows:
+- TD-005: Core types as contract (all types derive Serialize/Deserialize)
+```
+
+## Cursor Plan Integration
+
+If a Cursor Plan exists:
+- Attach it as "input" or reference
+- Don't let it replace the outcome narrative
+- The Advance summarizes WHAT was done, Plan showed WHAT TO DO
+
+## Advance ID Format
+
+Use: `ADV-{PRIMARY_COMPONENT}-{SEQ:3}`
+
+The primary component is the main component being changed (uppercase, abbreviated if needed).
+
+**Examples:**
+- `ADV-STATUS-001` - First advance for status-engine component
+- `ADV-AUTH-002` - Second advance for auth component
+- `ADV-REVIEW-003` - Third advance for reviewability component
+
+**Naming conventions:**
+- Use uppercase for component abbreviation
+- Keep abbreviations recognizable (STATUS, AUTH, REVIEW, CLI, HOOKS)
+- Sequence is per-component (each component has its own counter)
+- File path: `arrive/systems/<system>/advances/ADV-<COMPONENT>-<SEQ>.md`
+
+## Changes Made (Execution Log)
+
+When a plan is executed, append a "Changes Made" section to the advance:
+
+```markdown
+## Changes Made
+
+### <Date> - <Commit Prefix>: <Summary>
+- <file>: <what changed>
+- <file>: <what changed>
+
+### <Date> - <Commit Prefix>: <Summary>
+- <file>: <what changed>
+```
+
+**Example:**
+```markdown
+## Changes Made
+
+### 2026-01-11 - tidy: Extract UserInput type
+- core/src/types.rs: Added UserInput struct
+- core/src/handler.rs: Removed inline type definition
+
+### 2026-01-11 - test: Add email validation tests
+- core/src/validation_test.rs: Added test_email_empty, test_email_invalid
+
+### 2026-01-11 - feat: Implement email validation
+- core/src/validation.rs: Added validate_email function
+```
+
+This log serves as the "what actually happened" record, complementing the objective (what we intended).
+
+## Workflow Checklist Expectations
+
+When creating/updating an advance, include and maintain:
+
+- A branch task in `## Planned Implementation Tasks` (create/confirm feature branch for the advance)
+- A `## Bug Fixes` section for defects discovered/fixed during execution
+- A `## Changes Made` section with dated incremental updates as work progresses

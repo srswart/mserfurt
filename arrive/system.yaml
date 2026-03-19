@@ -1,0 +1,31 @@
+system:
+  id: ms-erfurt
+  name: "MS Erfurt Aug. 12°47 — Manuscript Simulation Pipeline"
+  description: >
+    Three-phase pipeline for producing the physical manuscript artifact
+    described in the fictional MS Erfurt Aug. 12°47: Brother Konrad's 1457
+    confession, reverse-translated into period German/Latin, rendered in
+    his scribal hand, and aged 560 years.
+  roots:
+    - "source/**"
+    - "shared/**"
+    - "docs/**"
+  default_branch: main
+
+# Pipeline phases are independent systems registered in registry.yaml:
+#   xl → scribesim → weather
+# Each phase has its own system.yaml under arrive/systems/<phase>/
+
+policies:
+  advance_required_on_pr: true
+  resident_gates:
+    require_owner_approval: true
+    require_invariant_impact_statement: true
+    require_rollback_plan: true
+    require_evidence_links: true
+
+reviewability:
+  thresholds:
+    green: 30
+    yellow: 60
+  scoring_rules_version: 1

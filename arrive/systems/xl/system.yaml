@@ -1,0 +1,122 @@
+system:
+  id: xl
+  name: "XL — Reverse Translation & Folio Structuring"
+  description: >
+    Takes the English manuscript text of MS Erfurt Aug. 12°47 and produces
+    per-folio translations in Frühneuhochdeutsch with embedded Ecclesiastical
+    Latin, structured into the 17-folio gathering described by the CLIO-7
+    apparatus. Emits folio JSON, PAGE XML, and manifest for downstream phases.
+  roots:
+    - "xl/**"
+  default_branch: main
+
+pipeline:
+  position: 1
+  inputs:
+    - source/ms-erfurt-source-annotated.md
+  outputs:
+    - "Per-folio JSON ({folio_id}.json)"
+    - "manifest.json"
+    - "PAGE XML ({folio_id}.xml) — text-only, normalized coordinates"
+  consumers: [scribesim, weather]
+  contracts:
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-a-folio-json
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-b-manifest-json
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-c-page-xml
+
+policies:
+  advance_required_on_pr: true
+  resident_gates:
+    require_owner_approval: true
+    require_invariant_impact_statement: true
+    require_rollback_plan: true
+    require_evidence_links: true
+
+reviewability:
+  thresholds:
+    green: 30
+    yellow: 60
+  scoring_rules_version: 1
+
+components:
+  - id: cli
+    name: "XL CLI"
+    type: service
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/cli.py"
+        - "xl/cli/**"
+
+  - id: ingest
+    name: "Manuscript Ingestion"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/ingest/**"
+
+  - id: translate
+    name: "Reverse Translation Engine"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/translate/**"
+
+  - id: register
+    name: "Hybrid Register Engine"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/register/**"
+
+  - id: folio
+    name: "Folio Structuring"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/folio/**"
+
+  - id: annotate
+    name: "CLIO-7 Annotation"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/annotate/**"
+
+  - id: export
+    name: "Export (JSON, PAGE XML, Manifest)"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/export/**"
+
+  - id: tests
+    name: "XL Test Suite"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "xl/tests/**"
+        - "tests/xl/**"

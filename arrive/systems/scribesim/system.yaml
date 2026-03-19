@@ -1,0 +1,118 @@
+system:
+  id: scribesim
+  name: "ScribeSim — Scribal Hand Simulation"
+  description: >
+    Consumes XL folio JSON and renders Brother Konrad's Bastarda hand onto
+    page images with per-folio emotional/physical variation (pressure, ink
+    density, fatigue). Produces page PNGs, pressure heatmaps, and glyph-level
+    PAGE XML ground truth.
+  roots:
+    - "scribesim/**"
+    - "scribesim-render/**"
+  default_branch: main
+
+pipeline:
+  position: 2
+  inputs:
+    - "Per-folio JSON from XL ({folio_id}.json)"
+    - "manifest.json from XL"
+    - "shared/hands/konrad_erfurt_1457.toml"
+  outputs:
+    - "Page images ({folio_id}.png, 300 DPI)"
+    - "Pressure heatmaps ({folio_id}_pressure.png)"
+    - "PAGE XML ({folio_id}.xml) — glyph-level ground truth, pixel coordinates"
+  depends_on: [xl]
+  consumers: [weather]
+  contracts:
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-a-folio-json
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-b-manifest-json
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-c-page-xml
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-d-hand-parameter-toml
+    - docs/tech-direction/TD-001-interface-contracts.md#td-001-f-pressure-heatmap-png
+
+policies:
+  advance_required_on_pr: true
+  resident_gates:
+    require_owner_approval: true
+    require_invariant_impact_statement: true
+    require_rollback_plan: true
+    require_evidence_links: true
+
+reviewability:
+  thresholds:
+    green: 30
+    yellow: 60
+  scoring_rules_version: 1
+
+components:
+  - id: cli
+    name: "ScribeSim CLI"
+    type: service
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "scribesim/cli.py"
+        - "scribesim/cli/**"
+
+  - id: hand
+    name: "Scribal Hand Model"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "scribesim/hand/**"
+
+  - id: glyphs
+    name: "Glyph Catalog (German Bastarda)"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "scribesim/glyphs/**"
+
+  - id: layout
+    name: "Page Layout Engine"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "scribesim/layout/**"
+
+  - id: render
+    name: "Bézier Stroke Renderer (Rust)"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "scribesim-render/**"
+
+  - id: groundtruth
+    name: "PAGE XML Ground Truth"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "scribesim/groundtruth/**"
+
+  - id: tests
+    name: "ScribeSim Test Suite"
+    type: library
+    owners:
+      - team: shawn
+    stage: incubating
+    selectors:
+      paths:
+        - "scribesim/tests/**"
+        - "tests/scribesim/**"

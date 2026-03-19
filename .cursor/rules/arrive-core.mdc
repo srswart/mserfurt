@@ -1,0 +1,139 @@
+---
+description: "ARRIVE core governance rules - always applied"
+alwaysApply: true
+---
+
+# ARRIVE Core Governance Rules
+
+These rules ensure outcome-first development and prevent bypassing governance.
+
+## Authoritative Metadata
+
+- Always treat `/arrive/` as authoritative metadata for governance and visibility
+- Never modify ARRIVE artifacts without understanding the impact
+- Check `docs/tech-direction/` for architectural guidance before cross-system changes
+
+## Tech Direction
+
+Before implementing features with cross-system implications:
+
+1. **Check existing tech directions** in `docs/tech-direction/`
+2. **Follow established constraints** (serialization, IDs, async patterns)
+3. **Create a new tech direction** if making significant architectural decisions
+4. **Reference tech direction** from advances that implement pieces of it
+
+Tech directions guide "how" and "why"; advances record "what was done".
+
+## Before Implementing or Editing
+
+Before making changes, determine:
+
+1. **Impacted system(s)** - check `system.yaml` roots to classify changes
+2. **Impacted ARRIVE component(s)** - match files against component selectors
+3. **Resident status** - check if any impacted component has `stage: resident`
+
+## AI Template-First Authoring
+
+When authoring ARRIVE artifacts (`system.yaml`, component YAMLs, advances) with AI assistance:
+
+1. Fetch current scaffold first using `arrive template render --kind <system|component|advance|implementation-plan> --json`
+2. Use the returned `content` as the base structure
+3. Fill in project-specific details without removing required sections/frontmatter keys
+
+Do not invent ARRIVE artifact structure from memory when a CLI-rendered template is available.
+
+## Optional Implementation Plan (When Enabled)
+
+`arrive/implementation-plan.yaml` is optional. Only apply these rules when the file exists
+or the user has explicitly enabled plan-driven workflow.
+
+When plan workflow is active:
+
+1. Treat `arrive/implementation-plan.yaml` as authoritative for pass/phase/item coordination.
+2. Validate and inspect before major edits:
+   - `arrive plan show`
+   - `arrive plan check`
+3. Keep plan state aligned with real work as changes land:
+   - claim/release relevant items
+   - update item status as work progresses
+   - keep ownership/dependency fields accurate
+4. Keep local transient focus in `.arrive/work-context.json`; keep shared durable coordination in the plan artifact.
+5. If plan and advance state diverge, reconcile both as part of the same change set.
+
+## Development Order: Tidy First, Test First
+
+Follow this strict order for all changes:
+
+### 1. Tidy First (Preparatory Refactoring)
+Before adding new behavior, make the change easy:
+- Separate tidying commits from behavioral changes
+- Tidying = refactoring without changing behavior (rename, extract, restructure)
+- Each tidying commit should be independently reviewable
+- Label tidying commits: `tidy: <description>`
+
+### 2. Test First (TDD)
+After tidying, write tests before implementation:
+- Write/modify tests that describe the expected behavior
+- Tests should fail initially (red phase)
+- Implement minimum code to pass (green phase)
+- Refactor if needed (already covered by Tidy First)
+- Label test commits: `test: <description>`
+
+### 3. Implement
+Only after tests exist:
+- Implement the behavioral change
+- All new tests should pass
+- Label implementation commits: `feat: <description>` or `fix: <description>`
+
+**The commit sequence should be: tidy → test → implement**
+
+## Reviewability Budget
+
+Keep changes within review budget:
+
+- **Green** (score ≤ 30): Proceed normally
+- **Yellow** (score 31-60): Checkpoint and consider splitting
+- **Red** (score > 60): Split unless there's documented rationale
+
+Prefer producing one reviewable Advance over one massive "everything" change.
+
+## CI Guidance (Current Operating Mode)
+
+- Treat PR/MR metadata checks as required governance, even when CI jobs are temporarily disabled in pipeline YAML.
+- Run checks externally when pipelines are disabled:
+  - `arrive pr check --strict --json`
+  - `arrive evidence record --advance <ADV-ID> --status passed` (with provider/run metadata when available)
+- Optional: if provider status lookup is available, write CI evidence during PR check:
+  - `arrive pr check --provider-status --advance <ADV-ID> --record-ci-evidence --json`
+- If pipeline enforcement is re-enabled, keep the same command contract so local/external usage and CI usage stay consistent.
+
+## Resident Component Requirements
+
+If any resident component is impacted, ensure the Advance includes:
+
+- [ ] Invariant impact statement
+- [ ] Rollback plan
+- [ ] Evidence links
+- [ ] Owner approval routing (PR reviewers/labels)
+
+## CFU Generation Requirement
+
+When implementation is marked complete for an advance, ensure a
+`## Check for Understanding` section exists on that advance and remains aligned to:
+
+- Objective
+- Behavioral Change
+- Risk + Rollback
+- Files changed as part of that advance
+
+If CFU quality is weak, re-run generation from the CLI for that specific advance.
+
+## Transparency on Large Changes
+
+Never "silently" generate huge changes. Before writing large edits:
+
+1. Summarize intended diff footprint
+2. State expected ~N files and ~M LOC churn
+3. List impacted components
+
+Example: "This change will touch ~8 files, ~200 LOC across the auth and payments components."
