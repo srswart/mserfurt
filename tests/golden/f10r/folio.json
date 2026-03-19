@@ -1,0 +1,83 @@
+{
+  "id": "f10r",
+  "recto_verso": "recto",
+  "gathering_position": 10,
+  "lines": [
+    {
+      "number": 1,
+      "text": "Cantate Domino canticum novum",
+      "register": "la",
+      "annotations": [
+        {"type": "verbatim_source", "span": {"char_start": 0, "char_end": 29}, "detail": {"source": "verbatim:psalms", "ref": "Ps.95.1"}},
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 29}, "detail": {"score": 1.0}}
+      ]
+    },
+    {
+      "number": 2,
+      "text": "Singet got ein nūwes liet",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 25}, "detail": {"score": 0.93}}
+      ]
+    },
+    {
+      "number": 3,
+      "text": "Laudate Dominum omnes gentes",
+      "register": "la",
+      "annotations": [
+        {"type": "verbatim_source", "span": {"char_start": 0, "char_end": 28}, "detail": {"source": "verbatim:psalms", "ref": "Ps.116.1"}},
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 28}, "detail": {"score": 1.0}}
+      ]
+    },
+    {
+      "number": 4,
+      "text": "lobet got alle volker",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 21}, "detail": {"score": 0.91}}
+      ]
+    },
+    {
+      "number": 5,
+      "text": "Laudate eum omnes populi",
+      "register": "la",
+      "annotations": [
+        {"type": "verbatim_source", "span": {"char_start": 0, "char_end": 24}, "detail": {"source": "verbatim:psalms", "ref": "Ps.116.1"}},
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 24}, "detail": {"score": 1.0}}
+      ]
+    },
+    {
+      "number": 6,
+      "text": "lobet in alle lūte",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 18}, "detail": {"score": 0.88}}
+      ]
+    },
+    {
+      "number": 7,
+      "text": "alsō sol der mensch got loben",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 29}, "detail": {"score": 0.90}}
+      ]
+    },
+    {
+      "number": 8,
+      "text": "in allen sīnen werken",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 21}, "detail": {"score": 0.92}}
+      ]
+    }
+  ],
+  "damage": null,
+  "hand_notes": null,
+  "section_breaks": [],
+  "vellum_stock": "standard",
+  "metadata": {
+    "line_count": 8,
+    "text_density_chars_per_line": 24.38,
+    "register_ratio": {"de": 0.625, "la": 0.375, "mhg": 0.0, "mixed": 0.0}
+  }
+}

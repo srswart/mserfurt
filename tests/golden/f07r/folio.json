@@ -1,0 +1,82 @@
+{
+  "id": "f07r",
+  "recto_verso": "recto",
+  "gathering_position": 7,
+  "lines": [
+    {
+      "number": 1,
+      "text": "Von den heiligen worten unsers herren",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 37}, "detail": {"score": 0.94}}
+      ]
+    },
+    {
+      "number": 2,
+      "text": "als er sprach zů sinen jungern",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 30}, "detail": {"score": 0.91}}
+      ]
+    },
+    {
+      "number": 3,
+      "text": "Ich wil üch ein lerer senden",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 28}, "detail": {"score": 0.88}}
+      ]
+    },
+    {
+      "number": 4,
+      "text": "Mittit vobis spiritum veritatis",
+      "register": "la",
+      "annotations": [
+        {"type": "verbatim_source", "span": {"char_start": 0, "char_end": 31}, "detail": {"source": "verbatim:eckhart", "ref": "Reden.1.3"}},
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 31}, "detail": {"score": 1.0}}
+      ]
+    },
+    {
+      "number": 5,
+      "text": "daz ist er wirt ūch einen lērer senden",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 38}, "detail": {"score": 0.89}}
+      ]
+    },
+    {
+      "number": 6,
+      "text": "den geist der wārheit",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 21}, "detail": {"score": 0.92}}
+      ]
+    },
+    {
+      "number": 7,
+      "text": "Qui non potest esse mendax",
+      "register": "la",
+      "annotations": [
+        {"type": "verbatim_source", "span": {"char_start": 0, "char_end": 25}, "detail": {"source": "verbatim:eckhart", "ref": "Reden.1.4"}},
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 25}, "detail": {"score": 1.0}}
+      ]
+    },
+    {
+      "number": 8,
+      "text": "der kein lügner mag sīn",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 23}, "detail": {"score": 0.87}}
+      ]
+    }
+  ],
+  "damage": null,
+  "hand_notes": null,
+  "section_breaks": [3],
+  "vellum_stock": "standard",
+  "metadata": {
+    "line_count": 8,
+    "text_density_chars_per_line": 29.38,
+    "register_ratio": {"de": 0.75, "la": 0.25, "mhg": 0.0, "mixed": 0.0}
+  }
+}

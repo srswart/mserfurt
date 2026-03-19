@@ -1,0 +1,70 @@
+{
+  "id": "f04v",
+  "recto_verso": "verso",
+  "gathering_position": 4,
+  "lines": [
+    {
+      "number": 1,
+      "text": "Der mensch sol sich lāzen und got lāzen",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 39}, "detail": {"score": 0.82}}
+      ]
+    },
+    {
+      "number": 2,
+      "text": "wirken in im als er wil",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 22}, "detail": {"score": 0.45}},
+        {"type": "lacuna", "span": {"char_start": 8, "char_end": 14}, "detail": {"reason": "ink_fade"}}
+      ]
+    },
+    {
+      "number": 3,
+      "text": "[...] von der ēwigen geburt",
+      "register": "de",
+      "annotations": [
+        {"type": "lacuna", "span": {"char_start": 0, "char_end": 5}, "detail": {"reason": "water_damage"}},
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 27}, "detail": {"score": 0.38}}
+      ]
+    },
+    {
+      "number": 4,
+      "text": "diu in der sēle beschicht",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 25}, "detail": {"score": 0.41}},
+        {"type": "lacuna", "span": {"char_start": 10, "char_end": 16}, "detail": {"reason": "water_damage"}}
+      ]
+    },
+    {
+      "number": 5,
+      "text": "Daz ist diu edelste [...]",
+      "register": "de",
+      "annotations": [
+        {"type": "confidence", "span": {"char_start": 0, "char_end": 24}, "detail": {"score": 0.44}},
+        {"type": "lacuna", "span": {"char_start": 20, "char_end": 25}, "detail": {"reason": "ink_fade"}}
+      ]
+    }
+  ],
+  "damage": {
+    "type": "water_damage",
+    "extent": "lower_third",
+    "detail": "water staining with ink_fade on lines 2-5; confidence degraded below 0.5"
+  },
+  "hand_notes": {
+    "pressure": "light",
+    "spacing": "compressed",
+    "ink_density": "faded",
+    "speed": "deliberate",
+    "scale": "standard"
+  },
+  "section_breaks": [],
+  "vellum_stock": "standard",
+  "metadata": {
+    "line_count": 5,
+    "text_density_chars_per_line": 26.0,
+    "register_ratio": {"de": 1.0, "la": 0.0, "mhg": 0.0, "mixed": 0.0}
+  }
+}
