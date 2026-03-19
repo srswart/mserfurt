@@ -10,6 +10,25 @@ from __future__ import annotations
 from pathlib import Path
 
 from scribesim.hand.params import HandParams
+from scribesim.hand.modifiers import (
+    MODIFIER_REGISTRY,
+    pressure_increase,
+    ink_density_shift,
+    hand_scale,
+    spacing_drift,
+    tremor,
+)
+
+# Map CLIO-7 hand note strings → modifier function(s) to apply in order
+_HAND_NOTE_MAP: dict[str, list] = {
+    "standard":                                [],
+    "increased_lateral_pressure_downstrokes":  [pressure_increase],
+    "increased_lateral_pressure":              [pressure_increase],
+    "multi_sitting_variable_ink":              [ink_density_shift],
+    "multi_sitting":                           [ink_density_shift],
+    "smaller_economical_working":              [hand_scale],
+    "slower_wider_compensating":               [spacing_drift, tremor],
+}
 
 try:
     import tomllib
@@ -58,3 +77,24 @@ def resolve(base: HandParams | dict, folio_id: str,
     delta = raw_modifiers.get(folio_key) or raw_modifiers.get(folio_id) or {}
 
     return params.apply_delta(delta)
+
+
+def resolve_hand(base: HandParams, hand_note: str) -> HandParams:
+    """Apply named modifiers driven by a CLIO-7 hand note string.
+
+    Maps the note to zero or more modifier functions from _HAND_NOTE_MAP and
+    applies them in sequence.  Unknown notes are silently ignored (returns base
+    unchanged) so future CLIO-7 vocabulary doesn't break existing callers.
+
+    Args:
+        base:      Base HandParams (from load_base()).
+        hand_note: CLIO-7 hand note string, e.g. "increased_lateral_pressure_downstrokes".
+
+    Returns:
+        New HandParams with all mapped modifiers applied.
+    """
+    modifiers = _HAND_NOTE_MAP.get(hand_note, [])
+    params = base
+    for fn in modifiers:
+        params = fn(params)
+    return params
