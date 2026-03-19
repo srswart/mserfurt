@@ -1,8 +1,30 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 *.egg-info/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 dist/
 build/
+*.so
+
+# Rust
+target/
+Cargo.lock
+
+# PyO3 / maturin (xl-core Rust extension)
+xl/_ext/
+xl/xl_core*.so
+xl/xl_core*.pyd
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
