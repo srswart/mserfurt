@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-XL-REGISTER-001
-  title: "Register — Initial Implementation"
+  title: Register — Initial Implementation
   system: xl
   primary_component: register
-  components: [register]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 25
-  review_time_actual_minutes: ~
+  components:
+  - register
+  started_at: 2026-03-19T00:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T06:50:56.868825Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -31,20 +36,6 @@ After this advance:
 - Consistency validation catches errors: a section tagged {la} containing clearly German morphology, a {verbatim:augustine} tag with no matching reference entry, or adjacent sections with incompatible register transitions
 - The register engine emits a `RegisterMap` that translate and folio consume to determine per-clause language and translation strategy
 
-## Pipeline Context
-
-- **Position**: Phase 1 (XL — Reverse Translation & Folio Structuring)
-- **Upstream**: Consumes `IngestResult` sections with raw register hint strings from ingest
-- **Downstream**: Produces `RegisterMap` consumed by translate (to select translation path per clause) and folio (to annotate language metadata per line)
-- **Contracts**: Register metadata feeds into TD-001-A folio JSON `language` fields
-
-## Component Impact
-
-```yaml
-components: [register]
-system: xl
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/xl-register-init`
@@ -52,6 +43,10 @@ system: xl
 - [ ] Test: Write tests for tag parsing (all seven tag types), {mixed} resolution (a German homily with embedded Latin Psalm citation resolves to clause-level DE/LA), consistency checking (flag a {la} section containing German articles like "der/die/das"), verbatim tag validation (reject {verbatim:unknown} with no reference entry)
 - [ ] Implement: Build tag parser that extracts register hints from section metadata; build {mixed} resolver that splits sections at clause boundaries using punctuation, Latin/German morphological markers, and transitional phrases; build consistency validator that cross-checks resolved tags against surface-level language features; emit `RegisterMap` keyed by section and clause index
 - [ ] Validate: Run register engine on full ingest output and verify the Eckhart folio (7r) resolves to predominantly {de} with embedded {la} citations, the Psalm sections resolve to {verbatim:psalms}, and no validation errors are raised on well-formed input
+
+## Check for Understanding
+
+_To be generated after implementation._
 
 ## Risk + Rollback
 
@@ -64,16 +59,3 @@ system: xl
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._
