@@ -1,22 +1,28 @@
 ---
 advance:
   id: ADV-XL-TRANSLATE-001
-  title: "Translate — Initial Implementation"
+  title: Translate — Initial Implementation
   system: xl
   primary_component: translate
-  components: [translate]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 45
-  review_time_actual_minutes: ~
+  components:
+  - translate
+  started_at: 2026-03-19T00:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T06:41:21.282302Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency, public_api]
+  risk_flags:
+  - new_dependency
+  - public_api
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -31,20 +37,6 @@ After this advance:
 - Claude API calls use temperature 0.0 for deterministic output; each translated section is cross-checked by a GPT-4 validation pass that flags anachronisms, modern idioms, or register violations
 - Mixed-register sections ({mixed}) are split at clause boundaries and each clause is translated according to its clause-level language tag
 
-## Pipeline Context
-
-- **Position**: Phase 1 (XL — Reverse Translation & Folio Structuring)
-- **Upstream**: Consumes `IngestResult` sections with text content and register hints from ingest
-- **Downstream**: Produces `TranslatedSection` objects consumed by folio (for text distribution) and register (for register validation)
-- **Contracts**: Defines the translation contract that shapes TD-001-A folio text content; this is the public API that determines the textual fidelity of all downstream output
-
-## Component Impact
-
-```yaml
-components: [translate]
-system: xl
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/xl-translate-init`
@@ -52,6 +44,10 @@ system: xl
 - [ ] Test: Write tests for each translation path — pure German section produces MHG-plausible output, pure Latin section produces scholastic Latin, verbatim Augustine passage matches reference table exactly, {keep} section passes through unchanged, {mixed} section splits correctly at clause boundary; mock Claude and GPT-4 API calls in tests
 - [ ] Implement: Build translation dispatcher that routes sections by register hint; implement Claude API client with system prompt specifying 14th-century Thuringian German and scholastic Latin conventions; implement GPT-4 validation reviewer that returns pass/flag/fail per section; implement verbatim lookup from reference table; implement {mixed} clause splitter that identifies Latin/German clause boundaries using punctuation and transitional markers
 - [ ] Validate: Run translate on the Eckhart section (folio 7r) with live API calls and verify the output contains recognizable Middle High German; run on a Psalm citation and verify verbatim match
+
+## Check for Understanding
+
+_To be generated after implementation._
 
 ## Risk + Rollback
 
@@ -65,16 +61,3 @@ system: xl
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._
