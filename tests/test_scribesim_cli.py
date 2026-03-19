@@ -337,42 +337,41 @@ class TestGroundtruth:
 # ---------------------------------------------------------------------------
 
 class TestHandModel:
-    def test_load_base_returns_dict(self):
+    def test_load_base_returns_hand_params(self):
+        from scribesim.hand.params import HandParams
         base = load_base(HAND_TOML)
-        assert isinstance(base, dict)
-        assert "hand" in base
+        assert isinstance(base, HandParams)
 
     def test_base_has_required_fields(self):
         base = load_base(HAND_TOML)
-        hand = base["hand"]
-        for field in ("pressure_base", "ink_density", "nib_angle_deg",
-                      "writing_speed", "x_height_px", "script"):
-            assert field in hand, f"missing field: {field}"
+        for attr in ("pressure_base", "ink_density", "nib_angle_deg",
+                     "writing_speed", "x_height_px", "script"):
+            assert hasattr(base, attr), f"missing field: {attr}"
 
     def test_resolve_with_no_modifier(self):
         base = load_base(HAND_TOML)
         params = resolve(base, "f01r")
-        assert params["pressure_base"] == pytest.approx(0.72)
-        assert params["ink_density"] == pytest.approx(0.85)
+        assert params.pressure_base == pytest.approx(0.72)
+        assert params.ink_density == pytest.approx(0.85)
 
     def test_resolve_applies_f06r_modifier(self):
         base = load_base(HAND_TOML)
         params = resolve(base, "f06r")
-        assert params["pressure_base"] == pytest.approx(0.84)
-        assert params["stroke_weight"] == pytest.approx(1.15)
+        assert params.pressure_base == pytest.approx(0.84)
+        assert params.stroke_weight == pytest.approx(1.15)
 
     def test_resolve_applies_f04v_modifier(self):
         base = load_base(HAND_TOML)
         params = resolve(base, "f04v")
-        assert params["pressure_base"] == pytest.approx(0.55)
-        assert params["ink_density"] == pytest.approx(0.52)
+        assert params.pressure_base == pytest.approx(0.55)
+        assert params.ink_density == pytest.approx(0.52)
 
     def test_resolve_preserves_unmodified_fields(self):
         base = load_base(HAND_TOML)
         params = resolve(base, "f06r")
         # nib_angle not in f06r modifier — should keep base value
-        assert params["nib_angle_deg"] == pytest.approx(45.0)
+        assert params.nib_angle_deg == pytest.approx(45.0)
 
     def test_script_is_bastarda(self):
         base = load_base(HAND_TOML)
-        assert base["hand"]["script"] == "bastarda"
+        assert base.script == "bastarda"
