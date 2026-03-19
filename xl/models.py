@@ -105,3 +105,51 @@ class TranslatedSection:
     """Full output of translating one Section."""
     section: Section
     passages: list[TranslatedPassage] = field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Register stage output
+# ---------------------------------------------------------------------------
+
+class RegisterTag:
+    """String constants for resolved register tags."""
+    DE = "de"
+    LA = "la"
+    MHG = "mhg"
+    MIXED = "mixed"
+    VERBATIM_LA = "verbatim_la"
+    VERBATIM_MHG = "verbatim_mhg"
+    KEEP = "keep"
+
+
+@dataclass
+class ClauseRegister:
+    """Language assignment for a single clause within a passage."""
+    text: str
+    language: str       # RegisterTag constant
+
+
+@dataclass
+class ValidationError:
+    """A register consistency error detected during validation."""
+    section_number: int
+    passage_index: int
+    error_type: str     # "missing_verbatim" | "register_mismatch" | "incompatible_transition"
+    message: str
+
+
+@dataclass
+class PassageRegister:
+    """Full register resolution for a single passage."""
+    tag: str                    # RegisterTag constant
+    clauses: list[ClauseRegister] = field(default_factory=list)
+    is_verbatim: bool = False
+    verbatim_source: str | None = None
+
+
+@dataclass
+class RegisterMap:
+    """Complete register resolution for an entire IngestResult."""
+    # Keyed by (section_number, passage_index) → PassageRegister
+    entries: dict[tuple[int, int], PassageRegister] = field(default_factory=dict)
+    errors: list[ValidationError] = field(default_factory=list)
