@@ -1,0 +1,136 @@
+# konrad_erfurt_1457.toml — TD-001-D Hand Parameter File
+# Brother Konrad's Bastarda hand, MS Erfurt Aug. 12°47, 1457
+# All values are baseline for clean, undamaged, standard-speed writing.
+
+[hand]
+# Nib and stroke geometry
+nib_angle_deg       = 45.0      # quill angle to baseline (Bastarda: 40–50°)
+nib_width_mm        = 1.8       # cut nib width
+stroke_weight       = 1.0       # relative stroke weight (1.0 = baseline)
+
+# Pressure dynamics (0.0–1.0 scale)
+pressure_base       = 0.72      # resting downstroke pressure
+pressure_upstroke   = 0.28      # upstroke release
+pressure_variance   = 0.08      # natural variation per stroke
+
+# Ink
+ink_density         = 0.85      # 0.0 (dry) – 1.0 (saturated)
+ink_bleed_radius_px = 1.2       # at 300 DPI
+
+# Rhythm and spacing
+letter_spacing_norm = 1.0       # relative to x-height (1.0 = standard)
+word_spacing_norm   = 2.4       # in x-height units
+line_height_norm    = 4.2       # baseline-to-baseline in x-height units
+x_height_px         = 38        # at 300 DPI
+
+# Speed and fatigue
+writing_speed       = 1.0       # 1.0 = deliberate scriptorium pace
+fatigue_rate        = 0.0       # increase per line (0.0 = no modelling yet)
+
+# Lateral tilt (Konrad's known slight rightward lean)
+slant_deg           = 3.5       # rightward from vertical
+
+# Script style
+script              = "bastarda"
+dialect_region      = "thuringian"
+date_approx         = 1457
+
+
+# ---------------------------------------------------------------------------
+# Per-folio modifiers — override any [hand] value for specific folios.
+# Keys match folio IDs without the leading "f" (e.g. "04r", "06r").
+# Only differing values need be listed.
+# ---------------------------------------------------------------------------
+
+[modifiers.04r]
+# f04r: water damage from above, partial — slightly reduced pressure on affected lines
+pressure_base       = 0.65
+ink_density         = 0.70
+
+[modifiers.04v]
+# f04v: water damage + missing corner — significantly degraded
+pressure_base       = 0.55
+ink_density         = 0.52
+pressure_variance   = 0.18      # increased variation from physical difficulty
+
+[modifiers.05r]
+# f05r: water diminishing
+pressure_base       = 0.68
+ink_density         = 0.78
+
+[modifiers.05v]
+# f05v: water diminishing further
+pressure_base       = 0.70
+ink_density         = 0.80
+
+[modifiers.06r]
+# f06r: increased lateral pressure on downstrokes — emotional intensity (workshop visit)
+pressure_base       = 0.84
+stroke_weight       = 1.15
+slant_deg           = 2.8       # slightly more upright under tension
+
+[modifiers.06v]
+# f06v: continued increased lateral pressure
+pressure_base       = 0.82
+stroke_weight       = 1.12
+
+[modifiers.07r]
+# f07r: multi-sitting, variable ink (Eckhart confession) — two distinct ink densities
+ink_density         = 0.91      # first sitting: freshly loaded quill
+pressure_variance   = 0.12
+
+[modifiers.07v]
+# f07v lower: smaller, economical working hand (Psalter return)
+x_height_px         = 32
+letter_spacing_norm = 0.92
+writing_speed       = 1.15      # faster, more compressed
+
+[modifiers.14r]
+# f14r–f17v: irregular vellum, slower wider compensating hand
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
+nib_angle_deg       = 43.0
+
+[modifiers.14v]
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
+
+[modifiers.15r]
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
+
+[modifiers.15v]
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
+
+[modifiers.16r]
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
+
+[modifiers.16v]
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
+
+[modifiers.17r]
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
+
+[modifiers.17v]
+x_height_px         = 42
+letter_spacing_norm = 1.12
+word_spacing_norm   = 2.7
+writing_speed       = 0.82
