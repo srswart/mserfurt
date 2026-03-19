@@ -159,6 +159,14 @@ class RegisterMap:
 # Folio stage output
 # ---------------------------------------------------------------------------
 
+class DamageType:
+    """String constants for physical damage types (used in FolioPage.damage and Annotation.detail)."""
+    WATER = "water"
+    MISSING_CORNER = "missing_corner"
+    MOISTURE = "moisture"
+    LACUNA = "lacuna"       # text gap (lost/illegible words)
+    AGE = "age"
+
 @dataclass
 class Annotation:
     """A single inline annotation on a line (lacuna, confidence, verbatim marker, etc.)."""
