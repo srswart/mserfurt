@@ -153,3 +153,50 @@ class RegisterMap:
     # Keyed by (section_number, passage_index) → PassageRegister
     entries: dict[tuple[int, int], PassageRegister] = field(default_factory=dict)
     errors: list[ValidationError] = field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Folio stage output
+# ---------------------------------------------------------------------------
+
+@dataclass
+class Annotation:
+    """A single inline annotation on a line (lacuna, confidence, verbatim marker, etc.)."""
+    type: str           # "lacuna" | "confidence" | "verbatim_source" | "strikethrough" | "emphasis"
+    span: tuple[int, int] | None = None   # (char_start, char_end)
+    detail: dict = field(default_factory=dict)
+
+
+@dataclass
+class Line:
+    """One physical line of text on a folio page."""
+    number: int         # 1-based line number on this page
+    text: str           # Translated German/Latin text
+    register: str       # "de" | "la" | "mhg" | "mixed"
+    english: str | None = None            # Original English (for debugging)
+    annotations: list[Annotation] = field(default_factory=list)
+
+
+@dataclass
+class FolioPage:
+    """One side (recto or verso) of a physical folio."""
+    id: str                         # e.g. "f04r"
+    recto_verso: str                # "recto" | "verso"
+    gathering_position: int         # 1–17
+    lines: list[Line] = field(default_factory=list)
+    damage: dict | None = None
+    hand_notes: dict | None = None
+    section_breaks: list[int] = field(default_factory=list)
+    vellum_stock: str = "standard"
+
+    @property
+    def line_count(self) -> int:
+        return len(self.lines)
+
+
+@dataclass
+class Folio:
+    """A physical folio with recto and verso pages."""
+    number: int             # 1–17
+    recto: FolioPage | None = None
+    verso: FolioPage | None = None
