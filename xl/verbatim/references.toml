@@ -1,0 +1,65 @@
+# Verbatim reference table for MS Erfurt pipeline.
+# All entries are from critical editions. No LLM touches these texts.
+# Keys match the verbatim_source values emitted by xl.ingest.
+
+# -----------------------------------------------------------------------
+# Augustine, Confessiones I.1
+# -----------------------------------------------------------------------
+
+["Augustine, Confessions I.1"]
+text = "fecisti nos ad te, et inquietum est cor nostrum donec requiescat in te"
+language = "la"
+source = "Augustine, Confessiones I.1 (CSEL 33, ed. Knöll, 1896)"
+
+["Augustine (truncated)"]
+text = "fecisti nos ad te"
+language = "la"
+source = "Augustine, Confessiones I.1 — truncated excerpt"
+
+# -----------------------------------------------------------------------
+# Psalms (Vulgate)
+# -----------------------------------------------------------------------
+
+["Psalm 42:1"]
+text = "Quemadmodum desiderat cervus ad fontes aquarum"
+language = "la"
+source = "Ps 42:1, Biblia Sacra Vulgata (Weber-Gryson, 5th ed.)"
+
+["Psalm 42:2"]
+text = "Sic desiderat anima mea ad te, Deus"
+language = "la"
+source = "Ps 42:2, Biblia Sacra Vulgata (Weber-Gryson, 5th ed.)"
+
+# -----------------------------------------------------------------------
+# Eckhart, Predigt 12 (Sermon 12) — the central textual crux
+# -----------------------------------------------------------------------
+
+["Eckhart, Sermon 12 (original)"]
+text = "In sînem grunde: diu sêle ist daz wort"
+language = "mhg"
+source = "Meister Eckhart, Predigt 12, DW I (Quint, 1958) — unrevised reading"
+
+["Eckhart (Konrad's reading)"]
+text = "In sînem grunde: diu sêle wirt daz wort"
+language = "mhg"
+source = "Meister Eckhart, Predigt 12 — variant reading (wirt, not ist); Konrad's 1435 reconstruction"
+
+# The pivotal single-word entries (appear as bare verbatim in source)
+["Wirt"]
+text = "Wirt"
+language = "mhg"
+source = "Eckhart Predigt 12 variant — Konrad's emendation"
+
+["Ist"]
+text = "ist"
+language = "mhg"
+source = "Eckhart Predigt 12 original — unrevised reading"
+
+# -----------------------------------------------------------------------
+# Colophon (formal closing)
+# -----------------------------------------------------------------------
+
+["Finis"]
+text = "Finis"
+language = "la"
+source = "Standard scribal colophon"

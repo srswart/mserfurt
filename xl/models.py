@@ -68,3 +68,40 @@ class IngestResult:
     """Full output of the ingest stage."""
     metadata: ManuscriptMeta
     sections: list[Section] = field(default_factory=list)
+
+
+# ---------------------------------------------------------------------------
+# Translate stage output
+# ---------------------------------------------------------------------------
+
+class TranslationMethod:
+    API = "api"           # Translated by Claude (primary) + GPT-4 (validation)
+    VERBATIM = "verbatim" # Inserted directly from reference table — no LLM
+    DRY_RUN = "dry_run"   # --dry-run mode: original text preserved, no API calls
+    KEPT = "kept"         # {keep} register: original phrase preserved as-is
+
+
+@dataclass
+class ValidationFlag:
+    """A single flag from the GPT-4 validation pass."""
+    line_id: str
+    issue_type: str   # "anachronism" | "register_error" | "grammatical_form" | "humanist_latin"
+    suggestion: str
+
+
+@dataclass
+class TranslatedPassage:
+    """One translated passage — the output of translating a single Passage."""
+    original: Passage
+    translated_text: str
+    method: str                       # TranslationMethod constant
+    confidence: float = 1.0           # 0.0–1.0; verbatim=1.0, api varies
+    validation_flags: list[ValidationFlag] = field(default_factory=list)
+    revised: bool = False             # True if GPT-4 flags triggered a Claude revision
+
+
+@dataclass
+class TranslatedSection:
+    """Full output of translating one Section."""
+    section: Section
+    passages: list[TranslatedPassage] = field(default_factory=list)
