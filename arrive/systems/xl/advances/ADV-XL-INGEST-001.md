@@ -5,7 +5,7 @@ advance:
   system: xl
   primary_component: ingest
   components: [ingest]
-  started_at: ~
+  started_at: "2026-03-19T00:00:00Z"
   implementation_completed_at: ~
   review_time_estimate_minutes: 30
   review_time_actual_minutes: ~
@@ -16,7 +16,7 @@ advance:
     - tdd:red-green
     - tidy:preparatory
     - tests:unit
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -69,6 +69,43 @@ system: xl
 | tdd:red-green | pending | |
 | tidy:preparatory | pending | |
 | tests:unit | pending | |
+
+## Implementation Sub-Plan
+
+### Tidy (Preparatory Refactors)
+- [ ] Create `xl/models.py` with shared data classes: `Passage`, `Section`, `ApparatusEntry`, `ManuscriptMeta`, `IngestResult`
+- [ ] Create `xl/ingest/` package with `__init__.py` and `parser.py`
+- [ ] Confirm `xl/ingest` is importable before writing any parsing logic
+
+### Tests First (Red Phase)
+- [ ] Write `tests/test_ingest.py` using the real source file as fixture
+- [ ] Test: frontmatter YAML is parsed — shelfmark, author, date, gathering count
+- [ ] Test: folio_map is extracted — all 11 folio range entries present
+- [ ] Test: all section titles are captured (Opening Declaration, Press Meditation, Peter Narrative, Workshop Visits, Eckhart Confession, Psalter Return, Final Gathering)
+- [ ] Test: folio references correctly extracted per section (f01r, f04r-f05v, f06r, f07r-f07v, f07v, f14r-f17v)
+- [ ] Test: register hints parsed — de, la, mixed, mhg all appear in output
+- [ ] Test: damage apparatus captured — f04r-f05v sections have damage entries
+- [ ] Test: hand notes captured — f06r section has lateral-pressure hand note
+- [ ] Test: lacunae captured — f04r-f05v passages have lacuna entries
+- [ ] Test: verbatim markers captured — Augustine and MHG passages flagged as verbatim
+- [ ] Confirm tests fail (red) before implementing
+
+### Implement (Green Phase)
+- [ ] Parse YAML frontmatter using `yaml.safe_load` → `ManuscriptMeta`
+- [ ] Split document body on section comment blocks (`<!-- SECTION N: ... -->`)
+- [ ] For each section: extract folio ref, hand notes, damage notes from header block
+- [ ] Within each section: split on `<!-- register: X -->` markers → list of `Passage`
+- [ ] For each passage: capture text (strip HTML comments), register, verbatim flag + source, lacunae list
+- [ ] Collect all apparatus entries (damage, lacuna, hand_note, gap_note, damage_note) into `ApparatusEntry` objects
+- [ ] Return `IngestResult(metadata, sections)`
+
+### Validate
+- [ ] Run ingest against real source file, confirm 7 sections returned
+- [ ] Confirm all 17 folio positions represented across folio_map
+- [ ] Confirm f07r section is correctly isolated (Eckhart confession)
+- [ ] Confirm f04r-f05v damage apparatus entries present
+- [ ] Run `arrive plan check`
+- [ ] Update evidence table
 
 ## Changes Made
 
