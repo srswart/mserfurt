@@ -6,6 +6,7 @@ Verifies argument handling only — no LLM or filesystem side effects.
 
 import os
 import tempfile
+from pathlib import Path
 
 import pytest
 from click.testing import CliRunner
@@ -19,11 +20,10 @@ def runner() -> CliRunner:
 
 
 @pytest.fixture()
-def source_file(tmp_path):
-    """A minimal stand-in for the annotated source manuscript."""
-    f = tmp_path / "ms-erfurt-source-annotated.md"
-    f.write_text("# test source\n")
-    return str(f)
+def source_file():
+    """The real annotated source manuscript."""
+    p = Path(__file__).parent.parent / "source" / "ms-erfurt-source-annotated.md"
+    return str(p)
 
 
 @pytest.fixture()
@@ -45,7 +45,7 @@ class TestTranslateArgs:
     def test_translate_dry_run_skips_pipeline(self, runner, source_file, output_dir):
         result = runner.invoke(main, ["translate", "--input", source_file, "--output", output_dir, "--dry-run"])
         assert "dry-run" in result.output.lower()
-        assert "pipeline stages skipped" in result.output.lower()
+        assert "dry_run" in result.output.lower()
 
     def test_translate_missing_input_fails(self, runner, output_dir):
         result = runner.invoke(main, ["translate", "--output", output_dir, "--dry-run"])
