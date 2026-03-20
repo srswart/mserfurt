@@ -1,22 +1,28 @@
 ---
 advance:
   id: ADV-SS-GLYPHS-001
-  title: "Glyphs — Initial Implementation"
+  title: Glyphs — Initial Implementation
   system: scribesim
   primary_component: glyphs
-  components: [glyphs]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 40
-  review_time_actual_minutes: ~
+  components:
+  - glyphs
+  started_at: 2026-03-19T17:03:04Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T17:09:01.089082Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency, public_api]
+  risk_flags:
+  - new_dependency
+  - public_api
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -31,20 +37,6 @@ After this advance:
 - Uppercase Bastarda capitals, Latin-specific forms (no umlauts, ae/oe digraphs), and special marks (section divider, paragraph mark) are included
 - Each glyph exposes its advance width, baseline anchors, and stroke-level metadata for downstream layout and ground truth generation
 
-## Pipeline Context
-
-- **Position**: Phase 2 (ScribeSim — Scribal Hand Simulation)
-- **Upstream**: Character sequences from per-folio JSON (XL Phase 1); hand parameters from the hand component determine scaling and pressure application
-- **Downstream**: Layout engine consumes glyph advance widths for Knuth-Plass line breaking; render engine rasterizes Bezier strokes; groundtruth uses glyph bounding polygons for PAGE XML
-- **Contracts**: TD-001-D (Hand parameter TOML — glyph dimensions must be compatible with hand scale factors)
-
-## Component Impact
-
-```yaml
-components: [glyphs]
-system: scribesim
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/scribesim-glyphs-init`
@@ -57,6 +49,10 @@ system: scribesim
 - [ ] Implement: glyph lookup function that resolves a Unicode character + register (German/Latin) to the correct glyph variant
 - [ ] Validate: verify every glyph renders without degenerate strokes (no zero-length segments, no self-intersecting control polygons)
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -68,16 +64,3 @@ system: scribesim
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-WX-TESTS-001
-  title: "Tests — Initial Implementation"
+  title: Tests — Initial Implementation
   system: weather
   primary_component: tests
-  components: [tests]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
+  components:
+  - tests
+  started_at: 2026-03-19T22:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T19:30:46.131644Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -36,20 +41,6 @@ After this advance:
 - Determinism tests verify two runs with the same seed produce byte-identical output images
 - Integration test processes all 17 folios end-to-end and validates output is importable into eScriptorium
 
-## Pipeline Context
-
-- **Position**: Phase 3 (Weather — Manuscript Aging & Weathering)
-- **Upstream**: All Weather components (compositor, groundtruth, and transitively all effect components); ScribeSim output fixtures for test input
-- **Downstream**: No downstream consumers; tests validate final output quality for eScriptorium import
-- **Contracts**: TD-001-E (Weathering profile TOML — all sections), TD-001-C (PAGE XML — coordinate and legibility validation)
-
-## Component Impact
-
-```yaml
-components: [tests]
-system: weather
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/weather-tests-init`
@@ -65,6 +56,10 @@ system: weather
 - [ ] Test: integration — process all 17 folios (f01r through f17v), verify 17 weathered PNGs and 17 weathered XMLs are produced, validate PAGE XML schema compliance for eScriptorium import
 - [ ] Validate: all tests pass in CI; integration test completes within acceptable time budget
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -76,16 +71,3 @@ system: weather
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

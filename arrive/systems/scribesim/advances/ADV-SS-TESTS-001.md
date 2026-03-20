@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-SS-TESTS-001
-  title: "Tests — Initial Implementation"
+  title: Tests — Initial Implementation
   system: scribesim
   primary_component: tests
-  components: [tests]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
+  components:
+  - tests
+  started_at: 2026-03-19T17:44:58Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T18:10:18.753837Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -33,20 +38,6 @@ After this advance:
 - Sitting boundary tests verify that f07r exhibits a measurable ink density shift at the multi-sitting boundary point
 - German-specific glyph tests confirm correct rendering of long s, esszett ligature, and umlauted vowels (a/o/u with superscript-e)
 
-## Pipeline Context
-
-- **Position**: Phase 2 (ScribeSim — Scribal Hand Simulation)
-- **Upstream**: Rendered page PNGs and pressure heatmaps from render; PAGE XML from groundtruth; glyph catalog from glyphs; hand parameters from hand
-- **Downstream**: Test pass/fail gates the release of ScribeSim outputs to Weather (Phase 3); golden images serve as regression baselines for future changes
-- **Contracts**: TD-001-F (Pressure heatmap PNG — tests validate heatmap format and value ranges), TD-001-C (PAGE XML — tests validate schema compliance and IoU targets)
-
-## Component Impact
-
-```yaml
-components: [tests]
-system: scribesim
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/scribesim-tests-init`
@@ -59,6 +50,10 @@ system: scribesim
 - [ ] Test: German glyphs — render text containing long s, round s, esszett, and umlauted vowels; verify each glyph occupies a distinct bounding box and renders with correct stroke count
 - [ ] Validate: run full test suite, generate initial golden images for baseline, document pHash thresholds and IoU margins
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -70,16 +65,3 @@ system: scribesim
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-SS-HAND-001
-  title: "Hand — Initial Implementation"
+  title: Hand — Initial Implementation
   system: scribesim
   primary_component: hand
-  components: [hand]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 35
-  review_time_actual_minutes: ~
+  components:
+  - hand
+  started_at: 2026-03-19T14:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T17:00:11.446923Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: in_progress
 ---
 
 ## Objective
@@ -30,20 +35,6 @@ After this advance:
 - The modifier stack architecture computes `final_hand(folio) = base_hand + sum(modifiers(folio.hand_notes))`, supporting the documented modifiers: `pressure_increase` (f06r), `ink_density_shift` (f07r multi-sitting boundary), `hand_scale` (f07v lower section, smaller hand), and `spacing_drift + tremor` (f14r onward, fatigue effects)
 - Hand resolution is deterministic: the same folio ID and hand notes always produce identical parameters
 
-## Pipeline Context
-
-- **Position**: Phase 2 (ScribeSim — Scribal Hand Simulation)
-- **Upstream**: Per-folio JSON from XL containing `hand_notes` fields; `shared/hands/konrad_erfurt_1457.toml` base parameter file
-- **Downstream**: Resolved hand parameters feed into layout (line spacing, glyph sizing) and render (nib model, pressure curves, ink flow)
-- **Contracts**: TD-001-D (Hand parameter TOML schema — defines required keys, value ranges, and modifier semantics)
-
-## Component Impact
-
-```yaml
-components: [hand]
-system: scribesim
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/scribesim-hand-init`
@@ -53,6 +44,10 @@ system: scribesim
 - [ ] Implement: modifier registry mapping CLIO-7 hand note keys to modifier functions
 - [ ] Implement: `resolve_hand(base, folio_hand_notes)` that applies modifiers in stack order and returns final `HandParams`
 - [ ] Validate: round-trip test — resolve hand for f01r (no modifiers, should equal base), f06r (pressure increase), f07r (ink density shift), f07v (scale change), f14r (fatigue drift + tremor)
+
+## Check for Understanding
+
+_To be generated after implementation._
 
 ## Risk + Rollback
 
@@ -65,16 +60,3 @@ system: scribesim
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-XL-FOLIO-001
-  title: "Folio — Initial Implementation"
+  title: Folio — Initial Implementation
   system: xl
   primary_component: folio
-  components: [folio]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 35
-  review_time_actual_minutes: ~
+  components:
+  - folio
+  started_at: 2026-03-19T08:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T14:04:12.207950Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: in_progress
 ---
 
 ## Objective
@@ -32,20 +37,6 @@ After this advance:
 - Folio 14r marks the beginning of the final section (*finis* material) and its content is not mixed with earlier homiletic text
 - Each `FolioPage` object carries its lines, language metadata from the register map, and references to apparatus entries that apply to that page
 
-## Pipeline Context
-
-- **Position**: Phase 1 (XL — Reverse Translation & Folio Structuring)
-- **Upstream**: Consumes `TranslatedSection` objects from translate and `RegisterMap` from register
-- **Downstream**: Produces `Folio` objects (each with recto/verso `FolioPage`s) consumed by annotate (for damage/confidence overlay) and export (for JSON/XML serialization)
-- **Contracts**: TD-001-A (Folio JSON) — the folio component defines the structural skeleton that the JSON schema describes
-
-## Component Impact
-
-```yaml
-components: [folio]
-system: xl
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/xl-folio-init`
@@ -53,6 +44,10 @@ system: xl
 - [ ] Test: Write tests for line distribution — a clean page gets 28-35 lines, a damaged page (4r-5v range) gets fewer lines with lacuna markers, the Eckhart passage (7r) stays on a single page, sentence boundaries are not broken mid-sentence, the final section starts at 14r
 - [ ] Implement: Build line-breaking algorithm that fills pages to target line count while respecting sentence boundaries; implement folio reference constraints (hard-pin sections to their CLIO-7 folio references); implement damage-aware line reduction for 4r-5v; implement register metadata passthrough from `RegisterMap` to per-line language tags; generate sequential folio IDs (001r, 001v, 002r, ... 009r)
 - [ ] Validate: Run folio structuring on full translated output and verify 17 pages are emitted, line counts fall within 28-35 for clean pages, 4r-5v have reduced counts, 7r contains the Eckhart text, and 14r begins the final section
+
+## Check for Understanding
+
+_To be generated after implementation._
 
 ## Risk + Rollback
 
@@ -65,16 +60,3 @@ system: xl
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

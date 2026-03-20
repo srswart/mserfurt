@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-WX-GROUNDTRUTH-001
-  title: "Groundtruth — Initial Implementation"
+  title: Groundtruth — Initial Implementation
   system: weather
   primary_component: groundtruth
-  components: [groundtruth]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
+  components:
+  - groundtruth
+  started_at: 2026-03-19T21:30:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T19:25:49.959245Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -30,20 +35,6 @@ After this advance:
 - Glyphs falling within the f04v missing corner region (bottom-right, 35mm x 28mm) are marked with legibility 0.0 (completely illegible)
 - Glyphs in water-damaged zones (f04r-f05v) receive graduated legibility scores from 0.0 to 1.0 based on their position relative to the water damage gradient (strongest damage at top, diminishing downward)
 - All coordinate and legibility updates are performed in a single pass after all weathering effects are finalized, producing `{folio_id}_weathered.xml`
-
-## Pipeline Context
-
-- **Position**: Phase 3 (Weather — Manuscript Aging & Weathering)
-- **Upstream**: Compositor provides composed coordinate transforms and damage zone masks (water zone boundaries, corner removal polygon); ScribeSim PAGE XML provides the source glyph coordinates
-- **Downstream**: Updated PAGE XML (`{folio_id}_weathered.xml`) is the final ground truth output, imported into eScriptorium alongside weathered images
-- **Contracts**: TD-001-C (PAGE XML — coordinate format and legibility attributes)
-
-## Component Impact
-
-```yaml
-components: [groundtruth]
-system: weather
-```
 
 ## Planned Implementation Tasks
 
@@ -61,6 +52,10 @@ system: weather
 - [ ] Implement: PAGE XML writer — output `{folio_id}_weathered.xml` with updated coordinates and legibility attributes
 - [ ] Validate: process f04v PAGE XML, confirm corner glyphs marked legibility 0.0, water-damaged glyphs scored on gradient, all coordinates shifted by page_curl transform within 2px tolerance
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -72,16 +67,3 @@ system: weather
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

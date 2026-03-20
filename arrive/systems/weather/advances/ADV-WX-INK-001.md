@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-WX-INK-001
-  title: "Ink — Initial Implementation"
+  title: Ink — Initial Implementation
   system: weather
   primary_component: ink
-  components: [ink]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
+  components:
+  - ink
+  started_at: 2026-03-19T18:45:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T18:51:19.089386Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -29,20 +34,6 @@ After this advance:
 - Ink fade applies a global 20% intensity reduction and shifts ink color from black toward dark brown using the RGB delta [+8, -3, -12], simulating iron gall oxidation over 560 years
 - Ink bleed applies a 1.0px Gaussian blur restricted to ink pixels only (non-ink regions remain sharp), simulating capillary spread into vellum fibers
 - Ink flake removes small clusters (size 2) of ink pixels with probability 0.008, preferentially targeting strokes where the ScribeSim pressure heatmap exceeds the 0.85 threshold, simulating mechanical loss from the heaviest pen strokes
-
-## Pipeline Context
-
-- **Position**: Phase 3 (Weather — Manuscript Aging & Weathering)
-- **Upstream**: ScribeSim page images (ink layer), ScribeSim pressure heatmaps (for flake targeting), ms-erfurt-560yr.toml for ink aging parameters
-- **Downstream**: Ink-aged images consumed by damage (water dissolves already-faded ink), compositor (ink layer stacked after substrate)
-- **Contracts**: TD-001-E (Weathering profile TOML — ink section)
-
-## Component Impact
-
-```yaml
-components: [ink]
-system: weather
-```
 
 ## Planned Implementation Tasks
 
@@ -58,6 +49,10 @@ system: weather
 - [ ] Implement: ink_flake effect — pressure-aware stochastic removal with cluster expansion (size 2) seeded by heatmap values above 0.85
 - [ ] Validate: process a folio with known heavy strokes, confirm flake clusters concentrate on high-pressure areas; measure global fade matches 20% reduction target
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -69,16 +64,3 @@ system: weather
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

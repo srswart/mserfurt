@@ -1,22 +1,28 @@
 ---
 advance:
   id: ADV-WX-COMPOSITOR-001
-  title: "Compositor — Initial Implementation"
+  title: Compositor — Initial Implementation
   system: weather
   primary_component: compositor
-  components: [compositor]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 35
-  review_time_actual_minutes: ~
+  components:
+  - compositor
+  started_at: 2026-03-19T21:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T19:19:33.904643Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency, public_api]
+  risk_flags:
+  - new_dependency
+  - public_api
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -30,20 +36,6 @@ After this advance:
 - Layer compositing follows the strict order: substrate (base) -> ink -> damage -> aging -> optics (top), producing the final `{folio_id}_weathered.png`
 - Coordinate transforms from page_curl (and any future spatial effects) are chained into a single composed transform and exported for groundtruth consumption
 - Per-folio dispatch correctly selects irregular vellum stock for f14r-f17v and standard stock for f01r-f13v based on manifest data
-
-## Pipeline Context
-
-- **Position**: Phase 3 (Weather — Manuscript Aging & Weathering)
-- **Upstream**: All effect components (substrate, ink, damage, aging, optics); XL manifest.json for per-folio configuration
-- **Downstream**: Weathered page images consumed by groundtruth for PAGE XML update; final output imported into eScriptorium
-- **Contracts**: TD-001-E (Weathering profile TOML — compositing order), TD-001-C (PAGE XML)
-
-## Component Impact
-
-```yaml
-components: [compositor]
-system: weather
-```
 
 ## Planned Implementation Tasks
 
@@ -61,6 +53,10 @@ system: weather
 - [ ] Implement: output writer — save `{folio_id}_weathered.png` with composited result
 - [ ] Validate: process f04v end-to-end (all five layers including water_damage + missing_corner), confirm output image contains all effects; process f01r (no damage), confirm clean compositing without damage artifacts
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -73,16 +69,3 @@ system: weather
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

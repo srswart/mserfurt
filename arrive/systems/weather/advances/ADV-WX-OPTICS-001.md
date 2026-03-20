@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-WX-OPTICS-001
-  title: "Optics — Initial Implementation"
+  title: Optics — Initial Implementation
   system: weather
   primary_component: optics
-  components: [optics]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 25
-  review_time_actual_minutes: ~
+  components:
+  - optics
+  started_at: 2026-03-19T20:30:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T19:10:10.005220Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -29,20 +34,6 @@ After this advance:
 - Page curl applies a sinusoidal displacement up to 1.0mm maximum on the gutter side of each page, warping the image and generating a coordinate transform map consumed by groundtruth for PAGE XML correction
 - Camera vignette applies radial intensity falloff from center to corners at 0.08 strength, darkening page periphery
 - Lighting gradient applies a directional intensity ramp at 150 degrees with an intensity range of 0.95 to 1.02, simulating off-axis studio illumination
-
-## Pipeline Context
-
-- **Position**: Phase 3 (Weather — Manuscript Aging & Weathering)
-- **Upstream**: Substrate textures (page curl displaces the substrate base layer), ms-erfurt-560yr.toml for optics parameters
-- **Downstream**: Optics output consumed by compositor (optics is the final effect layer); page curl coordinate transforms consumed by groundtruth for PAGE XML update
-- **Contracts**: TD-001-E (Weathering profile TOML — optics section)
-
-## Component Impact
-
-```yaml
-components: [optics]
-system: weather
-```
 
 ## Planned Implementation Tasks
 
@@ -57,6 +48,10 @@ system: weather
 - [ ] Implement: lighting_gradient — directional ramp at 150 degrees, intensity range [0.95, 1.02], applied as multiplicative intensity modifier
 - [ ] Validate: render optics effects on f01r, confirm visible but subtle page curl at gutter, slight corner darkening from vignette, and directional brightness variation from lighting
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -68,16 +63,3 @@ system: weather
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

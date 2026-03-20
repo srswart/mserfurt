@@ -9,20 +9,21 @@ Uses the Anthropic SDK. Requires ANTHROPIC_API_KEY in the environment.
 from __future__ import annotations
 
 import os
+import time
 
 # Lazy import — only fails at call time, not import time, so dry-run works
 # without the SDK installed.
 def _client():
     try:
         import anthropic
-        return anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+        return anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"], max_retries=4)
     except ImportError as e:
         raise ImportError("anthropic SDK required: pip install anthropic") from e
     except KeyError:
         raise EnvironmentError("ANTHROPIC_API_KEY environment variable not set")
 
 
-_MODEL = "claude-opus-4-6"
+_MODEL = "claude-haiku-4-5-20251001"
 
 _SYSTEM_DE = """You are a scholarly translator specialising in medieval German manuscripts.
 Translate the provided English text into Frühneuhochdeutsch (Early New High German) as written
@@ -80,11 +81,21 @@ def translate(text: str, register: str, feedback: str | None = None) -> str:
         )
 
     client = _client()
-    message = client.messages.create(
-        model=_MODEL,
-        max_tokens=1024,
-        temperature=0.0,
-        system=system,
-        messages=[{"role": "user", "content": user_content}],
-    )
-    return message.content[0].text.strip()
+    # Retry with increasing waits on transient overload (529)
+    delays = [5, 15, 30, 60]
+    for attempt, delay in enumerate(delays, 1):
+        try:
+            message = client.messages.create(
+                model=_MODEL,
+                max_tokens=1024,
+                temperature=0.0,
+                system=system,
+                messages=[{"role": "user", "content": user_content}],
+            )
+            return message.content[0].text.strip()
+        except Exception as exc:
+            if "overloaded" in str(exc).lower() and attempt < len(delays):
+                print(f"      [claude] overloaded, waiting {delay}s (attempt {attempt}/{len(delays)})...")
+                time.sleep(delay)
+            else:
+                raise

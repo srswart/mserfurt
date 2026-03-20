@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-XL-TESTS-001
-  title: "Tests — Initial Implementation"
+  title: Tests — Initial Implementation
   system: xl
   primary_component: tests
-  components: [tests]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
+  components:
+  - tests
+  started_at: 2026-03-19T10:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T15:27:27.078984Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: in_progress
 ---
 
 ## Objective
@@ -31,20 +36,6 @@ After this advance:
 - Register consistency checks verify that no folio contains unresolved {mixed} tags, all {verbatim:*} sections match their reference table entries exactly, and language transitions between adjacent lines are plausible (no German-to-Latin switch mid-sentence)
 - All golden tests run in CI without API calls (using cached/mocked translation fixtures)
 
-## Pipeline Context
-
-- **Position**: Phase 1 (XL — Reverse Translation & Folio Structuring)
-- **Upstream**: Consumes final export output (JSON, manifest, PAGE XML) from the full pipeline
-- **Downstream**: Test results gate promotion to ScribeSim; failing golden tests block the pipeline
-- **Contracts**: Validates all three contracts — TD-001-A (Folio JSON structure), TD-001-B (Manifest completeness), TD-001-C (PAGE XML validity)
-
-## Component Impact
-
-```yaml
-components: [tests]
-system: xl
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/xl-tests-init`
@@ -52,6 +43,10 @@ system: xl
 - [ ] Test: Write golden comparison tests — each test loads the golden fixture, runs the pipeline with mocked APIs, and asserts structural equality (line count, language tags, annotation types, confidence ranges); write round-trip test; write register consistency test that scans all 17 folios for violations
 - [ ] Implement: Build golden test framework with snapshot comparison (JSON diff for folio files, XML structural diff for PAGE XML); build round-trip validator that re-ingests exported JSON and compares to original `Folio` objects; build register consistency scanner that checks cross-folio language coherence; build CI configuration that runs all tests without API credentials
 - [ ] Validate: Run full test suite against a fresh pipeline execution and verify all 5 golden tests pass, round-trip validation passes, and register consistency finds no violations on well-formed input
+
+## Check for Understanding
+
+_To be generated after implementation._
 
 ## Risk + Rollback
 
@@ -64,16 +59,3 @@ system: xl
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

@@ -15,9 +15,10 @@ def main() -> None:
 @click.option("--input", "input_path", required=True, type=click.Path(exists=True), help="Annotated source manuscript (.md)")
 @click.option("--output", "output_dir", required=True, type=click.Path(), help="Directory to write folio JSON, manifest, and PAGE XML")
 @click.option("--folio", default=None, help="Restrict to a single folio, e.g. 7r")
+@click.option("--sections", default=None, help="Only translate these section numbers, e.g. 1,2 (skips the rest — use with --folio for fast dev runs)")
 @click.option("--dry-run", is_flag=True, default=False, help="Parse and plan without calling LLM APIs")
 @click.option("--formats", default="json,manifest,xml", show_default=True, help="Comma-separated output formats: json,manifest,xml,jsonl")
-def translate(input_path: str, output_dir: str, folio: str | None, dry_run: bool, formats: str) -> None:
+def translate(input_path: str, output_dir: str, folio: str | None, sections: str | None, dry_run: bool, formats: str) -> None:
     """Ingest source, translate to period German/Latin, and emit per-folio outputs."""
     from pathlib import Path
     from xl.ingest import parse
@@ -35,11 +36,16 @@ def translate(input_path: str, output_dir: str, folio: str | None, dry_run: bool
     click.echo(f"[xl] formats    : {fmt_list}")
     if folio:
         click.echo(f"[xl] folio filter: {folio}")
+    section_filter = {int(n.strip()) for n in sections.split(",")} if sections else None
+    if section_filter:
+        click.echo(f"[xl] section filter: {sorted(section_filter)}")
 
     # Stage 1 — Ingest
     click.echo("\n[1/5] ingest ...")
     result = parse(Path(input_path))
-    click.echo(f"      {len(result.sections)} sections, shelfmark={result.metadata.shelfmark!r}")
+    if section_filter:
+        result.sections = [s for s in result.sections if s.number in section_filter]
+    click.echo(f"      {len(result.sections)} section(s), shelfmark={result.metadata.shelfmark!r}")
 
     # Stage 2 — Register
     click.echo("[2/5] register ...")
@@ -52,16 +58,32 @@ def translate(input_path: str, output_dir: str, folio: str | None, dry_run: bool
         click.echo(f"      {len(register_map.entries)} passage register entries, 0 errors")
 
     # Stage 3 — Translate
+    from xl.models import TranslatedSection as _TS
+    from xl.translate.dispatcher import translate_passage
     click.echo(f"[3/5] translate ({'dry-run' if dry_run else 'live'}) ...")
-    translated_sections = [translate_section(s, dry_run=dry_run) for s in result.sections]
-    total_passages = sum(len(ts.passages) for ts in translated_sections)
-    click.echo(f"      {total_passages} passages translated")
+    translated_sections = []
+    total_passages = sum(len(s.passages) for s in result.sections)
+    done = 0
+    for section in result.sections:
+        translated_passages = []
+        for passage in section.passages:
+            done += 1
+            preview = passage.text[:50].replace("\n", " ")
+            click.echo(f"      [{done:3d}/{total_passages}] s{section.number} {passage.register:6s}  {preview!r}", nl=False)
+            tp = translate_passage(passage, dry_run=dry_run)
+            translated_passages.append(tp)
+            click.echo(f"  ✓ ({tp.method})")
+        translated_sections.append(_TS(section=section, passages=translated_passages))
+    click.echo(f"      {done} passages translated")
 
     # Stage 4 — Folio structure
     click.echo("[4/5] folio structuring ...")
     pages = structure(translated_sections, register_map)
     if folio:
-        pages = [p for p in pages if p.id == f"f{folio.lstrip('f')}"]
+        import re as _re
+        _m = _re.match(r"f?(\d+)([rv])", folio)
+        folio_id = f"f{int(_m.group(1)):02d}{_m.group(2)}" if _m else folio
+        pages = [p for p in pages if p.id == folio_id]
         if not pages:
             click.echo(f"      warning: no pages matched folio filter {folio!r}", err=True)
     click.echo(f"      {len(pages)} page(s) structured")

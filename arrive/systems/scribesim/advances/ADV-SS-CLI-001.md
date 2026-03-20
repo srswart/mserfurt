@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-SS-CLI-001
-  title: "CLI — Initial Implementation"
+  title: CLI — Initial Implementation
   system: scribesim
   primary_component: cli
-  components: [cli]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 20
-  review_time_actual_minutes: ~
+  components:
+  - cli
+  started_at: 2026-03-19T12:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T16:37:29.938109Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: in_progress
 ---
 
 ## Objective
@@ -31,20 +36,6 @@ After this advance:
 - `scribesim hand --show` prints the resolved hand parameters for a given folio, including base parameters from `konrad_erfurt_1457.toml` and all applied modifiers
 - `scribesim groundtruth` emits PAGE XML (2019 schema) with glyph-level coordinates and TextEquiv
 
-## Pipeline Context
-
-- **Position**: Phase 2 (ScribeSim — Scribal Hand Simulation)
-- **Upstream**: Per-folio JSON and `manifest.json` from XL (Phase 1)
-- **Downstream**: Invokes hand, glyphs, layout, render, and groundtruth components; outputs consumed by Weather (Phase 3)
-- **Contracts**: TD-001-D (Hand parameter TOML), TD-001-F (Pressure heatmap PNG), TD-001-C (PAGE XML)
-
-## Component Impact
-
-```yaml
-components: [cli]
-system: scribesim
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/scribesim-cli-init`
@@ -55,6 +46,10 @@ system: scribesim
 - [ ] Implement: wire `hand --show` to load `konrad_erfurt_1457.toml`, apply folio-specific modifiers (e.g., pressure_increase for f06r), and print resolved values
 - [ ] Implement: wire `groundtruth` subcommand to invoke PAGE XML generation post-render
 - [ ] Validate: end-to-end smoke test with a single folio (f01r) producing PNG, heatmap, and PAGE XML
+
+## Check for Understanding
+
+_To be generated after implementation._
 
 ## Risk + Rollback
 
@@ -67,16 +62,3 @@ system: scribesim
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

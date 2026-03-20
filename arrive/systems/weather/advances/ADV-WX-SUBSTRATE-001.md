@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-WX-SUBSTRATE-001
-  title: "Substrate — Initial Implementation"
+  title: Substrate — Initial Implementation
   system: weather
   primary_component: substrate
-  components: [substrate]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 35
-  review_time_actual_minutes: ~
+  components:
+  - substrate
+  started_at: 2026-03-19T18:35:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T18:40:51.738679Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -29,20 +34,6 @@ After this advance:
 - Substrate generation produces a vellum texture using 3-octave Perlin noise with follicle marks elongated along the grain direction, distinguishing standard stock (f01r-f13v, warm cream base) from irregular stock (f14r-f17v, shifted yellow, different noise seed)
 - Vellum translucency produces verso bleed-through at 0.06 opacity, allowing faint show-through of the opposite page's ink
 - Optional tiled vellum photograph blend composites a photographic vellum texture with the procedural layer for enhanced realism
-
-## Pipeline Context
-
-- **Position**: Phase 3 (Weather — Manuscript Aging & Weathering)
-- **Upstream**: ScribeSim page images (used for verso bleed-through source), ms-erfurt-560yr.toml for vellum_color and noise parameters
-- **Downstream**: Substrate textures consumed by damage (water staining affects vellum), aging (edge darkening on vellum surface), optics (page curl displaces substrate), and compositor (substrate is the base compositing layer)
-- **Contracts**: TD-001-E (Weathering profile TOML — vellum section)
-
-## Component Impact
-
-```yaml
-components: [substrate]
-system: weather
-```
 
 ## Planned Implementation Tasks
 
@@ -59,6 +50,10 @@ system: weather
 - [ ] Implement: optional tiled vellum photograph blend with alpha-weighted overlay
 - [ ] Validate: render substrate for f01r (standard) and f14r (irregular), confirm visually distinct textures with correct color cast; verify bleed-through opacity measures at 0.06
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -70,16 +65,3 @@ system: weather
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

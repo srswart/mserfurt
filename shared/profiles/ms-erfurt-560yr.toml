@@ -1,0 +1,115 @@
+# ms-erfurt-560yr.toml — TD-001-E Weathering Profile
+# MS Erfurt Aug. 12°47 (1457): 560-year aging and damage simulation parameters.
+# All numeric ranges are normalised 0.0–1.0 unless otherwise noted.
+
+[meta]
+name            = "MS Erfurt 560-Year Aging Profile"
+description     = "Aging + damage simulation for MS Erfurt Aug. 12°47 (written 1457, current year 2017)"
+seed            = 1457
+target_manuscript = "ms-erfurt-aug-12-47"
+age_years       = 560
+
+# ---------------------------------------------------------------------------
+# Substrate — vellum physical properties
+# ---------------------------------------------------------------------------
+
+[substrate.vellum_standard]
+# Folios f01–f13: good-quality Thuringian vellum
+texture_roughness   = 0.25   # Perlin noise amplitude for surface texture
+color_base          = [242, 228, 196]   # warm parchment (R, G, B)
+color_variation     = 0.06              # spatial color variation amplitude
+translucency        = 0.08             # light-through-vellum effect
+
+[substrate.vellum_irregular]
+# Folios f14–f17: rougher, thinner vellum from a different animal
+texture_roughness   = 0.42
+color_base          = [235, 215, 178]
+color_variation     = 0.14
+translucency        = 0.15
+
+# ---------------------------------------------------------------------------
+# Ink aging
+# ---------------------------------------------------------------------------
+
+[ink.fade]
+# Carbon/iron-gall fade: deep black → warm brown over 560 years
+enabled             = true
+target_hue_shift    = 18    # degrees toward orange/brown in HSL
+lightness_increase  = 0.22  # proportional lightening of ink
+spatial_variance    = 0.08  # random per-region variation (0 = uniform)
+
+[ink.bleed]
+# Iron-gall lateral bleed into vellum fibres
+enabled             = true
+radius_px           = 1.8   # at 300 DPI
+pressure_weighting  = true  # stronger bleed where pressure_heatmap is bright
+
+[ink.flake]
+# Physical flaking loss of dried iron-gall ink
+enabled             = true
+flake_probability   = 0.035 # per-pixel probability in high-pressure regions
+flake_radius_px     = 2.5
+seed_offset         = 7     # RNG offset from global seed
+
+# ---------------------------------------------------------------------------
+# Damage — applied to specific folios as directed by manifest
+# ---------------------------------------------------------------------------
+
+[damage.water_damage]
+# Folios f04r–f05v: water ingress from binding top edge
+direction           = "top"       # "top", "bottom", "left", "right"
+penetration         = 0.38        # fraction of text block height affected
+tide_line_opacity   = 0.55        # visibility of drying tide mark
+tide_line_blur_px   = 6
+ink_dissolution     = 0.45        # ink opacity reduction in wet zone
+stain_color         = [200, 185, 155]  # darkened parchment tone
+
+[damage.missing_corner]
+# Folio f04v only: physical loss of lower-outer corner
+corner              = "lower_outer"
+tear_depth          = 0.22        # fraction of page width/height lost
+irregularity        = 0.6         # jaggedness of the torn edge (0 = straight)
+backing_color       = [255, 248, 235]  # backing board showing through
+
+# ---------------------------------------------------------------------------
+# Aging — overall manuscript aging effects applied to all folios
+# ---------------------------------------------------------------------------
+
+[aging.edge_darkening]
+enabled             = true
+width_fraction      = 0.12        # fraction of page width/height affected
+opacity             = 0.40
+color               = [160, 130, 90]   # oxidised leather/vellum tone
+
+[aging.foxing]
+# Brown fungal spots
+enabled             = true
+spot_density        = 0.0012      # spots per pixel
+spot_radius_range   = [2, 8]      # px, at 300 DPI
+spot_color          = [165, 115, 70]
+seed_offset         = 13
+
+[aging.binding_shadow]
+# Darkening along inner margin from centuries of compression
+enabled             = true
+width_fraction      = 0.08        # fraction of inner margin width
+opacity             = 0.30
+gradient_type       = "linear"
+
+# ---------------------------------------------------------------------------
+# Optics — camera/scan simulation
+# ---------------------------------------------------------------------------
+
+[optics.page_curl]
+enabled             = false      # off by default; enable for scan simulation
+curl_amount         = 0.04       # fraction of page height displaced
+corner              = "lower_outer"
+
+[optics.camera_vignette]
+enabled             = true
+strength            = 0.18       # darkening at page corners
+
+[optics.lighting_gradient]
+enabled             = true
+direction           = "top_left"  # slightly brighter top-left (single source)
+strength            = 0.10

@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-WX-CLI-001
-  title: "CLI — Initial Implementation"
+  title: CLI — Initial Implementation
   system: weather
   primary_component: cli
-  components: [cli]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 20
-  review_time_actual_minutes: ~
+  components:
+  - cli
+  started_at: 2026-03-19T18:20:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T18:32:12.585528Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: complete
 ---
 
 ## Objective
@@ -31,20 +36,6 @@ After this advance:
 - Running `weather preview --folio f04v --effect damage` renders an isolated preview of a single effect layer for rapid iteration
 - Running `weather catalog` lists all folios with their assigned vellum stock (standard vs irregular) and damage annotations from the XL manifest
 
-## Pipeline Context
-
-- **Position**: Phase 3 (Weather — Manuscript Aging & Weathering)
-- **Upstream**: ScribeSim page images, pressure heatmaps, PAGE XML; XL manifest.json; shared/profiles/ms-erfurt-560yr.toml
-- **Downstream**: Dispatches to compositor for effect application; no external consumers (CLI is the user-facing entry point)
-- **Contracts**: TD-001-E (Weathering profile TOML), TD-001-C (PAGE XML)
-
-## Component Impact
-
-```yaml
-components: [cli]
-system: weather
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/weather-cli-init`
@@ -58,6 +49,10 @@ system: weather
 - [ ] Implement: `weather catalog` folio listing with vellum stock and damage annotation summary
 - [ ] Validate: run `weather catalog` against XL manifest and confirm f04r-f05v show water_damage, f04v shows missing_corner, f14-f17 show irregular stock
 
+## Check for Understanding
+
+_To be generated after implementation._
+
 ## Risk + Rollback
 
 **Risks:**
@@ -69,16 +64,3 @@ system: weather
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

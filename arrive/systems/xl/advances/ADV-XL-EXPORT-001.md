@@ -1,22 +1,27 @@
 ---
 advance:
   id: ADV-XL-EXPORT-001
-  title: "Export — Initial Implementation"
+  title: Export — Initial Implementation
   system: xl
   primary_component: export
-  components: [export]
-  started_at: ~
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
+  components:
+  - export
+  started_at: 2026-03-19T10:00:00Z
+  started_by: null
+  implementation_completed_at: 2026-03-19T14:52:19.595946Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
+  archived_at: null
+  archived_by: null
   pr_links: []
   reviewability_score: 0
-  risk_flags: [new_dependency]
+  risk_flags:
+  - new_dependency
   evidence:
-    - tdd:red-green
-    - tidy:preparatory
-    - tests:unit
-  status: planned
+  - tdd:red-green
+  - tidy:preparatory
+  - tests:unit
+  status: in_progress
 ---
 
 ## Objective
@@ -31,20 +36,6 @@ After this advance:
 - 17 PAGE XML files are written conforming to TD-001-C (PAGE 2019 schema), each containing text-only TextRegion and TextLine elements with normalized grid coordinates (0.0-1.0 range) for downstream rendering
 - A JSONL consolidation file is optionally written for bulk processing, containing one JSON object per line per folio
 
-## Pipeline Context
-
-- **Position**: Phase 1 (XL — Reverse Translation & Folio Structuring)
-- **Upstream**: Consumes annotated `Folio` objects from folio + annotate
-- **Downstream**: Emits files consumed by ScribeSim (reads folio JSON for glyph rendering) and Weather (reads PAGE XML for degradation simulation)
-- **Contracts**: TD-001-A (Folio JSON), TD-001-B (Manifest JSON), TD-001-C (PAGE XML) — this component is the sole writer of all three contract artifacts
-
-## Component Impact
-
-```yaml
-components: [export]
-system: xl
-```
-
 ## Planned Implementation Tasks
 
 - [ ] Create feature branch: `feat/xl-export-init`
@@ -52,6 +43,10 @@ system: xl
 - [ ] Test: Write tests for each output format — verify a clean folio (1r) produces valid TD-001-A JSON with correct line count and high confidence; verify manifest.json lists all 17 folios in order; verify PAGE XML validates against 2019 XSD and contains correct TextLine count; verify damaged folio (4v) JSON includes damage annotations; verify JSONL contains exactly 17 lines
 - [ ] Implement: Build JSON serializer that maps `FolioPage` + `Annotation` objects to TD-001-A schema; build manifest generator that aggregates per-folio metadata; build PAGE XML writer using lxml with TextRegion per page and TextLine per line, computing normalized y-coordinates from line index and x-coordinates for a single-column layout; build optional JSONL writer; add `--format` flag support (json, xml, jsonl, all)
 - [ ] Validate: Run export on full annotated folio set, validate all JSON files against TD-001-A schema, validate manifest against TD-001-B, validate all PAGE XML against 2019 XSD, and verify ScribeSim can parse the output (if ScribeSim stub is available)
+
+## Check for Understanding
+
+_To be generated after implementation._
 
 ## Risk + Rollback
 
@@ -64,16 +59,3 @@ system: xl
 
 ## Evidence
 
-| Type | Status | Notes |
-|------|--------|-------|
-| tdd:red-green | pending | |
-| tidy:preparatory | pending | |
-| tests:unit | pending | |
-
-## Changes Made
-
-_No changes yet._
-
-## Check for Understanding
-
-_To be generated after implementation._

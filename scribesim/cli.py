@@ -60,9 +60,9 @@ def render(folio_id: str, input_dir: str, output_dir: str,
     click.echo(f"[scribesim render] folio={fid}")
     click.echo(f"  input : {folio_path}")
     click.echo(f"  lines : {folio_dict['metadata']['line_count']}")
-    click.echo(f"  hand  : pressure={params.get('pressure_base')} "
-               f"ink={params.get('ink_density')} "
-               f"speed={params.get('writing_speed')}")
+    click.echo(f"  hand  : pressure={params.pressure_base} "
+               f"ink={params.ink_density} "
+               f"speed={params.writing_speed}")
 
     if dry_run:
         click.echo("  [dry-run] render skipped")
@@ -114,8 +114,8 @@ def render_batch(input_dir: str, output_dir: str, dry_run: bool) -> None:
             continue
         params = resolve(base, fid)
         click.echo(f"  {fid}  lines={entry['line_count']}  "
-                   f"pressure={params.get('pressure_base'):.2f}  "
-                   f"ink={params.get('ink_density'):.2f}", nl=False)
+                   f"pressure={params.pressure_base:.2f}  "
+                   f"ink={params.ink_density:.2f}", nl=False)
         if dry_run:
             click.echo("  [dry-run]")
             ok += 1
@@ -150,11 +150,11 @@ def render_batch(input_dir: str, output_dir: str, dry_run: bool) -> None:
 def hand(show: bool, folio_id: str | None, hand_toml: str | None) -> None:
     """Inspect resolved hand parameters for a folio."""
     base = load_base(Path(hand_toml) if hand_toml else None)
-    params = resolve(base, folio_id) if folio_id else dict(base.get("hand", {}))
+    params = resolve(base, folio_id) if folio_id else base
 
     label = f"folio {folio_id}" if folio_id else "base (no folio modifier)"
     click.echo(f"# Resolved hand parameters — {label}")
-    for key, val in sorted(params.items()):
+    for key, val in sorted(params.to_dict().items()):
         click.echo(f"{key} = {val!r}")
 
 
@@ -170,12 +170,22 @@ def hand(show: bool, folio_id: str | None, hand_toml: str | None) -> None:
               type=click.Path(), help="Directory to write PAGE XML")
 def groundtruth(folio_id: str, input_dir: str, output_dir: str) -> None:
     """Emit PAGE XML ground truth for a rendered folio."""
-    from scribesim.groundtruth import generate
+    from scribesim.groundtruth.page_xml import generate
+    from scribesim.layout import place
     import re
     m = re.match(r"f?(\d+)([rv])", folio_id)
     fid = f"f{int(m.group(1)):02d}{m.group(2)}" if m else folio_id
 
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    xml_path = generate({}, out / f"{fid}.xml")
+
+    folio_path = Path(input_dir) / f"{fid}.json"
+    layout = None
+    if folio_path.exists():
+        folio_dict = json.loads(folio_path.read_text())
+        base = load_base()
+        params = resolve(base, fid)
+        layout = place(folio_dict, params)
+
+    xml_path = generate(layout, out / f"{fid}.xml", folio_id=fid)
     click.echo(f"[scribesim groundtruth] {fid} → {xml_path}")

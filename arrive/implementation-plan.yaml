@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-19T05:50:37.969344Z
+  updated_at: 2026-03-19T19:30:46.151600Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -22,7 +22,7 @@ passes:
     - id: ADV-XL-INGEST-001
       advance_id: ADV-XL-INGEST-001
       title: Manuscript Ingestion — English parsing, CLIO-7 extraction, segmentation
-      status: planned
+      status: done
       owner: shawn
       dependencies: []
       notes: No internal dependencies. Parallel with cli.
@@ -37,7 +37,7 @@ passes:
     - id: ADV-XL-TRANSLATE-001
       advance_id: ADV-XL-TRANSLATE-001
       title: Reverse Translation — Claude API with GPT-4 validation, verbatim insertions
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-INGEST-001
@@ -45,7 +45,7 @@ passes:
     - id: ADV-XL-REGISTER-001
       advance_id: ADV-XL-REGISTER-001
       title: Register Engine — parse hints, validate, resolve {mixed} to clause-level
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-INGEST-001
@@ -53,7 +53,7 @@ passes:
     - id: ADV-XL-FOLIO-001
       advance_id: ADV-XL-FOLIO-001
       title: Folio Structuring — distribute text across 17 folios per CLIO-7 constraints
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-TRANSLATE-001
@@ -70,7 +70,7 @@ passes:
     - id: ADV-XL-ANNOTATE-001
       advance_id: ADV-XL-ANNOTATE-001
       title: CLIO-7 Annotation — damage, lacuna, confidence, hand-note attachment
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-FOLIO-001
@@ -78,7 +78,7 @@ passes:
     - id: ADV-XL-EXPORT-001
       advance_id: ADV-XL-EXPORT-001
       title: Export — per-folio JSON, JSONL, PAGE XML (text-only), manifest JSON
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-FOLIO-001
@@ -87,7 +87,7 @@ passes:
     - id: ADV-XL-TESTS-001
       advance_id: ADV-XL-TESTS-001
       title: XL Tests — golden tests for 5 representative folios, round-trip validation
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-EXPORT-001
@@ -103,7 +103,7 @@ passes:
     - id: ADV-SS-CLI-001
       advance_id: ADV-SS-CLI-001
       title: ScribeSim CLI — render, render-batch, hand, groundtruth subcommands
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-TESTS-001
@@ -111,7 +111,7 @@ passes:
     - id: ADV-SS-HAND-001
       advance_id: ADV-SS-HAND-001
       title: Hand Model — base hand (konrad_erfurt_1457.toml) + CLIO-7 modifier stack
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-TESTS-001
@@ -119,7 +119,7 @@ passes:
     - id: ADV-SS-GLYPHS-001
       advance_id: ADV-SS-GLYPHS-001
       title: Glyph Catalog — ~90 German Bastarda glyphs as Bézier stroke sequences
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-XL-TESTS-001
@@ -135,7 +135,7 @@ passes:
     - id: ADV-SS-LAYOUT-001
       advance_id: ADV-SS-LAYOUT-001
       title: Layout — ruling, margins, Knuth-Plass line breaking, lacuna handling
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-GLYPHS-001
@@ -144,7 +144,7 @@ passes:
     - id: ADV-SS-RENDER-001
       advance_id: ADV-SS-RENDER-001
       title: Render — Rust Bézier rasterizer, virtual nib, pressure-to-width, ink flow, heatmap
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-LAYOUT-001
@@ -160,7 +160,7 @@ passes:
     - id: ADV-SS-GROUNDTRUTH-001
       advance_id: ADV-SS-GROUNDTRUTH-001
       title: Ground Truth — PAGE XML 2019 glyph-level polygons, baselines, register tags
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-RENDER-001
@@ -168,7 +168,7 @@ passes:
     - id: ADV-SS-TESTS-001
       advance_id: ADV-SS-TESTS-001
       title: ScribeSim Tests — golden images, IoU validation, hand variation, determinism
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-RENDER-001
@@ -185,7 +185,7 @@ passes:
     - id: ADV-WX-CLI-001
       advance_id: ADV-WX-CLI-001
       title: Weather CLI — apply, apply-batch, preview, groundtruth-update, catalog
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-TESTS-001
@@ -193,7 +193,7 @@ passes:
     - id: ADV-WX-SUBSTRATE-001
       advance_id: ADV-WX-SUBSTRATE-001
       title: Substrate — vellum texture (Perlin noise), color (two stocks), translucency
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-TESTS-001
@@ -201,7 +201,7 @@ passes:
     - id: ADV-WX-INK-001
       advance_id: ADV-WX-INK-001
       title: Ink Aging — fade (black→brown), bleed, flake (pressure-targeted)
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-TESTS-001
@@ -217,7 +217,7 @@ passes:
     - id: ADV-WX-DAMAGE-001
       advance_id: ADV-WX-DAMAGE-001
       title: Damage — water (f04r-f05v, from above) + missing corner (f04v)
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-SUBSTRATE-001
@@ -226,7 +226,7 @@ passes:
     - id: ADV-WX-AGING-001
       advance_id: ADV-WX-AGING-001
       title: Aging — edge darkening, foxing (light, dry archive), binding shadow
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-SUBSTRATE-001
@@ -235,7 +235,7 @@ passes:
     - id: ADV-WX-OPTICS-001
       advance_id: ADV-WX-OPTICS-001
       title: Optics — page curl, camera vignette, lighting gradient
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-SUBSTRATE-001
@@ -251,7 +251,7 @@ passes:
     - id: ADV-WX-COMPOSITOR-001
       advance_id: ADV-WX-COMPOSITOR-001
       title: Compositor — manifest-driven per-folio dispatch, effect stacking, transforms
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-DAMAGE-001
@@ -261,7 +261,7 @@ passes:
     - id: ADV-WX-GROUNDTRUTH-001
       advance_id: ADV-WX-GROUNDTRUTH-001
       title: Ground Truth — PAGE XML coordinate update, damage annotation, legibility scores
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-COMPOSITOR-001
@@ -269,7 +269,7 @@ passes:
     - id: ADV-WX-TESTS-001
       advance_id: ADV-WX-TESTS-001
       title: Weather Tests — effect isolation, compositing order, dispatch, determinism
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-COMPOSITOR-001
