@@ -26,11 +26,13 @@ _FIN_MB    = 60.0
 _FIN_MI    = 22.0
 _FIN_MO    = 44.0
 
-# Ruling pitch: the physical x-height of the ink on parchment.
-# Archival scans of MS Erfurt are at ~100 dpi → 1 px ≈ 0.250 mm.
-# Pitch = x_height_px × _PX_TO_MM, clamped to _MIN_PITCH.
-_PX_TO_MM  = 0.250
-_MIN_PITCH = 9.0
+# Physical x-height: maps x_height_px to millimetres on the page.
+# German Bastarda x-height is ~3-4mm. With x_height_px=38, _PX_TO_MM=0.100
+# gives x_height_mm=3.8mm, matching historical manuscripts.
+# Previous value (0.250) produced 9.5mm x-height — far too large, causing
+# ascender/descender overlap between adjacent lines.
+_PX_TO_MM  = 0.100
+_MIN_PITCH = 7.0   # minimum baseline-to-baseline distance (mm)
 
 
 def _folio_number(folio_id: str) -> int:
@@ -59,6 +61,7 @@ class PageGeometry:
     margin_inner: float
     margin_outer: float
     ruling_pitch_mm: float   # vertical distance between adjacent ruling lines
+    x_height_mm: float       # physical x-height for glyph scaling
     folio_format: str        # "standard" or "final"
 
     # -----------------------------------------------------------------------
@@ -97,13 +100,19 @@ def make_geometry(folio_id: str, hand: HandParams) -> PageGeometry:
         mt, mb, mi, mo = _STD_MT, _STD_MB, _STD_MI, _STD_MO
         fmt = "standard"
 
-    # Ruling pitch: x_height in physical mm, clamped to minimum.
-    pitch = max(_MIN_PITCH, round(hand.x_height_px * _PX_TO_MM, 2))
+    # Ruling pitch: baseline-to-baseline distance.
+    # x_height_mm × line_height_norm gives the physical baseline-to-baseline
+    # spacing. With x_height=3.8mm and line_height_norm=2.5, pitch ≈ 9.5mm
+    # which fits ~32 lines on a standard page and avoids ascender/descender
+    # overlap (total glyph extent is ~2.3× x_height).
+    x_height_mm = hand.x_height_px * _PX_TO_MM
+    pitch = max(_MIN_PITCH, round(x_height_mm * hand.line_height_norm, 2))
 
     return PageGeometry(
         page_w_mm=pw, page_h_mm=ph,
         margin_top=mt, margin_bottom=mb,
         margin_inner=mi, margin_outer=mo,
         ruling_pitch_mm=pitch,
+        x_height_mm=x_height_mm,
         folio_format=fmt,
     )

@@ -48,179 +48,179 @@ _catalog: dict[str, Glyph] = {}
 
 # a — two-story form with lobe and vertical right stroke
 _catalog["a"] = _g("a", 0x61, [
-    _s((0.3, 0.7), (0.1, 0.9), (0.0, 0.5), (0.1, 0.0), name="lobe_left",  pressure=_DOWN),
-    _s((0.1, 0.0), (0.3, 0.0), (0.4, 0.3), (0.4, 0.7), name="lobe_right", pressure=_UP),
-    _s((0.4, 0.7), (0.4, 1.0), (0.4, 0.5), (0.4, 0.0), name="right_stem", pressure=_BODY),
+    _s((0.3, 0.7), (0.08, 0.92), (-0.02, 0.48), (0.1, 0.0), name="lobe_left",  pressure=_DOWN),
+    _s((0.1, 0.0), (0.28, -0.03), (0.42, 0.25), (0.42, 0.7), name="lobe_right", pressure=_UP),
+    _s((0.42, 0.7), (0.43, 1.02), (0.41, 0.48), (0.38, 0.0), name="right_stem", pressure=_BODY),
 ], w=0.55)
 
 # b — ascender + lobe
 _catalog["b"] = _g("b", 0x62, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.6), (0.1, 1.8), name="ascender",   pressure=_DOWN),
-    _s((0.1, 0.7), (0.3, 0.9), (0.5, 0.7), (0.5, 0.4), name="lobe_top",   pressure=_BODY),
-    _s((0.5, 0.4), (0.5, 0.1), (0.3, 0.0), (0.1, 0.0), name="lobe_bot",   pressure=_EXIT),
+    _s((0.1, 0.0), (0.13, 0.7), (0.08, 1.4), (0.05, 1.8), name="ascender",   pressure=_DOWN),
+    _s((0.1, 0.7), (0.28, 0.95), (0.5, 0.75), (0.5, 0.4), name="lobe_top",   pressure=_BODY),
+    _s((0.5, 0.4), (0.48, 0.08), (0.28, -0.03), (0.1, 0.02), name="lobe_bot",   pressure=_EXIT),
 ], w=0.55)
 
 # c — open lobe, single curved stroke
 _catalog["c"] = _g("c", 0x63, [
-    _s((0.45, 0.7), (0.15, 0.9), (0.0, 0.6), (0.0, 0.35), name="top",    pressure=_ENTRY),
-    _s((0.0, 0.35), (0.0, 0.1), (0.15, 0.0), (0.45, 0.0), name="bottom", pressure=_EXIT),
+    _s((0.45, 0.72), (0.12, 0.95), (-0.03, 0.62), (0.0, 0.35), name="top",    pressure=_ENTRY),
+    _s((0.0, 0.35), (-0.02, 0.08), (0.18, -0.03), (0.45, 0.02), name="bottom", pressure=_EXIT),
 ], w=0.48)
 
 # d — lobe + ascender
 _catalog["d"] = _g("d", 0x64, [
-    _s((0.4, 0.7), (0.2, 0.9), (0.0, 0.7), (0.0, 0.35), name="lobe_top",  pressure=_ENTRY),
-    _s((0.0, 0.35), (0.0, 0.1), (0.2, 0.0), (0.4, 0.1), name="lobe_bot",  pressure=_EXIT),
-    _s((0.4, 0.1), (0.4, 0.8), (0.4, 1.4), (0.4, 1.8),  name="ascender",  pressure=_DOWN),
+    _s((0.4, 0.72), (0.18, 0.95), (-0.02, 0.72), (0.0, 0.35), name="lobe_top",  pressure=_ENTRY),
+    _s((0.0, 0.35), (-0.02, 0.08), (0.22, -0.02), (0.4, 0.1), name="lobe_bot",  pressure=_EXIT),
+    _s((0.4, 0.1), (0.42, 0.75), (0.38, 1.35), (0.36, 1.8),  name="ascender",  pressure=_DOWN),
 ], w=0.55)
 
 # e — two-stroke with mid-bar
 _catalog["e"] = _g("e", 0x65, [
-    _s((0.1, 0.5), (0.0, 0.6), (0.0, 0.9), (0.4, 0.9), name="top_arc",  pressure=_BODY),
-    _s((0.4, 0.9), (0.5, 0.5), (0.4, 0.0), (0.1, 0.0), name="body",     pressure=_DOWN),
-    _s((0.05, 0.5), (0.2, 0.5), (0.3, 0.5), (0.45, 0.5), name="mid_bar", pressure=_FINE),
+    _s((0.1, 0.5), (-0.02, 0.65), (-0.02, 0.92), (0.4, 0.92), name="top_arc",  pressure=_BODY),
+    _s((0.4, 0.92), (0.52, 0.48), (0.38, -0.02), (0.08, 0.0), name="body",     pressure=_DOWN),
+    _s((0.05, 0.5), (0.18, 0.48), (0.32, 0.48), (0.45, 0.5), name="mid_bar", pressure=_FINE),
 ], w=0.50)
 
-# f — ascender with crossbar, no descender (Bastarda f sits on baseline)
+# f — ascender with crossbar (Bastarda f sits on baseline)
 _catalog["f"] = _g("f", 0x66, [
-    _s((0.25, 0.0), (0.25, 0.5), (0.25, 1.2), (0.25, 1.8), name="stem",     pressure=_DOWN),
-    _s((0.05, 0.5), (0.15, 0.5), (0.35, 0.5), (0.45, 0.5), name="crossbar", pressure=_FINE),
-    _s((0.05, 1.6), (0.15, 1.7), (0.25, 1.8), (0.35, 1.75), name="head",    pressure=_ENTRY),
+    _s((0.25, 0.0), (0.27, 0.45), (0.23, 1.15), (0.2, 1.8), name="stem",     pressure=_DOWN),
+    _s((0.05, 0.52), (0.14, 0.48), (0.36, 0.48), (0.45, 0.52), name="crossbar", pressure=_FINE),
+    _s((0.05, 1.62), (0.12, 1.74), (0.22, 1.82), (0.35, 1.75), name="head",    pressure=_ENTRY),
 ], w=0.42)
 
 # g — lobe + descender loop
 _catalog["g"] = _g("g", 0x67, [
-    _s((0.4, 0.7), (0.2, 0.9), (0.0, 0.7), (0.0, 0.35), name="lobe_top",    pressure=_ENTRY),
-    _s((0.0, 0.35), (0.0, 0.1), (0.2, 0.0), (0.4, 0.0), name="lobe_bot",    pressure=_EXIT),
-    _s((0.4, 0.0), (0.4, -0.4), (0.2, -0.6), (0.0, -0.5), name="desc_loop", pressure=_DOWN),
-    _s((0.0, -0.5), (-0.1, -0.3), (0.0, -0.1), (0.2, 0.0), name="desc_close", pressure=_UP),
+    _s((0.4, 0.72), (0.18, 0.95), (-0.02, 0.72), (0.0, 0.35), name="lobe_top",    pressure=_ENTRY),
+    _s((0.0, 0.35), (-0.02, 0.08), (0.22, -0.02), (0.4, 0.02), name="lobe_bot",    pressure=_EXIT),
+    _s((0.4, 0.02), (0.42, -0.35), (0.18, -0.62), (-0.02, -0.48), name="desc_loop", pressure=_DOWN),
+    _s((-0.02, -0.48), (-0.12, -0.28), (0.02, -0.08), (0.22, 0.02), name="desc_close", pressure=_UP),
 ], w=0.52)
 
 # h — stem + arch
 _catalog["h"] = _g("h", 0x68, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8), name="stem",         pressure=_DOWN),
-    _s((0.1, 0.8), (0.2, 1.0), (0.4, 1.0), (0.5, 0.8), name="arch_top",     pressure=_BODY),
-    _s((0.5, 0.8), (0.5, 0.4), (0.5, 0.1), (0.5, 0.0), name="right_stroke", pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.7), (0.08, 1.35), (0.06, 1.8), name="stem",         pressure=_DOWN),
+    _s((0.1, 0.82), (0.22, 1.02), (0.42, 1.02), (0.5, 0.82), name="arch_top",     pressure=_BODY),
+    _s((0.5, 0.82), (0.52, 0.38), (0.48, 0.08), (0.47, 0.0), name="right_stroke", pressure=_DOWN),
 ], w=0.60)
 
 # i — dot + minim
 _catalog["i"] = _g("i", 0x69, [
-    _s((0.15, 0.0), (0.15, 0.3), (0.15, 0.7), (0.15, 1.0), name="minim",   pressure=_DOWN),
-    _s((0.1, 1.2), (0.15, 1.25), (0.2, 1.25), (0.25, 1.2), name="dot",     pressure=_FINE),
+    _s((0.15, 0.0), (0.17, 0.28), (0.14, 0.72), (0.13, 1.0), name="minim",   pressure=_DOWN),
+    _s((0.1, 1.22), (0.14, 1.26), (0.2, 1.26), (0.25, 1.22), name="dot",     pressure=_FINE),
 ], w=0.32)
 
 # j — dot + minim with descender
 _catalog["j"] = _g("j", 0x6A, [
-    _s((0.2, 1.0), (0.2, 0.3), (0.2, -0.3), (0.1, -0.5), name="minim_desc", pressure=_DOWN),
-    _s((0.1, -0.5), (0.0, -0.6), (0.0, -0.5), (0.1, -0.4), name="hook",     pressure=_EXIT),
-    _s((0.1, 1.2), (0.2, 1.25), (0.25, 1.25), (0.3, 1.2), name="dot",       pressure=_FINE),
+    _s((0.2, 1.0), (0.22, 0.28), (0.18, -0.28), (0.08, -0.5), name="minim_desc", pressure=_DOWN),
+    _s((0.08, -0.5), (-0.02, -0.62), (-0.02, -0.48), (0.1, -0.38), name="hook",     pressure=_EXIT),
+    _s((0.1, 1.22), (0.18, 1.26), (0.25, 1.26), (0.3, 1.22), name="dot",       pressure=_FINE),
 ], w=0.32)
 
 # k — stem + kick strokes
 _catalog["k"] = _g("k", 0x6B, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8), name="stem",     pressure=_DOWN),
-    _s((0.1, 0.7), (0.2, 0.8), (0.4, 0.9), (0.5, 1.0), name="upper_arm", pressure=_UP),
-    _s((0.1, 0.6), (0.2, 0.5), (0.3, 0.3), (0.5, 0.0), name="lower_leg", pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.7), (0.08, 1.35), (0.06, 1.8), name="stem",     pressure=_DOWN),
+    _s((0.1, 0.72), (0.22, 0.85), (0.38, 0.95), (0.5, 1.0), name="upper_arm", pressure=_UP),
+    _s((0.1, 0.58), (0.22, 0.48), (0.32, 0.28), (0.5, 0.0), name="lower_leg", pressure=_DOWN),
 ], w=0.53)
 
 # l — single ascender stroke
 _catalog["l"] = _g("l", 0x6C, [
-    _s((0.15, 0.0), (0.15, 0.8), (0.15, 1.4), (0.15, 1.8), name="stem", pressure=_DOWN),
+    _s((0.15, 0.0), (0.18, 0.7), (0.13, 1.35), (0.1, 1.8), name="stem", pressure=_DOWN),
 ], w=0.30)
 
 # m — three minims
 _catalog["m"] = _g("m", 0x6D, [
-    _s((0.1, 0.0), (0.1, 0.5), (0.1, 0.8), (0.1, 1.0), name="stem1",     pressure=_DOWN),
-    _s((0.1, 0.9), (0.2, 1.0), (0.35, 1.0), (0.4, 0.9), name="arch1",    pressure=_BODY),
-    _s((0.4, 0.9), (0.4, 0.4), (0.4, 0.1), (0.4, 0.0), name="stem2",     pressure=_DOWN),
-    _s((0.4, 0.9), (0.5, 1.0), (0.65, 1.0), (0.7, 0.9), name="arch2",    pressure=_BODY),
-    _s((0.7, 0.9), (0.7, 0.4), (0.7, 0.1), (0.7, 0.0), name="stem3",     pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.45), (0.11, 0.78), (0.1, 1.0), name="stem1",     pressure=_DOWN),
+    _s((0.1, 0.92), (0.22, 1.04), (0.36, 1.02), (0.4, 0.9), name="arch1",    pressure=_BODY),
+    _s((0.4, 0.9), (0.42, 0.38), (0.39, 0.08), (0.38, 0.0), name="stem2",     pressure=_DOWN),
+    _s((0.4, 0.92), (0.52, 1.04), (0.66, 1.02), (0.7, 0.9), name="arch2",    pressure=_BODY),
+    _s((0.7, 0.9), (0.72, 0.38), (0.69, 0.08), (0.68, 0.0), name="stem3",     pressure=_DOWN),
 ], w=0.80)
 
 # n — two minims
 _catalog["n"] = _g("n", 0x6E, [
-    _s((0.1, 0.0), (0.1, 0.5), (0.1, 0.8), (0.1, 1.0), name="stem1",   pressure=_DOWN),
-    _s((0.1, 0.9), (0.2, 1.0), (0.35, 1.0), (0.4, 0.9), name="arch",   pressure=_BODY),
-    _s((0.4, 0.9), (0.4, 0.4), (0.4, 0.1), (0.4, 0.0), name="stem2",   pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.45), (0.11, 0.78), (0.1, 1.0), name="stem1",   pressure=_DOWN),
+    _s((0.1, 0.92), (0.22, 1.04), (0.36, 1.02), (0.4, 0.9), name="arch",   pressure=_BODY),
+    _s((0.4, 0.9), (0.42, 0.38), (0.39, 0.08), (0.38, 0.0), name="stem2",   pressure=_DOWN),
 ], w=0.55)
 
 # o — two-part oval
 _catalog["o"] = _g("o", 0x6F, [
-    _s((0.25, 1.0), (0.0, 1.0), (0.0, 0.0), (0.25, 0.0), name="left_arc",  pressure=_DOWN),
-    _s((0.25, 0.0), (0.5, 0.0), (0.5, 1.0), (0.25, 1.0), name="right_arc", pressure=_UP),
+    _s((0.25, 1.0), (-0.02, 0.95), (-0.02, 0.05), (0.25, 0.0), name="left_arc",  pressure=_DOWN),
+    _s((0.25, 0.0), (0.52, 0.05), (0.52, 0.95), (0.25, 1.0), name="right_arc", pressure=_UP),
 ], w=0.53)
 
 # p — stem with descender + lobe
 _catalog["p"] = _g("p", 0x70, [
-    _s((0.1, 1.0), (0.1, 0.3), (0.1, -0.4), (0.1, -0.6), name="stem_desc",  pressure=_DOWN),
-    _s((0.1, 0.8), (0.3, 1.0), (0.5, 0.8), (0.5, 0.5),   name="lobe_top",   pressure=_BODY),
-    _s((0.5, 0.5), (0.5, 0.2), (0.3, 0.0), (0.1, 0.1),   name="lobe_bot",   pressure=_EXIT),
+    _s((0.1, 1.0), (0.13, 0.28), (0.08, -0.35), (0.06, -0.6), name="stem_desc",  pressure=_DOWN),
+    _s((0.1, 0.82), (0.3, 1.02), (0.5, 0.82), (0.5, 0.5),   name="lobe_top",   pressure=_BODY),
+    _s((0.5, 0.5), (0.48, 0.18), (0.28, -0.02), (0.1, 0.08),   name="lobe_bot",   pressure=_EXIT),
 ], w=0.58)
 
 # q — lobe + descender on right
 _catalog["q"] = _g("q", 0x71, [
-    _s((0.4, 0.7), (0.2, 0.9), (0.0, 0.7), (0.0, 0.35), name="lobe_top",   pressure=_ENTRY),
-    _s((0.0, 0.35), (0.0, 0.1), (0.2, 0.0), (0.4, 0.1), name="lobe_bot",   pressure=_EXIT),
-    _s((0.4, 0.9), (0.4, 0.3), (0.4, -0.4), (0.4, -0.6), name="stem_desc", pressure=_DOWN),
+    _s((0.4, 0.72), (0.18, 0.95), (-0.02, 0.72), (0.0, 0.35), name="lobe_top",   pressure=_ENTRY),
+    _s((0.0, 0.35), (-0.02, 0.08), (0.22, -0.02), (0.4, 0.1), name="lobe_bot",   pressure=_EXIT),
+    _s((0.4, 0.92), (0.42, 0.28), (0.38, -0.35), (0.36, -0.6), name="stem_desc", pressure=_DOWN),
 ], w=0.55)
 
 # r — stem + shoulder
 _catalog["r"] = _g("r", 0x72, [
-    _s((0.1, 0.0), (0.1, 0.5), (0.1, 0.8), (0.1, 1.0), name="stem",     pressure=_DOWN),
-    _s((0.1, 0.9), (0.2, 1.0), (0.3, 1.0), (0.4, 0.8), name="shoulder", pressure=_BODY),
+    _s((0.1, 0.0), (0.13, 0.45), (0.11, 0.78), (0.1, 1.0), name="stem",     pressure=_DOWN),
+    _s((0.1, 0.92), (0.22, 1.04), (0.32, 1.02), (0.4, 0.82), name="shoulder", pressure=_BODY),
 ], w=0.43)
 
-# round_s — terminal/final s (round form, used in Latin and German word-final)
+# round_s — terminal/final s (round form)
 _catalog["round_s"] = _g("round_s", 0x73, [
-    _s((0.35, 0.85), (0.1, 0.95), (0.0, 0.7), (0.0, 0.5), name="upper_arc", pressure=_ENTRY),
-    _s((0.0, 0.5), (0.0, 0.2), (0.2, 0.0), (0.4, 0.1),   name="lower_arc", pressure=_DOWN),
-    _s((0.4, 0.1), (0.5, 0.2), (0.5, 0.6), (0.4, 0.8),   name="right_arc", pressure=_EXIT),
+    _s((0.35, 0.88), (0.08, 0.98), (-0.03, 0.72), (0.0, 0.5), name="upper_arc", pressure=_ENTRY),
+    _s((0.0, 0.5), (-0.02, 0.18), (0.22, -0.02), (0.42, 0.12),   name="lower_arc", pressure=_DOWN),
+    _s((0.42, 0.12), (0.52, 0.22), (0.5, 0.62), (0.38, 0.82),   name="right_arc", pressure=_EXIT),
 ], w=0.48)
 
 # t — stem with crossbar
 _catalog["t"] = _g("t", 0x74, [
-    _s((0.2, -0.1), (0.2, 0.5), (0.2, 1.1), (0.2, 1.5), name="stem",     pressure=_DOWN),
-    _s((0.0, 0.7), (0.1, 0.7), (0.3, 0.7), (0.4, 0.7),  name="crossbar", pressure=_FINE),
+    _s((0.2, -0.1), (0.22, 0.45), (0.19, 1.05), (0.17, 1.5), name="stem",     pressure=_DOWN),
+    _s((0.0, 0.72), (0.1, 0.68), (0.3, 0.68), (0.4, 0.72),  name="crossbar", pressure=_FINE),
 ], w=0.42)
 
-# u — two downstrokes with connecting arch at top
+# u — two downstrokes with connecting arch at bottom
 _catalog["u"] = _g("u", 0x75, [
-    _s((0.1, 1.0), (0.1, 0.5), (0.1, 0.2), (0.1, 0.0), name="left_stem",  pressure=_DOWN),
-    _s((0.1, 0.0), (0.2, 0.0), (0.35, 0.0), (0.4, 0.0), name="base_arch", pressure=_BODY),
-    _s((0.4, 0.0), (0.4, 0.2), (0.4, 0.5), (0.4, 1.0), name="right_stem", pressure=_UP),
+    _s((0.1, 1.0), (0.12, 0.48), (0.09, 0.18), (0.08, 0.0), name="left_stem",  pressure=_DOWN),
+    _s((0.08, 0.0), (0.18, -0.04), (0.35, -0.04), (0.42, 0.02), name="base_arch", pressure=_BODY),
+    _s((0.42, 0.02), (0.41, 0.22), (0.43, 0.52), (0.42, 1.0), name="right_stem", pressure=_UP),
 ], w=0.55)
 
 # v — two diagonal strokes
 _catalog["v"] = _g("v", 0x76, [
-    _s((0.0, 1.0), (0.1, 0.6), (0.15, 0.3), (0.2, 0.0), name="left_diagonal",  pressure=_DOWN),
-    _s((0.2, 0.0), (0.3, 0.3), (0.35, 0.6), (0.45, 1.0), name="right_diagonal", pressure=_UP),
+    _s((0.0, 1.0), (0.08, 0.58), (0.14, 0.28), (0.2, 0.0), name="left_diagonal",  pressure=_DOWN),
+    _s((0.2, 0.0), (0.28, 0.32), (0.36, 0.62), (0.45, 1.0), name="right_diagonal", pressure=_UP),
 ], w=0.48)
 
 # w — three-stroke German Bastarda w
 _catalog["w"] = _g("w", 0x77, [
-    _s((0.0, 1.0), (0.1, 0.5), (0.1, 0.2), (0.15, 0.0), name="left_v",    pressure=_DOWN),
-    _s((0.15, 0.0), (0.25, 0.5), (0.3, 0.8), (0.35, 1.0), name="mid_v",   pressure=_UP),
-    _s((0.35, 1.0), (0.4, 0.5), (0.4, 0.2), (0.45, 0.0), name="right_v1", pressure=_DOWN),
-    _s((0.45, 0.0), (0.55, 0.4), (0.6, 0.7), (0.65, 1.0), name="right_v2", pressure=_UP),
+    _s((0.0, 1.0), (0.08, 0.48), (0.1, 0.18), (0.15, 0.0), name="left_v",    pressure=_DOWN),
+    _s((0.15, 0.0), (0.22, 0.48), (0.28, 0.82), (0.35, 1.0), name="mid_v",   pressure=_UP),
+    _s((0.35, 1.0), (0.38, 0.48), (0.4, 0.18), (0.45, 0.0), name="right_v1", pressure=_DOWN),
+    _s((0.45, 0.0), (0.52, 0.38), (0.58, 0.72), (0.65, 1.0), name="right_v2", pressure=_UP),
 ], w=0.70)
 
 # x — two crossing diagonals
 _catalog["x"] = _g("x", 0x78, [
-    _s((0.0, 1.0), (0.15, 0.65), (0.3, 0.35), (0.45, 0.0), name="diag_left",  pressure=_DOWN),
-    _s((0.45, 1.0), (0.3, 0.65), (0.15, 0.35), (0.0, 0.0), name="diag_right", pressure=_DOWN),
+    _s((0.0, 1.0), (0.12, 0.68), (0.28, 0.32), (0.45, 0.0), name="diag_left",  pressure=_DOWN),
+    _s((0.45, 1.0), (0.32, 0.68), (0.15, 0.32), (0.0, 0.0), name="diag_right", pressure=_DOWN),
 ], w=0.48)
 
 # y — two strokes, right with descender
 _catalog["y"] = _g("y", 0x79, [
-    _s((0.0, 1.0), (0.1, 0.6), (0.15, 0.3), (0.2, 0.0), name="left_arm",    pressure=_DOWN),
-    _s((0.45, 1.0), (0.3, 0.5), (0.2, 0.0), (0.15, -0.5), name="right_desc", pressure=_DOWN),
-    _s((0.15, -0.5), (0.05, -0.6), (0.0, -0.5), (0.05, -0.4), name="hook",   pressure=_EXIT),
+    _s((0.0, 1.0), (0.08, 0.58), (0.14, 0.28), (0.2, 0.0), name="left_arm",    pressure=_DOWN),
+    _s((0.45, 1.0), (0.32, 0.48), (0.2, -0.02), (0.12, -0.5), name="right_desc", pressure=_DOWN),
+    _s((0.12, -0.5), (0.02, -0.62), (-0.02, -0.48), (0.05, -0.38), name="hook",   pressure=_EXIT),
 ], w=0.50)
 
 # z — three strokes
 _catalog["z"] = _g("z", 0x7A, [
-    _s((0.0, 1.0), (0.15, 1.0), (0.3, 1.0), (0.45, 1.0), name="top_bar",    pressure=_FINE),
-    _s((0.45, 1.0), (0.3, 0.65), (0.15, 0.35), (0.0, 0.0), name="diagonal", pressure=_DOWN),
-    _s((0.0, 0.0), (0.15, 0.0), (0.3, 0.0), (0.45, 0.0),   name="bot_bar",  pressure=_FINE),
+    _s((0.0, 1.0), (0.12, 1.02), (0.32, 0.98), (0.45, 1.0), name="top_bar",    pressure=_FINE),
+    _s((0.45, 1.0), (0.32, 0.68), (0.15, 0.32), (0.0, 0.0), name="diagonal", pressure=_DOWN),
+    _s((0.0, 0.0), (0.12, -0.02), (0.32, 0.02), (0.45, 0.0),   name="bot_bar",  pressure=_FINE),
 ], w=0.47)
 
 # ---------------------------------------------------------------------------
@@ -229,9 +229,9 @@ _catalog["z"] = _g("z", 0x7A, [
 
 # long_s — U+017F — tall ascending s without loop, used medially in German
 _catalog["long_s"] = _g("long_s", 0x17F, [
-    _s((0.2, 1.8), (0.15, 1.4), (0.1, 1.0), (0.1, 0.5), name="ascender",    pressure=_DOWN),
-    _s((0.1, 0.5), (0.1, 0.2), (0.1, 0.0), (0.1, -0.05), name="descender",  pressure=_DOWN),
-    _s((0.1, 1.6), (0.2, 1.7), (0.35, 1.7), (0.4, 1.6),  name="head_serif", pressure=_ENTRY),
+    _s((0.18, 1.8), (0.14, 1.38), (0.11, 0.95), (0.12, 0.5), name="ascender",    pressure=_DOWN),
+    _s((0.12, 0.5), (0.13, 0.18), (0.11, 0.02), (0.1, -0.05), name="descender",  pressure=_DOWN),
+    _s((0.08, 1.62), (0.18, 1.74), (0.33, 1.72), (0.4, 1.6),  name="head_serif", pressure=_ENTRY),
 ], w=0.35)
 
 # a_umlaut — Bastarda ä = base 'a' + two superscript-e dots above
@@ -285,7 +285,7 @@ _catalog["A"] = _g("A", 0x41, [
 ], w=0.65)
 
 _catalog["B"] = _g("B", 0x42, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),  name="stem",        pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),  name="stem",        pressure=_DOWN),
     _s((0.1, 1.8), (0.45, 1.8), (0.55, 1.5), (0.45, 1.1), name="upper_lobe_top", pressure=_BODY),
     _s((0.45, 1.1), (0.35, 0.9), (0.1, 0.9), (0.1, 0.9),  name="upper_lobe_bot", pressure=_EXIT),
     _s((0.1, 0.9), (0.5, 0.9), (0.6, 0.6), (0.5, 0.2),   name="lower_lobe_top", pressure=_BODY),
@@ -299,32 +299,32 @@ for _ch, _cp in [("C", 0x43), ("G", 0x47), ("O", 0x4F), ("Q", 0x51)]:
     ], w=0.60)
 
 _catalog["D"] = _g("D", 0x44, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),   name="stem",     pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),   name="stem",     pressure=_DOWN),
     _s((0.1, 1.8), (0.5, 1.8), (0.65, 1.2), (0.65, 0.9), name="arc_top",  pressure=_BODY),
     _s((0.65, 0.9), (0.65, 0.4), (0.5, 0.0), (0.1, 0.0), name="arc_bot",  pressure=_EXIT),
 ], w=0.68)
 
 _catalog["E"] = _g("E", 0x45, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),    name="stem",      pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),    name="stem",      pressure=_DOWN),
     _s((0.1, 1.8), (0.3, 1.8), (0.5, 1.8), (0.6, 1.8),    name="top_bar",   pressure=_FINE),
     _s((0.1, 0.9), (0.25, 0.9), (0.4, 0.9), (0.5, 0.9),   name="mid_bar",   pressure=_FINE),
     _s((0.1, 0.0), (0.3, 0.0), (0.5, 0.0), (0.6, 0.0),    name="bot_bar",   pressure=_FINE),
 ], w=0.60)
 
 _catalog["F"] = _g("F", 0x46, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),    name="stem",    pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),    name="stem",    pressure=_DOWN),
     _s((0.1, 1.8), (0.3, 1.8), (0.5, 1.8), (0.6, 1.8),    name="top_bar", pressure=_FINE),
     _s((0.1, 0.9), (0.25, 0.9), (0.4, 0.9), (0.5, 0.9),   name="mid_bar", pressure=_FINE),
 ], w=0.55)
 
 _catalog["H"] = _g("H", 0x48, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),   name="left_stem",  pressure=_DOWN),
-    _s((0.6, 0.0), (0.6, 0.8), (0.6, 1.4), (0.6, 1.8),   name="right_stem", pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),   name="left_stem",  pressure=_DOWN),
+    _s((0.6, 0.0), (0.63, 0.75), (0.58, 1.35), (0.56, 1.8),   name="right_stem", pressure=_DOWN),
     _s((0.1, 0.9), (0.25, 0.9), (0.45, 0.9), (0.6, 0.9), name="crossbar",   pressure=_FINE),
 ], w=0.72)
 
 _catalog["I"] = _g("I", 0x49, [
-    _s((0.2, 0.0), (0.2, 0.8), (0.2, 1.4), (0.2, 1.8), name="stem",     pressure=_DOWN),
+    _s((0.2, 0.0), (0.23, 0.75), (0.18, 1.35), (0.16, 1.8), name="stem",     pressure=_DOWN),
     _s((0.0, 1.8), (0.1, 1.8), (0.3, 1.8), (0.4, 1.8), name="top_ser",  pressure=_FINE),
     _s((0.0, 0.0), (0.1, 0.0), (0.3, 0.0), (0.4, 0.0), name="bot_ser",  pressure=_FINE),
 ], w=0.40)
@@ -336,37 +336,37 @@ _catalog["J"] = _g("J", 0x4A, [
 ], w=0.50)
 
 _catalog["K"] = _g("K", 0x4B, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),  name="stem",      pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),  name="stem",      pressure=_DOWN),
     _s((0.1, 1.0), (0.25, 1.2), (0.45, 1.5), (0.6, 1.8), name="upper_arm", pressure=_UP),
     _s((0.1, 0.9), (0.25, 0.6), (0.4, 0.3), (0.6, 0.0),  name="lower_leg", pressure=_DOWN),
 ], w=0.62)
 
 _catalog["L"] = _g("L", 0x4C, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),  name="stem",    pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),  name="stem",    pressure=_DOWN),
     _s((0.1, 0.0), (0.25, 0.0), (0.45, 0.0), (0.6, 0.0), name="foot",   pressure=_FINE),
 ], w=0.55)
 
 _catalog["M"] = _g("M", 0x4D, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),   name="left_stem",  pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),   name="left_stem",  pressure=_DOWN),
     _s((0.1, 1.8), (0.2, 1.4), (0.35, 0.9), (0.4, 0.0),  name="left_diag",  pressure=_DOWN),
     _s((0.4, 0.0), (0.5, 0.9), (0.6, 1.4), (0.7, 1.8),   name="right_diag", pressure=_UP),
     _s((0.7, 1.8), (0.7, 1.2), (0.7, 0.5), (0.7, 0.0),   name="right_stem", pressure=_DOWN),
 ], w=0.80)
 
 _catalog["N"] = _g("N", 0x4E, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),   name="left_stem",  pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),   name="left_stem",  pressure=_DOWN),
     _s((0.1, 1.8), (0.25, 1.2), (0.45, 0.6), (0.6, 0.0), name="diagonal",   pressure=_DOWN),
     _s((0.6, 0.0), (0.6, 0.6), (0.6, 1.2), (0.6, 1.8),   name="right_stem", pressure=_DOWN),
 ], w=0.72)
 
 _catalog["P"] = _g("P", 0x50, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),   name="stem",        pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),   name="stem",        pressure=_DOWN),
     _s((0.1, 1.8), (0.5, 1.8), (0.6, 1.5), (0.6, 1.2),   name="lobe_top",    pressure=_BODY),
     _s((0.6, 1.2), (0.6, 0.9), (0.5, 0.7), (0.1, 0.7),   name="lobe_bot",    pressure=_EXIT),
 ], w=0.62)
 
 _catalog["R"] = _g("R", 0x52, [
-    _s((0.1, 0.0), (0.1, 0.8), (0.1, 1.4), (0.1, 1.8),   name="stem",      pressure=_DOWN),
+    _s((0.1, 0.0), (0.13, 0.75), (0.08, 1.35), (0.06, 1.8),   name="stem",      pressure=_DOWN),
     _s((0.1, 1.8), (0.5, 1.8), (0.6, 1.5), (0.6, 1.2),   name="lobe_top",  pressure=_BODY),
     _s((0.6, 1.2), (0.6, 0.9), (0.5, 0.7), (0.1, 0.7),   name="lobe_bot",  pressure=_EXIT),
     _s((0.3, 0.7), (0.4, 0.5), (0.5, 0.3), (0.6, 0.0),   name="leg",       pressure=_DOWN),
@@ -379,7 +379,7 @@ _catalog["S"] = _g("S", 0x53, [
 ], w=0.58)
 
 _catalog["T"] = _g("T", 0x54, [
-    _s((0.35, 0.0), (0.35, 0.8), (0.35, 1.4), (0.35, 1.8), name="stem",    pressure=_DOWN),
+    _s((0.35, 0.0), (0.38, 0.75), (0.33, 1.35), (0.31, 1.8), name="stem",    pressure=_DOWN),
     _s((0.0, 1.8), (0.15, 1.8), (0.5, 1.8), (0.7, 1.8),    name="top_bar", pressure=_FINE),
 ], w=0.70)
 
@@ -441,9 +441,9 @@ _catalog["oe"] = _g("oe", 0x153, [
 
 # s — alias for round_s (default non-positional form; lookup() handles register-aware routing)
 _catalog["s"] = _g("s", 0x73, [
-    _s((0.35, 0.85), (0.1, 0.95), (0.0, 0.7), (0.0, 0.5), name="upper_arc", pressure=_ENTRY),
-    _s((0.0, 0.5), (0.0, 0.2), (0.2, 0.0), (0.4, 0.1),   name="lower_arc", pressure=_DOWN),
-    _s((0.4, 0.1), (0.5, 0.2), (0.5, 0.6), (0.4, 0.8),   name="right_arc", pressure=_EXIT),
+    _s((0.35, 0.88), (0.08, 0.98), (-0.03, 0.72), (0.0, 0.5), name="upper_arc", pressure=_ENTRY),
+    _s((0.0, 0.5), (-0.02, 0.18), (0.22, -0.02), (0.42, 0.12),   name="lower_arc", pressure=_DOWN),
+    _s((0.42, 0.12), (0.52, 0.22), (0.5, 0.62), (0.38, 0.82),   name="right_arc", pressure=_EXIT),
 ], w=0.48)
 
 # section mark §

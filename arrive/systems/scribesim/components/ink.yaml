@@ -1,0 +1,18 @@
+component:
+  id: ink
+  name: "Ink-Substrate Interaction Filters"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/ink/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

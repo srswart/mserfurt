@@ -90,7 +90,7 @@ class TestPageGeometry:
         """Pitch should never be so small as to produce implausible line density."""
         tiny = HandParams(x_height_px=5)
         g = make_geometry("f01r", tiny)
-        assert g.ruling_pitch_mm >= 9.0
+        assert g.ruling_pitch_mm >= 7.0
 
 
 # ---------------------------------------------------------------------------

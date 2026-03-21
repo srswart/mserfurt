@@ -1,0 +1,18 @@
+component:
+  id: tuning
+  name: "Parameter Tuning & Optimizer"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/tuning/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

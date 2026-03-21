@@ -1,0 +1,91 @@
+# Trained hand profile — CMA-ES fitted against Werbeschreiben
+
+
+[dynamics]
+attraction_strength = 18.414915517485028
+contact_threshold = 0.08
+damping_coefficient = 3.6414390069579374
+lookahead_strength = 4.99849291633477
+max_acceleration = 500.0
+max_speed = 30.038249790357643
+position_gain = 20.0
+rhythm_strength = 0.024970648516126143
+target_radius_mm = 0.5726072682404608
+use_pd_controller = true
+velocity_gain = 8.0
+word_lift_height_mm = 5.0
+
+[folio]
+base_pressure = 0.72
+base_tempo = 3.0
+lines_per_page = 30
+margin_left_variance_mm = 0.3
+page_rotation_deg = 0.0
+ruling_slope_variance = 0.003
+ruling_spacing_variance_mm = 0.5
+tremor_amplitude = 0.0
+
+[glyph]
+ascender_extra_variance = 1.5
+baseline_jitter_mm = 0.05
+connection_lift_height_mm = 1.5
+descender_extra_variance = 1.5
+entry_angle_adaptation = 0.7
+size_variance = 0.02
+warp_amplitude_mm = 0.1
+warp_correlation = 0.7
+
+[ink]
+base_color_b = 25
+base_color_g = 35
+base_color_r = 45
+depletion_rate = 0.02
+dry_threshold = 0.15
+fresh_dip_darkness_boost = 0.15
+raking_threshold = 0.08
+reservoir_capacity = 1.0
+
+[letterform]
+ascender_height_ratio = 1.6
+descender_depth_ratio = 0.5
+keypoint_flexibility_mm = 0.2
+x_height_mm = 3.0
+
+[line]
+baseline_undulation_amplitude_mm = 0.2
+baseline_undulation_period_ratio = 0.5
+line_spacing_mean_mm = 8.0
+line_spacing_variance_mm = 0.3
+margin_compression_zone_ratio = 0.85
+start_x_variance_mm = 0.3
+
+[material]
+edge_feather_mm = 0.05
+grain_spread_factor = 0.1
+overlap_darkening_factor = 0.7
+pooling_at_direction_change = 0.2
+stroke_start_blob_size = 0.1
+
+[nib]
+angle_deg = 35.0
+attack_pressure_multiplier = 1.15
+cut_quality = 0.9
+flexibility = 0.15
+release_taper_length = 0.3
+width_mm = 0.6
+
+[stroke]
+attack_width_boost = 0.1
+attack_zone_end = 0.1
+foot_ink_boost = 0.25
+foot_width_boost = 0.2
+foot_zone_start = 0.85
+pressure_modulation_range = 0.4
+
+[word]
+post_punctuation_space_multiplier = 1.4
+slant_drift_per_word_deg = 0.3
+slant_reset_at_line_start = true
+spacing_mean_ratio = 1.2
+spacing_variance_ratio = 0.15
+speed_variance = 0.1

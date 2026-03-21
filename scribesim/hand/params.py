@@ -37,7 +37,7 @@ class HandParams:
     # Spacing and rhythm
     letter_spacing_norm: float = 1.0
     word_spacing_norm: float = 2.4
-    line_height_norm: float = 4.2
+    line_height_norm: float = 2.5
     x_height_px: int = 38
 
     # Speed and fatigue

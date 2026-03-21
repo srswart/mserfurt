@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-19T19:30:46.151600Z
+  updated_at: 2026-03-20T21:19:11.877783Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -275,3 +275,320 @@ passes:
       - ADV-WX-COMPOSITOR-001
       - ADV-WX-GROUNDTRUTH-001
       notes: 'Final contract checkpoint: TD-001-E, TD-001-C. Full eScriptorium import test.'
+- id: pass-4a
+  title: 'Pass 4a: ScribeSim v2 — Physics Hand Foundation'
+  order: 10
+  phases:
+  - id: scribesim-v2-foundation
+    title: Scale-based hand parameters and multi-scale movement model
+    order: 1
+    items:
+    - id: ADV-SS-HAND-002
+      advance_id: ADV-SS-HAND-002
+      title: Hand Parameters v2 — scale-based architecture (~45 parameters), --set overrides
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-TESTS-001
+      notes: Refactors HandParams into scale-based HandProfile. All existing components depend on this.
+    - id: ADV-SS-MOVEMENT-001
+      advance_id: ADV-SS-MOVEMENT-001
+      title: Multi-Scale Movement — page posture, line trajectory, word envelope, glyph trajectory
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HAND-002
+      notes: Depends on new HandProfile for movement parameters. Heart of TD-002.
+- id: pass-4b
+  title: 'Pass 4b: ScribeSim v2 — Nib & Ink Physics'
+  order: 11
+  phases:
+  - id: scribesim-v2-nib-ink
+    title: Physics nib and ink-substrate interaction filters
+    order: 1
+    items:
+    - id: ADV-SS-NIB-002
+      advance_id: ADV-SS-NIB-002
+      title: Physics Nib — direction-dependent width from angle × direction × pressure
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-MOVEMENT-001
+      notes: Depends on movement model (needs stroke direction). Snapshot checkpoint — thick/thin changes visible.
+    - id: ADV-SS-INK-001
+      advance_id: ADV-SS-INK-001
+      title: Ink-Substrate Filters — saturation, pooling, wicking, feathering, depletion cycle
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-NIB-002
+      notes: Depends on nib (metadata buffers). Snapshot checkpoint — ink variation visible.
+- id: pass-4c
+  title: 'Pass 4c: ScribeSim v2 — Imprecision & Pipeline'
+  order: 12
+  phases:
+  - id: scribesim-v2-imprecision
+    title: Cumulative imprecision and 6-stage pipeline formalization
+    order: 1
+    items:
+    - id: ADV-SS-IMPRECISION-001
+      advance_id: ADV-SS-IMPRECISION-001
+      title: Cumulative Imprecision — ruling jitter, baseline wander, margin drift
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-INK-001
+      notes: Depends on ink filters. Snapshot checkpoint — ruling/margin jitter visible.
+    - id: ADV-SS-RENDER-002
+      advance_id: ADV-SS-RENDER-002
+      title: Rendering Pipeline v2 — 6-stage formalization, 400→300 DPI, Weather re-validation
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-IMPRECISION-001
+      notes: Final integration. 400→300 DPI internal resolution. Snapshot checkpoint — full v2 with weather.
+- id: pass-5a
+  title: 'Pass 5a: Parameter Tuning — Metrics & CLI'
+  order: 13
+  phases:
+  - id: tuning-metrics
+    title: Comparison metrics and tuning CLI
+    order: 1
+    items:
+    - id: ADV-SS-METRICS-001
+      advance_id: ADV-SS-METRICS-001
+      title: Comparison Metrics M1-M9 — quantitative manuscript distance measurement
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-RENDER-002
+      notes: Depends on v2 pipeline output. Independent of tuning CLI.
+    - id: ADV-SS-TUNING-001
+      advance_id: ADV-SS-TUNING-001
+      title: Parameter Tuning CLI — compare, diff, report, presets
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-METRICS-001
+      notes: Depends on metrics for compare and report subcommands.
+- id: pass-5b
+  title: 'Pass 5b: Parameter Tuning — Optimizer & Validation'
+  order: 14
+  phases:
+  - id: tuning-optimizer
+    title: Automated fitting and comprehensive test suite
+    order: 1
+    items:
+    - id: ADV-SS-OPTIMIZER-001
+      advance_id: ADV-SS-OPTIMIZER-001
+      title: Automated Optimizer — staged fitting against real manuscript samples
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-TUNING-001
+      notes: Depends on tuning CLI and metrics. Bayesian optimization optional.
+    - id: ADV-SS-TESTS-002
+      advance_id: ADV-SS-TESTS-002
+      title: Tests v2 — physics hand model, metrics, and tuning validation
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-RENDER-002
+      - ADV-SS-METRICS-001
+      notes: 'Contract checkpoint: TD-002 hand model validated, TD-003 metrics operational.'
+- id: pass-6a
+  title: 'Pass 6a: ScribeSim — Rendering Quality Fixes'
+  order: 15
+  phases:
+  - id: scribesim-quality-foundation
+    title: Line spacing fix (must come first)
+    order: 1
+    items:
+    - id: ADV-SS-SPACING-001
+      advance_id: ADV-SS-SPACING-001
+      title: Line Spacing Fix — ruling pitch from line_height_norm (no overlap)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-TESTS-002
+      notes: Bug fix. Lines currently overlap due to ruling pitch = x_height only. Must come first.
+  - id: scribesim-quality-glyphs
+    title: Glyph curvature and cursive connections
+    order: 2
+    items:
+    - id: ADV-SS-GLYPHS-002
+      advance_id: ADV-SS-GLYPHS-002
+      title: Glyph Curvature — organic Bezier shapes from Musteralphabet reference
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-SPACING-001
+      notes: Reworks all ~90 glyph control points for organic curves. Must come before connections — connections need correct glyph entry/exit points.
+    - id: ADV-SS-KERNING-001
+      advance_id: ADV-SS-KERNING-001
+      title: Pair-Dependent Spacing & Contextual Glyph Adaptation
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GLYPHS-002
+      notes: Entry/exit points on glyphs + pair-dependent spacing. Must come before connections.
+    - id: ADV-SS-CONNECTIONS-001
+      advance_id: ADV-SS-CONNECTIONS-001
+      title: Cursive Connections — inter-glyph pen strokes within words
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-KERNING-001
+      notes: Depends on kerning (needs entry/exit points and correct spacing). Adds connecting strokes between letters within words.
+- id: pass-7a
+  title: 'Pass 7a: TD-004 — Nib Physics & Metrics'
+  order: 16
+  phases:
+  - id: td004-nib-metrics
+    title: Nib physics fixes, M_conn metric, CMA-ES optimizer
+    order: 1
+    items:
+    - id: ADV-SS-NIB-003
+      advance_id: ADV-SS-NIB-003
+      title: Nib Physics Fixes — thick/thin contrast, stroke foot, attack (TD-004 Part 1)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CONNECTIONS-001
+      notes: Fix A-E from TD-004. Prerequisite for TD-005 — hand simulator inherits mark-making quality.
+    - id: ADV-SS-MCONN-001
+      advance_id: ADV-SS-MCONN-001
+      title: M_conn Metric — connection quality measurement (TD-004 Part 2)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-NIB-003
+      notes: Adds M10 to metric suite. Training signal for TD-005 hand dynamics optimization.
+    - id: ADV-SS-CMAES-001
+      advance_id: ADV-SS-CMAES-001
+      title: CMA-ES Group Optimizer — multi-parameter fitting (TD-004 Part 3)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-MCONN-001
+      notes: Replaces single-parameter optimizer. Required by TD-005 training pipeline.
+- id: pass-7b
+  title: 'Pass 7b: TD-003-A — Extended Parameters & Training Infrastructure'
+  order: 17
+  phases:
+  - id: td003a-params-training
+    title: Hand dynamics parameters and training CLI
+    order: 1
+    items:
+    - id: ADV-SS-HAND-003
+      advance_id: ADV-SS-HAND-003
+      title: Hand Profile v3 — dynamics, letterform, stroke parameters (TD-003-A §1)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CMAES-001
+      notes: Extends HandProfile with ~12 new parameters for hand simulator dynamics.
+    - id: ADV-SS-TRAINING-001
+      advance_id: ADV-SS-TRAINING-001
+      title: Training CLI — extract-word, train, train-extend, train-folio (TD-003-A §3)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HAND-003
+      notes: Incremental training workflow. Uses CMA-ES groups and new parameters.
+- id: pass-7c
+  title: 'Pass 7c: TD-002-C — Architecture Alignment'
+  order: 18
+  phases:
+  - id: td002c-alignment
+    title: Bridge existing code to hand simulator interface
+    order: 1
+    items:
+    - id: ADV-SS-TARGETS-001
+      advance_id: ADV-SS-TARGETS-001
+      title: Target Generation Module — hand simulator interface (TD-002-C)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-TRAINING-001
+      notes: Extracts baseline undulation and word adjustments into target generation for the hand simulator.
+- id: pass-8a
+  title: 'Pass 8a: TD-005 — Generative Hand Foundation'
+  order: 19
+  phases:
+  - id: td005-hand-foundation
+    title: Hand state machine and letterform guides
+    order: 1
+    items:
+    - id: ADV-SS-HANDSIM-001
+      advance_id: ADV-SS-HANDSIM-001
+      title: Hand State Machine — continuous dynamics simulation (TD-005 Part 1)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-TARGETS-001
+      notes: The core shift — hand as continuous state machine with attraction dynamics.
+    - id: ADV-SS-GUIDES-001
+      advance_id: ADV-SS-GUIDES-001
+      title: Letterform Guides — keypoint definitions for n, u, d, e, r (TD-005 Part 3)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDSIM-001
+      notes: Keypoint-based letter definitions replacing glyph catalog for 5 core letters.
+- id: pass-8b
+  title: 'Pass 8b: TD-005 — Training & Extension'
+  order: 20
+  phases:
+  - id: td005-training
+    title: Word training and incremental extension
+    order: 1
+    items:
+    - id: ADV-SS-WORDTRAIN-001
+      advance_id: ADV-SS-WORDTRAIN-001
+      title: Word Training — path extraction, CMA-ES dynamics fitting on "und" (TD-005 Part 2+4)
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GUIDES-001
+      notes: Proof of concept — train hand dynamics on a single word from the target manuscript.
+- id: pass-9a
+  title: 'Pass 9a: TD-006 — Constrained Dynamics'
+  order: 21
+  phases:
+  - id: td006-clamp
+    title: Clamped dynamics and PD controller
+    order: 1
+    items:
+    - id: ADV-SS-CLAMP-001
+      advance_id: ADV-SS-CLAMP-001
+      title: Clamped Dynamics — critically damped params, velocity gate, bounding box
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-WORDTRAIN-001
+      notes: TD-006 Phase 1. Fix chaotic output — legible letters first, loosen later.
+    - id: ADV-SS-PDCONTROL-001
+      advance_id: ADV-SS-PDCONTROL-001
+      title: PD Controller — proportional-derivative motor control
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CLAMP-001
+      notes: TD-006 Step 3. Replace attractor with PD controller for human-like motor control.
+- id: pass-9b
+  title: 'Pass 9b: TD-006 — Anticipatory Motor Planning'
+  order: 22
+  phases:
+  - id: td006-motorplan
+    title: Sliding window path planner with context adjustment
+    order: 1
+    items:
+    - id: ADV-SS-MOTORPLAN-001
+      advance_id: ADV-SS-MOTORPLAN-001
+      title: Sliding Window Motor Planning — anticipatory Hermite spline paths
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-PDCONTROL-001
+      notes: TD-006 Steps 4-5. Muscle memory model — hand plans ahead through upcoming keypoints.

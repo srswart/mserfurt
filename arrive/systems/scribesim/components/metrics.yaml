@@ -1,0 +1,18 @@
+component:
+  id: metrics
+  name: "Comparison Metrics (M1-M9)"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/metrics/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

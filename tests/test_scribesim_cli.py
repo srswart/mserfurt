@@ -264,10 +264,10 @@ class TestHandShow:
 
     def test_hand_show_prints_base_params(self, runner):
         result = runner.invoke(main, ["hand", "--show"])
-        assert "pressure_base" in result.output
-        assert "ink_density" in result.output
-        assert "nib_angle_deg" in result.output
-        assert "writing_speed" in result.output
+        assert "base_pressure" in result.output
+        assert "ink_density" in result.output  # v1 compat field in metadata
+        assert "nib.angle_deg" in result.output
+        assert "writing_speed" in result.output  # v1 compat field in metadata
 
     def test_hand_show_base_pressure_value(self, runner):
         result = runner.invoke(main, ["hand", "--show"])

@@ -1,0 +1,35 @@
+# bastarda_hasty.toml — faster, less careful writing
+# More variation, wider spacing variance, speed-related artifacts
+
+[folio]
+page_rotation_deg = 0.2
+ruling_spacing_variance_mm = 0.6
+margin_left_variance_mm = 0.5
+base_pressure = 0.68
+tremor_amplitude = 0.0
+
+[line]
+start_x_variance_mm = 0.5
+baseline_undulation_amplitude_mm = 0.35
+line_spacing_variance_mm = 0.4
+
+[word]
+spacing_variance_ratio = 0.25
+slant_drift_per_word_deg = 0.6
+speed_variance = 0.2
+
+[glyph]
+size_variance = 0.04
+warp_amplitude_mm = 0.2
+baseline_jitter_mm = 0.1
+
+[nib]
+width_mm = 1.8
+angle_deg = 42.0
+flexibility = 0.2
+cut_quality = 0.85
+
+[metadata]
+script = "bastarda"
+dialect_region = "thuringian"
+date_approx = 1457

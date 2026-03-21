@@ -1,0 +1,35 @@
+# bastarda_formal.toml — careful, deliberate scriptorium writing
+# Low variation, precise spacing, clean letterforms
+
+[folio]
+page_rotation_deg = 0.0
+ruling_spacing_variance_mm = 0.2
+margin_left_variance_mm = 0.15
+base_pressure = 0.75
+tremor_amplitude = 0.0
+
+[line]
+start_x_variance_mm = 0.15
+baseline_undulation_amplitude_mm = 0.1
+line_spacing_variance_mm = 0.15
+
+[word]
+spacing_variance_ratio = 0.08
+slant_drift_per_word_deg = 0.1
+speed_variance = 0.05
+
+[glyph]
+size_variance = 0.01
+warp_amplitude_mm = 0.05
+baseline_jitter_mm = 0.02
+
+[nib]
+width_mm = 1.8
+angle_deg = 40.0
+flexibility = 0.1
+cut_quality = 0.95
+
+[metadata]
+script = "bastarda"
+dialect_region = "thuringian"
+date_approx = 1457

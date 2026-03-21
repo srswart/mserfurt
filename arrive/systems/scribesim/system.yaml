@@ -29,6 +29,14 @@ pipeline:
     - docs/tech-direction/TD-001-interface-contracts.md#td-001-c-page-xml
     - docs/tech-direction/TD-001-interface-contracts.md#td-001-d-hand-parameter-toml
     - docs/tech-direction/TD-001-interface-contracts.md#td-001-f-pressure-heatmap-png
+  tech_direction:
+    - docs/tech-direction/TD-002-hand-model.md
+    - docs/tech-direction/TD-002-addendum-c.md
+    - docs/tech-direction/TD-003-parameter-tuning.md
+    - docs/tech-direction/TD-003-addendum-a.md
+    - docs/tech-direction/TD-004-nib-fixes-metrics.md
+    - docs/tech-direction/TD-005-generative-hand.md
+    - docs/tech-direction/TD-006-constrained-motor-planning.md
 
 policies:
   advance_required_on_pr: true

@@ -42,6 +42,19 @@ class PositionedGlyph:
 
 
 @dataclass
+class ConnectionStroke:
+    """A hairline pen stroke connecting two consecutive glyphs within a word.
+
+    Control points are in mm (page coordinates), ready for rendering.
+    """
+    p0: tuple  # (x_mm, y_mm) — exit point of previous glyph
+    p1: tuple  # control point 1
+    p2: tuple  # control point 2
+    p3: tuple  # (x_mm, y_mm) — entry point of next glyph
+    pressure: tuple = (0.15, 0.25, 0.2, 0.1)  # hairline upstroke
+
+
+@dataclass
 class LineLayout:
     """One ruled line on the page with its positioned glyphs.
 
@@ -49,11 +62,13 @@ class LineLayout:
         line_index:  0-based ruling line number.
         y_mm:        Y coordinate of the ruling line (from page top).
         glyphs:      Glyphs placed on this line, left to right.
+        connections:  Connection strokes between consecutive glyphs within words.
     """
 
     line_index: int
     y_mm: float
     glyphs: list  # list[PositionedGlyph]
+    connections: list = field(default_factory=list)  # list[ConnectionStroke]
 
 
 @dataclass

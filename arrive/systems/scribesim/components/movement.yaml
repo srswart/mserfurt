@@ -1,0 +1,18 @@
+component:
+  id: movement
+  name: "Multi-Scale Movement Model"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/movement/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

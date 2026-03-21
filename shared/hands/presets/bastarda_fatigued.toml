@@ -1,0 +1,35 @@
+# bastarda_fatigued.toml — tired scribe, irregular vellum
+# Tremor, drift, wider spacing, slower writing
+
+[folio]
+page_rotation_deg = 0.3
+ruling_spacing_variance_mm = 0.7
+margin_left_variance_mm = 0.6
+base_pressure = 0.65
+tremor_amplitude = 0.015
+
+[line]
+start_x_variance_mm = 0.6
+baseline_undulation_amplitude_mm = 0.4
+line_spacing_variance_mm = 0.5
+
+[word]
+spacing_variance_ratio = 0.3
+slant_drift_per_word_deg = 0.8
+speed_variance = 0.15
+
+[glyph]
+size_variance = 0.05
+warp_amplitude_mm = 0.25
+baseline_jitter_mm = 0.12
+
+[nib]
+width_mm = 1.8
+angle_deg = 43.0
+flexibility = 0.2
+cut_quality = 0.8
+
+[metadata]
+script = "bastarda"
+dialect_region = "thuringian"
+date_approx = 1457

@@ -14,8 +14,8 @@ from scribesim.hand.params import HandParams
 from scribesim.glyphs.catalog import GLYPH_CATALOG, lookup
 
 
-# mm-per-x-height-unit scaling (same constant as geometry.py)
-_PX_TO_MM = 0.250
+# mm-per-x-height-unit scaling (must match geometry.py)
+from scribesim.layout.geometry import _PX_TO_MM
 
 # Space between glyphs within a word and between words
 _GLYPH_GAP_NORM = 0.05   # fraction of x_height between glyphs

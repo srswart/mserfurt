@@ -1,0 +1,18 @@
+component:
+  id: guides
+  name: "Letterform Guide Library"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/guides/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

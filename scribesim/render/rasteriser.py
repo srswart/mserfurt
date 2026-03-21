@@ -22,7 +22,7 @@ from scribesim.hand.params import HandParams
 from scribesim.layout.positioned import PageLayout
 from scribesim.glyphs.catalog import GLYPH_CATALOG
 from scribesim.render.bezier import sample_bezier, interpolate_pressure
-from scribesim.render.nib import nib_ellipse_axes, stroke_opacity
+from scribesim.render.nib import nib_ellipse_axes, stroke_opacity, PhysicsNib, mark_width, stroke_direction
 
 # ---------------------------------------------------------------------------
 # Resolution constants
@@ -74,22 +74,17 @@ def _render_stroke(draw: ImageDraw.ImageDraw,
                    pressure_profile,
                    hand: HandParams,
                    glyph_opacity: float,
-                   tremor_seed: int = 0) -> None:
+                   tremor_seed: int = 0,
+                   physics_nib: PhysicsNib | None = None) -> None:
     """Rasterize one cubic Bezier stroke onto *draw* and *heat_arr*."""
     import numpy as np  # local import to keep module importable without numpy
-
-    # Convert control points mm → px
-    def to_px(pt):
-        return (_mm_to_px(pt[0]), _mm_to_px(pt[1]))
 
     pts = sample_bezier(p0, p1, p2, p3)
     pts = _apply_tremor(pts, hand.tremor_amplitude, tremor_seed)
 
-    semi_maj, semi_min, angle = nib_ellipse_axes(
-        hand.nib_width_mm, hand.nib_angle_deg, _PX_PER_MM
-    )
+    nib_angle_rad = math.radians(hand.nib_angle_deg)
 
-    for x_mm, y_mm, t in pts:
+    for i, (x_mm, y_mm, t) in enumerate(pts):
         pressure = interpolate_pressure(pressure_profile, t)
         darkness = stroke_opacity(
             pressure, hand.stroke_weight,
@@ -101,11 +96,24 @@ def _render_stroke(draw: ImageDraw.ImageDraw,
         x_px = x_mm * _PX_PER_MM
         y_px = y_mm * _PX_PER_MM
 
+        if physics_nib is not None:
+            # Physics nib: direction-dependent width
+            direction = stroke_direction(pts, i)
+            width_mm = mark_width(physics_nib, direction, pressure, t)
+            # Width is the major axis; minor axis is edge thickness
+            semi_maj = max(1, round(width_mm * 0.5 * _PX_PER_MM))
+            semi_min = max(1, round(width_mm * 0.125 * _PX_PER_MM))
+            angle = nib_angle_rad
+        else:
+            # Legacy fixed ellipse
+            semi_maj, semi_min, angle = nib_ellipse_axes(
+                hand.nib_width_mm, hand.nib_angle_deg, _PX_PER_MM
+            )
+
         # Build rotated nib ellipse bounding box
         cos_a = math.cos(angle)
         sin_a = math.sin(angle)
 
-        # Approximate bounding box of the rotated ellipse
         dx = math.sqrt((semi_maj * cos_a) ** 2 + (semi_min * sin_a) ** 2)
         dy = math.sqrt((semi_maj * sin_a) ** 2 + (semi_min * cos_a) ** 2)
 
@@ -134,13 +142,14 @@ def _render_stroke(draw: ImageDraw.ImageDraw,
 # ---------------------------------------------------------------------------
 
 def render_page(layout: PageLayout, hand_params: HandParams,
-                output_path: Path) -> Path:
+                output_path: Path, profile=None) -> Path:
     """Render the glyph layout to a 300 DPI page PNG.
 
     Args:
         layout:      PageLayout from scribesim.layout.place().
         hand_params: Resolved HandParams.
         output_path: Destination path for the PNG.
+        profile:     Optional HandProfile for ink-substrate filters.
 
     Returns:
         output_path (Path) after writing.
@@ -153,6 +162,13 @@ def render_page(layout: PageLayout, hand_params: HandParams,
     heat_arr = np.zeros((h_px, w_px), dtype=np.uint8)
 
     _render_layout(draw, heat_arr, layout, hand_params)
+
+    # Apply ink-substrate filters if profile is provided
+    if profile is not None:
+        from scribesim.ink import apply_ink_filters
+        img_arr = np.array(img)
+        img_arr = apply_ink_filters(img_arr, heat_arr, layout, profile)
+        img = Image.fromarray(img_arr, "RGB")
 
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -198,17 +214,20 @@ def _render_layout(draw, heat_arr, layout: PageLayout, hand: HandParams) -> None
     """Walk the PageLayout and rasterize every glyph's strokes."""
     import numpy as np
 
+    # Construct physics nib from hand params
+    pnib = PhysicsNib(
+        width_mm=hand.nib_width_mm,
+        angle_deg=hand.nib_angle_deg,
+    )
+
     for line_layout in layout.lines:
         for pg in line_layout.glyphs:
             glyph = GLYPH_CATALOG.get(pg.glyph_id)
             if glyph is None:
                 continue
 
-            # Glyph origin in mm: pg.x_mm, pg.baseline_y_mm
             # Glyph coordinate space: x-height units, y=0 at baseline
-            x_height_mm = hand.x_height_px / (_DPI / _MM_PER_INCH)
-            # Use the layout's geometry-based x_height instead
-            x_height_mm = layout.geometry.ruling_pitch_mm
+            x_height_mm = layout.geometry.x_height_mm
 
             for stroke in glyph.strokes:
                 # Scale control points from x-height units → mm
@@ -229,4 +248,18 @@ def _render_layout(draw, heat_arr, layout: PageLayout, hand: HandParams) -> None
                     hand=hand,
                     glyph_opacity=pg.opacity,
                     tremor_seed=seed,
+                    physics_nib=pnib,
                 )
+
+        # Render connection strokes (hairline upstrokes between glyphs)
+        for conn in getattr(line_layout, 'connections', []):
+            seed = hash((layout.folio_id, conn.p0[0], conn.p0[1])) & 0xFFFFFFFF
+            _render_stroke(
+                draw, heat_arr,
+                conn.p0, conn.p1, conn.p2, conn.p3,
+                pressure_profile=conn.pressure,
+                hand=hand,
+                glyph_opacity=1.0,
+                tremor_seed=seed,
+                physics_nib=pnib,
+            )

@@ -1,0 +1,18 @@
+component:
+  id: handsim
+  name: "Generative Hand Simulator"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/handsim/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []
