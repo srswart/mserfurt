@@ -1,0 +1,308 @@
+"""Evolutionary engine — selection, crossover, mutation, main loop (TD-007 Part 3).
+
+Evolves word genomes through generations of selection, crossover, and
+layer-specific mutation. The population is seeded from letterform guides
+and refined by the multi-criteria fitness function.
+"""
+
+from __future__ import annotations
+
+import copy
+import math
+import random
+from dataclasses import dataclass, field
+from pathlib import Path
+
+import numpy as np
+
+from scribesim.evo.genome import WordGenome, GlyphGenome, BezierSegment, genome_from_guides
+from scribesim.evo.fitness import evaluate_fitness, FitnessResult
+
+
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
+
+@dataclass
+class EvolutionConfig:
+    """Configuration for an evolution run."""
+    pop_size: int = 50
+    generations: int = 100
+    elite_count: int = 3
+    tournament_size: int = 5
+    crossover_rate: float = 0.7
+    early_stop_fitness: float = 0.90
+    eval_dpi: float = 100.0
+
+
+# ---------------------------------------------------------------------------
+# Initialization
+# ---------------------------------------------------------------------------
+
+def initialize_population(
+    word_text: str,
+    pop_size: int = 50,
+    x_height_mm: float = 3.8,
+) -> list[WordGenome]:
+    """Seed the population from letterform guides with perturbation."""
+    population = []
+    for i in range(pop_size):
+        genome = genome_from_guides(word_text, baseline_y_mm=6.0, x_height_mm=x_height_mm)
+
+        # Perturb each layer (more perturbation = more diversity)
+        sigma = 0.3 + (i / pop_size) * 0.5  # first individuals are closer to guides
+
+        # Layer 1: word envelope — small perturbation
+        genome.baseline_y += random.gauss(0, 0.1 * sigma)
+        genome.global_slant_deg += random.gauss(0, 0.5 * sigma)
+        genome.baseline_drift = [random.gauss(0, 0.05 * sigma) for _ in genome.glyphs]
+        genome.slant_drift = [random.gauss(0, 0.2 * sigma) for _ in genome.glyphs]
+
+        # Layer 2: glyph shapes — moderate perturbation
+        for glyph in genome.glyphs:
+            for seg in glyph.segments:
+                if random.random() < 0.4:
+                    # Perturb inner control points (not endpoints)
+                    dx = random.gauss(0, 0.15 * sigma)
+                    dy = random.gauss(0, 0.15 * sigma)
+                    seg.p1 = (seg.p1[0] + dx, seg.p1[1] + dy)
+                    seg.p2 = (seg.p2[0] + dx * 0.7, seg.p2[1] + dy * 0.7)
+
+        # Layer 3: stroke details — small perturbation
+        for glyph in genome.glyphs:
+            for seg in glyph.segments:
+                seg.pressure_curve = [
+                    max(0.1, min(1.0, p + random.gauss(0, 0.03 * sigma)))
+                    for p in seg.pressure_curve
+                ]
+
+        population.append(genome)
+
+    return population
+
+
+# ---------------------------------------------------------------------------
+# Selection
+# ---------------------------------------------------------------------------
+
+def select(
+    population: list[WordGenome],
+    fitnesses: list[float],
+    tournament_size: int = 5,
+    elite_count: int = 3,
+) -> list[WordGenome]:
+    """Tournament selection with elitism."""
+    paired = list(zip(population, fitnesses))
+    paired.sort(key=lambda x: -x[1])
+
+    # Keep elites
+    selected = [copy.deepcopy(p) for p, f in paired[:elite_count]]
+
+    # Tournament for the rest
+    while len(selected) < len(population):
+        tournament = random.sample(paired, min(tournament_size, len(paired)))
+        winner = max(tournament, key=lambda x: x[1])[0]
+        selected.append(copy.deepcopy(winner))
+
+    return selected
+
+
+# ---------------------------------------------------------------------------
+# Crossover (layer-aware)
+# ---------------------------------------------------------------------------
+
+def crossover(parent_a: WordGenome, parent_b: WordGenome) -> WordGenome:
+    """Layer-aware crossover between two parents."""
+    child = copy.deepcopy(parent_a)
+
+    # Layer 1: blend word envelope
+    child.baseline_y = (parent_a.baseline_y + parent_b.baseline_y) / 2
+    child.global_slant_deg = (parent_a.global_slant_deg + parent_b.global_slant_deg) / 2
+    child.tempo = (parent_a.tempo + parent_b.tempo) / 2
+
+    # Layer 2: per-glyph selection
+    n = min(len(parent_a.glyphs), len(parent_b.glyphs))
+    for i in range(n):
+        if random.random() < 0.5:
+            child.glyphs[i] = copy.deepcopy(parent_b.glyphs[i])
+
+    # Layer 3: per-segment stroke detail swap
+    for i in range(min(len(child.glyphs), len(parent_b.glyphs))):
+        for j in range(min(len(child.glyphs[i].segments), len(parent_b.glyphs[i].segments))):
+            if random.random() < 0.3:
+                src = parent_b.glyphs[i].segments[j]
+                child.glyphs[i].segments[j].pressure_curve = list(src.pressure_curve)
+                child.glyphs[i].segments[j].speed_curve = list(src.speed_curve)
+
+    return child
+
+
+# ---------------------------------------------------------------------------
+# Mutation (layer-specific rates)
+# ---------------------------------------------------------------------------
+
+def mutate(
+    genome: WordGenome,
+    generation: int = 0,
+    fatigue: float = 0.0,
+    emotional_state: str = "normal",
+) -> WordGenome:
+    """Apply layer-specific mutations with contextual modifiers."""
+    g = genome  # mutate in place
+
+    # Layer 1: word envelope — rare, small (10% chance)
+    if random.random() < 0.1:
+        g.baseline_y += random.gauss(0, 0.1)
+        g.global_slant_deg += random.gauss(0, 0.3)
+
+    # Layer 2: glyph shapes — moderate (30% per glyph)
+    for glyph in g.glyphs:
+        if random.random() < 0.3:
+            seg = random.choice(glyph.segments)
+            # Mutate inner control points only (preserve endpoints for connectivity)
+            dx = random.gauss(0, 0.2)
+            dy = random.gauss(0, 0.2)
+            seg.p1 = (seg.p1[0] + dx, seg.p1[1] + dy)
+
+        if random.random() < 0.2:
+            seg = random.choice(glyph.segments)
+            dx = random.gauss(0, 0.15)
+            dy = random.gauss(0, 0.15)
+            seg.p2 = (seg.p2[0] + dx, seg.p2[1] + dy)
+
+    # Layer 3: stroke details — frequent (50% per segment)
+    for glyph in g.glyphs:
+        for seg in glyph.segments:
+            if random.random() < 0.5:
+                seg.pressure_curve = [
+                    max(0.1, min(1.0, p + random.gauss(0, 0.05)))
+                    for p in seg.pressure_curve
+                ]
+            if random.random() < 0.3:
+                seg.nib_angle_drift += random.gauss(0, 0.5)
+
+    # --- Contextual modifiers ---
+
+    if fatigue > 0:
+        boost = 1.0 + fatigue * 0.5
+        for glyph in g.glyphs:
+            for seg in glyph.segments:
+                if random.random() < fatigue * 0.2:
+                    seg.p1 = (seg.p1[0] + random.gauss(0, 0.15 * boost),
+                              seg.p1[1] + random.gauss(0, 0.15 * boost))
+
+    if emotional_state == "agitated":
+        for glyph in g.glyphs:
+            for seg in glyph.segments:
+                seg.pressure_curve = [
+                    max(0.1, min(1.0, p * random.uniform(0.9, 1.2)))
+                    for p in seg.pressure_curve
+                ]
+        g.global_slant_deg += random.gauss(0, 0.5)
+
+    elif emotional_state == "compensating":
+        g.word_width_mm *= random.uniform(1.0, 1.08)
+        g.baseline_drift = [d + random.gauss(0, 0.08) for d in g.baseline_drift]
+
+    return g
+
+
+# ---------------------------------------------------------------------------
+# Main evolution loop
+# ---------------------------------------------------------------------------
+
+@dataclass
+class EvolutionResult:
+    """Result of an evolution run."""
+    best_genome: WordGenome
+    best_fitness: float
+    generations_run: int
+    fitness_history: list[float] = field(default_factory=list)
+
+
+def evolve_word(
+    word_text: str,
+    target_crop: np.ndarray | None = None,
+    config: EvolutionConfig | None = None,
+    fatigue: float = 0.0,
+    emotional_state: str = "normal",
+    verbose: bool = True,
+) -> EvolutionResult:
+    """Evolve a word genome through generations.
+
+    Args:
+        word_text: The word to evolve (e.g., "und").
+        target_crop: Optional target manuscript word image.
+        config: Evolution configuration.
+        fatigue: CLIO-7 fatigue level [0, 1].
+        emotional_state: CLIO-7 emotional state.
+        verbose: Print progress.
+
+    Returns:
+        EvolutionResult with the best genome found.
+    """
+    if config is None:
+        config = EvolutionConfig()
+
+    population = initialize_population(word_text, config.pop_size)
+
+    best_ever = None
+    best_fitness_ever = 0.0
+    history = []
+
+    for gen in range(config.generations):
+        # Evaluate fitness
+        results = [evaluate_fitness(ind, target_crop, dpi=config.eval_dpi)
+                   for ind in population]
+        fitnesses = [r.total for r in results]
+
+        # Track best
+        gen_best_idx = max(range(len(fitnesses)), key=lambda i: fitnesses[i])
+        if fitnesses[gen_best_idx] > best_fitness_ever:
+            best_fitness_ever = fitnesses[gen_best_idx]
+            best_ever = copy.deepcopy(population[gen_best_idx])
+
+        history.append(best_fitness_ever)
+
+        if verbose and gen % 10 == 0:
+            mean_f = sum(fitnesses) / len(fitnesses)
+            r = results[gen_best_idx]
+            print(f"  gen {gen:3d}: best={best_fitness_ever:.3f} mean={mean_f:.3f} "
+                  f"[F1={r.f1:.2f} F2={r.f2:.2f} F3={r.f3:.2f} F7={r.f7:.2f}]")
+
+        # Early stopping
+        if best_fitness_ever >= config.early_stop_fitness:
+            if verbose:
+                print(f"  converged at gen {gen} (fitness={best_fitness_ever:.3f})")
+            break
+
+        # Select
+        selected = select(population, fitnesses,
+                          config.tournament_size, config.elite_count)
+
+        # Crossover + mutation
+        next_gen = []
+        for i in range(0, len(selected) - 1, 2):
+            if random.random() < config.crossover_rate:
+                child = crossover(selected[i], selected[i + 1])
+                next_gen.append(child)
+            else:
+                next_gen.append(copy.deepcopy(selected[i]))
+            next_gen.append(copy.deepcopy(selected[i + 1]))
+
+        # Pad if odd
+        while len(next_gen) < config.pop_size:
+            next_gen.append(copy.deepcopy(selected[0]))
+
+        # Mutate (except elites)
+        for i in range(config.elite_count, len(next_gen)):
+            next_gen[i] = mutate(next_gen[i], gen, fatigue, emotional_state)
+
+        population = next_gen[:config.pop_size]
+
+    return EvolutionResult(
+        best_genome=best_ever or population[0],
+        best_fitness=best_fitness_ever,
+        generations_run=gen + 1 if 'gen' in dir() else 0,
+        fitness_history=history,
+    )

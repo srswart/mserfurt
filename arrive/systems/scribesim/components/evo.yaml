@@ -1,0 +1,18 @@
+component:
+  id: evo
+  name: "Evolutionary Scribe Engine"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/evo/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

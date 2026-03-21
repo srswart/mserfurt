@@ -1,0 +1,18 @@
+component:
+  id: evo-rust
+  name: "Rust Batch Evaluator (PyO3)"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim-evo/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

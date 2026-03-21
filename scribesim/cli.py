@@ -465,6 +465,121 @@ def render_word(text: str, output_path: str, profile_path: str | None,
 
 
 # ---------------------------------------------------------------------------
+# evolve-line
+# ---------------------------------------------------------------------------
+
+@main.command("evolve-line")
+@click.argument("text")
+@click.option("-o", "--output", "output_path", default="evolved_line.png",
+              type=click.Path(), help="Output PNG path")
+@click.option("--generations", default=30, type=int)
+@click.option("--pop-size", default=20, type=int)
+@click.option("--dpi", default=200, type=int)
+def evolve_line_cmd(text: str, output_path: str, generations: int,
+                    pop_size: int, dpi: int) -> None:
+    """Evolve a line of text using the evolutionary scribe."""
+    from scribesim.evo.compose import evolve_line, FolioState, render_folio, EvolvedFolio
+    from scribesim.evo.engine import EvolutionConfig
+
+    config = EvolutionConfig(pop_size=pop_size, generations=generations, eval_dpi=72.0)
+    state = FolioState()
+    line = evolve_line(text, 0, state, config=config, verbose=True)
+
+    folio = EvolvedFolio(folio_id="line", lines=[line],
+                         page_width_mm=70.0, page_height_mm=20.0)
+    arr = render_folio(folio, dpi=dpi)
+
+    from PIL import Image as PILImage
+    out = Path(output_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    PILImage.fromarray(arr).save(str(out), dpi=(dpi, dpi))
+    click.echo(f"[scribesim evolve-line] → {out}")
+
+
+# ---------------------------------------------------------------------------
+# evolve-folio
+# ---------------------------------------------------------------------------
+
+@main.command("evolve-folio")
+@click.argument("folio_json", type=click.Path(exists=True))
+@click.option("-o", "--output", "output_path", default="evolved_folio.png",
+              type=click.Path(), help="Output PNG path")
+@click.option("--generations", default=20, type=int)
+@click.option("--pop-size", default=15, type=int)
+@click.option("--dpi", default=200, type=int)
+def evolve_folio_cmd(folio_json: str, output_path: str, generations: int,
+                     pop_size: int, dpi: int) -> None:
+    """Evolve a full folio using the evolutionary scribe."""
+    from scribesim.evo.compose import evolve_folio, FolioState, render_folio
+    from scribesim.evo.engine import EvolutionConfig
+
+    state = FolioState.from_folio_json(Path(folio_json))
+    config = EvolutionConfig(pop_size=pop_size, generations=generations, eval_dpi=72.0)
+
+    click.echo(f"[scribesim evolve-folio] {state.folio_id}: {len(state.lines)} lines")
+
+    folio = evolve_folio(state, config=config, verbose=True)
+    arr = render_folio(folio, dpi=dpi)
+
+    from PIL import Image as PILImage
+    out = Path(output_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    PILImage.fromarray(arr).save(str(out), dpi=(dpi, dpi))
+    click.echo(f"  → {out}")
+
+
+# ---------------------------------------------------------------------------
+# evolve-word
+# ---------------------------------------------------------------------------
+
+@main.command("evolve-word")
+@click.argument("text")
+@click.option("-o", "--output", "output_path", default="evolved_word.png",
+              type=click.Path(), help="Output PNG path")
+@click.option("--target", "target_path", default=None,
+              type=click.Path(exists=True), help="Target word image for F5")
+@click.option("--generations", "generations", default=50, type=int)
+@click.option("--pop-size", "pop_size", default=30, type=int)
+@click.option("--dpi", "dpi", default=200, type=int, help="Final render DPI")
+def evolve_word_cmd(text: str, output_path: str, target_path: str | None,
+                    generations: int, pop_size: int, dpi: int) -> None:
+    """Evolve a word using the evolutionary scribe (TD-007).
+
+    TEXT is the word to evolve, e.g. "und" or "der".
+    """
+    import numpy as np
+    from PIL import Image as PILImage
+    from scribesim.evo.engine import evolve_word, EvolutionConfig
+    from scribesim.evo.renderer import render_genome_to_file
+
+    target_crop = None
+    if target_path:
+        target_crop = np.array(PILImage.open(target_path).convert("RGB"))
+
+    config = EvolutionConfig(
+        pop_size=pop_size,
+        generations=generations,
+        eval_dpi=72.0,  # low DPI for speed during evolution
+    )
+
+    click.echo(f"[scribesim evolve-word] \"{text}\" pop={pop_size} gen={generations}")
+
+    result = evolve_word(text, target_crop=target_crop, config=config, verbose=True)
+
+    click.echo(f"  best fitness: {result.best_fitness:.3f} (after {result.generations_run} gen)")
+
+    # Render best at full DPI
+    out = render_genome_to_file(result.best_genome, output_path, dpi=dpi)
+    click.echo(f"  → {out}")
+
+    # Copy to Desktop
+    import shutil
+    desktop = Path.home() / "Desktop" / "scribesim"
+    desktop.mkdir(parents=True, exist_ok=True)
+    shutil.copy(out, desktop / Path(out).name)
+
+
+# ---------------------------------------------------------------------------
 # extract-word
 # ---------------------------------------------------------------------------
 

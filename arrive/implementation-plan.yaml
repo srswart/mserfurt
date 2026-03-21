@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-20T21:19:11.877783Z
+  updated_at: 2026-03-21T09:27:26.569971Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -592,3 +592,75 @@ passes:
       dependencies:
       - ADV-SS-PDCONTROL-001
       notes: TD-006 Steps 4-5. Muscle memory model — hand plans ahead through upcoming keypoints.
+- id: pass-10a
+  title: 'Pass 10a: TD-007 — Evolutionary Scribe (Python Foundation)'
+  order: 23
+  phases:
+  - id: td007-python
+    title: Genome representation, fitness function, evolution engine
+    order: 1
+    items:
+    - id: ADV-SS-GENOME-001
+      advance_id: ADV-SS-GENOME-001
+      title: Genome Representation — three-layer Word/Glyph/Stroke genomes + rendering
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-MOTORPLAN-001
+      notes: TD-007 Parts 1+4. The genome provides paths; nib physics renders them.
+    - id: ADV-SS-FITNESS-001
+      advance_id: ADV-SS-FITNESS-001
+      title: Fitness Function — F1-F7 multi-criteria evaluation
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GENOME-001
+      notes: TD-007 Part 2. Letter recognition (F1) has highest weight (0.30).
+    - id: ADV-SS-EVOLVE-001
+      advance_id: ADV-SS-EVOLVE-001
+      title: Evolution Engine — selection, crossover, mutation, main loop
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-FITNESS-001
+      notes: TD-007 Part 3. Tournament selection, layer-aware crossover, CLIO-7 modifiers. CLI evolve-word.
+- id: pass-10b
+  title: 'Pass 10b: TD-007 — Rust Acceleration'
+  order: 24
+  phases:
+  - id: td007-rust
+    title: Rust crate for batch rendering and parallel fitness evaluation
+    order: 1
+    items:
+    - id: ADV-SS-RUSTEVO-001
+      advance_id: ADV-SS-RUSTEVO-001
+      title: Rust Crate — genome structs, Bézier rendering, PyO3 bindings
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-EVOLVE-001
+      notes: TD-007 Addendum A items 1-2. Port rendering to Rust for 50× speedup.
+    - id: ADV-SS-RUSTFIT-001
+      advance_id: ADV-SS-RUSTFIT-001
+      title: Rust Batch Evaluator — parallel fitness with rayon
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-RUSTEVO-001
+      notes: TD-007 Addendum A items 3-6. Rayon parallel dispatch. Target ~1s per word.
+- id: pass-10c
+  title: 'Pass 10c: TD-007 — Folio-Scale Evolution'
+  order: 25
+  phases:
+  - id: td007-scaling
+    title: Line and folio composition with context and CLIO-7
+    order: 1
+    items:
+    - id: ADV-SS-EVOLINE-001
+      advance_id: ADV-SS-EVOLINE-001
+      title: Line & Folio Composition — context passing, CLIO-7 modifiers
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-RUSTFIT-001
+      notes: TD-007 Parts 5+7. Scale from words to folios. evolve_folio CLI. Warm-start caching.
