@@ -268,7 +268,44 @@ def render_word_from_genome(
         def tan_to_px(tx, ty, _slant_rad=slant_rad):
             return _tangent_to_px(tx, ty, _slant_rad, px_per_mm)
 
-        contact_segs = [s for s in glyph.segments if s.contact]
+        # Per-instance control-point perturbation (Task 3).
+        # Correlated noise: a shared glyph-level offset biases all control points
+        # in the same direction (0.5 correlation), with additional per-point jitter.
+        # Core zone ±0.03×x_height; entry/exit zones ±0.06×x_height.
+        perturb_segs = glyph.segments
+        if v > 0:
+            n_segs = len(glyph.segments)
+            # x-height ≈ 3.8mm; spec says core ±0.03× = ~0.11mm, edge ±0.06× = ~0.23mm.
+            # Use nib_width_mm as proxy (0.65mm ≈ 17% of x-height).
+            core_sigma = 0.17 * nib_width_mm * v   # ≈ 0.11mm at nib=0.65
+            edge_sigma = 0.35 * nib_width_mm * v   # ≈ 0.23mm at nib=0.65
+            glyph_bias_x = random.gauss(0, core_sigma * 0.8)
+            glyph_bias_y = random.gauss(0, core_sigma * 0.8)
+
+            def _perturb_pt(pt: tuple, sigma: float) -> tuple[float, float]:
+                return (
+                    pt[0] + glyph_bias_x * 0.5 + random.gauss(0, sigma),
+                    pt[1] + glyph_bias_y * 0.5 + random.gauss(0, sigma),
+                )
+
+            from scribesim.evo.genome import BezierSegment as _BS
+            new_segs = []
+            for si2, seg2 in enumerate(glyph.segments):
+                is_edge = (si2 == 0 or si2 == n_segs - 1)
+                sigma = edge_sigma if is_edge else core_sigma
+                new_segs.append(_BS(
+                    p0=_perturb_pt(seg2.p0, sigma),
+                    p1=_perturb_pt(seg2.p1, sigma),
+                    p2=_perturb_pt(seg2.p2, sigma),
+                    p3=_perturb_pt(seg2.p3, sigma),
+                    contact=seg2.contact,
+                    pressure_curve=seg2.pressure_curve,
+                    speed_curve=seg2.speed_curve,
+                    nib_angle_drift=seg2.nib_angle_drift,
+                ))
+            perturb_segs = new_segs
+
+        contact_segs = [s for s in perturb_segs if s.contact]
         if not contact_segs:
             glyph_exit_px.append((0.0, 0.0))
             glyph_exit_tan_px.append((1.0, 0.0))
@@ -276,12 +313,17 @@ def render_word_from_genome(
             glyph_entry_tan_px.append((1.0, 0.0))
             continue
 
-        # Entry: first contact segment p0 and tangent(0)
-        first_seg = contact_segs[0]
-        ep = first_seg.evaluate(0.0)
-        et = first_seg.tangent(0.0)
-        glyph_entry_px.append(to_px(*ep))
-        glyph_entry_tan_px.append(tan_to_px(*et))
+        # Entry: prefer explicit catalog entry point, else first contact segment p0.
+        if glyph.connection_entry_mm is not None:
+            glyph_entry_px.append(to_px(*glyph.connection_entry_mm))
+            # Tangent pointing right-and-down (typical approach direction: ~-45° in world)
+            glyph_entry_tan_px.append(tan_to_px(1.0, -0.5))
+        else:
+            first_seg = contact_segs[0]
+            ep = first_seg.evaluate(0.0)
+            et = first_seg.tangent(0.0)
+            glyph_entry_px.append(to_px(*ep))
+            glyph_entry_tan_px.append(tan_to_px(*et))
 
         # Per-glyph nib angle drift ±2°
         nib_angle_drift = random.gauss(0, 2.0 * v) if v > 0 else 0.0
@@ -369,14 +411,22 @@ def render_word_from_genome(
                          and hfx.raking_probability > 0.0
                          and random.random() < hfx.raking_probability)
 
+            # Mean pressure for this segment → width modulation (TD-004 Fix B).
+            # Pressure modulates width ±20%; direction is primary thick/thin driver.
+            mean_pressure = sum(seg.pressure_at(t / 8) for t in range(9)) / 9
+            mean_pressure *= pressure_scale
+            seg_pressure_width = 0.8 + 0.4 * mean_pressure  # 0.8–1.2×
+            hx_p = hx_draw * seg_pressure_width
+            hy_p = hy_draw * seg_pressure_width
+
             for si in range(n_samples + 1):
                 t = si / n_samples
                 pos = seg.evaluate(t)
                 pressure = seg.pressure_at(t) * pressure_scale
 
                 from scribesim.render.nib import stroke_foot_effect, stroke_attack_effect
-                _, foot_i = stroke_foot_effect(t)
-                _, attack_i = stroke_attack_effect(t)
+                foot_w, foot_i = stroke_foot_effect(t)
+                attack_w, attack_i = stroke_attack_effect(t)
 
                 base_dark = 0.88 + 0.12 * pressure
                 darkness = min(1.0, base_dark * ink_darkness(ink_state.reservoir) * foot_i * attack_i)
@@ -392,21 +442,17 @@ def render_word_from_genome(
                 samples.append((x_px, y_px, darkness))
 
             if is_raking and len(samples) >= 2:
-                # Split-nib: draw two parallel thin lines offset perpendicular to stroke
-                # Compute average stroke direction for offset vector
                 x0s, y0s, _ = samples[0]
                 xes, yes, _ = samples[-1]
                 sdx, sdy = xes - x0s, yes - y0s
                 slen = math.sqrt(sdx * sdx + sdy * sdy)
                 if slen > 1.0:
-                    # Perpendicular unit vector
                     px_n = -sdy / slen
                     py_n = sdx / slen
-                    # Offset = 20% of full nib width in pixels
                     offset_px = max(0.5, nib_width_mm * 0.20 * px_per_mm / _SUPERSAMPLE)
-                    rake_dark = 0.70  # split nib deposits less ink per rail
-                    hx_rake = hx_draw * 0.5
-                    hy_rake = hy_draw * 0.5
+                    rake_dark = 0.70
+                    hx_rake = hx_p * 0.5
+                    hy_rake = hy_p * 0.5
                     for sign in (-1.0, 1.0):
                         offset_samples = [
                             (x + sign * px_n * offset_px,
@@ -420,36 +466,38 @@ def render_word_from_genome(
                 if hfx is not None and hfx.gap_probability > 0.0:
                     gap_active = False
                     gap_prob = hfx.gap_probability
-                    filtered: list[tuple[float, float, float]] = []
                     run: list[tuple[float, float, float]] = []
                     for pt in samples:
                         if gap_active:
-                            # Exit gap if random > 2× gap_prob (creates runs)
                             if random.random() > gap_prob * 2.0:
                                 gap_active = False
                         else:
                             if random.random() < gap_prob:
                                 gap_active = True
                         if gap_active:
-                            # Flush accumulated run, start new run
                             if len(run) >= 2:
-                                _draw_nib_sweep(draw, run, hx_draw, hy_draw)
+                                _draw_nib_sweep(draw, run, hx_p, hy_p)
                             run = []
                         else:
                             run.append(pt)
                     if len(run) >= 2:
-                        _draw_nib_sweep(draw, run, hx_draw, hy_draw)
+                        _draw_nib_sweep(draw, run, hx_p, hy_p)
                 else:
-                    _draw_nib_sweep(draw, samples, hx_draw, hy_draw)
+                    _draw_nib_sweep(draw, samples, hx_p, hy_p)
 
             ink_state.deplete_for_stroke(seg.length(), 0.85, nib_width_mm)
 
-        # Exit: last contact segment p3 and tangent(1)
-        last_seg = contact_segs[-1]
-        xp = last_seg.evaluate(1.0)
-        xt = last_seg.tangent(1.0)
-        glyph_exit_px.append(to_px(*xp))
-        glyph_exit_tan_px.append(tan_to_px(*xt))
+        # Exit: prefer explicit catalog exit point, else last contact segment p3.
+        if glyph.connection_exit_mm is not None:
+            glyph_exit_px.append(to_px(*glyph.connection_exit_mm))
+            # Tangent pointing right-and-up (typical departure direction: ~40° above horizontal)
+            glyph_exit_tan_px.append(tan_to_px(1.0, 0.5))
+        else:
+            last_seg = contact_segs[-1]
+            xp = last_seg.evaluate(1.0)
+            xt = last_seg.tangent(1.0)
+            glyph_exit_px.append(to_px(*xp))
+            glyph_exit_tan_px.append(tan_to_px(*xt))
 
     # ------------------------------------------------- curved hairline connections
     for i in range(len(genome.glyphs) - 1):

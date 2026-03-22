@@ -74,7 +74,7 @@ def _get_genome(
     x_height_mm: float = 3.8,
     guides_path=None,
     exemplar_root=None,
-    nib_width_mm: float = 1.0,
+    nib_width_mm: float = 0.65,
 ) -> tuple[WordGenome, float]:
     """Return (genome, fitness). Evolves if evolve=True and not cached."""
     cache_key = f"{word}_{context.emotional_state}"
@@ -197,7 +197,7 @@ def _render_ink_graph(
 def render_line(
     line_text: str,
     dpi: float = 300.0,
-    nib_width_mm: float = 1.0,
+    nib_width_mm: float = 0.65,
     nib_angle_deg: float = 35.0,
     x_height_mm: float = 3.8,
     word_gap_mm: float | None = None,
@@ -392,7 +392,7 @@ class EvolvedFolio:
 def render_folio_lines(
     lines: list[str],
     dpi: float = 200.0,
-    nib_width_mm: float = 1.0,
+    nib_width_mm: float = 0.65,
     nib_angle_deg: float = 35.0,
     x_height_mm: float = 3.8,
     line_spacing_mm: float = 12.0,

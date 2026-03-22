@@ -474,7 +474,7 @@ def render_word(text: str, output_path: str, profile_path: str | None,
               type=click.Path(), help="Output PNG path")
 @click.option("--dpi", default=300, type=int, show_default=True,
               help="Output resolution")
-@click.option("--nib-width", "nib_width_mm", default=1.0, type=float, show_default=True,
+@click.option("--nib-width", "nib_width_mm", default=0.65, type=float, show_default=True,
               help="Physical nib width in mm")
 @click.option("--x-height", "x_height_mm", default=3.8, type=float, show_default=True,
               help="X-height in mm")

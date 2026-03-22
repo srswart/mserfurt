@@ -23,21 +23,33 @@ def _s(*pts: tuple, name: str = "", pressure: tuple = (0.4, 0.8, 0.8, 0.4)) -> B
     return BezierStroke(control_points=pts, pressure_profile=pressure, stroke_name=name)
 
 
-def _g(gid: str, cp: int, strokes: list, w: float, base: float = 0.0) -> Glyph:
-    """Create a Glyph with strokes converted to tuple."""
+def _g(gid: str, cp: int, strokes: list, w: float, base: float = 0.0,
+       entry: tuple | None = None, exit: tuple | None = None) -> Glyph:
+    """Create a Glyph with strokes converted to tuple.
+
+    entry/exit: explicit (x, y) connection point in x-height units.
+    If omitted, Glyph.__post_init__ derives them from first/last stroke endpoints.
+    Provide these for any letter where the last stroke is a dot, crossbar, or
+    decorative element that is NOT the natural exit for inter-glyph connections.
+    """
     return Glyph(id=gid, unicode_codepoint=cp, strokes=tuple(strokes),
-                 advance_width=w, baseline_offset=base)
+                 advance_width=w, baseline_offset=base,
+                 entry_point=entry, exit_point=exit)
 
 
 # ---------------------------------------------------------------------------
 # Pressure curve presets
 # ---------------------------------------------------------------------------
-_ENTRY = (0.2, 0.6, 0.9, 0.8)    # hairline entry → full pressure
-_BODY  = (0.7, 0.9, 0.9, 0.7)    # full-pressure body stroke
-_EXIT  = (0.8, 0.7, 0.4, 0.2)    # full pressure → hairline exit
-_FINE  = (0.2, 0.3, 0.3, 0.2)    # hairline superscript / fine mark
-_DOWN  = (0.4, 0.8, 0.9, 0.7)    # downstroke (Bastarda characteristic)
-_UP    = (0.3, 0.4, 0.3, 0.2)    # upstroke (light)
+# Pressure range scaled ×0.70 so peak is 0.63 (was 0.90).
+# Direction is the primary driver of thick/thin via nib angle; pressure
+# modulates darkness ±20% only (TD-004 Fix B). High pressure was producing
+# near-maximum darkness on every stroke, losing the tonal range.
+_ENTRY = (0.14, 0.42, 0.63, 0.56)   # hairline entry → full pressure
+_BODY  = (0.49, 0.63, 0.63, 0.49)   # full-pressure body stroke
+_EXIT  = (0.56, 0.49, 0.28, 0.14)   # full pressure → hairline exit
+_FINE  = (0.14, 0.21, 0.21, 0.14)   # hairline superscript / fine mark
+_DOWN  = (0.28, 0.56, 0.63, 0.49)   # downstroke (Bastarda characteristic)
+_UP    = (0.21, 0.28, 0.21, 0.14)   # upstroke (light)
 
 
 # ---------------------------------------------------------------------------
@@ -81,11 +93,12 @@ _catalog["e"] = _g("e", 0x65, [
 ], w=0.50)
 
 # f — ascender with crossbar (Bastarda f sits on baseline)
+# Exit: from bottom of stem, NOT from the ascender head serif.
 _catalog["f"] = _g("f", 0x66, [
     _s((0.25, 0.0), (0.27, 0.45), (0.23, 1.15), (0.2, 1.8), name="stem",     pressure=_DOWN),
     _s((0.05, 0.52), (0.14, 0.48), (0.36, 0.48), (0.45, 0.52), name="crossbar", pressure=_FINE),
     _s((0.05, 1.62), (0.12, 1.74), (0.22, 1.82), (0.35, 1.75), name="head",    pressure=_ENTRY),
-], w=0.42)
+], w=0.42, exit=(0.25, 0.0))
 
 # g — lobe + descender loop
 _catalog["g"] = _g("g", 0x67, [
@@ -96,24 +109,28 @@ _catalog["g"] = _g("g", 0x67, [
 ], w=0.52)
 
 # h — stem + arch
+# Entry: connection arrives at x-height level on left stem, not baseline.
 _catalog["h"] = _g("h", 0x68, [
     _s((0.1, 0.0), (0.13, 0.7), (0.08, 1.35), (0.06, 1.8), name="stem",         pressure=_DOWN),
     _s((0.1, 0.82), (0.22, 1.02), (0.42, 1.02), (0.5, 0.82), name="arch_top",     pressure=_BODY),
     _s((0.5, 0.82), (0.52, 0.38), (0.48, 0.08), (0.47, 0.0), name="right_stroke", pressure=_DOWN),
-], w=0.60)
+], w=0.60, entry=(0.1, 0.75))
 
 # i — dot + minim
+# Exit: from baseline of minim (not from dot above x-height).
+# Entry: connection arrives near x-height top of minim, not at baseline.
 _catalog["i"] = _g("i", 0x69, [
     _s((0.15, 0.0), (0.17, 0.28), (0.14, 0.72), (0.13, 1.0), name="minim",   pressure=_DOWN),
     _s((0.1, 1.22), (0.14, 1.26), (0.2, 1.26), (0.25, 1.22), name="dot",     pressure=_FINE),
-], w=0.32)
+], w=0.32, entry=(0.15, 0.8), exit=(0.15, 0.0))
 
 # j — dot + minim with descender
+# Exit: from end of hook (not from dot above x-height).
 _catalog["j"] = _g("j", 0x6A, [
     _s((0.2, 1.0), (0.22, 0.28), (0.18, -0.28), (0.08, -0.5), name="minim_desc", pressure=_DOWN),
     _s((0.08, -0.5), (-0.02, -0.62), (-0.02, -0.48), (0.1, -0.38), name="hook",     pressure=_EXIT),
     _s((0.1, 1.22), (0.18, 1.26), (0.25, 1.26), (0.3, 1.22), name="dot",       pressure=_FINE),
-], w=0.32)
+], w=0.32, entry=(0.2, 1.0), exit=(0.1, -0.38))
 
 # k — stem + kick strokes
 _catalog["k"] = _g("k", 0x6B, [
@@ -128,20 +145,22 @@ _catalog["l"] = _g("l", 0x6C, [
 ], w=0.30)
 
 # m — three minims
+# Entry arrives at x-height level, not at the baseline where stem1 is stored.
 _catalog["m"] = _g("m", 0x6D, [
     _s((0.1, 0.0), (0.13, 0.45), (0.11, 0.78), (0.1, 1.0), name="stem1",     pressure=_DOWN),
     _s((0.1, 0.92), (0.22, 1.04), (0.36, 1.02), (0.4, 0.9), name="arch1",    pressure=_BODY),
     _s((0.4, 0.9), (0.42, 0.38), (0.39, 0.08), (0.38, 0.0), name="stem2",     pressure=_DOWN),
     _s((0.4, 0.92), (0.52, 1.04), (0.66, 1.02), (0.7, 0.9), name="arch2",    pressure=_BODY),
     _s((0.7, 0.9), (0.72, 0.38), (0.69, 0.08), (0.68, 0.0), name="stem3",     pressure=_DOWN),
-], w=0.80)
+], w=0.80, entry=(0.1, 0.75))
 
 # n — two minims
+# Entry arrives at x-height level, not at the baseline where stem1 is stored.
 _catalog["n"] = _g("n", 0x6E, [
     _s((0.1, 0.0), (0.13, 0.45), (0.11, 0.78), (0.1, 1.0), name="stem1",   pressure=_DOWN),
     _s((0.1, 0.92), (0.22, 1.04), (0.36, 1.02), (0.4, 0.9), name="arch",   pressure=_BODY),
     _s((0.4, 0.9), (0.42, 0.38), (0.39, 0.08), (0.38, 0.0), name="stem2",   pressure=_DOWN),
-], w=0.55)
+], w=0.55, entry=(0.1, 0.75))
 
 # o — two-part oval
 _catalog["o"] = _g("o", 0x6F, [
@@ -177,17 +196,20 @@ _catalog["round_s"] = _g("round_s", 0x73, [
 ], w=0.48)
 
 # t — stem with crossbar
+# Exit: from bottom of stem, NOT from crossbar end.
+# Entry: connection arrives at crossbar level (typical 't' entry from left).
 _catalog["t"] = _g("t", 0x74, [
     _s((0.2, -0.1), (0.22, 0.45), (0.19, 1.05), (0.17, 1.5), name="stem",     pressure=_DOWN),
     _s((0.0, 0.72), (0.1, 0.68), (0.3, 0.68), (0.4, 0.72),  name="crossbar", pressure=_FINE),
-], w=0.42)
+], w=0.42, entry=(0.2, 0.72), exit=(0.2, -0.1))
 
 # u — two downstrokes with connecting arch at bottom
+# Entry arrives at x-height level where the left stem begins physically.
 _catalog["u"] = _g("u", 0x75, [
     _s((0.1, 1.0), (0.12, 0.48), (0.09, 0.18), (0.08, 0.0), name="left_stem",  pressure=_DOWN),
     _s((0.08, 0.0), (0.18, -0.04), (0.35, -0.04), (0.42, 0.02), name="base_arch", pressure=_BODY),
     _s((0.42, 0.02), (0.41, 0.22), (0.43, 0.52), (0.42, 1.0), name="right_stem", pressure=_UP),
-], w=0.55)
+], w=0.55, entry=(0.1, 0.75))
 
 # v — two diagonal strokes
 _catalog["v"] = _g("v", 0x76, [

@@ -106,14 +106,24 @@ class GlyphGenome:
     x_offset: float = 0.0      # where this glyph starts within the word (mm)
     x_advance: float = 2.0     # horizontal space it occupies (mm)
 
+    # Explicit connection points in mm (world space), set from Glyph.exit_point /
+    # entry_point when the catalog defines them. The renderer prefers these over
+    # segment-derived endpoints for inter-glyph hairlines.
+    connection_exit_mm: tuple | None = None
+    connection_entry_mm: tuple | None = None
+
     @property
     def exit_point(self) -> tuple[float, float]:
+        if self.connection_exit_mm is not None:
+            return self.connection_exit_mm
         if self.segments:
             return self.segments[-1].p3
         return (self.x_offset + self.x_advance, 0.0)
 
     @property
     def entry_point(self) -> tuple[float, float]:
+        if self.connection_entry_mm is not None:
+            return self.connection_entry_mm
         if self.segments:
             return self.segments[0].p0
         return (self.x_offset, 0.0)
@@ -262,9 +272,30 @@ def genome_from_guides(
                 segments.append(seg)
 
             adv = glyph.advance_width * x_height_mm
+
+            # Convert explicit catalog entry/exit from x-height units to mm
+            # (baseline_y_mm - y_xh * x_height_mm gives world y in mm).
+            def _xh_to_mm(pt_xh: tuple, _x: float = x) -> tuple[float, float]:
+                return (
+                    _x + pt_xh[0] * x_height_mm,
+                    baseline_y_mm - pt_xh[1] * x_height_mm,
+                )
+
+            conn_exit = _xh_to_mm(glyph.exit_point) if glyph.exit_point is not None else None
+            conn_entry = _xh_to_mm(glyph.entry_point) if glyph.entry_point is not None else None
+
+            # Only store overrides when they differ from the raw segment endpoints
+            # (i.e. the catalog explicitly set them via entry=/exit= kwargs).
+            raw_exit_xh = glyph.strokes[-1].control_points[-1]
+            raw_entry_xh = glyph.strokes[0].control_points[0]
+            conn_exit = conn_exit if glyph.exit_point != raw_exit_xh else None
+            conn_entry = conn_entry if glyph.entry_point != raw_entry_xh else None
+
             glyphs.append(GlyphGenome(
                 letter=ch, segments=segments,
                 x_offset=x, x_advance=adv,
+                connection_exit_mm=conn_exit,
+                connection_entry_mm=conn_entry,
             ))
             x += adv + 0.2 * x_height_mm
 
