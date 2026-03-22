@@ -1,0 +1,21 @@
+component:
+  id: refselect
+  name: "Reference Selection Pipeline"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/refselect/**"
+    - "reference/provenance/**"
+    - "reference/selected/**"
+    - "reference/analysis/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

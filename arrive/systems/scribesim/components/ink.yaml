@@ -1,10 +1,12 @@
 component:
   id: ink
-  name: "Ink-Substrate Interaction Filters"
+  name: "Ink Cycle and Substrate Simulation"
   type: library
   owners:
     - team: shawn
   stage: incubating
+  tech_direction:
+    - docs/tech-direction/TD-010-ink-cycle.md
 
 selectors:
   paths:
@@ -13,6 +15,30 @@ selectors:
   tags: []
   contracts: []
 
-interfaces: []
+interfaces:
+  - id: ink-state
+    description: >
+      InkState — tracks the quill's reservoir level (0.0–1.0) across strokes and
+      words. Consumed by the evo renderer to modulate darkness, width, and hairline
+      quality as the ink depletes between dips.
+    key_types:
+      - InkState
+      - DipEvent
+      - HairlineEffects
+    key_functions:
+      - deplete_for_stroke(length_mm, avg_pressure, avg_width_mm)
+      - process_word_boundary() -> DipEvent
+      - ink_darkness(reservoir) -> float
+      - ink_width_modifier(reservoir) -> float
+      - hairline_effects(reservoir) -> HairlineEffects
+      - post_dip_blob(reservoir, strokes_since_dip) -> Optional[BlobParams]
 
-invariants: []
+invariants:
+  - id: reservoir-bounds
+    description: "InkState.reservoir is always in [0.0, 1.0]. deplete_for_stroke() clamps to 0.0; dip() resets to capacity (≤ 1.0)."
+  - id: darkness-floor
+    description: "ink_darkness() always returns ≥ 0.55 — a dry quill still leaves a faint but visible mark. Never returns 0."
+  - id: no-mid-word-dip
+    description: "process_word_boundary() is the only entry point for dipping. Dips never occur mid-stroke or mid-glyph."
+  - id: hairline-only
+    description: "hairline_effects() effects (thinning, gaps, raking) apply only to strokes where rendered width < 25% of nib width. Heavy strokes are never affected."

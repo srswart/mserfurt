@@ -1,0 +1,19 @@
+component:
+  id: refextract
+  name: "Reference Extraction Pipeline"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/refextract/**"
+    - "reference/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces: []
+
+invariants: []

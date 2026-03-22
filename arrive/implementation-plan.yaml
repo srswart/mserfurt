@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-21T09:27:26.569971Z
+  updated_at: 2026-03-21T18:22:05.652258Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -664,3 +664,171 @@ passes:
       dependencies:
       - ADV-SS-RUSTFIT-001
       notes: TD-007 Parts 5+7. Scale from words to folios. evolve_folio CLI. Warm-start caching.
+- id: pass-11a
+  title: 'Pass 11a: TD-008 — Reference Extraction Foundation'
+  order: 26
+  phases:
+  - id: td008-segmentation
+    title: Manuscript segmentation and exemplar extraction
+    order: 1
+    items:
+    - id: ADV-SS-SEGMENT-001
+      advance_id: ADV-SS-SEGMENT-001
+      title: Manuscript Segmentation — Line, Word, Letter Split from Image
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-EVOLINE-001
+      notes: TD-008 Steps 1-3. New refextract module. No existing code modified. Parallel with exemplar work.
+    - id: ADV-SS-EXEMPLAR-002
+      advance_id: ADV-SS-EXEMPLAR-002
+      title: Exemplar Extraction + F1 Fitness Integration
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-SEGMENT-001
+      notes: TD-008 Step 4. Normalizes letter crops → reference/exemplars/. Updates F1 to prefer new exemplar tree.
+- id: pass-11b
+  title: 'Pass 11b: TD-008 — Centerline, Calibration & Guide Generation'
+  order: 27
+  phases:
+  - id: td008-centerline
+    title: Centerline tracing, nib calibration, and extracted guide generation
+    order: 1
+    items:
+    - id: ADV-SS-CENTERLINE-001
+      advance_id: ADV-SS-CENTERLINE-001
+      title: Centerline Tracing — Skeletonize + Bézier Fitting
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-002
+      notes: TD-008 Step 5. Skeleton → ordered path → Bézier segments. Reuses BezierSegment from genome.
+    - id: ADV-SS-NIBCAL-001
+      advance_id: ADV-SS-NIBCAL-001
+      title: Stroke Width Measurement + Nib Calibration
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CENTERLINE-001
+      notes: TD-008 Steps 6+8. Perpendicular ray casting → width profiles → nib angle/width fit. Outputs nib_calibrated.toml.
+    - id: ADV-SS-GUIDEGEN-001
+      advance_id: ADV-SS-GUIDEGEN-001
+      title: Extracted Letterform Guides — DTW Averaging + Genome Seeding
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CENTERLINE-001
+      notes: TD-008 Step 7 + integration. DTW-averaged canonical guides → guides_extracted.toml. Updates genome_from_guides() seeding.
+- id: pass-12a
+  title: 'Pass 12a: TD-009 — Reference Selection Foundation'
+  order: 28
+  phases:
+  - id: td009-download
+    title: IIIF download, core analysis, and provenance record
+    order: 1
+    items:
+    - id: ADV-SS-REFSELECT-001
+      advance_id: ADV-SS-REFSELECT-001
+      title: IIIF Manifest Fetch + Candidate Sampling + Analysis-Resolution Download
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GUIDEGEN-001
+      notes: TD-009 Part 1. New refselect module. fetch_manifest, select_candidate_pages, download_folio. Provenance skeleton. Adds requests to pyproject.toml.
+    - id: ADV-SS-REFSELECT-002
+      advance_id: ADV-SS-REFSELECT-002
+      title: Core Analysis A1+A2 (Ink Contrast, Line Regularity) + Full Provenance Record
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-001
+      notes: TD-009 Part 2 (A1+A2) + provenance schema. analyze-reference CLI. Stabilises provenance JSON contract for all later advances.
+- id: pass-12b
+  title: 'Pass 12b: TD-009 — Full Analysis, Report & Download'
+  order: 29
+  phases:
+  - id: td009-analysis
+    title: Full 7-criterion analysis and composite ranking
+    order: 1
+    items:
+    - id: ADV-SS-REFSELECT-003
+      advance_id: ADV-SS-REFSELECT-003
+      title: Full Analysis A3-A7 + Composite Scoring + Candidate Ranking
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-002
+      notes: TD-009 Part 2 (A3-A7). All scipy/numpy — no opencv. Tidy preparatory — moves _otsu_threshold to shared utils.
+  - id: td009-report
+    title: HTML report and full-resolution download
+    order: 2
+    items:
+    - id: ADV-SS-REFSELECT-004
+      advance_id: ADV-SS-REFSELECT-004
+      title: Visual HTML Report + Human Approval + Full-Resolution Download
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-003
+      notes: TD-009 Parts 4+6. Self-contained HTML report. download-selected CLI. provenance show/cite. Closes human-approval loop.
+- id: pass-12c
+  title: 'Pass 12c: TD-009 — Multi-Manuscript & TD-008 Integration'
+  order: 30
+  phases:
+  - id: td009-multi
+    title: Multi-manuscript support and provenance chain through TD-008
+    order: 1
+    items:
+    - id: ADV-SS-REFSELECT-005
+      advance_id: ADV-SS-REFSELECT-005
+      title: Multi-Manuscript Support + TD-008 Provenance Integration
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-004
+      notes: TD-009 Parts 5+6. Multiple manifests in one run. extract-letters --provenance flag. Full traceability chain from source folio to extracted genome.
+- id: pass-12d
+  title: 'Pass 12d: TD-009 — Pipeline Hardening & Transcription'
+  order: 31
+  phases:
+  - id: td009-hardening
+    title: Fix round-trip bugs, improve selection strategy, and x_advance accuracy
+    order: 1
+    items:
+    - id: ADV-SS-REFSELECT-006
+      advance_id: ADV-SS-REFSELECT-006
+      title: Fix analyze-reference / download-selected Canvas ID Round-Trip
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-005
+      notes: In-place update of existing provenance candidates preserves real IIIF canvas IDs through analyze-reference. Fixes broken download-selected workflow.
+    - id: ADV-SS-REFSELECT-007
+      advance_id: ADV-SS-REFSELECT-007
+      title: Percentage-Based Top-N Candidate Selection with Minimum Floor
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-005
+      notes: Replace hardcoded 0.75 threshold with --top-pct (default 25%) and --min-candidates (default 15) floor. Self-calibrating across any manuscript.
+  - id: td009-transcription
+    title: Manuscript transcription pipeline and guide accuracy improvements
+    order: 2
+    items:
+    - id: ADV-SS-GUIDEGEN-002
+      advance_id: ADV-SS-GUIDEGEN-002
+      title: Ink Bounding-Box x_advance + Recalibrated Analysis Test Coverage
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GUIDEGEN-001
+      notes: x_advance from exemplar pixel bounding box (not trace endpoint). Fix m/w/v hitting 2.0 cap. Update thick_thin tests for new interior-EDT calibration.
+    - id: ADV-SS-TRANSCRIBE-001
+      advance_id: ADV-SS-TRANSCRIBE-001
+      title: Manuscript Transcription CLI — Few-Shot Prompt, Retry Pass, Pipeline Integration
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-005
+      notes: New scribesim transcribe-words CLI subcommand. Few-shot image examples in prompt. Second-pass retry on unknowns with soft ~ prefix. Target ≥88% recognition vs current 75%.

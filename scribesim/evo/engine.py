@@ -32,7 +32,8 @@ class EvolutionConfig:
     tournament_size: int = 5
     crossover_rate: float = 0.7
     early_stop_fitness: float = 0.90
-    eval_dpi: float = 100.0
+    eval_dpi: float = 900.0
+    nib_width_mm: float = 1.0
 
 
 # ---------------------------------------------------------------------------
@@ -43,11 +44,13 @@ def initialize_population(
     word_text: str,
     pop_size: int = 50,
     x_height_mm: float = 3.8,
+    guides_path=None,
 ) -> list[WordGenome]:
     """Seed the population from letterform guides with perturbation."""
     population = []
     for i in range(pop_size):
-        genome = genome_from_guides(word_text, baseline_y_mm=6.0, x_height_mm=x_height_mm)
+        genome = genome_from_guides(word_text, baseline_y_mm=6.0, x_height_mm=x_height_mm,
+                                    guides_path=guides_path)
 
         # Perturb each layer (more perturbation = more diversity)
         sigma = 0.3 + (i / pop_size) * 0.5  # first individuals are closer to guides
@@ -58,13 +61,12 @@ def initialize_population(
         genome.baseline_drift = [random.gauss(0, 0.05 * sigma) for _ in genome.glyphs]
         genome.slant_drift = [random.gauss(0, 0.2 * sigma) for _ in genome.glyphs]
 
-        # Layer 2: glyph shapes — moderate perturbation
+        # Layer 2: glyph shapes — anisotropic perturbation (x wider, y tiny)
         for glyph in genome.glyphs:
             for seg in glyph.segments:
                 if random.random() < 0.4:
-                    # Perturb inner control points (not endpoints)
-                    dx = random.gauss(0, 0.15 * sigma)
-                    dy = random.gauss(0, 0.15 * sigma)
+                    dx = random.gauss(0, 0.08 * sigma)
+                    dy = random.gauss(0, 0.02 * sigma)
                     seg.p1 = (seg.p1[0] + dx, seg.p1[1] + dy)
                     seg.p2 = (seg.p2[0] + dx * 0.7, seg.p2[1] + dy * 0.7)
 
@@ -155,20 +157,30 @@ def mutate(
         g.baseline_y += random.gauss(0, 0.1)
         g.global_slant_deg += random.gauss(0, 0.3)
 
-    # Layer 2: glyph shapes — moderate (30% per glyph)
+    # Layer 2: glyph shapes — tiny steps on control points to preserve stroke crispness
+    # Larger x-shifts allowed (changes stroke width via angle) but y kept tight (no waviness)
     for glyph in g.glyphs:
         if random.random() < 0.3:
             seg = random.choice(glyph.segments)
-            # Mutate inner control points only (preserve endpoints for connectivity)
-            dx = random.gauss(0, 0.2)
-            dy = random.gauss(0, 0.2)
+            dx = random.gauss(0, 0.10)   # horizontal: shifts stroke angle → thick/thin
+            dy = random.gauss(0, 0.03)   # vertical: tiny only, keeps strokes straight
             seg.p1 = (seg.p1[0] + dx, seg.p1[1] + dy)
 
         if random.random() < 0.2:
             seg = random.choice(glyph.segments)
-            dx = random.gauss(0, 0.15)
-            dy = random.gauss(0, 0.15)
+            dx = random.gauss(0, 0.10)
+            dy = random.gauss(0, 0.03)
             seg.p2 = (seg.p2[0] + dx, seg.p2[1] + dy)
+
+        # Small endpoint x-drift — allows evolution to close inter-glyph gaps (10% per glyph)
+        if random.random() < 0.1 and glyph.segments:
+            dx = random.gauss(0, 0.1)
+            seg = glyph.segments[-1]
+            seg.p3 = (seg.p3[0] + dx, seg.p3[1])
+        if random.random() < 0.1 and glyph.segments:
+            dx = random.gauss(0, 0.1)
+            seg = glyph.segments[0]
+            seg.p0 = (seg.p0[0] + dx, seg.p0[1])
 
     # Layer 3: stroke details — frequent (50% per segment)
     for glyph in g.glyphs:
@@ -227,6 +239,9 @@ def evolve_word(
     fatigue: float = 0.0,
     emotional_state: str = "normal",
     verbose: bool = True,
+    guides_path=None,
+    x_height_mm: float = 3.8,
+    exemplar_root=None,
 ) -> EvolutionResult:
     """Evolve a word genome through generations.
 
@@ -244,7 +259,8 @@ def evolve_word(
     if config is None:
         config = EvolutionConfig()
 
-    population = initialize_population(word_text, config.pop_size)
+    population = initialize_population(word_text, config.pop_size, x_height_mm=x_height_mm,
+                                       guides_path=guides_path)
 
     best_ever = None
     best_fitness_ever = 0.0
@@ -252,7 +268,9 @@ def evolve_word(
 
     for gen in range(config.generations):
         # Evaluate fitness
-        results = [evaluate_fitness(ind, target_crop, dpi=config.eval_dpi)
+        results = [evaluate_fitness(ind, target_crop, dpi=config.eval_dpi,
+                                    nib_width_mm=config.nib_width_mm,
+                                    exemplar_root=exemplar_root)
                    for ind in population]
         fitnesses = [r.total for r in results]
 
@@ -264,16 +282,18 @@ def evolve_word(
 
         history.append(best_fitness_ever)
 
-        if verbose and gen % 10 == 0:
+        if verbose:
             mean_f = sum(fitnesses) / len(fitnesses)
             r = results[gen_best_idx]
-            print(f"  gen {gen:3d}: best={best_fitness_ever:.3f} mean={mean_f:.3f} "
-                  f"[F1={r.f1:.2f} F2={r.f2:.2f} F3={r.f3:.2f} F7={r.f7:.2f}]")
+            improved = "↑" if fitnesses[gen_best_idx] >= best_fitness_ever else " "
+            print(f"  gen {gen:3d}{improved} best={best_fitness_ever:.3f} mean={mean_f:.3f} "
+                  f"[recog={r.f1:.2f} thick_thin={r.f2:.2f} connect={r.f3:.2f} continuity={r.f7:.2f}]",
+                  flush=True)
 
         # Early stopping
         if best_fitness_ever >= config.early_stop_fitness:
             if verbose:
-                print(f"  converged at gen {gen} (fitness={best_fitness_ever:.3f})")
+                print(f"  converged at gen {gen} (fitness={best_fitness_ever:.3f})", flush=True)
             break
 
         # Select

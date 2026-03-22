@@ -1,6 +1,22 @@
-# Intermediate 
+# Intermediate / generated output
 snapshots/
 training/
+render-output/
+
+# Manuscript reference images (large binary data)
+reference/
+docs/samples/
+
+# ScribeSim runtime caches
+scribesim/refextract/
+scribesim/refselect/
+scribesim/transcribe/
+
+# ARRIVE runtime state
+.arrive/
+
+# Dependency lockfile
+uv.lock
 
 
 # Python

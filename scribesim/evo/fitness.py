@@ -22,6 +22,75 @@ from scipy.ndimage import label, distance_transform_edt, gaussian_filter
 from scribesim.evo.genome import WordGenome, GlyphGenome
 from scribesim.evo.renderer import render_word_from_genome
 
+# ---------------------------------------------------------------------------
+# Exemplar loading
+# ---------------------------------------------------------------------------
+
+_EXEMPLAR_CACHE: dict[str, dict[str, list[np.ndarray]]] = {}
+
+
+def _load_exemplars(
+    exemplar_root: Path | None = None,
+    fallback_root: Path | None = None,
+) -> dict[str, list[np.ndarray]]:
+    """Load per-letter exemplar images from disk.
+
+    Search order:
+      1. exemplar_root (explicit override)
+      2. reference/exemplars/ (repo-relative auto-detect)
+      3. fallback_root (explicit fallback)
+      4. training/labeled_exemplars/ (repo-relative legacy fallback)
+
+    Args:
+        exemplar_root: Explicit path to exemplars directory (contains {letter}/ subdirs).
+        fallback_root: Explicit fallback path when exemplar_root is absent.
+
+    Returns:
+        Dict mapping letter → list of 64×64 uint8 numpy arrays (may be empty per letter).
+    """
+    from PIL import Image as PILImage
+
+    # Resolve search order
+    candidates: list[Path] = []
+    if exemplar_root is not None:
+        candidates.append(Path(exemplar_root))
+    # Auto-detect repo-relative reference/exemplars/
+    repo_ref = Path(__file__).parent.parent.parent / "reference" / "exemplars"
+    candidates.append(repo_ref)
+    if fallback_root is not None:
+        candidates.append(Path(fallback_root))
+    # Legacy training path
+    repo_train = Path(__file__).parent.parent.parent / "training" / "labeled_exemplars"
+    candidates.append(repo_train)
+
+    for root in candidates:
+        if not root.exists():
+            continue
+        cache_key = str(root)
+        if cache_key in _EXEMPLAR_CACHE:
+            return _EXEMPLAR_CACHE[cache_key]
+
+        exemplars: dict[str, list[np.ndarray]] = {}
+        for letter_dir in sorted(root.iterdir()):
+            if not letter_dir.is_dir():
+                continue
+            char = letter_dir.name
+            images = []
+            for png in sorted(letter_dir.glob("*.png"))[:15]:
+                try:
+                    arr = np.array(PILImage.open(png).convert("L"))
+                    images.append(arr)
+                except Exception:
+                    pass
+            if images:
+                exemplars[char] = images
+
+        if exemplars:
+            _EXEMPLAR_CACHE[cache_key] = exemplars
+            return exemplars
+
+    return {}
+
 
 # ---------------------------------------------------------------------------
 # Fitness result
@@ -63,12 +132,43 @@ def _binarize(gray: np.ndarray, threshold: float = 0.7) -> np.ndarray:
 # F1: Letter recognition
 # ---------------------------------------------------------------------------
 
+_NCC_SIZE = (64, 64)
+
+
+def _ncc_score(rendered_glyph: np.ndarray, exemplar: np.ndarray) -> float:
+    """Normalized cross-correlation between a rendered glyph and an exemplar.
+
+    Both images are resized to 64×64 before comparison. Returns [0, 1].
+    """
+    from PIL import Image as PILImage
+    from scribesim.refextract.exemplar import extract_exemplar
+
+    norm_rendered = extract_exemplar(rendered_glyph, target_size=_NCC_SIZE)
+    ref_img = PILImage.fromarray(exemplar).resize(_NCC_SIZE, PILImage.LANCZOS)
+    ref = np.array(ref_img).astype(np.float32)
+    tpl = norm_rendered.astype(np.float32)
+
+    ref_z = ref - ref.mean()
+    tpl_z = tpl - tpl.mean()
+
+    denom = np.sqrt((ref_z ** 2).sum() * (tpl_z ** 2).sum())
+    if denom < 1e-6:
+        return 0.0
+
+    ncc = float((ref_z * tpl_z).sum() / denom)
+    return max(0.0, ncc)  # clamp negatives to 0
+
+
 def f1_letter_recognition(
     rendered: np.ndarray,
     genome: WordGenome,
     exemplars: dict[str, list[np.ndarray]] | None = None,
 ) -> float:
-    """Keypoint coverage: do the rendered marks pass through expected positions?"""
+    """Letter recognition via exemplar NCC when available, keypoint coverage otherwise.
+
+    When exemplars are provided: uses NCC against real manuscript images only.
+    When no exemplars: falls back to structural keypoint coverage check.
+    """
     from scribesim.guides.catalog import lookup_guide
 
     gray = _to_gray(rendered)
@@ -77,37 +177,42 @@ def f1_letter_recognition(
     if not binary.any():
         return 0.0
 
-    # For each glyph, check if keypoints are near ink
     scores = []
     px_per_mm = rendered.shape[1] / max(genome.word_width_mm + 4.0, 1.0)
 
-    for gi, glyph in enumerate(genome.glyphs):
+    for glyph in genome.glyphs:
+        # --- Exemplar NCC (preferred when available) ---
+        letter_exemplars = (exemplars or {}).get(glyph.letter)
+        if letter_exemplars:
+            x_px = int(glyph.x_offset * px_per_mm)
+            w_px = max(1, int(glyph.x_advance * px_per_mm))
+            glyph_crop = gray[:, max(0, x_px):x_px + w_px]
+            if glyph_crop.size > 0:
+                ncc_scores = [_ncc_score(glyph_crop, ex) for ex in letter_exemplars]
+                scores.append(max(ncc_scores))
+            else:
+                scores.append(0.0)
+            continue
+
+        # --- Keypoint fallback ---
         guide = lookup_guide(glyph.letter)
         if guide is None:
-            scores.append(0.5)  # neutral for unguided letters
+            scores.append(0.5)
             continue
 
         hits = 0
         for kp in guide.keypoints:
             if not kp.contact:
                 continue
-            # Convert keypoint to pixel coords
-            kp_x_mm = glyph.x_offset + kp.x * 3.8  # approximate x_height
-            kp_y_mm = genome.baseline_y - kp.y * 3.8
-            kp_x_px = int(kp_x_mm * px_per_mm)
-            kp_y_px = int(kp_y_mm * px_per_mm)
-
-            # Check if there's ink near this position
+            kp_x_px = int((glyph.x_offset + kp.x * 3.8) * px_per_mm)
+            kp_y_px = int((genome.baseline_y - kp.y * 3.8) * px_per_mm)
             r = max(3, int(kp.flexibility_mm * px_per_mm))
             y0 = max(0, kp_y_px - r)
             y1 = min(binary.shape[0], kp_y_px + r)
             x0 = max(0, kp_x_px - r)
             x1 = min(binary.shape[1], kp_x_px + r)
-
-            if y1 > y0 and x1 > x0:
-                region = binary[y0:y1, x0:x1]
-                if region.any():
-                    hits += 1
+            if y1 > y0 and x1 > x0 and binary[y0:y1, x0:x1].any():
+                hits += 1
 
         contact_kps = sum(1 for kp in guide.keypoints if kp.contact)
         scores.append(hits / max(contact_kps, 1))
@@ -139,9 +244,12 @@ def f2_thick_thin(rendered: np.ndarray) -> float:
         min_w = 0.1
 
     ratio = max_w / min_w
-    target = 4.0
+    # Bastarda nib at 35° gives ~8–12x thick/thin ratio physically.
+    # Score peaks at ratio=8, drops off symmetrically with tolerance ±6.
+    target = 8.0
+    tolerance = 6.0
 
-    return max(0.0, 1.0 - abs(ratio - target) / target)
+    return max(0.0, 1.0 - abs(ratio - target) / tolerance)
 
 
 # ---------------------------------------------------------------------------
@@ -288,7 +396,7 @@ def f7_continuity(genome: WordGenome) -> float:
 
         # Position gap
         gap = math.sqrt((exit_pt[0] - entry_pt[0])**2 + (exit_pt[1] - entry_pt[1])**2)
-        penalty += gap
+        penalty += gap * 0.2  # scale: 5mm gap → penalty=1.0 (not 5.0)
 
         # Direction gap
         exit_tan = genome.glyphs[i].exit_tangent()
@@ -312,19 +420,28 @@ def evaluate_fitness(
     target_crop: np.ndarray | None = None,
     exemplars: dict[str, list[np.ndarray]] | None = None,
     dpi: float = 100.0,
+    exemplar_root: Path | None = None,
+    nib_width_mm: float = 1.0,
 ) -> FitnessResult:
     """Evaluate all 7 fitness criteria for a genome.
 
     Args:
         genome: The word genome to evaluate.
         target_crop: Optional target manuscript word image.
-        exemplars: Optional per-letter exemplar images for F1.
+        exemplars: Optional pre-loaded per-letter exemplar images for F1.
+            If None, exemplars are auto-loaded from exemplar_root (or the
+            repo-relative reference/exemplars/ / training/labeled_exemplars/).
         dpi: Rendering resolution for evaluation.
+        exemplar_root: Override path for exemplar loading.  When provided,
+            this directory is searched first for per-letter subdirectories.
 
     Returns:
         FitnessResult with all 7 scores and composite total.
     """
-    rendered = render_word_from_genome(genome, dpi=dpi)
+    rendered = render_word_from_genome(genome, dpi=dpi, nib_width_mm=nib_width_mm)
+
+    if exemplars is None:
+        exemplars = _load_exemplars(exemplar_root=exemplar_root)
 
     return FitnessResult(
         f1=f1_letter_recognition(rendered, genome, exemplars),

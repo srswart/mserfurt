@@ -157,72 +157,93 @@ class WordGenome:
 # Initialize from letterform guides
 # ---------------------------------------------------------------------------
 
+def _load_extracted_guides(guides_path) -> dict:
+    """Load a guides_extracted.toml and return a dict mapping letter → LetterformGuide.
+
+    Returns an empty dict if the file does not exist or fails to parse.
+    """
+    import tomllib
+    from pathlib import Path
+    from scribesim.guides.keypoint import Keypoint, LetterformGuide
+
+    p = Path(guides_path) if guides_path is not None else None
+
+    # Auto-detect from repo root if not specified
+    if p is None:
+        candidate = Path("shared/hands/guides_extracted.toml")
+        if candidate.exists():
+            p = candidate
+
+    if p is None or not p.exists():
+        return {}
+
+    try:
+        data = tomllib.loads(p.read_text())
+    except Exception:
+        return {}
+
+    guides: dict = {}
+    for letter, entry in data.items():
+        if not isinstance(entry, dict):
+            continue
+        raw_kps = entry.get("keypoints", [])
+        kps = tuple(
+            Keypoint(
+                x=float(k.get("x", 0.0)),
+                y=float(k.get("y", 0.0)),
+                point_type=str(k.get("point_type", "stroke")),
+                contact=bool(k.get("contact", True)),
+                direction_deg=float(k.get("direction_deg", 270.0)),
+                flexibility_mm=float(k.get("flexibility_mm", 0.2)),
+            )
+            for k in raw_kps
+        )
+        guides[letter] = LetterformGuide(
+            letter=letter,
+            keypoints=kps,
+            x_advance=float(entry.get("x_advance", 0.6)),
+            ascender=bool(entry.get("ascender", False)),
+            descender=bool(entry.get("descender", False)),
+        )
+    return guides
+
+
 def genome_from_guides(
     word_text: str,
     baseline_y_mm: float = 10.0,
     x_height_mm: float = 3.8,
+    guides_path=None,
 ) -> WordGenome:
     """Create a WordGenome by converting letterform guides to Bézier segments.
 
-    Falls back to the glyph catalog for letters without guides.
+    Prefers extracted guides from *guides_path* (or auto-detected
+    ``shared/hands/guides_extracted.toml``) over the hand-defined catalog.
+    Falls back to the glyph catalog for letters without any guide.
+
+    Args:
+        word_text: Word to seed.
+        baseline_y_mm: Y position of baseline in mm.
+        x_height_mm: X-height in mm.
+        guides_path: Optional path to a ``guides_extracted.toml`` file.
     """
     from scribesim.guides.catalog import lookup_guide
     from scribesim.glyphs.catalog import GLYPH_CATALOG
     from scribesim.layout.linebreak import char_to_glyph_id
 
+    extracted = _load_extracted_guides(guides_path)
+
     glyphs = []
     x = 0.0
 
     for ch in word_text:
-        guide = lookup_guide(ch)
+        # Try GLYPH_CATALOG first — it has proper multi-stroke geometry.
+        # Guide keypoints (lookup_guide) are structural markers that collapse
+        # to 1 Bézier per letter when all points are contact=True, which
+        # produces unrecognizable letterforms in the genome.
+        glyph_id = char_to_glyph_id(ch, "german")
+        glyph = GLYPH_CATALOG.get(glyph_id)
 
-        if guide is not None:
-            # Build Bézier segments from guide keypoints
-            segments = []
-            kps = guide.keypoints
-            for i in range(len(kps) - 1):
-                kp0 = kps[i]
-                kp1 = kps[i + 1]
-
-                # Convert keypoint coords to mm
-                x0 = x + kp0.x * x_height_mm
-                y0 = baseline_y_mm - kp0.y * x_height_mm
-                x1 = x + kp1.x * x_height_mm
-                y1 = baseline_y_mm - kp1.y * x_height_mm
-
-                # Control points: slight arc between keypoints
-                mx = (x0 + x1) / 2
-                my = (y0 + y1) / 2
-                # Offset control points for curvature
-                dx = x1 - x0
-                dy = y1 - y0
-                perp_x = -dy * 0.15
-                perp_y = dx * 0.15
-
-                seg = BezierSegment(
-                    p0=(x0, y0),
-                    p1=(x0 + dx * 0.33 + perp_x, y0 + dy * 0.33 + perp_y),
-                    p2=(x0 + dx * 0.67 - perp_x, y0 + dy * 0.67 - perp_y),
-                    p3=(x1, y1),
-                    contact=kp0.contact and kp1.contact,
-                )
-                segments.append(seg)
-
-            adv = guide.x_advance * x_height_mm
-            glyphs.append(GlyphGenome(
-                letter=ch, segments=segments,
-                x_offset=x, x_advance=adv,
-            ))
-            x += adv + 0.3 * x_height_mm  # inter-letter gap
-
-        else:
-            # Fallback: convert glyph catalog strokes to segments
-            glyph_id = char_to_glyph_id(ch, "german")
-            glyph = GLYPH_CATALOG.get(glyph_id)
-            if glyph is None:
-                x += 1.0
-                continue
-
+        if glyph is not None:
             segments = []
             for stroke in glyph.strokes:
                 pts = stroke.control_points
@@ -246,6 +267,64 @@ def genome_from_guides(
                 x_offset=x, x_advance=adv,
             ))
             x += adv + 0.2 * x_height_mm
+
+        else:
+            # Fallback: guide keypoints → group into strokes by pen contact,
+            # fit one cubic Bézier per run. Used only when GLYPH_CATALOG has
+            # no entry for this character.
+            guide = extracted.get(ch) or lookup_guide(ch)
+            if guide is None:
+                x += 1.0
+                continue
+
+            segments = []
+            kps = guide.keypoints
+
+            stroke_pts: list[list] = []
+            current: list = []
+            for kp in kps:
+                if kp.contact:
+                    current.append(kp)
+                else:
+                    if len(current) >= 2:
+                        stroke_pts.append(current)
+                    current = []
+            if len(current) >= 2:
+                stroke_pts.append(current)
+
+            for stroke in stroke_pts:
+                n = len(stroke)
+                p0_kp = stroke[0]
+                p1_kp = stroke[max(1, n // 3)]
+                p2_kp = stroke[max(1, 2 * n // 3)]
+                p3_kp = stroke[-1]
+
+                def _to_mm(kp, _x=x):
+                    return (_x + kp.x * x_height_mm,
+                            baseline_y_mm - kp.y * x_height_mm)
+
+                seg = BezierSegment(
+                    p0=_to_mm(p0_kp), p1=_to_mm(p1_kp),
+                    p2=_to_mm(p2_kp), p3=_to_mm(p3_kp),
+                    contact=True,
+                )
+                segments.append(seg)
+
+            # Align first p0 with cursor x
+            if segments:
+                shift = x - segments[0].p0[0]
+                for seg in segments:
+                    seg.p0 = (seg.p0[0] + shift, seg.p0[1])
+                    seg.p1 = (seg.p1[0] + shift, seg.p1[1])
+                    seg.p2 = (seg.p2[0] + shift, seg.p2[1])
+                    seg.p3 = (seg.p3[0] + shift, seg.p3[1])
+
+            adv = guide.x_advance * x_height_mm
+            glyphs.append(GlyphGenome(
+                letter=ch, segments=segments,
+                x_offset=x, x_advance=adv,
+            ))
+            x += adv + 0.3 * x_height_mm
 
     return WordGenome(
         text=word_text,
