@@ -16,7 +16,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from scribesim.evo.genome import WordGenome, genome_from_guides
+from scribesim.evo.genome import WordGenome, genome_from_guides, preprocess_roman_numerals
 from scribesim.evo.engine import evolve_word, EvolutionConfig
 from scribesim.evo.renderer import render_word_from_genome, _PARCHMENT
 from scribesim.ink.cycle import DipEvent, InkState
@@ -75,6 +75,7 @@ def _get_genome(
     guides_path=None,
     exemplar_root=None,
     nib_width_mm: float = 0.65,
+    letter_gap: float = 0.12,
 ) -> tuple[WordGenome, float]:
     """Return (genome, fitness). Evolves if evolve=True and not cached."""
     cache_key = f"{word}_{context.emotional_state}"
@@ -102,7 +103,7 @@ def _get_genome(
         _GENOME_CACHE[cache_key] = copy.deepcopy(genome)
         return genome, fitness
     else:
-        genome = genome_from_guides(word, x_height_mm=x_height_mm, guides_path=guides_path)
+        genome = genome_from_guides(word, x_height_mm=x_height_mm, guides_path=guides_path, letter_gap=letter_gap)
         _GENOME_CACHE[cache_key] = copy.deepcopy(genome)
         return genome, 0.0
 
@@ -211,6 +212,7 @@ def render_line(
     variation: float = 1.0,
     show_ink_state: bool = False,
     ink_graph_path: Path | None = None,
+    letter_gap: float = 0.12,
 ) -> np.ndarray:
     """Render a line of text word by word.
 
@@ -237,8 +239,12 @@ def render_line(
     if word_gap_mm is None:
         word_gap_mm = x_height_mm * 0.20  # ~0.75mm — Gothic inter-word gap
 
+    # Preprocess Roman numeral tokens → scribal lowercase + interpuncts
+    processed_text, numeral_word_indices = preprocess_roman_numerals(line_text)
+    numeral_set = set(numeral_word_indices)
+
     px_per_mm = dpi / 25.4
-    words = line_text.split()
+    words = processed_text.split()
     if not words:
         h = int(line_height_mm * px_per_mm)
         w = int(20 * px_per_mm)
@@ -273,7 +279,10 @@ def render_line(
             guides_path=guides_path,
             exemplar_root=exemplar_root,
             nib_width_mm=nib_width_mm,
+            letter_gap=letter_gap,
         )
+        if wi in numeral_set:
+            genome.overline = True
 
         word_img = render_word_from_genome(
             genome,

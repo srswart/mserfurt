@@ -496,12 +496,15 @@ def render_word(text: str, output_path: str, profile_path: str | None,
                    "(green=fresh, yellow=low, red=critical).")
 @click.option("--ink-graph", "ink_graph", is_flag=True, default=False,
               help="Save an ink cycle graph (reservoir vs word index) as {output}_ink_graph.png.")
+@click.option("--letter-gap", "letter_gap", default=0.12, type=float, show_default=True,
+              help="Inter-letter gap as fraction of x_height (default 0.12 ≈ 40% tighter than historic 0.20).")
 def render_line_cmd(text: str, output_path: str, dpi: int, nib_width_mm: float,
                     x_height_mm: float, guides_path: str | None,
                     progress_dir: str | None, evolve: bool,
                     generations: int, pop_size: int,
                     exemplars_dir: str | None, variation: float,
-                    show_ink_state: bool, ink_graph: bool) -> None:
+                    show_ink_state: bool, ink_graph: bool,
+                    letter_gap: float) -> None:
     """Render a line of text word by word with progress output.
 
     TEXT is a space-separated sequence of words. Without --evolve, each word
@@ -539,6 +542,7 @@ def render_line_cmd(text: str, output_path: str, dpi: int, nib_width_mm: float,
         variation=variation,
         show_ink_state=show_ink_state,
         ink_graph_path=graph_path,
+        letter_gap=letter_gap,
     )
 
     out.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,50 @@
+component:
+  id: worddegrade
+  name: "Word-Level Pre-Degradation"
+  type: library
+  owners:
+    - team: shawn
+  stage: planned
+
+selectors:
+  paths:
+    - "weather/worddegrade.py"
+    - "weather/worddegrade/**"
+  build_modules: []
+  tags: []
+  contracts:
+    - docs/tech-direction/TD-011-addendum-a.md
+
+interfaces:
+  - name: build_word_damage_map
+    description: >
+      Maps CLIO-7 confidence annotations from the folio JSON to pixel bounding
+      boxes from the ScribeSim PAGE XML. Returns a list of WordDamageEntry
+      with word text, bbox (pixel coords), center, confidence, category, and
+      any specific_note from the CLIO-7 apparatus.
+    signature: >
+      build_word_damage_map(
+          folio_json: dict,
+          page_xml_path: Path,
+      ) -> list[WordDamageEntry]
+
+  - name: pre_degrade_text
+    description: >
+      Applies word-level ink degradation to a clean ScribeSim image BEFORE
+      AI weathering. Lacunae (confidence=0.0) are erased to local background;
+      barely-legible words (<0.6) are faded to 20-30% opacity with dissolution
+      noise; partially-legible words (<0.8) are faded to 50-70% opacity.
+      Returns the modified image and a degradation mask for validation.
+    signature: >
+      pre_degrade_text(
+          clean_image: np.ndarray,
+          word_damage_map: list[WordDamageEntry],
+          seed: int = 1457,
+      ) -> tuple[np.ndarray, np.ndarray]
+
+invariants:
+  - "Lacuna regions (confidence=0.0) are erased to estimated local background — no ink visible"
+  - "Confidence thresholds: 0.0=lacuna, <0.6=trace, <0.8=partial, >=0.8=clear (aging only)"
+  - "Pre-degradation mask records exactly which pixels were modified, used by AIVALIDATE to verify AI did not restore them"
+  - "Seed is fixed per folio — deterministic output for the same input"
+  - "Pixels outside word bboxes are never modified by this component"

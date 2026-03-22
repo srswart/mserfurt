@@ -157,6 +157,7 @@ class WordGenome:
     slant_drift: list[float] = field(default_factory=list)     # per-glyph slant variation
     ink_state_start: float = 0.85
     tempo: float = 1.0
+    overline: bool = False        # True for scribal Roman numeral groups
 
     @property
     def letter_sequence(self) -> list[str]:
@@ -218,11 +219,60 @@ def _load_extracted_guides(guides_path) -> dict:
     return guides
 
 
+import re as _re
+
+_ROMAN_TOKEN_RE = _re.compile(r'^([MDCLXVI]{2,})([,.:;!?]*)$')
+
+
+def preprocess_roman_numerals(text: str) -> tuple[str, list[int]]:
+    """Convert uppercase Roman numeral tokens to scribal form with overline flag.
+
+    e.g. "anno MCCCCLVII Domini"  → "anno ·mcccclvij· Domini"
+         "anno MCCCCLVII, in..."  → "anno ·mcccclvij·, in..."
+    Also returns word indices (in the output list) that need an overline.
+
+    Rules:
+      - Tokens where the alphabetic part is all-uppercase MDCLXVI ≥ 2 chars are numerals.
+      - Lowercased, final 'i' → 'j', wrapped in interpunct (·) separators.
+      - Trailing punctuation (, . : ;) is re-attached after the closing interpunct.
+      - Resulting token is flagged for overline rendering.
+    """
+    words = text.split()
+    numeral_indices: list[int] = []
+    out: list[str] = []
+    for i, w in enumerate(words):
+        m = _ROMAN_TOKEN_RE.fullmatch(w)
+        if m:
+            numeral_part, punct_part = m.group(1), m.group(2)
+            lowered = numeral_part.lower()
+            # Final 'i' → 'j' (scribal convention for trailing minims)
+            if lowered.endswith("i"):
+                lowered = lowered[:-1] + "j"
+            out.append(f"·{lowered}·{punct_part}")
+            numeral_indices.append(i)
+        else:
+            out.append(w)
+    return " ".join(out), numeral_indices
+
+
+# Per-letter right-bearing adjustment (in x_height units, added to inter-letter gap).
+# Negative = tighter coupling to next letter; positive = more breathing room.
+_RIGHT_BEARING: dict[str, float] = {
+    # Tight exits — rounded or open forms that optically crowd next letter
+    "o": -0.05, "c": -0.05, "e": -0.04, "a": -0.04,
+    "g": -0.03, "q": -0.03,
+    # Wide exits — letters that already carry visual space on their right
+    "d": 0.03, "h": 0.02, "l": 0.02, "b": 0.02, "t": 0.02, "k": 0.02,
+    # Default (n, m, u, i, r, s, f, z …) → 0.0
+}
+
+
 def genome_from_guides(
     word_text: str,
     baseline_y_mm: float = 10.0,
     x_height_mm: float = 3.8,
     guides_path=None,
+    letter_gap: float = 0.12,
 ) -> WordGenome:
     """Create a WordGenome by converting letterform guides to Bézier segments.
 
@@ -235,6 +285,7 @@ def genome_from_guides(
         baseline_y_mm: Y position of baseline in mm.
         x_height_mm: X-height in mm.
         guides_path: Optional path to a ``guides_extracted.toml`` file.
+        letter_gap: Base inter-letter gap as a fraction of x_height_mm (default 0.12).
     """
     from scribesim.guides.catalog import lookup_guide
     from scribesim.glyphs.catalog import GLYPH_CATALOG
@@ -297,7 +348,8 @@ def genome_from_guides(
                 connection_exit_mm=conn_exit,
                 connection_entry_mm=conn_entry,
             ))
-            x += adv + 0.2 * x_height_mm
+            gap = letter_gap + _RIGHT_BEARING.get(ch, 0.0)
+            x += adv + gap * x_height_mm
 
         else:
             # Fallback: guide keypoints → group into strokes by pen contact,
@@ -355,7 +407,8 @@ def genome_from_guides(
                 letter=ch, segments=segments,
                 x_offset=x, x_advance=adv,
             ))
-            x += adv + 0.3 * x_height_mm
+            gap = letter_gap + _RIGHT_BEARING.get(ch, 0.0)
+            x += adv + gap * x_height_mm
 
     return WordGenome(
         text=word_text,

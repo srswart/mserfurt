@@ -73,19 +73,26 @@ def test_genome_from_guides_fallback(tmp_path):
     assert u_glyph is not None
 
 
-def test_genome_from_guides_extracted_takes_priority(tmp_path):
-    """Extracted guide takes priority over hand-defined catalog for covered letters."""
+def test_genome_from_guides_catalog_takes_priority_over_extracted(tmp_path):
+    """GLYPH_CATALOG takes priority over extracted guides for letters with catalog entries.
+
+    GLYPH_CATALOG provides proper multi-stroke Bézier geometry; extracted guides
+    collapse to a single Bézier per letter and produce unrecognisable letterforms.
+    Extracted guides are only used as fallback for letters absent from the catalog.
+    """
     toml_file = tmp_path / "guides_extracted.toml"
-    # Use a very distinctive x_advance of 9.9 to identify extracted guide
+    # Use a very distinctive x_advance of 9.9 to identify if extracted guide were used
     toml_file.write_text(_MINIMAL_GUIDES_TOML.replace("x_advance = 0.6", "x_advance = 9.9"))
 
     genome = genome_from_guides("u", guides_path=toml_file, x_height_mm=1.0)
     u_glyph = next((g for g in genome.glyphs if g.letter == "u"), None)
     assert u_glyph is not None
-    # x_advance in mm should reflect the 9.9 x-height-unit value × 1.0 mm = ~9.9 mm
-    assert u_glyph.x_advance > 5.0, (
-        f"expected large x_advance from extracted guide, got {u_glyph.x_advance:.3f}"
+    # Should use GLYPH_CATALOG (small advance), NOT the extracted guide (9.9 × x_height)
+    assert u_glyph.x_advance < 5.0, (
+        f"expected catalog x_advance, not extracted guide's 9.9, got {u_glyph.x_advance:.3f}"
     )
+    # Catalog 'u' has multiple strokes; extracted guide collapses to 1
+    assert len(u_glyph.segments) >= 1
 
 
 def test_genome_from_guides_uncovered_letter_fallback(tmp_path):

@@ -1,0 +1,52 @@
+component:
+  id: promptgen
+  name: "AI Weathering Prompt Generator"
+  type: library
+  owners:
+    - team: shawn
+  stage: planned
+
+selectors:
+  paths:
+    - "weather/promptgen.py"
+    - "weather/promptgen/**"
+  build_modules: []
+  tags: []
+  contracts:
+    - docs/tech-direction/TD-011-ai-weathering.md#part-3-ai-weathering-prompt-generation
+    - docs/tech-direction/TD-011-addendum-a.md
+
+interfaces:
+  - name: generate_weathering_prompt
+    description: >
+      Translates a single FolioWeatherSpec plus coherence context into a
+      structured text prompt for the AI image model. Includes vellum stock,
+      ink aging, edge darkening, water damage, missing corner, foxing spots,
+      text degradation zones (line-level from TD-011 Part 3), and
+      word-level degradation (Addendum A via generate_text_degradation_prompt).
+    signature: >
+      generate_weathering_prompt(
+          folio_spec: FolioWeatherSpec,
+          context: CoherenceContext,
+          word_damage_map: list[WordDamageEntry] | None = None,
+          page_width: int | None = None,
+          page_height: int | None = None,
+      ) -> str
+
+  - name: build_coherence_context
+    description: >
+      Assembles the CoherenceContext for a given folio by looking up its
+      same-leaf partner and facing page in the weathering map.
+      Attaches reference_image if those folios have already been weathered.
+    signature: >
+      build_coherence_context(
+          folio_id: str,
+          weathering_map: dict[str, FolioWeatherSpec],
+          weathered_so_far: dict[str, Image] | None = None,
+      ) -> CoherenceContext
+
+invariants:
+  - "Prompt always opens with the preservation instruction (do not alter text)"
+  - "Coherence reference images are included only for already-weathered adjacent folios"
+  - "Word-level degradation instructions are appended after physical damage instructions"
+  - "Prompt sections are ordered: base → vellum → ink → edges → water → corner → foxing → text-degradation → coherence"

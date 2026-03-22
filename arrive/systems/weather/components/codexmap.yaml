@@ -1,0 +1,38 @@
+component:
+  id: codexmap
+  name: "Codex Weathering Map"
+  type: library
+  owners:
+    - team: shawn
+  stage: planned
+
+selectors:
+  paths:
+    - "weather/codexmap.py"
+    - "weather/codexmap/**"
+  build_modules: []
+  tags: []
+  contracts:
+    - docs/tech-direction/TD-011-ai-weathering.md#part-2-codex-weathering-map
+
+interfaces:
+  - name: compute_codex_weathering_map
+    description: >
+      Computes the complete per-folio weathering specification for all 34 pages
+      from physical propagation rules (water, foxing, edge, missing corner).
+      Returns a dict keyed by folio_id with damage severity, origin, and position data.
+    signature: >
+      compute_codex_weathering_map(
+          gathering_size: int = 17,
+          clio7_annotations: dict | None = None,
+          seed: int = 1457,
+      ) -> dict[str, FolioWeatherSpec]
+
+invariants:
+  - "Water damage propagation from f04r decays by 0.4 per leaf distance"
+  - "Recto/verso severity ratio is always 0.85 (penetration loss)"
+  - "Missing corner only on f04r and f04v (same leaf)"
+  - "Vellum stock is 'irregular' for f14-f17, 'standard' for f01-f13"
+  - "Edge darkening is universal; outermost folios (f01, f17) have severity >= 0.85"
+  - "All foxing clusters span 2-4 adjacent leaves with Gaussian position jitter"
+  - "Output is deterministic for a given seed"

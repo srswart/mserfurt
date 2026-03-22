@@ -832,3 +832,89 @@ passes:
       dependencies:
       - ADV-SS-REFSELECT-005
       notes: New scribesim transcribe-words CLI subcommand. Few-shot image examples in prompt. Second-pass retry on unknowns with soft ~ prefix. Target ≥88% recognition vs current 75%.
+- id: pass-3d
+  title: 'Pass 3d: AI Weathering — Codex Map (TD-011)'
+  order: 32
+  phases:
+  - id: ai-weathering-foundation
+    title: Physical damage propagation model
+    order: 1
+    items:
+    - id: ADV-WX-CODEXMAP-001
+      advance_id: ADV-WX-CODEXMAP-001
+      title: Codex Weathering Map — Physical Damage Propagation Model
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-TESTS-001
+      notes: TD-011 Part 2. Pure computation — no AI model needed. Deterministic for seed=1457. Prerequisite for all downstream AI weathering.
+- id: pass-3e
+  title: 'Pass 3e: AI Weathering — Prompt Generation & Pre-Degradation (TD-011)'
+  order: 33
+  phases:
+  - id: ai-weathering-prep
+    title: Prompt generation and word-level pre-degradation (parallel)
+    order: 1
+    items:
+    - id: ADV-WX-PROMPTGEN-001
+      advance_id: ADV-WX-PROMPTGEN-001
+      title: AI Weathering Prompt Generator — Codex Map to Structured Prompts
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-CODEXMAP-001
+      notes: TD-011 Parts 3 + Addendum A prompt section. Generates structured prompts with coherence context. Parallel with WORDDEGRADE.
+    - id: ADV-WX-WORDDEGRADE-001
+      advance_id: ADV-WX-WORDDEGRADE-001
+      title: Word-Level Pre-Degradation — CLIO-7 Annotations to Pixel Regions
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-CODEXMAP-001
+      notes: TD-011 Addendum A. Maps CLIO-7 word confidence to pixel bboxes. Applies opacity degradation before AI call. Parallel with PROMPTGEN.
+- id: pass-3f
+  title: 'Pass 3f: AI Weathering — Execution (TD-011)'
+  order: 34
+  phases:
+  - id: ai-weathering-execution
+    title: AI image model API integration in gathering order
+    order: 1
+    items:
+    - id: ADV-WX-AIWEATHER-001
+      advance_id: ADV-WX-AIWEATHER-001
+      title: AI Weathering Execution — Sequential Gathering-Order API Pipeline
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-PROMPTGEN-001
+      - ADV-WX-WORDDEGRADE-001
+      notes: TD-011 Parts 4+7. OpenAI GPT-Image-1. Processes f04r first, outward. Dry-run mode for testing without API cost. Provenance JSON per folio.
+- id: pass-3g
+  title: 'Pass 3g: AI Weathering — Validation & CLI (TD-011)'
+  order: 35
+  phases:
+  - id: ai-weathering-validation
+    title: Post-AI validation pipeline
+    order: 1
+    items:
+    - id: ADV-WX-AIVALIDATE-001
+      advance_id: ADV-WX-AIVALIDATE-001
+      title: AI Weathering Validation — Text Integrity and Damage Consistency
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-AIWEATHER-001
+      notes: TD-011 Part 5 + Addendum A V2. V1 text position drift (<5px), V2-A pre-degradation preserved, V3 recto/verso stain IoU (>0.50). Appends to provenance JSON.
+  - id: ai-weathering-cli
+    title: New AI weather CLI subcommands
+    order: 2
+    items:
+    - id: ADV-WX-AICLI-001
+      advance_id: ADV-WX-AICLI-001
+      title: AI Weather CLI — weather-map, weather-folio, weather-codex, weather-validate
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-WX-AIWEATHER-001
+      - ADV-WX-AIVALIDATE-001
+      notes: TD-011 Part 7. Extends weather/cli.py additively. Existing apply/apply-batch unchanged. Resumable codex run (skips completed folios).

@@ -37,21 +37,6 @@ def _ink_color(darkness: float) -> tuple[int, int, int]:
     )
 
 
-def _normalize(tx: float, ty: float) -> tuple[float, float]:
-    ln = math.sqrt(tx * tx + ty * ty)
-    return (tx / ln, ty / ln) if ln > 1e-6 else (1.0, 0.0)
-
-
-def _cubic_pt(
-    p0: tuple, cp1: tuple, cp2: tuple, p3: tuple, t: float
-) -> tuple[float, float]:
-    u = 1.0 - t
-    return (
-        u**3*p0[0] + 3*u**2*t*cp1[0] + 3*u*t**2*cp2[0] + t**3*p3[0],
-        u**3*p0[1] + 3*u**2*t*cp1[1] + 3*u*t**2*cp2[1] + t**3*p3[1],
-    )
-
-
 # ---------------------------------------------------------------------------
 # Core drawing primitives
 # ---------------------------------------------------------------------------
@@ -89,63 +74,6 @@ def _draw_nib_sweep(
         )
 
 
-def _draw_curved_hairline(
-    draw: ImageDraw.ImageDraw,
-    exit_px: tuple[float, float],
-    exit_tan_px: tuple[float, float],
-    entry_px: tuple[float, float],
-    entry_tan_px: tuple[float, float],
-    hairline_px: float,
-    darkness: float = 0.75,
-    n_samples: int = 28,
-) -> None:
-    """Draw a curved hairline Bézier connection between two points.
-
-    Control points are set from the exit/entry tangents so the curve
-    follows the natural pen path — continuing smoothly out of the
-    previous stroke and arriving smoothly into the next.
-    """
-    if darkness < 0.05:
-        return
-
-    x0, y0 = exit_px
-    x1, y1 = entry_px
-    dx, dy = x1 - x0, y1 - y0
-    dist = math.sqrt(dx * dx + dy * dy)
-    if dist < 1.0:
-        return
-
-    color = _ink_color(darkness)
-
-    # Scale the tangent handles to ~35% of the connection distance
-    scale = dist * 0.35
-    et = _normalize(*exit_tan_px)
-    nt = _normalize(*entry_tan_px)
-
-    cp1 = (x0 + et[0] * scale, y0 + et[1] * scale)
-    cp2 = (x1 - nt[0] * scale, y1 - nt[1] * scale)
-
-    prev: tuple[float, float] | None = None
-    for si in range(n_samples + 1):
-        t = si / n_samples
-        pt = _cubic_pt((x0, y0), cp1, cp2, (x1, y1), t)
-        if prev is not None:
-            px0, py0 = prev
-            px1, py1 = pt
-            sdx, sdy = px1 - px0, py1 - py0
-            slen = math.sqrt(sdx * sdx + sdy * sdy)
-            if slen > 0.5:
-                nx = (-sdy / slen) * (hairline_px / 2.0)
-                ny = (sdx / slen) * (hairline_px / 2.0)
-                draw.polygon([
-                    (px0 - nx, py0 - ny),
-                    (px0 + nx, py0 + ny),
-                    (px1 + nx, py1 + ny),
-                    (px1 - nx, py1 - ny),
-                ], fill=color)
-        prev = pt
-
-
 # ---------------------------------------------------------------------------
 # Coordinate helpers
 # ---------------------------------------------------------------------------
@@ -161,17 +89,6 @@ def _world_to_px(
     y_above_baseline = baseline_y - y_mm
     x_mm = x_mm + y_above_baseline * math.tan(slant_rad)
     return x_mm * px_per_mm + x_offset_px, y_mm * px_per_mm
-
-
-def _tangent_to_px(
-    tx_mm: float, ty_mm: float,
-    slant_rad: float, px_per_mm: float,
-) -> tuple[float, float]:
-    """Apply slant shear to a tangent vector, return in pixel units."""
-    # Match the shear in _world_to_px: x shifts by -tan(slant) * dy
-    tx_px = (tx_mm - ty_mm * math.tan(slant_rad)) * px_per_mm
-    ty_px = ty_mm * px_per_mm
-    return tx_px, ty_px
 
 
 # ---------------------------------------------------------------------------
@@ -237,26 +154,16 @@ def render_word_from_genome(
     n_samples = 80
     x_offset_px = left_margin_mm * px_per_mm
 
-    # Collect per-glyph exit/entry points + tangents in pixel space
-    glyph_exit_px: list[tuple[float, float]] = []
-    glyph_exit_tan_px: list[tuple[float, float]] = []
-    glyph_entry_px: list[tuple[float, float]] = []
-    glyph_entry_tan_px: list[tuple[float, float]] = []
-
     v = variation
 
     # ------------------------------------------------------------ render glyphs
     for gi, glyph in enumerate(genome.glyphs):
-        # Per-glyph: baseline wander ±0.12mm, slant drift ±0.8°
-        glyph_baseline_jitter = random.gauss(0, 0.12 * v) if v > 0 else 0.0
-        glyph_slant_jitter = random.gauss(0, 0.8 * v) if v > 0 else 0.0
-
+        # Per-glyph slant drift only (no baseline jitter here — handled by affine y-shift below)
+        glyph_slant_jitter = random.gauss(0, 0.4 * v) if v > 0 else 0.0
         slant_deg = genome.global_slant_deg + (
             genome.slant_drift[gi] if gi < len(genome.slant_drift) else 0.0
         ) + glyph_slant_jitter
-        baseline_offset = (
-            genome.baseline_drift[gi] if gi < len(genome.baseline_drift) else 0.0
-        ) + glyph_baseline_jitter
+        baseline_offset = genome.baseline_drift[gi] if gi < len(genome.baseline_drift) else 0.0
         slant_rad = math.radians(slant_deg)
 
         def to_px(x_mm, y_mm, _slant_rad=slant_rad, _baseline_offset=baseline_offset):
@@ -265,68 +172,48 @@ def render_word_from_genome(
                 _baseline_offset, px_per_mm, x_offset_px,
             )
 
-        def tan_to_px(tx, ty, _slant_rad=slant_rad):
-            return _tangent_to_px(tx, ty, _slant_rad, px_per_mm)
-
-        # Per-instance control-point perturbation (Task 3).
-        # Correlated noise: a shared glyph-level offset biases all control points
-        # in the same direction (0.5 correlation), with additional per-point jitter.
-        # Core zone ±0.03×x_height; entry/exit zones ±0.06×x_height.
+        # Whole-glyph affine variation: one coherent transform per instance keeps each
+        # letter internally consistent while producing visible instance-to-instance variation.
+        # All four parameters use uniform distributions (not Gaussian) for bounded control.
         perturb_segs = glyph.segments
-        if v > 0:
-            n_segs = len(glyph.segments)
-            # x-height ≈ 3.8mm; spec says core ±0.03× = ~0.11mm, edge ±0.06× = ~0.23mm.
-            # Use nib_width_mm as proxy (0.65mm ≈ 17% of x-height).
-            core_sigma = 0.17 * nib_width_mm * v   # ≈ 0.11mm at nib=0.65
-            edge_sigma = 0.35 * nib_width_mm * v   # ≈ 0.23mm at nib=0.65
-            glyph_bias_x = random.gauss(0, core_sigma * 0.8)
-            glyph_bias_y = random.gauss(0, core_sigma * 0.8)
+        if v > 0 and glyph.segments:
+            scale = 1.0 + random.uniform(-0.015, 0.015) * v
+            rot_rad = math.radians(random.uniform(-0.3, 0.3) * v)
+            cos_r, sin_r = math.cos(rot_rad), math.sin(rot_rad)
+            # Pixel shifts in final output pixels → convert to mm
+            mm_per_px = _SUPERSAMPLE / px_per_mm  # = 25.4 / dpi
+            x_shift_mm = random.uniform(-0.5, 0.5) * v * mm_per_px
+            y_shift_mm = random.uniform(-0.3, 0.3) * v * mm_per_px
 
-            def _perturb_pt(pt: tuple, sigma: float) -> tuple[float, float]:
-                return (
-                    pt[0] + glyph_bias_x * 0.5 + random.gauss(0, sigma),
-                    pt[1] + glyph_bias_y * 0.5 + random.gauss(0, sigma),
-                )
+            # Centroid of all control points — rotate/scale around this
+            all_pts = [p for seg in glyph.segments for p in (seg.p0, seg.p1, seg.p2, seg.p3)]
+            cx = sum(p[0] for p in all_pts) / len(all_pts)
+            cy = sum(p[1] for p in all_pts) / len(all_pts)
+
+            def _affine(pt: tuple) -> tuple[float, float]:
+                dx, dy = (pt[0] - cx) * scale, (pt[1] - cy) * scale
+                return (cx + dx * cos_r - dy * sin_r + x_shift_mm,
+                        cy + dx * sin_r + dy * cos_r + y_shift_mm)
 
             from scribesim.evo.genome import BezierSegment as _BS
-            new_segs = []
-            for si2, seg2 in enumerate(glyph.segments):
-                is_edge = (si2 == 0 or si2 == n_segs - 1)
-                sigma = edge_sigma if is_edge else core_sigma
-                new_segs.append(_BS(
-                    p0=_perturb_pt(seg2.p0, sigma),
-                    p1=_perturb_pt(seg2.p1, sigma),
-                    p2=_perturb_pt(seg2.p2, sigma),
-                    p3=_perturb_pt(seg2.p3, sigma),
-                    contact=seg2.contact,
-                    pressure_curve=seg2.pressure_curve,
-                    speed_curve=seg2.speed_curve,
-                    nib_angle_drift=seg2.nib_angle_drift,
-                ))
-            perturb_segs = new_segs
+            perturb_segs = [
+                _BS(
+                    p0=_affine(s.p0), p1=_affine(s.p1),
+                    p2=_affine(s.p2), p3=_affine(s.p3),
+                    contact=s.contact,
+                    pressure_curve=s.pressure_curve,
+                    speed_curve=s.speed_curve,
+                    nib_angle_drift=s.nib_angle_drift,
+                )
+                for s in glyph.segments
+            ]
 
         contact_segs = [s for s in perturb_segs if s.contact]
         if not contact_segs:
-            glyph_exit_px.append((0.0, 0.0))
-            glyph_exit_tan_px.append((1.0, 0.0))
-            glyph_entry_px.append((0.0, 0.0))
-            glyph_entry_tan_px.append((1.0, 0.0))
             continue
 
-        # Entry: prefer explicit catalog entry point, else first contact segment p0.
-        if glyph.connection_entry_mm is not None:
-            glyph_entry_px.append(to_px(*glyph.connection_entry_mm))
-            # Tangent pointing right-and-down (typical approach direction: ~-45° in world)
-            glyph_entry_tan_px.append(tan_to_px(1.0, -0.5))
-        else:
-            first_seg = contact_segs[0]
-            ep = first_seg.evaluate(0.0)
-            et = first_seg.tangent(0.0)
-            glyph_entry_px.append(to_px(*ep))
-            glyph_entry_tan_px.append(tan_to_px(*et))
-
-        # Per-glyph nib angle drift ±2°
-        nib_angle_drift = random.gauss(0, 2.0 * v) if v > 0 else 0.0
+        # Per-glyph nib angle drift ±1°
+        nib_angle_drift = random.gauss(0, 1.0 * v) if v > 0 else 0.0
         seg_nib_angle_rad = math.radians(nib_angle_deg + nib_angle_drift)
         # Ink width modulation: fresh nib spreads ink wider, dry nib is narrower
         width_mod = ink_width_modifier(ink_state.reservoir)
@@ -373,14 +260,14 @@ def render_word_from_genome(
                     draw.polygon(pts, fill=blob_color)
             samples: list[tuple[float, float, float]] = []
 
-            # Per-segment pressure variation ±8%
-            pressure_scale = 1.0 + random.gauss(0, 0.08 * v) if v > 0 else 1.0
-            pressure_scale = max(0.8, min(1.15, pressure_scale))
+            # Per-segment pressure variation ±5%
+            pressure_scale = 1.0 + random.gauss(0, 0.025 * v) if v > 0 else 1.0
+            pressure_scale = max(0.95, min(1.05, pressure_scale))
 
             # Per-segment stroke wobble: small perpendicular tremor along the path
             wobble_x = 0.0
             wobble_y = 0.0
-            wobble_sigma_mm = 0.015 * v  # ±0.015mm lateral tremor
+            wobble_sigma_mm = 0.008 * v  # ±0.008mm lateral tremor
             wobble_px = wobble_sigma_mm * px_per_mm
 
             # Hairline detection: |cross(nib_unit, stroke_unit)| < 0.25
@@ -415,7 +302,7 @@ def render_word_from_genome(
             # Pressure modulates width ±20%; direction is primary thick/thin driver.
             mean_pressure = sum(seg.pressure_at(t / 8) for t in range(9)) / 9
             mean_pressure *= pressure_scale
-            seg_pressure_width = 0.8 + 0.4 * mean_pressure  # 0.8–1.2×
+            seg_pressure_width = 0.98 + 0.04 * mean_pressure  # 0.98–1.02× (±2%)
             hx_p = hx_draw * seg_pressure_width
             hy_p = hy_draw * seg_pressure_width
 
@@ -487,31 +374,68 @@ def render_word_from_genome(
 
             ink_state.deplete_for_stroke(seg.length(), 0.85, nib_width_mm)
 
-        # Exit: prefer explicit catalog exit point, else last contact segment p3.
-        if glyph.connection_exit_mm is not None:
-            glyph_exit_px.append(to_px(*glyph.connection_exit_mm))
-            # Tangent pointing right-and-up (typical departure direction: ~40° above horizontal)
-            glyph_exit_tan_px.append(tan_to_px(1.0, 0.5))
-        else:
-            last_seg = contact_segs[-1]
-            xp = last_seg.evaluate(1.0)
-            xt = last_seg.tangent(1.0)
-            glyph_exit_px.append(to_px(*xp))
-            glyph_exit_tan_px.append(tan_to_px(*xt))
+    # ----------------------------------------- overline for numeral groups
+    if genome.overline and genome.glyphs:
+        # Find the actual topmost segment coordinate across all glyphs — handles numeral
+        # groups like mcccclvij that have no real ascenders, avoiding a floating overline.
+        top_y_mm = genome.baseline_y
+        for _g in genome.glyphs:
+            for _seg in _g.segments:
+                for _pt in (_seg.p0, _seg.p1, _seg.p2, _seg.p3):
+                    top_y_mm = min(top_y_mm, _pt[1])
 
-    # ------------------------------------------------- curved hairline connections
-    for i in range(len(genome.glyphs) - 1):
-        if i >= len(glyph_exit_px) or (i + 1) >= len(glyph_entry_px):
-            continue
-        _draw_curved_hairline(
-            draw,
-            exit_px=glyph_exit_px[i],
-            exit_tan_px=glyph_exit_tan_px[i],
-            entry_px=glyph_entry_px[i + 1],
-            entry_tan_px=glyph_entry_tan_px[i + 1],
-            hairline_px=hairline_px,
-            darkness=0.72,
-        )
+        x_height_mm_est = 3.8
+        slant_rad_nom = math.radians(genome.global_slant_deg)
+        # Place overline 0.15×xh above the actual topmost glyph point
+        overline_y_mm = top_y_mm - 0.15 * x_height_mm_est
+
+        x_start_mm = genome.glyphs[0].x_offset - 0.5
+        x_end_mm = genome.glyphs[-1].x_offset + genome.glyphs[-1].x_advance + 0.5
+
+        # Draw as a nib stroke with natural ink gradient:
+        #   darkness: light start → builds → long taper to near-invisible at end
+        #   width:    slightly thicker at entry → tapers to very fine at exit
+        # This matches a scribe making a deliberate thin horizontal mark with the same pen.
+        n_ol = 60
+        ol_pts = []
+        for si in range(n_ol + 1):
+            t = si / n_ol
+            x_mm = x_start_mm + t * (x_end_mm - x_start_mm)
+            x_px, y_px = _world_to_px(x_mm, overline_y_mm, genome.baseline_y,
+                                      slant_rad_nom, 0.0, px_per_mm, x_offset_px)
+            ol_pts.append((x_px, y_px))
+
+        for si in range(len(ol_pts) - 1):
+            t = (si + 0.5) / n_ol
+            x0, y0 = ol_pts[si]
+            x1, y1 = ol_pts[si + 1]
+
+            # Darkness profile: quick rise then long fade to nearly invisible
+            if t < 0.12:
+                darkness = 0.35 + (t / 0.12) * 0.40    # 0.35 → 0.75
+            elif t < 0.30:
+                darkness = 0.75 - (t - 0.12) / 0.18 * 0.08  # 0.75 → 0.67
+            else:
+                fade = (t - 0.30) / 0.70
+                darkness = 0.67 * (1.0 - fade) ** 2.2  # 0.67 → ~0
+
+            # Width profile: entry slightly thick, then tapers strongly toward exit
+            if t < 0.08:
+                w = 0.42 + (t / 0.08) * 0.18           # 0.42 → 0.60
+            else:
+                w = 0.60 * (1.0 - (t - 0.08) / 0.92) ** 1.4  # 0.60 → 0
+
+            w = max(w, 0.05)
+            lhx = hx * w
+            lhy = hy * w
+
+            if darkness < 0.04:
+                continue
+            color = _ink_color(darkness)
+            draw.polygon([
+                (x0 - lhx, y0 - lhy), (x0 + lhx, y0 + lhy),
+                (x1 + lhx, y1 + lhy), (x1 - lhx, y1 - lhy),
+            ], fill=color)
 
     # ----------------------------------------- downsample to target resolution
     out_w = max(1, w_px // ss)

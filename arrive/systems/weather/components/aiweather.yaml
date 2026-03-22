@@ -1,0 +1,70 @@
+component:
+  id: aiweather
+  name: "AI Weathering Execution"
+  type: library
+  owners:
+    - team: shawn
+  stage: planned
+
+selectors:
+  paths:
+    - "weather/aiweather.py"
+    - "weather/aiweather/**"
+  build_modules: []
+  tags: []
+  contracts:
+    - docs/tech-direction/TD-011-ai-weathering.md#part-4-weathering-execution-pipeline
+    - docs/tech-direction/TD-011-ai-weathering.md#part-7-api-integration
+
+interfaces:
+  - name: weather_codex
+    description: >
+      Weathers all folios in the physical gathering order defined by
+      generate_gathering_order(). For each folio: applies pre_degrade_text,
+      builds coherence context, generates the prompt, calls the AI image
+      model API, records provenance JSON, and passes the weathered result
+      forward as a reference image for subsequent folios.
+    signature: >
+      weather_codex(
+          clean_images: dict[str, Path],
+          weathering_map: dict[str, FolioWeatherSpec],
+          word_damage_maps: dict[str, list[WordDamageEntry]],
+          output_dir: Path,
+          model: str = "openai",
+          seed_base: int = 1457,
+          dry_run: bool = False,
+      ) -> dict[str, WeatheredResult]
+
+  - name: weather_folio
+    description: >
+      Single-folio AI weathering. Applies pre-degradation, builds prompt,
+      calls AI model, writes output image and provenance JSON.
+    signature: >
+      weather_folio(
+          folio_id: str,
+          clean_image: Path,
+          folio_spec: FolioWeatherSpec,
+          word_damage_map: list[WordDamageEntry],
+          context: CoherenceContext,
+          output_dir: Path,
+          model: str = "openai",
+          seed: int | None = None,
+      ) -> WeatheredResult
+
+  - name: generate_gathering_order
+    description: >
+      Returns the list of folio_ids in the order they should be processed:
+      damage epicenter first (f04r, f04v), then outward by leaf distance,
+      then undamaged folios f08-f17.
+    signature: >
+      generate_gathering_order(
+          weathering_map: dict[str, FolioWeatherSpec],
+      ) -> list[str]
+
+invariants:
+  - "Processing order always starts with f04r, f04v (damage source)"
+  - "Each folio's coherence context only references folios already in weathered_so_far"
+  - "Provenance JSON is written before returning from weather_folio (atomic: image + provenance together)"
+  - "Seed per folio is deterministic: hash(folio_id, seed_base) % 2**32"
+  - "AI model call is wrapped in retry logic (max 3 attempts with exponential backoff)"
+  - "dry_run=True generates prompts and provenance stubs but does not call the AI API"
