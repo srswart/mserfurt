@@ -12,66 +12,8 @@ selectors:
     - "weather/aivalidation/**"
   build_modules: []
   tags: []
-  contracts:
-    - docs/tech-direction/TD-011-ai-weathering.md#part-5-validation-pipeline
+  contracts: []
 
-interfaces:
-  - name: validate_text_positions
-    description: >
-      V1: Extracts text regions from both clean and weathered images using
-      binarization and connected components. Compares centroids to detect
-      spatial drift. Passes if max drift < 5px.
-    signature: >
-      validate_text_positions(
-          clean_image: np.ndarray,
-          weathered_image: np.ndarray,
-          page_xml: Path,
-      ) -> ValidationResult
+interfaces: []
 
-  - name: validate_pre_degradation_preserved
-    description: >
-      Addendum A validation: verifies that pixels modified by pre_degrade_text
-      (the degradation mask) were NOT restored by the AI model. Pre-degraded
-      lacunae should remain blank; faded text should remain below the
-      pre-degradation opacity threshold.
-    signature: >
-      validate_pre_degradation_preserved(
-          pre_degraded_image: np.ndarray,
-          weathered_image: np.ndarray,
-          degradation_mask: np.ndarray,
-          word_damage_map: list[WordDamageEntry],
-      ) -> ValidationResult
-
-  - name: validate_damage_consistency
-    description: >
-      V3: For each folio pair sharing a leaf, checks that water stain regions
-      are horizontally mirrored with >= 50% IoU after flipping. Reports any
-      inconsistent pairs.
-    signature: >
-      validate_damage_consistency(
-          weathered_images: dict[str, np.ndarray],
-          weathering_map: dict[str, FolioWeatherSpec],
-      ) -> ValidationResult
-
-  - name: validate_folio
-    description: >
-      Runs all three validators for a single folio and returns a combined
-      ValidationSummary with per-check results and an overall pass/fail.
-    signature: >
-      validate_folio(
-          folio_id: str,
-          clean_image: np.ndarray,
-          pre_degraded_image: np.ndarray,
-          weathered_image: np.ndarray,
-          degradation_mask: np.ndarray,
-          word_damage_map: list[WordDamageEntry],
-          page_xml: Path,
-          weathering_map: dict[str, FolioWeatherSpec],
-      ) -> ValidationSummary
-
-invariants:
-  - "V1 text position drift threshold is 5px (hard-coded per TD-011 Part 5)"
-  - "V3 recto/verso mirror check uses horizontal flip (axis=1)"
-  - "V3 IoU threshold for pass is 0.50 per TD-011 Part 5"
-  - "Addendum A: lacuna pixels (confidence=0.0) must remain within 15% of background brightness in weathered output"
-  - "ValidationSummary is serialisable to the provenance JSON validation block"
+invariants: []

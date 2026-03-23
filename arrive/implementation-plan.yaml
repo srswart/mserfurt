@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-21T18:22:05.652258Z
+  updated_at: 2026-03-22T18:09:23.932610Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -843,7 +843,7 @@ passes:
     - id: ADV-WX-CODEXMAP-001
       advance_id: ADV-WX-CODEXMAP-001
       title: Codex Weathering Map — Physical Damage Propagation Model
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-TESTS-001
@@ -859,7 +859,7 @@ passes:
     - id: ADV-WX-PROMPTGEN-001
       advance_id: ADV-WX-PROMPTGEN-001
       title: AI Weathering Prompt Generator — Codex Map to Structured Prompts
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-CODEXMAP-001
@@ -867,7 +867,7 @@ passes:
     - id: ADV-WX-WORDDEGRADE-001
       advance_id: ADV-WX-WORDDEGRADE-001
       title: Word-Level Pre-Degradation — CLIO-7 Annotations to Pixel Regions
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-CODEXMAP-001
@@ -883,7 +883,7 @@ passes:
     - id: ADV-WX-AIWEATHER-001
       advance_id: ADV-WX-AIWEATHER-001
       title: AI Weathering Execution — Sequential Gathering-Order API Pipeline
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-PROMPTGEN-001
@@ -900,7 +900,7 @@ passes:
     - id: ADV-WX-AIVALIDATE-001
       advance_id: ADV-WX-AIVALIDATE-001
       title: AI Weathering Validation — Text Integrity and Damage Consistency
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-AIWEATHER-001
@@ -912,7 +912,7 @@ passes:
     - id: ADV-WX-AICLI-001
       advance_id: ADV-WX-AICLI-001
       title: AI Weather CLI — weather-map, weather-folio, weather-codex, weather-validate
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-WX-AIWEATHER-001

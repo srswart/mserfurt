@@ -1,0 +1,648 @@
+{
+  "f01r": {
+    "folio_id": "f01r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.9,
+    "gutter_side": "left",
+    "water_damage": {
+      "severity": 0.06400000000000002,
+      "origin": "top_right",
+      "penetration": 0.038
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f01v": {
+    "folio_id": "f01v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.9,
+    "gutter_side": "right",
+    "water_damage": {
+      "severity": 0.06400000000000002,
+      "origin": "top_left",
+      "penetration": 0.038
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f02r": {
+    "folio_id": "f02r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.863,
+    "gutter_side": "left",
+    "water_damage": {
+      "severity": 0.16000000000000003,
+      "origin": "top_right",
+      "penetration": 0.096
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f02v": {
+    "folio_id": "f02v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.863,
+    "gutter_side": "right",
+    "water_damage": {
+      "severity": 0.16000000000000003,
+      "origin": "top_left",
+      "penetration": 0.096
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f03r": {
+    "folio_id": "f03r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.825,
+    "gutter_side": "left",
+    "water_damage": {
+      "severity": 0.4,
+      "origin": "top_right",
+      "penetration": 0.24
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f03v": {
+    "folio_id": "f03v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.825,
+    "gutter_side": "right",
+    "water_damage": {
+      "severity": 0.4,
+      "origin": "top_left",
+      "penetration": 0.24
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f04r": {
+    "folio_id": "f04r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.787,
+    "gutter_side": "left",
+    "water_damage": {
+      "severity": 1.0,
+      "origin": "top_right",
+      "penetration": 0.6
+    },
+    "missing_corner": {
+      "corner": "bottom_left",
+      "depth_fraction": 0.08,
+      "width_fraction": 0.07
+    },
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f04v": {
+    "folio_id": "f04v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.787,
+    "gutter_side": "right",
+    "water_damage": {
+      "severity": 0.85,
+      "origin": "top_left",
+      "penetration": 0.51
+    },
+    "missing_corner": {
+      "corner": "bottom_right",
+      "depth_fraction": 0.08,
+      "width_fraction": 0.07
+    },
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f05r": {
+    "folio_id": "f05r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.75,
+    "gutter_side": "left",
+    "water_damage": {
+      "severity": 0.4,
+      "origin": "top_right",
+      "penetration": 0.24
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f05v": {
+    "folio_id": "f05v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.75,
+    "gutter_side": "right",
+    "water_damage": {
+      "severity": 0.4,
+      "origin": "top_left",
+      "penetration": 0.24
+    },
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f06r": {
+    "folio_id": "f06r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.713,
+    "gutter_side": "left",
+    "water_damage": {
+      "severity": 0.16000000000000003,
+      "origin": "top_right",
+      "penetration": 0.096
+    },
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.8980590935560799,
+          0.8402011934330917
+        ],
+        "intensity": 0.32470050178179327,
+        "radius": 0.007591241295412327
+      }
+    ],
+    "text_degradation": null
+  },
+  "f06v": {
+    "folio_id": "f06v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.713,
+    "gutter_side": "right",
+    "water_damage": {
+      "severity": 0.16000000000000003,
+      "origin": "top_left",
+      "penetration": 0.096
+    },
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.10194090644392007,
+          0.8402011934330917
+        ],
+        "intensity": 0.29223045160361394,
+        "radius": 0.007591241295412327
+      }
+    ],
+    "text_degradation": null
+  },
+  "f07r": {
+    "folio_id": "f07r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.675,
+    "gutter_side": "left",
+    "water_damage": {
+      "severity": 0.06400000000000002,
+      "origin": "top_right",
+      "penetration": 0.038
+    },
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.8944529807212941,
+          0.8561057831768611
+        ],
+        "intensity": 0.35527470636236275,
+        "radius": 0.00681247086619683
+      }
+    ],
+    "text_degradation": null
+  },
+  "f07v": {
+    "folio_id": "f07v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.675,
+    "gutter_side": "right",
+    "water_damage": {
+      "severity": 0.06400000000000002,
+      "origin": "top_left",
+      "penetration": 0.038
+    },
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.10554701927870591,
+          0.8561057831768611
+        ],
+        "intensity": 0.31974723572612646,
+        "radius": 0.00681247086619683
+      }
+    ],
+    "text_degradation": null
+  },
+  "f08r": {
+    "folio_id": "f08r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.637,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f08v": {
+    "folio_id": "f08v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.637,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f09r": {
+    "folio_id": "f09r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.6,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f09v": {
+    "folio_id": "f09v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.6,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f10r": {
+    "folio_id": "f10r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.637,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f10v": {
+    "folio_id": "f10v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.637,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [],
+    "text_degradation": null
+  },
+  "f11r": {
+    "folio_id": "f11r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.675,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.5299532401905962,
+          0.5850567668250205
+        ],
+        "intensity": 0.38002750901989446,
+        "radius": 0.011811710118708674
+      },
+      {
+        "position": [
+          0.26057187687990624,
+          0.5478420558136763
+        ],
+        "intensity": 0.4653524602617637,
+        "radius": 0.013885143239590675
+      }
+    ],
+    "text_degradation": null
+  },
+  "f11v": {
+    "folio_id": "f11v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.675,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.4700467598094038,
+          0.5850567668250205
+        ],
+        "intensity": 0.342024758117905,
+        "radius": 0.011811710118708674
+      },
+      {
+        "position": [
+          0.7394281231200938,
+          0.5478420558136763
+        ],
+        "intensity": 0.4188172142355873,
+        "radius": 0.013885143239590675
+      }
+    ],
+    "text_degradation": null
+  },
+  "f12r": {
+    "folio_id": "f12r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.713,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.5200116207398794,
+          0.6076241025474228
+        ],
+        "intensity": 0.40375355043180844,
+        "radius": 0.01117483085017468
+      },
+      {
+        "position": [
+          0.24471301468642878,
+          0.4751201426747242
+        ],
+        "intensity": 0.40311455830993353,
+        "radius": 0.013277114781325311
+      }
+    ],
+    "text_degradation": null
+  },
+  "f12v": {
+    "folio_id": "f12v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.713,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.4799883792601206,
+          0.6076241025474228
+        ],
+        "intensity": 0.3633781953886276,
+        "radius": 0.01117483085017468
+      },
+      {
+        "position": [
+          0.7552869853135712,
+          0.4751201426747242
+        ],
+        "intensity": 0.3628031024789402,
+        "radius": 0.013277114781325311
+      }
+    ],
+    "text_degradation": null
+  },
+  "f13r": {
+    "folio_id": "f13r",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.75,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.22723037866691753,
+          0.5245317109173737
+        ],
+        "intensity": 0.3311934855482356,
+        "radius": 0.014501170271260161
+      }
+    ],
+    "text_degradation": null
+  },
+  "f13v": {
+    "folio_id": "f13v",
+    "vellum_stock": "standard",
+    "edge_darkening": 0.75,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.7727696213330825,
+          0.5245317109173737
+        ],
+        "intensity": 0.298074136993412,
+        "radius": 0.014501170271260161
+      }
+    ],
+    "text_degradation": null
+  },
+  "f14r": {
+    "folio_id": "f14r",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.787,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.20445805794278457,
+          0.49252558920780753
+        ],
+        "intensity": 0.4428814628906914,
+        "radius": 0.015280278473548037
+      },
+      {
+        "position": [
+          0.2573057024983696,
+          0.7784932063844288
+        ],
+        "intensity": 0.31105431781568077,
+        "radius": 0.01303650979310008
+      }
+    ],
+    "text_degradation": null
+  },
+  "f14v": {
+    "folio_id": "f14v",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.787,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.7955419420572154,
+          0.49252558920780753
+        ],
+        "intensity": 0.3985933166016223,
+        "radius": 0.015280278473548037
+      },
+      {
+        "position": [
+          0.7426942975016304,
+          0.7784932063844288
+        ],
+        "intensity": 0.2799488860341127,
+        "radius": 0.01303650979310008
+      }
+    ],
+    "text_degradation": null
+  },
+  "f15r": {
+    "folio_id": "f15r",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.825,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.2697878221352371,
+          0.7478859594291216
+        ],
+        "intensity": 0.4463824974907372,
+        "radius": 0.009537260779766396
+      }
+    ],
+    "text_degradation": null
+  },
+  "f15v": {
+    "folio_id": "f15v",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.825,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.7302121778647629,
+          0.7478859594291216
+        ],
+        "intensity": 0.4017442477416635,
+        "radius": 0.009537260779766396
+      }
+    ],
+    "text_degradation": null
+  },
+  "f16r": {
+    "folio_id": "f16r",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.863,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.27348129928391834,
+          0.18088772497831487
+        ],
+        "intensity": 0.7036485234650699,
+        "radius": 0.007403672655301291
+      },
+      {
+        "position": [
+          0.2691293983960454,
+          0.757732961937718
+        ],
+        "intensity": 0.4090180761470335,
+        "radius": 0.009857304619738584
+      }
+    ],
+    "text_degradation": null
+  },
+  "f16v": {
+    "folio_id": "f16v",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.863,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.7265187007160816,
+          0.18088772497831487
+        ],
+        "intensity": 0.6332836711185629,
+        "radius": 0.007403672655301291
+      },
+      {
+        "position": [
+          0.7308706016039546,
+          0.757732961937718
+        ],
+        "intensity": 0.36811626853233015,
+        "radius": 0.009857304619738584
+      }
+    ],
+    "text_degradation": null
+  },
+  "f17r": {
+    "folio_id": "f17r",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.9,
+    "gutter_side": "left",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.28492522095036293,
+          0.23173287539389237
+        ],
+        "intensity": 0.7149104308684905,
+        "radius": 0.006678953222149858
+      },
+      {
+        "position": [
+          0.2872509101282802,
+          0.746155225447352
+        ],
+        "intensity": 0.3782033437185933,
+        "radius": 0.011350708027629044
+      }
+    ],
+    "text_degradation": null
+  },
+  "f17v": {
+    "folio_id": "f17v",
+    "vellum_stock": "irregular",
+    "edge_darkening": 0.9,
+    "gutter_side": "right",
+    "water_damage": null,
+    "missing_corner": null,
+    "foxing_spots": [
+      {
+        "position": [
+          0.715074779049637,
+          0.23173287539389237
+        ],
+        "intensity": 0.6434193877816414,
+        "radius": 0.006678953222149858
+      },
+      {
+        "position": [
+          0.7127490898717198,
+          0.746155225447352
+        ],
+        "intensity": 0.340383009346734,
+        "radius": 0.011350708027629044
+      }
+    ],
+    "text_degradation": null
+  }
+}

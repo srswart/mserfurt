@@ -6,11 +6,11 @@ advance:
   primary_component: promptgen
   components:
   - promptgen
-  started_at: null
-  started_by: null
-  implementation_completed_at: null
-  implementation_completed_by: null
-  updated_by: null
+  started_at: 2026-03-22T00:00:00Z
+  started_by: srswart@mac.com
+  implementation_completed_at: 2026-03-22T17:14:31.831870Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
   archived_at: null
   archived_by: null
   pr_links: []
@@ -19,7 +19,7 @@ advance:
   evidence:
   - tdd:red-green
   - tests:unit
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -72,3 +72,4 @@ _To be generated after implementation._
 - Revert the feat/weather-promptgen branch; no existing code modified; AIWEATHER is blocked until this is complete
 
 ## Evidence
+

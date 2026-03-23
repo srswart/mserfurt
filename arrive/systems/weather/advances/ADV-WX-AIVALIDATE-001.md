@@ -6,11 +6,11 @@ advance:
   primary_component: aivalidation
   components:
   - aivalidation
-  started_at: null
-  started_by: null
-  implementation_completed_at: null
-  implementation_completed_by: null
-  updated_by: null
+  started_at: 2026-03-22T17:45:00Z
+  started_by: srswart@mac.com
+  implementation_completed_at: 2026-03-22T17:50:03.487981Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
   archived_at: null
   archived_by: null
   pr_links: []
@@ -19,7 +19,7 @@ advance:
   evidence:
   - tdd:red-green
   - tests:unit
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -74,3 +74,4 @@ _To be generated after implementation._
 - Revert the feat/weather-aivalidate branch; weathering proceeds without validation; provenance JSON lacks the validation block
 
 ## Evidence
+

@@ -6,11 +6,11 @@ advance:
   primary_component: codexmap
   components:
   - codexmap
-  started_at: null
-  started_by: null
-  implementation_completed_at: null
-  implementation_completed_by: null
-  updated_by: null
+  started_at: 2026-03-22T18:15:00Z
+  started_by: srswart@mac.com
+  implementation_completed_at: 2026-03-22T18:09:23.914028Z
+  implementation_completed_by: srswart@mac.com
+  updated_by: srswart@mac.com
   archived_at: null
   archived_by: null
   pr_links: []
@@ -19,7 +19,7 @@ advance:
   evidence:
   - tdd:red-green
   - tests:unit
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -76,3 +76,4 @@ _To be generated after implementation._
 - Revert the feat/weather-codexmap branch; no downstream components exist yet; no existing code is modified
 
 ## Evidence
+
