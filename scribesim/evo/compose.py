@@ -12,14 +12,20 @@ import json
 import random
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import TYPE_CHECKING, Callable, Any
 
 import numpy as np
 from PIL import Image
 
 from scribesim.evo.genome import WordGenome, genome_from_guides, preprocess_roman_numerals
+from scribesim.evo.allograph import AllographConfig, apply_contextual_allographs
 from scribesim.evo.engine import evolve_word, EvolutionConfig
 from scribesim.evo.renderer import render_word_from_genome, _PARCHMENT
+from scribesim.evo.style import StyleMemory
 from scribesim.ink.cycle import DipEvent, InkState
+
+if TYPE_CHECKING:
+    from scribesim.hand.profile import HandProfile
 
 
 # ---------------------------------------------------------------------------
@@ -76,11 +82,26 @@ def _get_genome(
     exemplar_root=None,
     nib_width_mm: float = 0.65,
     letter_gap: float = 0.12,
+    use_cache: bool = True,
+    style_prior=None,
 ) -> tuple[WordGenome, float]:
     """Return (genome, fitness). Evolves if evolve=True and not cached."""
-    cache_key = f"{word}_{context.emotional_state}"
+    if evolve and config is None:
+        config = EvolutionConfig()
 
-    if cache_key in _GENOME_CACHE:
+    guides_key = str(Path(guides_path).resolve()) if guides_path else "default-guides"
+    mode_key = (
+        f"evolved_{config.pop_size}_{config.generations}_{round(config.eval_dpi, 1)}"
+        if evolve and config is not None
+        else "seed"
+    )
+    cache_key = (
+        f"{word}_{context.emotional_state}_"
+        f"{round(x_height_mm, 3)}_{round(letter_gap, 3)}_{round(nib_width_mm, 3)}_"
+        f"{round(context.fatigue, 3)}_{guides_key}_{mode_key}"
+    )
+
+    if use_cache and cache_key in _GENOME_CACHE:
         g = copy.deepcopy(_GENOME_CACHE[cache_key])
         # Small per-instance variation
         for i in range(len(g.baseline_drift)):
@@ -97,14 +118,17 @@ def _get_genome(
             guides_path=guides_path,
             x_height_mm=x_height_mm,
             exemplar_root=exemplar_root,
+            style_prior=style_prior,
         )
         genome = result.best_genome
         fitness = result.best_fitness
-        _GENOME_CACHE[cache_key] = copy.deepcopy(genome)
+        if use_cache:
+            _GENOME_CACHE[cache_key] = copy.deepcopy(genome)
         return genome, fitness
     else:
         genome = genome_from_guides(word, x_height_mm=x_height_mm, guides_path=guides_path, letter_gap=letter_gap)
-        _GENOME_CACHE[cache_key] = copy.deepcopy(genome)
+        if use_cache:
+            _GENOME_CACHE[cache_key] = copy.deepcopy(genome)
         return genome, 0.0
 
 
@@ -131,6 +155,11 @@ def _paste_word(
     # Align so word_baseline_px in word image = baseline_px in canvas
     y_paste = baseline_px - word_baseline_px
     canvas.paste(wimg, (x_offset_px, y_paste))
+
+
+def _paste_heatmap(canvas: Image.Image, heat_img: np.ndarray, x_offset_px: int) -> None:
+    himg = Image.fromarray(heat_img, "L")
+    canvas.paste(himg, (x_offset_px, 0))
 
 
 # ---------------------------------------------------------------------------
@@ -199,7 +228,7 @@ def render_line(
     line_text: str,
     dpi: float = 300.0,
     nib_width_mm: float = 0.65,
-    nib_angle_deg: float = 35.0,
+    nib_angle_deg: float = 42.0,
     x_height_mm: float = 3.8,
     word_gap_mm: float | None = None,
     line_height_mm: float = 14.0,
@@ -213,7 +242,16 @@ def render_line(
     show_ink_state: bool = False,
     ink_graph_path: Path | None = None,
     letter_gap: float = 0.12,
-) -> np.ndarray:
+    profile: "HandProfile | None" = None,
+    use_cache: bool = True,
+    progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    progress_granularity: str = "line",
+    line_index: int | None = None,
+    total_lines: int | None = None,
+    return_heatmap: bool = False,
+    character_model: str = "standard",
+    character_model_config: AllographConfig | None = None,
+) -> np.ndarray | tuple[np.ndarray, np.ndarray]:
     """Render a line of text word by word.
 
     Saves a running composite PNG after each word when progress_dir is set.
@@ -234,10 +272,20 @@ def render_line(
         verbose: Print per-word progress to stdout.
 
     Returns:
-        RGB numpy array of the full composed line.
+        RGB numpy array of the full composed line, or `(page, heatmap)` when
+        `return_heatmap=True`.
     """
+    if profile is not None and letter_gap == 0.12:
+        letter_gap = max(0.04, min(0.18, 0.085 * profile.letter_spacing_norm))
+
     if word_gap_mm is None:
-        word_gap_mm = x_height_mm * 0.20  # ~0.75mm — Gothic inter-word gap
+        if profile is not None:
+            word_gap_mm = max(
+                x_height_mm * 0.14,
+                x_height_mm * 0.14 * profile.word.spacing_mean_ratio,
+            )
+        else:
+            word_gap_mm = x_height_mm * 0.20  # ~0.75mm — Gothic inter-word gap
 
     # Preprocess Roman numeral tokens → scribal lowercase + interpuncts
     processed_text, numeral_word_indices = preprocess_roman_numerals(line_text)
@@ -253,24 +301,43 @@ def render_line(
     if progress_dir is not None:
         Path(progress_dir).mkdir(parents=True, exist_ok=True)
 
-    context = WordContext(ink_reservoir=0.85)
-    ink_state = InkState()
+    context = WordContext(
+        ink_reservoir=(
+            profile.ink.reservoir_capacity if profile is not None else 1.0
+        )
+    )
+    if profile is not None:
+        capacity = profile.ink.reservoir_capacity
+        base_depletion = 0.002 * (profile.ink.depletion_rate / 0.02)
+        dip_threshold = profile.ink.dry_threshold
+        preferred_threshold = min(capacity * 0.88, dip_threshold + 0.02)
+        ink_state = InkState(
+            capacity=capacity,
+            base_depletion=base_depletion,
+            dip_threshold=dip_threshold,
+            preferred_dip_threshold=preferred_threshold,
+        )
+    else:
+        ink_state = InkState()
 
     # Diagnostic tracking
     reservoir_snapshots: list[tuple[int, float]] = []
     dip_word_indices: list[int] = []
+    style_memory = StyleMemory()
 
     # ------------------------------------------------------------------ pass 1
     # Render each word in its own coordinate space and record word images.
     word_images: list[np.ndarray] = []
     word_widths_mm: list[float] = []
     fitnesses: list[float] = []
+    word_heatmaps: list[np.ndarray] = []
 
     total_width_mm = 0.0
 
     for wi, word in enumerate(words):
         reservoir_at_start = ink_state.reservoir
         reservoir_snapshots.append((wi, reservoir_at_start))
+        style_prior = style_memory.prior_for(word) if evolve else None
 
         genome, fitness = _get_genome(
             word, context, config if evolve else None,
@@ -280,11 +347,37 @@ def render_line(
             exemplar_root=exemplar_root,
             nib_width_mm=nib_width_mm,
             letter_gap=letter_gap,
+            use_cache=use_cache,
+            style_prior=style_prior,
         )
+        if profile is not None:
+            genome.global_slant_deg = (
+                profile.slant_deg
+                + random.gauss(0.0, profile.word.slant_drift_per_word_deg * max(0.2, variation))
+            )
+            baseline_sigma = (
+                profile.glyph.baseline_jitter_mm
+                + profile.line.baseline_undulation_amplitude_mm * 0.15
+            ) * max(0.2, variation)
+            genome.baseline_drift = [
+                drift + random.gauss(0.0, baseline_sigma)
+                for drift in genome.baseline_drift
+            ]
+            genome.tempo = profile.writing_speed
+            genome.ink_state_start = reservoir_at_start
         if wi in numeral_set:
             genome.overline = True
 
-        word_img = render_word_from_genome(
+        if evolve and character_model == "deep":
+            genome = apply_contextual_allographs(
+                genome,
+                style_memory=style_memory,
+                word_text=word,
+                x_height_mm=x_height_mm,
+                config=character_model_config,
+            )
+
+        rendered = render_word_from_genome(
             genome,
             dpi=dpi,
             nib_width_mm=nib_width_mm,
@@ -292,7 +385,14 @@ def render_line(
             canvas_height_mm=line_height_mm,
             variation=variation,
             ink_state=ink_state,
+            profile=profile,
+            return_heatmap=return_heatmap,
         )
+        if return_heatmap:
+            word_img, word_heat = rendered
+            word_heatmaps.append(word_heat)
+        else:
+            word_img = rendered
 
         # Ink state overlay: tint word image by reservoir level at start of word
         if show_ink_state:
@@ -306,6 +406,11 @@ def render_line(
         dip_event = ink_state.process_word_boundary()
         if dip_event != DipEvent.NoDip:
             dip_word_indices.append(wi)
+        context.ink_reservoir = ink_state.reservoir
+        if profile is not None:
+            context.fatigue += max(0.0, profile.fatigue_rate) * 0.1
+        if evolve:
+            style_memory.register(word, genome)
 
         if verbose:
             evo_tag = f" fit={fitness:.3f}" if evolve and fitness > 0 else ""
@@ -315,6 +420,18 @@ def render_line(
                   f"{len(word):2d} letters  {genome.word_width_mm:.1f}mm"
                   f"{reservoir_tag}{dip_tag}{evo_tag}",
                   flush=True)
+        if progress_callback is not None and progress_granularity == "word":
+            progress_callback({
+                "stage": "word_complete",
+                "line_index": line_index,
+                "total_lines": total_lines,
+                "word_index": wi,
+                "total_words": len(words),
+                "word": word,
+                "fitness": fitness,
+                "reservoir": ink_state.reservoir,
+                "dip_count": ink_state.total_dips,
+            })
 
         # -------------------------------------------------- progress image
         if progress_dir is not None:
@@ -335,10 +452,13 @@ def render_line(
     total_px = sum(img.shape[1] for img in word_images) + int(word_gap_mm * px_per_mm) * (len(words) - 1) + int(4 * px_per_mm)
     h_px = int(line_height_mm * px_per_mm)
     canvas = Image.new("RGB", (total_px, h_px), _PARCHMENT)
+    heat_canvas = Image.new("L", (total_px, h_px), 0) if return_heatmap else None
 
     x_px = 0
-    for img in word_images:
+    for idx, img in enumerate(word_images):
         canvas.paste(Image.fromarray(img, "RGB"), (x_px, 0))
+        if heat_canvas is not None:
+            _paste_heatmap(heat_canvas, word_heatmaps[idx], x_px)
         x_px += img.shape[1] + int(word_gap_mm * px_per_mm)
 
     if verbose:
@@ -353,7 +473,10 @@ def render_line(
         if verbose:
             print(f"  ink graph → {ink_graph_path}", flush=True)
 
-    return np.array(canvas)
+    page_arr = np.array(canvas)
+    if heat_canvas is None:
+        return page_arr
+    return page_arr, np.array(heat_canvas)
 
 
 def _apply_ink_overlay(word_img: np.ndarray, reservoir: float) -> np.ndarray:
@@ -402,54 +525,122 @@ def render_folio_lines(
     lines: list[str],
     dpi: float = 200.0,
     nib_width_mm: float = 0.65,
-    nib_angle_deg: float = 35.0,
+    nib_angle_deg: float = 42.0,
     x_height_mm: float = 3.8,
     line_spacing_mm: float = 12.0,
+    line_height_mm: float = 14.0,
     margin_mm: float = 5.0,
     page_width_mm: float = 80.0,
+    page_height_mm: float | None = None,
+    margin_left_mm: float | None = None,
+    margin_top_mm: float | None = None,
+    word_gap_mm: float | None = None,
     guides_path=None,
     progress_dir: Path | None = None,
     verbose: bool = True,
     variation: float = 1.0,
-) -> np.ndarray:
+    letter_gap: float = 0.12,
+    profile: "HandProfile | None" = None,
+    evolve: bool = False,
+    config: EvolutionConfig | None = None,
+    use_cache: bool = True,
+    progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    progress_granularity: str = "line",
+    return_heatmap: bool = False,
+    character_model: str = "standard",
+    character_model_config: AllographConfig | None = None,
+) -> np.ndarray | tuple[np.ndarray, np.ndarray]:
     """Render multiple lines onto a page canvas."""
     px_per_mm = dpi / 25.4
+    margin_left_mm = margin_mm if margin_left_mm is None else margin_left_mm
+    margin_top_mm = margin_mm if margin_top_mm is None else margin_top_mm
     w_px = int(page_width_mm * px_per_mm)
-    page_height_mm = margin_mm * 2 + len(lines) * line_spacing_mm
+    if page_height_mm is None:
+        page_height_mm = margin_top_mm * 2 + len(lines) * line_spacing_mm
     h_px = int(page_height_mm * px_per_mm)
 
     canvas = Image.new("RGB", (w_px, h_px), _PARCHMENT)
+    heat_canvas = Image.new("L", (w_px, h_px), 0) if return_heatmap else None
 
     for li, line_text in enumerate(lines):
         if not line_text.strip():
             continue
         if verbose:
             print(f"\nLine {li+1}/{len(lines)}: {line_text!r}", flush=True)
+        if progress_callback is not None:
+            progress_callback({
+                "stage": "line_start",
+                "line_index": li,
+                "total_lines": len(lines),
+                "line_text": line_text,
+            })
 
-        line_img = render_line(
+        rendered_line = render_line(
             line_text,
             dpi=dpi,
             nib_width_mm=nib_width_mm,
             nib_angle_deg=nib_angle_deg,
             x_height_mm=x_height_mm,
+            line_height_mm=line_height_mm,
             guides_path=guides_path,
             progress_dir=progress_dir,
             verbose=verbose,
             variation=variation,
+            word_gap_mm=word_gap_mm,
+            letter_gap=letter_gap,
+            profile=profile,
+            evolve=evolve,
+            config=config,
+            use_cache=use_cache,
+            progress_callback=progress_callback,
+            progress_granularity=progress_granularity,
+            line_index=li,
+            total_lines=len(lines),
+            return_heatmap=return_heatmap,
+            character_model=character_model,
+            character_model_config=character_model_config,
         )
+        if return_heatmap:
+            line_img, line_heat = rendered_line
+        else:
+            line_img = rendered_line
 
-        y_px = int((margin_mm + li * line_spacing_mm) * px_per_mm)
-        x_px = int(margin_mm * px_per_mm)
+        y_px = int((margin_top_mm + li * line_spacing_mm) * px_per_mm)
+        x_px = int(margin_left_mm * px_per_mm)
         line_pil = Image.fromarray(line_img, "RGB")
-        # Crop to page width
-        crop_w = min(line_pil.width, w_px - x_px)
-        if crop_w > 0:
-            canvas.paste(line_pil.crop((0, 0, crop_w, line_pil.height)), (x_px, y_px))
+        line_arr = np.array(line_img)
+        mask = np.any(line_arr != np.array(_PARCHMENT, dtype=np.uint8), axis=2)
+        if not mask.any():
+            continue
+        rows, cols = np.where(mask)
+        pad = 2
+        left = max(0, int(cols.min()) - pad)
+        top = max(0, int(rows.min()) - pad)
+        right = min(line_pil.width, int(cols.max()) + pad + 1)
+        bottom = min(line_pil.height, int(rows.max()) + pad + 1)
+        cropped = line_pil.crop((left, top, right, bottom))
+        cropped_mask = Image.fromarray((mask[top:bottom, left:right] * 255).astype(np.uint8), "L")
+        if x_px < w_px and y_px < h_px:
+            canvas.paste(cropped, (x_px + left, y_px + top), cropped_mask)
+            if heat_canvas is not None:
+                heat_pil = Image.fromarray(line_heat, "L")
+                heat_cropped = heat_pil.crop((left, top, right, bottom))
+                heat_canvas.paste(heat_cropped, (x_px + left, y_px + top))
 
         if progress_dir is not None:
             page_path = Path(progress_dir) / f"page_line{li+1:03d}.png"
             canvas.save(str(page_path))
             if verbose:
                 print(f"  page snapshot → {page_path}", flush=True)
+        if progress_callback is not None:
+            progress_callback({
+                "stage": "line_complete",
+                "line_index": li,
+                "total_lines": len(lines),
+                "line_text": line_text,
+            })
 
-    return np.array(canvas)
+    page_arr = np.array(canvas)
+    if heat_canvas is None:
+        return page_arr
+    return page_arr, np.array(heat_canvas)

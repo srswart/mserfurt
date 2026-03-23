@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from time import time
 
 import click
 
@@ -15,6 +16,301 @@ from scribesim.hand.profile import load_profile, resolve_profile, parse_override
 @click.group()
 def main() -> None:
     """ScribeSim — render Brother Konrad's Bastarda hand from XL folio JSON."""
+
+
+_RENDER_APPROACHES = ("evo", "plain")
+_EVO_QUALITIES = ("balanced", "deep")
+_CHARACTER_MODELS = ("standard", "deep")
+
+
+def _normalise_folio_id(folio_id: str) -> str:
+    import re
+
+    m = re.match(r"f?(\d+)([rv])", folio_id)
+    if not m:
+        raise click.ClickException(
+            f"invalid folio ID {folio_id!r} — expected e.g. f01r or 1r"
+        )
+    return f"f{int(m.group(1)):02d}{m.group(2)}"
+
+
+def _evo_variation(profile) -> float:
+    variation = 0.35
+    variation += min(0.25, profile.pressure_variance * 2.5)
+    variation += min(0.15, profile.word.speed_variance * 2.0)
+    variation += min(0.15, profile.glyph.size_variance * 6.0)
+    variation += min(0.12, profile.glyph.baseline_jitter_mm * 4.0)
+    variation += min(0.12, profile.folio.tremor_amplitude * 30.0)
+    variation += max(0.0, (1.0 - profile.writing_speed) * 0.2)
+    return max(0.2, min(1.25, variation))
+
+
+def _evo_letter_gap(profile) -> float:
+    return max(0.04, min(0.18, 0.085 * profile.letter_spacing_norm))
+
+
+def _evo_word_gap_mm(profile, x_height_mm: float) -> float:
+    return max(
+        x_height_mm * 0.14,
+        x_height_mm * 0.14 * profile.word.spacing_mean_ratio,
+    )
+
+
+def _evo_min_line_box_height_mm(x_height_mm: float) -> float:
+    # Internal evo line canvas only; does not change ruling pitch on the page.
+    # Needs enough room for tall capitals above and descenders below.
+    return x_height_mm * 3.6
+
+
+def _evo_line_box_height_mm(geometry) -> float:
+    return max(geometry.ruling_pitch_mm * 1.2, _evo_min_line_box_height_mm(geometry.x_height_mm))
+
+
+def _evo_nib_width_mm(profile, geometry) -> float:
+    x_height_mm = geometry.x_height_mm
+    if profile.nib.width_mm <= x_height_mm * 0.40:
+        return profile.nib.width_mm
+    broad_edge_target = x_height_mm / 4.8
+    stroke_scale = max(0.90, min(1.12, profile.stroke_weight))
+    return max(0.55, min(1.10, broad_edge_target * stroke_scale))
+
+
+def _evo_config(profile, nib_width_mm: float, quality: str = "balanced"):
+    from scribesim.evo.engine import EvolutionConfig
+
+    if quality == "deep":
+        pop_size = 16
+        generations = 14
+        eval_dpi = 225.0
+        if profile.writing_speed < 0.95:
+            generations += 2
+        if profile.glyph.size_variance > 0.03 or profile.pressure_variance > 0.10:
+            pop_size += 4
+    else:
+        pop_size = 8
+        generations = 6
+        eval_dpi = 150.0
+        if profile.writing_speed < 0.95:
+            generations += 1
+        if profile.glyph.size_variance > 0.03 or profile.pressure_variance > 0.10:
+            pop_size += 2
+    return EvolutionConfig(
+        pop_size=pop_size,
+        generations=generations,
+        eval_dpi=eval_dpi,
+        nib_width_mm=nib_width_mm,
+    )
+
+
+def _write_render_report(
+    output_dir: Path,
+    folio_id: str,
+    requested_approach: str,
+    page_renderer: str,
+    heatmap_renderer: str,
+    folio_path: Path,
+    hand_toml: str | None,
+    profile,
+    layout,
+    page_path: Path,
+    heatmap_path: Path,
+    word_model: str | None = None,
+    evolution_config: dict | None = None,
+    ink_model: dict | None = None,
+    render_params: dict | None = None,
+) -> Path:
+    report = {
+        "folio_id": folio_id,
+        "requested_approach": requested_approach,
+        "page_renderer": page_renderer,
+        "heatmap_renderer": heatmap_renderer,
+        "folio_json": str(folio_path),
+        "hand_toml": str(Path(hand_toml).resolve()) if hand_toml else "default",
+        "outputs": {
+            "page": str(page_path),
+            "heatmap": str(heatmap_path),
+        },
+        "geometry": {
+            "page_w_mm": layout.geometry.page_w_mm,
+            "page_h_mm": layout.geometry.page_h_mm,
+            "ruling_pitch_mm": layout.geometry.ruling_pitch_mm,
+            "x_height_mm": layout.geometry.x_height_mm,
+            "margin_top_mm": layout.geometry.margin_top,
+            "margin_inner_mm": layout.geometry.margin_inner,
+        },
+        "resolved_hand": {
+            "nib_angle_deg": profile.nib.angle_deg,
+            "nib_width_mm": profile.nib.width_mm,
+            "x_height_px": profile.x_height_px,
+            "letter_spacing_norm": profile.letter_spacing_norm,
+            "word_spacing_norm": profile.word_spacing_norm,
+            "writing_speed": profile.writing_speed,
+            "pressure_base": profile.folio.base_pressure,
+            "pressure_variance": profile.pressure_variance,
+            "ink_density": profile.ink_density,
+            "variation_scale": _evo_variation(profile),
+        },
+        "word_model": word_model or ("guide_seed" if page_renderer == "plain" else "unknown"),
+        "evolution": evolution_config or {"enabled": False},
+        "ink_model": ink_model or {"mode": "legacy"},
+        "render_params": render_params or {},
+        "notes": [
+            "The page renderer is recorded here because the plain raster pipeline and evo pipeline produce different artifacts.",
+            "When page_renderer is 'evo', the pressure heatmap is generated from the same evolved stroke sweep as the page image.",
+        ],
+    }
+    report_path = output_dir / f"{folio_id}_render_report.json"
+    report_path.write_text(json.dumps(report, indent=2))
+    return report_path
+
+
+def _render_folio(
+    folio_dict: dict,
+    profile,
+    params,
+    folio_path: Path,
+    output_dir: Path,
+    folio_id: str,
+    approach: str,
+    hand_toml: str | None,
+    evo_quality: str = "balanced",
+    character_model: str = "standard",
+    character_model_randomness: float = 0.10,
+) -> tuple[Path, Path, Path]:
+    from PIL import Image as PILImage
+    from scribesim.layout import place
+
+    layout = place(folio_dict, params, profile=profile)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    if approach == "plain":
+        from scribesim.render.pipeline import render_pipeline
+
+        page_path, heatmap_path = render_pipeline(
+            layout, params, output_dir, folio_id, profile=profile
+        )
+        report_path = _write_render_report(
+            output_dir, folio_id, approach, "plain", "plain",
+            folio_path, hand_toml, profile, layout, page_path, heatmap_path,
+            word_model="layout_guides",
+            render_params={
+                "page_nib_width_mm": profile.nib.width_mm,
+                "page_nib_angle_deg": profile.nib.angle_deg,
+                "nib_angle_variation": "plain_fixed",
+            },
+        )
+        return page_path, heatmap_path, report_path
+
+    from scribesim.evo.compose import render_folio_lines
+    from scribesim.evo.allograph import AllographConfig
+    evo_nib_width_mm = _evo_nib_width_mm(profile, layout.geometry)
+    evo_config = _evo_config(profile, evo_nib_width_mm, quality=evo_quality)
+    use_cache = evo_quality != "deep"
+    progress_path = output_dir / f"{folio_id}_render_progress.json"
+    progress_granularity = "word" if evo_quality == "deep" else "line"
+    render_started_at = time()
+
+    def _progress_callback(event: dict) -> None:
+        line_no = event.get("line_index", 0) + 1 if event.get("line_index") is not None else None
+        total_lines = event.get("total_lines")
+        payload = {
+            "folio_id": folio_id,
+            "approach": approach,
+            "evo_quality": evo_quality,
+            "granularity": progress_granularity,
+            "elapsed_seconds": round(time() - render_started_at, 2),
+            **event,
+        }
+        progress_path.write_text(json.dumps(payload, indent=2))
+        stage = event.get("stage")
+        if stage == "line_start" and line_no is not None:
+            print(f"  progress: line {line_no}/{total_lines} start", flush=True)
+        elif stage == "line_complete" and line_no is not None:
+            print(f"  progress: line {line_no}/{total_lines} complete", flush=True)
+        elif stage == "word_complete" and line_no is not None:
+            word_no = event.get("word_index", 0) + 1
+            total_words = event.get("total_words")
+            word = event.get("word", "")
+            print(
+                f"  progress: line {line_no}/{total_lines} "
+                f"word {word_no}/{total_words} {word!r}",
+                flush=True,
+            )
+
+    geom = layout.geometry
+    page_arr, heat_arr = render_folio_lines(
+        [line.get("text", "") for line in folio_dict.get("lines", [])],
+        dpi=300.0,
+        nib_width_mm=evo_nib_width_mm,
+        nib_angle_deg=profile.nib.angle_deg,
+        x_height_mm=geom.x_height_mm,
+        line_spacing_mm=geom.ruling_pitch_mm,
+        line_height_mm=_evo_line_box_height_mm(geom),
+        margin_left_mm=geom.margin_inner,
+        margin_top_mm=geom.margin_top,
+        page_width_mm=geom.page_w_mm,
+        page_height_mm=geom.page_h_mm,
+        word_gap_mm=_evo_word_gap_mm(profile, geom.x_height_mm),
+        guides_path=None,
+        verbose=False,
+        variation=_evo_variation(profile),
+        letter_gap=_evo_letter_gap(profile),
+        profile=profile,
+        evolve=True,
+        config=evo_config,
+        use_cache=use_cache,
+        progress_callback=_progress_callback,
+        progress_granularity=progress_granularity,
+        return_heatmap=True,
+        character_model=character_model,
+        character_model_config=AllographConfig(randomness=character_model_randomness),
+    )
+    progress_path.write_text(json.dumps({
+        "folio_id": folio_id,
+        "approach": approach,
+        "evo_quality": evo_quality,
+        "granularity": progress_granularity,
+        "stage": "completed",
+        "elapsed_seconds": round(time() - render_started_at, 2),
+        "output_page": str(output_dir / f"{folio_id}.png"),
+    }, indent=2))
+
+    page_path = output_dir / f"{folio_id}.png"
+    PILImage.fromarray(page_arr, "RGB").save(str(page_path), dpi=(300, 300))
+
+    heatmap_path = output_dir / f"{folio_id}_pressure.png"
+    PILImage.fromarray(heat_arr, "L").save(str(heatmap_path), dpi=(300, 300))
+    report_path = _write_render_report(
+        output_dir, folio_id, approach, "evo", "evo",
+        folio_path, hand_toml, profile, layout, page_path, heatmap_path,
+        word_model="ga_evolved" if use_cache else "ga_evolved_per_occurrence",
+        evolution_config={
+            "enabled": True,
+            "quality": evo_quality,
+            "pop_size": evo_config.pop_size,
+            "generations": evo_config.generations,
+            "eval_dpi": evo_config.eval_dpi,
+            "cache_policy": "reuse_word_genomes" if use_cache else "re_evolve_each_occurrence",
+            "style_memory": True,
+        },
+        ink_model={
+            "mode": "continuous_reservoir",
+            "reservoir_capacity": profile.ink.reservoir_capacity,
+            "depletion_rate": profile.ink.depletion_rate,
+            "dry_threshold": profile.ink.dry_threshold,
+            "preferred_dip_threshold": min(profile.ink.reservoir_capacity * 0.88, profile.ink.dry_threshold + 0.02),
+        },
+        render_params={
+            "page_nib_width_mm": evo_nib_width_mm,
+            "page_nib_angle_deg": profile.nib.angle_deg,
+            "nib_angle_variation": "glyph_plus_segment_plus_within_stroke",
+            "evo_quality": evo_quality,
+            "word_shape_memory": "soft_prior",
+            "character_model": character_model,
+            "character_model_randomness": character_model_randomness,
+        },
+    )
+    return page_path, heatmap_path, report_path
 
 
 # ---------------------------------------------------------------------------
@@ -29,22 +325,32 @@ def main() -> None:
               type=click.Path(), help="Directory to write PNG and heatmap")
 @click.option("--hand-toml", "hand_toml", default=None, type=click.Path(exists=True),
               help="Path to hand parameter TOML (defaults to shared/hands/konrad_erfurt_1457.toml)")
+@click.option("--approach", default="evo", show_default=True,
+              type=click.Choice(_RENDER_APPROACHES, case_sensitive=False),
+              help="Page rendering approach: evo uses the evolutionary scribe path; plain keeps the original raster pipeline")
+@click.option("--evo-quality", default="balanced", show_default=True,
+              type=click.Choice(_EVO_QUALITIES, case_sensitive=False),
+              help="Evolution quality: balanced reuses evolved word genomes; deep re-evolves each word occurrence for a more natural hand")
+@click.option("--character-model", "character_model", default="standard", show_default=True,
+              type=click.Choice(_CHARACTER_MODELS, case_sensitive=False),
+              help="Experimental character model for evo folio renders. deep applies contextual allograph selection after word evolution.")
+@click.option("--char-rounds", "char_rounds", default=2, type=int, show_default=True,
+              help="Reserved tuning knob for deep contextual allograph experiments.")
+@click.option("--char-candidates", "char_candidates", default=6, type=int, show_default=True,
+              help="Reserved tuning knob for deep contextual allograph experiments.")
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params and report plan without rendering")
 @click.option("--set", "overrides", multiple=True,
               help="Override parameter: --set nib.angle_deg=38")
 def render(folio_id: str, input_dir: str, output_dir: str,
-           hand_toml: str | None, dry_run: bool, overrides: tuple) -> None:
+           hand_toml: str | None, approach: str, evo_quality: str,
+           character_model: str, char_rounds: int, char_candidates: int,
+           dry_run: bool, overrides: tuple) -> None:
     """Render a single folio to PNG + pressure heatmap.
 
     FOLIO_ID is the folio identifier, e.g. f01r or 1r.
     """
-    import re
-    m = re.match(r"f?(\d+)([rv])", folio_id)
-    if not m:
-        click.echo(f"error: invalid folio ID {folio_id!r} — expected e.g. f01r or 1r", err=True)
-        sys.exit(1)
-    fid = f"f{int(m.group(1)):02d}{m.group(2)}"
+    fid = _normalise_folio_id(folio_id)
 
     folio_path = Path(input_dir) / f"{fid}.json"
     if not folio_path.exists():
@@ -65,27 +371,44 @@ def render(folio_id: str, input_dir: str, output_dir: str,
 
     click.echo(f"[scribesim render] folio={fid}")
     click.echo(f"  input : {folio_path}")
+    click.echo(f"  mode  : {approach}")
+    if approach == "evo":
+        click.echo(f"  evo   : {evo_quality}")
+        click.echo(f"  chars : {character_model}")
     click.echo(f"  lines : {folio_dict['metadata']['line_count']}")
     click.echo(f"  hand  : pressure={params.pressure_base} "
                f"ink={params.ink_density} "
                f"speed={params.writing_speed}")
+    click.echo(f"  report: {Path(output_dir) / f'{fid}_render_report.json'}")
+    if approach == "evo":
+        click.echo(f"  progress: {Path(output_dir) / f'{fid}_render_progress.json'}")
 
     if dry_run:
         click.echo("  [dry-run] render skipped")
         return
 
-    from scribesim.layout import place
-    from scribesim.render.pipeline import render_pipeline
-
     out = Path(output_dir)
-    out.mkdir(parents=True, exist_ok=True)
-
-    layout = place(folio_dict, params, profile=profile)
-    png_path, heatmap_path = render_pipeline(
-        layout, params, out, fid, profile=profile)
+    character_model_randomness = max(
+        0.02,
+        min(0.18, 0.03 * char_rounds + 0.01 * char_candidates),
+    )
+    png_path, heatmap_path, report_path = _render_folio(
+        folio_dict,
+        profile,
+        params,
+        folio_path,
+        out,
+        fid,
+        approach,
+        hand_toml,
+        evo_quality,
+        character_model=character_model,
+        character_model_randomness=character_model_randomness,
+    )
 
     click.echo(f"  page    → {png_path}")
     click.echo(f"  heatmap → {heatmap_path}")
+    click.echo(f"  report  → {report_path}")
 
 
 # ---------------------------------------------------------------------------
@@ -97,9 +420,22 @@ def render(folio_id: str, input_dir: str, output_dir: str,
               type=click.Path(), help="Directory containing manifest.json and folio JSONs")
 @click.option("--output-dir", "output_dir", default="render-output", show_default=True,
               type=click.Path(), help="Directory to write PNGs and heatmaps")
+@click.option("--approach", default="evo", show_default=True,
+              type=click.Choice(_RENDER_APPROACHES, case_sensitive=False),
+              help="Page rendering approach to use for every folio in the batch")
+@click.option("--evo-quality", default="balanced", show_default=True,
+              type=click.Choice(_EVO_QUALITIES, case_sensitive=False),
+              help="Evolution quality for evo batch renders")
+@click.option("--character-model", "character_model", default="standard", show_default=True,
+              type=click.Choice(_CHARACTER_MODELS, case_sensitive=False),
+              help="Experimental character model for evo batch renders.")
+@click.option("--char-rounds", "char_rounds", default=2, type=int, show_default=True)
+@click.option("--char-candidates", "char_candidates", default=6, type=int, show_default=True)
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params for each folio without rendering")
-def render_batch(input_dir: str, output_dir: str, dry_run: bool) -> None:
+def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: str,
+                 character_model: str, char_rounds: int, char_candidates: int,
+                 dry_run: bool) -> None:
     """Render all folios listed in manifest.json."""
     manifest_path = Path(input_dir) / "manifest.json"
     if not manifest_path.exists():
@@ -108,9 +444,14 @@ def render_batch(input_dir: str, output_dir: str, dry_run: bool) -> None:
 
     manifest = json.loads(manifest_path.read_text())
     folios = manifest.get("folios", [])
-    click.echo(f"[scribesim render-batch] {len(folios)} folio(s) in manifest")
+    quality_tag = f" evo={evo_quality} chars={character_model}" if approach == "evo" else ""
+    click.echo(f"[scribesim render-batch] {len(folios)} folio(s) in manifest  mode={approach}{quality_tag}")
 
     base_profile = load_profile()
+    character_model_randomness = max(
+        0.02,
+        min(0.18, 0.03 * char_rounds + 0.01 * char_candidates),
+    )
     ok = 0
     for entry in folios:
         fid = entry["id"]
@@ -122,19 +463,30 @@ def render_batch(input_dir: str, output_dir: str, dry_run: bool) -> None:
         params = resolved.to_v1()
         click.echo(f"  {fid}  lines={entry['line_count']}  "
                    f"pressure={params.pressure_base:.2f}  "
-                   f"ink={params.ink_density:.2f}", nl=False)
+                   f"ink={params.ink_density:.2f}  "
+                   f"mode={approach}", nl=False)
+        if approach == "evo":
+            click.echo(f"  evo={evo_quality}  chars={character_model}", nl=False)
         if dry_run:
             click.echo("  [dry-run]")
             ok += 1
             continue
         try:
-            from scribesim.layout import place
-            from scribesim.render.pipeline import render_pipeline
             folio_dict = json.loads(folio_path.read_text())
             out = Path(output_dir)
-            out.mkdir(parents=True, exist_ok=True)
-            layout = place(folio_dict, params, profile=resolved)
-            render_pipeline(layout, params, out, fid, profile=resolved)
+            _render_folio(
+                folio_dict,
+                resolved,
+                params,
+                folio_path,
+                out,
+                fid,
+                approach,
+                None,
+                evo_quality,
+                character_model=character_model,
+                character_model_randomness=character_model_randomness,
+            )
             click.echo("  ✓")
             ok += 1
         except NotImplementedError as exc:
@@ -498,13 +850,21 @@ def render_word(text: str, output_path: str, profile_path: str | None,
               help="Save an ink cycle graph (reservoir vs word index) as {output}_ink_graph.png.")
 @click.option("--letter-gap", "letter_gap", default=0.12, type=float, show_default=True,
               help="Inter-letter gap as fraction of x_height (default 0.12 ≈ 40% tighter than historic 0.20).")
+@click.option("--character-model", "character_model", default="standard", show_default=True,
+              type=click.Choice(_CHARACTER_MODELS, case_sensitive=False),
+              help="Experimental character model: deep applies contextual allograph selection after word evolution.")
+@click.option("--char-rounds", "char_rounds", default=2, type=int, show_default=True,
+              help="Reserved tuning knob for deep contextual allograph experiments.")
+@click.option("--char-candidates", "char_candidates", default=6, type=int, show_default=True,
+              help="Reserved tuning knob for deep contextual allograph experiments.")
 def render_line_cmd(text: str, output_path: str, dpi: int, nib_width_mm: float,
                     x_height_mm: float, guides_path: str | None,
                     progress_dir: str | None, evolve: bool,
                     generations: int, pop_size: int,
                     exemplars_dir: str | None, variation: float,
                     show_ink_state: bool, ink_graph: bool,
-                    letter_gap: float) -> None:
+                    letter_gap: float, character_model: str,
+                    char_rounds: int, char_candidates: int) -> None:
     """Render a line of text word by word with progress output.
 
     TEXT is a space-separated sequence of words. Without --evolve, each word
@@ -515,6 +875,7 @@ def render_line_cmd(text: str, output_path: str, dpi: int, nib_width_mm: float,
     you can watch the line fill in incrementally.
     """
     from scribesim.evo.compose import render_line
+    from scribesim.evo.allograph import AllographConfig
     from scribesim.evo.engine import EvolutionConfig
     from PIL import Image as PILImage
 
@@ -524,6 +885,8 @@ def render_line_cmd(text: str, output_path: str, dpi: int, nib_width_mm: float,
     mode = "seed render" if not evolve else f"evolve pop={pop_size} gen={generations}"
     click.echo(f"[scribesim render-line] {text!r}  dpi={dpi}  nib={nib_width_mm}mm  "
                f"x_height={x_height_mm}mm  mode={mode}", err=False)
+    if evolve and character_model == "deep":
+        click.echo(f"  char  : deep rounds={char_rounds} candidates={char_candidates}")
 
     out = Path(output_path)
     graph_path = (out.with_name(out.stem + "_ink_graph.png")) if ink_graph else None
@@ -543,6 +906,10 @@ def render_line_cmd(text: str, output_path: str, dpi: int, nib_width_mm: float,
         show_ink_state=show_ink_state,
         ink_graph_path=graph_path,
         letter_gap=letter_gap,
+        character_model=character_model,
+        character_model_config=AllographConfig(
+            randomness=max(0.02, min(0.18, 0.03 * char_rounds + 0.01 * char_candidates)),
+        ),
     )
 
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -561,6 +928,81 @@ def render_line_cmd(text: str, output_path: str, dpi: int, nib_width_mm: float,
     if out.resolve() != dest.resolve():
         shutil.copy(out, dest)
     click.echo(f"  → {out}  (also → {dest})")
+
+
+@main.command("render-sample")
+@click.option("--line", "lines", multiple=True, required=True,
+              help="One sample line per flag. Repeat twice or more for a multiline sample.")
+@click.option("-o", "--output", "output_path", default="sample.png",
+              type=click.Path(), help="Output PNG path")
+@click.option("--dpi", default=300, type=int, show_default=True)
+@click.option("--nib-width-mm", "nib_width_mm", default=0.75, type=float, show_default=True)
+@click.option("--x-height-mm", "x_height_mm", default=3.8, type=float, show_default=True)
+@click.option("--line-spacing-mm", "line_spacing_mm", default=9.5, type=float, show_default=True)
+@click.option("--evolve/--no-evolve", default=True, show_default=True)
+@click.option("--generations", default=10, type=int, show_default=True)
+@click.option("--pop-size", "pop_size", default=10, type=int, show_default=True)
+@click.option("--variation", default=1.0, type=float, show_default=True)
+@click.option("--letter-gap", "letter_gap", default=0.12, type=float, show_default=True)
+@click.option("--character-model", "character_model", default="standard", show_default=True,
+              type=click.Choice(_CHARACTER_MODELS, case_sensitive=False),
+              help="Experimental character model for sample renders.")
+@click.option("--char-rounds", "char_rounds", default=2, type=int, show_default=True)
+@click.option("--char-candidates", "char_candidates", default=6, type=int, show_default=True)
+def render_sample_cmd(lines: tuple[str, ...], output_path: str, dpi: int,
+                      nib_width_mm: float, x_height_mm: float, line_spacing_mm: float,
+                      evolve: bool, generations: int, pop_size: int, variation: float,
+                      letter_gap: float, character_model: str,
+                      char_rounds: int, char_candidates: int) -> None:
+    """Render a small multiline sample for visual experiments."""
+    from PIL import Image as PILImage
+    from scribesim.evo.allograph import AllographConfig
+    from scribesim.evo.compose import render_folio_lines
+    from scribesim.evo.engine import EvolutionConfig
+
+    config = EvolutionConfig(
+        pop_size=pop_size,
+        generations=generations,
+        eval_dpi=180.0,
+        nib_width_mm=nib_width_mm,
+    ) if evolve else None
+
+    click.echo(f"[scribesim render-sample] lines={len(lines)} dpi={dpi} nib={nib_width_mm}mm evolve={evolve}")
+    if evolve:
+        click.echo(f"  evo   : pop={pop_size} gen={generations}")
+    click.echo(f"  chars : {character_model}")
+
+    page_arr, heat_arr = render_folio_lines(
+        list(lines),
+        dpi=float(dpi),
+        nib_width_mm=nib_width_mm,
+        x_height_mm=x_height_mm,
+        line_spacing_mm=line_spacing_mm,
+        line_height_mm=max(line_spacing_mm * 1.2, _evo_min_line_box_height_mm(x_height_mm)),
+        margin_left_mm=8.0,
+        margin_top_mm=8.0,
+        page_width_mm=180.0,
+        page_height_mm=8.0 * 2 + len(lines) * line_spacing_mm + 8.0,
+        verbose=True,
+        variation=variation,
+        letter_gap=letter_gap,
+        evolve=evolve,
+        config=config,
+        use_cache=False,
+        return_heatmap=True,
+        character_model=character_model,
+        character_model_config=AllographConfig(
+            randomness=max(0.02, min(0.18, 0.03 * char_rounds + 0.01 * char_candidates)),
+        ),
+    )
+
+    out = Path(output_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    PILImage.fromarray(page_arr, "RGB").save(str(out), dpi=(dpi, dpi))
+    heat_out = out.with_name(f"{out.stem}_pressure.png")
+    PILImage.fromarray(heat_arr, "L").save(str(heat_out), dpi=(dpi, dpi))
+    click.echo(f"  page    → {out}")
+    click.echo(f"  heatmap → {heat_out}")
 
 
 # ---------------------------------------------------------------------------

@@ -114,8 +114,8 @@ class MaterialParams:
 class DynamicsParams:
     """Hand simulator dynamics (TD-006 PD controller)."""
     # Legacy attractor params (kept for fallback)
-    attraction_strength: float = 25.0
-    damping_coefficient: float = 12.0
+    attraction_strength: float = 18.0
+    damping_coefficient: float = 6.0
     lookahead_strength: float = 0.5
     max_speed: float = 40.0
     rhythm_strength: float = 0.1

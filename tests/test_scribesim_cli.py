@@ -13,7 +13,7 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from scribesim.cli import main
+from scribesim.cli import main, _evo_min_line_box_height_mm
 from scribesim.hand.model import load_base, resolve
 
 GOLDEN_F01R = Path(__file__).parent / "golden" / "f01r" / "folio.json"
@@ -156,6 +156,7 @@ class TestRenderDryRun:
         ])
         assert "pressure" in result.output
         assert "ink" in result.output
+        assert "progress" in result.output
 
     def test_dry_run_does_not_write_files(self, runner, input_dir, tmp_path):
         out = tmp_path / "render-out"
@@ -168,6 +169,30 @@ class TestRenderDryRun:
         assert result.exit_code == 0
         assert not (out / "f01r.png").exists()
         assert not (out / "f01r_pressure.png").exists()
+
+    def test_dry_run_accepts_deep_evo_quality(self, runner, input_dir):
+        result = runner.invoke(main, [
+            "render", "f01r",
+            "--input-dir", str(input_dir),
+            "--approach", "evo",
+            "--evo-quality", "deep",
+            "--dry-run",
+        ])
+        assert result.exit_code == 0, result.output
+        assert "deep" in result.output
+
+    def test_dry_run_accepts_deep_character_model(self, runner, input_dir):
+        result = runner.invoke(main, [
+            "render", "f01r",
+            "--input-dir", str(input_dir),
+            "--approach", "evo",
+            "--character-model", "deep",
+            "--char-rounds", "1",
+            "--char-candidates", "2",
+            "--dry-run",
+        ])
+        assert result.exit_code == 0, result.output
+        assert "chars : deep" in result.output
 
 
 # ---------------------------------------------------------------------------
@@ -241,6 +266,64 @@ class TestRenderBatch:
         ])
         assert "pressure" in result.output
         assert "ink" in result.output
+
+    def test_batch_dry_run_accepts_deep_evo_quality(self, runner, input_dir):
+        result = runner.invoke(main, [
+            "render-batch",
+            "--input-dir", str(input_dir),
+            "--approach", "evo",
+            "--evo-quality", "deep",
+            "--dry-run",
+        ])
+        assert result.exit_code == 0, result.output
+        assert "deep" in result.output
+
+    def test_batch_dry_run_accepts_deep_character_model(self, runner, input_dir):
+        result = runner.invoke(main, [
+            "render-batch",
+            "--input-dir", str(input_dir),
+            "--approach", "evo",
+            "--character-model", "deep",
+            "--char-rounds", "1",
+            "--char-candidates", "2",
+            "--dry-run",
+        ])
+        assert result.exit_code == 0, result.output
+        assert "chars=deep" in result.output
+
+
+class TestExperimentalLineAndSample:
+    def test_evo_min_line_box_height_leaves_descender_room(self):
+        assert _evo_min_line_box_height_mm(3.8) == pytest.approx(13.68)
+
+    def test_render_line_accepts_deep_character_model(self, runner, tmp_path):
+        out = tmp_path / "line.png"
+        result = runner.invoke(main, [
+            "render-line", "ich bin",
+            "--output", str(out),
+            "--evolve",
+            "--generations", "2",
+            "--pop-size", "3",
+            "--character-model", "deep",
+            "--char-rounds", "1",
+            "--char-candidates", "2",
+        ])
+        assert result.exit_code == 0, result.output
+        assert out.exists()
+
+    def test_render_sample_writes_page_and_heatmap(self, runner, tmp_path):
+        out = tmp_path / "sample.png"
+        result = runner.invoke(main, [
+            "render-sample",
+            "--line", "ich bin",
+            "--line", "ein schreiber",
+            "--output", str(out),
+            "--no-evolve",
+            "--character-model", "standard",
+        ])
+        assert result.exit_code == 0, result.output
+        assert out.exists()
+        assert (tmp_path / "sample_pressure.png").exists()
 
     def test_batch_live_produces_png_per_folio(self, runner, input_dir, tmp_path):
         """Batch live render should write f01r.png — RED until render is implemented."""

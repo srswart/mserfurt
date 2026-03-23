@@ -111,3 +111,21 @@ def test_genome_from_guides_no_path_no_file():
     # Just ensure it doesn't raise — auto-detection may or may not find a file
     genome = genome_from_guides("u")
     assert genome is not None
+
+
+def test_bastarda_pair_spacing_tightens_joinable_pairs():
+    """Common Bastarda pairs should be packed more tightly than neutral pairs."""
+    tight = genome_from_guides("mi", x_height_mm=1.0, letter_gap=0.085)
+    neutral = genome_from_guides("ma", x_height_mm=1.0, letter_gap=0.085)
+
+    tight_gap = tight.glyphs[1].x_offset - (tight.glyphs[0].x_offset + tight.glyphs[0].x_advance)
+    neutral_gap = neutral.glyphs[1].x_offset - (neutral.glyphs[0].x_offset + neutral.glyphs[0].x_advance)
+
+    assert tight_gap < neutral_gap
+
+
+def test_bastarda_pair_spacing_preserves_minimum_gap():
+    """Pair compression should not collapse adjacent glyphs into overlap."""
+    genome = genome_from_guides("ch", x_height_mm=1.0, letter_gap=0.085)
+    gap = genome.glyphs[1].x_offset - (genome.glyphs[0].x_offset + genome.glyphs[0].x_advance)
+    assert gap > 0.0

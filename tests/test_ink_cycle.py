@@ -189,29 +189,29 @@ def test_word_boundary_resets_words_since_dip_on_dip():
 # ---------------------------------------------------------------------------
 
 def test_ink_darkness_at_full():
-    assert abs(ink_darkness(1.0) - 1.12) < 0.01
+    assert abs(ink_darkness(1.0) - 0.98) < 0.01
 
 def test_ink_darkness_at_half():
-    # reservoir=0.5: 0.55 + 0.57 * 0.5^0.4 = 0.55 + 0.57 * 0.758 = 0.982
-    assert abs(ink_darkness(0.5) - 0.97) < 0.02
+    # reservoir=0.5: 0.58 + 0.40 * 0.5^0.45 ≈ 0.879
+    assert abs(ink_darkness(0.5) - 0.88) < 0.02
 
 def test_ink_darkness_at_low():
-    # reservoir=0.2: 0.55 + 0.57 * 0.2^0.4 = 0.55 + 0.57 * 0.525 = 0.849
+    # reservoir=0.2: 0.58 + 0.40 * 0.2^0.45 ≈ 0.774
     val = ink_darkness(0.2)
-    assert 0.75 < val < 0.90
+    assert 0.72 < val < 0.82
 
 def test_ink_darkness_at_very_low():
     # reservoir=0.05: should be visibly faded but not invisible
     val = ink_darkness(0.05)
-    assert 0.55 < val < 0.75
+    assert 0.64 < val < 0.72
 
 def test_ink_darkness_floor_at_zero():
-    """A completely dry quill still leaves a mark — floor is 0.55."""
-    assert ink_darkness(0.0) >= 0.55
+    """A completely dry quill still leaves a mark — floor is 0.58."""
+    assert ink_darkness(0.0) >= 0.58
 
 def test_ink_darkness_ceiling_at_full():
-    """Fresh dip gives a slight saturation boost — ceiling is 1.12."""
-    assert ink_darkness(1.0) <= 1.13
+    """Fresh dip gives richer ink, but no over-dark clipping boost."""
+    assert ink_darkness(1.0) <= 0.99
 
 def test_ink_darkness_monotone():
     """Darkness is non-decreasing as reservoir increases."""
@@ -233,13 +233,13 @@ def test_ink_width_modifier_at_full():
     assert abs(ink_width_modifier(1.0) - 1.08) < 0.01
 
 def test_ink_width_modifier_at_zero():
-    assert abs(ink_width_modifier(0.0) - 0.94) < 0.01
+    assert abs(ink_width_modifier(0.0) - 0.90) < 0.01
 
 def test_ink_width_modifier_range():
-    """Always in [0.94, 1.08] across all reservoir levels."""
+    """Always in [0.90, 1.08] across all reservoir levels."""
     for r in range(101):
         val = ink_width_modifier(r / 100)
-        assert 0.93 <= val <= 1.09, f"Out of range at reservoir={r/100}: {val}"
+        assert 0.89 <= val <= 1.09, f"Out of range at reservoir={r/100}: {val}"
 
 def test_ink_width_modifier_monotone():
     """Width modifier is non-decreasing as reservoir increases."""

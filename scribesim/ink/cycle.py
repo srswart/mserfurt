@@ -23,32 +23,32 @@ def ink_darkness(reservoir: float) -> float:
     - Near full: a large reservoir change barely affects output (realistic)
     - Near empty: a small reservoir change is very visible (realistic)
 
-    Returns a factor in [0.55, 1.12]:
-      reservoir=1.0 → 1.12  (fresh dip saturation boost)
-      reservoir=0.5 → 0.97  (barely lighter — nearly identical to full)
-      reservoir=0.2 → 0.79  (visibly lighter)
-      reservoir=0.05 → 0.61 (quite faded)
-      reservoir=0.0 → 0.55  (floor — a dry quill still marks the vellum)
+    Returns a factor in [0.58, 0.98]:
+      reservoir=1.0 → 0.98  (fresh dip, rich but not clipped)
+      reservoir=0.5 → 0.87  (slightly lighter than full)
+      reservoir=0.2 → 0.77  (visibly lighter)
+      reservoir=0.05 → 0.68 (quite faded)
+      reservoir=0.0 → 0.58  (floor — a dry quill still marks the vellum)
     """
     reservoir = max(0.0, min(1.0, reservoir))
-    flow_curve = reservoir ** 0.4
-    return 0.55 + 0.57 * flow_curve
+    flow_curve = reservoir ** 0.45
+    return 0.58 + 0.40 * flow_curve
 
 
 def ink_width_modifier(reservoir: float) -> float:
     """Map reservoir level to a nib width scaling factor.
 
     A saturated nib spreads ink laterally; a depleted nib produces thinner
-    strokes. Effect is subtle — max ±8% across the full cycle.
+    strokes. Effect is visible but bounded so legibility is preserved.
 
-    Returns a factor in [0.94, 1.08]:
+    Returns a factor in [0.90, 1.08]:
       reservoir=1.0 → 1.08  (8% wider — fresh ink wicks into vellum)
-      reservoir=0.5 → 1.01  (1% wider — barely perceptible)
-      reservoir=0.0 → 0.94  (6% thinner — minimal lateral spread)
+      reservoir=0.5 → 1.02  (slightly wider than neutral)
+      reservoir=0.0 → 0.90  (10% thinner — visibly dry but still legible)
     """
     reservoir = max(0.0, min(1.0, reservoir))
-    flow_curve = reservoir ** 0.5
-    return 0.94 + 0.14 * flow_curve
+    flow_curve = reservoir ** 0.55
+    return 0.90 + 0.18 * flow_curve
 
 
 # ---------------------------------------------------------------------------
@@ -219,6 +219,30 @@ class InkState:
             / self.viscosity
         )
         self.reservoir = max(0.0, self.reservoir - consumption)
+        self.strokes_since_dip += 1
+
+    def deplete_for_step(
+        self,
+        stroke_length_mm: float,
+        avg_pressure: float,
+        avg_width_mm: float,
+    ) -> None:
+        """Consume ink without marking a full stroke boundary.
+
+        Used by renderers that model depletion continuously within a stroke so
+        darkness can fade across the drawn path instead of only between strokes.
+        """
+        consumption = (
+            stroke_length_mm
+            * avg_pressure
+            * (avg_width_mm / 2.0)
+            * self.base_depletion
+            / self.viscosity
+        )
+        self.reservoir = max(0.0, self.reservoir - consumption)
+
+    def finish_stroke(self) -> None:
+        """Record that one stroke has completed."""
         self.strokes_since_dip += 1
 
     def process_word_boundary(self) -> DipEvent:

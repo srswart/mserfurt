@@ -498,6 +498,20 @@ Every stroke rendered at the same darkness. Every hairline at the same quality. 
 ### After TD-010
 Visible ink cycles across the page — dark bands after dips, gradual lightening, then dark again. Hairlines near the end of a cycle are thinner and may break. The first word after a dip has slightly wider, darker strokes and maybe a tiny blob. Two instances of 'e' look different because one was written with a full nib and one with a depleting nib. The output reads as "written."
 
+### Current renderer contract
+
+In the current `evo` folio pipeline, the ink cycle is not just a tonal effect.
+It is part of the operational renderer contract:
+
+- reservoir depletion is applied continuously during stroke rendering
+- render reports must declare the ink model mode and the active renderer path
+- when `page_renderer = "evo"`, the pressure heatmap must come from the same
+  evolved stroke sweep as the page image
+
+This matters because Weather uses the pressure image as a stroke-energy proxy.
+If the page and heatmap come from different renderers, ink-aware downstream
+effects target the wrong letterforms.
+
 ### No changes needed to:
 - The evolutionary algorithm (TD-007) — ink state is computed during rendering, not evolved
 - The letterform extraction (TD-008) — extracted forms are ink-neutral
@@ -533,3 +547,4 @@ Visible ink cycles across the page — dark bands after dips, gradual lightening
 | Date | Change | Author |
 |---|---|---|
 | 2026-03-21 | Initial draft — ink cycle simulation | shawn + claude |
+| 2026-03-23 | Added current renderer contract for evo page/heatmap coherence | shawn + codex |

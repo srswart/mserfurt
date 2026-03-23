@@ -266,6 +266,60 @@ _RIGHT_BEARING: dict[str, float] = {
     # Default (n, m, u, i, r, s, f, z …) → 0.0
 }
 
+_MINIM_FAMILY = frozenset({"i", "m", "n", "u", "v", "w", "r"})
+_ROUND_EXIT_FAMILY = frozenset({"a", "c", "d", "e", "g", "o", "q"})
+_ASCENDER_ENTRY_FAMILY = frozenset({"b", "d", "h", "k", "l", "t"})
+_PAIR_COMPRESSION: dict[tuple[str, str], float] = {
+    ("m", "i"): -0.030,
+    ("n", "i"): -0.028,
+    ("u", "i"): -0.028,
+    ("u", "n"): -0.026,
+    ("i", "n"): -0.022,
+    ("n", "d"): -0.020,
+    ("c", "h"): -0.040,
+    ("c", "k"): -0.034,
+    ("e", "r"): -0.026,
+    ("e", "n"): -0.020,
+    ("r", "e"): -0.022,
+    ("r", "o"): -0.018,
+    ("s", "t"): -0.024,
+    ("t", "i"): -0.022,
+    ("l", "i"): -0.018,
+}
+
+
+def _pair_gap_adjustment(prev_ch: str | None, next_ch: str | None) -> float:
+    """Return pair-specific spacing adjustment in x-height units.
+
+    Negative values tighten the pair. Bastarda benefits from denser coupling
+    in common joins and round-to-minim sequences, but neutral pairs should
+    keep more breathing room for legibility.
+    """
+    if not prev_ch or not next_ch:
+        return 0.0
+
+    prev = prev_ch.lower()
+    nxt = next_ch.lower()
+
+    adjustment = _PAIR_COMPRESSION.get((prev, nxt), 0.0)
+    if prev in _ROUND_EXIT_FAMILY and nxt in _MINIM_FAMILY:
+        adjustment -= 0.018
+    if prev in _MINIM_FAMILY and nxt in _MINIM_FAMILY:
+        adjustment -= 0.012
+    if prev in _ASCENDER_ENTRY_FAMILY and nxt in {"i", "r", "u"}:
+        adjustment -= 0.010
+
+    return max(-0.060, adjustment)
+
+
+def _inter_glyph_gap(prev_ch: str | None, next_ch: str | None, letter_gap: float) -> float:
+    """Compute the inter-glyph gap in x-height units."""
+    if not prev_ch:
+        return letter_gap
+    gap = letter_gap + _RIGHT_BEARING.get(prev_ch.lower(), 0.0)
+    gap += _pair_gap_adjustment(prev_ch, next_ch)
+    return max(0.01, gap)
+
 
 def genome_from_guides(
     word_text: str,
@@ -296,7 +350,8 @@ def genome_from_guides(
     glyphs = []
     x = 0.0
 
-    for ch in word_text:
+    for idx, ch in enumerate(word_text):
+        next_ch = word_text[idx + 1] if idx + 1 < len(word_text) else None
         # Try GLYPH_CATALOG first — it has proper multi-stroke geometry.
         # Guide keypoints (lookup_guide) are structural markers that collapse
         # to 1 Bézier per letter when all points are contact=True, which
@@ -348,7 +403,7 @@ def genome_from_guides(
                 connection_exit_mm=conn_exit,
                 connection_entry_mm=conn_entry,
             ))
-            gap = letter_gap + _RIGHT_BEARING.get(ch, 0.0)
+            gap = _inter_glyph_gap(ch, next_ch, letter_gap)
             x += adv + gap * x_height_mm
 
         else:
@@ -407,7 +462,7 @@ def genome_from_guides(
                 letter=ch, segments=segments,
                 x_offset=x, x_advance=adv,
             ))
-            gap = letter_gap + _RIGHT_BEARING.get(ch, 0.0)
+            gap = _inter_glyph_gap(ch, next_ch, letter_gap)
             x += adv + gap * x_height_mm
 
     return WordGenome(

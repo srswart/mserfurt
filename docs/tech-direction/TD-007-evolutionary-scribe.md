@@ -611,7 +611,9 @@ This is not real-time, but we said it doesn't need to be fast yet. A folio rende
 - **Coarse-to-fine:** evolve at low resolution first (50 DPI), then refine the best candidate at full resolution (300 DPI)
 - **Warm starting:** use the evolved genome from the previous word as the seed for the next word, rather than initializing from guides each time
 - **GPU-accelerated fitness:** batch-render candidates on GPU, batch-compute perceptual features
-- **Reduced generations for common words:** "und", "der", "die" can be evolved once and their genomes cached, with small per-instance perturbation
+- **Reduced generations for common words:** balanced mode may reuse cached word
+  genomes, but deep mode should re-evolve each occurrence; both modes should use
+  style memory rather than exact cloning
 
 ### Parallelization
 
@@ -651,6 +653,24 @@ Each emotional state modifies mutations and/or fitness weights:
 ### Ink state
 
 Ink depletion isn't evolved — it's computed deterministically from the word sequence. But it affects rendering: words near the end of a dip cycle are rendered with lighter strokes (less ink deposited). The fitness function doesn't penalize lighter strokes if they're consistent with the ink cycle position.
+
+### Current operating profile
+
+The current public folio renderer runs TD-007 in two quality modes:
+
+- `balanced`: reuses evolved word genomes where appropriate, but still applies
+  folio-level style memory
+- `deep`: re-evolves each word occurrence and uses per-occurrence progress
+  reporting
+
+In both modes, the modern `evo` path is expected to:
+
+- record its active renderer strategy in a render report
+- keep page and pressure heatmap generation on the same evolved stroke sweep
+- use soft priors from recent same-word history rather than exact template reuse
+
+Contextual scribal memory and bounded character variation are specified in
+TD-012.
 
 ---
 
@@ -698,3 +718,4 @@ Ink depletion isn't evolved — it's computed deterministically from the word se
 | Date | Change | Author |
 |---|---|---|
 | 2026-03-21 | Initial draft — multilayer evolutionary approach | shawn + claude |
+| 2026-03-23 | Added current operating profile and TD-012 cross-reference | shawn + codex |

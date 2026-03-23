@@ -36,9 +36,17 @@ class FittingConfig:
 
 # Stage definitions: which param keys are active and which metrics matter
 STAGE_PARAMS: dict[str, list[str]] = {
-    "coarse": [k for k in _RANGES if k.startswith("folio.") or k.startswith("line.")],
-    "nib": [k for k in _RANGES if k.startswith("nib.")],
-    "rhythm": [k for k in _RANGES if k.startswith("word.") or k.startswith("glyph.")],
+    "coarse": [k for k in _RANGES
+               if k.startswith("folio.")
+               or k.startswith("line.")
+               or k.startswith("letterform.")],
+    "nib": [k for k in _RANGES
+            if k.startswith("nib.")
+            or k.startswith("stroke.")],
+    "rhythm": [k for k in _RANGES
+               if k.startswith("word.")
+               or k.startswith("glyph.")
+               or k.startswith("dynamics.")],
     "ink": [k for k in _RANGES if k.startswith("ink.") or k.startswith("material.")],
 }
 

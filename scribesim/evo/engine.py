@@ -17,6 +17,7 @@ import numpy as np
 
 from scribesim.evo.genome import WordGenome, GlyphGenome, BezierSegment, genome_from_guides
 from scribesim.evo.fitness import evaluate_fitness, FitnessResult
+from scribesim.evo.style import StylePrior
 
 
 # ---------------------------------------------------------------------------
@@ -37,6 +38,20 @@ class EvolutionConfig:
 
 
 # ---------------------------------------------------------------------------
+# Baseline placement
+# ---------------------------------------------------------------------------
+
+def initial_baseline_y_mm(x_height_mm: float) -> float:
+    """Return a safe baseline placement for evolved words.
+
+    The original evo seed baseline was hard-coded to 6mm, which leaves tall
+    Bastarda capitals and ascenders above the top of the word canvas at common
+    x-heights. Use the same more conservative headroom as the non-evo seed path.
+    """
+    return max(10.0, x_height_mm * 2.25 + 0.4)
+
+
+# ---------------------------------------------------------------------------
 # Initialization
 # ---------------------------------------------------------------------------
 
@@ -45,38 +60,99 @@ def initialize_population(
     pop_size: int = 50,
     x_height_mm: float = 3.8,
     guides_path=None,
+    seed_genomes: list[WordGenome] | None = None,
+    style_prior: StylePrior | None = None,
 ) -> list[WordGenome]:
     """Seed the population from letterform guides with perturbation."""
     population = []
-    for i in range(pop_size):
-        genome = genome_from_guides(word_text, baseline_y_mm=6.0, x_height_mm=x_height_mm,
-                                    guides_path=guides_path)
+    seed_pool = list(seed_genomes or [])
 
-        # Perturb each layer (more perturbation = more diversity)
-        sigma = 0.3 + (i / pop_size) * 0.5  # first individuals are closer to guides
+    def _reflow_offsets(genome: WordGenome) -> None:
+        x_cursor = 0.0
+        for glyph in genome.glyphs:
+            delta_x = x_cursor - glyph.x_offset
+            glyph.x_offset = x_cursor
+            for seg in glyph.segments:
+                seg.p0 = (seg.p0[0] + delta_x, seg.p0[1])
+                seg.p1 = (seg.p1[0] + delta_x, seg.p1[1])
+                seg.p2 = (seg.p2[0] + delta_x, seg.p2[1])
+                seg.p3 = (seg.p3[0] + delta_x, seg.p3[1])
+            if glyph.connection_exit_mm is not None:
+                glyph.connection_exit_mm = (glyph.connection_exit_mm[0] + delta_x, glyph.connection_exit_mm[1])
+            if glyph.connection_entry_mm is not None:
+                glyph.connection_entry_mm = (glyph.connection_entry_mm[0] + delta_x, glyph.connection_entry_mm[1])
+            x_cursor += glyph.x_advance
+        genome.word_width_mm = x_cursor
 
-        # Layer 1: word envelope — small perturbation
-        genome.baseline_y += random.gauss(0, 0.1 * sigma)
-        genome.global_slant_deg += random.gauss(0, 0.5 * sigma)
-        genome.baseline_drift = [random.gauss(0, 0.05 * sigma) for _ in genome.glyphs]
-        genome.slant_drift = [random.gauss(0, 0.2 * sigma) for _ in genome.glyphs]
-
-        # Layer 2: glyph shapes — anisotropic perturbation (x wider, y tiny)
+    def _seed_from_prior(base: WordGenome, sigma: float) -> WordGenome:
+        genome = copy.deepcopy(base)
+        if style_prior is not None and style_prior.target_slant_deg is not None:
+            genome.global_slant_deg = (
+                genome.global_slant_deg * 0.7
+                + style_prior.target_slant_deg * 0.3
+                + random.gauss(0, 0.18 * sigma)
+            )
+        if style_prior is not None and style_prior.avg_advances is not None and len(style_prior.avg_advances) == len(genome.glyphs):
+            for idx, glyph in enumerate(genome.glyphs):
+                target_adv = style_prior.avg_advances[idx]
+                glyph.x_advance = max(0.25, glyph.x_advance * 0.65 + target_adv * 0.35 + random.gauss(0, 0.04 * sigma))
+            _reflow_offsets(genome)
+        genome.baseline_drift = [
+            drift + random.gauss(0, 0.03 * sigma) for drift in genome.baseline_drift
+        ]
+        genome.slant_drift = [
+            drift + random.gauss(0, 0.08 * sigma) for drift in genome.slant_drift
+        ]
         for glyph in genome.glyphs:
             for seg in glyph.segments:
-                if random.random() < 0.4:
-                    dx = random.gauss(0, 0.08 * sigma)
-                    dy = random.gauss(0, 0.02 * sigma)
-                    seg.p1 = (seg.p1[0] + dx, seg.p1[1] + dy)
-                    seg.p2 = (seg.p2[0] + dx * 0.7, seg.p2[1] + dy * 0.7)
-
-        # Layer 3: stroke details — small perturbation
-        for glyph in genome.glyphs:
-            for seg in glyph.segments:
+                seg.nib_angle_drift += random.gauss(0, 0.3 * sigma)
                 seg.pressure_curve = [
-                    max(0.1, min(1.0, p + random.gauss(0, 0.03 * sigma)))
+                    max(0.1, min(1.0, p + random.gauss(0, 0.02 * sigma)))
                     for p in seg.pressure_curve
                 ]
+        genome.word_width_mm *= random.uniform(0.985, 1.015)
+        return genome
+
+    for i in range(pop_size):
+        if seed_pool and i < max(2, min(len(seed_pool) * 2, pop_size // 2)):
+            base = seed_pool[i % len(seed_pool)]
+            sigma = 0.18 + (i / max(pop_size, 1)) * 0.25
+            genome = _seed_from_prior(base, sigma)
+        else:
+            genome = genome_from_guides(
+                word_text,
+                baseline_y_mm=initial_baseline_y_mm(x_height_mm),
+                x_height_mm=x_height_mm,
+                guides_path=guides_path,
+            )
+
+            # Perturb each layer (more perturbation = more diversity)
+            sigma = 0.3 + (i / pop_size) * 0.5  # first individuals are closer to guides
+
+            # Layer 1: word envelope — small perturbation
+            genome.baseline_y += random.gauss(0, 0.1 * sigma)
+            genome.global_slant_deg += random.gauss(0, 0.5 * sigma)
+            if style_prior is not None and style_prior.target_slant_deg is not None:
+                genome.global_slant_deg = genome.global_slant_deg * 0.6 + style_prior.target_slant_deg * 0.4
+            genome.baseline_drift = [random.gauss(0, 0.05 * sigma) for _ in genome.glyphs]
+            genome.slant_drift = [random.gauss(0, 0.2 * sigma) for _ in genome.glyphs]
+
+            # Layer 2: glyph shapes — anisotropic perturbation (x wider, y tiny)
+            for glyph in genome.glyphs:
+                for seg in glyph.segments:
+                    if random.random() < 0.4:
+                        dx = random.gauss(0, 0.08 * sigma)
+                        dy = random.gauss(0, 0.02 * sigma)
+                        seg.p1 = (seg.p1[0] + dx, seg.p1[1] + dy)
+                        seg.p2 = (seg.p2[0] + dx * 0.7, seg.p2[1] + dy * 0.7)
+
+            # Layer 3: stroke details — small perturbation
+            for glyph in genome.glyphs:
+                for seg in glyph.segments:
+                    seg.pressure_curve = [
+                        max(0.1, min(1.0, p + random.gauss(0, 0.03 * sigma)))
+                        for p in seg.pressure_curve
+                    ]
 
         population.append(genome)
 
@@ -242,6 +318,7 @@ def evolve_word(
     guides_path=None,
     x_height_mm: float = 3.8,
     exemplar_root=None,
+    style_prior: StylePrior | None = None,
 ) -> EvolutionResult:
     """Evolve a word genome through generations.
 
@@ -259,8 +336,14 @@ def evolve_word(
     if config is None:
         config = EvolutionConfig()
 
-    population = initialize_population(word_text, config.pop_size, x_height_mm=x_height_mm,
-                                       guides_path=guides_path)
+    population = initialize_population(
+        word_text,
+        config.pop_size,
+        x_height_mm=x_height_mm,
+        guides_path=guides_path,
+        seed_genomes=style_prior.same_word_genomes if style_prior is not None else None,
+        style_prior=style_prior,
+    )
 
     best_ever = None
     best_fitness_ever = 0.0
@@ -270,7 +353,8 @@ def evolve_word(
         # Evaluate fitness
         results = [evaluate_fitness(ind, target_crop, dpi=config.eval_dpi,
                                     nib_width_mm=config.nib_width_mm,
-                                    exemplar_root=exemplar_root)
+                                    exemplar_root=exemplar_root,
+                                    style_prior=style_prior)
                    for ind in population]
         fitnesses = [r.total for r in results]
 

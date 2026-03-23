@@ -15,12 +15,16 @@ from __future__ import annotations
 
 import math
 import random
+from typing import TYPE_CHECKING
 
 import numpy as np
 from PIL import Image, ImageDraw
 
 from scribesim.evo.genome import WordGenome
 from scribesim.ink.cycle import InkState, ink_darkness, ink_width_modifier, hairline_effects, post_dip_blob
+
+if TYPE_CHECKING:
+    from scribesim.hand.profile import HandProfile
 
 
 _PARCHMENT = (245, 238, 220)
@@ -37,41 +41,60 @@ def _ink_color(darkness: float) -> tuple[int, int, int]:
     )
 
 
+def _heat_value(pressure_signal: float) -> int:
+    p = max(0.0, min(1.0, pressure_signal))
+    return int(round(p * 255.0))
+
+
 # ---------------------------------------------------------------------------
 # Core drawing primitives
 # ---------------------------------------------------------------------------
 
 def _draw_nib_sweep(
     draw: ImageDraw.ImageDraw,
-    samples: list[tuple[float, float, float]],
-    hx: float,
-    hy: float,
+    samples: list[tuple[float, float, float, float, float]],
+    heat_draw: ImageDraw.ImageDraw | None = None,
+    heat_values: list[int] | None = None,
 ) -> None:
     """Sweep nib edge through samples, draw filled quadrilaterals."""
     for si in range(len(samples) - 1):
-        x0, y0, d0 = samples[si]
-        x1, y1, d1 = samples[si + 1]
+        x0, y0, d0, hx0, hy0 = samples[si]
+        x1, y1, d1, hx1, hy1 = samples[si + 1]
         darkness = (d0 + d1) / 2.0
         if darkness < 0.05:
             continue
         color = _ink_color(darkness)
-        draw.polygon([
-            (x0 - hx, y0 - hy),
-            (x0 + hx, y0 + hy),
-            (x1 + hx, y1 + hy),
-            (x1 - hx, y1 - hy),
-        ], fill=color)
+        poly = [
+            (x0 - hx0, y0 - hy0),
+            (x0 + hx0, y0 + hy0),
+            (x1 + hx1, y1 + hy1),
+            (x1 - hx1, y1 - hy1),
+        ]
+        draw.polygon(poly, fill=color)
+        if heat_draw is not None and heat_values is not None:
+            heat = max(heat_values[si], heat_values[si + 1])
+            if heat > 0:
+                heat_draw.polygon(poly, fill=heat)
 
     # Cap stroke endpoints
-    for x_px, y_px, darkness in [samples[0], samples[-1]]:
+    for idx, (x_px, y_px, darkness, hx_end, hy_end) in enumerate([samples[0], samples[-1]]):
         if darkness < 0.05:
             continue
         color = _ink_color(darkness)
+        width = max(1, int(abs(hy_end) * 0.3 + abs(hx_end) * 0.3))
         draw.line(
-            [(x_px - hx, y_px - hy), (x_px + hx, y_px + hy)],
+            [(x_px - hx_end, y_px - hy_end), (x_px + hx_end, y_px + hy_end)],
             fill=color,
-            width=max(1, int(abs(hy) * 0.3 + abs(hx) * 0.3)),
+            width=width,
         )
+        if heat_draw is not None and heat_values is not None:
+            heat = heat_values[0 if idx == 0 else -1]
+            if heat > 0:
+                heat_draw.line(
+                    [(x_px - hx_end, y_px - hy_end), (x_px + hx_end, y_px + hy_end)],
+                    fill=heat,
+                    width=width,
+                )
 
 
 # ---------------------------------------------------------------------------
@@ -99,12 +122,14 @@ def render_word_from_genome(
     genome: WordGenome,
     dpi: float = 100.0,
     nib_width_mm: float = 0.6,
-    nib_angle_deg: float = 35.0,
+    nib_angle_deg: float = 42.0,
     canvas_width_mm: float | None = None,
     canvas_height_mm: float | None = None,
     variation: float = 1.0,
     ink_state: InkState | None = None,
-) -> np.ndarray:
+    profile: "HandProfile | None" = None,
+    return_heatmap: bool = False,
+) -> np.ndarray | tuple[np.ndarray, np.ndarray]:
     """Render a word genome to an RGB image.
 
     Renders at _SUPERSAMPLE× resolution then downsamples with LANCZOS for
@@ -134,8 +159,37 @@ def render_word_from_genome(
     hx = hx_mm * px_per_mm
     hy = hy_mm * px_per_mm
 
-    # Hairline: ~9% of nib width at minimum
-    hairline_px = max(1.5, nib_width_mm * 0.09 * px_per_mm)
+    hairline_ratio = 0.065
+    attack_width_boost = 0.10
+    attack_zone_end = 0.10
+    foot_width_boost = 0.20
+    foot_ink_boost = 0.25
+    foot_zone_start = 0.85
+    attack_pressure_multiplier = 1.15
+    release_taper_length = 0.30
+    pressure_modulation_span = 0.08
+    fresh_dip_darkness_boost = 0.10
+    fresh_dip_width_boost = 0.03
+
+    if profile is not None:
+        quality = max(0.5, min(1.0, profile.nib.cut_quality))
+        hairline_ratio = max(0.055, min(0.085, 0.09 - 0.05 * (quality - 0.5)))
+        attack_width_boost = profile.stroke.attack_width_boost
+        attack_zone_end = profile.stroke.attack_zone_end
+        foot_width_boost = profile.stroke.foot_width_boost
+        foot_ink_boost = profile.stroke.foot_ink_boost
+        foot_zone_start = profile.stroke.foot_zone_start
+        attack_pressure_multiplier = profile.nib.attack_pressure_multiplier
+        release_taper_length = profile.nib.release_taper_length
+        pressure_modulation_span = max(
+            0.04,
+            min(0.16, profile.stroke.pressure_modulation_range * 0.20),
+        )
+        fresh_dip_darkness_boost = max(0.0, min(0.20, profile.ink.fresh_dip_darkness_boost))
+        fresh_dip_width_boost = max(0.01, min(0.06, profile.ink.fresh_dip_darkness_boost * 0.25))
+
+    # Bastarda wants clear hairlines, but not vanishing joins.
+    hairline_px = max(1.25, nib_width_mm * hairline_ratio * px_per_mm)
 
     left_margin_mm = 0.6  # tight — just enough to avoid clipping slanted strokes
     if canvas_width_mm is None:
@@ -148,6 +202,8 @@ def render_word_from_genome(
 
     img = Image.new("RGB", (w_px, h_px), _PARCHMENT)
     draw = ImageDraw.Draw(img)
+    heat_img = Image.new("L", (w_px, h_px), 0) if return_heatmap else None
+    heat_draw = ImageDraw.Draw(heat_img) if heat_img is not None else None
 
     if ink_state is None:
         ink_state = InkState()
@@ -212,20 +268,16 @@ def render_word_from_genome(
         if not contact_segs:
             continue
 
-        # Per-glyph nib angle drift ±1°
-        nib_angle_drift = random.gauss(0, 1.0 * v) if v > 0 else 0.0
-        seg_nib_angle_rad = math.radians(nib_angle_deg + nib_angle_drift)
-        # Ink width modulation: fresh nib spreads ink wider, dry nib is narrower
-        width_mod = ink_width_modifier(ink_state.reservoir)
-        half_seg = nib_width_mm * width_mod / 2.0
-        hx_seg = half_seg * math.cos(seg_nib_angle_rad) * px_per_mm
-        hy_seg = half_seg * math.sin(seg_nib_angle_rad) * px_per_mm
-
         # Render all contact segments
-        nib_cos = math.cos(seg_nib_angle_rad)
-        nib_sin = math.sin(seg_nib_angle_rad)
+        glyph_nib_angle_drift = random.gauss(0, 1.4 * v) if v > 0 else 0.0
 
         for seg_idx, seg in enumerate(contact_segs):
+            seg_angle_base_deg = nib_angle_deg + glyph_nib_angle_drift + seg.nib_angle_drift * 1.6
+            seg_angle_start_deg = seg_angle_base_deg + (random.gauss(0, 0.45 * v) if v > 0 else 0.0)
+            seg_angle_end_deg = seg_angle_base_deg + (random.gauss(0, 0.70 * v) if v > 0 else 0.0)
+            seg_mid_angle_rad = math.radians((seg_angle_start_deg + seg_angle_end_deg) * 0.5)
+            nib_cos = math.cos(seg_mid_angle_rad)
+            nib_sin = math.sin(seg_mid_angle_rad)
             # Post-dip blob: first contact stroke after a fresh dip (15% chance)
             if seg_idx == 0 and gi == 0:
                 blob = post_dip_blob(ink_state.reservoir, ink_state.strokes_since_dip)
@@ -258,7 +310,11 @@ def render_word_from_genome(
                         gy = by_px + lx * ta[1] + ly * ta[0]
                         pts.append((gx, gy))
                     draw.polygon(pts, fill=blob_color)
-            samples: list[tuple[float, float, float]] = []
+                    if heat_draw is not None:
+                        blob_heat = _heat_value(min(1.0, 0.84 + 0.16 * ink_state.reservoir))
+                        heat_draw.polygon(pts, fill=blob_heat)
+            samples: list[tuple[float, float, float, float, float]] = []
+            heat_values: list[int] = []
 
             # Per-segment pressure variation ±5%
             pressure_scale = 1.0 + random.gauss(0, 0.025 * v) if v > 0 else 1.0
@@ -283,15 +339,9 @@ def render_word_from_genome(
             is_hairline = cross_mag < 0.25
 
             # Hairline effects — only non-zero near empty reservoir
-            hfx = hairline_effects(ink_state.reservoir) if is_hairline else None
-
-            # Apply width reduction to a local copy of the nib half-extents
-            hx_draw = hx_seg
-            hy_draw = hy_seg
-            if hfx is not None and hfx.width_reduction > 0.0:
-                scale_w = 1.0 - hfx.width_reduction
-                hx_draw = hx_seg * scale_w
-                hy_draw = hy_seg * scale_w
+            segment_reservoir = ink_state.reservoir
+            hfx = hairline_effects(segment_reservoir) if is_hairline else None
+            segment_gap_probability = hfx.gap_probability if hfx is not None else 0.0
 
             # Raking: decide once per segment (split-nib effect at very low reservoir)
             is_raking = (hfx is not None
@@ -302,9 +352,9 @@ def render_word_from_genome(
             # Pressure modulates width ±20%; direction is primary thick/thin driver.
             mean_pressure = sum(seg.pressure_at(t / 8) for t in range(9)) / 9
             mean_pressure *= pressure_scale
-            seg_pressure_width = 0.98 + 0.04 * mean_pressure  # 0.98–1.02× (±2%)
-            hx_p = hx_draw * seg_pressure_width
-            hy_p = hy_draw * seg_pressure_width
+            seg_pressure_width = 1.0 + (mean_pressure - 0.5) * pressure_modulation_span
+
+            sample_length_mm = seg.length() / max(1, n_samples)
 
             for si in range(n_samples + 1):
                 t = si / n_samples
@@ -312,11 +362,45 @@ def render_word_from_genome(
                 pressure = seg.pressure_at(t) * pressure_scale
 
                 from scribesim.render.nib import stroke_foot_effect, stroke_attack_effect
-                foot_w, foot_i = stroke_foot_effect(t)
-                attack_w, attack_i = stroke_attack_effect(t)
+                _foot_w, foot_i = stroke_foot_effect(
+                    t,
+                    foot_zone_start=foot_zone_start,
+                    width_boost=foot_width_boost,
+                    ink_boost=foot_ink_boost,
+                )
+                _attack_w, attack_i = stroke_attack_effect(
+                    t,
+                    attack_zone_end=attack_zone_end,
+                    width_boost=attack_width_boost,
+                )
+                if t < attack_zone_end:
+                    attack_progress = 1.0 - (t / max(attack_zone_end, 1e-6))
+                    attack_i *= 1.0 + (attack_pressure_multiplier - 1.0) * attack_progress
+                release_i = 1.0
+                if release_taper_length > 0.0:
+                    release_start = max(0.0, 1.0 - release_taper_length)
+                    if t > release_start:
+                        release_progress = (t - release_start) / max(release_taper_length, 1e-6)
+                        release_i = max(0.72, 1.0 - 0.28 * release_progress)
 
-                base_dark = 0.88 + 0.12 * pressure
-                darkness = min(1.0, base_dark * ink_darkness(ink_state.reservoir) * foot_i * attack_i)
+                # Keep evo output in the same tonal family as the plain renderer:
+                # pressure still matters, but fresh-dip richness should not clip
+                # most strokes to near-black.
+                current_reservoir = ink_state.reservoir
+                current_hfx = hairline_effects(current_reservoir) if is_hairline else None
+                base_dark = 0.74 + 0.14 * pressure
+                fresh_phase = 0.0
+                if ink_state.strokes_since_dip < 4:
+                    fresh_phase = max(0.0, 1.0 - ((ink_state.strokes_since_dip + t) / 4.0))
+                darkness = min(
+                    1.0,
+                    base_dark
+                    * ink_darkness(current_reservoir)
+                    * (1.0 + fresh_dip_darkness_boost * fresh_phase)
+                    * foot_i
+                    * attack_i
+                    * release_i,
+                )
 
                 x_px, y_px = to_px(pos[0], pos[1])
 
@@ -326,11 +410,46 @@ def render_word_from_genome(
                     x_px += wobble_x
                     y_px += wobble_y
 
-                samples.append((x_px, y_px, darkness))
+                sample_angle_deg = seg_angle_start_deg + (seg_angle_end_deg - seg_angle_start_deg) * t
+                sample_angle_rad = math.radians(sample_angle_deg)
+                dynamic_width_mod = ink_width_modifier(current_reservoir) * (1.0 + fresh_dip_width_boost * fresh_phase)
+                half_dynamic = nib_width_mm * dynamic_width_mod / 2.0
+                hx_sample = half_dynamic * math.cos(sample_angle_rad) * px_per_mm * seg_pressure_width
+                hy_sample = half_dynamic * math.sin(sample_angle_rad) * px_per_mm * seg_pressure_width
+                if current_hfx is not None and current_hfx.width_reduction > 0.0:
+                    scale_w = 1.0 - current_hfx.width_reduction
+                    hx_sample *= scale_w
+                    hy_sample *= scale_w
+                    segment_gap_probability = max(segment_gap_probability, current_hfx.gap_probability)
+                sample_norm = math.hypot(hx_sample, hy_sample)
+                if sample_norm < hairline_px:
+                    floor_scale = hairline_px / max(sample_norm, 1e-6)
+                    hx_sample *= floor_scale
+                    hy_sample *= floor_scale
+
+                samples.append((x_px, y_px, darkness, hx_sample, hy_sample))
+                pressure_signal = min(
+                    1.0,
+                    max(
+                        0.0,
+                        pressure
+                        * foot_i
+                        * attack_i
+                        * release_i
+                        * min(1.12, seg_pressure_width),
+                    ),
+                )
+                heat_values.append(_heat_value(pressure_signal))
+                if si < n_samples:
+                    sample_width_mm = max(
+                        nib_width_mm * hairline_ratio,
+                        2.0 * math.hypot(hx_sample, hy_sample) / px_per_mm,
+                    )
+                    ink_state.deplete_for_step(sample_length_mm, pressure, sample_width_mm)
 
             if is_raking and len(samples) >= 2:
-                x0s, y0s, _ = samples[0]
-                xes, yes, _ = samples[-1]
+                x0s, y0s, _, _, _ = samples[0]
+                xes, yes, _, _, _ = samples[-1]
                 sdx, sdy = xes - x0s, yes - y0s
                 slen = math.sqrt(sdx * sdx + sdy * sdy)
                 if slen > 1.0:
@@ -338,23 +457,24 @@ def render_word_from_genome(
                     py_n = sdx / slen
                     offset_px = max(0.5, nib_width_mm * 0.20 * px_per_mm / _SUPERSAMPLE)
                     rake_dark = 0.70
-                    hx_rake = hx_p * 0.5
-                    hy_rake = hy_p * 0.5
                     for sign in (-1.0, 1.0):
                         offset_samples = [
                             (x + sign * px_n * offset_px,
                              y + sign * py_n * offset_px,
-                             d * rake_dark)
-                            for x, y, d in samples
+                             d * rake_dark,
+                             hx_pt * 0.5,
+                             hy_pt * 0.5)
+                            for x, y, d, hx_pt, hy_pt in samples
                         ]
-                        _draw_nib_sweep(draw, offset_samples, hx_rake, hy_rake)
+                        _draw_nib_sweep(draw, offset_samples, heat_draw=heat_draw, heat_values=heat_values)
             else:
                 # Normal draw — with per-sample gap smoothing for hairlines
-                if hfx is not None and hfx.gap_probability > 0.0:
+                if hfx is not None and segment_gap_probability > 0.0:
                     gap_active = False
-                    gap_prob = hfx.gap_probability
-                    run: list[tuple[float, float, float]] = []
-                    for pt in samples:
+                    gap_prob = segment_gap_probability
+                    run: list[tuple[float, float, float, float, float]] = []
+                    run_heat: list[int] = []
+                    for idx, pt in enumerate(samples):
                         if gap_active:
                             if random.random() > gap_prob * 2.0:
                                 gap_active = False
@@ -363,16 +483,18 @@ def render_word_from_genome(
                                 gap_active = True
                         if gap_active:
                             if len(run) >= 2:
-                                _draw_nib_sweep(draw, run, hx_p, hy_p)
+                                _draw_nib_sweep(draw, run, heat_draw=heat_draw, heat_values=run_heat)
                             run = []
+                            run_heat = []
                         else:
                             run.append(pt)
+                            run_heat.append(heat_values[idx])
                     if len(run) >= 2:
-                        _draw_nib_sweep(draw, run, hx_p, hy_p)
+                        _draw_nib_sweep(draw, run, heat_draw=heat_draw, heat_values=run_heat)
                 else:
-                    _draw_nib_sweep(draw, samples, hx_p, hy_p)
+                    _draw_nib_sweep(draw, samples, heat_draw=heat_draw, heat_values=heat_values)
 
-            ink_state.deplete_for_stroke(seg.length(), 0.85, nib_width_mm)
+            ink_state.finish_stroke()
 
     # ----------------------------------------- overline for numeral groups
     if genome.overline and genome.glyphs:
@@ -432,16 +554,23 @@ def render_word_from_genome(
             if darkness < 0.04:
                 continue
             color = _ink_color(darkness)
-            draw.polygon([
+            poly = [
                 (x0 - lhx, y0 - lhy), (x0 + lhx, y0 + lhy),
                 (x1 + lhx, y1 + lhy), (x1 - lhx, y1 - lhy),
-            ], fill=color)
+            ]
+            draw.polygon(poly, fill=color)
+            if heat_draw is not None:
+                heat_draw.polygon(poly, fill=_heat_value(darkness))
 
     # ----------------------------------------- downsample to target resolution
     out_w = max(1, w_px // ss)
     out_h = max(1, h_px // ss)
     img = img.resize((out_w, out_h), Image.LANCZOS)
-    return np.array(img)
+    page_arr = np.array(img)
+    if heat_img is None:
+        return page_arr
+    heat_img = heat_img.resize((out_w, out_h), Image.LANCZOS)
+    return page_arr, np.array(heat_img)
 
 
 def render_genome_to_file(genome: WordGenome, output_path: str, **kwargs) -> str:

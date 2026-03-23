@@ -1,0 +1,62 @@
+{
+  "folio_id": "f01r",
+  "requested_approach": "evo",
+  "page_renderer": "evo",
+  "heatmap_renderer": "evo",
+  "folio_json": "output-live/f01r.json",
+  "hand_toml": "default",
+  "outputs": {
+    "page": "output-evo-deep-char-preview/f01r.png",
+    "heatmap": "output-evo-deep-char-preview/f01r_pressure.png"
+  },
+  "geometry": {
+    "page_w_mm": 280.0,
+    "page_h_mm": 400.0,
+    "ruling_pitch_mm": 9.5,
+    "x_height_mm": 3.8000000000000003,
+    "margin_top_mm": 25.0,
+    "margin_inner_mm": 25.0
+  },
+  "resolved_hand": {
+    "nib_angle_deg": 45.0,
+    "nib_width_mm": 1.8,
+    "x_height_px": 38,
+    "letter_spacing_norm": 1.0,
+    "word_spacing_norm": 2.4,
+    "writing_speed": 1.0,
+    "pressure_base": 0.72,
+    "pressure_variance": 0.08,
+    "ink_density": 0.85,
+    "variation_scale": 0.9400000000000001
+  },
+  "word_model": "ga_evolved_per_occurrence",
+  "evolution": {
+    "enabled": true,
+    "quality": "deep",
+    "pop_size": 16,
+    "generations": 14,
+    "eval_dpi": 225.0,
+    "cache_policy": "re_evolve_each_occurrence",
+    "style_memory": true
+  },
+  "ink_model": {
+    "mode": "continuous_reservoir",
+    "reservoir_capacity": 1.0,
+    "depletion_rate": 0.02,
+    "dry_threshold": 0.15,
+    "preferred_dip_threshold": 0.16999999999999998
+  },
+  "render_params": {
+    "page_nib_width_mm": 0.7916666666666667,
+    "page_nib_angle_deg": 45.0,
+    "nib_angle_variation": "glyph_plus_segment_plus_within_stroke",
+    "evo_quality": "deep",
+    "word_shape_memory": "soft_prior",
+    "character_model": "deep",
+    "character_model_randomness": 0.12
+  },
+  "notes": [
+    "The page renderer is recorded here because the plain raster pipeline and evo pipeline produce different artifacts.",
+    "When page_renderer is 'evo', the pressure heatmap is generated from the same evolved stroke sweep as the page image."
+  ]
+}

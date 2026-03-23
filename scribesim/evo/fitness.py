@@ -21,6 +21,7 @@ from scipy.ndimage import label, distance_transform_edt, gaussian_filter
 
 from scribesim.evo.genome import WordGenome, GlyphGenome
 from scribesim.evo.renderer import render_word_from_genome
+from scribesim.evo.style import StylePrior
 
 # ---------------------------------------------------------------------------
 # Exemplar loading
@@ -289,7 +290,11 @@ def f3_connection_flow(rendered: np.ndarray, genome: WordGenome) -> float:
 # F4: Style consistency (Bastarda)
 # ---------------------------------------------------------------------------
 
-def f4_style_consistency(rendered: np.ndarray, genome: WordGenome) -> float:
+def f4_style_consistency(
+    rendered: np.ndarray,
+    genome: WordGenome,
+    style_prior: StylePrior | None = None,
+) -> float:
     """Bastarda style: ~3-5° slant, consistent proportions."""
     scores = []
 
@@ -315,6 +320,28 @@ def f4_style_consistency(rendered: np.ndarray, genome: WordGenome) -> float:
         advances = [g.x_advance for g in genome.glyphs]
         cv = np.std(advances) / max(np.mean(advances), 0.01)
         scores.append(max(0.0, 1.0 - cv))
+
+    if style_prior is not None:
+        prior_scores = []
+        if style_prior.target_slant_deg is not None:
+            prior_scores.append(
+                max(0.0, 1.0 - abs(genome.global_slant_deg - style_prior.target_slant_deg) / 4.0)
+            )
+        if style_prior.width_mean_mm is not None:
+            sigma = max(style_prior.width_sigma_mm or 0.8, 0.4)
+            prior_scores.append(
+                max(0.0, 1.0 - abs(genome.word_width_mm - style_prior.width_mean_mm) / (sigma * 2.5))
+            )
+        if style_prior.avg_advances is not None and len(style_prior.avg_advances) == len(genome.glyphs):
+            deltas = [
+                abs(genome.glyphs[i].x_advance - style_prior.avg_advances[i])
+                for i in range(len(genome.glyphs))
+            ]
+            mean_delta = sum(deltas) / max(len(deltas), 1)
+            prior_scores.append(max(0.0, 1.0 - mean_delta / 0.35))
+        if prior_scores:
+            # Soft memory: stay in-family, but do not over-penalize divergence.
+            scores.append(sum(prior_scores) / len(prior_scores))
 
     return sum(scores) / max(len(scores), 1)
 
@@ -422,6 +449,7 @@ def evaluate_fitness(
     dpi: float = 100.0,
     exemplar_root: Path | None = None,
     nib_width_mm: float = 1.0,
+    style_prior: StylePrior | None = None,
 ) -> FitnessResult:
     """Evaluate all 7 fitness criteria for a genome.
 
@@ -447,7 +475,7 @@ def evaluate_fitness(
         f1=f1_letter_recognition(rendered, genome, exemplars),
         f2=f2_thick_thin(rendered),
         f3=f3_connection_flow(rendered, genome),
-        f4=f4_style_consistency(rendered, genome),
+        f4=f4_style_consistency(rendered, genome, style_prior=style_prior),
         f5=f5_target_similarity(rendered, target_crop),
         f6=f6_smoothness(genome),
         f7=f7_continuity(genome),
