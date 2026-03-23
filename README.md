@@ -1,65 +1,210 @@
 # MS Erfurt Aug. 12°47 — Manuscript Simulation Pipeline
 
-A three-phase pipeline for producing the physical manuscript artifact described in the fictional *MS Erfurt Aug. 12°47*: Brother Konrad's 1457 confession, reverse-translated into period German and Ecclesiastical Latin, rendered in his scribal hand, and aged 560 years.
+A three-phase pipeline for producing a simulated physical manuscript: Brother Konrad's 1457 scribal confession (*MS Erfurt Aug. 12°47*), authored in Frühneuhochdeutsch, rendered in Bastarda script, and aged 500 years through a hybrid AI and programmatic weathering system.
 
-## Pipeline
+## Pipeline overview
 
 ```
-English source → [XL] → German/Latin folios → [ScribeSim] → page images → [Weather] → weathered manuscript
+XL (author)  →  ScribeSim (render)  →  Weather (age)
 ```
 
-**XL** — Reverse-translation and folio structuring. Takes the English manuscript text, translates into Frühneuhochdeutsch with embedded Ecclesiastical Latin, structures into 17 folios.
+**XL — Authoring and folio structuring.**
+Manuscript text is written in Late Middle High German (Thuringian dialect, 1457) and structured as per-folio JSON files. Each line carries register annotation (`de` / `mixed`), a CLIO-7 confidence score, and optional damage metadata. A 17-folio gathering is planned across two vellum stocks: standard calfskin (f01–f13, 185×250mm, 22 lines/page) and irregularly cut smaller leaves (f14–f17, 155×212mm, 18 lines/page).
 
-**ScribeSim** — Scribal hand simulation. Renders Brother Konrad's Bastarda hand with per-folio emotional and physical variation onto page images, producing pressure heatmaps and PAGE XML ground truth.
+**ScribeSim — Scribal hand rendering.**
+Each folio JSON is rendered to a 300 DPI PNG using the ScribeSim Bastarda engine. Line spacing, nib width (0.5mm), and x-height (3.0mm) are calibrated to the page layout. Recto pages place the gutter on the left; verso on the right. Output images are clean — no aging applied at this stage.
 
-**Weather** — Manuscript aging. Applies 560 years of archival storage, targeted water damage (f04r–f05v), missing corner (f04v), and general aging. Output is a complete eScriptorium-ready document.
+**Weather — 500-year manuscript aging.**
+The weathering system applies aging in gathering order (epicenter f04r first, then outward by leaf distance) so that each folio's AI generation is informed by already-weathered neighbours. The process has three sub-steps:
+
+1. **Codex map** — a physical damage model computed from first principles: water propagation decaying from the epicenter by leaf distance (severity = 0.4^distance), edge darkening by gathering position, deterministic foxing clusters with recto/verso mirroring, and vellum stock per leaf.
+2. **Pre-degradation** — CLIO-7 word-level damage annotations applied programmatically in pixel space before any AI involvement, ensuring scholarly specifications are honoured exactly.
+3. **AI compositing** — a blank parchment canvas is sent to `gpt-image-1` with a prompt describing the physical aging specific to that folio. The returned aged background is darken-blended with the pre-degraded text render (letterforms are never touched by the AI). A final programmatic pass shifts ink from black toward warm reddish-brown (iron gall oxidation) and fades ink in water damage zones proportionally.
+
+---
+
+## Setup
+
+### Requirements
+
+- Python 3.11+
+- [uv](https://github.com/astral-sh/uv) (recommended) or pip
+- OpenAI API key with access to `gpt-image-1`
+
+### Install
+
+```bash
+git clone <repo>
+cd 041-mserfurt
+uv sync
+```
+
+Or with pip:
+
+```bash
+pip install -e .
+```
+
+### API keys
+
+Create a `.env` file in the project root:
+
+```
+OPENAI_API_KEY=sk-...
+```
+
+The weathering pipeline reads this automatically via `python-dotenv`. You can also export it directly:
+
+```bash
+export OPENAI_API_KEY=sk-...
+```
+
+---
+
+## Running the pipeline
+
+### 1. Author the folios (XL)
+
+Folio JSON files live in `output-live/`. The full 17-folio manuscript (f01r–f17v) is already present. To inspect or edit a folio:
+
+```
+output-live/
+├── f01r.json   # 22 lines — opening declaration
+├── f01v.json   # 22 lines
+├── ...
+├── f13v.json   # 22 lines — end of standard gathering
+├── f14r.json   # 18 lines — irregular vellum begins
+├── ...
+└── f17v.json   # 18 lines — colophon
+```
+
+Each file follows this schema:
+
+```json
+{
+  "id": "f01r",
+  "recto_verso": "recto",
+  "gathering_position": 1,
+  "vellum_stock": "standard",
+  "lines": [
+    {
+      "number": 1,
+      "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+      "register": "de",
+      "annotations": [{"type": "confidence", "detail": {"score": 0.97}}]
+    }
+  ]
+}
+```
+
+### 2. Render all folios (ScribeSim)
+
+```bash
+uv run python scripts/render_all.py
+```
+
+Renders all 34 pages to `render-output/`. Already-rendered pages can be skipped:
+
+```bash
+uv run python scripts/render_all.py --skip-existing
+```
+
+To re-render specific folios only:
+
+```bash
+uv run python scripts/render_all.py f04r f04v
+```
+
+Output: `render-output/f01r.png` … `render-output/f17v.png`
+
+Standard pages are 2185×2952px (185×250mm at 300dpi); irregular pages are 1830×2503px (155×212mm).
+
+### 3. Generate the codex weathering map
+
+```bash
+uv run weather weather-map \
+  --gathering-size 17 \
+  --output weather/codex_map.json
+```
+
+Prints the full damage table (water severity, corner damage, foxing count, vellum stock) for all 34 folios.
+
+### 4. Weather the full manuscript
+
+```bash
+source .env && export OPENAI_API_KEY
+
+uv run weather weather-codex \
+  --clean-dir render-output \
+  --map weather/codex_map.json \
+  --folio-json-dir output-live \
+  --output-dir weather-output \
+  --model gpt-image-1
+```
+
+Processes all 34 folios in gathering order (f04r first). Already-completed folios are skipped automatically (provenance JSON present). Expect roughly 15–20 minutes for a full run.
+
+Output per folio in `weather-output/`:
+- `{fid}_weathered.png` — final aged image
+- `{fid}_provenance.json` — prompt, spec, seed, model, coherence references, timestamp
+- `{fid}_prompt.txt` — full weathering prompt (for reference)
+
+### 5. Weather a single folio
+
+Useful for iteration and prompt tuning:
+
+```bash
+uv run weather weather-folio \
+  --folio f04r \
+  --clean render-output/f04r.png \
+  --map weather/codex_map.json \
+  --folio-json output-live/f04r.json \
+  --output-dir weather-output
+```
+
+Add `--dry-run` to skip the API call and inspect the generated prompt without spending tokens.
+
+---
 
 ## Repository structure
 
 ```
-ms-erfurt/
-├── arrive/                          # ARRIVE governance (umbrella)
-│   └── systems/
-│       ├── xl/                      # XL system artifacts
-│       │   ├── components/          # component YAMLs
-│       │   └── advances/            # outcome records
-│       ├── scribesim/               # ScribeSim system artifacts
-│       │   ├── components/
-│       │   └── advances/
-│       └── weather/                 # Weather system artifacts
-│           ├── components/
-│           └── advances/
-├── docs/
-│   ├── tech-direction/              # Cross-system architectural decisions
-│   │   └── TD-001-interface-contracts.md
-│   ├── xl-project-brief.md
-│   ├── xl-solution-intent.md
-│   ├── scribesim-project-brief.md
-│   ├── scribesim-solution-intent.md
-│   ├── weather-project-brief.md
-│   └── weather-solution-intent.md
-├── source/                          # Input: annotated English manuscript
-│   └── ms-erfurt-source-annotated.md
-├── golden/                          # Pre-translated golden corpus (API-free fallback)
-├── shared/                          # Cross-system contracts
-│   └── schemas/
-│       ├── folio.schema.json        # Folio JSON schema (XL → ScribeSim)
-│       ├── manifest.schema.json     # Manifest schema (XL → Weather)
-│       └── hand-params.schema.json  # Hand parameter schema (ScribeSim)
-├── xl/                              # XL implementation (Python + Rust)
-├── scribesim/                       # ScribeSim implementation (Python + Rust)
-├── weather/                         # Weather implementation (Python + Rust)
-└── README.md
+041-mserfurt/
+├── output-live/          # Folio JSON files (XL output, manuscript text)
+├── render-output/        # ScribeSim PNG renders (gitignored)
+├── weather-output/       # Weathered PNGs and provenance (gitignored)
+├── debug/                # Per-line render debug snapshots (gitignored)
+├── scripts/
+│   ├── render_all.py     # Render all 34 folios
+│   ├── render_f01r.py    # Individual folio render scripts
+│   ├── render_f01v.py
+│   ├── render_f02r.py
+│   └── ...
+├── weather/
+│   ├── cli.py            # weather CLI (weather-map, weather-folio, weather-codex, weather-validate)
+│   ├── codexmap.py       # Codex damage map computation
+│   ├── promptgen.py      # AI prompt generation (full + background-only)
+│   ├── aiweather.py      # AI compositing pipeline + ink aging
+│   ├── aivalidation.py   # Post-weathering validation (V1 text drift, V2 pre-degradation, V3 stain consistency)
+│   ├── worddegrade.py    # Word-level pre-degradation from CLIO-7 annotations
+│   └── codex_map.json    # Generated codex damage map
+├── scribesim/            # ScribeSim Bastarda rendering engine
+├── xl/                   # XL translation and structuring tools
+├── arrive/               # ARRIVE governance artifacts
+├── tests/                # Test suite (pytest)
+├── pyproject.toml
+└── .env                  # API keys (gitignored)
 ```
+
+---
 
 ## Governance
 
-This project uses ARRIVE for outcome-first development discipline. The three systems (xl, scribesim, weather) are governed at the umbrella level. All components start as **incubating**. Development follows **Tidy First → Test First → Implement**.
+This project uses [ARRIVE](arrive/) for outcome-first development. The three systems (xl, scribesim, weather) each have component YAMLs and advance records under `arrive/systems/`. Cross-system architectural decisions live in `docs/tech-direction/`.
 
-Cross-system decisions live in `docs/tech-direction/`. Per-system outcomes live in `arrive/systems/<system>/advances/`.
-
-## Getting started
+Development follows **Tidy First → Test First → Implement**. Run the test suite with:
 
 ```bash
-# TODO: setup instructions after Phase 1 scaffolding
+uv run pytest
+uv run pytest -m "not slow"   # skip long-running AI integration tests
 ```
