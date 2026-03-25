@@ -33,6 +33,12 @@ Default data policy:
 - reviewable exemplar assets may not be populated directly from score-threshold buckets
 - coverage repair samples may keep pipeline accounting alive, but they may not masquerade as trustworthy exemplars
 
+Escalation policy:
+- if automatic promotion still yields unreadable or mislabeled exemplar sets after the corpus-hardening gates, TD-014 escalates to a reviewed annotation workflow
+- reviewed annotations become the authoritative source for exemplar truth on the affected symbols and joins
+- the reviewed workflow must expose coverage debt directly, so the operator can see which glyphs and joins still need samples before evofit or guide freeze proceeds
+- the reviewed workflow may also attach non-destructive cleanup masks to glyph or join annotations when nearby strokes, bleed, or adjacent characters would otherwise contaminate the exemplar crop
+
 Default nominal-form policy:
 - evo may be used to fit nominal glyph and short-join shapes from manuscript exemplars
 - evo may not become the promoted folio renderer for TD-014
@@ -200,6 +206,7 @@ Working tiers:
 
 Reviewable exemplar tier:
 - `promoted_exemplars`: crops that passed the stronger exemplar gate and may be used as human-review evidence or nominal-form recovery input
+- `reviewed_cleaned_exemplars`: reviewed glyph or join crops with an attached cleanup mask applied during freeze/export while preserving the raw reviewed crop separately
 
 Rules:
 - folders or dashboards may not label `auto_admitted` crops as if they were confirmed readable exemplars
@@ -207,6 +214,8 @@ Rules:
 - `coverage_promoted` or fallback-filled samples may not enter `promoted_exemplars`
 - corpus dashboards must report automatic admission coverage separately from promoted exemplar coverage
 - evofit may begin exploratory nominal-form search from the automatic corpus, but promoted guide freeze may consume only `promoted_exemplars`
+- reviewed cleanup must be non-destructive: raw reviewed bounds remain frozen, and cleanup is stored as an explicit mask or erase-stroke layer with separate provenance
+- reviewed-cleaned crops may be preferred by reviewed evofit, but raw reviewed crops must remain inspectable and recoverable
 
 ### Resolution policy
 Accuracy and writing quality take precedence over render cost.
@@ -226,6 +235,19 @@ TD-014 therefore inserts an explicit exemplar-fit phase between extraction and h
 - fit nominal forms using evo at glyph level and selective short-word level
 - freeze only accepted evo proposals as promoted guides
 - render the nominal guides alone and confirm they are legible before controller dynamics are introduced
+
+### Reviewed cleanup for contaminated crops
+Manual reviewed annotation is still not enough if a correct glyph box contains stray strokes from neighboring characters, bleed-through, or line interference. TD-014 therefore adds a reviewed cleanup layer:
+
+- the workbench may attach an erase/restore mask to an existing reviewed glyph or join annotation
+- cleanup acts only on the reviewed crop export; it does not alter the source folio image or the raw reviewed bounds
+- freeze/export must emit both raw and cleaned reviewed crops, plus cleanup provenance
+- reviewed evofit prefers the cleaned reviewed crop when available, while retaining the raw crop for audit and rollback
+
+Acceptance rules:
+- every cleaned reviewed crop must preserve its raw reviewed counterpart
+- cleanup masks must be attributable to a specific reviewed annotation and operator action history
+- downstream bundles must disclose whether a fit source came from a raw reviewed crop or a cleaned reviewed crop
 
 ## Training Strategy
 
@@ -256,6 +278,29 @@ A glyph or join may enter `promoted_exemplars` only if it satisfies all of:
 - trace/shape evidence remains consistent across at least one held-out split
 
 This prevents misleading folders where unreadable crops appear under an "accepted" label merely because the matcher had no better option.
+
+### Reviewed annotation workflow
+When automatic exemplar recovery is not trustworthy, TD-014 uses a local reviewed-annotation workbench.
+
+The workbench must support:
+- opening harvested manuscript reference images locally
+- viewing current exemplar coverage by symbol and join before labeling begins
+- drawing bounding boxes for glyphs and joins directly on the source folio image
+- assigning explicit labels such as `e`, `h`, `ů`, or `d->e`
+- recording multiple samples per symbol across multiple manuscripts
+- tagging annotation quality as `trusted`, `usable`, or `uncertain`
+- freezing reviewed crops and annotation manifests as a separate dataset with full provenance
+
+Rules:
+- reviewed annotations are stored separately from automatic corpus tiers
+- reviewed exports may seed evofit and nominal guide recovery directly
+- automatic and reviewed sample counts must be reported side by side so remaining gaps stay visible
+- join annotations are first-class assets, not implied by glyph proximity
+
+Initial reviewed-annotation goals:
+- expose exact sample counts for all required symbols and joins on the current review slice
+- fill the blocking gaps and mislabeled cases in the promoted exemplar set
+- seed a cleaner reviewed exemplar corpus for evo normalization across multiple documents
 
 ### Level 0 — primitives
 Train on:

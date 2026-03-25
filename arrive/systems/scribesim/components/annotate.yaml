@@ -1,0 +1,27 @@
+component:
+  id: annotate
+  name: "Reviewed Exemplar Annotation Workbench"
+  type: app
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/annotate/**"
+    - "shared/training/handsim/reviewed_annotations/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "Local web UI for manuscript viewing, glyph/join box labeling, quality review, and annotation export"
+  - "Per-annotation cleanup mask editing so nearby-stroke artifacts can be removed non-destructively before reviewed freeze"
+  - "Frozen reviewed-annotation manifest and crop bundle for downstream exemplar recovery"
+  - "Coverage ledger for required symbols, joins, and per-source exemplar counts"
+
+invariants:
+  - "Every saved annotation must retain source image provenance and pixel bounds."
+  - "Glyph and join labels must be stored explicitly; no downstream stage may infer reviewed labels from directory names alone."
+  - "Cleanup edits must be stored as non-destructive reviewed masks or erase strokes; raw source crops may not be overwritten."
+  - "Reviewed exemplar exports must remain distinct from auto_admitted or repair-only corpus tiers."

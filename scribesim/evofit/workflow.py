@@ -29,9 +29,15 @@ from scribesim.refextract.exemplar import extract_exemplar
 
 DEFAULT_EVOFIT_CORPUS_MANIFEST_PATH = Path("shared/training/handsim/active_review_exemplars_v1/promoted_manifest.toml")
 DEFAULT_EVOFIT_OUTPUT_ROOT = Path("shared/training/handsim/evofit_active_review_v1")
+DEFAULT_REVIEWED_EVOFIT_MANIFEST_PATH = Path(
+    "shared/training/handsim/reviewed_annotations/reviewed_exemplars_v1/reviewed_exemplar_manifest.toml"
+)
+DEFAULT_REVIEWED_EVOFIT_OUTPUT_ROOT = Path("shared/training/handsim/reviewed_annotations/reviewed_evofit_v1")
+DEFAULT_AUTOMATIC_EVOFIT_BASELINE_SUMMARY_PATH = Path("shared/training/handsim/evofit_active_review_v1/summary.json")
 _TARGET_SIZE = (64, 64)
 _DEFAULT_ALLOWED_TIERS = ("accepted", "soft_accepted")
 _PROMOTED_EXEMPLAR_TIER = "promoted_exemplars"
+_REVIEWED_EXEMPLAR_TIER = "reviewed_exemplars"
 
 
 @dataclass(frozen=True)
@@ -65,6 +71,14 @@ class EvofitTarget:
     text: str
     candidate_paths: tuple[Path, ...]
     candidate_tiers: tuple[str, ...]
+    candidate_source_paths: tuple[str, ...] = ()
+    candidate_quality_tiers: tuple[str, ...] = ()
+    candidate_source_manuscripts: tuple[str, ...] = ()
+    candidate_source_object_ids: tuple[str, ...] = ()
+    candidate_raw_paths: tuple[str, ...] = ()
+    candidate_cleaned_paths: tuple[str, ...] = ()
+    candidate_source_variants: tuple[str, ...] = ()
+    candidate_cleanup_stroke_counts: tuple[int, ...] = ()
     coverage_promoted: bool = False
 
 
@@ -85,6 +99,14 @@ class EvofitCandidateSummary:
     fit_source_copy_path: str | None = None
     prior_render_path: str | None = None
     comparison_path: str | None = None
+    source_manuscript_label: str | None = None
+    source_quality_tier: str | None = None
+    source_object_id: str | None = None
+    source_document_path: str | None = None
+    source_raw_path: str | None = None
+    source_cleaned_path: str | None = None
+    source_variant: str | None = None
+    source_cleanup_stroke_count: int = 0
 
 
 def _slug(symbol: str) -> str:
@@ -105,10 +127,97 @@ def _load_manifest(path: Path | str) -> dict[str, Any]:
     return raw
 
 
-def _candidate_list(entry: dict[str, Any], allowed_tiers: tuple[str, ...], limit: int) -> tuple[tuple[Path, ...], tuple[str, ...]]:
+def _manifest_kind(manifest: dict[str, Any]) -> str:
+    return str(manifest.get("manifest_kind", "")).strip() or "unknown"
+
+
+def _candidate_list(
+    entry: dict[str, Any],
+    allowed_tiers: tuple[str, ...],
+    limit: int,
+    *,
+    reviewed_source_mode: str = "prefer_cleaned",
+) -> tuple[
+    tuple[Path, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[str, ...],
+    tuple[int, ...],
+]:
+    if entry.get("reviewed_exemplar_paths"):
+        reviewed_paths = [str(raw_path) for raw_path in (entry.get("reviewed_exemplar_paths") or [])]
+        reviewed_raw_paths = [str(value) for value in (entry.get("reviewed_raw_exemplar_paths") or [])]
+        reviewed_cleaned_paths = [str(value) for value in (entry.get("reviewed_cleaned_exemplar_paths") or [])]
+        cleanup_counts_full = [int(value) for value in (entry.get("reviewed_cleanup_stroke_counts") or [])]
+        selected_paths_raw: list[str] = []
+        selected_raw_paths: list[str] = []
+        selected_cleaned_paths: list[str] = []
+        selected_variants: list[str] = []
+        selected_cleanup_counts: list[int] = []
+        for idx, preferred_path in enumerate(reviewed_paths):
+            raw_path = reviewed_raw_paths[idx] if idx < len(reviewed_raw_paths) and reviewed_raw_paths[idx] else preferred_path
+            cleaned_path = (
+                reviewed_cleaned_paths[idx]
+                if idx < len(reviewed_cleaned_paths) and reviewed_cleaned_paths[idx]
+                else ""
+            )
+            cleanup_count = cleanup_counts_full[idx] if idx < len(cleanup_counts_full) else 0
+            if reviewed_source_mode == "raw_only":
+                selected_path = raw_path
+                variant = "raw"
+            else:
+                selected_path = cleaned_path or preferred_path or raw_path
+                variant = "cleaned" if cleaned_path and selected_path == cleaned_path else "raw"
+            selected_paths_raw.append(selected_path)
+            selected_raw_paths.append(raw_path)
+            selected_cleaned_paths.append(cleaned_path)
+            selected_variants.append(variant)
+            selected_cleanup_counts.append(cleanup_count)
+            if len(selected_paths_raw) >= limit:
+                break
+
+        selected_paths = [Path(raw_path) for raw_path in selected_paths_raw]
+        selected_count = len(selected_paths)
+        source_paths = tuple(str(value) for value in (entry.get("reviewed_exemplar_source_paths") or [])[:selected_count])
+        qualities = tuple(str(value) for value in (entry.get("reviewed_quality_tiers") or [])[:selected_count])
+        source_manuscripts = tuple(
+            str(value) for value in (entry.get("reviewed_exemplar_source_manuscripts") or [])[:selected_count]
+        )
+        source_object_ids = tuple(
+            str(value) for value in (entry.get("reviewed_exemplar_source_object_ids") or [])[:selected_count]
+        )
+        return (
+            tuple(selected_paths),
+            tuple(_REVIEWED_EXEMPLAR_TIER for _ in selected_paths),
+            source_paths,
+            qualities,
+            source_manuscripts,
+            source_object_ids,
+            tuple(selected_raw_paths[:selected_count]),
+            tuple(selected_cleaned_paths[:selected_count]),
+            tuple(selected_variants[:selected_count]),
+            tuple(selected_cleanup_counts[:selected_count]),
+        )
     if entry.get("promoted_exemplar_paths"):
         selected = [Path(raw_path) for raw_path in (entry.get("promoted_exemplar_paths") or [])[:limit]]
-        return tuple(selected), tuple(_PROMOTED_EXEMPLAR_TIER for _ in selected)
+        source_paths = tuple(str(value) for value in (entry.get("promoted_exemplar_source_paths") or [])[: len(selected)])
+        return (
+            tuple(selected),
+            tuple(_PROMOTED_EXEMPLAR_TIER for _ in selected),
+            source_paths,
+            tuple("" for _ in selected),
+            tuple("" for _ in selected),
+            tuple("" for _ in selected),
+            tuple(str(path) for path in selected),
+            tuple("" for _ in selected),
+            tuple("raw" for _ in selected),
+            tuple(0 for _ in selected),
+        )
     ordered: list[tuple[Path, str]] = []
     seen: set[str] = set()
     for tier in allowed_tiers:
@@ -123,6 +232,14 @@ def _candidate_list(entry: dict[str, Any], allowed_tiers: tuple[str, ...], limit
     return (
         tuple(path for path, _ in selected),
         tuple(tier for _, tier in selected),
+        tuple("" for _ in selected),
+        tuple("" for _ in selected),
+        tuple("" for _ in selected),
+        tuple("" for _ in selected),
+        tuple(str(path) for path, _ in selected),
+        tuple("" for _ in selected),
+        tuple("raw" for _ in selected),
+        tuple(0 for _ in selected),
     )
 
 
@@ -133,6 +250,7 @@ def build_evofit_targets(
     symbols: tuple[str, ...] | list[str] | None = None,
     allowed_tiers: tuple[str, ...] = _DEFAULT_ALLOWED_TIERS,
     max_candidates_per_symbol: int = 3,
+    reviewed_source_mode: str = "prefer_cleaned",
 ) -> tuple[EvofitTarget, ...]:
     """Build evofit fit-source bundles from a frozen exemplar corpus manifest."""
 
@@ -147,7 +265,18 @@ def build_evofit_targets(
         symbol = str(entry["symbol"])
         if requested and symbol not in requested:
             continue
-        candidate_paths, candidate_tiers = _candidate_list(entry, allowed_tiers, max_candidates_per_symbol)
+        (
+            candidate_paths,
+            candidate_tiers,
+            candidate_source_paths,
+            candidate_quality_tiers,
+            candidate_source_manuscripts,
+            candidate_source_object_ids,
+            candidate_raw_paths,
+            candidate_cleaned_paths,
+            candidate_source_variants,
+            candidate_cleanup_stroke_counts,
+        ) = _candidate_list(entry, allowed_tiers, max_candidates_per_symbol, reviewed_source_mode=reviewed_source_mode)
         if not candidate_paths:
             continue
         text = symbol if entry_kind == "glyph" else symbol.replace("->", "")
@@ -158,6 +287,14 @@ def build_evofit_targets(
                 text=text,
                 candidate_paths=candidate_paths,
                 candidate_tiers=candidate_tiers,
+                candidate_source_paths=candidate_source_paths,
+                candidate_quality_tiers=candidate_quality_tiers,
+                candidate_source_manuscripts=candidate_source_manuscripts,
+                candidate_source_object_ids=candidate_source_object_ids,
+                candidate_raw_paths=candidate_raw_paths,
+                candidate_cleaned_paths=candidate_cleaned_paths,
+                candidate_source_variants=candidate_source_variants,
+                candidate_cleanup_stroke_counts=candidate_cleanup_stroke_counts,
                 coverage_promoted=bool(entry.get("coverage_promoted", False)),
             )
         )
@@ -384,10 +521,11 @@ def _write_manifest(
     corpus_manifest_path: Path,
     proposal_catalog_path: Path,
     payload: dict[str, Any],
+    manifest_title: str = "# TD-014 exploratory evofit bundle",
 ) -> Path:
     manifest_path = output_root / "manifest.toml"
     lines = [
-        "# TD-014 exploratory evofit bundle",
+        manifest_title,
         "schema_version = 1",
         f"corpus_manifest_path = {json.dumps(str(corpus_manifest_path))}",
         f"proposal_catalog_path = {json.dumps(str(proposal_catalog_path))}",
@@ -403,7 +541,15 @@ def _write_manifest(
                 f"symbol = {json.dumps(fit_source['symbol'])}",
                 f"text = {json.dumps(fit_source['text'])}",
                 f"selected_source_path = {json.dumps(fit_source['selected_source_path'])}",
+                f"selected_source_document_path = {json.dumps(fit_source.get('selected_source_document_path', ''))}",
                 f"selected_source_tier = {json.dumps(fit_source['selected_source_tier'])}",
+                f"selected_source_variant = {json.dumps(fit_source.get('selected_source_variant', 'raw'))}",
+                f"selected_source_raw_path = {json.dumps(fit_source.get('selected_source_raw_path', ''))}",
+                f"selected_source_cleaned_path = {json.dumps(fit_source.get('selected_source_cleaned_path', ''))}",
+                f"selected_source_cleanup_stroke_count = {int(fit_source.get('selected_source_cleanup_stroke_count', 0))}",
+                f"selected_source_manuscript = {json.dumps(fit_source.get('selected_source_manuscript', ''))}",
+                f"selected_source_quality_tier = {json.dumps(fit_source.get('selected_source_quality_tier', ''))}",
+                f"selected_source_object_id = {json.dumps(fit_source.get('selected_source_object_id', ''))}",
                 f"best_fitness = {fit_source['best_fitness']:.6f}",
                 f"evofit_ncc = {fit_source['evofit_ncc']:.6f}",
                 f"nominal_ncc = {fit_source['nominal_ncc']:.6f}",
@@ -415,15 +561,19 @@ def _write_manifest(
     return manifest_path
 
 
-def _write_summary_markdown(payload: dict[str, Any], output_path: Path) -> None:
+def _write_summary_markdown(payload: dict[str, Any], output_path: Path, *, note: str) -> None:
     lines = [
-        "# TD-014 Exploratory Evofit Summary",
+        "# TD-014 Evofit Summary",
         "",
-        "- note: each fit source is an automatically admitted corpus crop, not a promoted exemplar or trusted character truth sample.",
+        f"- note: {note}",
         f"- fit-source count: {payload['fit_source_count']}",
         f"- converted guides: {payload['converted_guide_count']}",
         f"- convertible rate: {payload['convertible_rate']:.4f}",
         f"- beats prior nominal rate: {payload['beats_prior_rate']:.4f}",
+        f"- mean evofit NCC: {payload['mean_evofit_ncc']:.4f}",
+        f"- mean nominal NCC: {payload['mean_nominal_ncc']:.4f}",
+        f"- baseline comparison: {payload['baseline_comparison']['status']}",
+        f"- raw reviewed baseline comparison: {payload.get('raw_reviewed_baseline_comparison', {}).get('status', 'not-run')}",
         "",
         "## Fit Sources",
         "",
@@ -436,10 +586,138 @@ def _write_summary_markdown(payload: dict[str, Any], output_path: Path) -> None:
                 f"ncc={fit_source['evofit_ncc']:.4f}, "
                 f"prior={fit_source['nominal_ncc']:.4f}, "
                 f"tier={fit_source['selected_source_tier']}, "
+                f"variant={fit_source.get('selected_source_variant', 'raw')}, "
+                f"cleanup={fit_source.get('selected_source_cleanup_stroke_count', 0)}, "
+                f"quality={fit_source.get('selected_source_quality_tier', '') or 'n/a'}, "
+                f"manuscript={fit_source.get('selected_source_manuscript', '') or 'unknown'}, "
                 f"convertible={fit_source['structurally_convertible']}",
             ]
         )
     output_path.write_text("\n".join(lines) + "\n")
+
+
+def _compare_baseline(
+    payload: dict[str, Any],
+    *,
+    baseline_summary_path: Path | str | None,
+) -> dict[str, Any]:
+    if baseline_summary_path is None:
+        return {
+            "status": "not-requested",
+            "baseline_summary_path": "",
+            "beats_prior_rate_delta": None,
+            "mean_evofit_ncc_delta": None,
+            "improved_vs_baseline": None,
+        }
+    path = Path(baseline_summary_path)
+    if not path.exists():
+        return {
+            "status": "missing",
+            "baseline_summary_path": path.as_posix(),
+            "beats_prior_rate_delta": None,
+            "mean_evofit_ncc_delta": None,
+            "improved_vs_baseline": None,
+        }
+    baseline = json.loads(path.read_text(encoding="utf-8"))
+    beats_delta = float(payload["beats_prior_rate"]) - float(baseline.get("beats_prior_rate", 0.0))
+    evofit_delta = float(payload["mean_evofit_ncc"]) - float(baseline.get("mean_evofit_ncc", 0.0))
+    improved = beats_delta > 0.0 or evofit_delta > 0.0
+    return {
+        "status": "compared",
+        "baseline_summary_path": path.as_posix(),
+        "beats_prior_rate_delta": beats_delta,
+        "mean_evofit_ncc_delta": evofit_delta,
+        "improved_vs_baseline": improved,
+    }
+
+
+def _write_provenance_report(payload: dict[str, Any], output_root: Path) -> tuple[Path, Path]:
+    json_path = output_root / "provenance_report.json"
+    md_path = output_root / "provenance_report.md"
+    report = {
+        "fit_sources": [
+            {
+                "symbol": item["symbol"],
+                "kind": item["kind"],
+                "selected_source_path": item["selected_source_path"],
+                "selected_source_document_path": item.get("selected_source_document_path", ""),
+                "selected_source_tier": item["selected_source_tier"],
+                "selected_source_variant": item.get("selected_source_variant", "raw"),
+                "selected_source_raw_path": item.get("selected_source_raw_path", ""),
+                "selected_source_cleaned_path": item.get("selected_source_cleaned_path", ""),
+                "selected_source_cleanup_stroke_count": item.get("selected_source_cleanup_stroke_count", 0),
+                "selected_source_quality_tier": item.get("selected_source_quality_tier", ""),
+                "selected_source_manuscript": item.get("selected_source_manuscript", ""),
+                "selected_source_object_id": item.get("selected_source_object_id", ""),
+            }
+            for item in payload["fit_sources"]
+        ]
+    }
+    json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    lines = [
+        "# TD-014 Evofit Provenance Report",
+        "",
+    ]
+    for item in report["fit_sources"]:
+        lines.append(
+            f"- `{item['symbol']}` ({item['kind']}): "
+            f"tier={item['selected_source_tier']}, "
+            f"variant={item['selected_source_variant']}, "
+            f"cleanup={item['selected_source_cleanup_stroke_count']}, "
+            f"quality={item['selected_source_quality_tier'] or 'n/a'}, "
+            f"manuscript={item['selected_source_manuscript'] or 'unknown'}, "
+            f"object_id={item['selected_source_object_id'] or 'n/a'}, "
+            f"document=`{item['selected_source_document_path'] or 'n/a'}` "
+            f"path=`{item['selected_source_path']}` "
+            f"raw=`{item['selected_source_raw_path'] or 'n/a'}` "
+            f"cleaned=`{item['selected_source_cleaned_path'] or 'n/a'}`"
+        )
+    md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return json_path, md_path
+
+
+def _compare_raw_reviewed_baseline(
+    cleaned_payload: dict[str, Any],
+    raw_baseline_payload: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if raw_baseline_payload is None:
+        return {
+            "status": "not-run",
+            "beats_prior_rate_delta": None,
+            "mean_evofit_ncc_delta": None,
+            "cleaned_fit_source_count": len(cleaned_payload.get("fit_sources", [])),
+            "raw_fit_source_count": 0,
+            "symbols_compared": [],
+            "improved_vs_raw": None,
+        }
+
+    cleaned_by_symbol = {item["symbol"]: item for item in cleaned_payload.get("fit_sources", [])}
+    raw_by_symbol = {item["symbol"]: item for item in raw_baseline_payload.get("fit_sources", [])}
+    shared_symbols = sorted(set(cleaned_by_symbol) & set(raw_by_symbol))
+    if not shared_symbols:
+        return {
+            "status": "no-overlap",
+            "beats_prior_rate_delta": None,
+            "mean_evofit_ncc_delta": None,
+            "cleaned_fit_source_count": len(cleaned_payload.get("fit_sources", [])),
+            "raw_fit_source_count": len(raw_baseline_payload.get("fit_sources", [])),
+            "symbols_compared": [],
+            "improved_vs_raw": None,
+        }
+
+    cleaned_mean = sum(float(cleaned_by_symbol[symbol]["evofit_ncc"]) for symbol in shared_symbols) / len(shared_symbols)
+    raw_mean = sum(float(raw_by_symbol[symbol]["evofit_ncc"]) for symbol in shared_symbols) / len(shared_symbols)
+    cleaned_beats = sum(1 for symbol in shared_symbols if cleaned_by_symbol[symbol]["beats_prior_nominal"]) / len(shared_symbols)
+    raw_beats = sum(1 for symbol in shared_symbols if raw_by_symbol[symbol]["beats_prior_nominal"]) / len(shared_symbols)
+    return {
+        "status": "compared",
+        "beats_prior_rate_delta": cleaned_beats - raw_beats,
+        "mean_evofit_ncc_delta": cleaned_mean - raw_mean,
+        "cleaned_fit_source_count": len(cleaned_payload.get("fit_sources", [])),
+        "raw_fit_source_count": len(raw_baseline_payload.get("fit_sources", [])),
+        "symbols_compared": shared_symbols,
+        "improved_vs_raw": cleaned_mean > raw_mean or cleaned_beats > raw_beats,
+    }
 
 
 def run_evofit_from_corpus(
@@ -450,11 +728,22 @@ def run_evofit_from_corpus(
     kind: str = "all",
     symbols: tuple[str, ...] | list[str] | None = None,
     guides_path: str | None = None,
+    expected_manifest_kind: str | None = None,
+    summary_note: str = "each fit source is an automatically admitted corpus crop, not a promoted exemplar or trusted character truth sample.",
+    bundle_title: str = "# TD-014 exploratory evofit bundle",
+    baseline_summary_path: Path | str | None = None,
+    reviewed_source_mode: str = "prefer_cleaned",
 ) -> dict[str, Any]:
     """Run exploratory evo fitting from a frozen exemplar corpus."""
 
     config = config or EvofitConfig()
     corpus_manifest_path = Path(corpus_manifest_path)
+    manifest = _load_manifest(corpus_manifest_path)
+    manifest_kind = _manifest_kind(manifest)
+    if expected_manifest_kind is not None and manifest_kind != expected_manifest_kind:
+        raise ValueError(
+            f"expected manifest_kind {expected_manifest_kind!r}, got {manifest_kind!r}"
+        )
     output_root = Path(output_root)
     output_root.mkdir(parents=True, exist_ok=True)
 
@@ -464,6 +753,7 @@ def run_evofit_from_corpus(
         symbols=symbols,
         allowed_tiers=config.allowed_tiers,
         max_candidates_per_symbol=config.max_candidates_per_symbol,
+        reviewed_source_mode=reviewed_source_mode,
     )
     if not targets:
         raise ValueError("no evofit targets resolved from corpus manifest")
@@ -559,6 +849,46 @@ def run_evofit_from_corpus(
                 fit_source_copy_path=str(fit_source_copy_path),
                 prior_render_path=str(prior_render_path) if prior_render_path is not None else None,
                 comparison_path=str(comparison_path),
+                source_manuscript_label=(
+                    target.candidate_source_manuscripts[candidate_index]
+                    if candidate_index < len(target.candidate_source_manuscripts)
+                    else None
+                ),
+                source_quality_tier=(
+                    target.candidate_quality_tiers[candidate_index]
+                    if candidate_index < len(target.candidate_quality_tiers)
+                    else None
+                ),
+                source_object_id=(
+                    target.candidate_source_object_ids[candidate_index]
+                    if candidate_index < len(target.candidate_source_object_ids)
+                    else None
+                ),
+                source_document_path=(
+                    target.candidate_source_paths[candidate_index]
+                    if candidate_index < len(target.candidate_source_paths)
+                    else None
+                ),
+                source_raw_path=(
+                    target.candidate_raw_paths[candidate_index]
+                    if candidate_index < len(target.candidate_raw_paths)
+                    else None
+                ),
+                source_cleaned_path=(
+                    target.candidate_cleaned_paths[candidate_index]
+                    if candidate_index < len(target.candidate_cleaned_paths)
+                    else None
+                ),
+                source_variant=(
+                    target.candidate_source_variants[candidate_index]
+                    if candidate_index < len(target.candidate_source_variants)
+                    else None
+                ),
+                source_cleanup_stroke_count=(
+                    target.candidate_cleanup_stroke_counts[candidate_index]
+                    if candidate_index < len(target.candidate_cleanup_stroke_counts)
+                    else 0
+                ),
             )
 
             if best_summary is None:
@@ -583,6 +913,14 @@ def run_evofit_from_corpus(
                 "text": target.text,
                 "selected_source_path": best_summary.source_path,
                 "selected_source_tier": best_summary.source_tier,
+                "selected_source_manuscript": best_summary.source_manuscript_label,
+                "selected_source_quality_tier": best_summary.source_quality_tier,
+                "selected_source_object_id": best_summary.source_object_id,
+                "selected_source_document_path": best_summary.source_document_path,
+                "selected_source_raw_path": best_summary.source_raw_path,
+                "selected_source_cleaned_path": best_summary.source_cleaned_path,
+                "selected_source_variant": best_summary.source_variant,
+                "selected_source_cleanup_stroke_count": best_summary.source_cleanup_stroke_count,
                 "best_fitness": best_summary.best_fitness,
                 "nominal_ncc": best_summary.nominal_ncc,
                 "evofit_ncc": best_summary.evofit_ncc,
@@ -604,30 +942,117 @@ def run_evofit_from_corpus(
     fit_source_count = len(fit_source_payloads)
     converted_guide_count = len(proposal_guides)
     beats_prior_count = sum(1 for payload in fit_source_payloads if payload["beats_prior_nominal"])
+    mean_evofit_ncc = (
+        sum(float(item["evofit_ncc"]) for item in fit_source_payloads) / max(fit_source_count, 1)
+    )
+    mean_nominal_ncc = (
+        sum(float(item["nominal_ncc"]) for item in fit_source_payloads) / max(fit_source_count, 1)
+    )
     payload = {
         "corpus_manifest_path": str(corpus_manifest_path),
+        "corpus_manifest_kind": manifest_kind,
         "output_root": str(output_root),
         "config": asdict(config),
         "fit_source_count": fit_source_count,
         "converted_guide_count": converted_guide_count,
         "convertible_rate": converted_guide_count / max(fit_source_count, 1),
         "beats_prior_rate": beats_prior_count / max(fit_source_count, 1),
+        "mean_evofit_ncc": mean_evofit_ncc,
+        "mean_nominal_ncc": mean_nominal_ncc,
         "fit_sources": fit_source_payloads,
     }
+    payload["baseline_comparison"] = _compare_baseline(payload, baseline_summary_path=baseline_summary_path)
     summary_json_path = output_root / "summary.json"
     summary_json_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     summary_md_path = output_root / "summary.md"
-    _write_summary_markdown(payload, summary_md_path)
+    _write_summary_markdown(payload, summary_md_path, note=summary_note)
+    provenance_report_json_path, provenance_report_md_path = _write_provenance_report(payload, output_root)
     manifest_path = _write_manifest(
         output_root=output_root,
         corpus_manifest_path=corpus_manifest_path,
         proposal_catalog_path=proposal_catalog_path,
         payload=payload,
+        manifest_title=bundle_title,
     )
     return {
         "manifest_path": manifest_path,
         "summary_json_path": summary_json_path,
         "summary_md_path": summary_md_path,
         "proposal_catalog_path": proposal_catalog_path,
+        "provenance_report_json_path": provenance_report_json_path,
+        "provenance_report_md_path": provenance_report_md_path,
         "summary": payload,
     }
+
+
+def run_reviewed_evofit(
+    reviewed_manifest_path: Path | str = DEFAULT_REVIEWED_EVOFIT_MANIFEST_PATH,
+    *,
+    output_root: Path | str = DEFAULT_REVIEWED_EVOFIT_OUTPUT_ROOT,
+    config: EvofitConfig | None = None,
+    kind: str = "all",
+    symbols: tuple[str, ...] | list[str] | None = None,
+    guides_path: str | None = None,
+    baseline_summary_path: Path | str | None = DEFAULT_AUTOMATIC_EVOFIT_BASELINE_SUMMARY_PATH,
+) -> dict[str, Any]:
+    """Run reviewed-only evofit from the frozen reviewed exemplar dataset."""
+
+    reviewed_manifest_path = Path(reviewed_manifest_path)
+    output_root = Path(output_root)
+    result = run_evofit_from_corpus(
+        reviewed_manifest_path,
+        output_root=output_root,
+        config=config,
+        kind=kind,
+        symbols=symbols,
+        guides_path=guides_path,
+        expected_manifest_kind="reviewed_exemplars",
+        summary_note=(
+            "each fit source is a human-reviewed exemplar crop from the reviewed annotation freeze; "
+            "cleaned reviewed crops are preferred when present, automatic corpus tiers are not consumed in this stage."
+        ),
+        bundle_title="# TD-014 reviewed evofit bundle",
+        baseline_summary_path=baseline_summary_path,
+        reviewed_source_mode="prefer_cleaned",
+    )
+    raw_baseline_result = run_evofit_from_corpus(
+        reviewed_manifest_path,
+        output_root=output_root / "raw_reviewed_baseline",
+        config=config,
+        kind=kind,
+        symbols=symbols,
+        guides_path=guides_path,
+        expected_manifest_kind="reviewed_exemplars",
+        summary_note=(
+            "raw reviewed baseline for comparison against cleanup-aware reviewed evofit; "
+            "only raw reviewed crops are consumed in this stage."
+        ),
+        bundle_title="# TD-014 reviewed evofit raw baseline bundle",
+        baseline_summary_path=None,
+        reviewed_source_mode="raw_only",
+    )
+
+    summary = dict(result["summary"])
+    summary["raw_reviewed_baseline_comparison"] = _compare_raw_reviewed_baseline(
+        summary,
+        raw_baseline_result["summary"],
+    )
+    summary["raw_reviewed_baseline_summary_path"] = str(raw_baseline_result["summary_json_path"])
+    summary["raw_reviewed_baseline_manifest_path"] = str(raw_baseline_result["manifest_path"])
+
+    summary_json_path = Path(result["summary_json_path"])
+    summary_md_path = Path(result["summary_md_path"])
+    summary_json_path.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
+    _write_summary_markdown(
+        summary,
+        summary_md_path,
+        note=(
+            "each fit source is a human-reviewed exemplar crop from the reviewed annotation freeze; "
+            "cleaned reviewed crops are preferred when present, automatic corpus tiers are not consumed in this stage."
+        ),
+    )
+    provenance_report_json_path, provenance_report_md_path = _write_provenance_report(summary, output_root)
+    result["provenance_report_json_path"] = provenance_report_json_path
+    result["provenance_report_md_path"] = provenance_report_md_path
+    result["summary"] = summary
+    return result

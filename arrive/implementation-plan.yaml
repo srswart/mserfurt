@@ -1147,8 +1147,8 @@ passes:
       status: planned
       owner: shawn
       dependencies:
-      - ADV-SS-EVOFIT-001
-      notes: Replaces toy or clone-based guides with exemplar-fit promoted assets.
+      - ADV-SS-EVOFIT-002
+      notes: Replaces toy or clone-based guides with exemplar-fit promoted assets derived from reviewed exemplar truth.
   - id: td014-flow-recovery
     title: Retrain handflow on readable nominal guides
     order: 5
@@ -1225,3 +1225,96 @@ passes:
       dependencies:
       - ADV-SS-HANDVALIDATE-005
       notes: Keeps coverage-promoted and fallback-filled samples out of reviewable exemplar sets and downstream nominal recovery.
+- id: pass-13g
+  title: 'Pass 13g: TD-014 — Reviewed Exemplar Annotation Workbench'
+  order: 42
+  phases:
+  - id: td014-coverage-ledger
+    title: Surface symbol and join sample counts before labeling
+    order: 1
+    items:
+    - id: ADV-SS-ANNOTATE-001
+      advance_id: ADV-SS-ANNOTATE-001
+      title: Reviewed Coverage Ledger — Symbol and Join Gaps for Manual Exemplar Work
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-006
+      notes: The reviewed coverage ledger is implemented and committed, with explicit zero-count gaps and manuscript-grouped counts for auto, promoted, and reviewed tiers.
+  - id: td014-annotation-ui
+    title: Build the local reviewed-annotation workbench
+    order: 2
+    items:
+    - id: ADV-SS-ANNOTATE-002
+      advance_id: ADV-SS-ANNOTATE-002
+      title: Local Annotation Workbench — View Folios, Draw Bounds, and Label Glyphs and Joins
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-001
+      notes: Browser-based local workbench is now implemented with a stdlib HTTP server, reviewed manifest persistence, local folio image browsing, and save/load coverage tests.
+  - id: td014-reviewed-freeze
+    title: Freeze reviewed exemplar crops and manifests
+    order: 3
+    items:
+    - id: ADV-SS-ANNOTATE-003
+      advance_id: ADV-SS-ANNOTATE-003
+      title: Reviewed Exemplar Freeze — Provenance-Backed Crop Export from the Annotation Workbench
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-002
+      notes: Reviewed freeze now exports dedicated reviewed_exemplars crops, manifest and source-manifest copies, contact sheets, and a downstream evofit smoke test without mixing automatic corpus tiers.
+  - id: td014-reviewed-evofit
+    title: Normalize reviewed exemplars into nominal forms
+    order: 4
+    items:
+    - id: ADV-SS-EVOFIT-002
+      advance_id: ADV-SS-EVOFIT-002
+      title: Reviewed Evofit — Normalize Human-Reviewed Glyph and Join Exemplars Across Documents
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-003
+      notes: Reviewed-only evofit is now implemented with manifest-kind gating, baseline comparison against automatic-corpus evofit, and per-fit-source provenance/quality reporting.
+- id: pass-13h
+  title: 'Pass 13h: TD-014 — Reviewed Cleanup Masks for Contaminated Exemplars'
+  order: 43
+  phases:
+  - id: td014-cleanup-ui
+    title: Add non-destructive cleanup editing to the reviewed workbench
+    order: 1
+    items:
+    - id: ADV-SS-ANNOTATE-004
+      advance_id: ADV-SS-ANNOTATE-004
+      title: Reviewed Cleanup Workbench — Non-Destructive Artifact Removal for Glyph and Join Annotations
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-002
+      notes: Cleanup-capable reviewed workbench is now implemented with non-destructive erase/restore strokes, raw-vs-clean preview canvases, and persisted cleanup metadata in reviewed_manifest.toml.
+  - id: td014-cleanup-freeze
+    title: Freeze raw and cleaned reviewed exemplar exports
+    order: 2
+    items:
+    - id: ADV-SS-ANNOTATE-005
+      advance_id: ADV-SS-ANNOTATE-005
+      title: Cleanup-Aware Reviewed Freeze — Export Raw and Cleaned Reviewed Exemplars with Mask Provenance
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-004
+      notes: Reviewed freeze now exports raw and cleaned reviewed crops side by side, records cleanup-aware manifest fields, emits raw/cleaned contact sheets, and keeps downstream smoke loading compatible by preferring cleaned reviewed paths when present.
+  - id: td014-cleanup-evofit
+    title: Prefer cleaned reviewed crops during nominal recovery
+    order: 3
+    items:
+    - id: ADV-SS-EVOFIT-003
+      advance_id: ADV-SS-EVOFIT-003
+      title: Cleanup-Aware Reviewed Evofit — Prefer Cleaned Reviewed Exemplars while Preserving Raw Provenance
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-005
+      - ADV-SS-EVOFIT-002
+      notes: Reviewed evofit now prefers cleaned reviewed crops, preserves raw-path and cleanup provenance in every fit-source record, and writes a raw-only reviewed baseline bundle for explicit raw-vs-cleaned comparison.

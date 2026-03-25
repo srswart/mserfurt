@@ -77,6 +77,22 @@ class TestHelpCommands:
         result = runner.invoke(main, ["build-exemplar-corpus", "--help"])
         assert "--clean / --no-clean" in result.output
 
+    def test_build_reviewed_coverage_ledger_help_exits_0(self, runner):
+        result = runner.invoke(main, ["build-reviewed-coverage-ledger", "--help"])
+        assert result.exit_code == 0
+
+    def test_annotate_reviewed_exemplars_help_exits_0(self, runner):
+        result = runner.invoke(main, ["annotate-reviewed-exemplars", "--help"])
+        assert result.exit_code == 0
+
+    def test_freeze_reviewed_exemplars_help_exits_0(self, runner):
+        result = runner.invoke(main, ["freeze-reviewed-exemplars", "--help"])
+        assert result.exit_code == 0
+
+    def test_evofit_reviewed_exemplars_help_exits_0(self, runner):
+        result = runner.invoke(main, ["evofit-reviewed-exemplars", "--help"])
+        assert result.exit_code == 0
+
 
 class TestExemplarCorpusCli:
     def test_build_exemplar_corpus_cli_shows_progress_and_summary(self, runner, tmp_path):
@@ -193,6 +209,124 @@ local_path = "folio.png"
 
         assert result.exit_code == 0, result.output
         assert not stale.exists()
+
+    def test_build_reviewed_coverage_ledger_cli_reports_outputs(self, runner, tmp_path):
+        corpus_manifest = tmp_path / "manifest.toml"
+        corpus_manifest.write_text('dataset_id = "active-review-exemplars-v1"\n')
+        output_dir = tmp_path / "ledger"
+        ledger_md = output_dir / "coverage_ledger.md"
+        ledger_manifest = output_dir / "coverage_ledger_manifest.toml"
+
+        def _fake_build(corpus_manifest_path, output_root, reviewed_manifest_path=None):
+            Path(output_root).mkdir(parents=True, exist_ok=True)
+            ledger_md.write_text("# ledger\n")
+            ledger_manifest.write_text('stage_id = "reviewed-coverage-ledger"\n')
+            return {
+                "summary": {
+                    "glyph_promoted_coverage": 0.1,
+                    "join_promoted_coverage": 0.2,
+                    "glyph_reviewed_coverage": 0.0,
+                    "join_reviewed_coverage": 0.0,
+                },
+                "ledger_md_path": ledger_md,
+                "ledger_manifest_path": ledger_manifest,
+            }
+
+        with patch("scribesim.annotate.build_reviewed_coverage_ledger", side_effect=_fake_build):
+            result = runner.invoke(
+                main,
+                [
+                    "build-reviewed-coverage-ledger",
+                    "--corpus-manifest",
+                    str(corpus_manifest),
+                    "--output",
+                    str(output_dir),
+                ],
+            )
+
+        assert result.exit_code == 0, result.output
+        assert "Stage: reviewed-coverage-ledger" in result.output
+        assert "Glyph promoted coverage: 0.1000" in result.output
+        assert "Ledger →" in result.output
+
+    def test_annotate_reviewed_exemplars_cli_reports_url(self, runner, tmp_path):
+        ledger_path = tmp_path / "coverage_ledger.json"
+        ledger_path.write_text("{}")
+        output_dir = tmp_path / "reviewed"
+
+        class _FakeServer:
+            def __init__(self, **kwargs):
+                self.url = "http://127.0.0.1:8765"
+                self.workbench = type(
+                    "WB",
+                    (),
+                    {
+                        "reviewed_manifest_path": output_dir / "reviewed_manifest.toml",
+                        "coverage_ledger_path": ledger_path,
+                        "selection_manifest_path": tmp_path / "selection_manifest.toml",
+                    },
+                )()
+
+            def serve_forever(self):
+                raise KeyboardInterrupt()
+
+            def shutdown(self):
+                return None
+
+        with patch("scribesim.annotate.AnnotationWorkbenchServer", _FakeServer):
+            result = runner.invoke(
+                main,
+                [
+                    "annotate-reviewed-exemplars",
+                    "--coverage-ledger",
+                    str(ledger_path),
+                    "--output",
+                    str(output_dir),
+                ],
+            )
+
+        assert result.exit_code == 0, result.output
+        assert "Stage: reviewed-annotation-workbench" in result.output
+        assert "URL: http://127.0.0.1:8765" in result.output
+        assert "Reviewed manifest →" in result.output
+
+    def test_freeze_reviewed_exemplars_cli_reports_outputs(self, runner, tmp_path):
+        reviewed_manifest = tmp_path / "reviewed_manifest.toml"
+        reviewed_manifest.write_text('entry_count = 0\n')
+        output_dir = tmp_path / "frozen"
+        summary_md = output_dir / "summary.md"
+        manifest_path = output_dir / "reviewed_exemplar_manifest.toml"
+
+        def _fake_freeze(reviewed_manifest_path, output_root):
+            Path(output_root).mkdir(parents=True, exist_ok=True)
+            summary_md.write_text("# summary\n")
+            manifest_path.write_text('manifest_kind = "reviewed_exemplars"\n')
+            return {
+                "summary": {
+                    "reviewed_glyph_count": 1,
+                    "reviewed_join_count": 1,
+                    "downstream_smoke_passed": True,
+                },
+                "summary_md_path": summary_md,
+                "manifest_path": manifest_path,
+            }
+
+        with patch("scribesim.annotate.freeze_reviewed_exemplars", side_effect=_fake_freeze):
+            result = runner.invoke(
+                main,
+                [
+                    "freeze-reviewed-exemplars",
+                    "--reviewed-manifest",
+                    str(reviewed_manifest),
+                    "--output",
+                    str(output_dir),
+                ],
+            )
+
+        assert result.exit_code == 0, result.output
+        assert "Stage: reviewed-exemplar-freeze" in result.output
+        assert "Reviewed glyph count: 1" in result.output
+        assert "Downstream smoke test: PASS" in result.output
 
 
 # ---------------------------------------------------------------------------

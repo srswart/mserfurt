@@ -1256,6 +1256,90 @@ def evofit_corpus_cmd(
     click.echo(f"Guide proposals → {result['proposal_catalog_path']}")
 
 
+@main.command("evofit-reviewed-exemplars")
+@click.option("--reviewed-manifest", "reviewed_manifest_path",
+              default="shared/training/handsim/reviewed_annotations/reviewed_exemplars_v1/reviewed_exemplar_manifest.toml",
+              show_default=True, type=click.Path(exists=True),
+              help="Frozen reviewed exemplar manifest from freeze-reviewed-exemplars")
+@click.option("-o", "--output", "output_dir",
+              default="shared/training/handsim/reviewed_annotations/reviewed_evofit_v1",
+              show_default=True, type=click.Path(),
+              help="Output root for reviewed evofit candidates and guide proposals")
+@click.option("--kind", "kind", type=click.Choice(["all", "glyph", "join"]), default="all", show_default=True)
+@click.option("--symbols", "symbols_csv", default=None,
+              help="Optional comma-separated symbol subset, e.g. e,h,n,o or u->n,n->d")
+@click.option("--generations", "generations", default=12, show_default=True, type=int)
+@click.option("--pop-size", "pop_size", default=14, show_default=True, type=int)
+@click.option("--eval-dpi", "eval_dpi", default=700, show_default=True, type=int)
+@click.option("--render-dpi", "render_dpi", default=300, show_default=True, type=int)
+@click.option("--x-height", "x_height_mm", default=3.8, show_default=True, type=float)
+@click.option("--nib-width", "nib_width_mm", default=1.0, show_default=True, type=float)
+@click.option("--max-candidates", "max_candidates", default=3, show_default=True, type=int)
+@click.option("--guides", "guides_path", default=None, type=click.Path(exists=True))
+@click.option("--baseline-summary", "baseline_summary_path",
+              default="shared/training/handsim/evofit_active_review_v1/summary.json",
+              show_default=True, type=click.Path(),
+              help="Automatic-corpus evofit summary used as the baseline comparison for reviewed evofit")
+def evofit_reviewed_exemplars_cmd(
+    reviewed_manifest_path: str,
+    output_dir: str,
+    kind: str,
+    symbols_csv: str | None,
+    generations: int,
+    pop_size: int,
+    eval_dpi: int,
+    render_dpi: int,
+    x_height_mm: float,
+    nib_width_mm: float,
+    max_candidates: int,
+    guides_path: str | None,
+    baseline_summary_path: str | None,
+) -> None:
+    """Fit nominal forms from the reviewed exemplar freeze only."""
+    from scribesim.evofit import EvofitConfig, run_reviewed_evofit
+
+    symbols = tuple(part.strip() for part in symbols_csv.split(",") if part.strip()) if symbols_csv else None
+    config = EvofitConfig(
+        pop_size=pop_size,
+        generations=generations,
+        eval_dpi=float(eval_dpi),
+        render_dpi=float(render_dpi),
+        nib_width_mm=nib_width_mm,
+        x_height_mm=x_height_mm,
+        max_candidates_per_symbol=max_candidates,
+        allowed_tiers=(),
+    )
+
+    try:
+        result = run_reviewed_evofit(
+            reviewed_manifest_path,
+            output_root=output_dir,
+            config=config,
+            kind=kind,
+            symbols=symbols,
+            guides_path=guides_path,
+            baseline_summary_path=baseline_summary_path,
+        )
+    except Exception as exc:
+        click.echo(f"error: reviewed evofit run failed — {exc}", err=True)
+        sys.exit(1)
+
+    summary = result["summary"]
+    baseline = summary["baseline_comparison"]
+    click.echo(f"Fit sources: {summary['fit_source_count']}")
+    click.echo(f"Converted guides: {summary['converted_guide_count']}")
+    click.echo(f"Beats prior nominal rate: {summary['beats_prior_rate']:.4f}")
+    click.echo(f"Mean evofit NCC: {summary['mean_evofit_ncc']:.4f}")
+    if baseline["status"] == "compared":
+        click.echo(f"Baseline beats-prior delta: {baseline['beats_prior_rate_delta']:.4f}")
+        click.echo(f"Baseline mean-NCC delta: {baseline['mean_evofit_ncc_delta']:.4f}")
+    else:
+        click.echo(f"Baseline comparison: {baseline['status']}")
+    click.echo(f"Summary → {result['summary_md_path']}")
+    click.echo(f"Guide proposals → {result['proposal_catalog_path']}")
+    click.echo(f"Provenance report → {result['provenance_report_md_path']}")
+
+
 # ---------------------------------------------------------------------------
 # extract-word
 # ---------------------------------------------------------------------------
@@ -1566,6 +1650,151 @@ def build_exemplar_corpus_cli(selection_manifest_path: str, output_dir: str, cle
     click.echo(f"Accepted glyph coverage: {summary['accepted_glyph_coverage']:.4f}")
     click.echo(f"Accepted join coverage: {summary['accepted_join_coverage']:.4f}")
     click.echo(f"Held-out coverage: {summary['heldout_symbol_coverage']:.4f}")
+    click.echo(f"Summary → {result['summary_md_path']}")
+    click.echo(f"Manifest → {result['manifest_path']}")
+
+
+@main.command("build-reviewed-coverage-ledger")
+@click.option("--corpus-manifest", "corpus_manifest_path", required=True, type=click.Path(exists=True),
+              help="Frozen active-review corpus manifest from build-exemplar-corpus")
+@click.option("-o", "--output", "output_dir", required=True, type=click.Path(),
+              help="Output root for the reviewed coverage ledger bundle")
+@click.option("--reviewed-manifest", "reviewed_manifest_path", default=None, type=click.Path(exists=True),
+              help="Optional reviewed-annotation manifest; omit until the annotation workbench produces one.")
+def build_reviewed_coverage_ledger_cli(
+    corpus_manifest_path: str,
+    output_dir: str,
+    reviewed_manifest_path: str | None,
+) -> None:
+    """Build the TD-014 reviewed coverage ledger for manual exemplar work."""
+    from scribesim.annotate import build_reviewed_coverage_ledger
+
+    try:
+        result = build_reviewed_coverage_ledger(
+            corpus_manifest_path,
+            output_root=output_dir,
+            reviewed_manifest_path=reviewed_manifest_path,
+        )
+    except Exception as exc:
+        click.echo(f"error: reviewed coverage ledger build failed — {exc}", err=True)
+        sys.exit(1)
+
+    summary = result["summary"]
+    click.echo("Stage: reviewed-coverage-ledger")
+    click.echo(f"Glyph promoted coverage: {summary['glyph_promoted_coverage']:.4f}")
+    click.echo(f"Join promoted coverage: {summary['join_promoted_coverage']:.4f}")
+    click.echo(f"Glyph reviewed coverage: {summary['glyph_reviewed_coverage']:.4f}")
+    click.echo(f"Join reviewed coverage: {summary['join_reviewed_coverage']:.4f}")
+    click.echo(f"Ledger → {result['ledger_md_path']}")
+    click.echo(f"Manifest → {result['ledger_manifest_path']}")
+
+
+@main.command("annotate-reviewed-exemplars")
+@click.option(
+    "--coverage-ledger",
+    "coverage_ledger_path",
+    default="shared/training/handsim/reviewed_annotations/coverage_ledger_v1/coverage_ledger.json",
+    show_default=True,
+    type=click.Path(exists=True),
+    help="Reviewed coverage ledger JSON from build-reviewed-coverage-ledger",
+)
+@click.option(
+    "-o",
+    "--output",
+    "output_dir",
+    default="shared/training/handsim/reviewed_annotations/workbench_v1",
+    show_default=True,
+    type=click.Path(),
+    help="Workbench output root — reviewed_manifest.toml is written here by default",
+)
+@click.option(
+    "--reviewed-manifest",
+    "reviewed_manifest_path",
+    default=None,
+    type=click.Path(),
+    help="Optional reviewed manifest path override; defaults to {output}/reviewed_manifest.toml",
+)
+@click.option(
+    "--selection-manifest",
+    "selection_manifest_path",
+    default=None,
+    type=click.Path(exists=True),
+    help="Optional selection manifest override; otherwise inferred from the ledger's corpus manifest",
+)
+@click.option("--host", default="127.0.0.1", show_default=True, help="Workbench bind host")
+@click.option("--port", default=8765, show_default=True, type=int, help="Workbench bind port")
+def annotate_reviewed_exemplars_cli(
+    coverage_ledger_path: str,
+    output_dir: str,
+    reviewed_manifest_path: str | None,
+    selection_manifest_path: str | None,
+    host: str,
+    port: int,
+) -> None:
+    """Launch the local reviewed-annotation workbench for glyph and join labeling."""
+    from scribesim.annotate import AnnotationWorkbenchServer
+
+    try:
+        server = AnnotationWorkbenchServer(
+            coverage_ledger_path=coverage_ledger_path,
+            output_root=output_dir,
+            reviewed_manifest_path=reviewed_manifest_path,
+            selection_manifest_path=selection_manifest_path,
+            host=host,
+            port=port,
+        )
+    except Exception as exc:
+        click.echo(f"error: annotation workbench failed to start — {exc}", err=True)
+        sys.exit(1)
+
+    click.echo("Stage: reviewed-annotation-workbench")
+    click.echo(f"URL: {server.url}")
+    click.echo(f"Reviewed manifest → {server.workbench.reviewed_manifest_path}")
+    click.echo(f"Coverage ledger → {server.workbench.coverage_ledger_path}")
+    click.echo(f"Selection manifest → {server.workbench.selection_manifest_path}")
+    click.echo("Stop with Ctrl-C.")
+
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        click.echo("\nWorkbench stopped.")
+    finally:
+        server.shutdown()
+
+
+@main.command("freeze-reviewed-exemplars")
+@click.option(
+    "--reviewed-manifest",
+    "reviewed_manifest_path",
+    default="shared/training/handsim/reviewed_annotations/workbench_v1/reviewed_manifest.toml",
+    show_default=True,
+    type=click.Path(exists=True),
+    help="Reviewed annotation manifest from annotate-reviewed-exemplars",
+)
+@click.option(
+    "-o",
+    "--output",
+    "output_dir",
+    default="shared/training/handsim/reviewed_annotations/reviewed_exemplars_v1",
+    show_default=True,
+    type=click.Path(),
+    help="Output root for the frozen reviewed exemplar bundle",
+)
+def freeze_reviewed_exemplars_cli(reviewed_manifest_path: str, output_dir: str) -> None:
+    """Freeze reviewed glyph and join annotations into a trusted exemplar dataset."""
+    from scribesim.annotate import freeze_reviewed_exemplars
+
+    try:
+        result = freeze_reviewed_exemplars(reviewed_manifest_path, output_root=output_dir)
+    except Exception as exc:
+        click.echo(f"error: reviewed exemplar freeze failed — {exc}", err=True)
+        sys.exit(1)
+
+    summary = result["summary"]
+    click.echo("Stage: reviewed-exemplar-freeze")
+    click.echo(f"Reviewed glyph count: {summary['reviewed_glyph_count']}")
+    click.echo(f"Reviewed join count: {summary['reviewed_join_count']}")
+    click.echo(f"Downstream smoke test: {'PASS' if summary['downstream_smoke_passed'] else 'FAIL'}")
     click.echo(f"Summary → {result['summary_md_path']}")
     click.echo(f"Manifest → {result['manifest_path']}")
 
