@@ -9,7 +9,7 @@ XL (author)  →  ScribeSim (render)  →  Weather (age)
 ```
 
 **XL — Authoring and folio structuring.**
-Manuscript text is written in Late Middle High German (Thuringian dialect, 1457) and structured as per-folio JSON files. Each line carries register annotation (`de` / `mixed`), a CLIO-7 confidence score, and optional damage metadata. A 17-folio gathering is planned across two vellum stocks: standard calfskin (f01–f13, 185×250mm, 22 lines/page) and irregularly cut smaller leaves (f14–f17, 155×212mm, 18 lines/page).
+Manuscript text is written in Late Middle High German (Thuringian dialect, 1457) and structured as per-folio JSON files. Each line carries register annotation (`de` / `mixed`), a CLIO-7 confidence score, and optional damage metadata. The manuscript now follows a smaller private-manuscript format: standard calfskin folios (f01–f13) are 185×250mm with a 130×180mm text block and a comfortable 22-24 lines/page; smaller irregular folios begin at f14 and target 16-18 lines/page. XL may extend the folio sequence beyond `f17` when the text volume requires it.
 
 **ScribeSim — Scribal hand rendering.**
 Each folio JSON is rendered to a 300 DPI PNG using the ScribeSim Bastarda engine. Line spacing, nib width (0.5mm), and x-height (3.0mm) are calibrated to the page layout. Recto pages place the gutter on the left; verso on the right. Output images are clean — no aging applied at this stage.
@@ -65,17 +65,17 @@ export OPENAI_API_KEY=sk-...
 
 ### 1. Author the folios (XL)
 
-Folio JSON files live in `output-live/`. The full 17-folio manuscript (f01r–f17v) is already present. To inspect or edit a folio:
+Folio JSON files live in `output-live/`. The manuscript begins at `f01r` and may extend beyond `f17v` depending on the current layout density. To inspect or edit a folio:
 
 ```
 output-live/
-├── f01r.json   # 22 lines — opening declaration
-├── f01v.json   # 22 lines
+├── f01r.json   # standard-stock opening folio
+├── f01v.json
 ├── ...
-├── f13v.json   # 22 lines — end of standard gathering
-├── f14r.json   # 18 lines — irregular vellum begins
+├── f13v.json   # last standard-stock folio
+├── f14r.json   # irregular vellum begins
 ├── ...
-└── f17v.json   # 18 lines — colophon
+└── fNNv.json   # extent depends on the current line budgets
 ```
 
 Each file follows this schema:
@@ -103,7 +103,7 @@ Each file follows this schema:
 uv run python scripts/render_all.py
 ```
 
-Renders all 34 pages to `render-output/`. Already-rendered pages can be skipped:
+Renders all folio pages present in `output-live/` to `render-output/`. Already-rendered pages can be skipped:
 
 ```bash
 uv run python scripts/render_all.py --skip-existing
@@ -115,7 +115,7 @@ To re-render specific folios only:
 uv run python scripts/render_all.py f04r f04v
 ```
 
-Output: `render-output/f01r.png` … `render-output/f17v.png`
+Output: `render-output/f01r.png` … `render-output/fNNv.png`
 
 Standard pages are 2185×2952px (185×250mm at 300dpi); irregular pages are 1830×2503px (155×212mm).
 
@@ -127,7 +127,7 @@ uv run weather weather-map \
   --output weather/codex_map.json
 ```
 
-Prints the full damage table (water severity, corner damage, foxing count, vellum stock) for all 34 folios.
+Prints the full damage table (water severity, corner damage, foxing count, vellum stock) for the current folio sequence.
 
 ### 4. Weather the full manuscript
 
@@ -142,7 +142,7 @@ uv run weather weather-codex \
   --model gpt-image-1
 ```
 
-Processes all 34 folios in gathering order (f04r first). Already-completed folios are skipped automatically (provenance JSON present). Expect roughly 15–20 minutes for a full run.
+Processes all folios in gathering order (f04r first). Already-completed folios are skipped automatically (provenance JSON present). Expect the runtime to scale with the current manuscript length.
 
 Output per folio in `weather-output/`:
 - `{fid}_weathered.png` — final aged image
@@ -175,7 +175,7 @@ Add `--dry-run` to skip the API call and inspect the generated prompt without sp
 ├── weather-output/       # Weathered PNGs and provenance (gitignored)
 ├── debug/                # Per-line render debug snapshots (gitignored)
 ├── scripts/
-│   ├── render_all.py     # Render all 34 folios
+│   ├── render_all.py     # Render all folios currently present in output-live
 │   ├── render_f01r.py    # Individual folio render scripts
 │   ├── render_f01v.py
 │   ├── render_f02r.py

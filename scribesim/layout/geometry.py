@@ -11,27 +11,25 @@ from scribesim.hand.params import HandParams
 # ---------------------------------------------------------------------------
 
 # Standard folios f01–f13
-_STD_W_MM  = 280.0
-_STD_H_MM  = 400.0
-_STD_MT    = 25.0   # margin top
-_STD_MB    = 70.0   # margin bottom
-_STD_MI    = 25.0   # margin inner (spine side)
-_STD_MO    = 50.0   # margin outer
+_STD_W_MM  = 185.0
+_STD_H_MM  = 250.0
+_STD_MT    = 20.0
+_STD_MB    = 50.0
+_STD_MI    = 20.0
+_STD_MO    = 35.0
 
-# Final folios f14–f17 (smaller gathering)
-_FIN_W_MM  = 240.0
-_FIN_H_MM  = 340.0
-_FIN_MT    = 22.0
-_FIN_MB    = 60.0
-_FIN_MI    = 22.0
-_FIN_MO    = 44.0
+# Final vellum stock begins at f14 and may continue beyond f17 as needed.
+_FIN_W_MM  = 155.0
+_FIN_H_MM  = 212.0
+_FIN_MT    = 18.0
+_FIN_MB    = 46.0
+_FIN_MI    = 15.0
+_FIN_MO    = 28.0
 
 # Physical x-height: maps x_height_px to millimetres on the page.
-# German Bastarda x-height is ~3-4mm. With x_height_px=38, _PX_TO_MM=0.100
-# gives x_height_mm=3.8mm, matching historical manuscripts.
-# Previous value (0.250) produced 9.5mm x-height — far too large, causing
-# ascender/descender overlap between adjacent lines.
-_PX_TO_MM  = 0.100
+# German Bastarda x-height is ~3mm in a modest private manuscript.
+# With x_height_px=38, _PX_TO_MM=0.080 yields ~3.0mm on standard pages.
+_PX_TO_MM  = 0.080
 _MIN_PITCH = 7.0   # minimum baseline-to-baseline distance (mm)
 
 
@@ -102,9 +100,9 @@ def make_geometry(folio_id: str, hand: HandParams) -> PageGeometry:
 
     # Ruling pitch: baseline-to-baseline distance.
     # x_height_mm × line_height_norm gives the physical baseline-to-baseline
-    # spacing. With x_height=3.8mm and line_height_norm=2.5, pitch ≈ 9.5mm
-    # which fits ~32 lines on a standard page and avoids ascender/descender
-    # overlap (total glyph extent is ~2.3× x_height).
+    # spacing. With x_height≈3.0mm and line_height_norm=2.5, pitch lands in
+    # the 7.5–8.5mm range, yielding ~22-24 lines on standard pages and
+    # ~16-18 on the smaller final-stock folios.
     x_height_mm = hand.x_height_px * _PX_TO_MM
     pitch = max(_MIN_PITCH, round(x_height_mm * hand.line_height_norm, 2))
 

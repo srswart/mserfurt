@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-22T18:09:23.932610Z
+  updated_at: 2026-03-24T13:47:51Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -918,3 +918,310 @@ passes:
       - ADV-WX-AIWEATHER-001
       - ADV-WX-AIVALIDATE-001
       notes: TD-011 Part 7. Extends weather/cli.py additively. Existing apply/apply-batch unchanged. Resumable codex run (skips completed folios).
+- id: pass-13a
+  title: 'Pass 13a: TD-014 — Guided Hand Recovery Foundation'
+  order: 36
+  phases:
+  - id: td014-guides
+    title: Dense path guide representation and starter proof assets
+    order: 1
+    items:
+    - id: ADV-SS-PATHGUIDE-001
+      advance_id: ADV-SS-PATHGUIDE-001
+      title: Dense Path Guide Schema — Corridor-Based Nominal Paths
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GUIDEGEN-002
+      notes: New path representation replacing sparse freeform target chasing. Reuses extracted traces and corrected guide-generation outputs.
+  - id: td014-gates
+    title: Validation metrics and promotion rules before controller rollout
+    order: 2
+    items:
+    - id: ADV-SS-HANDVALIDATE-001
+      advance_id: ADV-SS-HANDVALIDATE-001
+      title: Hand Validation Suite — Primitive/Glyph/Word Metrics and Promotion Gates
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-METRICS-001
+      - ADV-SS-PATHGUIDE-001
+      notes: Establishes stop/go logic before controller work is promoted.
+  - id: td014-controller-core
+    title: Planned-state corridor tracking with broad-edge proof rendering
+    order: 3
+    items:
+    - id: ADV-SS-HANDFLOW-001
+      advance_id: ADV-SS-HANDFLOW-001
+      title: Corridor-Following Controller Core — Planned State Tracking
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-PATHGUIDE-001
+      - ADV-SS-HANDVALIDATE-001
+      - ADV-SS-RENDER-002
+      notes: Replaces raw keypoint chasing with desired position/velocity tracking inside a guide corridor and reuses the current broad-edge render pipeline.
+- id: pass-13b
+  title: 'Pass 13b: TD-014 — Guided Hand Recovery Curriculum'
+  order: 37
+  phases:
+  - id: td014-primitives
+    title: Primitive checkpoint before alphabet work
+    order: 1
+    items:
+    - id: ADV-SS-CURRICULUM-001
+      advance_id: ADV-SS-CURRICULUM-001
+      title: Primitive Curriculum — Strokes, Minims, and Contact/Lift Control
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-001
+      notes: First stop/go checkpoint. No glyph promotion until primitives stay inside corridor and render clearly.
+  - id: td014-alphabet
+    title: Starter alphabet and join assets
+    order: 2
+    items:
+    - id: ADV-SS-PATHGUIDE-002
+      advance_id: ADV-SS-PATHGUIDE-002
+      title: Alphabet and Join Guide Dataset — Dense Guides for Common Letters and Bigrams
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-PATHGUIDE-001
+      - ADV-SS-GUIDEGEN-002
+      notes: Expands from proof words to a usable manuscript alphabet and join inventory.
+  - id: td014-glyph-join-training
+    title: Single glyph and join training on frozen primitives
+    order: 3
+    items:
+    - id: ADV-SS-CURRICULUM-002
+      advance_id: ADV-SS-CURRICULUM-002
+      title: Glyph and Join Curriculum — Legible Single Letters and Connected Bigrams
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-001
+      - ADV-SS-PATHGUIDE-002
+      notes: Promote only after single-letter and join metrics pass.
+  - id: td014-word-state
+    title: Persistent controller state across glyph and word boundaries
+    order: 4
+    items:
+    - id: ADV-SS-HANDFLOW-002
+      advance_id: ADV-SS-HANDFLOW-002
+      title: Stateful Word Controller — Cross-Glyph Continuity, Joins, and Ink Carryover
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-002
+      notes: Introduces persistent state across glyphs and words; removes per-word reset behavior.
+  - id: td014-line-training
+    title: Proof vocabulary and short-line promotion gates
+    order: 5
+    items:
+    - id: ADV-SS-CURRICULUM-003
+      advance_id: ADV-SS-CURRICULUM-003
+      title: Word and Line Curriculum — Frequent Words, Phrases, and Baseline Stability
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-002
+      notes: Target words like und/der/wir/in first, then lines. Promotion requires line-level gates.
+- id: pass-13c
+  title: 'Pass 13c: TD-014 — Guided Hand Recovery Folio Rollout'
+  order: 38
+  phases:
+  - id: td014-guided-folio
+    title: Experimental folio integration behind an explicit feature flag
+    order: 1
+    items:
+    - id: ADV-SS-HANDFLOW-003
+      advance_id: ADV-SS-HANDFLOW-003
+      title: Folio Integration Adapter — Guided Hand Rendering Behind a Feature Flag
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-003
+      - ADV-SS-RENDER-002
+      notes: Keeps current evo/plain renderers as fallback. New path only activates for approved checkpoints.
+  - id: td014-folio-gates
+    title: Folio regression bench and promotion decision
+    order: 2
+    items:
+    - id: ADV-SS-HANDVALIDATE-002
+      advance_id: ADV-SS-HANDVALIDATE-002
+      title: Folio Regression Bench — A/B Validation, Dashboard, and Rollout Gates
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-003
+      - ADV-SS-TESTS-002
+      notes: Final acceptance gate before any default-path change. Includes stop/go dashboard and rollback thresholds.
+- id: pass-13d
+  title: 'Pass 13d: TD-014 — Readability Hardening and Exact Symbol Coverage'
+  order: 39
+  phases:
+  - id: td014-text-fidelity
+    title: Exact character coverage and alias-failure gates
+    order: 1
+    items:
+    - id: ADV-SS-HANDVALIDATE-003
+      advance_id: ADV-SS-HANDVALIDATE-003
+      title: Exact Character Coverage Gates — Alias Detection and Text-Fidelity Metrics
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-002
+      notes: Corrects the folio bench so wrong-symbol fallback aliases are visible and blocking.
+  - id: td014-active-alphabet
+    title: Expand guides to the active folio character inventory
+    order: 2
+    items:
+    - id: ADV-SS-PATHGUIDE-003
+      advance_id: ADV-SS-PATHGUIDE-003
+      title: Active Folio Alphabet Dataset — Exact Guides for Missing Characters, Capitals, and Diacritics
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-003
+      notes: Replaces alias substitutions with exact-symbol guides for the benchmark folios.
+  - id: td014-exact-output
+    title: Exact-symbol guided rendering path
+    order: 3
+    items:
+    - id: ADV-SS-HANDFLOW-004
+      advance_id: ADV-SS-HANDFLOW-004
+      title: Exact-Symbol Folio Output — Render Actual Trajectory and Refuse Unresolved Text
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-PATHGUIDE-003
+      notes: Moves review output to actual trajectory rendering and blocks unresolved characters in exact-symbol mode.
+- id: pass-13e
+  title: 'Pass 13e: TD-014 — Exemplar-Fit Nominal Guide Recovery'
+  order: 40
+  phases:
+  - id: td014-exemplar-harvest
+    title: Acquire provenance-backed manuscript samples for exemplar fitting
+    order: 1
+    items:
+    - id: ADV-SS-REFSELECT-008
+      advance_id: ADV-SS-REFSELECT-008
+      title: Exemplar Harvest — Manuscript Sampling for TD-014 Nominal Guide Recovery
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-004
+      notes: Uses the TD-009 IIIF pipeline to gather the 30–40 folio sample set for exemplar-driven recovery.
+  - id: td014-exemplar-corpus
+    title: Build accepted glyph and join exemplar corpora
+    order: 2
+    items:
+    - id: ADV-SS-EXEMPLAR-003
+      advance_id: ADV-SS-EXEMPLAR-003
+      title: Exemplar Corpus — Automatic Glyph and Join Admission Sets for Active Review Slices
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-REFSELECT-008
+      notes: Freezes the automatic corpus-construction outputs; reviewable exemplar truth and promotion hardening continue in Pass 13f.
+  - id: td014-evofit
+    title: Fit nominal forms with evo, but keep handflow as the renderer
+    order: 3
+    items:
+    - id: ADV-SS-EVOFIT-001
+      advance_id: ADV-SS-EVOFIT-001
+      title: Evofit Nominal Forms — Exemplar-Driven Glyph and Short-Join Recovery
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-003
+      notes: Exploratory evofit may start from the automatic corpus, but promoted guide freeze remains gated on the promoted exemplar tier from Pass 13f.
+  - id: td014-guide-freeze
+    title: Freeze exemplar-fit guides and validate nominal legibility
+    order: 4
+    items:
+    - id: ADV-SS-PATHGUIDE-004
+      advance_id: ADV-SS-PATHGUIDE-004
+      title: Exemplar-Fit Guide Freeze — Promote Evo-Derived Nominal Glyphs and Joins
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EVOFIT-001
+      notes: Replaces toy or clone-based guides with exemplar-fit promoted assets.
+  - id: td014-flow-recovery
+    title: Retrain handflow on readable nominal guides
+    order: 5
+    items:
+    - id: ADV-SS-HANDFLOW-005
+      advance_id: ADV-SS-HANDFLOW-005
+      title: Exemplar-Fit Flow Recovery — Handflow Training on Promoted Nominal Guides
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-PATHGUIDE-004
+      notes: Uses the new promoted guides as templates for stroke approach and cross-character flow.
+  - id: td014-nominal-gates
+    title: Separate nominal-guide legibility from controller legibility
+    order: 6
+    items:
+    - id: ADV-SS-HANDVALIDATE-004
+      advance_id: ADV-SS-HANDVALIDATE-004
+      title: Nominal Legibility Gates — Exemplar-Fit Review Slice Validation
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-005
+      notes: Ensures unreadable nominal guides fail before controller or folio metrics can mask the problem.
+- id: pass-13f
+  title: 'Pass 13f: TD-014 — Corpus Semantics and Promoted Exemplar Hardening'
+  order: 41
+  phases:
+  - id: td014-corpus-semantics
+    title: Separate matcher admission from reviewable exemplar truth
+    order: 1
+    items:
+    - id: ADV-SS-EXEMPLAR-004
+      advance_id: ADV-SS-EXEMPLAR-004
+      title: Corpus Semantics — Separate Automatic Admission from Reviewable Exemplar Truth
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-003
+      notes: Renames and separates raw matcher buckets so review folders stop overstating quality.
+  - id: td014-promoted-exemplars
+    title: Add a clean promoted exemplar tier
+    order: 2
+    items:
+    - id: ADV-SS-EXEMPLAR-005
+      advance_id: ADV-SS-EXEMPLAR-005
+      title: Promoted Exemplars — Create a Reviewable Tier Above Automatic Admission
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-004
+      notes: Creates the reviewable exemplar set that later nominal-form stages must consume.
+  - id: td014-promotion-gates
+    title: Enforce stronger promotion gates for reviewable exemplars
+    order: 3
+    items:
+    - id: ADV-SS-HANDVALIDATE-005
+      advance_id: ADV-SS-HANDVALIDATE-005
+      title: Exemplar Promotion Gates — Legibility and Cluster Consistency for Reviewable Glyphs
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-005
+      notes: Adds stronger gating so score-threshold matches do not become reviewable exemplars by default.
+  - id: td014-repair-quarantine
+    title: Quarantine repair-only coverage from promoted exemplar flows
+    order: 4
+    items:
+    - id: ADV-SS-EXEMPLAR-006
+      advance_id: ADV-SS-EXEMPLAR-006
+      title: Coverage Backfill Quarantine — Keep Repaired Samples out of Promoted Exemplars
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-005
+      notes: Keeps coverage-promoted and fallback-filled samples out of reviewable exemplar sets and downstream nominal recovery.

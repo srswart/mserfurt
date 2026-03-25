@@ -1,0 +1,24 @@
+component:
+  id: curriculum
+  name: "Hand Training Curriculum"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/curriculum/**"
+    - "shared/training/handsim/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "Curriculum stages for primitive, glyph, word, line, and folio training"
+  - "Training-set manifests with acceptance gates and evidence outputs"
+
+invariants:
+  - "A stage cannot advance until its validation gate passes."
+  - "Every training run writes structured metrics and snapshots for regression."
+  - "Later stages must consume frozen checkpoints from the previous stage."

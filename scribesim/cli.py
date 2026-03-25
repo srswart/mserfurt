@@ -18,7 +18,7 @@ def main() -> None:
     """ScribeSim — render Brother Konrad's Bastarda hand from XL folio JSON."""
 
 
-_RENDER_APPROACHES = ("evo", "plain")
+_RENDER_APPROACHES = ("evo", "plain", "guided")
 _EVO_QUALITIES = ("balanced", "deep")
 _CHARACTER_MODELS = ("standard", "deep")
 
@@ -176,6 +176,8 @@ def _render_folio(
     evo_quality: str = "balanced",
     character_model: str = "standard",
     character_model_randomness: float = 0.10,
+    guided_supersample: int = 4,
+    guided_exact_symbols: bool = True,
 ) -> tuple[Path, Path, Path]:
     from PIL import Image as PILImage
     from scribesim.layout import place
@@ -197,6 +199,58 @@ def _render_folio(
                 "page_nib_width_mm": profile.nib.width_mm,
                 "page_nib_angle_deg": profile.nib.angle_deg,
                 "nib_angle_variation": "plain_fixed",
+            },
+        )
+        return page_path, heatmap_path, report_path
+
+    if approach == "guided":
+        from scribesim.handflow import render_guided_folio_lines
+
+        geom = layout.geometry
+        page_arr, heat_arr = render_guided_folio_lines(
+            [line.get("text", "") for line in folio_dict.get("lines", [])],
+            profile=profile,
+            dpi=300,
+            supersample=guided_supersample,
+            x_height_mm=geom.x_height_mm,
+            line_spacing_mm=geom.ruling_pitch_mm,
+            margin_left_mm=geom.margin_inner,
+            margin_top_mm=geom.margin_top,
+            page_width_mm=geom.page_w_mm,
+            page_height_mm=geom.page_h_mm,
+            exact_symbols=guided_exact_symbols,
+        )
+        page_path = output_dir / f"{folio_id}.png"
+        PILImage.fromarray(page_arr, "RGB").save(str(page_path), dpi=(300, 300))
+
+        heatmap_path = output_dir / f"{folio_id}_pressure.png"
+        PILImage.fromarray(heat_arr, "L").save(str(heatmap_path), dpi=(300, 300))
+        report_path = _write_render_report(
+            output_dir,
+            folio_id,
+            approach,
+            "guided",
+            "guided",
+            folio_path,
+            hand_toml,
+            profile,
+            layout,
+            page_path,
+            heatmap_path,
+            word_model="guided_line_v1",
+            ink_model={
+                "mode": "guided_reservoir",
+                "reservoir_capacity": profile.ink.reservoir_capacity,
+                "depletion_rate": profile.ink.depletion_rate,
+                "dry_threshold": profile.ink.dry_threshold,
+            },
+            render_params={
+                "page_nib_width_mm": profile.nib.width_mm,
+                "page_nib_angle_deg": profile.nib.angle_deg,
+                "guided_supersample": guided_supersample,
+                "guided_checkpoint": "line-v1",
+                "guided_exact_symbols": guided_exact_symbols,
+                "guided_render_trajectory_mode": "actual",
             },
         )
         return page_path, heatmap_path, report_path
@@ -338,6 +392,10 @@ def _render_folio(
               help="Reserved tuning knob for deep contextual allograph experiments.")
 @click.option("--char-candidates", "char_candidates", default=6, type=int, show_default=True,
               help="Reserved tuning knob for deep contextual allograph experiments.")
+@click.option("--guided-supersample", "guided_supersample", default=4, type=int, show_default=True,
+              help="Internal supersample factor for experimental guided folio rendering.")
+@click.option("--guided-exact-symbols/--no-guided-exact-symbols", "guided_exact_symbols", default=True, show_default=True,
+              help="Require exact glyph resolution for guided folio rendering; disable only for exploratory debugging.")
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params and report plan without rendering")
 @click.option("--set", "overrides", multiple=True,
@@ -345,7 +403,7 @@ def _render_folio(
 def render(folio_id: str, input_dir: str, output_dir: str,
            hand_toml: str | None, approach: str, evo_quality: str,
            character_model: str, char_rounds: int, char_candidates: int,
-           dry_run: bool, overrides: tuple) -> None:
+           guided_supersample: int, guided_exact_symbols: bool, dry_run: bool, overrides: tuple) -> None:
     """Render a single folio to PNG + pressure heatmap.
 
     FOLIO_ID is the folio identifier, e.g. f01r or 1r.
@@ -375,6 +433,8 @@ def render(folio_id: str, input_dir: str, output_dir: str,
     if approach == "evo":
         click.echo(f"  evo   : {evo_quality}")
         click.echo(f"  chars : {character_model}")
+    elif approach == "guided":
+        click.echo(f"  guided: supersample={guided_supersample} exact_symbols={guided_exact_symbols}")
     click.echo(f"  lines : {folio_dict['metadata']['line_count']}")
     click.echo(f"  hand  : pressure={params.pressure_base} "
                f"ink={params.ink_density} "
@@ -404,6 +464,8 @@ def render(folio_id: str, input_dir: str, output_dir: str,
         evo_quality,
         character_model=character_model,
         character_model_randomness=character_model_randomness,
+        guided_supersample=guided_supersample,
+        guided_exact_symbols=guided_exact_symbols,
     )
 
     click.echo(f"  page    → {png_path}")
@@ -431,11 +493,13 @@ def render(folio_id: str, input_dir: str, output_dir: str,
               help="Experimental character model for evo batch renders.")
 @click.option("--char-rounds", "char_rounds", default=2, type=int, show_default=True)
 @click.option("--char-candidates", "char_candidates", default=6, type=int, show_default=True)
+@click.option("--guided-supersample", "guided_supersample", default=4, type=int, show_default=True)
+@click.option("--guided-exact-symbols/--no-guided-exact-symbols", "guided_exact_symbols", default=True, show_default=True)
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params for each folio without rendering")
 def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: str,
                  character_model: str, char_rounds: int, char_candidates: int,
-                 dry_run: bool) -> None:
+                 guided_supersample: int, guided_exact_symbols: bool, dry_run: bool) -> None:
     """Render all folios listed in manifest.json."""
     manifest_path = Path(input_dir) / "manifest.json"
     if not manifest_path.exists():
@@ -444,7 +508,11 @@ def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: st
 
     manifest = json.loads(manifest_path.read_text())
     folios = manifest.get("folios", [])
-    quality_tag = f" evo={evo_quality} chars={character_model}" if approach == "evo" else ""
+    quality_tag = ""
+    if approach == "evo":
+        quality_tag = f" evo={evo_quality} chars={character_model}"
+    elif approach == "guided":
+        quality_tag = f" guided_supersample={guided_supersample} exact_symbols={guided_exact_symbols}"
     click.echo(f"[scribesim render-batch] {len(folios)} folio(s) in manifest  mode={approach}{quality_tag}")
 
     base_profile = load_profile()
@@ -467,6 +535,8 @@ def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: st
                    f"mode={approach}", nl=False)
         if approach == "evo":
             click.echo(f"  evo={evo_quality}  chars={character_model}", nl=False)
+        elif approach == "guided":
+            click.echo(f"  guided_supersample={guided_supersample}  exact_symbols={guided_exact_symbols}", nl=False)
         if dry_run:
             click.echo("  [dry-run]")
             ok += 1
@@ -486,6 +556,8 @@ def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: st
                 evo_quality,
                 character_model=character_model,
                 character_model_randomness=character_model_randomness,
+                guided_supersample=guided_supersample,
+                guided_exact_symbols=guided_exact_symbols,
             )
             click.echo("  ✓")
             ok += 1
@@ -1356,6 +1428,30 @@ def extract_exemplars(letters_dir: str, output_dir: str, target_size: int) -> No
     click.echo(f"Total: {total} exemplars → {out_root}")
 
 
+@main.command("build-exemplar-corpus")
+@click.option("--selection-manifest", "selection_manifest_path", required=True, type=click.Path(exists=True),
+              help="Frozen exemplar-harvest selection manifest from harvest-exemplars")
+@click.option("-o", "--output", "output_dir", required=True, type=click.Path(),
+              help="Output root for the frozen accepted/soft/rejected exemplar corpus")
+def build_exemplar_corpus_cli(selection_manifest_path: str, output_dir: str) -> None:
+    """Build the TD-014 exemplar corpus from a frozen harvested folio set."""
+    from scribesim.refextract import build_exemplar_corpus
+
+    try:
+        result = build_exemplar_corpus(selection_manifest_path, output_root=output_dir)
+    except Exception as exc:
+        click.echo(f"error: exemplar corpus build failed — {exc}", err=True)
+        sys.exit(1)
+
+    summary = result["summary"]
+    click.echo(f"Dataset: {summary['dataset_id']}")
+    click.echo(f"Accepted glyph coverage: {summary['accepted_glyph_coverage']:.4f}")
+    click.echo(f"Accepted join coverage: {summary['accepted_join_coverage']:.4f}")
+    click.echo(f"Held-out coverage: {summary['heldout_symbol_coverage']:.4f}")
+    click.echo(f"Summary → {result['summary_md_path']}")
+    click.echo(f"Manifest → {result['manifest_path']}")
+
+
 @main.command("trace-centerlines")
 @click.option("--exemplars", "exemplars_dir", required=True, type=click.Path(exists=True),
               help="Root exemplar directory — expects {dir}/{char}/*.png")
@@ -1948,6 +2044,54 @@ def download_selected(provenance_path: str, output_dir: str | None,
     update_provenance(provenance, prov_file)
     click.echo(f"\nFull-res files in {out_dir}")
     click.echo(f"Provenance updated → {prov_file}")
+
+
+# ---------------------------------------------------------------------------
+# harvest-exemplars
+# ---------------------------------------------------------------------------
+
+@main.command("harvest-exemplars")
+@click.argument("manifest_path", type=click.Path(exists=True))
+@click.option("--output-dir", "output_dir", default=None, type=click.Path(),
+              help="Override output directory (default: manifest output_dir)")
+@click.option("--resolution", default=None,
+              type=click.Choice(["analysis", "extraction"]),
+              help="Override manifest download resolution")
+@click.option("--no-download", is_flag=True, default=False,
+              help="Write provenance and selection artifacts without downloading folios")
+def harvest_exemplars(
+    manifest_path: str,
+    output_dir: str | None,
+    resolution: str | None,
+    no_download: bool,
+) -> None:
+    """Run the TD-014 exemplar harvest from a committed manifest."""
+    from scribesim.refselect import run_exemplar_harvest
+
+    try:
+        result = run_exemplar_harvest(
+            manifest_path,
+            output_dir=output_dir,
+            resolution=resolution,
+            no_download=no_download,
+        )
+    except Exception as exc:
+        click.echo(f"error: exemplar harvest failed — {exc}", err=True)
+        sys.exit(1)
+
+    inventory = result["inventory"]
+    click.echo(f"Harvest: {inventory['harvest_id']}")
+    click.echo(
+        f"Selected {inventory['selected_folio_count']} folios "
+        f"from {len(inventory['manuscripts'])} manuscripts"
+    )
+    click.echo(
+        f"Downloaded {inventory['downloaded_folio_count']} folios "
+        f"({inventory['download_resolution']})"
+    )
+    click.echo(f"Provenance → {result['provenance_path']}")
+    click.echo(f"Selection manifest → {result['selection_manifest_path']}")
+    click.echo(f"Review summary → {result['review_summary_path']}")
 
 
 # ---------------------------------------------------------------------------

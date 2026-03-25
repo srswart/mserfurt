@@ -11,25 +11,21 @@ manuscript:
   language_primary: "Frühneuhochdeutsch (Thuringian)"
   language_secondary: "Ecclesiastical Latin"
   language_tertiary: "Middle High German (Eckhart quotations)"
-  gathering: 17 folios
+  gathering: "dynamic private-manuscript folio sequence (minimum 17 folios)"
   storage: "Bound between a Breviarium and a Lectionary, Erfurt Augustinian archive"
   discovery: 2019
 
 folio_map:
-  f01r-f03v: { content: "Opening + press meditation", damage: none, hand: standard }
-  f04r: { content: "Peter narrative begins", damage: "water_from_above_partial", hand: standard }
-  f04v: { content: "Peter narrative", damage: "water_from_above + missing_corner_bottom_right", hand: standard }
-  f05r: { content: "Peter narrative", damage: "water_diminishing", hand: standard }
-  f05v: { content: "Peter narrative ends", damage: "water_diminishing", hand: standard }
-  # GAP: 1-3 folios missing or removed between f05v and f06r
-  f06r: { content: "Workshop visits resume", damage: none, hand: "increased_lateral_pressure_downstrokes" }
-  f06v: { content: "Workshop visits", damage: none, hand: "increased_lateral_pressure" }
-  f07r: { content: "Eckhart confession", damage: none, hand: "multi_sitting_variable_ink" }
-  f07v_upper: { content: "Eckhart confession concludes", damage: none, hand: "multi_sitting" }
-  f07v_lower: { content: "Psalter return", damage: none, hand: "smaller_economical_working" }
-  f08r-f13v: { content: "Demetrios dialogue + Psalter meditation + Becker", damage: none, hand: standard }
-  f14r: { content: "Final section begins", damage: none, hand: "slower_wider_compensating", vellum: irregular }
-  f14v-f17v: { content: "Final section to finis", damage: none, hand: "slower_wider_compensating", vellum: irregular }
+  f01r-f13v: { content: "Standard-stock folios; actual section boundaries are recalculated from density", damage: "f04r-f05v only", hand: "section-driven where noted" }
+  f04r: { content: "Water-damaged leaf", damage: "water_from_above_partial", hand: standard }
+  f04v: { content: "Water-damaged leaf", damage: "water_from_above + missing_corner_bottom_right", hand: standard }
+  f05r: { content: "Water-damaged leaf", damage: "water_diminishing", hand: standard }
+  f05v: { content: "Water-damaged leaf", damage: "water_diminishing", hand: standard }
+  f06r: { content: "Earliest intensified-hand folio", damage: none, hand: "increased_lateral_pressure_downstrokes" }
+  f06v: { content: "Earliest intensified-hand folio", damage: none, hand: "increased_lateral_pressure" }
+  f07r: { content: "Earliest Eckhart-start folio", damage: none, hand: "multi_sitting_variable_ink" }
+  f07v: { content: "Eckhart / Psalter transition if reached", damage: none, hand: "multi_sitting / smaller_economical_working" }
+  f14r-onward: { content: "Smaller irregularly cut vellum stock; final-section start no earlier than f14r", damage: none, hand: "slower_wider_compensating", vellum: irregular }
 ---
 
 <!-- ============================================================ -->
@@ -146,7 +142,7 @@ That is also what this is for.
 Peter came to me first in the autumn of his fourteenth year. This part I can write without difficulty because I have written it many times in my head, the way you return to a place you love before it is taken from you, memorizing.
 
 <!-- register: de -->
-He was small for his age, dark-haired, and he held himself with a stillness that I recognized because I had felt it in myself at that age — the stillness of a person whose interior life is moving very fast and who has learned to keep that hidden. His father was a cloth merchant. The father wanted him to have letters for the purpose of contracts and correspondence. The father was a practical man.
+He was small for his age, dark-haired, and he held himself with a stillness that I recognized because I had felt it in myself at that age — the stillness of a person whose soul was moving very fast within him and who had learned to keep it hidden. His father was a cloth merchant. The father wanted him to have letters for the purpose of contracts and correspondence. The father was a practical man.
 
 <!-- register: de -->
 <!-- lacuna: [—] = 4+ words lost to water damage -->
@@ -294,7 +290,7 @@ Wilhelm saw me and nodded without surprise. I had, apparently, become a regular.
 Demetrios was standing at a compositor's frame near the back wall, next to a young compositor whose name I later learned was Hans. He was not setting type himself. He was reading from a manuscript — not his own, a workshop copy — and comparing it to a forme that Hans had composed, running his finger along the metal letters the way a reader runs a finger along a line of script. Checking. The word arrived in my mind before I could stop it: he was proofreading.
 
 <!-- register: de -->
-He looked up when I came in. His face did the thing it always does, which is to show exactly what he is thinking for a moment before the courtesy comes down over it. What I saw in that moment was: ah, you too then.
+He looked up when I came in. His face did the thing it always does, which is to show exactly what he is thinking for a brief moment before the courtesy comes down over it. What I saw in that moment was: ah, you too then.
 
 <!-- register: la -->
 <!-- hint: Demetrios speaks Latin here — "Frater Conradus" -->
@@ -406,7 +402,7 @@ He was not cruel when he said it. He was the way he always is, which is exact.
 I said: "You find that acceptable."
 
 <!-- register: de -->
-He said: "I find it true. There is a library in Constantinople that is ash. I watched it. I watched it for two days. When it was finished I thought: the books that survived survived because there were too many copies to burn. Every copy that ever felt like a diminishment — every reader who winced at a scribe's error, every scholar who mourned the distance from the original, every man like you who grieved the copy's imperfection — every one of them was actually a node in a network that kept the text alive despite what men do to cities." He paused. "I would like there to be too many copies to burn. That is my theology."
+He said: "I find it true. There is a library in Constantinople that is ash. I watched it. I watched it for two days. When it was finished I thought: the books that survived survived because there were too many copies to burn. Every copy that ever felt like a diminishment — every reader who winced at a scribe's error, every scholar who mourned the distance from the original, every man like you who grieved the copy's imperfection — every one of them was a root by which the living text clung to the earth despite what men do to cities." He paused. "I would like there to be too many copies to burn. That is my theology."
 <!-- hint: "That is my theology" = Demetrios might say this in Latin: "Haec est theologia mea." -->
 
 <!-- register: de -->
@@ -435,20 +431,23 @@ He said: "Yes."
 I said: "So we exchange a thousand small ungoverned interventions for a series of large authoritative ones, each one invisible because it wears the text's own face."
 
 <!-- register: de -->
-He was quiet for a moment. Then he refilled the wine and said something I did not expect.
+He was quiet for a moment. Then he said: "That is a fair description of the history of the Church."
+
+<!-- register: de -->
+I had no answer.
+
+<!-- register: de -->
+He refilled the wine and said something I did not expect.
 
 <!-- register: de -->
 <!-- hint: "The Islamic calligraphers" — Demetrios shifts to a scholarly register here; some Latin for the theological concepts -->
-He said: "You know who else would agree with you entirely? The Islamic calligraphers. I had a colleague in Constantinople — a scholar from Cairo, a man named Ibrahim, who was there studying our manuscripts as we were studying his. He showed me once a page of his own hand — a passage of the Quran — and explained that in his tradition the calligrapher does not merely copy the Word, he participates in its transmission in a way that is itself sacred. That the letter formed by a trained and devoted hand carries something the letter stamped by a block of metal cannot. That the hand is part of the meaning." He paused. "The men who took my city will not print the Quran on a press. Not for decades, perhaps not in our lifetime. For the same reasons you give me. The sacred text requires the sacred hand. In this, Brother Konrad, you and the scholars of Islam are in complete agreement."
+He said: "You know who else would agree with you entirely? The Islamic calligraphers. I had a colleague in Constantinople — a scholar from Cairo, a man named Ibrahim, who was there studying our manuscripts as we were studying his. He showed me once a page of his own hand — a passage of the Quran — and explained that in his tradition the calligrapher does not merely copy the Word, he participates in its transmission in a way that is itself sacred. That the letter formed by a trained and devoted hand carries something the letter stamped by a block of metal cannot. That the hand is part of the meaning." He paused. "The men who took my city will not print the Quran on a press. Not for decades, perhaps not in our lifetime. For the same reasons you give me. The sacred text requires the sacred hand. In this one thing, Brother Konrad, you and the scholars of Islam are in complete agreement."
 
 <!-- register: de -->
 I said: "And yet you disagree with both of us."
 
 <!-- register: de -->
 He said: "I watched the library burn for two days. Ibrahim got out. The manuscripts did not, mostly. I find I care more about the manuscripts than about the theology of how they travel." He looked at his wine. "That may be a failing."
-
-<!-- register: de -->
-He was quiet for a moment. Then he said: "That is a fair description of the history of the Church."
 
 <!-- register: de -->
 I had no answer then either.
@@ -474,7 +473,7 @@ I went home. I could not eat. I came here, to this desk, to these pages, to You.
 Here is what I want to ask You and cannot ask anyone else:
 
 <!-- register: mixed -->
-If a man improves a text — if he makes it more true, more itself, more what it was always trying to be — and then a machine copies the lesser version into permanence, which one of them has committed the greater violence against the Word?
+If a man tends a damaged text — if he mends what was broken in it, restores what was always trying to be said — and then a machine fixes the lesser version into permanence, which one of them has done the greater violence to the Word?
 
 <!-- register: de -->
 I know the answer I am supposed to give.
@@ -521,7 +520,7 @@ You know what happened in 1329. You were there, in the sense that You are everyw
 The Church said: this is heresy. The soul is created. God is uncreated. The distance between them is absolute and is bridged only by grace, by the sacraments, by the mediation of the Church. To say otherwise is to make the Church unnecessary, and the Church had noticed this.
 
 <!-- register: mixed -->
-Eckhart's defenders said: you are misreading him. He is speaking of mystical union, not ontological identity. He is a poet of the interior life, not a systematic theologian, and you are prosecuting his metaphors as if they were propositions.
+Eckhart's defenders said: you are misreading him. He is speaking of mystical union, not unity of substance. He is a poet of the soul's hidden ground, not a systematic theologian, and you are prosecuting his metaphors as if they were propositions.
 
 <!-- register: de -->
 Both of these things were true. This is the kind of situation that produces damp manuscripts.
@@ -530,7 +529,7 @@ Both of these things were true. This is the kind of situation that produces damp
 I was twenty-one years old. I had been copying for ten years but I had not yet copied anything that frightened me. I did not understand, taking the commission, how different that is. You can copy a text you find dull and your hand moves across the page and the meaning slides past like water. You can copy a text you find beautiful and something in you opens and the work is a kind of joy. But when you copy a text that frightens you — when the meaning is arriving in your hand and your hand knows it is dangerous — the body responds in ways the mind hasn't authorized.
 
 <!-- register: de -->
-The sermons were extraordinary. I can say that now. At twenty-one I couldn't say it cleanly because the fear was in the way, but I knew it then and I know it now: Eckhart wrote about the interior life with a precision I have not encountered since, a precision that was not cold but was exact, the way a surgeon's incision is exact, the way it has to be exact to do the thing it needs to do. He was not using metaphor carelessly. He was using it the way the craft requires — to say the thing that cannot be said otherwise, to carry the reader to the edge of language and hold them there long enough for the non-language to do its work.
+The sermons were extraordinary. I can say that now. At twenty-one I couldn't say it cleanly because the fear was in the way, but I knew it then and I know it now: Eckhart wrote about the hidden ground of the soul with a precision I have not encountered since, a precision that was not cold but was exact, the way a surgeon's incision is exact, the way it has to be exact to do the thing it needs to do. He was not using metaphor carelessly. He was using it the way the craft requires — to say the thing that cannot be said otherwise, to carry the reader to the edge of language and hold them there long enough for the non-language to do its work.
 
 <!-- register: de -->
 I copied for three weeks before I found the passage.
@@ -630,7 +629,7 @@ And it was a sin. Not because I was wrong. Because the text was not mine.
 
 <!-- register: mixed -->
 <!-- hint: "between the human mind and the truth there must be a gap" = deeply theological, Latin-heavy -->
-Because between the human mind and the truth there must be — there must be — a gap, a distance, a declared uncertainty, an honest annotation that says: here the manuscript is damaged, here is my best reading, here is what I could not see. Without that gap there is no transmission, there is only replacement. I did not transmit Eckhart. I replaced him with my version of him, and I was skilled enough and careful enough that no one noticed, and I am telling You because I cannot tell anyone else because what would I say?
+Because between the human mind and the truth there must be — there must be — a gap, a distance, a declared uncertainty, an honest annotation that says: here the manuscript is damaged, here is my best reading, here is what I could not see. Without that gap there is no faithful keeping of the word, there is only replacement. I did not tend Eckhart's lineage. I replaced him with my version of him, and I was skilled enough and careful enough that no one noticed, and I am telling You because I cannot tell anyone else because what would I say?
 
 <!-- register: de -->
 I cannot unsay the word. It is in the world now. There is no confession that recalls it. And the press —
@@ -645,7 +644,7 @@ If there had been a press in 1435, I could not have done what I did.
 The press does not reconstruct. The press does not sit with three possible words and choose the one it believes is true. The press sets the text as given and reproduces it exactly, crack and all, every ambiguity preserved, the damaged verb traveling forward in its honest illegibility for scholars to argue over rather than for a young scribe to quietly resolve in his cell.
 
 <!-- register: mixed -->
-My sin required the manuscript tradition. It required the long, slow, human chain of transmission where every link is a person with judgment and limitation and the ability to be wrong. The press would have taken that chain from me. It would have taken my capacity to sin.
+My sin required the manuscript tradition. It required the long, slow, human chain of keepers where every link is a person with judgment and limitation and the ability to be wrong. The press would have taken that chain from me. It would have taken my capacity to sin.
 
 <!-- register: mixed -->
 I do not know if that is salvation or diminishment.
@@ -945,5 +944,6 @@ Finis.
 
 <!-- register: mixed -->
 <!-- hint: The closing declaration mirrors the opening — formal Latin dating formula with German -->
-Written in Erfurt, in the forty-third year of my life, in the year of Our Lord 1457, without permission, without excuse, and without, in the end, burning.
+Written in Erfurt, in the forty-third year of my life, in the year of Our Lord 1457,
+without permission, without excuse, and without, in the end, burning.
 <!-- hint: "Scriptum Erfordiae, anno aetatis meae quadragesimo tertio, anno Domini MCCCCLVII, sine licentia, sine excusatione, et sine, in fine, combustione." -->

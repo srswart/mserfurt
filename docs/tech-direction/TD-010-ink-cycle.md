@@ -367,7 +367,7 @@ fn render_word_with_ink(
 
 ### Dip cycle pattern across a page
 
-For Brother Konrad writing on standard folios (28-32 lines, ~8-10 words per line):
+For Brother Konrad writing on standard folios (22-24 lines, ~8-10 words per line):
 
 ```
 Words per dip cycle:    35-45 (professional scribe, well-loaded quill)

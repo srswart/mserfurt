@@ -1,0 +1,23 @@
+component:
+  id: handflow
+  name: "Corridor-Following Hand Controller"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/handflow/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "TrackPlan API (desired position, desired velocity, desired contact, desired pressure)"
+  - "HandState v2 API (continuous state carried across stroke, glyph, word, line)"
+
+invariants:
+  - "The controller follows planned state, not raw keypoints, when plan tracking is enabled."
+  - "Pen lifts are explicit state transitions; joins are modeled as planned contact or planned air motion."
+  - "Out-of-corridor motion triggers correction or validation failure before page rendering."

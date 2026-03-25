@@ -67,3 +67,33 @@ def test_evo_cli_report_records_evo_heatmap(tmp_path: Path):
     report = json.loads((out_dir / "f01r_render_report.json").read_text())
     assert report["page_renderer"] == "evo"
     assert report["heatmap_renderer"] == "evo"
+
+
+def test_guided_cli_report_records_guided_renderers(tmp_path: Path):
+    folio = json.loads(GOLDEN_F01R.read_text())
+    folio["lines"] = folio["lines"][:2]
+    folio["metadata"]["line_count"] = 2
+    input_dir = tmp_path / "input"
+    input_dir.mkdir()
+    (input_dir / "f01r.json").write_text(json.dumps(folio))
+    (input_dir / "manifest.json").write_text(json.dumps({
+        "manuscript": {"shelfmark": "MS Erfurt Aug. 12°47", "folio_count": 1},
+        "folios": [{"id": "f01r", "file": "f01r.json", "line_count": folio["metadata"]["line_count"]}],
+        "gaps": [],
+    }))
+
+    out_dir = tmp_path / "out"
+    runner = CliRunner()
+    result = runner.invoke(main, [
+        "render", "f01r",
+        "--input-dir", str(input_dir),
+        "--output-dir", str(out_dir),
+        "--approach", "guided",
+        "--guided-supersample", "5",
+    ])
+
+    assert result.exit_code == 0, result.output
+    report = json.loads((out_dir / "f01r_render_report.json").read_text())
+    assert report["page_renderer"] == "guided"
+    assert report["heatmap_renderer"] == "guided"
+    assert report["render_params"]["guided_supersample"] == 5

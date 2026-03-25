@@ -41,6 +41,17 @@ except ImportError:
 _DEFAULT_TOML = Path(__file__).parents[2] / "shared" / "hands" / "konrad_erfurt_1457.toml"
 
 
+def _folio_number(folio_id: str) -> int:
+    stripped = folio_id.lstrip("f")
+    digits = []
+    for ch in stripped:
+        if ch.isdigit():
+            digits.append(ch)
+        else:
+            break
+    return int("".join(digits)) if digits else 1
+
+
 def load_base(toml_path: Path | None = None) -> HandParams:
     """Load base hand parameters from TOML and return a typed HandParams."""
     path = Path(toml_path) if toml_path else _DEFAULT_TOML
@@ -75,6 +86,9 @@ def resolve(base: HandParams | dict, folio_id: str,
     # Normalise folio key: "f01r" → "01r", also try full id
     folio_key = folio_id.lstrip("f")
     delta = raw_modifiers.get(folio_key) or raw_modifiers.get(folio_id) or {}
+    if not delta and _folio_number(folio_id) >= 18:
+        side_fallback = "17r" if folio_id.endswith("r") else "17v"
+        delta = raw_modifiers.get(side_fallback, {})
 
     return params.apply_delta(delta)
 

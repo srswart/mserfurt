@@ -29,7 +29,8 @@ The primary output of XL and primary input of ScribeSim. One file per folio.
 
 ### Folio ID convention
 - Format: `f{NN}{r|v}` where NN is zero-padded folio number, r = recto, v = verso
-- Range for MS Erfurt: `f01r` through `f17v` (34 possible pages across 17 folios)
+- Range for MS Erfurt: starts at `f01r`; may extend beyond `f17v` when the
+  smaller private-manuscript layout needs more pages
 - Not all pages may contain text (some may be blank verso pages)
 
 ### Schema
@@ -53,8 +54,7 @@ The primary output of XL and primary input of ScribeSim. One file per folio.
     "gathering_position": {
       "type": "integer",
       "minimum": 1,
-      "maximum": 17,
-      "description": "Position in the 17-folio gathering"
+      "description": "Position in the sequential folio run"
     },
     "lines": {
       "type": "array",
@@ -85,7 +85,7 @@ The primary output of XL and primary input of ScribeSim. One file per folio.
       "type": "string",
       "enum": ["standard", "irregular"],
       "default": "standard",
-      "description": "standard = f01-f13; irregular = f14-f17 (different stock per CLIO-7)"
+      "description": "standard = f01-f13; irregular = f14 onward"
     },
     "metadata": { "$ref": "#/$defs/FolioMetadata" }
   },
@@ -411,7 +411,7 @@ All systems use the same folio ID format everywhere:
 |---|---|---|
 | `f{NN}{r\|v}` | `f04v` | Folio 4, verso |
 | Zero-padded | `f01r` not `f1r` | Always two digits |
-| Range | `f01r`–`f17v` | 17 folios in the gathering |
+| Range | `f01r` onward | Dynamic folio run; may extend beyond `f17v` |
 
 Filenames derived from folio ID:
 - Folio JSON: `{id}.json` → `f04v.json`
@@ -427,4 +427,5 @@ Filenames derived from folio ID:
 
 | Date | Change | Author |
 |---|---|---|
+| 2026-03-23 | Private-manuscript layout update — dynamic folio range, smaller geometry assumptions | Codex |
 | 2026-03-19 | Initial draft — all contracts | shawn + claude |

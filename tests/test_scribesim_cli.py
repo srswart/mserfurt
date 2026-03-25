@@ -68,6 +68,10 @@ class TestHelpCommands:
         result = runner.invoke(main, ["groundtruth", "--help"])
         assert result.exit_code == 0
 
+    def test_build_exemplar_corpus_help_exits_0(self, runner):
+        result = runner.invoke(main, ["build-exemplar-corpus", "--help"])
+        assert result.exit_code == 0
+
 
 # ---------------------------------------------------------------------------
 # TestRenderValidation — input validation (should pass immediately)
@@ -277,6 +281,29 @@ class TestRenderBatch:
         ])
         assert result.exit_code == 0, result.output
         assert "deep" in result.output
+
+    def test_batch_dry_run_accepts_guided_approach(self, runner, input_dir):
+        result = runner.invoke(main, [
+            "render-batch",
+            "--input-dir", str(input_dir),
+            "--approach", "guided",
+            "--guided-supersample", "5",
+            "--dry-run",
+        ])
+        assert result.exit_code == 0, result.output
+        assert "guided_supersample=5" in result.output
+        assert "exact_symbols=True" in result.output
+
+    def test_batch_dry_run_accepts_guided_substitution_debug_flag(self, runner, input_dir):
+        result = runner.invoke(main, [
+            "render-batch",
+            "--input-dir", str(input_dir),
+            "--approach", "guided",
+            "--no-guided-exact-symbols",
+            "--dry-run",
+        ])
+        assert result.exit_code == 0, result.output
+        assert "exact_symbols=False" in result.output
 
     def test_batch_dry_run_accepts_deep_character_model(self, runner, input_dir):
         result = runner.invoke(main, [

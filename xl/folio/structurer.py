@@ -1,37 +1,48 @@
-"""Folio structuring — distribute translated passages across 17 folios.
+"""Folio structuring for the smaller private-manuscript format.
 
-Consumes TranslatedSection + RegisterMap from upstream pipeline stages and
-produces an ordered list of FolioPage objects matching the TD-001-A contract.
+Consumes TranslatedSection + RegisterMap and produces an ordered list of
+FolioPage objects matching the TD-001-A contract.
 
-Key constraints from CLIO-7 / TD-001-A:
-  - f04r-f05v: damaged pages (reduced line budgets)
-  - f07r-f07v: Eckhart confession (section 5) — hard-pinned start at f07r
-  - f14r-f17v: final gathering (section 7) — hard-pinned start at f14r
-  - f14r-f17v: irregular vellum stock
-  - Section 3 (Peter narrative) must not overflow past f05v
+Current physical assumptions:
+  - Standard folios (f01-f13) target a comfortable 22-24 lines/page
+  - The final vellum stock begins at f14 and targets 16-18 lines/page
+  - Water-damaged folios f04r-f05v carry reduced line budgets
+  - Section 5 must not begin before f07r
+  - Section 7 must not begin before f14r
+
+Unlike the earlier fixed 17-folio plan, this allocator may continue beyond
+f17v when the manuscript volume requires more space at the new density.
 """
 
 from __future__ import annotations
 
-from xl.models import FolioPage, Line, TranslatedPassage, TranslatedSection, RegisterMap
+from xl.models import FolioPage, Line, RegisterMap, TranslatedPassage, TranslatedSection
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 
-_CHARS_PER_LINE = 60
+_CHARS_PER_LINE = 52
 
-_DEFAULT_LINE_BUDGET = 32
+_STANDARD_LINE_BUDGET = 23
+_FINAL_LINE_BUDGET = 17
+_DEFAULT_LINE_BUDGET = _STANDARD_LINE_BUDGET
 
-# Per-folio reduced line budgets for damaged pages (derived from CLIO-7 folio_map)
+# Reduced line budgets for damaged pages on the smaller layout.
 _LINE_BUDGETS: dict[str, int] = {
-    "f04r": 22,   # water_from_above_partial
-    "f04v": 18,   # water_from_above + missing_corner_bottom_right
-    "f05r": 25,   # water_diminishing
-    "f05v": 25,   # water_diminishing
+    "f04r": 16,
+    "f04v": 13,
+    "f05r": 18,
+    "f05v": 18,
 }
 
-# Per-folio damage metadata (type + extent from CLIO-7)
+_SECTION_MIN_START: dict[int, str] = {
+    1: "f01r",
+    2: "f01r",
+    5: "f07r",
+    7: "f14r",
+}
+
 _DAMAGE: dict[str, dict] = {
     "f04r": {"type": "water", "extent": "partial", "direction": "from_above",
              "notes": "water from above (partial)"},
@@ -43,49 +54,14 @@ _DAMAGE: dict[str, dict] = {
              "notes": "water diminishing"},
 }
 
-# Per-folio hand notes (derived from CLIO-7 folio_map)
 _HAND_NOTES: dict[str, dict] = {
-    "f06r": {"pressure": "increased_lateral",
-             "notes": "increased lateral pressure on downstrokes"},
-    "f06v": {"pressure": "increased_lateral",
-             "notes": "increased lateral pressure"},
-    "f07r": {"ink_density": "variable_multi_sitting",
-             "notes": "written across multiple sittings — ink density varies"},
+    "f06r": {"pressure": "increased_lateral", "notes": "increased lateral pressure on downstrokes"},
+    "f06v": {"pressure": "increased_lateral", "notes": "increased lateral pressure"},
+    "f07r": {"ink_density": "variable_multi_sitting", "notes": "written across multiple sittings — ink density varies"},
     "f07v": {"ink_density": "variable_multi_sitting", "scale": "smaller_economical",
              "notes": "multi-sitting (upper); smaller economical hand (lower)"},
     "f14r": {"speed": "compensating", "spacing": "wider",
-             "notes": "slower, wider spacing, compensating for difficulty"},
-    **{
-        f"f{n:02}{s}": {"speed": "compensating", "spacing": "wider"}
-        for n in range(14, 18) for s in ("r", "v")
-        if f"f{n:02}{s}" != "f14r"
-    },
-}
-
-# Folios on the irregular vellum stock (f14–f17 per CLIO-7)
-_IRREGULAR_VELLUM: frozenset[str] = frozenset(
-    f"f{n:02}{s}" for n in range(14, 18) for s in ("r", "v")
-)
-
-# All folio page IDs in gathering order (f01r through f17v)
-_ALL_FOLIO_IDS: list[str] = [
-    f"f{n:02}{s}" for n in range(1, 18) for s in ("r", "v")
-]
-
-# Page slot assignments: section_number → ordered list of folio IDs the section may fill.
-# Section 4 is split: f06r-f06v (before Eckhart) and f08r-f13v (after Eckhart).
-# Sections 1+2 share f01r; Sections 5+6 share f07v.
-_SECTION_PAGE_SLOTS: dict[int, list[str]] = {
-    1: ["f01r"],
-    2: ["f01r", "f01v", "f02r", "f02v", "f03r", "f03v"],
-    3: ["f04r", "f04v", "f05r", "f05v"],
-    4: (
-        ["f06r", "f06v"]
-        + [f"f{n:02}{s}" for n in range(8, 14) for s in ("r", "v")]
-    ),
-    5: ["f07r", "f07v"],
-    6: ["f07v"],
-    7: [f"f{n:02}{s}" for n in range(14, 18) for s in ("r", "v")],
+             "notes": "smaller irregular vellum; slower wider compensating hand"},
 }
 
 
@@ -97,70 +73,124 @@ def structure(
     translated_sections: list[TranslatedSection],
     register_map: RegisterMap,
 ) -> list[FolioPage]:
-    """Distribute translated text across folio pages.
+    """Distribute translated text across sequential folios.
 
-    Returns FolioPage objects in gathering order (f01r → f17v).
-    Only pages that receive at least one line are returned.
+    Pages are created lazily as content lands on them, preserving gathering
+    order and allowing the manuscript to extend beyond the old 17-folio cap.
     """
-    # Build the full page pool with static metadata
     pages: dict[str, FolioPage] = {}
-    for fid in _ALL_FOLIO_IDS:
-        folio_num = int(fid[1:3])
-        pages[fid] = FolioPage(
-            id=fid,
-            recto_verso="recto" if fid.endswith("r") else "verso",
-            gathering_position=folio_num,
-            damage=_DAMAGE.get(fid),
-            hand_notes=_HAND_NOTES.get(fid),
-            vellum_stock="irregular" if fid in _IRREGULAR_VELLUM else "standard",
-        )
+    page_fill: dict[str, int] = {}
+    page_order: list[str] = []
 
-    # Track how many lines have been placed on each page
-    page_fill: dict[str, int] = {fid: 0 for fid in _ALL_FOLIO_IDS}
+    def ensure_page(fid: str) -> FolioPage:
+        if fid not in pages:
+            pages[fid] = _make_page(fid)
+            page_fill[fid] = 0
+            page_order.append(fid)
+        return pages[fid]
 
-    # Process sections in ascending order
+    cursor = "f01r"
     section_map = {ts.section.number: ts for ts in translated_sections}
+
     for section_num in sorted(section_map):
         ts = section_map[section_num]
-        slots = _SECTION_PAGE_SLOTS.get(section_num, [])
-        if not slots:
-            continue
 
-        # Build all lines for this section from its passages
         all_lines: list[Line] = []
         for passage_idx, tp in enumerate(ts.passages):
             pr = register_map.entries.get((section_num, passage_idx))
             register = pr.tag if pr else tp.original.register
             all_lines.extend(_passage_to_lines(tp, register))
 
-        # Place lines onto pages in slot order
+        if not all_lines:
+            continue
+
+        min_start = _SECTION_MIN_START.get(section_num)
+        if min_start and _folio_rank(cursor) < _folio_rank(min_start):
+            cursor = min_start
+
         line_cursor = 0
-        for fid in slots:
-            if line_cursor >= len(all_lines):
-                break
-            budget = _LINE_BUDGETS.get(fid, _DEFAULT_LINE_BUDGET)
-            available = budget - page_fill[fid]
+        while line_cursor < len(all_lines):
+            page = ensure_page(cursor)
+            budget = _budget_for(cursor)
+            available = budget - page_fill[cursor]
             if available <= 0:
+                cursor = _next_page_id(cursor)
                 continue
 
             chunk = all_lines[line_cursor: line_cursor + available]
-            start_number = page_fill[fid] + 1
+            start_number = page_fill[cursor] + 1
             for i, line in enumerate(chunk):
                 line.number = start_number + i
-            pages[fid].lines.extend(chunk)
-            page_fill[fid] += len(chunk)
+            page.lines.extend(chunk)
+            page_fill[cursor] += len(chunk)
             line_cursor += len(chunk)
 
-    # Return only pages with content, preserving gathering order
-    return [pages[fid] for fid in _ALL_FOLIO_IDS if pages[fid].lines]
+            if line_cursor < len(all_lines):
+                cursor = _next_page_id(cursor)
+
+    return [pages[fid] for fid in page_order if pages[fid].lines]
 
 
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
 
+def _folio_number(fid: str) -> int:
+    stripped = fid.lstrip("f")
+    digits = []
+    for ch in stripped:
+        if ch.isdigit():
+            digits.append(ch)
+        else:
+            break
+    return int("".join(digits)) if digits else 1
+
+
+def _folio_rank(fid: str) -> int:
+    num = _folio_number(fid)
+    side = 0 if fid.endswith("r") else 1
+    return num * 2 + side
+
+
+def _next_page_id(fid: str) -> str:
+    num = _folio_number(fid)
+    if fid.endswith("r"):
+        return f"f{num:02d}v"
+    return f"f{num + 1:02d}r"
+
+
+def _is_final_stock(fid: str) -> bool:
+    return _folio_number(fid) >= 14
+
+
+def _budget_for(fid: str) -> int:
+    if fid in _LINE_BUDGETS:
+        return _LINE_BUDGETS[fid]
+    return _FINAL_LINE_BUDGET if _is_final_stock(fid) else _STANDARD_LINE_BUDGET
+
+
+def _hand_notes_for(fid: str) -> dict | None:
+    if fid in _HAND_NOTES:
+        return _HAND_NOTES[fid]
+    if _is_final_stock(fid):
+        return {"speed": "compensating", "spacing": "wider"}
+    return None
+
+
+def _make_page(fid: str) -> FolioPage:
+    folio_num = _folio_number(fid)
+    return FolioPage(
+        id=fid,
+        recto_verso="recto" if fid.endswith("r") else "verso",
+        gathering_position=folio_num,
+        damage=_DAMAGE.get(fid),
+        hand_notes=_hand_notes_for(fid),
+        vellum_stock="irregular" if _is_final_stock(fid) else "standard",
+    )
+
+
 def _passage_to_lines(tp: TranslatedPassage, register: str) -> list[Line]:
-    """Word-wrap a translated passage into physical text lines (~60 chars each)."""
+    """Word-wrap a translated passage into comfortable physical text lines."""
     text = tp.translated_text.strip()
     if not text:
         return []
@@ -178,14 +208,11 @@ def _passage_to_lines(tp: TranslatedPassage, register: str) -> list[Line]:
             current_len = wlen
         else:
             if current:
-                current_len += 1  # space
+                current_len += 1
             current.append(word)
             current_len += wlen
 
     if current:
         line_texts.append(" ".join(current))
 
-    return [
-        Line(number=0, text=t, register=register)
-        for t in line_texts
-    ]
+    return [Line(number=0, text=t, register=register) for t in line_texts]

@@ -4,8 +4,9 @@ system:
   description: >
     Takes the English manuscript text of MS Erfurt Aug. 12°47 and produces
     per-folio translations in Frühneuhochdeutsch with embedded Ecclesiastical
-    Latin, structured into the 17-folio gathering described by the CLIO-7
-    apparatus. Emits folio JSON, PAGE XML, and manifest for downstream phases.
+    Latin, structured into a dynamic private-manuscript folio sequence with
+    standard stock through f13 and smaller irregular stock from f14 onward.
+    Emits folio JSON, PAGE XML, and manifest for downstream phases.
   roots:
     - "xl/**"
   default_branch: main

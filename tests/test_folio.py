@@ -12,7 +12,12 @@ from xl.models import (
     RegisterMap, PassageRegister,
     ClauseRegister, RegisterTag,
 )
-from xl.folio.structurer import structure, _LINE_BUDGETS, _DEFAULT_LINE_BUDGET
+from xl.folio.structurer import (
+    _DEFAULT_LINE_BUDGET,
+    _FINAL_LINE_BUDGET,
+    _LINE_BUDGETS,
+    structure,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -126,12 +131,11 @@ class TestPageGatheringOrder:
         pages = structure(sections, rm)
 
         ids = [p.id for p in pages]
-        # Build expected order for any folio IDs that appear
-        all_in_order = [f"f{n:02}{s}" for n in range(1, 18) for s in ("r", "v")]
-        id_rank = {fid: i for i, fid in enumerate(all_in_order)}
+        def _rank(fid: str) -> tuple[int, int]:
+            return (int(fid[1:-1]), 0 if fid.endswith("r") else 1)
 
         for i in range(len(ids) - 1):
-            assert id_rank[ids[i]] < id_rank[ids[i + 1]], (
+            assert _rank(ids[i]) < _rank(ids[i + 1]), (
                 f"Page {ids[i]} appears before {ids[i+1]} but should be later in gathering order"
             )
 
@@ -205,13 +209,17 @@ class TestLineBudgets:
         pages = structure(sections, rm)
 
         for p in pages:
-            budget = _LINE_BUDGETS.get(p.id, _DEFAULT_LINE_BUDGET)
+            folio_num = int(p.id[1:-1])
+            budget = _LINE_BUDGETS.get(
+                p.id,
+                _FINAL_LINE_BUDGET if folio_num >= 14 else _DEFAULT_LINE_BUDGET,
+            )
             assert p.line_count <= budget, (
                 f"{p.id} has {p.line_count} lines, budget is {budget}"
             )
 
     def test_clean_page_fills_to_minimum(self):
-        """A clean page with enough text should reach at least 28 lines."""
+        """A clean standard page with enough text should reach at least 20 lines."""
         sections, rm = _make_full_manuscript()
         pages = structure(sections, rm)
 
@@ -219,8 +227,8 @@ class TestLineBudgets:
         page = next((p for p in pages if p.id == "f02r"), None)
         if page is None:
             pytest.skip("f02r not produced")
-        assert page.line_count >= 28, (
-            f"f02r only has {page.line_count} lines — expected >= 28 for a clean page with enough text"
+        assert page.line_count >= 20, (
+            f"f02r only has {page.line_count} lines — expected >= 20 for a clean page with enough text"
         )
 
 
@@ -229,8 +237,8 @@ class TestLineBudgets:
 # ---------------------------------------------------------------------------
 
 class TestHardPins:
-    def test_section5_starts_at_f07r(self):
-        """Eckhart section (5) must begin on f07r — never spill onto f06r or earlier."""
+    def test_section5_does_not_start_before_f07r(self):
+        """Eckhart section (5) must not begin before f07r."""
         sections, rm = _make_full_manuscript()
         pages = structure(sections, rm)
 
@@ -242,8 +250,9 @@ class TestHardPins:
                 first_eckhart_page = p.id
                 break
 
-        assert first_eckhart_page == "f07r", (
-            f"Eckhart passage first appears on {first_eckhart_page}, expected f07r"
+        assert first_eckhart_page is not None
+        assert (int(first_eckhart_page[1:-1]), first_eckhart_page.endswith("v")) >= (7, False), (
+            f"Eckhart passage first appears on {first_eckhart_page}, expected f07r or later"
         )
 
     def test_section5_does_not_appear_before_f07r(self):
@@ -251,7 +260,7 @@ class TestHardPins:
         sections, rm = _make_full_manuscript()
         pages = structure(sections, rm)
 
-        pre_f07r = [f"f{n:02}{s}" for n in range(1, 7) for s in ("r", "v")] + ["f07v"]
+        pre_f07r = [f"f{n:02}{s}" for n in range(1, 7) for s in ("r", "v")]
         eckhart_phrases = {"In seinem Grunde", "Wirt. Wird."}
 
         for p in pages:
@@ -263,8 +272,8 @@ class TestHardPins:
                         f"Section 5 phrase '{phrase}' found on {p.id} (before f07r pin)"
                     )
 
-    def test_section7_starts_at_f14r(self):
-        """Final gathering (section 7) must begin on f14r."""
+    def test_section7_does_not_start_before_f14r(self):
+        """Final gathering content must not begin before the smaller-stock folios."""
         sections, rm = _make_full_manuscript()
         pages = structure(sections, rm)
 
@@ -277,8 +286,9 @@ class TestHardPins:
                 first_s7_page = p.id
                 break
 
-        assert first_s7_page == "f14r", (
-            f"Section 7 first appears on {first_s7_page}, expected f14r"
+        assert first_s7_page is not None
+        assert (int(first_s7_page[1:-1]), first_s7_page.endswith("v")) >= (14, False), (
+            f"Section 7 first appears on {first_s7_page}, expected f14r or later"
         )
 
     def test_section7_does_not_appear_before_f14r(self):
@@ -298,23 +308,20 @@ class TestHardPins:
                         f"Section 7 content found on {p.id} before f14r pin"
                     )
 
-    def test_section3_does_not_overflow_f05v(self):
-        """Peter narrative (section 3) must not spill past f05v."""
+    def test_manuscript_may_extend_beyond_f17v(self):
+        """The smaller private-manuscript layout may require more than 17 folios."""
         sections, rm = _make_full_manuscript()
+        huge_final = _section(
+            7,
+            "Huge Final Gathering",
+            "f14r onward",
+            [_translated("late", _long_text("final", 90) + f" ({i})") for i in range(40)],
+        )
+        sections[-1] = huge_final
         pages = structure(sections, rm)
-
-        # Section 3 text has suffix "3-N)"
-        s3_markers = {f"3-{i})" for i in range(16)}
-        post_f05v = {f"f{n:02}{s}" for n in range(6, 18) for s in ("r", "v")}
-
-        for p in pages:
-            if p.id not in post_f05v:
-                continue
-            for line in p.lines:
-                for marker in s3_markers:
-                    assert marker not in line.text, (
-                        f"Section 3 content found on {p.id} (after f05v boundary)"
-                    )
+        assert any(int(p.id[1:-1]) > 17 for p in pages), (
+            "Expected the denser private-manuscript layout to extend beyond f17"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -327,13 +334,12 @@ class TestRegisterPassthrough:
         sections, rm = _make_full_manuscript()
         pages = structure(sections, rm)
 
-        # Section 5 has MHG passages — find lines on f07r
-        f07r = next((p for p in pages if p.id == "f07r"), None)
-        if f07r is None:
-            pytest.skip("f07r not produced")
-
-        mhg_lines = [l for l in f07r.lines if l.register == "mhg"]
-        assert len(mhg_lines) > 0, "Expected MHG-register lines on f07r (Eckhart section)"
+        mhg_pages = [p for p in pages if any(l.register == "mhg" for l in p.lines)]
+        assert mhg_pages, "Expected at least one page carrying MHG-register lines"
+        first_page = mhg_pages[0].id
+        assert (int(first_page[1:-1]), first_page.endswith("v")) >= (7, False), (
+            f"MHG lines first appeared on {first_page}, expected f07r or later"
+        )
 
     def test_de_passage_lines_have_de_register(self):
         """Lines from German passages must carry the 'de' register tag."""
@@ -394,6 +400,14 @@ class TestPageMetadata:
         if page is None:
             pytest.skip("f14r not produced")
         assert page.vellum_stock == "irregular"
+
+    def test_overflow_folio_is_irregular_vellum(self):
+        sections, rm = _make_full_manuscript()
+        pages = structure(sections, rm)
+        overflow = next((p for p in pages if int(p.id[1:-1]) > 17), None)
+        if overflow is None:
+            pytest.skip("no overflow folio produced")
+        assert overflow.vellum_stock == "irregular"
 
     def test_f01r_is_standard_vellum(self):
         sections, rm = _make_full_manuscript()

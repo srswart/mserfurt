@@ -1,0 +1,24 @@
+component:
+  id: pathguide
+  name: "Dense Path Guide Model"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/pathguide/**"
+    - "shared/hands/pathguides/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "DensePathGuide schema (centerline, corridor, contact schedule, nominal speed/pressure)"
+  - "Import/export interfaces from extracted guides and trace datasets"
+
+invariants:
+  - "Every guide must define entry/exit tangents and a finite x_advance."
+  - "Every contact segment must stay inside its corridor envelope."
+  - "Guide samples must be dense enough that adjacent on-surface samples are at most 0.25mm apart."

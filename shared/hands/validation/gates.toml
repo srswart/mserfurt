@@ -1,0 +1,240 @@
+# TD-014 hand validation promotion gates
+
+[stages.primitive]
+label = "Primitive checkpoint"
+
+[stages.primitive.metrics.corridor_containment]
+op = ">="
+threshold = 0.98
+required = true
+
+[stages.primitive.metrics.self_intersections]
+op = "=="
+threshold = 0
+required = true
+
+[stages.primitive.metrics.contact_accuracy]
+op = ">="
+threshold = 0.99
+required = true
+
+[stages.primitive.metrics.width_profile_error]
+op = "<="
+threshold = 0.15
+required = true
+
+[stages.pathguide_dataset]
+label = "Starter alphabet dataset"
+
+[stages.pathguide_dataset.metrics.required_symbol_coverage]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.pathguide_dataset.metrics.structural_validity_ratio]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.pathguide_dataset.metrics.self_intersection_free_ratio]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.pathguide_dataset.metrics.join_schedule_ratio]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.pathguide_dataset.metrics.accepted_source_ratio]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.pathguide_dataset.metrics.heldout_symbol_coverage]
+op = ">="
+threshold = 0.20
+required = true
+
+[stages.glyph]
+label = "Glyph checkpoint"
+
+[stages.glyph.metrics.template_score]
+op = ">="
+threshold = 0.90
+required = true
+
+[stages.glyph.metrics.dtw_centerline_distance]
+op = "<="
+threshold = 0.20
+required = true
+
+[stages.glyph.metrics.uncontrolled_exit_count]
+op = "=="
+threshold = 0
+required = true
+
+[stages.glyph.metrics.thick_thin_ratio_error]
+op = "<="
+threshold = 0.15
+required = true
+
+[stages.join]
+label = "Join checkpoint"
+
+[stages.join.metrics.continuity_score]
+op = ">="
+threshold = 0.90
+required = true
+
+[stages.join.metrics.forced_lift_count]
+op = "=="
+threshold = 0
+required = true
+
+[stages.join.metrics.uncontrolled_exit_count]
+op = "=="
+threshold = 0
+required = true
+
+[stages.join.metrics.dtw_centerline_distance]
+op = "<="
+threshold = 0.20
+required = true
+
+[stages.word]
+label = "Word checkpoint"
+
+[stages.word.metrics.continuity_score]
+op = ">="
+threshold = 0.90
+required = true
+
+[stages.word.metrics.forced_lift_count]
+op = "=="
+threshold = 0
+required = true
+
+[stages.word.metrics.ocr_proxy_score]
+op = ">="
+threshold = 0.88
+required = true
+
+[stages.word.metrics.baseline_drift_ratio]
+op = "<="
+threshold = 0.15
+required = true
+
+[stages.stateful_word]
+label = "Stateful word checkpoint"
+
+[stages.stateful_word.metrics.continuity_score]
+op = ">="
+threshold = 0.90
+required = true
+
+[stages.stateful_word.metrics.forced_lift_count]
+op = "=="
+threshold = 0
+required = true
+
+[stages.stateful_word.metrics.ocr_proxy_score]
+op = ">="
+threshold = 0.88
+required = true
+
+[stages.stateful_word.metrics.baseline_drift_ratio]
+op = "<="
+threshold = 0.15
+required = true
+
+[stages.stateful_word.metrics.ink_state_monotonicity]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.stateful_word.metrics.ink_state_determinism]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.line]
+label = "Line checkpoint"
+
+[stages.line.metrics.ocr_proxy_score]
+op = ">="
+threshold = 0.85
+required = true
+
+[stages.line.metrics.spacing_cv]
+op = "<="
+threshold = 0.20
+required = true
+
+[stages.line.metrics.x_height_stability_cv]
+op = "<="
+threshold = 0.12
+required = true
+
+[stages.line.metrics.baseline_drift_ratio]
+op = "<="
+threshold = 0.20
+required = true
+
+[stages.folio]
+label = "Folio checkpoint"
+
+[stages.folio.metrics.deterministic_pass_rate]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.folio.metrics.downstream_contract_pass_rate]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.folio.metrics.weather_acceptance]
+op = "=="
+threshold = 1.0
+required = true
+
+[stages.folio.metrics.readability_regression_delta]
+op = "<="
+threshold = 0.05
+required = true
+
+[stages.folio.metrics.exact_character_coverage]
+op = ">="
+threshold = 1.0
+required = true
+
+[stages.folio.metrics.alias_substitution_count]
+op = "=="
+threshold = 0
+required = true
+
+[stages.folio.metrics.normalized_substitution_count]
+op = "=="
+threshold = 0
+required = false
+
+[stages.folio.metrics.mean_join_continuity_score]
+op = ">="
+threshold = 0.90
+required = true
+
+[stages.folio.metrics.mean_spacing_cv]
+op = "<="
+threshold = 0.20
+required = true
+
+[stages.folio.metrics.mean_baseline_drift_ratio]
+op = "<="
+threshold = 0.20
+required = true
+
+[stages.folio.metrics.organicness_win_rate]
+op = ">="
+threshold = 0.25
+required = true

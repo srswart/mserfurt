@@ -28,41 +28,40 @@ class TestPageGeometry:
     def test_standard_folio_dimensions(self):
         base = load_base(HAND_TOML)
         g = make_geometry("f01r", base)
-        assert g.page_w_mm == pytest.approx(280.0)
-        assert g.page_h_mm == pytest.approx(400.0)
+        assert g.page_w_mm == pytest.approx(185.0)
+        assert g.page_h_mm == pytest.approx(250.0)
         assert g.folio_format == "standard"
 
     def test_final_folio_dimensions(self):
         base = load_base(HAND_TOML)
         g = make_geometry("f14r", base)
-        assert g.page_w_mm == pytest.approx(240.0)
-        assert g.page_h_mm == pytest.approx(340.0)
+        assert g.page_w_mm == pytest.approx(155.0)
+        assert g.page_h_mm == pytest.approx(212.0)
         assert g.folio_format == "final"
 
-    def test_standard_folio_ruling_count_30_to_32(self):
+    def test_standard_folio_ruling_count_22_to_24(self):
         base = load_base(HAND_TOML)
         g = make_geometry("f01r", base)
-        assert 30 <= g.ruling_count <= 32, (
-            f"Expected 30–32 ruling lines, got {g.ruling_count}"
+        assert 22 <= g.ruling_count <= 24, (
+            f"Expected 22–24 ruling lines, got {g.ruling_count}"
         )
 
-    def test_final_folio_ruling_count_26_to_28(self):
+    def test_final_folio_ruling_count_16_to_18(self):
         base = load_base(HAND_TOML)
-        # f14r has slightly reduced x_height (42px) and writing_speed 0.82
-        g14 = make_geometry("f14r", base)
-        assert 26 <= g14.ruling_count <= 28, (
-            f"Expected 26–28 ruling lines on f14r, got {g14.ruling_count}"
+        g14 = make_geometry("f14r", resolve(base, "f14r"))
+        assert 16 <= g14.ruling_count <= 18, (
+            f"Expected 16–18 ruling lines on f14r, got {g14.ruling_count}"
         )
 
     def test_text_w_mm(self):
         base = load_base(HAND_TOML)
         g = make_geometry("f01r", base)
-        assert g.text_w_mm == pytest.approx(280.0 - 25.0 - 50.0)  # 205 mm
+        assert g.text_w_mm == pytest.approx(130.0)
 
     def test_text_h_mm(self):
         base = load_base(HAND_TOML)
         g = make_geometry("f01r", base)
-        assert g.text_h_mm == pytest.approx(400.0 - 25.0 - 70.0)  # 305 mm
+        assert g.text_h_mm == pytest.approx(180.0)
 
     def test_ruling_y_first_line_at_margin_top(self):
         base = load_base(HAND_TOML)

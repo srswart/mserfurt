@@ -96,7 +96,11 @@ def _parse_frontmatter(yaml_text: str) -> ManuscriptMeta:
     ms = data["manuscript"]
     folio_map = _parse_folio_map(data.get("folio_map", {}))
     gathering_raw = ms.get("gathering", "17 folios")
-    gathering = int(str(gathering_raw).split()[0]) if isinstance(gathering_raw, str) else int(gathering_raw)
+    if isinstance(gathering_raw, str):
+        m = re.search(r"\d+", gathering_raw)
+        gathering = int(m.group(0)) if m else 17
+    else:
+        gathering = int(gathering_raw)
     return ManuscriptMeta(
         shelfmark=ms["shelfmark"],
         author=ms["author"],

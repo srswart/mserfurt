@@ -1,0 +1,13 @@
+# TD-014 automatic-first data admission policy
+
+[policies.promotion]
+allowed_confidence_tiers = ["accepted"]
+require_provenance = true
+require_resolution_metadata = true
+min_heldout_symbol_coverage = 0.20
+
+[policies.exploratory]
+allowed_confidence_tiers = ["accepted", "soft_accepted"]
+require_provenance = true
+require_resolution_metadata = true
+min_heldout_symbol_coverage = 0.10

@@ -1,0 +1,24 @@
+component:
+  id: handvalidate
+  name: "Hand Model Validation and Measurement"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/handvalidate/**"
+    - "tests/test_handvalidate*.py"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "Metrics API for corridor containment, path self-intersection, DTW, width profile error, OCR/recognition score"
+  - "Gate evaluator for stop/go promotion across curriculum levels"
+
+invariants:
+  - "Every metric used as a gate must be deterministic for fixed inputs."
+  - "A promoted checkpoint must satisfy all required gates, not only an aggregate score."
+  - "Folio rollout remains opt-in until word-, line-, and folio-level gates pass."
