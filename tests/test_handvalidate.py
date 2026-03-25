@@ -15,12 +15,17 @@ from scribesim.handvalidate import (
     curvature_histogram_distance,
     dataset_admission_metrics,
     dtw_centerline_distance,
+    exemplar_cluster_consistency,
+    exemplar_cluster_separation,
+    exemplar_competitor_margin,
+    exemplar_template_score,
     exit_tangent_error_deg,
     ink_state_determinism,
     ink_state_monotonicity,
     load_dataset_policy,
     load_gate_config,
     normalized_hausdorff_distance,
+    occupancy_balance_score,
     self_intersection_count,
     stage_report_markdown,
     template_score,
@@ -115,6 +120,8 @@ def test_load_configs_from_committed_assets():
     assert "join" in gates
     assert "stateful_word" in gates
     assert "folio" in gates
+    assert "exemplar_promotion_glyph" in gates
+    assert "exemplar_promotion_join" in gates
     assert any(rule.metric == "organicness_win_rate" for rule in gates["folio"].rules)
     assert "promotion" in policies
     assert policies["promotion"].allowed_confidence_tiers == ("accepted",)
@@ -137,6 +144,22 @@ def test_ink_state_metrics_reward_monotonic_and_identical_sequences():
 
     assert ink_state_monotonicity(levels) == 1.0
     assert ink_state_determinism(levels, levels) == 1.0
+
+
+def test_exemplar_promotion_metrics_reject_black_blocks_and_reward_true_symbol():
+    from scribesim.refextract.corpus import build_symbol_template_bank
+
+    template_bank = build_symbol_template_bank(required_symbols=("u", "n"))
+    u_image = template_bank["u"][0]
+    n_image = template_bank["n"][0]
+    centroids = {"u": u_image, "n": n_image}
+    black_block = np.zeros((64, 64), dtype=np.uint8)
+
+    assert exemplar_template_score(u_image, "u", template_bank) >= 0.9
+    assert exemplar_competitor_margin(u_image, "u", template_bank) > 0.0
+    assert exemplar_cluster_consistency(u_image, centroids["u"]) >= 0.9
+    assert exemplar_cluster_separation(u_image, "u", centroids) > 0.0
+    assert occupancy_balance_score(black_block) == 0.0
 
 
 def test_write_stage_report_emits_json_and_markdown(tmp_path):

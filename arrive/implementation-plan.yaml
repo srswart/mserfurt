@@ -1132,11 +1132,11 @@ passes:
     - id: ADV-SS-EVOFIT-001
       advance_id: ADV-SS-EVOFIT-001
       title: Evofit Nominal Forms — Exemplar-Driven Glyph and Short-Join Recovery
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EXEMPLAR-003
-      notes: Exploratory evofit may start from the automatic corpus, but promoted guide freeze remains gated on the promoted exemplar tier from Pass 13f.
+      notes: Exploratory evofit is implemented and produces frozen candidate bundles from the automatic corpus; promoted guide freeze remains gated on the promoted exemplar tier from Pass 13f.
   - id: td014-guide-freeze
     title: Freeze exemplar-fit guides and validate nominal legibility
     order: 4
@@ -1184,11 +1184,11 @@ passes:
     - id: ADV-SS-EXEMPLAR-004
       advance_id: ADV-SS-EXEMPLAR-004
       title: Corpus Semantics — Separate Automatic Admission from Reviewable Exemplar Truth
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EXEMPLAR-003
-      notes: Renames and separates raw matcher buckets so review folders stop overstating quality.
+      notes: Review-facing corpus tiers now use auto_admitted/quarantined/rejected, with legacy accepted-field compatibility retained for downstream migration.
   - id: td014-promoted-exemplars
     title: Add a clean promoted exemplar tier
     order: 2
@@ -1196,11 +1196,11 @@ passes:
     - id: ADV-SS-EXEMPLAR-005
       advance_id: ADV-SS-EXEMPLAR-005
       title: Promoted Exemplars — Create a Reviewable Tier Above Automatic Admission
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EXEMPLAR-004
-      notes: Creates the reviewable exemplar set that later nominal-form stages must consume.
+      notes: Corpus bundles now emit a separate promoted manifest and promoted glyph/join panels, and evofit consumes promoted_exemplars by default instead of raw matcher buckets.
   - id: td014-promotion-gates
     title: Enforce stronger promotion gates for reviewable exemplars
     order: 3
@@ -1208,11 +1208,11 @@ passes:
     - id: ADV-SS-HANDVALIDATE-005
       advance_id: ADV-SS-HANDVALIDATE-005
       title: Exemplar Promotion Gates — Legibility and Cluster Consistency for Reviewable Glyphs
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EXEMPLAR-005
-      notes: Adds stronger gating so score-threshold matches do not become reviewable exemplars by default.
+      notes: Promoted exemplars now require explicit glyph/join gate passes with per-symbol pass/fail reporting before they enter downstream nominal-form recovery.
   - id: td014-repair-quarantine
     title: Quarantine repair-only coverage from promoted exemplar flows
     order: 4

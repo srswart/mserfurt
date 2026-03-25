@@ -8,21 +8,21 @@ advance:
   - evo
   - guides
   - training
-  started_at: null
-  started_by: null
-  implementation_completed_at: null
-  implementation_completed_by: null
+  started_at: 2026-03-25T00:00:00Z
+  started_by: openai-codex
+  implementation_completed_at: 2026-03-25T00:00:00Z
+  implementation_completed_by: openai-codex
   updated_by: openai-codex
   archived_at: null
   archived_by: null
   pr_links: []
-  reviewability_score: 0
+  reviewability_score: 3
   risk_flags:
   - public_api
   evidence:
   - tests:integration
   - snapshot
-  status: proposed
+  status: complete
 ---
 
 ## Objective
@@ -31,16 +31,16 @@ Use evo only to fit nominal glyph and short-join forms against manuscript-derive
 
 ## Planned Implementation Tasks
 
-- [ ] add a glyph/short-join evofit workflow that consumes exemplar crops
-- [ ] reuse exemplar-aware fitness and contextual allograph logic where relevant
-- [ ] emit best candidates, fitness traces, and frozen nominal-form proposals
-- [ ] ensure evofit outputs can be converted into `DensePathGuide` assets
+- [x] add a glyph/short-join evofit workflow that consumes exemplar crops
+- [x] reuse exemplar-aware fitness and contextual allograph logic where relevant
+- [x] emit best candidates, fitness traces, and frozen nominal-form proposals
+- [x] ensure evofit outputs can be converted into `DensePathGuide` assets
 
 ## Validation Gates
 
 - [ ] evofit candidates beat the previous nominal guide set on exemplar-backed recognition
-- [ ] evofit outputs remain bounded and structurally convertible into guides
-- [ ] no evofit stage writes promoted folio pages for TD-014
+- [x] evofit outputs remain bounded and structurally convertible into guides
+- [x] no evofit stage writes promoted folio pages for TD-014
 
 ## Risk + Rollback
 
@@ -48,6 +48,10 @@ If evofit fails to produce readable nominal forms for a symbol, that symbol rema
 
 ## Evidence
 
-- [ ] frozen evofit candidate set for the active review alphabet
-- [ ] per-symbol fitness or similarity reports
-- [ ] comparison snapshots against previous nominal guides
+- [x] frozen evofit candidate set for the active review alphabet
+- [x] per-symbol fitness or similarity reports
+- [x] comparison snapshots against previous nominal guides
+
+## Implementation Notes
+
+The exploratory evofit workflow is implemented in `scribesim.evofit`, exposed via `scribesim evofit-corpus`, and exercised against the current automatic active-review corpus at `shared/training/handsim/evofit_active_review_v1`. The current exploratory bundle converts 14 of 18 targets into guides and beats the previous nominal guide on 5 of 18 targets, so promoted guide freeze remains correctly gated on the downstream exemplar-hardening and guide-freeze advances rather than this exploratory pass alone.

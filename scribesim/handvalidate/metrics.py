@@ -10,6 +10,7 @@ import numpy as np
 
 from scribesim.metrics import composite_score, run_metrics
 from scribesim.pathguide import DensePathGuide, GuideSample, GuideSource
+from scribesim.evo.fitness import _ncc_score
 
 from .model import TrajectorySample
 
@@ -324,6 +325,82 @@ def template_score(rendered: np.ndarray, target: np.ndarray) -> float:
     if score >= 1.0 - 1e-6:
         return 1.0
     return score
+
+
+def _best_bank_score(image: np.ndarray, bank_value: np.ndarray | list[np.ndarray]) -> float:
+    if isinstance(bank_value, np.ndarray):
+        return float(_ncc_score(image, bank_value))
+    if not bank_value:
+        return 0.0
+    return max(float(_ncc_score(image, template)) for template in bank_value)
+
+
+def occupancy_balance_score(image: np.ndarray) -> float:
+    if image.size == 0:
+        return 0.0
+    if image.ndim == 3:
+        gray = image.mean(axis=2)
+    else:
+        gray = image.astype(float)
+    foreground_ratio = float(np.mean(gray < 245.0))
+    if 0.02 <= foreground_ratio <= 0.32:
+        return 1.0
+    if foreground_ratio < 0.02:
+        return max(0.0, foreground_ratio / 0.02)
+    return max(0.0, 1.0 - ((foreground_ratio - 0.32) / 0.40))
+
+
+def exemplar_template_score(
+    image: np.ndarray,
+    symbol: str,
+    template_bank: dict[str, np.ndarray | list[np.ndarray]],
+) -> float:
+    if symbol not in template_bank:
+        return 0.0
+    return _best_bank_score(image, template_bank[symbol])
+
+
+def exemplar_competitor_margin(
+    image: np.ndarray,
+    symbol: str,
+    template_bank: dict[str, np.ndarray | list[np.ndarray]],
+) -> float:
+    own_score = exemplar_template_score(image, symbol, template_bank)
+    competitor_score = max(
+        (
+            _best_bank_score(image, bank_value)
+            for other_symbol, bank_value in template_bank.items()
+            if other_symbol != symbol
+        ),
+        default=0.0,
+    )
+    return own_score - competitor_score
+
+
+def exemplar_cluster_consistency(image: np.ndarray, centroid: np.ndarray | None) -> float:
+    if centroid is None:
+        return 0.0
+    return float(_ncc_score(image, centroid))
+
+
+def exemplar_cluster_separation(
+    image: np.ndarray,
+    symbol: str,
+    centroids: dict[str, np.ndarray],
+) -> float:
+    own_centroid = centroids.get(symbol)
+    if own_centroid is None:
+        return 0.0
+    own_score = float(_ncc_score(image, own_centroid))
+    competitor_score = max(
+        (
+            float(_ncc_score(image, centroid))
+            for other_symbol, centroid in centroids.items()
+            if other_symbol != symbol
+        ),
+        default=0.0,
+    )
+    return own_score - competitor_score
 
 
 def continuity_score(observed: Iterable[TrajectorySample], guide: DensePathGuide) -> float:

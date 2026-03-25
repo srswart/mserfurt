@@ -238,3 +238,59 @@ required = true
 op = ">="
 threshold = 0.25
 required = true
+
+[stages.exemplar_promotion_glyph]
+label = "Promoted glyph exemplar"
+
+[stages.exemplar_promotion_glyph.metrics.self_ncc_score]
+op = ">="
+threshold = 0.34
+required = true
+
+[stages.exemplar_promotion_glyph.metrics.competitor_margin]
+op = ">="
+threshold = 0.04
+required = true
+
+[stages.exemplar_promotion_glyph.metrics.cluster_consistency]
+op = ">="
+threshold = 0.45
+required = true
+
+[stages.exemplar_promotion_glyph.metrics.cluster_separation]
+op = ">="
+threshold = 0.03
+required = true
+
+[stages.exemplar_promotion_glyph.metrics.occupancy_balance_score]
+op = ">="
+threshold = 0.70
+required = true
+
+[stages.exemplar_promotion_join]
+label = "Promoted join exemplar"
+
+[stages.exemplar_promotion_join.metrics.self_ncc_score]
+op = ">="
+threshold = 0.28
+required = true
+
+[stages.exemplar_promotion_join.metrics.competitor_margin]
+op = ">="
+threshold = 0.03
+required = true
+
+[stages.exemplar_promotion_join.metrics.cluster_consistency]
+op = ">="
+threshold = 0.38
+required = true
+
+[stages.exemplar_promotion_join.metrics.cluster_separation]
+op = ">="
+threshold = 0.02
+required = true
+
+[stages.exemplar_promotion_join.metrics.occupancy_balance_score]
+op = ">="
+threshold = 0.65
+required = true

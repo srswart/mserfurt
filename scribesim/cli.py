@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import sys
 from pathlib import Path
 from time import time
@@ -1182,6 +1183,80 @@ def evolve_word_cmd(text: str, output_path: str, target_path: str | None,
 
 
 # ---------------------------------------------------------------------------
+# evofit-corpus
+# ---------------------------------------------------------------------------
+
+@main.command("evofit-corpus")
+@click.option("--corpus-manifest", "corpus_manifest_path", default="shared/training/handsim/active_review_exemplars_v1/promoted_manifest.toml",
+              show_default=True, type=click.Path(exists=True),
+              help="Frozen promoted-exemplar manifest from build-exemplar-corpus")
+@click.option("-o", "--output", "output_dir", default="shared/training/handsim/evofit_active_review_v1",
+              show_default=True, type=click.Path(),
+              help="Output root for exploratory evofit candidates and guide proposals")
+@click.option("--kind", "kind", type=click.Choice(["all", "glyph", "join"]), default="all", show_default=True,
+              help="Which target types to fit from the corpus")
+@click.option("--symbols", "symbols_csv", default=None,
+              help="Optional comma-separated symbol subset, e.g. e,h,n,o or u->n,n->d")
+@click.option("--generations", "generations", default=12, show_default=True, type=int)
+@click.option("--pop-size", "pop_size", default=14, show_default=True, type=int)
+@click.option("--eval-dpi", "eval_dpi", default=700, show_default=True, type=int)
+@click.option("--render-dpi", "render_dpi", default=300, show_default=True, type=int)
+@click.option("--x-height", "x_height_mm", default=3.8, show_default=True, type=float)
+@click.option("--nib-width", "nib_width_mm", default=1.0, show_default=True, type=float)
+@click.option("--max-candidates", "max_candidates", default=3, show_default=True, type=int,
+              help="Maximum source crops to fit per symbol")
+@click.option("--guides", "guides_path", default=None, type=click.Path(exists=True),
+              help="Optional guide catalog override for evo seeding")
+def evofit_corpus_cmd(
+    corpus_manifest_path: str,
+    output_dir: str,
+    kind: str,
+    symbols_csv: str | None,
+    generations: int,
+    pop_size: int,
+    eval_dpi: int,
+    render_dpi: int,
+    x_height_mm: float,
+    nib_width_mm: float,
+    max_candidates: int,
+    guides_path: str | None,
+) -> None:
+    """Fit exploratory nominal forms from the exemplar corpus without rendering folios."""
+    from scribesim.evofit import EvofitConfig, run_evofit_from_corpus
+
+    symbols = tuple(part.strip() for part in symbols_csv.split(",") if part.strip()) if symbols_csv else None
+    config = EvofitConfig(
+        pop_size=pop_size,
+        generations=generations,
+        eval_dpi=float(eval_dpi),
+        render_dpi=float(render_dpi),
+        nib_width_mm=nib_width_mm,
+        x_height_mm=x_height_mm,
+        max_candidates_per_symbol=max_candidates,
+    )
+
+    try:
+        result = run_evofit_from_corpus(
+            corpus_manifest_path,
+            output_root=output_dir,
+            config=config,
+            kind=kind,
+            symbols=symbols,
+            guides_path=guides_path,
+        )
+    except Exception as exc:
+        click.echo(f"error: evofit corpus run failed — {exc}", err=True)
+        sys.exit(1)
+
+    summary = result["summary"]
+    click.echo(f"Fit sources: {summary['fit_source_count']}")
+    click.echo(f"Converted guides: {summary['converted_guide_count']}")
+    click.echo(f"Beats prior nominal rate: {summary['beats_prior_rate']:.4f}")
+    click.echo(f"Summary → {result['summary_md_path']}")
+    click.echo(f"Guide proposals → {result['proposal_catalog_path']}")
+
+
+# ---------------------------------------------------------------------------
 # extract-word
 # ---------------------------------------------------------------------------
 
@@ -1433,12 +1508,55 @@ def extract_exemplars(letters_dir: str, output_dir: str, target_size: int) -> No
               help="Frozen exemplar-harvest selection manifest from harvest-exemplars")
 @click.option("-o", "--output", "output_dir", required=True, type=click.Path(),
               help="Output root for the frozen accepted/soft/rejected exemplar corpus")
-def build_exemplar_corpus_cli(selection_manifest_path: str, output_dir: str) -> None:
+@click.option("--clean/--no-clean", "clean", default=False, show_default=True,
+              help="Remove the existing output directory before rebuilding the corpus.")
+def build_exemplar_corpus_cli(selection_manifest_path: str, output_dir: str, clean: bool) -> None:
     """Build the TD-014 exemplar corpus from a frozen harvested folio set."""
     from scribesim.refextract import build_exemplar_corpus
 
+    output_root = Path(output_dir)
+    if clean and output_root.exists():
+        shutil.rmtree(output_root)
+    output_root.mkdir(parents=True, exist_ok=True)
+
+    progress_path = output_root / "build_exemplar_corpus_progress.json"
+    last_progress = {"percent": -1, "stage": "", "status": ""}
+
+    def _progress(update: dict) -> None:
+        progress_path.write_text(json.dumps(update, indent=2, sort_keys=True) + "\n")
+        percent = int(float(update.get("percent_complete", 0.0)))
+        stage = str(update.get("stage", ""))
+        status = str(update.get("status", "running"))
+        if (
+            percent != last_progress["percent"]
+            or stage != last_progress["stage"]
+            or status != last_progress["status"]
+        ):
+            details = []
+            if update.get("pass_label"):
+                details.append(str(update["pass_label"]))
+            if update.get("folios_completed") is not None and update.get("folios_total"):
+                details.append(f"folios {update['folios_completed']}/{update['folios_total']}")
+            if update.get("canvas_label"):
+                details.append(str(update["canvas_label"]))
+            suffix = f" ({', '.join(details)})" if details else ""
+            click.echo(f"progress: {percent:3d}% {stage} [{status}]{suffix}")
+            last_progress["percent"] = percent
+            last_progress["stage"] = stage
+            last_progress["status"] = status
+
+    click.echo(f"Selection manifest: {selection_manifest_path}")
+    click.echo(f"Output: {output_root}")
+    click.echo(f"Progress → {progress_path}")
+    if clean:
+        click.echo("Clean: existing output directory removed before rebuild")
+
     try:
-        result = build_exemplar_corpus(selection_manifest_path, output_root=output_dir)
+        result = build_exemplar_corpus(
+            selection_manifest_path,
+            output_root=output_dir,
+            progress_callback=_progress,
+        )
     except Exception as exc:
         click.echo(f"error: exemplar corpus build failed — {exc}", err=True)
         sys.exit(1)

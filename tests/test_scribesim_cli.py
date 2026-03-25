@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import shutil
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 from click.testing import CliRunner
@@ -71,6 +72,127 @@ class TestHelpCommands:
     def test_build_exemplar_corpus_help_exits_0(self, runner):
         result = runner.invoke(main, ["build-exemplar-corpus", "--help"])
         assert result.exit_code == 0
+
+    def test_build_exemplar_corpus_help_mentions_clean(self, runner):
+        result = runner.invoke(main, ["build-exemplar-corpus", "--help"])
+        assert "--clean / --no-clean" in result.output
+
+
+class TestExemplarCorpusCli:
+    def test_build_exemplar_corpus_cli_shows_progress_and_summary(self, runner, tmp_path):
+        selection_manifest = tmp_path / "selection_manifest.toml"
+        selection_manifest.write_text(
+            """
+schema_version = 1
+manifest_path = "shared/training/handsim/exemplar_harvest_v1/manifest.toml"
+
+[[folios]]
+canvas_label = "001r"
+source_manuscript_label = "Fixture"
+local_path = "folio.png"
+"""
+        )
+        output_dir = tmp_path / "out"
+        summary_md = output_dir / "summary.md"
+        manifest_path = output_dir / "manifest.toml"
+
+        def _fake_build(selection_manifest_path, output_root, progress_callback=None):
+            if progress_callback is not None:
+                progress_callback({"stage": "setup", "status": "started", "percent_complete": 0.0})
+                progress_callback(
+                    {
+                        "stage": "initial_scan",
+                        "status": "running",
+                        "percent_complete": 50.0,
+                        "pass_label": "initial_scan",
+                        "folios_completed": 1,
+                        "folios_total": 2,
+                        "canvas_label": "001r",
+                    }
+                )
+                progress_callback({"stage": "write_reports", "status": "completed", "percent_complete": 100.0})
+            Path(output_root).mkdir(parents=True, exist_ok=True)
+            summary_md.write_text("# summary\n")
+            manifest_path.write_text('dataset_id = "active-review-exemplars-v1"\n')
+            return {
+                "summary": {
+                    "dataset_id": "active-review-exemplars-v1",
+                    "accepted_glyph_coverage": 0.5,
+                    "accepted_join_coverage": 0.25,
+                    "heldout_symbol_coverage": 0.2,
+                },
+                "summary_md_path": summary_md,
+                "manifest_path": manifest_path,
+            }
+
+        with patch("scribesim.refextract.build_exemplar_corpus", side_effect=_fake_build):
+            result = runner.invoke(
+                main,
+                [
+                    "build-exemplar-corpus",
+                    "--selection-manifest",
+                    str(selection_manifest),
+                    "--output",
+                    str(output_dir),
+                ],
+            )
+
+        assert result.exit_code == 0, result.output
+        assert "Progress →" in result.output
+        assert "progress:" in result.output
+        assert "Dataset: active-review-exemplars-v1" in result.output
+
+    def test_build_exemplar_corpus_cli_clean_removes_stale_output(self, runner, tmp_path):
+        selection_manifest = tmp_path / "selection_manifest.toml"
+        selection_manifest.write_text(
+            """
+schema_version = 1
+manifest_path = "shared/training/handsim/exemplar_harvest_v1/manifest.toml"
+
+[[folios]]
+canvas_label = "001r"
+source_manuscript_label = "Fixture"
+local_path = "folio.png"
+"""
+        )
+        output_dir = tmp_path / "out"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        stale = output_dir / "stale.txt"
+        stale.write_text("old")
+
+        def _fake_build(selection_manifest_path, output_root, progress_callback=None):
+            assert not stale.exists()
+            Path(output_root).mkdir(parents=True, exist_ok=True)
+            summary_md = Path(output_root) / "summary.md"
+            manifest_path = Path(output_root) / "manifest.toml"
+            summary_md.write_text("# summary\n")
+            manifest_path.write_text('dataset_id = "active-review-exemplars-v1"\n')
+            return {
+                "summary": {
+                    "dataset_id": "active-review-exemplars-v1",
+                    "accepted_glyph_coverage": 0.5,
+                    "accepted_join_coverage": 0.25,
+                    "heldout_symbol_coverage": 0.2,
+                },
+                "summary_md_path": summary_md,
+                "manifest_path": manifest_path,
+            }
+
+        with patch("scribesim.refextract.build_exemplar_corpus", side_effect=_fake_build):
+            result = runner.invoke(
+                main,
+                [
+                    "build-exemplar-corpus",
+                    "--selection-manifest",
+                    str(selection_manifest),
+                    "--output",
+                    str(output_dir),
+                    "--clean",
+                ],
+            )
+
+        assert result.exit_code == 0, result.output
+        assert not stale.exists()
 
 
 # ---------------------------------------------------------------------------

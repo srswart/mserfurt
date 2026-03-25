@@ -10,7 +10,10 @@ import numpy as np
 from PIL import Image
 
 from scribesim.refextract.corpus import (
+    AUTO_ADMITTED_TIER,
+    CandidateRecord,
     _refine_template_bank,
+    _select_promoted_exemplars_with_validation,
     build_exemplar_corpus,
     build_join_template_bank,
     build_priority_join_inventory,
@@ -167,21 +170,152 @@ local_path = "{folio2.as_posix()}"
     summary = result["summary"]
     manifest = tomllib.loads(result["manifest_path"].read_text())
 
-    assert summary["accepted_glyph_coverage"] == 1.0
-    assert summary["accepted_join_coverage"] == 1.0
+    assert summary["auto_admitted_glyph_coverage"] == 1.0
+    assert summary["auto_admitted_join_coverage"] == 1.0
+    assert summary["promoted_exemplar_glyph_coverage"] == 1.0
+    assert summary["promoted_exemplar_join_coverage"] == 1.0
     assert summary["heldout_symbol_coverage"] == 1.0
     assert summary["gate"]["passed"] is True
     assert result["summary_json_path"].exists()
     assert result["summary_md_path"].exists()
     assert result["dataset_summary_path"].exists()
+    assert result["promoted_manifest_path"].exists()
+    assert result["promotion_gate_report_json_path"].exists()
+    assert result["promotion_gate_report_md_path"].exists()
     assert (output_root / "glyph_panel.png").exists()
     assert (output_root / "join_panel.png").exists()
+    assert (output_root / "promoted_glyph_panel.png").exists()
+    assert (output_root / "promoted_join_panel.png").exists()
+    assert (output_root / "glyphs" / "auto_admitted").exists()
+    assert (output_root / "glyphs" / "promoted_exemplars").exists()
     assert manifest["dataset_id"] == "active-review-exemplars-v1"
     assert len(manifest["entries"]) >= 9
+    assert manifest["entries"][0]["auto_admitted_count"] >= 0
+    assert "auto_admitted_paths" in manifest["entries"][0]
+    assert "quarantined_paths" in manifest["entries"][0]
+    assert "accepted_paths" in manifest["entries"][0]
+    promoted_manifest = tomllib.loads(result["promoted_manifest_path"].read_text())
+    assert promoted_manifest["manifest_kind"] == "promoted_exemplars"
+    assert promoted_manifest["entries"][0]["promoted_exemplar_count"] >= 0
+    assert "promoted_exemplar_paths" in promoted_manifest["entries"][0]
     assert "u->n" not in summary["missing_joins"]
     assert "n->d" not in summary["missing_joins"]
     assert "d->e" not in summary["missing_joins"]
     assert "e->r" not in summary["missing_joins"]
+
+
+def test_build_exemplar_corpus_emits_progress_updates(tmp_path):
+    selection_manifest_path = tmp_path / "selection_manifest.toml"
+    output_root = tmp_path / "corpus"
+    templates = build_symbol_templates(required_symbols=("u", "n", "d", "e", "r"))
+
+    folio1 = tmp_path / "folio1.png"
+    folio2 = tmp_path / "folio2.png"
+    Image.fromarray(np.full((128, 128), 255, dtype=np.uint8)).save(folio1)
+    Image.fromarray(np.full((128, 128), 255, dtype=np.uint8)).save(folio2)
+    under = _make_word_image("under", templates)
+    line_stub = np.full((90, 600), 255, dtype=np.uint8)
+
+    selection_manifest_path.write_text(
+        f"""
+schema_version = 1
+manifest_path = "shared/training/handsim/exemplar_harvest_v1/manifest.toml"
+
+[[folios]]
+canvas_label = "001r"
+source_manuscript_label = "Fixture A"
+local_path = "{folio1.as_posix()}"
+
+[[folios]]
+canvas_label = "002r"
+source_manuscript_label = "Fixture B"
+local_path = "{folio2.as_posix()}"
+"""
+    )
+
+    updates: list[dict[str, object]] = []
+    with patch("scribesim.refextract.corpus.segment_lines", return_value=[line_stub]), patch(
+        "scribesim.refextract.corpus.segment_words", return_value=[under, under]
+    ):
+        build_exemplar_corpus(
+            selection_manifest_path,
+            output_root=output_root,
+            required_symbols=("u", "n", "d", "e", "r"),
+            priority_joins=("u->n", "n->d", "d->e", "e->r"),
+            progress_callback=updates.append,
+        )
+
+    assert updates
+    assert updates[0]["stage"] == "setup"
+    assert any(update["stage"] == "initial_scan" for update in updates)
+    assert updates[-1]["stage"] == "write_reports"
+    assert updates[-1]["percent_complete"] == 100.0
+
+
+def test_promoted_exemplar_gate_rejects_competing_symbol_candidate(tmp_path):
+    template_bank = build_symbol_template_bank(required_symbols=("u", "n"))
+    output_root = tmp_path / "corpus"
+    output_root.mkdir(parents=True, exist_ok=True)
+    u_dir = output_root / "glyphs" / "auto_admitted" / "u"
+    n_dir = output_root / "glyphs" / "auto_admitted" / "n"
+    u_dir.mkdir(parents=True, exist_ok=True)
+    n_dir.mkdir(parents=True, exist_ok=True)
+
+    mislabeled_path = u_dir / "u_bad.png"
+    true_n_path = n_dir / "n_true.png"
+    Image.fromarray(template_bank["n"][0]).save(mislabeled_path)
+    Image.fromarray(template_bank["n"][0]).save(true_n_path)
+
+    grouped = {
+        "u": {
+            AUTO_ADMITTED_TIER: [
+                CandidateRecord(
+                    kind="glyphs",
+                    symbol="u",
+                    confidence_tier=AUTO_ADMITTED_TIER,
+                    split="validation",
+                    score=0.9,
+                    margin=0.1,
+                    source_path="source-u.png",
+                    source_manuscript_label="Fixture",
+                    canvas_label="001r",
+                    line_index=0,
+                    word_index=0,
+                    candidate_index=0,
+                    path=mislabeled_path.as_posix(),
+                )
+            ]
+        },
+        "n": {
+            AUTO_ADMITTED_TIER: [
+                CandidateRecord(
+                    kind="glyphs",
+                    symbol="n",
+                    confidence_tier=AUTO_ADMITTED_TIER,
+                    split="validation",
+                    score=0.9,
+                    margin=0.1,
+                    source_path="source-n.png",
+                    source_manuscript_label="Fixture",
+                    canvas_label="001r",
+                    line_index=0,
+                    word_index=0,
+                    candidate_index=0,
+                    path=true_n_path.as_posix(),
+                )
+            ]
+        },
+    }
+
+    promoted, decisions = _select_promoted_exemplars_with_validation(
+        grouped,
+        template_bank=template_bank,
+        gate_stage="exemplar_promotion_glyph",
+    )
+
+    assert "u" not in promoted
+    assert decisions["u"][0]["passed"] is False
+    assert any("competitor_margin" in reason or "cluster_separation" in reason for reason in decisions["u"][0]["failures"])
 
 
 def test_build_exemplar_corpus_mines_boundary_joins_from_transcribed_words(tmp_path):
