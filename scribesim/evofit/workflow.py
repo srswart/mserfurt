@@ -38,6 +38,7 @@ _TARGET_SIZE = (64, 64)
 _DEFAULT_ALLOWED_TIERS = ("accepted", "soft_accepted")
 _PROMOTED_EXEMPLAR_TIER = "promoted_exemplars"
 _REVIEWED_EXEMPLAR_TIER = "reviewed_exemplars"
+_REPAIR_ONLY_TIER = "repair_only"
 
 
 @dataclass(frozen=True)
@@ -149,6 +150,8 @@ def _candidate_list(
     tuple[str, ...],
     tuple[int, ...],
 ]:
+    if _REPAIR_ONLY_TIER in {str(tier) for tier in allowed_tiers}:
+        raise ValueError("repair_only tier is non-reviewable and cannot be used as an evofit input")
     if entry.get("reviewed_exemplar_paths"):
         reviewed_paths = [str(raw_path) for raw_path in (entry.get("reviewed_exemplar_paths") or [])]
         reviewed_raw_paths = [str(value) for value in (entry.get("reviewed_raw_exemplar_paths") or [])]

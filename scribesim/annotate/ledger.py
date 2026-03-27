@@ -90,6 +90,8 @@ def _parse_reviewed_entries(reviewed_manifest: dict[str, Any] | None) -> dict[tu
         return {}
     grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
     for entry in reviewed_manifest.get("entries", []):
+        if not bool(entry.get("catalog_included", True)):
+            continue
         kind = str(entry.get("kind", ""))
         symbol = str(entry.get("symbol", ""))
         if not kind or not symbol:

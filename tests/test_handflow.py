@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import numpy as np
+from pathlib import Path
+import pytest
 
 from scribesim.hand.profile import HandProfile
 from scribesim.handflow import (
     GuidedHandFlowController,
     PROOF_WORDS,
+    build_line_session,
     build_primitive_proof_guides,
     build_proof_vocabulary_session,
     build_track_plan,
@@ -18,6 +21,7 @@ from scribesim.handflow import (
     run_stateful_word_proof,
 )
 from scribesim.handvalidate import corridor_containment_ratio
+from scribesim.pathguide import guide_from_waypoints, write_pathguides_toml
 
 
 def _profile() -> HandProfile:
@@ -30,6 +34,50 @@ def _profile() -> HandProfile:
     profile.stroke_weight = 1.0
     profile.ink_density = 0.85
     return profile
+
+
+def _write_reviewed_catalog(tmp_path: Path) -> Path:
+    catalog_path = tmp_path / "reviewed_promoted_v1.toml"
+    guides = {
+        "u": guide_from_waypoints(
+            "u",
+            [(0.0, 0.6, True), (0.5, 0.2, True), (1.0, 0.6, True)],
+            x_height_mm=3.5,
+            x_advance_xh=1.1,
+            kind="glyph",
+            source_id="reviewed-cleaned:u",
+            source_path="cleaned_u.png",
+            confidence_tier="accepted",
+            split="validation",
+            source_resolution_ppmm=16.0,
+        ),
+        "n": guide_from_waypoints(
+            "n",
+            [(0.0, 0.6, True), (0.4, 0.2, True), (0.9, 0.6, True)],
+            x_height_mm=3.5,
+            x_advance_xh=1.0,
+            kind="glyph",
+            source_id="reviewed-raw:n",
+            source_path="raw_n.png",
+            confidence_tier="accepted",
+            split="train",
+            source_resolution_ppmm=16.0,
+        ),
+        "u->n": guide_from_waypoints(
+            "u->n",
+            [(0.0, 0.55, True), (0.4, 0.58, True), (0.8, 0.5, True)],
+            x_height_mm=3.5,
+            x_advance_xh=0.8,
+            kind="join",
+            source_id="reviewed-cleaned:u->n",
+            source_path="cleaned_u_to_n.png",
+            confidence_tier="accepted",
+            split="test",
+            source_resolution_ppmm=16.0,
+        ),
+    }
+    write_pathguides_toml(guides, catalog_path)
+    return catalog_path
 
 
 def test_build_track_plan_has_monotonic_time_and_length():
@@ -161,3 +209,80 @@ def test_build_proof_vocabulary_session_includes_word_boundaries():
     assert "und" in word_guides
     assert "der" in word_guides
     assert any(item.kind == "transition" for item in session)
+
+
+def test_load_word_guide_catalog_uses_override_reviewed_promoted_catalog(tmp_path):
+    catalog_path = _write_reviewed_catalog(tmp_path)
+
+    catalog = load_word_guide_catalog(
+        x_height_mm=_profile().letterform.x_height_mm,
+        exact_symbols=True,
+        guide_catalog_path=catalog_path,
+    )
+
+    assert set(catalog) == {"u", "n", "u->n"}
+    assert any(source.source_id.startswith("reviewed-cleaned:") for source in catalog["u"].sources)
+    assert any(source.source_id.startswith("reviewed-raw:") for source in catalog["n"].sources)
+
+
+def test_base_pressure_changes_guided_pressure_and_width():
+    guide = build_primitive_proof_guides()["downstroke"]
+    low_profile = _profile()
+    low_profile.folio.base_pressure = 0.42
+    high_profile = _profile()
+    high_profile.folio.base_pressure = 0.92
+
+    low = GuidedHandFlowController(low_profile, activate_base_pressure=True).simulate_guide(guide, dt=0.002)
+    high = GuidedHandFlowController(high_profile, activate_base_pressure=True).simulate_guide(guide, dt=0.002)
+
+    low_pressures = [sample.pressure for sample in low.trajectory if sample.contact]
+    high_pressures = [sample.pressure for sample in high.trajectory if sample.contact]
+    low_widths = [sample.width_mm for sample in low.trajectory if sample.contact and sample.width_mm is not None]
+    high_widths = [sample.width_mm for sample in high.trajectory if sample.contact and sample.width_mm is not None]
+
+    assert high_pressures
+    assert high_widths
+    assert sum(high_pressures) / len(high_pressures) > sum(low_pressures) / len(low_pressures)
+    assert sum(high_widths) / len(high_widths) > sum(low_widths) / len(low_widths)
+
+
+def test_baseline_jitter_changes_line_session_deterministically():
+    catalog = load_word_guide_catalog(x_height_mm=_profile().letterform.x_height_mm)
+    plain_profile = _profile()
+    plain_profile.glyph.baseline_jitter_mm = 0.0
+    jitter_profile = _profile()
+    jitter_profile.glyph.baseline_jitter_mm = 0.12
+
+    plain_items, _, _ = build_line_session("und der", guide_catalog=catalog, profile=plain_profile)
+    jitter_items_a, _, _ = build_line_session(
+        "und der",
+        guide_catalog=catalog,
+        profile=jitter_profile,
+        activate_baseline_jitter=True,
+    )
+    jitter_items_b, _, _ = build_line_session(
+        "und der",
+        guide_catalog=catalog,
+        profile=jitter_profile,
+        activate_baseline_jitter=True,
+    )
+
+    plain_glyph_y = [
+        item.guide.samples[0].y_mm
+        for item in plain_items
+        if item.kind == "glyph"
+    ]
+    jitter_glyph_y_a = [
+        item.guide.samples[0].y_mm
+        for item in jitter_items_a
+        if item.kind == "glyph"
+    ]
+    jitter_glyph_y_b = [
+        item.guide.samples[0].y_mm
+        for item in jitter_items_b
+        if item.kind == "glyph"
+    ]
+
+    assert jitter_glyph_y_a == pytest.approx(jitter_glyph_y_b)
+    assert any(abs(a - b) > 1e-6 for a, b in zip(plain_glyph_y, jitter_glyph_y_a, strict=False))
+    assert all(abs(a - b) <= jitter_profile.glyph.baseline_jitter_mm + 1e-6 for a, b in zip(plain_glyph_y, jitter_glyph_y_a, strict=False))

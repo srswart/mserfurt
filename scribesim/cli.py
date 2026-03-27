@@ -179,6 +179,7 @@ def _render_folio(
     character_model_randomness: float = 0.10,
     guided_supersample: int = 4,
     guided_exact_symbols: bool = True,
+    guided_guide_catalog: str | None = None,
 ) -> tuple[Path, Path, Path]:
     from PIL import Image as PILImage
     from scribesim.layout import place
@@ -220,6 +221,7 @@ def _render_folio(
             page_width_mm=geom.page_w_mm,
             page_height_mm=geom.page_h_mm,
             exact_symbols=guided_exact_symbols,
+            guide_catalog_path=guided_guide_catalog,
         )
         page_path = output_dir / f"{folio_id}.png"
         PILImage.fromarray(page_arr, "RGB").save(str(page_path), dpi=(300, 300))
@@ -251,6 +253,7 @@ def _render_folio(
                 "guided_supersample": guided_supersample,
                 "guided_checkpoint": "line-v1",
                 "guided_exact_symbols": guided_exact_symbols,
+                "guided_guide_catalog": guided_guide_catalog or "",
                 "guided_render_trajectory_mode": "actual",
             },
         )
@@ -397,6 +400,8 @@ def _render_folio(
               help="Internal supersample factor for experimental guided folio rendering.")
 @click.option("--guided-exact-symbols/--no-guided-exact-symbols", "guided_exact_symbols", default=True, show_default=True,
               help="Require exact glyph resolution for guided folio rendering; disable only for exploratory debugging.")
+@click.option("--guided-guide-catalog", "guided_guide_catalog", default=None, type=click.Path(exists=True),
+              help="Optional reviewed promoted guide catalog override for guided folio rendering.")
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params and report plan without rendering")
 @click.option("--set", "overrides", multiple=True,
@@ -404,7 +409,8 @@ def _render_folio(
 def render(folio_id: str, input_dir: str, output_dir: str,
            hand_toml: str | None, approach: str, evo_quality: str,
            character_model: str, char_rounds: int, char_candidates: int,
-           guided_supersample: int, guided_exact_symbols: bool, dry_run: bool, overrides: tuple) -> None:
+           guided_supersample: int, guided_exact_symbols: bool, guided_guide_catalog: str | None,
+           dry_run: bool, overrides: tuple) -> None:
     """Render a single folio to PNG + pressure heatmap.
 
     FOLIO_ID is the folio identifier, e.g. f01r or 1r.
@@ -436,6 +442,8 @@ def render(folio_id: str, input_dir: str, output_dir: str,
         click.echo(f"  chars : {character_model}")
     elif approach == "guided":
         click.echo(f"  guided: supersample={guided_supersample} exact_symbols={guided_exact_symbols}")
+        if guided_guide_catalog:
+            click.echo(f"  guides : {guided_guide_catalog}")
     click.echo(f"  lines : {folio_dict['metadata']['line_count']}")
     click.echo(f"  hand  : pressure={params.pressure_base} "
                f"ink={params.ink_density} "
@@ -467,6 +475,7 @@ def render(folio_id: str, input_dir: str, output_dir: str,
         character_model_randomness=character_model_randomness,
         guided_supersample=guided_supersample,
         guided_exact_symbols=guided_exact_symbols,
+        guided_guide_catalog=guided_guide_catalog,
     )
 
     click.echo(f"  page    → {png_path}")
@@ -496,11 +505,13 @@ def render(folio_id: str, input_dir: str, output_dir: str,
 @click.option("--char-candidates", "char_candidates", default=6, type=int, show_default=True)
 @click.option("--guided-supersample", "guided_supersample", default=4, type=int, show_default=True)
 @click.option("--guided-exact-symbols/--no-guided-exact-symbols", "guided_exact_symbols", default=True, show_default=True)
+@click.option("--guided-guide-catalog", "guided_guide_catalog", default=None, type=click.Path(exists=True))
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params for each folio without rendering")
 def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: str,
                  character_model: str, char_rounds: int, char_candidates: int,
-                 guided_supersample: int, guided_exact_symbols: bool, dry_run: bool) -> None:
+                 guided_supersample: int, guided_exact_symbols: bool,
+                 guided_guide_catalog: str | None, dry_run: bool) -> None:
     """Render all folios listed in manifest.json."""
     manifest_path = Path(input_dir) / "manifest.json"
     if not manifest_path.exists():
@@ -514,6 +525,8 @@ def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: st
         quality_tag = f" evo={evo_quality} chars={character_model}"
     elif approach == "guided":
         quality_tag = f" guided_supersample={guided_supersample} exact_symbols={guided_exact_symbols}"
+        if guided_guide_catalog:
+            quality_tag += f" guided_catalog={guided_guide_catalog}"
     click.echo(f"[scribesim render-batch] {len(folios)} folio(s) in manifest  mode={approach}{quality_tag}")
 
     base_profile = load_profile()
@@ -538,6 +551,8 @@ def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: st
             click.echo(f"  evo={evo_quality}  chars={character_model}", nl=False)
         elif approach == "guided":
             click.echo(f"  guided_supersample={guided_supersample}  exact_symbols={guided_exact_symbols}", nl=False)
+            if guided_guide_catalog:
+                click.echo(f"  guided_catalog={guided_guide_catalog}", nl=False)
         if dry_run:
             click.echo("  [dry-run]")
             ok += 1
@@ -559,6 +574,7 @@ def render_batch(input_dir: str, output_dir: str, approach: str, evo_quality: st
                 character_model_randomness=character_model_randomness,
                 guided_supersample=guided_supersample,
                 guided_exact_symbols=guided_exact_symbols,
+                guided_guide_catalog=guided_guide_catalog,
             )
             click.echo("  ✓")
             ok += 1
@@ -1340,6 +1356,113 @@ def evofit_reviewed_exemplars_cmd(
     click.echo(f"Provenance report → {result['provenance_report_md_path']}")
 
 
+@main.command("freeze-reviewed-evofit-guides")
+@click.option(
+    "--evofit-manifest",
+    "reviewed_evofit_manifest_path",
+    default="shared/training/handsim/reviewed_annotations/reviewed_evofit_v1/manifest.toml",
+    show_default=True,
+    type=click.Path(exists=True),
+    help="Reviewed evofit bundle manifest from evofit-reviewed-exemplars",
+)
+@click.option(
+    "-o",
+    "--output",
+    "output_dir",
+    default="shared/training/handsim/reviewed_annotations/reviewed_promoted_guides_v1",
+    show_default=True,
+    type=click.Path(),
+    help="Output root for the reviewed promoted guide bundle",
+)
+@click.option(
+    "--guide-catalog",
+    "guide_catalog_path",
+    default="shared/hands/pathguides/reviewed_promoted_v1.toml",
+    show_default=True,
+    type=click.Path(),
+    help="Dense pathguide catalog written for handflow consumption",
+)
+def freeze_reviewed_evofit_guides_cli(
+    reviewed_evofit_manifest_path: str,
+    output_dir: str,
+    guide_catalog_path: str,
+) -> None:
+    """Freeze reviewed evofit proposals into promoted dense path guides."""
+    from scribesim.pathguide import freeze_reviewed_evofit_guides
+
+    try:
+        result = freeze_reviewed_evofit_guides(
+            reviewed_evofit_manifest_path,
+            output_root=output_dir,
+            guide_catalog_path=guide_catalog_path,
+        )
+    except Exception as exc:
+        click.echo(f"error: reviewed evofit guide freeze failed — {exc}", err=True)
+        sys.exit(1)
+
+    summary = result["summary"]
+    click.echo("Stage: reviewed-evofit-guide-freeze")
+    click.echo(f"Guide count: {summary['guide_count']}")
+    click.echo(f"Exact symbol coverage: {summary['exact_symbol_coverage']:.4f}")
+    click.echo(f"Validation gate: {'PASS' if summary['validation_gate_passed'] else 'FAIL'}")
+    click.echo(f"Guide catalog → {result['guide_catalog_path']}")
+    click.echo(f"Summary → {result['coverage_provenance_report_md_path']}")
+    click.echo(f"Validation → {result['validation_report_md_path']}")
+
+
+@main.command("validate-reviewed-nominal-guides")
+@click.option(
+    "--evofit-manifest",
+    "reviewed_evofit_manifest_path",
+    default="shared/training/handsim/reviewed_annotations/reviewed_evofit_v1/manifest.toml",
+    show_default=True,
+    type=click.Path(exists=True),
+    help="Reviewed evofit bundle manifest from evofit-reviewed-exemplars",
+)
+@click.option(
+    "--guide-catalog",
+    "promoted_guide_catalog_path",
+    default="shared/hands/pathguides/reviewed_promoted_v1.toml",
+    show_default=True,
+    type=click.Path(exists=True),
+    help="Promoted reviewed guide catalog from freeze-reviewed-evofit-guides",
+)
+@click.option(
+    "-o",
+    "--output",
+    "output_dir",
+    default="shared/training/handsim/reviewed_annotations/reviewed_nominal_validation_v1",
+    show_default=True,
+    type=click.Path(),
+    help="Output root for the reviewed nominal validation dashboard",
+)
+def validate_reviewed_nominal_guides_cli(
+    reviewed_evofit_manifest_path: str,
+    promoted_guide_catalog_path: str,
+    output_dir: str,
+) -> None:
+    """Validate raw nominal, cleaned nominal, and guided reviewed outputs separately."""
+    from scribesim.handvalidate import run_reviewed_nominal_validation
+
+    try:
+        result = run_reviewed_nominal_validation(
+            reviewed_evofit_manifest_path,
+            promoted_guide_catalog_path=promoted_guide_catalog_path,
+            output_root=output_dir,
+        )
+    except Exception as exc:
+        click.echo(f"error: reviewed nominal validation failed — {exc}", err=True)
+        sys.exit(1)
+
+    summary = result["summary_metrics"]
+    click.echo("Stage: reviewed-nominal-validation")
+    click.echo(f"Raw nominal mean score: {summary['raw_nominal_mean_score']:.4f}")
+    click.echo(f"Cleaned nominal mean score: {summary['cleaned_nominal_mean_score']:.4f}")
+    click.echo(f"Guided mean score: {summary['guided_mean_score']:.4f}")
+    click.echo(f"Dashboard → {result['dashboard_md_path']}")
+    click.echo(f"Validation → {result['stage_report_md_path']}")
+
+
 # ---------------------------------------------------------------------------
 # extract-word
 # ---------------------------------------------------------------------------
@@ -1647,8 +1770,10 @@ def build_exemplar_corpus_cli(selection_manifest_path: str, output_dir: str, cle
 
     summary = result["summary"]
     click.echo(f"Dataset: {summary['dataset_id']}")
-    click.echo(f"Accepted glyph coverage: {summary['accepted_glyph_coverage']:.4f}")
-    click.echo(f"Accepted join coverage: {summary['accepted_join_coverage']:.4f}")
+    click.echo(f"Auto-admitted glyph coverage: {summary['auto_admitted_glyph_coverage']:.4f}")
+    click.echo(f"Auto-admitted join coverage: {summary['auto_admitted_join_coverage']:.4f}")
+    click.echo(f"Repair-only glyph debt: {summary['repair_only_glyph_coverage']:.4f}")
+    click.echo(f"Repair-only join debt: {summary['repair_only_join_coverage']:.4f}")
     click.echo(f"Held-out coverage: {summary['heldout_symbol_coverage']:.4f}")
     click.echo(f"Summary → {result['summary_md_path']}")
     click.echo(f"Manifest → {result['manifest_path']}")

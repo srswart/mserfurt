@@ -133,8 +133,10 @@ local_path = "folio.png"
             return {
                 "summary": {
                     "dataset_id": "active-review-exemplars-v1",
-                    "accepted_glyph_coverage": 0.5,
-                    "accepted_join_coverage": 0.25,
+                    "auto_admitted_glyph_coverage": 0.5,
+                    "auto_admitted_join_coverage": 0.25,
+                    "repair_only_glyph_coverage": 0.1,
+                    "repair_only_join_coverage": 0.2,
                     "heldout_symbol_coverage": 0.2,
                 },
                 "summary_md_path": summary_md,
@@ -186,8 +188,10 @@ local_path = "folio.png"
             return {
                 "summary": {
                     "dataset_id": "active-review-exemplars-v1",
-                    "accepted_glyph_coverage": 0.5,
-                    "accepted_join_coverage": 0.25,
+                    "auto_admitted_glyph_coverage": 0.5,
+                    "auto_admitted_join_coverage": 0.25,
+                    "repair_only_glyph_coverage": 0.1,
+                    "repair_only_join_coverage": 0.2,
                     "heldout_symbol_coverage": 0.2,
                 },
                 "summary_md_path": summary_md,
@@ -327,6 +331,93 @@ local_path = "folio.png"
         assert "Stage: reviewed-exemplar-freeze" in result.output
         assert "Reviewed glyph count: 1" in result.output
         assert "Downstream smoke test: PASS" in result.output
+
+    def test_freeze_reviewed_evofit_guides_cli_reports_outputs(self, runner, tmp_path):
+        evofit_manifest = tmp_path / "manifest.toml"
+        evofit_manifest.write_text('schema_version = 1\n')
+        output_dir = tmp_path / "promoted"
+        report_md = output_dir / "coverage_provenance_report.md"
+        validation_md = output_dir / "validation_report.md"
+        guide_catalog_path = tmp_path / "reviewed_promoted_v1.toml"
+
+        def _fake_freeze(reviewed_evofit_manifest_path, output_root, guide_catalog_path):
+            Path(output_root).mkdir(parents=True, exist_ok=True)
+            report_md.write_text("# report\n")
+            validation_md.write_text("# validation\n")
+            Path(guide_catalog_path).write_text('schema_version = 1\n')
+            return {
+                "summary": {
+                    "guide_count": 2,
+                    "exact_symbol_coverage": 1.0,
+                    "validation_gate_passed": True,
+                },
+                "guide_catalog_path": Path(guide_catalog_path),
+                "coverage_provenance_report_md_path": report_md,
+                "validation_report_md_path": validation_md,
+            }
+
+        with patch("scribesim.pathguide.freeze_reviewed_evofit_guides", side_effect=_fake_freeze):
+            result = runner.invoke(
+                main,
+                [
+                    "freeze-reviewed-evofit-guides",
+                    "--evofit-manifest",
+                    str(evofit_manifest),
+                    "--output",
+                    str(output_dir),
+                    "--guide-catalog",
+                    str(guide_catalog_path),
+                ],
+            )
+
+        assert result.exit_code == 0, result.output
+        assert "Stage: reviewed-evofit-guide-freeze" in result.output
+        assert "Guide count: 2" in result.output
+        assert "Exact symbol coverage: 1.0000" in result.output
+        assert "Validation gate: PASS" in result.output
+
+    def test_validate_reviewed_nominal_guides_cli_reports_outputs(self, runner, tmp_path):
+        evofit_manifest = tmp_path / "manifest.toml"
+        evofit_manifest.write_text('schema_version = 1\n')
+        guide_catalog = tmp_path / "reviewed_promoted_v1.toml"
+        guide_catalog.write_text('schema_version = 1\n')
+        output_dir = tmp_path / "nominal"
+        dashboard_md = output_dir / "dashboard.md"
+        report_md = output_dir / "reviewed_nominal.md"
+
+        def _fake_validate(reviewed_evofit_manifest_path, promoted_guide_catalog_path, output_root):
+            Path(output_root).mkdir(parents=True, exist_ok=True)
+            dashboard_md.write_text("# dashboard\n")
+            report_md.write_text("# report\n")
+            return {
+                "summary_metrics": {
+                    "raw_nominal_mean_score": 0.41,
+                    "cleaned_nominal_mean_score": 0.57,
+                    "guided_mean_score": 0.52,
+                },
+                "dashboard_md_path": dashboard_md,
+                "stage_report_md_path": report_md,
+            }
+
+        with patch("scribesim.handvalidate.run_reviewed_nominal_validation", side_effect=_fake_validate):
+            result = runner.invoke(
+                main,
+                [
+                    "validate-reviewed-nominal-guides",
+                    "--evofit-manifest",
+                    str(evofit_manifest),
+                    "--guide-catalog",
+                    str(guide_catalog),
+                    "--output",
+                    str(output_dir),
+                ],
+            )
+
+        assert result.exit_code == 0, result.output
+        assert "Stage: reviewed-nominal-validation" in result.output
+        assert "Raw nominal mean score: 0.4100" in result.output
+        assert "Cleaned nominal mean score: 0.5700" in result.output
+        assert "Guided mean score: 0.5200" in result.output
 
 
 # ---------------------------------------------------------------------------

@@ -57,11 +57,16 @@ from scribesim.handvalidate.model import (
     StageReport,
     TrajectorySample,
 )
+from scribesim.handvalidate.nominal_review import (
+    DEFAULT_REVIEWED_NOMINAL_OUTPUT_ROOT,
+    run_reviewed_nominal_validation,
+)
 from scribesim.handvalidate.report import stage_report_markdown, stage_report_to_dict, write_stage_report
 
 __all__ = [
     "DEFAULT_DATASET_POLICY_PATH",
     "DEFAULT_GATES_PATH",
+    "DEFAULT_REVIEWED_NOMINAL_OUTPUT_ROOT",
     "DatasetPolicy",
     "DatasetPolicyDecision",
     "FolioBenchCase",
@@ -103,6 +108,7 @@ __all__ = [
     "occupancy_balance_score",
     "pressure_dynamic_range_score",
     "readability_regression_delta",
+    "run_reviewed_nominal_validation",
     "self_intersection_count",
     "spacing_cv",
     "stage_report_markdown",

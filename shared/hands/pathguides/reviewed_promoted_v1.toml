@@ -1,0 +1,1504 @@
+# Dense path guides — scribesim pathguide
+schema_version = 1
+
+[[guides]]
+symbol = "a"
+kind = "glyph"
+x_advance_mm = 2.090000
+x_height_mm = 3.800000
+entry_tangent = [-0.640591, -0.767882]
+exit_tangent = [-0.213845, 0.976868]
+[[guides.sources]]
+source_id = "reviewed-raw:a"
+source_path = "/Users/shawn/Projects/041-mserfurt/shared/training/handsim/reviewed_annotations/reviewed_exemplars_v1/glyphs/reviewed_exemplars/raw/a/a_001_0029.png"
+extraction_run = "ADV-SS-PATHGUIDE-004:raw:BSB Cgm 628 — Tauler. Mystische Texte, u.a. Meister Eckhart"
+confidence_tier = "accepted"
+split = "validation"
+source_resolution_ppmm = 16.000000
+[[guides.sources]]
+source_id = "reviewed-cleaned:a"
+source_path = "/Users/shawn/Projects/041-mserfurt/shared/training/handsim/reviewed_annotations/reviewed_exemplars_v1/glyphs/reviewed_exemplars/cleaned/a/a_001_0029.png"
+extraction_run = "ADV-SS-PATHGUIDE-004:cleaned:BSB Cgm 628 — Tauler. Mystische Texte, u.a. Meister Eckhart"
+confidence_tier = "accepted"
+split = "validation"
+source_resolution_ppmm = 16.000000
+[[guides.samples]]
+x_mm = 0.807139
+y_mm = 0.353224
+tangent_dx = -0.640591
+tangent_dy = -0.767882
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.181926
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.740010
+y_mm = 0.279731
+tangent_dx = -0.710856
+tangent_dy = -0.703338
+contact = true
+speed_nominal = 0.820000
+pressure_nominal = 0.224815
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.674941
+y_mm = 0.222211
+tangent_dx = -0.789777
+tangent_dy = -0.613394
+contact = true
+speed_nominal = 0.840000
+pressure_nominal = 0.267704
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.612059
+y_mm = 0.180151
+tangent_dx = -0.872967
+tangent_dy = -0.487780
+contact = true
+speed_nominal = 0.860000
+pressure_nominal = 0.310594
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.551492
+y_mm = 0.153037
+tangent_dx = -0.948576
+tangent_dy = -0.316548
+contact = true
+speed_nominal = 0.880000
+pressure_nominal = 0.353483
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.493367
+y_mm = 0.140357
+tangent_dx = -0.995126
+tangent_dy = -0.098611
+contact = true
+speed_nominal = 0.900000
+pressure_nominal = 0.396372
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.437813
+y_mm = 0.141597
+tangent_dx = -0.989215
+tangent_dy = 0.146473
+contact = true
+speed_nominal = 0.920000
+pressure_nominal = 0.439261
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.384958
+y_mm = 0.156245
+tangent_dx = -0.924747
+tangent_dy = 0.380582
+contact = true
+speed_nominal = 0.940000
+pressure_nominal = 0.482150
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.334930
+y_mm = 0.183786
+tangent_dx = -0.820686
+tangent_dy = 0.571379
+contact = true
+speed_nominal = 0.960000
+pressure_nominal = 0.525039
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.287857
+y_mm = 0.223708
+tangent_dx = -0.704105
+tangent_dy = 0.710096
+contact = true
+speed_nominal = 0.980000
+pressure_nominal = 0.567928
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.243865
+y_mm = 0.275497
+tangent_dx = -0.593201
+tangent_dy = 0.805054
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.610817
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.203085
+y_mm = 0.338641
+tangent_dx = -0.495223
+tangent_dy = 0.868766
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.620416
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.165643
+y_mm = 0.412626
+tangent_dx = -0.411079
+tangent_dy = 0.911600
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.630015
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.131667
+y_mm = 0.496940
+tangent_dx = -0.339183
+tangent_dy = 0.940720
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.639614
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.101285
+y_mm = 0.591068
+tangent_dx = -0.277368
+tangent_dy = 0.960764
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.649213
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.074626
+y_mm = 0.694499
+tangent_dx = -0.223601
+tangent_dy = 0.974681
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.658812
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.051817
+y_mm = 0.806718
+tangent_dx = -0.176186
+tangent_dy = 0.984357
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.668411
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.032985
+y_mm = 0.927212
+tangent_dx = -0.133765
+tangent_dy = 0.991013
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.678010
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.018260
+y_mm = 1.055469
+tangent_dx = -0.095267
+tangent_dy = 0.995452
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.687609
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.007769
+y_mm = 1.190975
+tangent_dx = -0.059850
+tangent_dy = 0.998207
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.697208
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.001640
+y_mm = 1.333217
+tangent_dx = -0.026845
+tangent_dy = 0.999640
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.706807
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.000000
+y_mm = 1.481682
+tangent_dx = 0.004280
+tangent_dy = 0.999991
+contact = true
+speed_nominal = 0.980000
+pressure_nominal = 0.683413
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.002978
+y_mm = 1.635856
+tangent_dx = 0.033958
+tangent_dy = 0.999423
+contact = true
+speed_nominal = 0.960000
+pressure_nominal = 0.660020
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.010702
+y_mm = 1.795228
+tangent_dx = 0.062544
+tangent_dy = 0.998042
+contact = true
+speed_nominal = 0.940000
+pressure_nominal = 0.636627
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.023299
+y_mm = 1.959282
+tangent_dx = 0.090331
+tangent_dy = 0.995912
+contact = true
+speed_nominal = 0.920000
+pressure_nominal = 0.613233
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.040898
+y_mm = 2.127507
+tangent_dx = 0.117567
+tangent_dy = 0.993065
+contact = true
+speed_nominal = 0.900000
+pressure_nominal = 0.589840
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.063627
+y_mm = 2.299389
+tangent_dx = 0.144463
+tangent_dy = 0.989510
+contact = true
+speed_nominal = 0.880000
+pressure_nominal = 0.566446
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.091613
+y_mm = 2.474415
+tangent_dx = 0.171202
+tangent_dy = 0.985236
+contact = true
+speed_nominal = 0.860000
+pressure_nominal = 0.543053
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.124984
+y_mm = 2.652071
+tangent_dx = 0.197941
+tangent_dy = 0.980214
+contact = true
+speed_nominal = 0.840000
+pressure_nominal = 0.519659
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.163868
+y_mm = 2.831845
+tangent_dx = 0.224821
+tangent_dy = 0.974400
+contact = true
+speed_nominal = 0.820000
+pressure_nominal = 0.496266
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.208394
+y_mm = 3.013224
+tangent_dx = 0.251964
+tangent_dy = 0.967737
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.472872
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.291466
+y_mm = 3.021026
+tangent_dx = 0.999301
+tangent_dy = 0.037392
+contact = true
+speed_nominal = 0.821429
+pressure_nominal = 0.262072
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.372889
+y_mm = 3.019449
+tangent_dx = 0.997052
+tangent_dy = -0.076732
+contact = true
+speed_nominal = 0.842857
+pressure_nominal = 0.270703
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.452514
+y_mm = 3.008696
+tangent_dx = 0.981675
+tangent_dy = -0.190563
+contact = true
+speed_nominal = 0.864286
+pressure_nominal = 0.279334
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.530192
+y_mm = 2.988971
+tangent_dx = 0.953811
+tangent_dy = -0.300406
+contact = true
+speed_nominal = 0.885714
+pressure_nominal = 0.287965
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.605775
+y_mm = 2.960478
+tangent_dx = 0.915154
+tangent_dy = -0.403105
+contact = true
+speed_nominal = 0.907143
+pressure_nominal = 0.296596
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.679115
+y_mm = 2.923420
+tangent_dx = 0.868070
+tangent_dy = -0.496442
+contact = true
+speed_nominal = 0.928571
+pressure_nominal = 0.305227
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.750063
+y_mm = 2.878000
+tangent_dx = 0.815143
+tangent_dy = -0.579260
+contact = true
+speed_nominal = 0.950000
+pressure_nominal = 0.313858
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.818471
+y_mm = 2.824423
+tangent_dx = 0.758784
+tangent_dy = -0.651342
+contact = true
+speed_nominal = 0.971429
+pressure_nominal = 0.322489
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.884189
+y_mm = 2.762892
+tangent_dx = 0.700998
+tangent_dy = -0.713163
+contact = true
+speed_nominal = 0.992857
+pressure_nominal = 0.331120
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.947070
+y_mm = 2.693610
+tangent_dx = 0.643299
+tangent_dy = -0.765615
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.331749
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.006965
+y_mm = 2.616780
+tangent_dx = 0.586734
+tangent_dy = -0.809780
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.328377
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.063725
+y_mm = 2.532608
+tangent_dx = 0.531961
+tangent_dy = -0.846769
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.325005
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.117202
+y_mm = 2.441295
+tangent_dx = 0.479344
+tangent_dy = -0.877627
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.321632
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.167248
+y_mm = 2.343046
+tangent_dx = 0.429033
+tangent_dy = -0.903289
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.318260
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.213713
+y_mm = 2.238064
+tangent_dx = 0.381040
+tangent_dy = -0.924559
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.314888
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.256450
+y_mm = 2.126552
+tangent_dx = 0.335285
+tangent_dy = -0.942117
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.311516
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.295310
+y_mm = 2.008715
+tangent_dx = 0.291640
+tangent_dy = -0.956528
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.308144
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.330144
+y_mm = 1.884756
+tangent_dx = 0.249946
+tangent_dy = -0.968260
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.304772
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.360803
+y_mm = 1.754878
+tangent_dx = 0.210039
+tangent_dy = -0.977693
+contact = true
+speed_nominal = 0.992857
+pressure_nominal = 0.299786
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.387140
+y_mm = 1.619285
+tangent_dx = 0.171752
+tangent_dy = -0.985140
+contact = true
+speed_nominal = 0.971429
+pressure_nominal = 0.291572
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.409006
+y_mm = 1.478180
+tangent_dx = 0.134927
+tangent_dy = -0.990856
+contact = true
+speed_nominal = 0.950000
+pressure_nominal = 0.283359
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.426252
+y_mm = 1.331767
+tangent_dx = 0.099415
+tangent_dy = -0.995046
+contact = true
+speed_nominal = 0.928571
+pressure_nominal = 0.275146
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.438729
+y_mm = 1.180250
+tangent_dx = 0.065081
+tangent_dy = -0.997880
+contact = true
+speed_nominal = 0.907143
+pressure_nominal = 0.266933
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.446290
+y_mm = 1.023833
+tangent_dx = 0.031802
+tangent_dy = -0.999494
+contact = true
+speed_nominal = 0.885714
+pressure_nominal = 0.258720
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.448785
+y_mm = 0.862718
+tangent_dx = -0.000531
+tangent_dy = -1.000000
+contact = true
+speed_nominal = 0.864286
+pressure_nominal = 0.250506
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.446067
+y_mm = 0.697109
+tangent_dx = -0.032018
+tangent_dy = -0.999487
+contact = true
+speed_nominal = 0.842857
+pressure_nominal = 0.242293
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.437986
+y_mm = 0.527210
+tangent_dx = -0.062743
+tangent_dy = -0.998030
+contact = true
+speed_nominal = 0.821429
+pressure_nominal = 0.234080
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.424394
+y_mm = 0.353224
+tangent_dx = -0.092782
+tangent_dy = -0.995686
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.225867
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.445453
+y_mm = 0.241812
+tangent_dx = 0.195278
+tangent_dy = -0.980748
+contact = true
+speed_nominal = 0.820690
+pressure_nominal = 0.398850
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.464296
+y_mm = 0.152548
+tangent_dx = 0.220456
+tangent_dy = -0.975397
+contact = true
+speed_nominal = 0.841379
+pressure_nominal = 0.427955
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.480926
+y_mm = 0.084583
+tangent_dx = 0.260251
+tangent_dy = -0.965541
+contact = true
+speed_nominal = 0.862069
+pressure_nominal = 0.457059
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.495346
+y_mm = 0.037070
+tangent_dx = 0.334066
+tangent_dy = -0.942550
+contact = true
+speed_nominal = 0.882759
+pressure_nominal = 0.486164
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.507559
+y_mm = 0.009158
+tangent_dx = 0.517041
+tangent_dy = -0.855960
+contact = true
+speed_nominal = 0.903448
+pressure_nominal = 0.515268
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.517568
+y_mm = 0.000000
+tangent_dx = 0.999974
+tangent_dy = -0.007231
+contact = true
+speed_nominal = 0.924138
+pressure_nominal = 0.544373
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.525375
+y_mm = 0.008746
+tangent_dx = 0.359397
+tangent_dy = 0.933185
+contact = true
+speed_nominal = 0.944828
+pressure_nominal = 0.573477
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.530984
+y_mm = 0.034549
+tangent_dx = 0.131315
+tangent_dy = 0.991341
+contact = true
+speed_nominal = 0.965517
+pressure_nominal = 0.602582
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.534396
+y_mm = 0.076558
+tangent_dx = 0.046415
+tangent_dy = 0.998922
+contact = true
+speed_nominal = 0.986207
+pressure_nominal = 0.631686
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.535615
+y_mm = 0.133926
+tangent_dx = 0.001908
+tangent_dy = 0.999998
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.650056
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.534644
+y_mm = 0.205804
+tangent_dx = -0.026186
+tangent_dy = 0.999657
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.646957
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.531485
+y_mm = 0.291343
+tangent_dx = -0.046122
+tangent_dy = 0.998936
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.643858
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.526142
+y_mm = 0.389694
+tangent_dx = -0.061480
+tangent_dy = 0.998108
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.640759
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.518616
+y_mm = 0.500009
+tangent_dx = -0.074062
+tangent_dy = 0.997254
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.637661
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.508911
+y_mm = 0.621438
+tangent_dx = -0.084882
+tangent_dy = 0.996391
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.634562
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.497029
+y_mm = 0.753134
+tangent_dx = -0.094553
+tangent_dy = 0.995520
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.631463
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.482974
+y_mm = 0.894247
+tangent_dx = -0.103477
+tangent_dy = 0.994632
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.628364
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.466748
+y_mm = 1.043928
+tangent_dx = -0.111931
+tangent_dy = 0.993716
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.625265
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.448353
+y_mm = 1.201330
+tangent_dx = -0.120118
+tangent_dy = 0.992760
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.622166
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.427793
+y_mm = 1.365603
+tangent_dx = -0.128194
+tangent_dy = 0.991749
+contact = true
+speed_nominal = 0.986207
+pressure_nominal = 0.618754
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.405071
+y_mm = 1.535898
+tangent_dx = -0.136285
+tangent_dy = 0.990670
+contact = true
+speed_nominal = 0.965517
+pressure_nominal = 0.615185
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.380189
+y_mm = 1.711367
+tangent_dx = -0.144502
+tangent_dy = 0.989505
+contact = true
+speed_nominal = 0.944828
+pressure_nominal = 0.611616
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.353150
+y_mm = 1.891161
+tangent_dx = -0.152944
+tangent_dy = 0.988235
+contact = true
+speed_nominal = 0.924138
+pressure_nominal = 0.608047
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.323957
+y_mm = 2.074432
+tangent_dx = -0.161705
+tangent_dy = 0.986839
+contact = true
+speed_nominal = 0.903448
+pressure_nominal = 0.604478
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.292612
+y_mm = 2.260330
+tangent_dx = -0.170881
+tangent_dy = 0.985292
+contact = true
+speed_nominal = 0.882759
+pressure_nominal = 0.600909
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.259119
+y_mm = 2.448007
+tangent_dx = -0.180571
+tangent_dy = 0.983562
+contact = true
+speed_nominal = 0.862069
+pressure_nominal = 0.597341
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.223479
+y_mm = 2.636614
+tangent_dx = -0.190881
+tangent_dy = 0.981613
+contact = true
+speed_nominal = 0.841379
+pressure_nominal = 0.593772
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.185697
+y_mm = 2.825303
+tangent_dx = -0.201928
+tangent_dy = 0.979400
+contact = true
+speed_nominal = 0.820690
+pressure_nominal = 0.590203
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.145775
+y_mm = 3.013224
+tangent_dx = -0.213845
+tangent_dy = 0.976868
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.586634
+corridor_half_width_mm = 0.200000
+
+[[guides]]
+symbol = "n"
+kind = "glyph"
+x_advance_mm = 2.090000
+x_height_mm = 3.800000
+entry_tangent = [0.004134, -0.999991]
+exit_tangent = [0.254418, 0.967094]
+[[guides.sources]]
+source_id = "reviewed-raw:n"
+source_path = "/Users/shawn/Projects/041-mserfurt/shared/training/handsim/reviewed_annotations/reviewed_exemplars_v1/glyphs/reviewed_exemplars/raw/n/n_008_0029.png"
+extraction_run = "ADV-SS-PATHGUIDE-004:raw:BSB Cgm 628 — Tauler. Mystische Texte, u.a. Meister Eckhart"
+confidence_tier = "accepted"
+split = "test"
+source_resolution_ppmm = 16.000000
+[[guides.sources]]
+source_id = "reviewed-cleaned:n"
+source_path = "/Users/shawn/Projects/041-mserfurt/shared/training/handsim/reviewed_annotations/reviewed_exemplars_v1/glyphs/reviewed_exemplars/cleaned/n/n_008_0029.png"
+extraction_run = "ADV-SS-PATHGUIDE-004:cleaned:BSB Cgm 628 — Tauler. Mystische Texte, u.a. Meister Eckhart"
+confidence_tier = "accepted"
+split = "test"
+source_resolution_ppmm = 16.000000
+[[guides.samples]]
+x_mm = 0.206088
+y_mm = 3.800000
+tangent_dx = 0.004134
+tangent_dy = -0.999991
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.256754
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.205996
+y_mm = 3.643751
+tangent_dx = -0.005271
+tangent_dy = -0.999986
+contact = true
+speed_nominal = 0.818750
+pressure_nominal = 0.285368
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.204487
+y_mm = 3.489857
+tangent_dx = -0.014298
+tangent_dy = -0.999898
+contact = true
+speed_nominal = 0.837500
+pressure_nominal = 0.313982
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.201662
+y_mm = 3.338326
+tangent_dx = -0.022929
+tangent_dy = -0.999737
+contact = true
+speed_nominal = 0.856250
+pressure_nominal = 0.342596
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.197624
+y_mm = 3.189164
+tangent_dx = -0.031145
+tangent_dy = -0.999515
+contact = true
+speed_nominal = 0.875000
+pressure_nominal = 0.371210
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.192474
+y_mm = 3.042376
+tangent_dx = -0.038926
+tangent_dy = -0.999242
+contact = true
+speed_nominal = 0.893750
+pressure_nominal = 0.399824
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.186315
+y_mm = 2.897969
+tangent_dx = -0.046252
+tangent_dy = -0.998930
+contact = true
+speed_nominal = 0.912500
+pressure_nominal = 0.428438
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.179246
+y_mm = 2.755950
+tangent_dx = -0.053101
+tangent_dy = -0.998589
+contact = true
+speed_nominal = 0.931250
+pressure_nominal = 0.457052
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.171372
+y_mm = 2.616325
+tangent_dx = -0.059449
+tangent_dy = -0.998231
+contact = true
+speed_nominal = 0.950000
+pressure_nominal = 0.485666
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.162792
+y_mm = 2.479100
+tangent_dx = -0.065274
+tangent_dy = -0.997867
+contact = true
+speed_nominal = 0.968750
+pressure_nominal = 0.514281
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.153610
+y_mm = 2.344282
+tangent_dx = -0.070548
+tangent_dy = -0.997508
+contact = true
+speed_nominal = 0.987500
+pressure_nominal = 0.542895
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.143927
+y_mm = 2.211876
+tangent_dx = -0.075243
+tangent_dy = -0.997165
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.565912
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.133845
+y_mm = 2.081890
+tangent_dx = -0.079331
+tangent_dy = -0.996848
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.577735
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.123465
+y_mm = 1.954330
+tangent_dx = -0.082778
+tangent_dy = -0.996568
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.589559
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.112889
+y_mm = 1.829201
+tangent_dx = -0.085549
+tangent_dy = -0.996334
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.601383
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.102220
+y_mm = 1.706511
+tangent_dx = -0.087605
+tangent_dy = -0.996155
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.613206
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.091558
+y_mm = 1.586266
+tangent_dx = -0.088904
+tangent_dy = -0.996040
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.625030
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.081007
+y_mm = 1.468472
+tangent_dx = -0.089400
+tangent_dy = -0.995996
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.636854
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.070667
+y_mm = 1.353135
+tangent_dx = -0.089040
+tangent_dy = -0.996028
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.648677
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.060640
+y_mm = 1.240262
+tangent_dx = -0.087767
+tangent_dy = -0.996141
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.660501
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.051028
+y_mm = 1.129859
+tangent_dx = -0.085520
+tangent_dy = -0.996336
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.672324
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.041933
+y_mm = 1.021932
+tangent_dx = -0.082228
+tangent_dy = -0.996614
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.684148
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.033457
+y_mm = 0.916488
+tangent_dx = -0.077813
+tangent_dy = -0.996968
+contact = true
+speed_nominal = 0.987500
+pressure_nominal = 0.669829
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.025702
+y_mm = 0.813534
+tangent_dx = -0.072188
+tangent_dy = -0.997391
+contact = true
+speed_nominal = 0.968750
+pressure_nominal = 0.642439
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.018768
+y_mm = 0.713074
+tangent_dx = -0.065259
+tangent_dy = -0.997868
+contact = true
+speed_nominal = 0.950000
+pressure_nominal = 0.615049
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.012759
+y_mm = 0.615117
+tangent_dx = -0.056918
+tangent_dy = -0.998379
+contact = true
+speed_nominal = 0.931250
+pressure_nominal = 0.587659
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.007776
+y_mm = 0.519668
+tangent_dx = -0.047046
+tangent_dy = -0.998893
+contact = true
+speed_nominal = 0.912500
+pressure_nominal = 0.560269
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.003921
+y_mm = 0.426733
+tangent_dx = -0.035513
+tangent_dy = -0.999369
+contact = true
+speed_nominal = 0.893750
+pressure_nominal = 0.532879
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.001295
+y_mm = 0.336319
+tangent_dx = -0.022173
+tangent_dy = -0.999754
+contact = true
+speed_nominal = 0.875000
+pressure_nominal = 0.505489
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.000000
+y_mm = 0.248433
+tangent_dx = -0.006870
+tangent_dy = -0.999976
+contact = true
+speed_nominal = 0.856250
+pressure_nominal = 0.478099
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.000138
+y_mm = 0.163080
+tangent_dx = 0.010571
+tangent_dy = -0.999944
+contact = true
+speed_nominal = 0.837500
+pressure_nominal = 0.450709
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.001812
+y_mm = 0.080267
+tangent_dx = 0.030336
+tangent_dy = -0.999540
+contact = true
+speed_nominal = 0.818750
+pressure_nominal = 0.423318
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.005122
+y_mm = 0.000000
+tangent_dx = 0.052620
+tangent_dy = -0.998615
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.395928
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.060327
+y_mm = 0.200836
+tangent_dx = 0.606226
+tangent_dy = -0.795292
+contact = true
+speed_nominal = 0.850000
+pressure_nominal = 0.522568
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.142257
+y_mm = 0.121179
+tangent_dx = 0.807187
+tangent_dy = -0.590296
+contact = true
+speed_nominal = 0.900000
+pressure_nominal = 0.536696
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.245065
+y_mm = 0.063952
+tangent_dx = 0.923078
+tangent_dy = -0.384612
+contact = true
+speed_nominal = 0.950000
+pressure_nominal = 0.550824
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.362904
+y_mm = 0.028072
+tangent_dx = 0.979209
+tangent_dy = -0.202856
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.564952
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.489927
+y_mm = 0.012461
+tangent_dx = 0.998989
+tangent_dy = -0.044965
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.592071
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.620288
+y_mm = 0.016039
+tangent_dx = 0.995184
+tangent_dy = 0.098022
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.619191
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.748140
+y_mm = 0.037726
+tangent_dx = 0.971557
+tangent_dy = 0.236805
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.646310
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.867635
+y_mm = 0.076442
+tangent_dx = 0.924134
+tangent_dy = 0.382069
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.673430
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 0.972928
+y_mm = 0.131108
+tangent_dx = 0.839549
+tangent_dy = 0.543284
+contact = true
+speed_nominal = 0.950000
+pressure_nominal = 0.618381
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.058172
+y_mm = 0.200642
+tangent_dx = 0.691178
+tangent_dy = 0.722684
+contact = true
+speed_nominal = 0.900000
+pressure_nominal = 0.563331
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.117518
+y_mm = 0.283966
+tangent_dx = 0.443381
+tangent_dy = 0.896333
+contact = true
+speed_nominal = 0.850000
+pressure_nominal = 0.508282
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.145122
+y_mm = 0.380000
+tangent_dx = 0.095447
+tangent_dy = 0.995434
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.453232
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.148378
+y_mm = 0.581736
+tangent_dx = 0.014037
+tangent_dy = 0.999901
+contact = true
+speed_nominal = 0.820690
+pressure_nominal = 0.348816
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.150728
+y_mm = 0.777481
+tangent_dx = 0.009972
+tangent_dy = 0.999950
+contact = true
+speed_nominal = 0.841379
+pressure_nominal = 0.377932
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.152249
+y_mm = 0.967233
+tangent_dx = 0.006067
+tangent_dy = 0.999982
+contact = true
+speed_nominal = 0.862069
+pressure_nominal = 0.407048
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.153020
+y_mm = 1.150995
+tangent_dx = 0.002338
+tangent_dy = 0.999997
+contact = true
+speed_nominal = 0.882759
+pressure_nominal = 0.436164
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.153121
+y_mm = 1.328767
+tangent_dx = -0.001196
+tangent_dy = 0.999999
+contact = true
+speed_nominal = 0.903448
+pressure_nominal = 0.465280
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.152628
+y_mm = 1.500549
+tangent_dx = -0.004516
+tangent_dy = 0.999990
+contact = true
+speed_nominal = 0.924138
+pressure_nominal = 0.494396
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.151622
+y_mm = 1.666342
+tangent_dx = -0.007597
+tangent_dy = 0.999971
+contact = true
+speed_nominal = 0.944828
+pressure_nominal = 0.523512
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.150181
+y_mm = 1.826147
+tangent_dx = -0.010412
+tangent_dy = 0.999946
+contact = true
+speed_nominal = 0.965517
+pressure_nominal = 0.552628
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.148383
+y_mm = 1.979965
+tangent_dx = -0.012929
+tangent_dy = 0.999916
+contact = true
+speed_nominal = 0.986207
+pressure_nominal = 0.581744
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.146307
+y_mm = 2.127796
+tangent_dx = -0.015111
+tangent_dy = 0.999886
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.596064
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.144031
+y_mm = 2.269640
+tangent_dx = -0.016914
+tangent_dy = 0.999857
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.580792
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.141635
+y_mm = 2.405500
+tangent_dx = -0.018289
+tangent_dy = 0.999833
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.565520
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.139197
+y_mm = 2.535374
+tangent_dx = -0.019173
+tangent_dy = 0.999816
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.550249
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.136795
+y_mm = 2.659265
+tangent_dx = -0.019495
+tangent_dy = 0.999810
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.534977
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.134508
+y_mm = 2.777172
+tangent_dx = -0.019167
+tangent_dy = 0.999816
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.519705
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.132415
+y_mm = 2.889096
+tangent_dx = -0.018081
+tangent_dy = 0.999837
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.504433
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.130595
+y_mm = 2.995039
+tangent_dx = -0.016105
+tangent_dy = 0.999870
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.489161
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.129125
+y_mm = 3.095000
+tangent_dx = -0.013074
+tangent_dy = 0.999915
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.473890
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.128085
+y_mm = 3.188980
+tangent_dx = -0.008781
+tangent_dy = 0.999961
+contact = true
+speed_nominal = 1.000000
+pressure_nominal = 0.458618
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.127553
+y_mm = 3.276981
+tangent_dx = -0.002958
+tangent_dy = 0.999996
+contact = true
+speed_nominal = 0.986207
+pressure_nominal = 0.455919
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.127608
+y_mm = 3.359002
+tangent_dx = 0.004741
+tangent_dy = 0.999989
+contact = true
+speed_nominal = 0.965517
+pressure_nominal = 0.459506
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.128329
+y_mm = 3.435045
+tangent_dx = 0.014775
+tangent_dy = 0.999891
+contact = true
+speed_nominal = 0.944828
+pressure_nominal = 0.463094
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.129793
+y_mm = 3.505109
+tangent_dx = 0.027762
+tangent_dy = 0.999615
+contact = true
+speed_nominal = 0.924138
+pressure_nominal = 0.466681
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.132081
+y_mm = 3.569197
+tangent_dx = 0.044554
+tangent_dy = 0.999007
+contact = true
+speed_nominal = 0.903448
+pressure_nominal = 0.470268
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.135269
+y_mm = 3.627308
+tangent_dx = 0.066352
+tangent_dy = 0.997796
+contact = true
+speed_nominal = 0.882759
+pressure_nominal = 0.473856
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.139438
+y_mm = 3.679443
+tangent_dx = 0.094893
+tangent_dy = 0.995487
+contact = true
+speed_nominal = 0.862069
+pressure_nominal = 0.477443
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.144665
+y_mm = 3.725603
+tangent_dx = 0.132760
+tangent_dy = 0.991148
+contact = true
+speed_nominal = 0.841379
+pressure_nominal = 0.481031
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.151030
+y_mm = 3.765788
+tangent_dx = 0.183896
+tangent_dy = 0.982946
+contact = true
+speed_nominal = 0.820690
+pressure_nominal = 0.484618
+corridor_half_width_mm = 0.200000
+[[guides.samples]]
+x_mm = 1.158610
+y_mm = 3.800000
+tangent_dx = 0.254418
+tangent_dy = 0.967094
+contact = true
+speed_nominal = 0.800000
+pressure_nominal = 0.488205
+corridor_half_width_mm = 0.200000

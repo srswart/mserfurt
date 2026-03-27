@@ -153,3 +153,43 @@ def test_freeze_reviewed_exemplars_is_deterministic_for_same_input(tmp_path: Pat
 
     assert first_manifest == second_manifest
     assert first_summary == second_summary
+
+
+def test_freeze_reviewed_exemplars_skips_excluded_catalog_references(tmp_path: Path):
+    selection_manifest, ledger_path = _write_fixture_inputs(tmp_path)
+    reviewed_root = tmp_path / "workbench"
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=reviewed_root,
+        selection_manifest_path=selection_manifest,
+    )
+    included = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "trusted",
+            "notes": "keep",
+            "bounds_px": {"x": 20, "y": 30, "width": 100, "height": 60},
+        }
+    )
+    excluded = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "usable",
+            "notes": "drop",
+            "bounds_px": {"x": 24, "y": 34, "width": 80, "height": 40},
+        }
+    )
+    workbench.set_annotation_catalog_included(excluded["id"], False)
+
+    result = freeze_reviewed_exemplars(reviewed_root / "reviewed_manifest.toml", output_root=tmp_path / "frozen")
+    manifest = tomllib.loads(result["manifest_path"].read_text(encoding="utf-8"))
+
+    assert len(manifest["entries"]) == 1
+    assert manifest["entries"][0]["symbol"] == "e"
+    assert len(manifest["entries"][0]["reviewed_exemplar_paths"]) == 1
+    assert result["summary"]["reviewed_glyph_count"] == 1
+    assert included["id"] != excluded["id"]

@@ -233,7 +233,7 @@ TD-014 therefore inserts an explicit exemplar-fit phase between extraction and h
 - acquire a provenance-backed folio sample set from the target manuscript family
 - build accepted exemplar corpora for glyphs and common joins
 - fit nominal forms using evo at glyph level and selective short-word level
-- freeze only accepted evo proposals as promoted guides
+- freeze only accepted reviewed-evofit proposals as promoted guides, with raw-vs-cleaned reviewed provenance preserved
 - render the nominal guides alone and confirm they are legible before controller dynamics are introduced
 
 ### Reviewed cleanup for contaminated crops
@@ -523,3 +523,58 @@ For review and promotion benches, TD-014 now additionally requires:
 - normalized substitution count = 0 unless explicitly approved for a temporary exploratory run
 
 If these gates fail, the output is not considered readable enough for rollout, even if the controller and visual metrics otherwise look strong.
+
+## Parameter Activation Recovery
+
+The current reviewed proof studies exposed a second structural limitation in TD-014:
+
+- the hand profile exposes many expressive parameters
+- but the active `handflow` path only responds to a small subset of them
+- proof sheets can therefore look almost unchanged even when multiple profile values are varied
+
+This means TD-014 cannot yet use parameter studies as credible evidence of expressivity, because several profile knobs are effectively inert in the current controller/render path.
+
+From this point forward, TD-014 must distinguish between:
+
+- exposed parameters: values present in `HandProfile`
+- activated parameters: values that measurably change guided output
+- promoted parameters: activated values that improve legibility or controlled expressivity without breaking corridor or nominal-guide gates
+
+### Activation Order
+
+TD-014 should activate profile parameters in this order:
+
+1. pressure baseline and pressure shaping
+   - `folio.base_pressure`
+   - related nib pressure multipliers already used by the controller
+
+2. per-glyph vertical placement variation
+   - `glyph.baseline_jitter_mm`
+
+3. deterministic micro-instability
+   - `folio.tremor_amplitude`
+
+4. bounded nominal-path deformation
+   - `glyph.warp_amplitude_mm`
+
+The first two are the safest because they can create visible variation while preserving glyph identity. Tremor and warp are still important, but they must be corridor-bounded and validated against legibility gates before they are used in promoted proof or folio renders.
+
+### Activation Requirements
+
+For a parameter to count as activated in TD-014:
+
+- it must affect the active reviewed handflow path, not only legacy or non-guided renderers
+- a focused proof study must show a visible and measurable difference when the parameter changes
+- the difference must be deterministic for fixed inputs
+- the parameter must have a validation bound so it cannot destroy readability unnoticed
+
+### Parameter Sensitivity Evidence
+
+TD-014 therefore adds a dedicated parameter-sensitivity track:
+
+- activate a small set of high-value parameters in `handflow`
+- generate proof sheets where only activated parameters are varied
+- compute per-parameter output deltas so inert parameters fail fast
+- refuse to treat unwired profile fields as tuning evidence
+
+This closes the current gap where the repo exposes more expressive controls than the reviewed guided path actually uses.

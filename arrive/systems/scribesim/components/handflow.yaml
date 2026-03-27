@@ -16,8 +16,10 @@ selectors:
 interfaces:
   - "TrackPlan API (desired position, desired velocity, desired contact, desired pressure)"
   - "HandState v2 API (continuous state carried across stroke, glyph, word, line)"
+  - "Profile activation matrix for reviewed guided rendering (which HandProfile fields materially affect handflow output)"
 
 invariants:
   - "The controller follows planned state, not raw keypoints, when plan tracking is enabled."
   - "Pen lifts are explicit state transitions; joins are modeled as planned contact or planned air motion."
   - "Out-of-corridor motion triggers correction or validation failure before page rendering."
+  - "A profile field is not considered a tuning knob for TD-014 until the reviewed guided path measurably responds to it."

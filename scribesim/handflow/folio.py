@@ -20,7 +20,7 @@ from .model import (
     SessionGuide,
 )
 from .render import render_trajectory_canvas
-from .session import build_line_session, load_word_guide_catalog
+from .session import build_line_session, describe_guide_catalog, guide_catalog_source_label, load_word_guide_catalog
 
 
 def _translate_dense_guide(guide: DensePathGuide, *, dy_mm: float = 0.0) -> DensePathGuide:
@@ -106,11 +106,16 @@ def simulate_guided_folio_lines(
     margin_left_mm: float = 5.0,
     margin_top_mm: float = 5.0,
     exact_symbols: bool = True,
+    guide_catalog_path: Path | str | None = None,
     progress_callback: Callable[[dict[str, Any]], None] | None = None,
 ) -> GuidedFolioSimulation:
     """Simulate guided folio trajectories before rasterization."""
 
-    guide_catalog = load_word_guide_catalog(x_height_mm=x_height_mm, exact_symbols=exact_symbols)
+    guide_catalog = load_word_guide_catalog(
+        x_height_mm=x_height_mm,
+        exact_symbols=exact_symbols,
+        guide_catalog_path=guide_catalog_path,
+    )
     page_trajectory: list[TrajectorySample] = []
     aligned_page_trajectory: list[TrajectorySample] = []
     line_statuses: list[GuidedFolioLineStatus] = []
@@ -138,12 +143,14 @@ def simulate_guided_folio_lines(
                 )
             continue
 
-        controller = GuidedHandFlowController(profile)
+        controller = GuidedHandFlowController(profile, activate_base_pressure=True)
         try:
             line_items, _, _ = build_line_session(
                 line_text,
                 guide_catalog=guide_catalog,
                 start_x_mm=margin_left_mm,
+                profile=profile,
+                activate_baseline_jitter=True,
             )
         except KeyError as exc:
             status = _line_resolution_status(li, line_text, tuple(), resolution_error=str(exc))
@@ -214,6 +221,7 @@ def render_guided_folio_lines(
     margin_left_mm: float = 5.0,
     margin_top_mm: float = 5.0,
     exact_symbols: bool = True,
+    guide_catalog_path: Path | str | None = None,
     return_metadata: bool = False,
     progress_callback: Callable[[dict[str, Any]], None] | None = None,
 ) -> tuple[np.ndarray, np.ndarray] | tuple[np.ndarray, np.ndarray, dict[str, object]]:
@@ -230,6 +238,7 @@ def render_guided_folio_lines(
         margin_left_mm=margin_left_mm,
         margin_top_mm=margin_top_mm,
         exact_symbols=exact_symbols,
+        guide_catalog_path=guide_catalog_path,
         progress_callback=progress_callback,
     )
 
@@ -251,9 +260,26 @@ def render_guided_folio_lines(
         bounds_mm=(0.0, page_width_mm, 0.0, page_height_mm),
         return_heatmap=True,
     )
+    catalog = load_word_guide_catalog(
+        x_height_mm=x_height_mm,
+        exact_symbols=exact_symbols,
+        guide_catalog_path=guide_catalog_path,
+    )
     return page_arr, heat_arr, {
         "render_trajectory_mode": "actual",
         "exact_symbols": exact_symbols,
+        "activated_parameters": {
+            "folio.base_pressure": profile.folio.base_pressure,
+            "glyph.baseline_jitter_mm": profile.glyph.baseline_jitter_mm,
+        },
+        "guide_catalog": describe_guide_catalog(
+            catalog,
+            source_label=guide_catalog_source_label(
+                exact_symbols=exact_symbols,
+                guide_catalog_path=guide_catalog_path,
+            ),
+            guide_catalog_path=guide_catalog_path,
+        ),
         "resolution": _resolution_summary(simulation.line_statuses),
         "aligned_page": aligned_page_arr,
         "aligned_heat": aligned_heat_arr,

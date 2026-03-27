@@ -56,6 +56,44 @@ op = ">="
 threshold = 0.20
 required = true
 
+[stages.reviewed_nominal]
+label = "Reviewed nominal legibility"
+
+[stages.reviewed_nominal.metrics.raw_nominal_mean_score]
+op = ">="
+threshold = 0.20
+required = true
+
+[stages.reviewed_nominal.metrics.cleaned_nominal_mean_score]
+op = ">="
+threshold = 0.20
+required = true
+
+[stages.reviewed_nominal.metrics.guided_mean_score]
+op = ">="
+threshold = 0.20
+required = true
+
+[stages.reviewed_nominal.metrics.cleaned_vs_raw_delta]
+op = ">="
+threshold = 0.0
+required = true
+
+[stages.reviewed_nominal.metrics.guided_vs_cleaned_delta]
+op = ">="
+threshold = -0.25
+required = true
+
+[stages.reviewed_nominal.metrics.guided_join_continuity_mean_score]
+op = ">="
+threshold = 0.80
+required = false
+
+[stages.reviewed_nominal.metrics.exact_symbol_coverage]
+op = "=="
+threshold = 1.0
+required = true
+
 [stages.glyph]
 label = "Glyph checkpoint"
 

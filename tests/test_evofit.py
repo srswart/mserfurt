@@ -124,6 +124,31 @@ def test_build_evofit_targets_reads_reviewed_manifest_metadata(tmp_path: Path):
     assert targets[0].candidate_cleanup_stroke_counts == (2,)
 
 
+def test_build_evofit_targets_rejects_repair_only_tier(tmp_path: Path):
+    glyph_template = build_symbol_templates(required_symbols=("u",))["u"]
+    glyph_path = tmp_path / "u.png"
+    Image.fromarray(glyph_template).save(glyph_path)
+    manifest_path = tmp_path / "manifest.toml"
+    manifest_path.write_text(
+        f"""
+schema_version = 1
+
+[[entries]]
+kind = "glyph"
+symbol = "u"
+repair_only_count = 1
+repair_only_paths = ["{glyph_path.as_posix()}"]
+"""
+    )
+
+    try:
+        build_evofit_targets(manifest_path, allowed_tiers=("repair_only",))
+    except ValueError as exc:
+        assert "repair_only tier is non-reviewable" in str(exc)
+    else:
+        raise AssertionError("expected repair_only tier to be rejected")
+
+
 def test_genome_to_dense_guide_exports_join_bridge():
     genome = initialize_population("un", pop_size=1, x_height_mm=3.8)[0]
 

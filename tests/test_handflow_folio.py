@@ -13,6 +13,7 @@ import pytest
 
 from scribesim.handflow import GuidedFolioResolutionError, render_guided_folio_lines
 from scribesim.handvalidate import ocr_proxy_score
+from scribesim.pathguide import guide_from_waypoints, write_pathguides_toml
 
 
 GOLDEN_F01R = Path(__file__).parent / "golden" / "f01r" / "folio.json"
@@ -34,6 +35,50 @@ def _profile() -> HandProfile:
     profile.stroke_weight = 1.0
     profile.ink_density = 0.85
     return profile
+
+
+def _write_reviewed_catalog(tmp_path: Path) -> Path:
+    catalog_path = tmp_path / "reviewed_promoted_v1.toml"
+    guides = {
+        "H": guide_from_waypoints(
+            "H",
+            [(0.0, 0.9, True), (0.0, 0.1, True), (0.55, 0.1, True), (0.55, 0.9, True)],
+            x_height_mm=3.5,
+            x_advance_xh=1.1,
+            kind="glyph",
+            source_id="reviewed-cleaned:H",
+            source_path="cleaned_H.png",
+            confidence_tier="accepted",
+            split="validation",
+            source_resolution_ppmm=16.0,
+        ),
+        "i": guide_from_waypoints(
+            "i",
+            [(0.0, 0.7, True), (0.0, 0.2, True)],
+            x_height_mm=3.5,
+            x_advance_xh=0.45,
+            kind="glyph",
+            source_id="reviewed-raw:i",
+            source_path="raw_i.png",
+            confidence_tier="accepted",
+            split="train",
+            source_resolution_ppmm=16.0,
+        ),
+        "H->i": guide_from_waypoints(
+            "H->i",
+            [(0.0, 0.5, True), (0.2, 0.52, True), (0.4, 0.45, True)],
+            x_height_mm=3.5,
+            x_advance_xh=0.35,
+            kind="join",
+            source_id="reviewed-cleaned:H->i",
+            source_path="cleaned_H_to_i.png",
+            confidence_tier="accepted",
+            split="test",
+            source_resolution_ppmm=16.0,
+        ),
+    }
+    write_pathguides_toml(guides, catalog_path)
+    return catalog_path
 
 
 def test_guided_folio_render_is_deterministic_for_fixed_profile():
@@ -108,6 +153,10 @@ def test_guided_folio_exact_metadata_reports_actual_trajectory_mode():
     assert metadata["resolution"]["exact_only_passed"] is True
     assert metadata["resolution"]["alias_substitution_count"] == 0
     assert metadata["aligned_page"].shape == page.shape
+    assert metadata["activated_parameters"]["folio.base_pressure"] == pytest.approx(_profile().folio.base_pressure)
+    assert metadata["activated_parameters"]["glyph.baseline_jitter_mm"] == pytest.approx(
+        _profile().glyph.baseline_jitter_mm
+    )
 
 
 def test_guided_folio_exact_symbols_refuse_unresolved_text():
@@ -213,3 +262,27 @@ def test_guided_folio_outputs_are_accepted_by_weather_pipeline():
     )
 
     assert result.image.size == (page.shape[1], page.shape[0])
+
+
+def test_guided_folio_metadata_reports_override_reviewed_catalog(tmp_path):
+    catalog_path = _write_reviewed_catalog(tmp_path)
+
+    page, heat, metadata = render_guided_folio_lines(
+        ["Hi"],
+        profile=_profile(),
+        page_width_mm=40.0,
+        page_height_mm=20.0,
+        margin_left_mm=4.0,
+        margin_top_mm=4.0,
+        line_spacing_mm=8.0,
+        supersample=3,
+        exact_symbols=True,
+        guide_catalog_path=catalog_path,
+        return_metadata=True,
+    )
+
+    assert page.shape[:2] == heat.shape
+    assert metadata["guide_catalog"]["source_label"] == "override"
+    assert metadata["guide_catalog"]["guide_catalog_path"] == str(catalog_path)
+    assert metadata["guide_catalog"]["reviewed_cleaned_source_count"] >= 1
+    assert metadata["resolution"]["exact_only_passed"] is True

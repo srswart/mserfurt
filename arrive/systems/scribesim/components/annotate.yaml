@@ -16,6 +16,7 @@ selectors:
 
 interfaces:
   - "Local web UI for manuscript viewing, glyph/join box labeling, quality review, and annotation export"
+  - "Per-symbol processing diagnostics in the workbench so debt items can explain upstream tier status, blocker reasons, and manual selection guidance"
   - "Per-annotation cleanup mask editing so nearby-stroke artifacts can be removed non-destructively before reviewed freeze"
   - "Frozen reviewed-annotation manifest and crop bundle for downstream exemplar recovery"
   - "Coverage ledger for required symbols, joins, and per-source exemplar counts"

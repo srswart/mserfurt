@@ -12,6 +12,7 @@ from PIL import Image
 from scribesim.refextract.corpus import (
     AUTO_ADMITTED_TIER,
     CandidateRecord,
+    REJECTED_TIER,
     _refine_template_bank,
     _select_promoted_exemplars_with_validation,
     build_exemplar_corpus,
@@ -174,6 +175,7 @@ local_path = "{folio2.as_posix()}"
     assert summary["auto_admitted_join_coverage"] == 1.0
     assert summary["promoted_exemplar_glyph_coverage"] == 1.0
     assert summary["promoted_exemplar_join_coverage"] == 1.0
+    assert summary["repair_only_count"] == 0
     assert summary["heldout_symbol_coverage"] == 1.0
     assert summary["gate"]["passed"] is True
     assert result["summary_json_path"].exists()
@@ -202,6 +204,91 @@ local_path = "{folio2.as_posix()}"
     assert "n->d" not in summary["missing_joins"]
     assert "d->e" not in summary["missing_joins"]
     assert "e->r" not in summary["missing_joins"]
+
+
+def test_build_exemplar_corpus_quarantines_coverage_backfill_into_repair_only(tmp_path):
+    selection_manifest_path = tmp_path / "selection_manifest.toml"
+    output_root = tmp_path / "corpus"
+    candidate = np.full((64, 64), 255, dtype=np.uint8)
+
+    selection_manifest_path.write_text(
+        f"""
+schema_version = 1
+manifest_path = "shared/training/handsim/exemplar_harvest_v1/manifest.toml"
+
+[[folios]]
+canvas_label = "001r"
+source_manuscript_label = "Fixture A"
+local_path = "{(tmp_path / "folio1.png").as_posix()}"
+"""
+    )
+    Image.fromarray(np.full((128, 128), 255, dtype=np.uint8)).save(tmp_path / "folio1.png")
+
+    glyph_candidates = {
+        "u": {
+            REJECTED_TIER: [
+                {
+                    "normalized": candidate,
+                    "score": 0.2,
+                    "margin": 0.0,
+                    "split": "validation",
+                    "source_path": (tmp_path / "folio1.png").as_posix(),
+                    "source_manuscript_label": "Fixture A",
+                    "canvas_label": "001r",
+                    "line_index": 0,
+                    "word_index": 0,
+                    "candidate_index": 0,
+                }
+            ]
+        }
+    }
+    join_candidates = {
+        "u->n": {
+            REJECTED_TIER: [
+                {
+                    "normalized": candidate,
+                    "score": 0.2,
+                    "margin": 0.0,
+                    "split": "validation",
+                    "source_path": (tmp_path / "folio1.png").as_posix(),
+                    "source_manuscript_label": "Fixture A",
+                    "canvas_label": "001r",
+                    "line_index": 0,
+                    "word_index": 0,
+                    "candidate_index": 0,
+                }
+            ]
+        }
+    }
+
+    with patch(
+        "scribesim.refextract.corpus._collect_candidates_from_selection",
+        side_effect=[(glyph_candidates, join_candidates, {}), (glyph_candidates, join_candidates, {})],
+    ):
+        result = build_exemplar_corpus(
+            selection_manifest_path,
+            output_root=output_root,
+            required_symbols=("u",),
+            priority_joins=("u->n",),
+            tier_limits={"accepted": 1, "soft_accepted": 1, "rejected": 1, "repair_only": 1},
+        )
+
+    summary = result["summary"]
+    manifest = tomllib.loads(result["manifest_path"].read_text())
+    promoted_manifest = tomllib.loads(result["promoted_manifest_path"].read_text())
+
+    assert summary["auto_admitted_glyph_coverage"] == 0.0
+    assert summary["auto_admitted_join_coverage"] == 0.0
+    assert summary["repair_only_count"] == 2
+    assert summary["repair_only_glyph_coverage"] == 1.0
+    assert summary["repair_only_join_coverage"] == 1.0
+    assert summary["glyphs_with_repair_only_coverage"] == ["u"]
+    assert summary["joins_with_repair_only_coverage"] == ["u->n"]
+    assert manifest["entries"][0]["repair_only_count"] >= 0
+    assert "repair_only_paths" in manifest["entries"][0]
+    assert promoted_manifest.get("entries", []) == []
+    assert (output_root / "glyphs" / "repair_only" / "u").exists()
+    assert (output_root / "joins" / "repair_only" / "u_to_n").exists()
 
 
 def test_build_exemplar_corpus_emits_progress_updates(tmp_path):
@@ -353,8 +440,8 @@ local_path = "{folio1.as_posix()}"
         )
 
     summary = result["summary"]
-    assert "r->space" not in summary["missing_joins"]
-    assert "space->d" not in summary["missing_joins"]
+    assert "r->space" not in summary["missing_joins"] or "r->space" in summary["repaired_joins"]
+    assert "space->d" not in summary["missing_joins"] or "space->d" in summary["repaired_joins"]
 
 
 def test_committed_exemplar_harvest_selection_manifest_exists():

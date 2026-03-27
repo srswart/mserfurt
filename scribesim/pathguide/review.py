@@ -174,6 +174,43 @@ def write_guide_overlay_snapshot(
     return output_path
 
 
+def write_nominal_guide_snapshot(
+    guide: DensePathGuide,
+    output_path: Path | str,
+    *,
+    target_size: tuple[int, int] = (160, 160),
+    padding_px: int = 14,
+) -> Path:
+    """Write a direct nominal-render snapshot without corridor overlays."""
+
+    output_path = Path(output_path)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    min_x, min_y, max_x, max_y = _guide_bounds(guide)
+    width_mm = max(max_x - min_x, 0.1)
+    height_mm = max(max_y - min_y, 0.1)
+    inner_w = max(20, target_size[0] - padding_px * 2)
+    inner_h = max(20, target_size[1] - padding_px * 2)
+    px_per_mm = min(inner_w / width_mm, inner_h / height_mm)
+
+    image = Image.new("RGB", target_size, (255, 255, 255))
+    draw = ImageDraw.Draw(image)
+
+    def to_px(x_mm: float, y_mm: float) -> tuple[int, int]:
+        x_px = padding_px + int(round((x_mm - min_x) * px_per_mm))
+        y_px = target_size[1] - padding_px - int(round((y_mm - min_y) * px_per_mm))
+        return x_px, y_px
+
+    for idx in range(len(guide.samples) - 1):
+        a = guide.samples[idx]
+        b = guide.samples[idx + 1]
+        color = (0, 0, 0) if a.contact and b.contact else (160, 160, 160)
+        width = max(1, int(round((a.corridor_half_width_mm + b.corridor_half_width_mm) * 0.5 * px_per_mm * 0.7)))
+        draw.line((*to_px(a.x_mm, a.y_mm), *to_px(b.x_mm, b.y_mm)), fill=color, width=width)
+
+    image.save(output_path, format="PNG")
+    return output_path
+
+
 def write_snapshot_panel(
     image_paths: list[Path],
     output_path: Path | str,

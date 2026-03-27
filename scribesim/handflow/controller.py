@@ -31,11 +31,13 @@ class GuidedHandFlowController:
         *,
         corridor_gain: float = 42.0,
         arrival_gain: float = 10.0,
+        activate_base_pressure: bool = False,
     ) -> None:
         self.profile = profile
         self.dyn = profile.dynamics
         self.corridor_gain = corridor_gain
         self.arrival_gain = arrival_gain
+        self.activate_base_pressure = activate_base_pressure
         self.nib = PhysicsNib(
             width_mm=profile.nib.width_mm,
             angle_deg=profile.nib.angle_deg,
@@ -126,7 +128,8 @@ class GuidedHandFlowController:
         broadness = abs(math.sin(direction_rad - self.nib.angle_rad))
         normalized_speed = min(1.0, desired.speed_mm_s / max(self.dyn.max_speed, 1e-9))
         slow_factor = 1.0 - normalized_speed
-        pressure = desired.pressure
+        pressure_scale = self.profile.folio.base_pressure / 0.72 if self.activate_base_pressure else 1.0
+        pressure = desired.pressure * pressure_scale
         # Keep the path legible, but let broad-edge downstrokes carry visibly more ink.
         pressure += (broadness - 0.35) * 0.30
         pressure += slow_factor * 0.12
@@ -142,11 +145,7 @@ class GuidedHandFlowController:
         width_mm = None
         if state.nib_contact and state.ink_reservoir > 0.0:
             direction_deg = math.degrees(direction_rad)
-            width_pressure = desired.pressure
-            width_pressure += (broadness - 0.35) * 0.12
-            width_pressure += slow_factor * 0.04
-            width_pressure *= 1.0 - 0.06 * state.fatigue
-            width_pressure = max(0.0, min(1.0, width_pressure))
+            width_pressure = max(0.0, min(1.0, state.nib_pressure))
             width_mm = mark_width(
                 self.nib,
                 direction_deg=direction_deg,

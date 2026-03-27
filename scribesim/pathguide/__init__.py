@@ -57,6 +57,12 @@ from scribesim.pathguide.review import (
     write_starter_alphabet_v1_bundle,
 )
 from scribesim.pathguide.validate import assert_valid_dense_path_guide, validate_dense_path_guide
+from scribesim.pathguide.freeze import (
+    DEFAULT_REVIEWED_EVOFIT_MANIFEST_PATH,
+    DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH,
+    DEFAULT_REVIEWED_PROMOTED_GUIDE_OUTPUT_ROOT,
+    freeze_reviewed_evofit_guides,
+)
 
 __all__ = [
     "DensePathGuide",
@@ -82,6 +88,9 @@ __all__ = [
     "STARTER_ALPHABET_V1_SOURCE_MODES",
     "STARTER_ALPHABET_V1_SPLITS",
     "STARTER_PROOF_PATH",
+    "DEFAULT_REVIEWED_EVOFIT_MANIFEST_PATH",
+    "DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH",
+    "DEFAULT_REVIEWED_PROMOTED_GUIDE_OUTPUT_ROOT",
     "assert_valid_dense_path_guide",
     "build_active_folio_alphabet_v1_confidence_manifest",
     "build_active_folio_alphabet_v1_guides",
@@ -91,6 +100,7 @@ __all__ = [
     "build_starter_alphabet_v1_guides",
     "build_starter_dataset_report",
     "build_starter_proof_guides",
+    "freeze_reviewed_evofit_guides",
     "guide_from_letterform_guide",
     "guide_from_trace_segments",
     "guide_from_waypoints",

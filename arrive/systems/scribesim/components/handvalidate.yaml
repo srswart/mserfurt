@@ -17,8 +17,10 @@ selectors:
 interfaces:
   - "Metrics API for corridor containment, path self-intersection, DTW, width profile error, OCR/recognition score"
   - "Gate evaluator for stop/go promotion across curriculum levels"
+  - "Parameter sensitivity bench for reviewed guided proofs"
 
 invariants:
   - "Every metric used as a gate must be deterministic for fixed inputs."
   - "A promoted checkpoint must satisfy all required gates, not only an aggregate score."
   - "Folio rollout remains opt-in until word-, line-, and folio-level gates pass."
+  - "A handflow profile parameter must show measurable output sensitivity before it is treated as an active tuning control."

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import unicodedata
@@ -20,6 +21,7 @@ from scribesim.handvalidate import (
     write_stage_report,
 )
 from scribesim.pathguide import (
+    DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH,
     build_active_folio_alphabet_v1_guides,
     build_starter_alphabet_v1_guides,
     DensePathGuide,
@@ -28,6 +30,7 @@ from scribesim.pathguide import (
     GuideSource,
     STARTER_ALPHABET_V1_JOIN_SCHEDULES,
     load_legacy_guides_toml_as_dense,
+    load_pathguides_toml,
 )
 
 from .controller import GuidedHandFlowController
@@ -43,6 +46,54 @@ _GUIDE_ALIASES = {
     "z": "r",
     "ů": "u",
 }
+
+
+def describe_guide_catalog(
+    guide_catalog: dict[str, DensePathGuide],
+    *,
+    source_label: str,
+    guide_catalog_path: Path | str | None = None,
+) -> dict[str, object]:
+    """Summarize the nominal guide catalog used by handflow."""
+
+    glyph_count = sum(1 for guide in guide_catalog.values() if guide.kind == "glyph")
+    join_count = sum(1 for guide in guide_catalog.values() if guide.kind == "join")
+    cleaned_count = 0
+    raw_count = 0
+    source_ids: set[str] = set()
+    for guide in guide_catalog.values():
+        for source in guide.sources:
+            source_ids.add(source.source_id)
+            if source.source_id.startswith("reviewed-cleaned:"):
+                cleaned_count += 1
+            if source.source_id.startswith("reviewed-raw:"):
+                raw_count += 1
+    return {
+        "source_label": source_label,
+        "guide_catalog_path": str(guide_catalog_path) if guide_catalog_path else "",
+        "guide_count": len(guide_catalog),
+        "glyph_count": glyph_count,
+        "join_count": join_count,
+        "reviewed_cleaned_source_count": cleaned_count,
+        "reviewed_raw_source_count": raw_count,
+        "source_id_count": len(source_ids),
+    }
+
+
+def guide_catalog_source_label(
+    *,
+    exact_symbols: bool,
+    guide_catalog_path: Path | str | None = None,
+) -> str:
+    """Describe which nominal guide lane handflow resolved."""
+
+    if guide_catalog_path is not None:
+        return "override"
+    if exact_symbols and DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH.exists():
+        return "reviewed_promoted"
+    if exact_symbols:
+        return "active_folio_exact"
+    return "starter_plus_extracted"
 
 
 def _resolved_entry(
@@ -65,6 +116,56 @@ def _translate_guide(
         for sample in guide.samples
     )
     return replace(guide, samples=samples)
+
+
+def _stable_fraction(*parts: object) -> float:
+    payload = "|".join(str(part) for part in parts).encode("utf-8")
+    digest = hashlib.sha1(payload).digest()
+    return int.from_bytes(digest[:8], "big") / float(2**64)
+
+
+def _baseline_offset_mm(
+    profile: HandProfile | None,
+    *,
+    enabled: bool,
+    word: str,
+    word_index: int,
+    char_index: int,
+    symbol: str,
+) -> float:
+    if not enabled:
+        return 0.0
+    if profile is None:
+        return 0.0
+    jitter = profile.glyph.baseline_jitter_mm
+    if jitter <= 0.0:
+        return 0.0
+    centered = _stable_fraction("baseline-jitter", word, word_index, char_index, symbol) * 2.0 - 1.0
+    return centered * jitter
+
+
+def _warp_join_vertical_offsets(
+    guide: DensePathGuide,
+    *,
+    start_offset_mm: float,
+    end_offset_mm: float,
+) -> DensePathGuide:
+    if math.isclose(start_offset_mm, 0.0, abs_tol=1e-9) and math.isclose(end_offset_mm, 0.0, abs_tol=1e-9):
+        return guide
+    x0 = guide.samples[0].x_mm
+    x1 = guide.samples[-1].x_mm
+    span = x1 - x0
+    count = max(len(guide.samples) - 1, 1)
+    samples = []
+    for idx, sample in enumerate(guide.samples):
+        if abs(span) > 1e-9:
+            alpha = (sample.x_mm - x0) / span
+        else:
+            alpha = idx / count
+        alpha = max(0.0, min(1.0, alpha))
+        dy_mm = start_offset_mm * (1.0 - alpha) + end_offset_mm * alpha
+        samples.append(replace(sample, y_mm=sample.y_mm + dy_mm))
+    return replace(guide, samples=tuple(samples))
 
 
 def _merge_guides(symbol: str, guides: list[DensePathGuide], *, kind: str) -> DensePathGuide:
@@ -146,10 +247,16 @@ def load_word_guide_catalog(
     *,
     x_height_mm: float = 3.5,
     exact_symbols: bool = False,
+    guide_catalog_path: Path | str | None = None,
 ) -> dict[str, DensePathGuide]:
     """Load the guide catalog for guided handwriting sessions."""
 
+    if guide_catalog_path is not None:
+        return load_pathguides_toml(guide_catalog_path)
+
     if exact_symbols:
+        if DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH.exists():
+            return load_pathguides_toml(DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH)
         return build_active_folio_alphabet_v1_guides(x_height_mm=x_height_mm)
 
     guides = build_starter_alphabet_v1_guides(x_height_mm=x_height_mm)
@@ -194,6 +301,9 @@ def build_word_session(
     *,
     guide_catalog: dict[str, DensePathGuide],
     start_x_mm: float = 0.0,
+    profile: HandProfile | None = None,
+    word_index: int = 0,
+    activate_baseline_jitter: bool = False,
 ) -> tuple[tuple[SessionGuide, ...], DensePathGuide]:
     """Compose a word into glyph/join session guides and a merged reference guide."""
 
@@ -205,9 +315,25 @@ def build_word_session(
     cursor_x = start_x_mm
     x_height_mm = next(iter(guide_catalog.values())).x_height_mm
 
+    offsets_mm = [
+        _baseline_offset_mm(
+            profile,
+            enabled=activate_baseline_jitter,
+            word=word,
+            word_index=word_index,
+            char_index=idx,
+            symbol=char,
+        )
+        for idx, char in enumerate(word)
+    ]
+
     for idx, char in enumerate(word):
         base_glyph, requested_symbol, resolution_kind = resolve_character_guide(char, guide_catalog)
-        glyph = _translate_guide(base_glyph, dx_mm=cursor_x - base_glyph.samples[0].x_mm)
+        glyph = _translate_guide(
+            base_glyph,
+            dx_mm=cursor_x - base_glyph.samples[0].x_mm,
+            dy_mm=offsets_mm[idx],
+        )
         guides.append(
             SessionGuide(
                 symbol=char,
@@ -232,14 +358,19 @@ def build_word_session(
             join = _translate_guide(
                 base_join,
                 dx_mm=glyph.samples[-1].x_mm - base_join.samples[0].x_mm,
-                dy_mm=glyph.samples[-1].y_mm - base_join.samples[0].y_mm,
+                dy_mm=0.0,
+            )
+            join = _warp_join_vertical_offsets(
+                join,
+                start_offset_mm=offsets_mm[idx],
+                end_offset_mm=offsets_mm[idx + 1],
             )
             cursor_x = join.samples[0].x_mm + base_join.x_advance_mm
         else:
             next_glyph, _, _ = resolve_character_guide(nxt, guide_catalog)
             join_advance = x_height_mm * 0.14
             next_entry_x = cursor_x + join_advance
-            next_entry_y = next_glyph.samples[0].y_mm
+            next_entry_y = next_glyph.samples[0].y_mm + offsets_mm[idx + 1]
             join = _build_transition(
                 symbol=join_symbol,
                 start=(glyph.samples[-1].x_mm, glyph.samples[-1].y_mm),
@@ -272,6 +403,8 @@ def build_proof_vocabulary_session(
     words: tuple[str, ...] = PROOF_WORDS,
     *,
     guide_catalog: dict[str, DensePathGuide],
+    profile: HandProfile | None = None,
+    activate_baseline_jitter: bool = False,
 ) -> tuple[tuple[SessionGuide, ...], dict[str, DensePathGuide]]:
     """Compose a persistent proof-word session with air transitions between words."""
 
@@ -281,7 +414,14 @@ def build_proof_vocabulary_session(
     x_height_mm = next(iter(guide_catalog.values())).x_height_mm
 
     for word_index, word in enumerate(words):
-        word_items, word_guide = build_word_session(word, guide_catalog=guide_catalog, start_x_mm=cursor_x)
+        word_items, word_guide = build_word_session(
+            word,
+            guide_catalog=guide_catalog,
+            start_x_mm=cursor_x,
+            profile=profile,
+            word_index=word_index,
+            activate_baseline_jitter=activate_baseline_jitter,
+        )
         word_guides[word] = word_guide
         for item in word_items:
             session.append(replace(item, word_index=word_index))
@@ -294,7 +434,18 @@ def build_proof_vocabulary_session(
         boundary = _build_transition(
             symbol=f"{word}->space->{next_word}",
             start=(word_guide.samples[-1].x_mm, word_guide.samples[-1].y_mm),
-            end=(next_start, _resolve_character_guide(next_word[0], guide_catalog).samples[0].y_mm),
+            end=(
+                next_start,
+                _resolve_character_guide(next_word[0], guide_catalog).samples[0].y_mm
+                + _baseline_offset_mm(
+                    profile,
+                    enabled=activate_baseline_jitter,
+                    word=next_word,
+                    word_index=word_index + 1,
+                    char_index=0,
+                    symbol=next_word[0],
+                ),
+            ),
             x_height_mm=x_height_mm,
             contact=False,
             x_advance_mm=x_height_mm * 0.55,
@@ -318,6 +469,8 @@ def build_line_session(
     *,
     guide_catalog: dict[str, DensePathGuide],
     start_x_mm: float = 0.0,
+    profile: HandProfile | None = None,
+    activate_baseline_jitter: bool = False,
 ) -> tuple[tuple[SessionGuide, ...], DensePathGuide, tuple[SessionWordGuide, ...]]:
     """Compose a text line into a persistent multi-word session."""
 
@@ -332,7 +485,14 @@ def build_line_session(
     x_height_mm = next(iter(guide_catalog.values())).x_height_mm
 
     for word_index, word in enumerate(words):
-        word_items, word_guide = build_word_session(word, guide_catalog=guide_catalog, start_x_mm=cursor_x)
+        word_items, word_guide = build_word_session(
+            word,
+            guide_catalog=guide_catalog,
+            start_x_mm=cursor_x,
+            profile=profile,
+            word_index=word_index,
+            activate_baseline_jitter=activate_baseline_jitter,
+        )
         word_guides.append(SessionWordGuide(text=word, word_index=word_index, guide=word_guide))
         line_parts.append(word_guide)
         for item in word_items:
@@ -346,7 +506,18 @@ def build_line_session(
         boundary = _build_transition(
             symbol=f"{word}->space->{next_word}",
             start=(word_guide.samples[-1].x_mm, word_guide.samples[-1].y_mm),
-            end=(next_start, _resolve_character_guide(next_word[0], guide_catalog).samples[0].y_mm),
+            end=(
+                next_start,
+                _resolve_character_guide(next_word[0], guide_catalog).samples[0].y_mm
+                + _baseline_offset_mm(
+                    profile,
+                    enabled=activate_baseline_jitter,
+                    word=next_word,
+                    word_index=word_index + 1,
+                    char_index=0,
+                    symbol=next_word[0],
+                ),
+            ),
             x_height_mm=x_height_mm,
             contact=False,
             x_advance_mm=x_height_mm * 0.55,
@@ -418,17 +589,28 @@ def run_stateful_word_proof(
     dpi: int = 220,
     supersample: int = 3,
     dt: float = 0.002,
+    guide_catalog_path: Path | str | None = None,
+    exact_symbols: bool = False,
 ) -> dict[str, StageReport]:
     """Render proof words with persistent state and emit gate reports."""
 
     output_root = Path(output_dir)
     output_root.mkdir(parents=True, exist_ok=True)
-    guide_catalog = load_word_guide_catalog(x_height_mm=profile.letterform.x_height_mm)
+    guide_catalog = load_word_guide_catalog(
+        x_height_mm=profile.letterform.x_height_mm,
+        exact_symbols=exact_symbols,
+        guide_catalog_path=guide_catalog_path,
+    )
     controller = GuidedHandFlowController(profile)
     reports: dict[str, StageReport] = {}
 
     for word in words:
-        word_items, word_guide = build_word_session(word, guide_catalog=guide_catalog, start_x_mm=0.0)
+        word_items, word_guide = build_word_session(
+            word,
+            guide_catalog=guide_catalog,
+            start_x_mm=0.0,
+            profile=profile,
+        )
         result = controller.simulate_session(word_items, dt=dt)
         rerun = controller.simulate_session(word_items, dt=dt)
         image_path = output_root / f"{word}.png"
@@ -484,7 +666,7 @@ def run_stateful_word_proof(
         write_stage_report(report, output_root)
         reports[word] = report
 
-    session_items, _ = build_proof_vocabulary_session(words, guide_catalog=guide_catalog)
+    session_items, _ = build_proof_vocabulary_session(words, guide_catalog=guide_catalog, profile=profile)
     session_result = controller.simulate_session(session_items, dt=dt)
     state_trace_payload = [
         {
@@ -509,6 +691,14 @@ def run_stateful_word_proof(
     summary = {
         "words": {word: {"passed": report.gate.passed, "metrics": report.metrics} for word, report in reports.items()},
         "all_passed": all(report.gate.passed for report in reports.values()),
+        "guide_catalog": describe_guide_catalog(
+            guide_catalog,
+            source_label=guide_catalog_source_label(
+                exact_symbols=exact_symbols,
+                guide_catalog_path=guide_catalog_path,
+            ),
+            guide_catalog_path=guide_catalog_path,
+        ),
     }
     (output_root / "proof_vocabulary_summary.json").write_text(
         json.dumps(summary, indent=2, sort_keys=True) + "\n"

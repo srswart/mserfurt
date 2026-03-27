@@ -198,8 +198,12 @@ def _case_line_metrics(
     for line_text in lines:
         if not line_text.strip():
             continue
-        controller = GuidedHandFlowController(profile)
-        session_items, line_guide, word_guides = build_line_session(line_text, guide_catalog=guide_catalog)
+        controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+        session_items, line_guide, word_guides = build_line_session(
+            line_text,
+            guide_catalog=guide_catalog,
+            profile=profile,
+        )
         result = controller.simulate_session(session_items, dt=dt)
         bounds_mm = _guide_render_bounds(line_guide)
         guided_img = render_trajectory_proof(

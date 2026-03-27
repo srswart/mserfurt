@@ -302,9 +302,9 @@ def freeze_reviewed_exemplars(
 
     reviewed_manifest_path = Path(reviewed_manifest_path).resolve()
     reviewed_manifest = _load_toml(reviewed_manifest_path)
-    entries = list(reviewed_manifest.get("entries", []))
+    entries = [entry for entry in reviewed_manifest.get("entries", []) if bool(entry.get("catalog_included", True))]
     if not entries:
-        raise ValueError("reviewed manifest contains no entries")
+        raise ValueError("reviewed manifest contains no active catalog entries")
 
     output_root = Path(output_root).resolve()
     output_root.mkdir(parents=True, exist_ok=True)

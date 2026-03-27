@@ -120,6 +120,7 @@ def test_load_configs_from_committed_assets():
     assert "join" in gates
     assert "stateful_word" in gates
     assert "folio" in gates
+    assert "reviewed_nominal" in gates
     assert "exemplar_promotion_glyph" in gates
     assert "exemplar_promotion_join" in gates
     assert any(rule.metric == "organicness_win_rate" for rule in gates["folio"].rules)

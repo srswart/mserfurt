@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-24T13:47:51Z
+  updated_at: 2026-03-26T00:00:00Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1143,36 +1143,36 @@ passes:
     items:
     - id: ADV-SS-PATHGUIDE-004
       advance_id: ADV-SS-PATHGUIDE-004
-      title: Exemplar-Fit Guide Freeze — Promote Evo-Derived Nominal Glyphs and Joins
-      status: planned
+      title: Reviewed Exemplar-Fit Guide Freeze — Promote Cleanup-Aware Evo-Derived Nominal Glyphs and Joins
+      status: done
       owner: shawn
       dependencies:
-      - ADV-SS-EVOFIT-002
-      notes: Replaces toy or clone-based guides with exemplar-fit promoted assets derived from reviewed exemplar truth.
+      - ADV-SS-EVOFIT-003
+      notes: Implemented reviewed-evofit guide freeze; promoted guide bundles now preserve raw-vs-cleaned reviewed provenance, emit direct nominal panels, and write a stable handflow-facing catalog.
   - id: td014-flow-recovery
     title: Retrain handflow on readable nominal guides
     order: 5
     items:
     - id: ADV-SS-HANDFLOW-005
       advance_id: ADV-SS-HANDFLOW-005
-      title: Exemplar-Fit Flow Recovery — Handflow Training on Promoted Nominal Guides
-      status: planned
+      title: Reviewed Exemplar-Fit Flow Recovery — Handflow Training on Cleanup-Aware Promoted Nominal Guides
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-PATHGUIDE-004
-      notes: Uses the new promoted guides as templates for stroke approach and cross-character flow.
+      notes: Handflow now accepts the reviewed promoted guide catalog or an explicit override, preserves raw-vs-cleaned nominal evidence in metadata, and keeps exact-symbol refusal active for unresolved reviewed-lane renders.
   - id: td014-nominal-gates
     title: Separate nominal-guide legibility from controller legibility
     order: 6
     items:
     - id: ADV-SS-HANDVALIDATE-004
       advance_id: ADV-SS-HANDVALIDATE-004
-      title: Nominal Legibility Gates — Exemplar-Fit Review Slice Validation
-      status: planned
+      title: Nominal Legibility Gates — Reviewed Raw vs Cleaned Exemplar-Fit Review Slice Validation
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDFLOW-005
-      notes: Ensures unreadable nominal guides fail before controller or folio metrics can mask the problem.
+      notes: Implemented reviewed nominal validation bench and CLI; raw nominal, cleaned nominal, and guided/controller outputs are now gated separately before folio promotion claims.
 - id: pass-13f
   title: 'Pass 13f: TD-014 — Corpus Semantics and Promoted Exemplar Hardening'
   order: 41
@@ -1220,11 +1220,11 @@ passes:
     - id: ADV-SS-EXEMPLAR-006
       advance_id: ADV-SS-EXEMPLAR-006
       title: Coverage Backfill Quarantine — Keep Repaired Samples out of Promoted Exemplars
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-005
-      notes: Keeps coverage-promoted and fallback-filled samples out of reviewable exemplar sets and downstream nominal recovery.
+      notes: Implemented a non-reviewable repair_only tier, removed coverage backfill from auto-admitted success metrics, and added downstream evofit guards so repair-only assets cannot seed nominal guide recovery.
 - id: pass-13g
   title: 'Pass 13g: TD-014 — Reviewed Exemplar Annotation Workbench'
   order: 42
@@ -1253,9 +1253,24 @@ passes:
       dependencies:
       - ADV-SS-ANNOTATE-001
       notes: Browser-based local workbench is now implemented with a stdlib HTTP server, reviewed manifest persistence, local folio image browsing, and save/load coverage tests.
+  - id: td014-glyph-status-inspector
+    title: Surface per-symbol processing status and manual selection guidance
+    order: 3
+    items:
+    - id: ADV-SS-ANNOTATE-006
+      advance_id: ADV-SS-ANNOTATE-006
+      title: Glyph Status Inspector — Per-Symbol Processing History and Selection Guidance in the Annotation Workbench
+      status: proposed
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-001
+      - ADV-SS-ANNOTATE-002
+      - ADV-SS-EXEMPLAR-004
+      - ADV-SS-EXEMPLAR-006
+      notes: Extend the workbench debt list so each glyph or join can explain current tier state, upstream blockers, and what kind of reviewed sample should be selected to enter the catalog.
   - id: td014-reviewed-freeze
     title: Freeze reviewed exemplar crops and manifests
-    order: 3
+    order: 4
     items:
     - id: ADV-SS-ANNOTATE-003
       advance_id: ADV-SS-ANNOTATE-003
@@ -1267,7 +1282,7 @@ passes:
       notes: Reviewed freeze now exports dedicated reviewed_exemplars crops, manifest and source-manifest copies, contact sheets, and a downstream evofit smoke test without mixing automatic corpus tiers.
   - id: td014-reviewed-evofit
     title: Normalize reviewed exemplars into nominal forms
-    order: 4
+    order: 5
     items:
     - id: ADV-SS-EVOFIT-002
       advance_id: ADV-SS-EVOFIT-002
@@ -1318,3 +1333,45 @@ passes:
       - ADV-SS-ANNOTATE-005
       - ADV-SS-EVOFIT-002
       notes: Reviewed evofit now prefers cleaned reviewed crops, preserves raw-path and cleanup provenance in every fit-source record, and writes a raw-only reviewed baseline bundle for explicit raw-vs-cleaned comparison.
+- id: pass-13i
+  title: 'Pass 13i: TD-014 — Reviewed Handflow Parameter Activation'
+  order: 44
+  phases:
+  - id: td014-parameter-core
+    title: Activate high-value reviewed handflow controls
+    order: 1
+    items:
+    - id: ADV-SS-HANDFLOW-006
+      advance_id: ADV-SS-HANDFLOW-006
+      title: Core Parameter Activation — Base Pressure and Baseline Jitter in Reviewed Guided Handflow
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-005
+      - ADV-SS-HANDVALIDATE-004
+      notes: Implemented reviewed-lane activation for folio.base_pressure and glyph.baseline_jitter_mm, added activated-parameter metadata and sensitivity tests, and kept the legacy curriculum lane on prior behavior.
+  - id: td014-parameter-secondary
+    title: Activate bounded irregularity controls
+    order: 2
+    items:
+    - id: ADV-SS-HANDFLOW-007
+      advance_id: ADV-SS-HANDFLOW-007
+      title: Secondary Parameter Activation — Tremor and Warp in Corridor-Bounded Reviewed Handflow
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-006
+      notes: Add deterministic corridor-bounded tremor and warp only after the core controls are active and legible on reviewed proofs.
+  - id: td014-parameter-gates
+    title: Prove which reviewed handflow controls are active and safe
+    order: 3
+    items:
+    - id: ADV-SS-HANDVALIDATE-006
+      advance_id: ADV-SS-HANDVALIDATE-006
+      title: Parameter Sensitivity Gates — Prove Reviewed Guided Parameters Are Active and Safe
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-006
+      - ADV-SS-HANDFLOW-007
+      notes: Add a reviewed proof sensitivity bench and classify controls as inactive, active-safe, or active-unsafe based on deterministic deltas and legibility gates.
