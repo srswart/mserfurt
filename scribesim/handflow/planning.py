@@ -63,6 +63,7 @@ def build_track_plan(
                 vy_mm_s=vy_mm_s,
                 speed_mm_s=speed_mm_s,
                 pressure=sample.pressure_nominal,
+                nib_angle_deg=sample.nib_angle_deg,
                 contact=sample.contact,
                 corridor_half_width_mm=sample.corridor_half_width_mm,
                 progress_ratio=(
@@ -117,6 +118,7 @@ def sample_plan(plan: TrackPlan, time_s: float) -> TrackPlanSample:
             vy_mm_s=current.vy_mm_s * (1.0 - alpha) + nxt.vy_mm_s * alpha,
             speed_mm_s=current.speed_mm_s * (1.0 - alpha) + nxt.speed_mm_s * alpha,
             pressure=current.pressure * (1.0 - alpha) + nxt.pressure * alpha,
+            nib_angle_deg=current.nib_angle_deg * (1.0 - alpha) + nxt.nib_angle_deg * alpha,
             contact=current.contact if alpha < 0.5 else nxt.contact,
             corridor_half_width_mm=(
                 current.corridor_half_width_mm * (1.0 - alpha)

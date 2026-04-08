@@ -9,10 +9,12 @@ import tomllib
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+import numpy as np
 from PIL import Image
 
 import scribesim.annotate.workbench as workbench_module
 from scribesim.annotate.workbench import AnnotationWorkbenchServer, ReviewedAnnotationWorkbench
+from scribesim.pathguide.model import DensePathGuide, GuideSample, GuideSource
 
 
 def _write_fixture_inputs(tmp_path: Path) -> tuple[Path, Path, Path]:
@@ -154,6 +156,38 @@ def _write_png(path: Path, *, size: tuple[int, int] = (24, 24), color: tuple[int
     return path
 
 
+def _dense_test_guide(symbol: str) -> DensePathGuide:
+    samples = (
+        GuideSample(0.0, 0.0, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(0.2, 0.05, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(0.4, 0.1, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(0.6, 0.15, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(0.8, 0.2, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(1.0, 0.15, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(1.2, 0.1, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(1.4, 0.05, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+        GuideSample(1.6, 0.0, 1.0, 0.0, contact=True, pressure_nominal=0.34, corridor_half_width_mm=0.2),
+    )
+    return DensePathGuide(
+        symbol=symbol,
+        kind="glyph",
+        samples=samples,
+        x_advance_mm=1.8,
+        x_height_mm=3.8,
+        entry_tangent=(1.0, 0.0),
+        exit_tangent=(1.0, 0.0),
+        sources=(
+            GuideSource(
+                source_id=f"test:{symbol}",
+                source_path="tests",
+                confidence_tier="accepted",
+                split="validation",
+                source_resolution_ppmm=16.0,
+            ),
+        ),
+    )
+
+
 def test_reviewed_annotation_workbench_saves_glyph_and_join_annotations(tmp_path: Path):
     selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
     output_root = tmp_path / "reviewed"
@@ -230,6 +264,93 @@ def test_annotation_workbench_state_exposes_symbol_status_and_guidance(tmp_path:
     assert any("confusable" in item for item in glyph_status["guidance"])
     assert any("foreground balance" in item for item in glyph_status["guidance"])
     assert glyph_status["sample_refs"][0]["folio_id"] == "1"
+
+
+def test_annotation_workbench_word_assist_can_propose_and_accept_segments(tmp_path: Path):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    image_path = tmp_path / "folio.jpg"
+    folio = Image.open(image_path).convert("L")
+    array = np.array(folio, dtype=np.uint8)
+    array[70:150, 40:56] = 0
+    array[70:150, 88:104] = 0
+    array[70:150, 136:152] = 0
+    Image.fromarray(array).save(image_path)
+
+    output_root = tmp_path / "reviewed"
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+
+    proposal = workbench.propose_word_assist(
+        {
+            "folio_id": "1",
+            "bounds_px": {"x": 30, "y": 60, "width": 140, "height": 100},
+            "transcript": "iii",
+        }
+    )
+
+    assert proposal["units"] == ["i", "i", "i"]
+    assert len(proposal["segments"]) == 3
+    assert len(proposal["boundaries"]) == 4
+    assert proposal["word_bounds_px"]["width"] == 140
+
+    accepted = workbench.accept_word_assist(
+        {
+            "folio_id": "1",
+            "bounds_px": proposal["word_bounds_px"],
+            "transcript": proposal["transcript"],
+            "units": proposal["units"],
+            "boundaries": proposal["boundaries"],
+            "quality": "usable",
+        }
+    )
+
+    assert len(accepted["saved"]) == 3
+    assert [entry["symbol"] for entry in accepted["saved"]] == ["i", "i", "i"]
+    assert all('word assist transcript="iii"' in entry["notes"] for entry in accepted["saved"])
+
+
+def test_annotation_workbench_stroke_assist_can_propose_segments(tmp_path: Path):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    image_path = tmp_path / "folio.jpg"
+    folio = Image.open(image_path).convert("L")
+    array = np.array(folio, dtype=np.uint8)
+    array[40:150, 90:108] = 0
+    Image.fromarray(array).save(image_path)
+
+    output_root = tmp_path / "reviewed"
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "x",
+            "quality": "usable",
+            "notes": "stroke assist source",
+            "bounds_px": {"x": 84, "y": 34, "width": 30, "height": 126},
+        }
+    )
+
+    proposal = workbench.propose_stroke_assist({"annotation_id": saved["id"], "desired_stroke_count": 2})
+
+    assert proposal["annotation_id"] == saved["id"]
+    assert proposal["segments"]
+    assert proposal["stroke_count"] >= 1
+    assert proposal["mode"] == "requested-count"
+    assert proposal["requested_stroke_count"] == 2
+    assert proposal["template_stroke_count"] == 2
+    assert proposal["selected_stroke_count"] == 2
+    assert proposal["image_fit"] > 0.0
+    assert len(proposal["segments"][0]["pressure_curve"]) == 4
+    assert proposal["segments"][0]["nib_angle_mode"] == "auto"
+    assert len(proposal["segments"][0]["nib_angle_curve"]) == 4
+    assert len(proposal["segments"][0]["nib_angle_confidence"]) == 4
 
 
 def test_annotation_workbench_symbol_rerun_collects_diagnostics(tmp_path: Path, monkeypatch):
@@ -511,6 +632,9 @@ def test_annotation_workbench_can_save_manual_guide_and_expose_preview_artifacts
                 {
                     "stroke_order": 1,
                     "contact": True,
+                    "nib_angle_mode": "manual",
+                    "nib_angle_curve": [33.0, 36.0, 42.0, 45.0],
+                    "nib_angle_confidence": [0.4, 0.6, 0.8, 0.9],
                     "p0": {"x": 2, "y": 25},
                     "p1": {"x": 5, "y": 6},
                     "p2": {"x": 14, "y": 4},
@@ -523,8 +647,12 @@ def test_annotation_workbench_can_save_manual_guide_and_expose_preview_artifacts
     state = workbench.get_state()
     assert guide["annotation_id"] == saved["id"]
     assert guide["symbol"] == "e"
+    assert guide["catalog_name"] == "Workbench"
     assert guide["canvas_padding_px"] == 36
     assert len(guide["segments"]) == 1
+    assert guide["segments"][0]["nib_angle_mode"] == "manual"
+    assert guide["segments"][0]["nib_angle_curve"] == [33.0, 36.0, 42.0, 45.0]
+    assert guide["segments"][0]["nib_angle_confidence"] == [0.4, 0.6, 0.8, 0.9]
     assert guide["preview_artifacts"]["overlay"]["url"].startswith("/api/artifact?path=")
     assert guide["preview_artifacts"]["nominal"]["url"].startswith("/api/artifact?path=")
     assert state["manual_guides"]["glyph:e"]["annotation_id"] == saved["id"]
@@ -534,6 +662,328 @@ def test_annotation_workbench_can_save_manual_guide_and_expose_preview_artifacts
     manual_manifest = json.loads((output_root / "manual_guides_v1" / "manual_guides.json").read_text(encoding="utf-8"))
     assert manual_manifest["entry_count"] == 1
     assert manual_manifest["entries"][0]["symbol"] == "e"
+    assert manual_manifest["entries"][0]["catalog_name"] == "Workbench"
+
+
+def test_annotation_workbench_manual_guide_validation_error_mentions_stroke_order(tmp_path: Path):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "usable",
+            "notes": "manual guide source",
+            "bounds_px": {"x": 12, "y": 14, "width": 22, "height": 28},
+        }
+    )
+
+    try:
+        workbench.save_manual_guide(
+            {
+                "annotation_id": saved["id"],
+                "x_height_px": 28,
+                "x_advance_px": 18,
+                "corridor_half_width_mm": 0.24,
+                "segments": [
+                    {
+                        "stroke_order": 1,
+                        "contact": True,
+                        "p0": {"x": 2, "y": 25},
+                        "p1": {"x": 18, "y": -8},
+                        "p2": {"x": -6, "y": 34},
+                        "p3": {"x": 17, "y": 18},
+                    }
+                ],
+            }
+        )
+    except ValueError as exc:
+        message = str(exc)
+    else:
+        raise AssertionError("expected manual guide validation to fail")
+
+    assert "likely affected stroke order(s): 1" in message
+
+
+def test_annotation_workbench_manual_dense_guide_uses_per_segment_nib_angle_curve(tmp_path: Path):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "usable",
+            "notes": "manual guide nib curve source",
+            "bounds_px": {"x": 12, "y": 14, "width": 22, "height": 28},
+        }
+    )
+
+    guide = workbench._build_manual_dense_guide(
+        {
+            "annotation_id": saved["id"],
+            "kind": "glyph",
+            "symbol": "e",
+            "x_height_px": 28,
+            "x_advance_px": 18,
+            "corridor_half_width_mm": 0.24,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "nib_angle_mode": "manual",
+                    "nib_angle_curve": [32.0, 35.0, 47.0, 50.0],
+                    "nib_angle_confidence": [0.2, 0.5, 0.7, 0.9],
+                    "p0": {"x": 3, "y": 24},
+                    "p1": {"x": 5, "y": 11},
+                    "p2": {"x": 12, "y": 5},
+                    "p3": {"x": 17, "y": 18},
+                }
+            ],
+        }
+    )
+
+    nib_angles = [sample.nib_angle_deg for sample in guide.samples if sample.contact]
+    confidences = [sample.nib_angle_confidence for sample in guide.samples if sample.contact]
+    assert min(nib_angles) >= 31.5
+    assert max(nib_angles) <= 50.5
+    assert max(nib_angles) - min(nib_angles) >= 8.0
+    assert max(confidences) >= 0.8
+
+
+def test_annotation_workbench_manual_dense_guide_preserves_editor_y_orientation(tmp_path: Path):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "l",
+            "quality": "usable",
+            "notes": "manual guide orientation source",
+            "bounds_px": {"x": 12, "y": 14, "width": 15, "height": 43},
+        }
+    )
+
+    guide = workbench._build_manual_dense_guide(
+        {
+            "annotation_id": saved["id"],
+            "kind": "glyph",
+            "symbol": "l",
+            "x_height_px": 43,
+            "x_advance_px": 15,
+            "corridor_half_width_mm": 0.2,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "p0": {"x": 7, "y": 4},
+                    "p1": {"x": 7, "y": 14},
+                    "p2": {"x": 7, "y": 28},
+                    "p3": {"x": 7, "y": 39},
+                }
+            ],
+        }
+    )
+
+    contact_samples = [sample for sample in guide.samples if sample.contact]
+    assert contact_samples[0].y_mm < contact_samples[-1].y_mm
+
+
+def test_annotation_workbench_preserves_manual_guides_in_separate_named_catalogs(tmp_path: Path, monkeypatch):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "usable",
+            "notes": "manual guide source",
+            "bounds_px": {"x": 12, "y": 14, "width": 22, "height": 28},
+        }
+    )
+
+    def fake_preview(entry: dict[str, object]) -> dict[str, str]:
+        guide_root = output_root / "manual_guides_v1" / str(entry["id"])
+        overlay = _write_png(guide_root / "overlay.png")
+        nominal = _write_png(guide_root / "nominal.png")
+        crop = _write_png(guide_root / "source_crop.png", size=(22, 28), color=(120, 120, 120))
+        catalog = guide_root / "manual_proposal_guides.toml"
+        catalog.write_text("", encoding="utf-8")
+        return {
+            "guide_catalog_path": catalog.as_posix(),
+            "preview_overlay_path": overlay.as_posix(),
+            "preview_nominal_path": nominal.as_posix(),
+            "source_crop_path": crop.as_posix(),
+        }
+
+    monkeypatch.setattr(workbench, "_write_manual_guide_previews", fake_preview)
+
+    first = workbench.save_manual_guide(
+        {
+            "annotation_id": saved["id"],
+            "catalog_name": "Catalog A",
+            "x_height_px": 28,
+            "x_advance_px": 18,
+            "corridor_half_width_mm": 0.24,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "p0": {"x": 2, "y": 25},
+                    "p1": {"x": 5, "y": 6},
+                    "p2": {"x": 14, "y": 4},
+                    "p3": {"x": 17, "y": 18},
+                }
+            ],
+        }
+    )
+    second = workbench.save_manual_guide(
+        {
+            "annotation_id": saved["id"],
+            "catalog_name": "Catalog B",
+            "x_height_px": 28,
+            "x_advance_px": 18,
+            "corridor_half_width_mm": 0.24,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "p0": {"x": 3, "y": 24},
+                    "p1": {"x": 6, "y": 7},
+                    "p2": {"x": 13, "y": 5},
+                    "p3": {"x": 18, "y": 19},
+                }
+            ],
+        }
+    )
+
+    state = workbench.get_state()
+    entries = state["manual_guide_groups"]["glyph:e"]["entries"]
+    assert {entry["catalog_name"] for entry in entries} == {"Catalog A", "Catalog B"}
+    catalogs = {entry["name"]: entry for entry in state["manual_guide_catalogs"]}
+    assert catalogs["Catalog A"]["active_entry_count"] == 1
+    assert catalogs["Catalog B"]["active_entry_count"] == 1
+
+
+def test_annotation_workbench_save_manual_guide_does_not_collapse_null_ids(tmp_path: Path, monkeypatch):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved_a = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "usable",
+            "notes": "manual guide source a",
+            "bounds_px": {"x": 12, "y": 14, "width": 22, "height": 28},
+        }
+    )
+    saved_b = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "n",
+            "quality": "usable",
+            "notes": "manual guide source b",
+            "bounds_px": {"x": 44, "y": 14, "width": 22, "height": 28},
+        }
+    )
+
+    def fake_preview(entry: dict[str, object]) -> dict[str, str]:
+        guide_root = output_root / "manual_guides_v1" / str(entry["id"])
+        overlay = _write_png(guide_root / "overlay.png")
+        nominal = _write_png(guide_root / "nominal.png")
+        crop = _write_png(guide_root / "source_crop.png", size=(22, 28), color=(120, 120, 120))
+        catalog = guide_root / "manual_proposal_guides.toml"
+        catalog.write_text("", encoding="utf-8")
+        return {
+            "guide_catalog_path": catalog.as_posix(),
+            "preview_overlay_path": overlay.as_posix(),
+            "preview_nominal_path": nominal.as_posix(),
+            "source_crop_path": crop.as_posix(),
+        }
+
+    monkeypatch.setattr(workbench, "_write_manual_guide_previews", fake_preview)
+    monkeypatch.setattr(workbench, "_build_manual_dense_guide", lambda entry: _dense_test_guide(str(entry["symbol"])))
+
+    guide_a = workbench.save_manual_guide(
+        {
+            "id": None,
+            "annotation_id": saved_a["id"],
+            "catalog_name": "Workbench",
+            "x_height_px": 28,
+            "x_advance_px": 18,
+            "corridor_half_width_mm": 0.24,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "p0": {"x": 2, "y": 25},
+                    "p1": {"x": 5, "y": 6},
+                    "p2": {"x": 14, "y": 4},
+                    "p3": {"x": 17, "y": 18},
+                }
+            ],
+        }
+    )
+    guide_b = workbench.save_manual_guide(
+        {
+            "id": None,
+            "annotation_id": saved_b["id"],
+            "catalog_name": "Workbench",
+            "x_height_px": 28,
+            "x_advance_px": 18,
+            "corridor_half_width_mm": 0.24,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "p0": {"x": 3, "y": 24},
+                    "p1": {"x": 6, "y": 7},
+                    "p2": {"x": 13, "y": 5},
+                    "p3": {"x": 18, "y": 19},
+                }
+            ],
+        }
+    )
+
+    entries = workbench.manual_guides["entries"]
+    assert len(entries) == 2
+    assert guide_a["id"] != guide_b["id"]
+    assert {entry["symbol"] for entry in entries} == {"e", "n"}
 
 
 def test_annotation_workbench_can_store_multiple_manual_guides_per_symbol(tmp_path: Path, monkeypatch):
@@ -628,6 +1078,11 @@ def test_annotation_workbench_can_store_multiple_manual_guides_per_symbol(tmp_pa
     assert len(group["entries"]) == 2
     assert group["active_id"] == second_guide["id"]
     assert state["manual_guides"]["glyph:e"]["annotation_id"] == second["id"]
+
+    reactivated = workbench.set_manual_guide_active(group["entries"][1]["id"])
+    state = workbench.get_state()
+    assert reactivated["id"] == group["entries"][1]["id"]
+    assert state["manual_guide_groups"]["glyph:e"]["active_id"] == group["entries"][1]["id"]
 
 
 def test_annotation_workbench_symbol_rerun_can_use_manual_guide_override(tmp_path: Path, monkeypatch):
@@ -943,6 +1398,321 @@ def test_annotation_workbench_server_serves_state_and_saves_annotations(tmp_path
         thread.join(timeout=2)
 
 
+def test_annotation_workbench_string_render_reports_missing_exact_glyphs(tmp_path: Path, monkeypatch):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+
+    def fake_catalog(*, run_root: Path, x_height_mm: float, catalog_names=None):
+        catalog_path = run_root / "effective_guides.toml"
+        catalog_path.parent.mkdir(parents=True, exist_ok=True)
+        catalog_path.write_text("schema_version = 1\n", encoding="utf-8")
+        return {
+            "catalog": {"e": _dense_test_guide("e")},
+            "catalog_path": catalog_path,
+            "summary": {
+                "source_label": "test",
+                "guide_catalog_path": catalog_path.as_posix(),
+                "guide_count": 1,
+                "glyph_count": 1,
+                "join_count": 0,
+                "manual_override_count": 0,
+            },
+        }
+
+    monkeypatch.setattr(workbench, "_build_effective_render_catalog", fake_catalog)
+
+    workbench.start_string_render({"text": "eb", "check_only": True})
+    for _ in range(100):
+        render = workbench.get_state()["string_render"]
+        if render and render.get("status") in {"completed", "failed"}:
+            break
+        time.sleep(0.01)
+    else:
+        raise AssertionError("expected string render to complete")
+
+    render = workbench.get_state()["string_render"]
+    assert render["status"] == "completed"
+    assert render["result"]["rendered"] is False
+    assert render["result"]["availability"]["available"] is False
+    assert render["result"]["availability"]["missing_symbols"] == ["b"]
+    assert "Missing exact guides for: b" in render["message"]
+
+
+def test_annotation_workbench_string_render_writes_render_artifacts(tmp_path: Path, monkeypatch):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+
+    def fake_catalog(*, run_root: Path, x_height_mm: float, catalog_names=None):
+        catalog_path = run_root / "effective_guides.toml"
+        catalog_path.parent.mkdir(parents=True, exist_ok=True)
+        catalog_path.write_text("schema_version = 1\n", encoding="utf-8")
+        return {
+            "catalog": {
+                "e": _dense_test_guide("e"),
+                "n": _dense_test_guide("n"),
+            },
+            "catalog_path": catalog_path,
+            "summary": {
+                "source_label": "test",
+                "guide_catalog_path": catalog_path.as_posix(),
+                "guide_count": 2,
+                "glyph_count": 2,
+                "join_count": 0,
+                "manual_override_count": 0,
+            },
+        }
+
+    def fake_render_guided_folio_lines(
+        lines,
+        *,
+        profile,
+        dpi,
+        supersample,
+        x_height_mm,
+        line_spacing_mm,
+        page_width_mm,
+        page_height_mm,
+        margin_left_mm,
+        margin_top_mm,
+        exact_symbols,
+        guide_catalog_path,
+        return_metadata,
+    ):
+        assert lines == ["en"]
+        assert exact_symbols is True
+        assert return_metadata is True
+        page = np.full((16, 48, 3), 180, dtype=np.uint8)
+        heat = np.full((16, 48), 120, dtype=np.uint8)
+        aligned_page = np.full((16, 48, 3), 210, dtype=np.uint8)
+        aligned_heat = np.full((16, 48), 90, dtype=np.uint8)
+        return page, heat, {
+            "render_trajectory_mode": "actual",
+            "exact_symbols": True,
+            "activated_parameters": {
+                "folio.base_pressure": profile.folio.base_pressure,
+                "glyph.baseline_jitter_mm": profile.glyph.baseline_jitter_mm,
+            },
+            "guide_catalog": {
+                "source_label": "test",
+                "guide_count": 2,
+                "glyph_count": 2,
+                "join_count": 0,
+                "manual_override_count": 0,
+            },
+            "resolution": {
+                "glyph_count": 2,
+                "exact_character_coverage": 1.0,
+                "alias_substitution_count": 0,
+                "normalized_substitution_count": 0,
+                "exact_only_passed": True,
+                "line_statuses": [],
+            },
+            "aligned_page": aligned_page,
+            "aligned_heat": aligned_heat,
+        }
+
+    monkeypatch.setattr(workbench, "_build_effective_render_catalog", fake_catalog)
+    monkeypatch.setattr(workbench_module, "render_guided_folio_lines", fake_render_guided_folio_lines)
+
+    workbench.start_string_render({"text": "en", "dpi": 220, "supersample": 2})
+    for _ in range(100):
+        render = workbench.get_state()["string_render"]
+        if render and render.get("status") in {"completed", "failed"}:
+            break
+        time.sleep(0.01)
+    else:
+        raise AssertionError("expected string render to complete")
+
+    render = workbench.get_state()["string_render"]
+    assert render["status"] == "completed"
+    assert render["result"]["rendered"] is True
+    assert render["result"]["availability"]["available"] is True
+    assert render["result"]["artifacts"]["page"]["url"].startswith("/api/artifact?path=")
+    assert render["result"]["artifacts"]["pressure_heat"]["url"].startswith("/api/artifact?path=")
+    assert render["result"]["artifacts"]["aligned_page"]["url"].startswith("/api/artifact?path=")
+    assert render["result"]["artifacts"]["aligned_heat"]["url"].startswith("/api/artifact?path=")
+    assert render["result"]["artifacts"]["metadata"]["url"].startswith("/api/artifact?path=")
+    assert render["result"]["parameters"]["dpi"] == 220
+    assert render["result"]["parameters"]["supersample"] == 2
+    assert render["result"]["resolution"]["exact_character_coverage"] == 1.0
+
+
+def test_annotation_workbench_string_render_filters_manual_guides_by_catalog(tmp_path: Path, monkeypatch):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "usable",
+            "notes": "manual guide source",
+            "bounds_px": {"x": 12, "y": 14, "width": 22, "height": 28},
+        }
+    )
+
+    def fake_preview(entry: dict[str, object]) -> dict[str, str]:
+        guide_root = output_root / "manual_guides_v1" / str(entry["id"])
+        overlay = _write_png(guide_root / "overlay.png")
+        nominal = _write_png(guide_root / "nominal.png")
+        crop = _write_png(guide_root / "source_crop.png", size=(22, 28), color=(120, 120, 120))
+        catalog = guide_root / "manual_proposal_guides.toml"
+        catalog.write_text("", encoding="utf-8")
+        return {
+            "guide_catalog_path": catalog.as_posix(),
+            "preview_overlay_path": overlay.as_posix(),
+            "preview_nominal_path": nominal.as_posix(),
+            "source_crop_path": crop.as_posix(),
+        }
+
+    monkeypatch.setattr(workbench, "_write_manual_guide_previews", fake_preview)
+    monkeypatch.setattr(workbench, "_build_manual_dense_guide", lambda entry: _dense_test_guide(str(entry["symbol"])))
+
+    workbench.save_manual_guide(
+        {
+            "annotation_id": saved["id"],
+            "catalog_name": "Catalog A",
+            "x_height_px": 28,
+            "x_advance_px": 18,
+            "corridor_half_width_mm": 0.24,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "p0": {"x": 2, "y": 25},
+                    "p1": {"x": 5, "y": 6},
+                    "p2": {"x": 14, "y": 4},
+                    "p3": {"x": 17, "y": 18},
+                }
+            ],
+        }
+    )
+    workbench.save_manual_guide(
+        {
+            "annotation_id": saved["id"],
+            "catalog_name": "Catalog B",
+            "x_height_px": 28,
+            "x_advance_px": 18,
+            "corridor_half_width_mm": 0.24,
+            "segments": [
+                {
+                    "stroke_order": 1,
+                    "contact": True,
+                    "p0": {"x": 3, "y": 24},
+                    "p1": {"x": 6, "y": 7},
+                    "p2": {"x": 13, "y": 5},
+                    "p3": {"x": 18, "y": 19},
+                }
+            ],
+        }
+    )
+
+    a_catalog = workbench._build_effective_render_catalog(
+        run_root=output_root / "render_a",
+        x_height_mm=3.8,
+        catalog_names=["Catalog A"],
+    )
+    b_catalog = workbench._build_effective_render_catalog(
+        run_root=output_root / "render_b",
+        x_height_mm=3.8,
+        catalog_names=["Catalog B"],
+    )
+    combined_catalog = workbench._build_effective_render_catalog(
+        run_root=output_root / "render_ab",
+        x_height_mm=3.8,
+        catalog_names=["Catalog A", "Catalog B"],
+    )
+
+    assert a_catalog["summary"]["catalog_names"] == ["Catalog A"]
+    assert b_catalog["summary"]["catalog_names"] == ["Catalog B"]
+    assert combined_catalog["summary"]["catalog_names"] == ["Catalog A", "Catalog B"]
+    assert a_catalog["summary"]["manual_override_count"] == 1
+    assert b_catalog["summary"]["manual_override_count"] == 1
+    assert combined_catalog["summary"]["manual_override_count"] == 1
+    assert any(entry["symbol"] == "e" and entry["source"] == "manual" for entry in combined_catalog["summary"]["effective_symbols"])
+
+
+def test_annotation_workbench_string_render_defaults_include_all_populated_manual_catalogs(tmp_path: Path, monkeypatch):
+    selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
+    output_root = tmp_path / "reviewed"
+
+    workbench = ReviewedAnnotationWorkbench(
+        coverage_ledger_path=ledger_path,
+        output_root=output_root,
+        selection_manifest_path=selection_manifest,
+    )
+    saved = workbench.save_annotation(
+        {
+            "folio_id": "1",
+            "kind": "glyph",
+            "symbol": "e",
+            "quality": "usable",
+            "notes": "manual guide source",
+            "bounds_px": {"x": 12, "y": 14, "width": 22, "height": 28},
+        }
+    )
+
+    def fake_preview(entry: dict[str, object]) -> dict[str, str]:
+        guide_root = output_root / "manual_guides_v1" / str(entry["id"])
+        overlay = _write_png(guide_root / "overlay.png")
+        nominal = _write_png(guide_root / "nominal.png")
+        crop = _write_png(guide_root / "source_crop.png", size=(22, 28), color=(120, 120, 120))
+        catalog = guide_root / "manual_proposal_guides.toml"
+        catalog.write_text("", encoding="utf-8")
+        return {
+            "guide_catalog_path": catalog.as_posix(),
+            "preview_overlay_path": overlay.as_posix(),
+            "preview_nominal_path": nominal.as_posix(),
+            "source_crop_path": crop.as_posix(),
+        }
+
+    monkeypatch.setattr(workbench, "_write_manual_guide_previews", fake_preview)
+    monkeypatch.setattr(workbench, "_build_manual_dense_guide", lambda entry: _dense_test_guide(str(entry["symbol"])))
+
+    for name in ("Catalog A", "Catalog B"):
+        workbench.save_manual_guide(
+            {
+                "annotation_id": saved["id"],
+                "catalog_name": name,
+                "x_height_px": 28,
+                "x_advance_px": 18,
+                "corridor_half_width_mm": 0.24,
+                "segments": [
+                    {
+                        "stroke_order": 1,
+                        "contact": True,
+                        "p0": {"x": 2, "y": 25},
+                        "p1": {"x": 5, "y": 6},
+                        "p2": {"x": 14, "y": 4},
+                        "p3": {"x": 17, "y": 18},
+                    }
+                ],
+            }
+        )
+
+    defaults = workbench._string_render_defaults()
+
+    assert defaults["catalog_names"] == ["Catalog A", "Catalog B"]
+
+
 def test_annotation_workbench_root_html_exposes_500_percent_zoom(tmp_path: Path):
     selection_manifest, _, ledger_path = _write_fixture_inputs(tmp_path)
     output_root = tmp_path / "reviewed"
@@ -984,10 +1754,15 @@ def test_annotation_workbench_root_html_exposes_500_percent_zoom(tmp_path: Path)
         assert 'id="guide-editor-zoom-reset"' in html
         assert 'id="guide-editor-canvas-viewport"' in html
         assert 'id="guide-editor-canvas"' in html
+        assert 'id="guide-editor-catalog"' in html
+        assert 'id="guide-editor-analyze"' in html
+        assert 'id="guide-editor-reset-proposal"' in html
         assert 'id="guide-editor-padding-px"' in html
+        assert 'id="guide-editor-desired-stroke-count"' in html
         assert 'id="guide-editor-save"' in html
         assert 'id="guide-editor-process"' in html
         assert 'id="guide-editor-delete"' in html
+        assert 'id="guide-editor-proposal"' in html
         assert 'id="guide-editor-saved-guides"' in html
         assert 'id="guide-editor-preview-artifacts"' in html
         assert 'id="guide-editor-rerun-artifacts"' in html
@@ -997,6 +1772,34 @@ def test_annotation_workbench_root_html_exposes_500_percent_zoom(tmp_path: Path)
         assert 'id="symbol-rerun-modal-close"' in html
         assert 'id="symbol-rerun-details"' in html
         assert 'id="symbol-rerun-artifacts"' in html
+        assert 'id="string-render-open"' in html
+        assert 'id="string-render-modal"' in html
+        assert 'id="string-render-close"' in html
+        assert 'id="string-render-text"' in html
+        assert 'id="string-render-catalogs"' in html
+        assert 'id="string-render-catalog-list"' in html
+        assert 'id="string-render-check"' in html
+        assert 'id="string-render-run"' in html
+        assert 'id="string-render-dpi"' in html
+        assert 'id="string-render-supersample"' in html
+        assert 'id="string-render-x-height-mm"' in html
+        assert 'id="string-render-line-spacing-mm"' in html
+        assert 'id="string-render-page-width-mm"' in html
+        assert 'id="string-render-page-height-mm"' in html
+        assert 'id="string-render-nib-width-mm"' in html
+        assert 'id="string-render-advanced-overrides"' in html
+        assert 'id="string-render-details"' in html
+        assert 'id="string-render-artifacts"' in html
+        assert 'id="word-assist-open"' in html
+        assert 'id="word-assist-modal"' in html
+        assert 'id="word-assist-close"' in html
+        assert 'id="word-assist-canvas"' in html
+        assert 'id="word-assist-transcript"' in html
+        assert 'id="word-assist-run"' in html
+        assert 'id="word-assist-rescore"' in html
+        assert 'id="word-assist-accept"' in html
+        assert 'id="word-assist-summary"' in html
+        assert 'id="word-assist-segments"' in html
         assert 'id="cleanup-raw-canvas"' in html
         assert 'id="cleanup-clean-canvas"' in html
         assert 'id="cleanup-mode-erase"' in html

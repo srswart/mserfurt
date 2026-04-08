@@ -37,6 +37,8 @@ class GuideSample:
     contact: bool = True
     speed_nominal: float = 1.0
     pressure_nominal: float = 0.5
+    nib_angle_deg: float = 40.0
+    nib_angle_confidence: float = 0.0
     corridor_half_width_mm: float = 0.2
 
 

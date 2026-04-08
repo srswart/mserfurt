@@ -113,7 +113,6 @@ def render_trajectory_canvas(
         on_surface_runs.append(current_run)
 
     hand = profile.to_v1()
-    nib_angle_rad = math.radians(profile.nib.angle_deg)
     for run in on_surface_runs:
         if len(run) < 2:
             continue
@@ -123,6 +122,7 @@ def render_trajectory_canvas(
             width_mm = sample.width_mm or profile.nib.width_mm * 0.08
             half_major = width_mm * 0.5 * width_px_per_mm
             half_minor = width_mm * 0.125 * width_px_per_mm
+            nib_angle_rad = math.radians(sample.nib_angle_deg if sample.nib_angle_deg is not None else profile.nib.angle_deg)
             cos_a = math.cos(nib_angle_rad)
             sin_a = math.sin(nib_angle_rad)
             hx = math.sqrt((half_major * cos_a) ** 2 + (half_minor * sin_a) ** 2)

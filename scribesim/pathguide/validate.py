@@ -126,6 +126,8 @@ def validate_dense_path_guide(
             sample.tangent_dy,
             sample.speed_nominal,
             sample.pressure_nominal,
+            sample.nib_angle_deg,
+            sample.nib_angle_confidence,
             sample.corridor_half_width_mm,
         )
         if not all(math.isfinite(value) for value in values):
@@ -138,6 +140,10 @@ def validate_dense_path_guide(
             errors.append(f"sample[{idx}].speed_nominal must be >= 0")
         if not 0.0 <= sample.pressure_nominal <= 1.5:
             errors.append(f"sample[{idx}].pressure_nominal must be in [0, 1.5]")
+        if not 25.0 <= sample.nib_angle_deg <= 55.0:
+            errors.append(f"sample[{idx}].nib_angle_deg must be in [25, 55]")
+        if not 0.0 <= sample.nib_angle_confidence <= 1.0:
+            errors.append(f"sample[{idx}].nib_angle_confidence must be in [0, 1]")
 
     contact_points = [(sample.x_mm, sample.y_mm) for sample in guide.samples if sample.contact]
     if len(contact_points) < 2:

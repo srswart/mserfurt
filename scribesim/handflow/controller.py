@@ -124,8 +124,17 @@ class GuidedHandFlowController:
         state.rhythm_phase += self.profile.folio.base_tempo * dt
         state.fatigue = min(1.0, state.fatigue + self.profile.fatigue_rate * dt)
         state.nib_contact = desired.contact
+        state.nib_angle_deg = desired.nib_angle_deg
         direction_rad = math.atan2(state.vel_y_mm_s, state.vel_x_mm_s)
-        broadness = abs(math.sin(direction_rad - self.nib.angle_rad))
+        local_nib = PhysicsNib(
+            width_mm=self.nib.width_mm,
+            angle_deg=desired.nib_angle_deg,
+            flexibility=self.nib.flexibility,
+            cut_quality=self.nib.cut_quality,
+            attack_pressure_multiplier=self.nib.attack_pressure_multiplier,
+            release_taper_length=self.nib.release_taper_length,
+        )
+        broadness = abs(math.sin(direction_rad - local_nib.angle_rad))
         normalized_speed = min(1.0, desired.speed_mm_s / max(self.dyn.max_speed, 1e-9))
         slow_factor = 1.0 - normalized_speed
         pressure_scale = self.profile.folio.base_pressure / 0.72 if self.activate_base_pressure else 1.0
@@ -147,7 +156,7 @@ class GuidedHandFlowController:
             direction_deg = math.degrees(direction_rad)
             width_pressure = max(0.0, min(1.0, state.nib_pressure))
             width_mm = mark_width(
-                self.nib,
+                local_nib,
                 direction_deg=direction_deg,
                 pressure=width_pressure,
                 t=desired.progress_ratio,
@@ -164,6 +173,7 @@ class GuidedHandFlowController:
                 contact=state.nib_contact,
                 width_mm=width_mm,
                 pressure=state.nib_pressure if state.nib_contact else 0.0,
+                nib_angle_deg=state.nib_angle_deg,
             )
         )
         return corridor_error
@@ -191,6 +201,7 @@ class GuidedHandFlowController:
                 contact=state.nib_contact,
                 width_mm=None,
                 pressure=state.nib_pressure if state.nib_contact else 0.0,
+                nib_angle_deg=state.nib_angle_deg,
             )
         ]
 
@@ -210,6 +221,7 @@ class GuidedHandFlowController:
                     contact=state.nib_contact,
                     width_mm=state.trace[-1].width_mm if state.trace else None,
                     pressure=state.nib_pressure if state.nib_contact else 0.0,
+                    nib_angle_deg=state.nib_angle_deg,
                 )
             )
 

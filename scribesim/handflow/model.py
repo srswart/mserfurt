@@ -20,6 +20,7 @@ class TrackPlanSample:
     vy_mm_s: float
     speed_mm_s: float
     pressure: float
+    nib_angle_deg: float
     contact: bool
     corridor_half_width_mm: float
     progress_ratio: float = 0.0

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import json
+import math
 import mimetypes
 import re
 import threading
 import tomllib
 from collections import Counter, defaultdict
+from dataclasses import replace
 from datetime import datetime, timezone
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -15,12 +17,25 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, unquote, urlparse
 
+import numpy as np
 from PIL import Image
 
 from scribesim.annotate.freeze import freeze_reviewed_exemplars
+from scribesim.annotate.strokeassist import propose_stroke_decomposition
+from scribesim.annotate.wordassist import (
+    build_template_bank,
+    preprocess_transcript,
+    propose_word_segmentation,
+    score_word_segmentation,
+    trim_word_image,
+)
 from scribesim.evo.genome import BezierSegment
 from scribesim.evofit.workflow import EvofitConfig, run_reviewed_evofit
-from scribesim.pathguide.io import write_pathguides_toml
+from scribesim.hand import load_profile, parse_overrides, validate_ranges
+from scribesim.handflow import render_guided_folio_lines
+from scribesim.handflow.model import GuidedFolioResolutionError
+from scribesim.pathguide import DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH, load_pathguides_toml
+from scribesim.pathguide.io import _bridge_trace_points, _sample_trace_segment_by_arclength, write_pathguides_toml
 from scribesim.pathguide.model import DensePathGuide
 from scribesim.pathguide.review import write_guide_overlay_snapshot, write_nominal_guide_snapshot
 from scribesim.pathguide.freeze import freeze_reviewed_evofit_guides
@@ -30,6 +45,26 @@ DEFAULT_COVERAGE_LEDGER_PATH = Path(
 )
 DEFAULT_REVIEWED_ANNOTATION_OUTPUT_ROOT = Path("shared/training/handsim/reviewed_annotations/workbench_v1")
 _REPO_ROOT = Path(__file__).resolve().parents[2]
+_STRING_RENDER_DEFAULTS = {
+    "dpi": 300,
+    "supersample": 4,
+    "x_height_mm": 3.8,
+    "line_spacing_mm": 12.0,
+    "page_width_mm": 80.0,
+    "page_height_mm": None,
+    "margin_left_mm": 5.0,
+    "margin_top_mm": 5.0,
+}
+_DEFAULT_MANUAL_GUIDE_CATALOG = "Workbench"
+_STRING_RENDER_PROFILE_KEYS = (
+    "nib.width_mm",
+    "nib.angle_deg",
+    "folio.base_pressure",
+    "glyph.baseline_jitter_mm",
+    "letter_spacing_norm",
+    "word_spacing_norm",
+    "writing_speed",
+)
 
 _CROP_CANVAS_RE = re.compile(r"^.+?_\d{3}_(?P<canvas>.+)_l\d+_w\d+_c\d+\.png$")
 
@@ -103,6 +138,45 @@ def _dedupe_strings(values: list[str]) -> list[str]:
         kept.append(text)
         seen.add(text)
     return kept
+
+
+def _coerce_optional_number(value: Any, *, kind: type[int] | type[float], field_name: str) -> int | float | None:
+    if value in {None, ""}:
+        return None
+    try:
+        return kind(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{field_name} must be a valid {kind.__name__}") from exc
+
+
+def _split_render_lines(text: str) -> list[str]:
+    normalized = str(text).replace("\r\n", "\n").replace("\r", "\n")
+    lines = normalized.split("\n")
+    return lines if lines else [normalized]
+
+
+def _normalize_catalog_name(value: Any) -> str:
+    text = str(value or "").strip()
+    return text or _DEFAULT_MANUAL_GUIDE_CATALOG
+
+
+def _normalize_catalog_names(values: Any) -> list[str]:
+    if values is None or values == "":
+        return []
+    if isinstance(values, str):
+        raw_items = re.split(r"[\n,]+", values)
+    else:
+        raw_items = list(values)
+    normalized = []
+    seen = set()
+    for item in raw_items:
+        name = _normalize_catalog_name(item)
+        lowered = name.casefold()
+        if lowered in seen:
+            continue
+        normalized.append(name)
+        seen.add(lowered)
+    return normalized
 
 
 def _artifact_payload(path: str | Path | None, *, allowed_roots: tuple[Path, ...] = (_REPO_ROOT,)) -> dict[str, Any] | None:
@@ -198,17 +272,49 @@ def _normalize_manual_segments(
             if key not in segment:
                 raise ValueError(f"manual guide segment missing {key}")
             points[key] = _normalize_manual_point(dict(segment[key]))
+        pressure_curve = segment.get("pressure_curve", [0.4, 0.8, 0.8, 0.4])
+        if not isinstance(pressure_curve, (list, tuple)) or len(pressure_curve) < 2:
+            raise ValueError("manual guide pressure_curve must contain at least two values")
+        normalized_pressure = [float(value) for value in pressure_curve]
+        if not all(0.0 <= value <= 1.5 for value in normalized_pressure):
+            raise ValueError("manual guide pressure_curve values must be in [0.0, 1.5]")
+        nib_angle_mode = str(segment.get("nib_angle_mode", "fixed")).strip().lower() or "fixed"
+        if nib_angle_mode not in {"fixed", "auto", "manual"}:
+            raise ValueError("manual guide nib_angle_mode must be one of fixed, auto, manual")
+        nib_angle_curve = segment.get("nib_angle_curve", [40.0, 40.0, 40.0, 40.0])
+        if not isinstance(nib_angle_curve, (list, tuple)) or len(nib_angle_curve) < 2:
+            raise ValueError("manual guide nib_angle_curve must contain at least two values")
+        normalized_nib_angle = [float(value) for value in nib_angle_curve]
+        if not all(25.0 <= value <= 55.0 for value in normalized_nib_angle):
+            raise ValueError("manual guide nib_angle_curve values must be in [25.0, 55.0]")
+        nib_angle_confidence = segment.get("nib_angle_confidence", [0.0] * len(normalized_nib_angle))
+        if not isinstance(nib_angle_confidence, (list, tuple)) or len(nib_angle_confidence) != len(normalized_nib_angle):
+            raise ValueError("manual guide nib_angle_confidence must match nib_angle_curve length")
+        normalized_nib_confidence = [float(value) for value in nib_angle_confidence]
+        if not all(0.0 <= value <= 1.0 for value in normalized_nib_confidence):
+            raise ValueError("manual guide nib_angle_confidence values must be in [0.0, 1.0]")
         normalized.append(
             {
                 "stroke_order": max(1, stroke_order),
                 "contact": bool(segment.get("contact", True)),
+                "stroke_name": str(segment.get("stroke_name", "")).strip(),
+                "expected_direction": str(segment.get("expected_direction", "")).strip(),
+                "expected_weight": str(segment.get("expected_weight", "")).strip(),
+                "proposal_source": str(segment.get("proposal_source", "")).strip(),
+                "pressure_curve": normalized_pressure,
+                "nib_angle_mode": nib_angle_mode,
+                "nib_angle_curve": normalized_nib_angle,
+                "nib_angle_confidence": normalized_nib_confidence,
                 "p0": points["p0"],
                 "p1": points["p1"],
                 "p2": points["p2"],
                 "p3": points["p3"],
+                "_segment_index": index,
             }
         )
-    normalized.sort(key=lambda item: (item["stroke_order"], item["p0"]["x"], item["p0"]["y"]))
+    normalized.sort(key=lambda item: (item["stroke_order"], item["_segment_index"]))
+    for item in normalized:
+        item.pop("_segment_index", None)
     return normalized
 
 
@@ -341,6 +447,10 @@ class ReviewedAnnotationWorkbench:
         self.symbol_rerun_root = (self.output_root / "symbol_reruns").resolve()
         self.symbol_rerun_root.mkdir(parents=True, exist_ok=True)
         self._symbol_reruns: dict[str, dict[str, Any]] = {}
+        self.string_render_root = (self.output_root / "string_renders").resolve()
+        self.string_render_root.mkdir(parents=True, exist_ok=True)
+        self._string_render: dict[str, Any] = {}
+        self.base_profile = load_profile()
         self.manual_guide_root = (self.output_root / "manual_guides_v1").resolve()
         self.manual_guide_root.mkdir(parents=True, exist_ok=True)
         self.manual_guide_manifest_path = self.manual_guide_root / "manual_guides.json"
@@ -357,6 +467,7 @@ class ReviewedAnnotationWorkbench:
                 "entries": [],
             }
             self._write_manual_guides()
+        self._repair_manual_guides_manifest()
 
         self.ledger = _load_json(self.coverage_ledger_path)
         self.corpus_manifest_path = _resolve_path(self.ledger["corpus_manifest_path"])
@@ -437,6 +548,31 @@ class ReviewedAnnotationWorkbench:
             encoding="utf-8",
         )
 
+    def _repair_manual_guides_manifest(self) -> None:
+        entries = list(self.manual_guides.get("entries", []))
+        changed = False
+        seen_ids: set[str] = set()
+        for entry in entries:
+            entry["catalog_name"] = _normalize_catalog_name(entry.get("catalog_name"))
+            entry_id = str(entry.get("id", "") or "").strip()
+            if entry_id.casefold() in {"", "none", "null"}:
+                entry_id = _safe_id(
+                    str(entry.get("kind", "guide")),
+                    f"{entry['catalog_name']}_{entry.get('symbol', '')}_{entry.get('annotation_id', '')}",
+                )
+                entry["id"] = entry_id
+                changed = True
+            if entry_id in seen_ids:
+                entry["id"] = _safe_id(
+                    str(entry.get("kind", "guide")),
+                    f"{entry['catalog_name']}_{entry.get('symbol', '')}_{entry.get('annotation_id', '')}_{entry.get('updated_at', '')}",
+                )
+                changed = True
+            seen_ids.add(str(entry.get("id", "")))
+        self.manual_guides["entries"] = entries
+        if changed:
+            self._write_manual_guides()
+
     def _annotation_by_id(self, annotation_id: str) -> dict[str, Any] | None:
         for entry in self.reviewed_manifest.get("entries", []):
             if str(entry.get("id", "")) == str(annotation_id):
@@ -466,6 +602,7 @@ class ReviewedAnnotationWorkbench:
 
     def _manual_guide_payload(self, entry: dict[str, Any]) -> dict[str, Any]:
         payload = dict(entry)
+        payload["catalog_name"] = _normalize_catalog_name(entry.get("catalog_name"))
         payload["bounds_px"] = dict(entry.get("bounds_px", {}))
         payload["segments"] = _normalize_manual_segments(entry.get("segments", []))
         payload["validation_errors"] = list(entry.get("validation_errors", []))
@@ -489,11 +626,23 @@ class ReviewedAnnotationWorkbench:
         }
         return payload
 
-    def _manual_guide_entries_for(self, kind: str, symbol: str) -> list[dict[str, Any]]:
+    def _manual_guide_entries_for(
+        self,
+        kind: str,
+        symbol: str,
+        *,
+        catalog_names: list[str] | tuple[str, ...] | None = None,
+    ) -> list[dict[str, Any]]:
+        normalized_catalog_names = _normalize_catalog_names(catalog_names)
+        allowed_catalogs = {name.casefold() for name in normalized_catalog_names} if normalized_catalog_names else None
         entries = [
             dict(entry)
             for entry in self.manual_guides.get("entries", [])
             if str(entry.get("kind", "")) == str(kind) and str(entry.get("symbol", "")) == str(symbol)
+            and (
+                allowed_catalogs is None
+                or _normalize_catalog_name(entry.get("catalog_name")).casefold() in allowed_catalogs
+            )
         ]
         entries.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)
         entries.sort(key=lambda item: 0 if bool(item.get("active", False)) else 1)
@@ -510,21 +659,79 @@ class ReviewedAnnotationWorkbench:
         for key, entries in grouped.items():
             entries.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)
             active_entry = next((entry for entry in entries if bool(entry.get("active", False))), entries[0] if entries else None)
+            catalogs = sorted({_normalize_catalog_name(entry.get("catalog_name")) for entry in entries}, key=str.casefold)
             result[key] = {
                 "active_id": str(active_entry.get("id", "")) if active_entry else "",
+                "catalogs": catalogs,
                 "entries": [self._manual_guide_payload(entry) for entry in entries],
             }
             if active_entry is not None:
                 result[key]["active"] = self._manual_guide_payload(active_entry)
         return result
 
-    def _manual_guides_by_symbol(self) -> dict[str, dict[str, Any]]:
+    def _manual_guides_by_symbol(
+        self,
+        *,
+        catalog_names: list[str] | tuple[str, ...] | None = None,
+    ) -> dict[str, dict[str, Any]]:
         result: dict[str, dict[str, Any]] = {}
-        for key, group in self._manual_guide_groups().items():
-            active = group.get("active")
-            if isinstance(active, dict):
-                result[key] = active
+        for key, entries in self._manual_guide_groups().items():
+            kind, symbol = key.split(":", 1)
+            active_entries = self._manual_guide_entries_for(kind, symbol, catalog_names=catalog_names)
+            if active_entries:
+                result[key] = self._manual_guide_payload(active_entries[0])
         return result
+
+    def _manual_guide_catalogs(self) -> list[dict[str, Any]]:
+        counts: dict[str, dict[str, int]] = defaultdict(lambda: {"entry_count": 0, "active_entry_count": 0, "symbol_count": 0})
+        symbols_by_catalog: dict[str, set[str]] = defaultdict(set)
+        for entry in self.manual_guides.get("entries", []):
+            catalog_name = _normalize_catalog_name(entry.get("catalog_name"))
+            counts[catalog_name]["entry_count"] += 1
+            if bool(entry.get("active", False)):
+                counts[catalog_name]["active_entry_count"] += 1
+            symbols_by_catalog[catalog_name].add(_symbol_status_key(str(entry.get("kind", "")), str(entry.get("symbol", ""))))
+        catalogs = []
+        for name in sorted(counts, key=str.casefold):
+            catalogs.append(
+                {
+                    "name": name,
+                    "entry_count": counts[name]["entry_count"],
+                    "active_entry_count": counts[name]["active_entry_count"],
+                    "symbol_count": len(symbols_by_catalog[name]),
+                }
+            )
+        if not catalogs:
+            catalogs.append(
+                {
+                    "name": _DEFAULT_MANUAL_GUIDE_CATALOG,
+                    "entry_count": 0,
+                    "active_entry_count": 0,
+                    "symbol_count": 0,
+                }
+            )
+        return catalogs
+
+    def _builtin_render_catalogs(self) -> list[dict[str, Any]]:
+        if DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH.exists():
+            return [
+                {
+                    "name": "Reviewed Promoted",
+                    "kind": "builtin",
+                    "source_label": "reviewed_promoted",
+                    "path": DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH.as_posix(),
+                    "always_included": True,
+                }
+            ]
+        return [
+            {
+                "name": "Manual Only",
+                "kind": "builtin",
+                "source_label": "manual_only",
+                "path": "",
+                "always_included": True,
+            }
+        ]
 
     def _build_manual_dense_guide(self, entry: dict[str, Any]) -> DensePathGuide:
         x_height_px = float(entry.get("x_height_px", 0.0) or 0.0)
@@ -539,9 +746,12 @@ class ReviewedAnnotationWorkbench:
         if crop_height <= 0.0 or crop_width <= 0.0:
             raise ValueError("manual guide annotation bounds must be positive")
         segments: list[BezierSegment] = []
+        stroke_ids: list[int] = []
+        nib_angle_curves_deg: list[list[float]] = []
+        nib_angle_confidence_curves: list[list[float]] = []
         for segment in _normalize_manual_segments(entry.get("segments", [])):
             def transform(point: dict[str, float]) -> tuple[float, float]:
-                return (float(point["x"]), crop_height - float(point["y"]))
+                return (float(point["x"]), float(point["y"]))
 
             segments.append(
                 BezierSegment(
@@ -550,8 +760,12 @@ class ReviewedAnnotationWorkbench:
                     p2=transform(segment["p2"]),
                     p3=transform(segment["p3"]),
                     contact=bool(segment.get("contact", True)),
+                    pressure_curve=list(segment.get("pressure_curve", [0.4, 0.8, 0.8, 0.4])),
                 )
             )
+            stroke_ids.append(int(segment.get("stroke_order", 1)))
+            nib_angle_curves_deg.append(list(segment.get("nib_angle_curve", [40.0, 40.0, 40.0, 40.0])))
+            nib_angle_confidence_curves.append(list(segment.get("nib_angle_confidence", [0.0, 0.0, 0.0, 0.0])))
         if not segments:
             raise ValueError("manual guide must include at least one cubic segment")
 
@@ -564,6 +778,9 @@ class ReviewedAnnotationWorkbench:
             x_height_mm=x_height_mm,
             kind=str(entry.get("kind", "glyph")),
             default_corridor_half_width_mm=float(entry.get("corridor_half_width_mm", 0.2) or 0.2),
+            stroke_ids=stroke_ids,
+            nib_angle_curves_deg=nib_angle_curves_deg,
+            nib_angle_confidence_curves=nib_angle_confidence_curves,
             source_id=f"manual-guide:{entry['symbol']}",
             source_path=str(entry.get("source_crop_path", "")),
             extraction_run="ADV-SS-ANNOTATE-MANUAL-GUIDE",
@@ -582,6 +799,91 @@ class ReviewedAnnotationWorkbench:
             entry_tangent=guide.entry_tangent,
             exit_tangent=guide.exit_tangent,
             sources=guide.sources,
+        )
+
+    def _manual_guide_sample_strokes(self, entry: dict[str, Any]) -> list[int | None]:
+        x_height_px = float(entry.get("x_height_px", 0.0) or 0.0)
+        if x_height_px <= 0.0:
+            raise ValueError("manual guide x_height_px must be > 0")
+        x_height_mm = float(entry.get("x_height_mm", EvofitConfig().x_height_mm) or EvofitConfig().x_height_mm)
+        annotation = self._annotation_by_id(str(entry.get("annotation_id", "")))
+        if annotation is None:
+            raise ValueError(f"manual guide annotation not found: {entry.get('annotation_id', '')}")
+        crop_height = float(annotation["bounds_px"]["height"])
+        segments: list[BezierSegment] = []
+        stroke_orders: list[int] = []
+        for segment in _normalize_manual_segments(entry.get("segments", [])):
+            def transform(point: dict[str, float]) -> tuple[float, float]:
+                return (float(point["x"]), float(point["y"]))
+
+            segments.append(
+                BezierSegment(
+                    p0=transform(segment["p0"]),
+                    p1=transform(segment["p1"]),
+                    p2=transform(segment["p2"]),
+                    p3=transform(segment["p3"]),
+                    contact=bool(segment.get("contact", True)),
+                    pressure_curve=list(segment.get("pressure_curve", [0.4, 0.8, 0.8, 0.4])),
+                )
+            )
+            stroke_orders.append(int(segment.get("stroke_order", 1)))
+        raw_points: list[tuple[float, float, float, float, bool, float, float, float, float]] = []
+        sample_strokes: list[int | None] = []
+        previous_stroke_order: int | None = None
+        for segment, stroke_order in zip(segments, stroke_orders):
+            segment_points = _sample_trace_segment_by_arclength(
+                segment,
+                x_height_px=x_height_px,
+                x_height_mm=x_height_mm,
+                target_sample_step_mm=0.10,
+            )
+            inserted_bridge = False
+            if raw_points and previous_stroke_order is not None and stroke_order != previous_stroke_order:
+                bridge_points = _bridge_trace_points(
+                    raw_points[-1],
+                    segment_points[0],
+                    x_height_px=x_height_px,
+                    x_height_mm=x_height_mm,
+                    target_sample_step_mm=0.10,
+                )
+                for index, point in enumerate(bridge_points):
+                    if raw_points and index == 0:
+                        continue
+                    raw_points.append(point)
+                    sample_strokes.append(None)
+                inserted_bridge = True
+            for index, point in enumerate(segment_points):
+                if raw_points and index == 0 and not inserted_bridge:
+                    continue
+                raw_points.append(point)
+                sample_strokes.append(stroke_order)
+            previous_stroke_order = stroke_order
+        return sample_strokes
+
+    def _enrich_manual_guide_validation_error(self, entry: dict[str, Any], error: Exception) -> Exception:
+        message = str(error)
+        try:
+            sample_strokes = self._manual_guide_sample_strokes(entry)
+        except Exception:
+            return error
+        matched_strokes: set[int] = set()
+        for left_text, right_text in re.findall(r"on-surface samples (\d+)->(\d+)", message):
+            left_index = int(left_text)
+            right_index = int(right_text)
+            for index in (left_index, right_index):
+                if 0 <= index < len(sample_strokes) and sample_strokes[index] is not None:
+                    matched_strokes.add(int(sample_strokes[index]))
+        if "contact polyline must not self-intersect" in message:
+            matched_strokes.update(
+                int(item.get("stroke_order", 0))
+                for item in _normalize_manual_segments(entry.get("segments", []))
+                if bool(item.get("contact", True))
+            )
+            matched_strokes.discard(0)
+        if not matched_strokes:
+            return error
+        return ValueError(
+            f"{message}; likely affected stroke order(s): {', '.join(str(value) for value in sorted(matched_strokes))}"
         )
 
     def _write_manual_guide_previews(self, entry: dict[str, Any]) -> dict[str, str]:
@@ -1066,6 +1368,492 @@ class ReviewedAnnotationWorkbench:
         with self._lock:
             return {key: dict(value) for key, value in self._symbol_reruns.items()}
 
+    def _string_render_defaults(self) -> dict[str, Any]:
+        defaults = dict(_STRING_RENDER_DEFAULTS)
+        defaults["x_height_mm"] = float(self.base_profile.letterform.x_height_mm or defaults["x_height_mm"])
+        defaults["catalog_names"] = [
+            entry["name"]
+            for entry in self._manual_guide_catalogs()
+            if int(entry.get("entry_count", 0)) > 0
+        ]
+        defaults["available_catalogs"] = self._manual_guide_catalogs()
+        defaults["builtin_catalogs"] = self._builtin_render_catalogs()
+        defaults["profile"] = {
+            "nib.width_mm": float(self.base_profile.nib.width_mm),
+            "nib.angle_deg": float(self.base_profile.nib.angle_deg),
+            "folio.base_pressure": float(self.base_profile.folio.base_pressure),
+            "glyph.baseline_jitter_mm": float(self.base_profile.glyph.baseline_jitter_mm),
+            "letter_spacing_norm": float(self.base_profile.letter_spacing_norm),
+            "word_spacing_norm": float(self.base_profile.word_spacing_norm),
+            "writing_speed": float(self.base_profile.writing_speed),
+        }
+        defaults["advanced_overrides"] = ""
+        return defaults
+
+    def _scale_dense_guide(self, guide: DensePathGuide, *, x_height_mm: float) -> DensePathGuide:
+        if guide.x_height_mm <= 0.0 or math.isclose(guide.x_height_mm, x_height_mm, rel_tol=1e-9, abs_tol=1e-9):
+            return guide
+        scale = x_height_mm / guide.x_height_mm
+        samples = tuple(
+            replace(
+                sample,
+                x_mm=sample.x_mm * scale,
+                y_mm=sample.y_mm * scale,
+                corridor_half_width_mm=sample.corridor_half_width_mm * scale,
+            )
+            for sample in guide.samples
+        )
+        return replace(
+            guide,
+            samples=samples,
+            x_advance_mm=guide.x_advance_mm * scale,
+            x_height_mm=x_height_mm,
+        )
+
+    def _build_effective_render_catalog(
+        self,
+        *,
+        run_root: Path,
+        x_height_mm: float,
+        catalog_names: list[str] | tuple[str, ...] | None = None,
+    ) -> dict[str, Any]:
+        guides: dict[str, DensePathGuide] = {}
+        symbol_sources: dict[str, dict[str, Any]] = {}
+        source_label = "reviewed_promoted"
+        if DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH.exists():
+            for symbol, guide in load_pathguides_toml(DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH).items():
+                scaled = self._scale_dense_guide(guide, x_height_mm=x_height_mm)
+                guides[symbol] = scaled
+                symbol_sources[str(symbol)] = {
+                    "symbol": str(symbol),
+                    "kind": str(scaled.kind),
+                    "source": "builtin",
+                    "catalog_name": "",
+                }
+        else:
+            source_label = "manual_only"
+
+        manual_override_count = 0
+        selected_catalog_names = _normalize_catalog_names(catalog_names)
+        for key, manual in self._manual_guides_by_symbol(catalog_names=selected_catalog_names).items():
+            if not isinstance(manual, dict):
+                continue
+            try:
+                guide = self._build_manual_dense_guide(manual)
+            except Exception:
+                continue
+            symbol = str(manual.get("symbol", key.split(":", 1)[-1]))
+            guides[symbol] = self._scale_dense_guide(
+                guide,
+                x_height_mm=x_height_mm,
+            )
+            symbol_sources[symbol] = {
+                "symbol": symbol,
+                "kind": str(guide.kind),
+                "source": "manual",
+                "catalog_name": _normalize_catalog_name(manual.get("catalog_name")),
+            }
+            manual_override_count += 1
+
+        catalog_path = (run_root / "effective_guides.toml").resolve()
+        catalog_path.parent.mkdir(parents=True, exist_ok=True)
+        write_pathguides_toml(guides, catalog_path)
+        effective_symbols = [symbol_sources[key] for key in sorted(symbol_sources, key=str.casefold)]
+        summary = {
+            "source_label": source_label,
+            "guide_catalog_path": catalog_path.as_posix(),
+            "guide_count": len(guides),
+            "glyph_count": sum(1 for guide in guides.values() if guide.kind == "glyph"),
+            "join_count": sum(1 for guide in guides.values() if guide.kind == "join"),
+            "manual_override_count": manual_override_count,
+            "catalog_names": selected_catalog_names,
+            "effective_symbols": effective_symbols,
+            "builtin_symbol_count": sum(1 for entry in effective_symbols if entry["source"] == "builtin"),
+            "manual_symbol_count": sum(1 for entry in effective_symbols if entry["source"] == "manual"),
+        }
+        return {
+            "catalog": guides,
+            "catalog_path": catalog_path,
+            "summary": summary,
+        }
+
+    def _string_render_availability(
+        self,
+        text: str,
+        *,
+        catalog: dict[str, DensePathGuide],
+    ) -> dict[str, Any]:
+        lines = _split_render_lines(text)
+        missing_symbols: list[str] = []
+        requested_symbols: list[str] = []
+        line_reports: list[dict[str, Any]] = []
+        exact_join_count = 0
+        derived_join_count = 0
+        for index, line in enumerate(lines, start=1):
+            glyphs = [char for char in line if not char.isspace()]
+            requested_symbols.extend(glyphs)
+            line_missing = sorted({char for char in glyphs if char not in catalog})
+            missing_symbols.extend(line_missing)
+            line_exact_joins = 0
+            line_derived_joins = 0
+            compact = [char for char in line if not char.isspace()]
+            for left, right in zip(compact, compact[1:]):
+                join_symbol = f"{left}->{right}"
+                if join_symbol in catalog:
+                    line_exact_joins += 1
+                elif left in catalog and right in catalog:
+                    line_derived_joins += 1
+            exact_join_count += line_exact_joins
+            derived_join_count += line_derived_joins
+            line_reports.append(
+                {
+                    "line_index": index,
+                    "text": line,
+                    "glyph_count": len(glyphs),
+                    "missing_symbols": line_missing,
+                    "exact_join_count": line_exact_joins,
+                    "derived_join_count": line_derived_joins,
+                }
+            )
+        unique_requested = sorted(set(requested_symbols))
+        unique_missing = sorted(set(missing_symbols))
+        return {
+            "lines": lines,
+            "requested_symbols": unique_requested,
+            "missing_symbols": unique_missing,
+            "available": not unique_missing,
+            "exact_join_count": exact_join_count,
+            "derived_join_count": derived_join_count,
+            "line_reports": line_reports,
+        }
+
+    def _update_string_render(self, **changes: Any) -> dict[str, Any]:
+        with self._lock:
+            current = dict(self._string_render)
+            current.update(changes)
+            self._string_render = current
+            return dict(current)
+
+    def _string_render_payload(self) -> dict[str, Any]:
+        with self._lock:
+            return dict(self._string_render)
+
+    def start_string_render(self, payload: dict[str, Any]) -> dict[str, Any]:
+        text = str(payload.get("text", ""))
+        if not text.strip():
+            raise ValueError("render text is required")
+        if not any(not line.isspace() for line in _split_render_lines(text)):
+            raise ValueError("render text must include at least one non-space glyph")
+
+        defaults = self._string_render_defaults()
+        dpi = int(_coerce_optional_number(payload.get("dpi"), kind=int, field_name="dpi") or defaults["dpi"])
+        supersample = int(
+            _coerce_optional_number(payload.get("supersample"), kind=int, field_name="supersample")
+            or defaults["supersample"]
+        )
+        x_height_mm = float(
+            _coerce_optional_number(payload.get("x_height_mm"), kind=float, field_name="x_height_mm")
+            or defaults["x_height_mm"]
+        )
+        line_spacing_mm = float(
+            _coerce_optional_number(payload.get("line_spacing_mm"), kind=float, field_name="line_spacing_mm")
+            or defaults["line_spacing_mm"]
+        )
+        page_width_mm = float(
+            _coerce_optional_number(payload.get("page_width_mm"), kind=float, field_name="page_width_mm")
+            or defaults["page_width_mm"]
+        )
+        page_height_mm = _coerce_optional_number(payload.get("page_height_mm"), kind=float, field_name="page_height_mm")
+        margin_left_mm = float(
+            _coerce_optional_number(payload.get("margin_left_mm"), kind=float, field_name="margin_left_mm")
+            or defaults["margin_left_mm"]
+        )
+        margin_top_mm = float(
+            _coerce_optional_number(payload.get("margin_top_mm"), kind=float, field_name="margin_top_mm")
+            or defaults["margin_top_mm"]
+        )
+        if dpi <= 0 or supersample <= 0:
+            raise ValueError("dpi and supersample must be > 0")
+        if x_height_mm <= 0.0 or line_spacing_mm <= 0.0 or page_width_mm <= 0.0:
+            raise ValueError("x_height_mm, line_spacing_mm, and page_width_mm must be > 0")
+        if page_height_mm is not None and float(page_height_mm) <= 0.0:
+            raise ValueError("page_height_mm must be > 0 when provided")
+        if margin_left_mm < 0.0 or margin_top_mm < 0.0:
+            raise ValueError("render margins must be >= 0")
+
+        catalog_names = _normalize_catalog_names(payload.get("catalog_names"))
+
+        profile_overrides = {
+            key: (
+                _coerce_optional_number(payload.get(key), kind=float, field_name=key)
+                if payload.get(key) not in {None, ""}
+                else defaults["profile"].get(key)
+            )
+            for key in _STRING_RENDER_PROFILE_KEYS
+        }
+        advanced_overrides_text = str(payload.get("advanced_overrides", "")).strip()
+        advanced_overrides: dict[str, Any] = {}
+        if advanced_overrides_text:
+            advanced_overrides = parse_overrides(
+                [line.strip() for line in advanced_overrides_text.splitlines() if line.strip()]
+            )
+        resolved_overrides = {
+            key: value for key, value in profile_overrides.items() if value is not None
+        }
+        resolved_overrides.update(advanced_overrides)
+
+        profile = self.base_profile.apply_delta(resolved_overrides)
+        range_errors = validate_ranges(profile)
+        if range_errors:
+            raise ValueError("; ".join(range_errors))
+
+        with self._lock:
+            existing = dict(self._string_render)
+        if existing.get("status") == "running":
+            return existing
+
+        check_only = bool(payload.get("check_only", False))
+        run_root = (self.string_render_root / _utc_now().replace(":", "").replace(".", "_")).resolve()
+        started = self._update_string_render(
+            status="running",
+            stage="queued",
+            percent=0,
+            message="Queued string render.",
+            started_at=_utc_now(),
+            finished_at="",
+            run_root=run_root.as_posix(),
+            error="",
+            result=None,
+            request={
+                "text": text,
+                "check_only": check_only,
+                "catalog_names": catalog_names,
+                "dpi": dpi,
+                "supersample": supersample,
+                "x_height_mm": x_height_mm,
+                "line_spacing_mm": line_spacing_mm,
+                "page_width_mm": page_width_mm,
+                "page_height_mm": float(page_height_mm) if page_height_mm is not None else None,
+                "margin_left_mm": margin_left_mm,
+                "margin_top_mm": margin_top_mm,
+                "advanced_overrides": advanced_overrides_text,
+                "profile_overrides": {key: resolved_overrides.get(key) for key in _STRING_RENDER_PROFILE_KEYS},
+            },
+        )
+        thread = threading.Thread(
+            target=self._run_string_render,
+            args=(
+                run_root,
+                text,
+                check_only,
+                dpi,
+                supersample,
+                x_height_mm,
+                line_spacing_mm,
+                page_width_mm,
+                float(page_height_mm) if page_height_mm is not None else None,
+                margin_left_mm,
+                margin_top_mm,
+                profile,
+                resolved_overrides,
+                catalog_names,
+            ),
+            daemon=True,
+        )
+        thread.start()
+        return started
+
+    def _run_string_render(
+        self,
+        run_root: Path,
+        text: str,
+        check_only: bool,
+        dpi: int,
+        supersample: int,
+        x_height_mm: float,
+        line_spacing_mm: float,
+        page_width_mm: float,
+        page_height_mm: float | None,
+        margin_left_mm: float,
+        margin_top_mm: float,
+        profile: Any,
+        profile_overrides: dict[str, Any],
+        catalog_names: list[str],
+    ) -> None:
+        try:
+            self._update_string_render(
+                stage="prepare-catalog",
+                percent=15,
+                message="Preparing the effective guide catalog for string rendering.",
+            )
+            catalog_info = self._build_effective_render_catalog(
+                run_root=run_root,
+                x_height_mm=x_height_mm,
+                catalog_names=catalog_names,
+            )
+            availability = self._string_render_availability(text, catalog=catalog_info["catalog"])
+            result_payload = {
+                "text": text,
+                "check_only": check_only,
+                "rendered": False,
+                "availability": availability,
+                "guide_catalog": dict(catalog_info["summary"]),
+                "parameters": {
+                    "dpi": dpi,
+                    "supersample": supersample,
+                    "x_height_mm": x_height_mm,
+                    "line_spacing_mm": line_spacing_mm,
+                    "page_width_mm": page_width_mm,
+                    "page_height_mm": page_height_mm,
+                    "margin_left_mm": margin_left_mm,
+                    "margin_top_mm": margin_top_mm,
+                },
+                "profile_overrides": dict(profile_overrides),
+                "artifacts": {
+                    "guide_catalog": _artifact_payload(
+                        catalog_info["catalog_path"],
+                        allowed_roots=(_REPO_ROOT, self.output_root, self.string_render_root, self.manual_guide_root),
+                    ),
+                },
+            }
+            if not availability["available"]:
+                missing_text = ", ".join(availability["missing_symbols"])
+                result_payload["message"] = f"Missing exact guides for: {missing_text}"
+                self._update_string_render(
+                    status="completed",
+                    stage="availability-check",
+                    percent=100,
+                    message=result_payload["message"],
+                    finished_at=_utc_now(),
+                    error="",
+                    result=result_payload,
+                )
+                return
+            if check_only:
+                result_payload["message"] = "All glyphs in the requested string have exact guides."
+                self._update_string_render(
+                    status="completed",
+                    stage="availability-check",
+                    percent=100,
+                    message=result_payload["message"],
+                    finished_at=_utc_now(),
+                    error="",
+                    result=result_payload,
+                )
+                return
+
+            self._update_string_render(
+                stage="render-guided-string",
+                percent=60,
+                message="Rendering the requested string through guided handflow.",
+            )
+            page_arr, heat_arr, metadata = render_guided_folio_lines(
+                _split_render_lines(text),
+                profile=profile,
+                dpi=dpi,
+                supersample=supersample,
+                x_height_mm=x_height_mm,
+                line_spacing_mm=line_spacing_mm,
+                page_width_mm=page_width_mm,
+                page_height_mm=page_height_mm,
+                margin_left_mm=margin_left_mm,
+                margin_top_mm=margin_top_mm,
+                exact_symbols=True,
+                guide_catalog_path=catalog_info["catalog_path"],
+                return_metadata=True,
+            )
+            page_path = run_root / "render_page.png"
+            heat_path = run_root / "render_pressure.png"
+            aligned_page_path = run_root / "render_aligned_page.png"
+            aligned_heat_path = run_root / "render_aligned_heat.png"
+            metadata_path = run_root / "render_metadata.json"
+            Image.fromarray(page_arr, "RGB").save(page_path, format="PNG", dpi=(dpi, dpi))
+            Image.fromarray(heat_arr, "L").save(heat_path, format="PNG", dpi=(dpi, dpi))
+            Image.fromarray(metadata["aligned_page"], "RGB").save(aligned_page_path, format="PNG", dpi=(dpi, dpi))
+            Image.fromarray(metadata["aligned_heat"], "L").save(aligned_heat_path, format="PNG", dpi=(dpi, dpi))
+            metadata_payload = dict(metadata)
+            metadata_payload["aligned_page"] = aligned_page_path.as_posix()
+            metadata_payload["aligned_heat"] = aligned_heat_path.as_posix()
+            metadata_path.write_text(
+                json.dumps(metadata_payload, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            result_payload["rendered"] = True
+            result_payload["message"] = "String render completed."
+            result_payload["resolution"] = dict(metadata.get("resolution", {}))
+            result_payload["guide_catalog"] = dict(metadata.get("guide_catalog", result_payload["guide_catalog"]))
+            result_payload["artifacts"].update(
+                {
+                    "page": _artifact_payload(
+                        page_path,
+                        allowed_roots=(_REPO_ROOT, self.output_root, self.string_render_root),
+                    ),
+                    "pressure_heat": _artifact_payload(
+                        heat_path,
+                        allowed_roots=(_REPO_ROOT, self.output_root, self.string_render_root),
+                    ),
+                    "aligned_page": _artifact_payload(
+                        aligned_page_path,
+                        allowed_roots=(_REPO_ROOT, self.output_root, self.string_render_root),
+                    ),
+                    "aligned_heat": _artifact_payload(
+                        aligned_heat_path,
+                        allowed_roots=(_REPO_ROOT, self.output_root, self.string_render_root),
+                    ),
+                    "metadata": _artifact_payload(
+                        metadata_path,
+                        allowed_roots=(_REPO_ROOT, self.output_root, self.string_render_root),
+                    ),
+                }
+            )
+            self._update_string_render(
+                status="completed",
+                stage="complete",
+                percent=100,
+                message=result_payload["message"],
+                finished_at=_utc_now(),
+                error="",
+                result=result_payload,
+            )
+        except GuidedFolioResolutionError as exc:
+            self._update_string_render(
+                status="failed",
+                stage="failed",
+                percent=100,
+                message="String render failed during exact-symbol resolution.",
+                finished_at=_utc_now(),
+                error=str(exc),
+                result={
+                    "text": text,
+                    "rendered": False,
+                    "resolution": {
+                        "line_statuses": [
+                            {
+                                "line_index": status.line_index,
+                                "line_text": status.line_text,
+                                "glyph_count": status.glyph_count,
+                                "exact_character_coverage": status.exact_character_coverage,
+                                "alias_substitution_count": status.alias_substitution_count,
+                                "normalized_substitution_count": status.normalized_substitution_count,
+                                "exact_only_passed": status.exact_only_passed,
+                                "non_exact_symbols": list(status.non_exact_symbols),
+                                "resolution_error": status.resolution_error,
+                            }
+                            for status in exc.line_statuses
+                        ]
+                    },
+                },
+            )
+        except Exception as exc:  # pragma: no cover - defensive background failure
+            self._update_string_render(
+                status="failed",
+                stage="failed",
+                percent=100,
+                message="String render failed.",
+                finished_at=_utc_now(),
+                error=str(exc),
+            )
+
     def save_manual_guide(self, payload: dict[str, Any]) -> dict[str, Any]:
         annotation_id = str(payload.get("annotation_id", "")).strip()
         annotation = self._annotation_by_id(annotation_id)
@@ -1073,6 +1861,7 @@ class ReviewedAnnotationWorkbench:
             raise ValueError("manual guide annotation_id must reference a saved reviewed annotation")
         kind = str(annotation.get("kind", ""))
         symbol = str(annotation.get("symbol", ""))
+        catalog_name = _normalize_catalog_name(payload.get("catalog_name"))
         segments = _normalize_manual_segments(payload.get("segments", []))
         if not segments:
             raise ValueError("manual guide must include at least one cubic segment")
@@ -1084,9 +1873,13 @@ class ReviewedAnnotationWorkbench:
             raise ValueError("manual guide x_height_px and x_advance_px must be > 0")
         if corridor_half_width_mm <= 0.0:
             raise ValueError("manual guide corridor_half_width_mm must be > 0")
-        guide_id = str(payload.get("id", "")).strip() or _safe_id(kind, f"{symbol}_{annotation_id}")
+        raw_guide_id = payload.get("id")
+        guide_id = str(raw_guide_id or "").strip()
+        if guide_id.casefold() in {"", "none", "null"}:
+            guide_id = _safe_id(kind, f"{catalog_name}_{symbol}_{annotation_id}")
         guide_entry = {
             "id": guide_id,
+            "catalog_name": catalog_name,
             "kind": kind,
             "symbol": symbol,
             "annotation_id": annotation_id,
@@ -1106,7 +1899,10 @@ class ReviewedAnnotationWorkbench:
             "validation_errors": [],
             "active": True,
         }
-        preview_info = self._write_manual_guide_previews(guide_entry)
+        try:
+            preview_info = self._write_manual_guide_previews(guide_entry)
+        except Exception as exc:
+            raise self._enrich_manual_guide_validation_error(guide_entry, exc) from exc
         guide_entry.update(preview_info)
         with self._lock:
             entries = list(self.manual_guides.get("entries", []))
@@ -1114,10 +1910,16 @@ class ReviewedAnnotationWorkbench:
             for index, entry in enumerate(entries):
                 same_symbol = (
                     str(entry.get("kind", "")) == kind and str(entry.get("symbol", "")) == symbol
+                    and _normalize_catalog_name(entry.get("catalog_name")) == catalog_name
                 )
                 if same_symbol:
                     entry["active"] = False
-                same_entry = str(entry.get("id", "")) == guide_id or str(entry.get("annotation_id", "")) == annotation_id
+                same_entry = str(entry.get("id", "")) == guide_id or (
+                    str(entry.get("annotation_id", "")) == annotation_id
+                    and _normalize_catalog_name(entry.get("catalog_name")) == catalog_name
+                    and str(entry.get("kind", "")) == kind
+                    and str(entry.get("symbol", "")) == symbol
+                )
                 if same_entry:
                     guide_entry["created_at"] = str(entry.get("created_at", guide_entry["created_at"]))
                     entries[index] = guide_entry
@@ -1126,6 +1928,7 @@ class ReviewedAnnotationWorkbench:
                 entries.append(guide_entry)
             entries.sort(
                 key=lambda item: (
+                    _normalize_catalog_name(item.get("catalog_name")).casefold(),
                     str(item.get("kind", "")),
                     str(item.get("symbol", "")),
                     str(item.get("updated_at", "")),
@@ -1148,6 +1951,7 @@ class ReviewedAnnotationWorkbench:
             if target is not None and bool(target.get("active", False)):
                 kind = str(target.get("kind", ""))
                 symbol = str(target.get("symbol", ""))
+                catalog_name = _normalize_catalog_name(target.get("catalog_name"))
                 replacement = next(
                     (
                         entry
@@ -1156,7 +1960,9 @@ class ReviewedAnnotationWorkbench:
                             key=lambda item: str(item.get("updated_at", "")),
                             reverse=True,
                         )
-                        if str(entry.get("kind", "")) == kind and str(entry.get("symbol", "")) == symbol
+                        if str(entry.get("kind", "")) == kind
+                        and str(entry.get("symbol", "")) == symbol
+                        and _normalize_catalog_name(entry.get("catalog_name")) == catalog_name
                     ),
                     None,
                 )
@@ -1166,12 +1972,44 @@ class ReviewedAnnotationWorkbench:
             self._write_manual_guides()
         return True
 
+    def set_manual_guide_active(self, guide_id: str) -> dict[str, Any]:
+        guide_id = str(guide_id).strip()
+        if not guide_id:
+            raise KeyError("manual guide id is required")
+        with self._lock:
+            entries = list(self.manual_guides.get("entries", []))
+            target = next((dict(entry) for entry in entries if str(entry.get("id", "")) == guide_id), None)
+            if target is None:
+                raise KeyError(f"unknown manual guide id: {guide_id}")
+            kind = str(target.get("kind", ""))
+            symbol = str(target.get("symbol", ""))
+            catalog_name = _normalize_catalog_name(target.get("catalog_name"))
+            for entry in entries:
+                same_lane = (
+                    str(entry.get("kind", "")) == kind
+                    and str(entry.get("symbol", "")) == symbol
+                    and _normalize_catalog_name(entry.get("catalog_name")) == catalog_name
+                )
+                entry["active"] = same_lane and str(entry.get("id", "")) == guide_id
+                if same_lane and entry["active"]:
+                    entry["updated_at"] = _utc_now()
+                    target = dict(entry)
+            self.manual_guides["entries"] = entries
+            self._write_manual_guides()
+        return self._manual_guide_payload(target)
+
     def _manual_guide_for_annotation(self, annotation_id: str) -> dict[str, Any] | None:
         annotation_id = str(annotation_id).strip()
-        for entry in self.manual_guides.get("entries", []):
-            if str(entry.get("annotation_id", "")) == annotation_id:
-                return self._manual_guide_payload(entry)
-        return None
+        entries = [
+            dict(entry)
+            for entry in self.manual_guides.get("entries", [])
+            if str(entry.get("annotation_id", "")) == annotation_id
+        ]
+        if not entries:
+            return None
+        entries.sort(key=lambda item: str(item.get("updated_at", "")), reverse=True)
+        entries.sort(key=lambda item: 0 if bool(item.get("active", False)) else 1)
+        return self._manual_guide_payload(entries[0])
 
     def _manual_guide_for(self, kind: str, symbol: str) -> dict[str, Any] | None:
         entries = self._manual_guide_entries_for(kind, symbol)
@@ -1490,7 +2328,7 @@ class ReviewedAnnotationWorkbench:
     def read_artifact(self, raw_path: str) -> tuple[bytes, str]:
         path = _resolve_path(raw_path, relative_to=_REPO_ROOT)
         allowed = False
-        for root in (_REPO_ROOT, self.output_root, self.symbol_rerun_root):
+        for root in (_REPO_ROOT, self.output_root, self.symbol_rerun_root, self.string_render_root, self.manual_guide_root):
             try:
                 path.relative_to(root.resolve())
                 allowed = True
@@ -1541,7 +2379,11 @@ class ReviewedAnnotationWorkbench:
             "symbol_statuses": self._symbol_statuses(entries),
             "manual_guides": self._manual_guides_by_symbol(),
             "manual_guide_groups": self._manual_guide_groups(),
+            "manual_guide_catalogs": self._manual_guide_catalogs(),
+            "builtin_render_catalogs": self._builtin_render_catalogs(),
             "symbol_reruns": self._symbol_reruns_payload(),
+            "string_render": self._string_render_payload(),
+            "string_render_defaults": self._string_render_defaults(),
             "folios": self.folios,
             "annotations": self.list_annotations(),
             "reviewed_manifest_path": self.reviewed_manifest_path.as_posix(),
@@ -1650,6 +2492,187 @@ class ReviewedAnnotationWorkbench:
             ".webp": "image/webp",
         }.get(suffix, "application/octet-stream")
         return image_path.read_bytes(), content_type
+
+    def _read_folio_crop_array(self, folio_id: str, bounds: dict[str, Any]) -> np.ndarray:
+        folio = self.get_folio(folio_id)
+        image_path = Path(folio["local_path"])
+        normalized = _ensure_bounds(bounds)
+        with Image.open(image_path) as image:
+            gray = image.convert("L")
+            image_width_px, image_height_px = gray.size
+            if normalized["x"] + normalized["width"] > image_width_px or normalized["y"] + normalized["height"] > image_height_px:
+                raise ValueError("word bounds exceed source image size")
+            crop = gray.crop(
+                (
+                    normalized["x"],
+                    normalized["y"],
+                    normalized["x"] + normalized["width"],
+                    normalized["y"] + normalized["height"],
+                )
+            )
+            return np.array(crop, dtype=np.uint8)
+
+    def _build_word_assist_catalog(self, *, x_height_mm: float | None = None) -> dict[str, DensePathGuide]:
+        target_x_height_mm = float(x_height_mm or self._string_render_defaults()["x_height_mm"])
+        guides: dict[str, DensePathGuide] = {}
+        if DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH.exists():
+            guides.update(
+                {
+                    symbol: self._scale_dense_guide(guide, x_height_mm=target_x_height_mm)
+                    for symbol, guide in load_pathguides_toml(DEFAULT_REVIEWED_PROMOTED_GUIDE_CATALOG_PATH).items()
+                }
+            )
+        for manual in self._manual_guides_by_symbol().values():
+            if not isinstance(manual, dict):
+                continue
+            try:
+                guide = self._build_manual_dense_guide(manual)
+            except Exception:
+                continue
+            guides[str(manual.get("symbol", guide.symbol))] = self._scale_dense_guide(guide, x_height_mm=target_x_height_mm)
+        return guides
+
+    def _word_assist_summary(self, guide_catalog: dict[str, DensePathGuide]) -> dict[str, Any]:
+        return {
+            "guide_count": len(guide_catalog),
+            "glyph_count": sum(1 for guide in guide_catalog.values() if guide.kind == "glyph"),
+            "join_count": sum(1 for guide in guide_catalog.values() if guide.kind == "join"),
+            "manual_override_count": sum(
+                1
+                for guide in guide_catalog.values()
+                if any(str(source.source_id).startswith("manual-guide:") for source in guide.sources)
+            ),
+        }
+
+    def propose_word_assist(self, payload: dict[str, Any]) -> dict[str, Any]:
+        folio_id = str(payload.get("folio_id", "")).strip()
+        if not folio_id:
+            raise ValueError("folio_id is required")
+        word_bounds = _ensure_bounds(dict(payload.get("bounds_px", {})))
+        transcript = str(payload.get("transcript", "")).strip()
+        units = preprocess_transcript(transcript)
+        if not units:
+            raise ValueError("transcript must include at least one character")
+        word_image = self._read_folio_crop_array(folio_id, word_bounds)
+        trimmed_image, trimmed_bounds = trim_word_image(word_image)
+        guide_catalog = self._build_word_assist_catalog()
+        template_bank = build_template_bank(guide_catalog)
+        proposal = propose_word_segmentation(trimmed_image, units, template_bank=template_bank)
+        proposal["folio_id"] = folio_id
+        proposal["transcript"] = transcript
+        proposal["word_bounds_px"] = word_bounds
+        proposal["trimmed_bounds_px"] = trimmed_bounds
+        proposal["guide_catalog_summary"] = self._word_assist_summary(guide_catalog)
+        return proposal
+
+    def score_word_assist(self, payload: dict[str, Any]) -> dict[str, Any]:
+        folio_id = str(payload.get("folio_id", "")).strip()
+        if not folio_id:
+            raise ValueError("folio_id is required")
+        word_bounds = _ensure_bounds(dict(payload.get("bounds_px", {})))
+        units = [str(item) for item in payload.get("units", [])]
+        if not units:
+            transcript = str(payload.get("transcript", "")).strip()
+            units = preprocess_transcript(transcript)
+        if not units:
+            raise ValueError("transcript must include at least one character")
+        boundaries = [int(round(float(value))) for value in payload.get("boundaries", [])]
+        word_image = self._read_folio_crop_array(folio_id, word_bounds)
+        trimmed_image, trimmed_bounds = trim_word_image(word_image)
+        if not boundaries:
+            raise ValueError("boundaries are required for rescoring")
+        guide_catalog = self._build_word_assist_catalog()
+        template_bank = build_template_bank(guide_catalog)
+        proposal = score_word_segmentation(trimmed_image, units, boundaries, template_bank=template_bank)
+        proposal["folio_id"] = folio_id
+        proposal["transcript"] = str(payload.get("transcript", "")).strip()
+        proposal["word_bounds_px"] = word_bounds
+        proposal["trimmed_bounds_px"] = trimmed_bounds
+        proposal["guide_catalog_summary"] = self._word_assist_summary(guide_catalog)
+        proposal["mode"] = proposal.get("mode") or ("mixed" if proposal["missing_guides"] else "guide-assisted")
+        return proposal
+
+    def accept_word_assist(self, payload: dict[str, Any]) -> dict[str, Any]:
+        proposal = self.score_word_assist(payload)
+        quality = str(payload.get("quality", "usable")).strip() or "usable"
+        if quality not in {"trusted", "usable", "uncertain"}:
+            raise ValueError("word assist quality must be trusted, usable, or uncertain")
+        user_notes = str(payload.get("notes", "")).strip()
+        folio_id = str(proposal["folio_id"])
+        word_bounds = dict(proposal["word_bounds_px"])
+        trim = dict(proposal["trimmed_bounds_px"])
+        transcript = str(proposal.get("transcript", "")).strip()
+        saved: list[dict[str, Any]] = []
+        for segment in proposal["segments"]:
+            segment_bounds = {
+                "x": int(word_bounds["x"]) + int(trim["x"]) + int(segment["start_x"]),
+                "y": int(word_bounds["y"]) + int(trim["y"]),
+                "width": int(segment["end_x"]) - int(segment["start_x"]),
+                "height": int(trim["height"]),
+            }
+            note_parts = [
+                f'word assist transcript="{transcript}"',
+                f'unit={segment["unit"]}',
+                f'cost={float(segment["cost"]):.3f}',
+                f'confidence={float(segment["confidence"]):.3f}',
+            ]
+            if user_notes:
+                note_parts.append(user_notes)
+            saved.append(
+                self.save_annotation(
+                    {
+                        "folio_id": folio_id,
+                        "kind": "glyph",
+                        "symbol": str(segment["unit"]),
+                        "quality": quality,
+                        "notes": " | ".join(note_parts),
+                        "bounds_px": segment_bounds,
+                    }
+                )
+            )
+        return {
+            "saved": saved,
+            "proposal": proposal,
+        }
+
+    def propose_stroke_assist(self, payload: dict[str, Any]) -> dict[str, Any]:
+        annotation_id = str(payload.get("annotation_id", "")).strip()
+        annotation = self._annotation_by_id(annotation_id)
+        if annotation is None:
+            raise ValueError("annotation_id must reference a saved reviewed annotation")
+        if str(annotation.get("kind", "")) != "glyph":
+            raise ValueError("stroke assist only applies to glyph annotations")
+        desired_stroke_count_raw = payload.get("desired_stroke_count")
+        desired_stroke_count: int | None = None
+        if desired_stroke_count_raw not in (None, ""):
+            desired_stroke_count = int(desired_stroke_count_raw)
+            if desired_stroke_count <= 0:
+                raise ValueError("desired_stroke_count must be a positive integer")
+        source_path = Path(str(annotation.get("source_path", "")))
+        bounds = dict(annotation.get("bounds_px", {}))
+        with Image.open(source_path) as image:
+            gray = image.convert("L")
+            crop = np.array(
+                gray.crop(
+                    (
+                        int(bounds["x"]),
+                        int(bounds["y"]),
+                        int(bounds["x"]) + int(bounds["width"]),
+                        int(bounds["y"]) + int(bounds["height"]),
+                    )
+                ),
+                dtype=np.uint8,
+            )
+        proposal = propose_stroke_decomposition(
+            crop,
+            str(annotation["symbol"]),
+            desired_stroke_count=desired_stroke_count,
+        )
+        proposal["annotation_id"] = annotation_id
+        proposal["symbol"] = str(annotation["symbol"])
+        proposal["bounds_px"] = dict(annotation["bounds_px"])
+        proposal["source_path"] = str(annotation["source_path"])
+        return proposal
 
 
 _APP_CSS = """
@@ -1909,6 +2932,20 @@ button.danger {
 .status-bullets button {
   text-align: left;
 }
+.catalog-dropdown {
+  margin-top: 8px;
+}
+.catalog-dropdown summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.catalog-dropdown-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
 .artifact-grid {
   display: grid;
   gap: 10px;
@@ -2098,6 +3135,22 @@ button.danger {
   color: var(--muted);
   font-size: 0.88rem;
 }
+.word-assist {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 18px;
+}
+.word-assist-canvas {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8f3e9;
+}
+.word-assist-side {
+  display: grid;
+  gap: 12px;
+}
 """
 
 
@@ -2110,19 +3163,33 @@ const state = {
   currentFolioId: null,
   currentSymbolKey: null,
   symbolRerunPollId: null,
+  stringRenderPollId: null,
   selectedAnnotationId: null,
   draftBounds: null,
   naturalWidth: 1,
   naturalHeight: 1,
   panMode: false,
+  wordAssist: {
+    folioId: null,
+    bounds: null,
+    transcript: '',
+    proposal: null,
+    transform: null,
+    draggingBoundaryIndex: null,
+    dragMoved: false,
+  },
     guideEditor: {
       annotationId: null,
       guideId: null,
       symbolKey: null,
+      selectedStrokeOrder: null,
       segments: [],
     pendingPoints: [],
       strokeOrder: 1,
+      desiredStrokeCount: '',
       contact: true,
+      catalogName: 'Workbench',
+      strokeAssistProposal: null,
       xHeightPx: 0,
       xAdvancePx: 0,
       corridorHalfWidthMm: 0.2,
@@ -2144,6 +3211,7 @@ const state = {
     previewTransform: null,
     hoverPoint: null,
   },
+  stringRenderFormReady: false,
 };
 
 const dom = {
@@ -2185,13 +3253,18 @@ const dom = {
   guideEditorCorridor: document.getElementById('guide-editor-corridor'),
   guideEditorPaddingPx: document.getElementById('guide-editor-padding-px'),
   guideEditorStrokeOrder: document.getElementById('guide-editor-stroke-order'),
+  guideEditorDesiredStrokeCount: document.getElementById('guide-editor-desired-stroke-count'),
   guideEditorContact: document.getElementById('guide-editor-contact'),
+  guideEditorCatalog: document.getElementById('guide-editor-catalog'),
+  guideEditorAnalyze: document.getElementById('guide-editor-analyze'),
+  guideEditorResetProposal: document.getElementById('guide-editor-reset-proposal'),
   guideEditorClearPending: document.getElementById('guide-editor-clear-pending'),
   guideEditorSave: document.getElementById('guide-editor-save'),
   guideEditorProcess: document.getElementById('guide-editor-process'),
   guideEditorDelete: document.getElementById('guide-editor-delete'),
   guideEditorSegments: document.getElementById('guide-editor-segments'),
   guideEditorSavedGuides: document.getElementById('guide-editor-saved-guides'),
+  guideEditorProposal: document.getElementById('guide-editor-proposal'),
   guideEditorPreviewArtifacts: document.getElementById('guide-editor-preview-artifacts'),
   guideEditorRerunMeta: document.getElementById('guide-editor-rerun-meta'),
   guideEditorRerunArtifacts: document.getElementById('guide-editor-rerun-artifacts'),
@@ -2204,6 +3277,47 @@ const dom = {
   symbolRerunModalClose: document.getElementById('symbol-rerun-modal-close'),
   symbolRerunDetails: document.getElementById('symbol-rerun-details'),
   symbolRerunArtifacts: document.getElementById('symbol-rerun-artifacts'),
+  stringRenderOpen: document.getElementById('string-render-open'),
+  stringRenderModal: document.getElementById('string-render-modal'),
+  stringRenderClose: document.getElementById('string-render-close'),
+  wordAssistOpen: document.getElementById('word-assist-open'),
+  wordAssistModal: document.getElementById('word-assist-modal'),
+  wordAssistClose: document.getElementById('word-assist-close'),
+  wordAssistTitle: document.getElementById('word-assist-title'),
+  wordAssistMeta: document.getElementById('word-assist-meta'),
+  wordAssistCanvas: document.getElementById('word-assist-canvas'),
+  wordAssistTranscript: document.getElementById('word-assist-transcript'),
+  wordAssistQuality: document.getElementById('word-assist-quality'),
+  wordAssistNotes: document.getElementById('word-assist-notes'),
+  wordAssistRun: document.getElementById('word-assist-run'),
+  wordAssistRescore: document.getElementById('word-assist-rescore'),
+  wordAssistAccept: document.getElementById('word-assist-accept'),
+  wordAssistSummary: document.getElementById('word-assist-summary'),
+  wordAssistSegments: document.getElementById('word-assist-segments'),
+  stringRenderText: document.getElementById('string-render-text'),
+  stringRenderCatalogs: document.getElementById('string-render-catalogs'),
+  stringRenderCatalogList: document.getElementById('string-render-catalog-list'),
+  stringRenderCheck: document.getElementById('string-render-check'),
+  stringRenderRun: document.getElementById('string-render-run'),
+  stringRenderDpi: document.getElementById('string-render-dpi'),
+  stringRenderSupersample: document.getElementById('string-render-supersample'),
+  stringRenderXHeight: document.getElementById('string-render-x-height-mm'),
+  stringRenderLineSpacing: document.getElementById('string-render-line-spacing-mm'),
+  stringRenderPageWidth: document.getElementById('string-render-page-width-mm'),
+  stringRenderPageHeight: document.getElementById('string-render-page-height-mm'),
+  stringRenderMarginLeft: document.getElementById('string-render-margin-left-mm'),
+  stringRenderMarginTop: document.getElementById('string-render-margin-top-mm'),
+  stringRenderNibWidth: document.getElementById('string-render-nib-width-mm'),
+  stringRenderNibAngle: document.getElementById('string-render-nib-angle-deg'),
+  stringRenderBasePressure: document.getElementById('string-render-base-pressure'),
+  stringRenderBaselineJitter: document.getElementById('string-render-baseline-jitter-mm'),
+  stringRenderLetterSpacing: document.getElementById('string-render-letter-spacing'),
+  stringRenderWordSpacing: document.getElementById('string-render-word-spacing'),
+  stringRenderWritingSpeed: document.getElementById('string-render-writing-speed'),
+  stringRenderAdvanced: document.getElementById('string-render-advanced-overrides'),
+  stringRenderMeta: document.getElementById('string-render-meta'),
+  stringRenderDetails: document.getElementById('string-render-details'),
+  stringRenderArtifacts: document.getElementById('string-render-artifacts'),
   folioList: document.getElementById('folio-list'),
   annotationList: document.getElementById('annotation-list'),
   folioTitle: document.getElementById('folio-title'),
@@ -2285,6 +3399,13 @@ function currentSymbolStatus() {
 function currentSymbolRerun() {
   if (!state.payload || !state.currentSymbolKey) return null;
   return state.payload.symbol_reruns?.[state.currentSymbolKey] || null;
+}
+
+function currentStringRender() {
+  if (!state.payload) return null;
+  const render = state.payload.string_render || null;
+  if (!render || !Object.keys(render).length) return null;
+  return render;
 }
 
 function currentManualGuide() {
@@ -2452,12 +3573,12 @@ function setSymbolRerunModalOpen(isOpen) {
   dom.symbolRerunModal.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
 }
 
-function renderRerunArtifacts(target, artifacts) {
+function renderRerunArtifacts(target, artifacts, emptyMessage = 'No rerun artifacts yet.') {
   target.innerHTML = '';
   if (!artifacts || !Object.keys(artifacts).length) {
     const empty = document.createElement('div');
     empty.className = 'small';
-    empty.textContent = 'No rerun artifacts yet.';
+    empty.textContent = emptyMessage;
     target.appendChild(empty);
     return;
   }
@@ -2494,6 +3615,30 @@ function renderRerunArtifacts(target, artifacts) {
       title: 'guide nominal panel',
       detail: 'Nominal panel snapshot for all promoted guides in this rerun freeze.',
     },
+    page: {
+      title: 'rendered page',
+      detail: 'The guided scribesim render for the requested string.',
+    },
+    pressure_heat: {
+      title: 'pressure heatmap',
+      detail: 'Pressure intensity for the actual rendered trajectory.',
+    },
+    aligned_page: {
+      title: 'guide-aligned render',
+      detail: 'The nominal guide-aligned render for the same string.',
+    },
+    aligned_heat: {
+      title: 'guide-aligned heatmap',
+      detail: 'Guide-aligned pressure heatmap used for comparison.',
+    },
+    guide_catalog: {
+      title: 'effective guide catalog',
+      detail: 'The exact catalog used for the render, including active manual guide overrides.',
+    },
+    metadata: {
+      title: 'render metadata',
+      detail: 'JSON metadata for the render, including exact-resolution coverage and activated parameters.',
+    },
   };
   const orderedNames = [
     'fit_source',
@@ -2504,6 +3649,12 @@ function renderRerunArtifacts(target, artifacts) {
     'guide_nominal',
     'guide_overlay_panel',
     'guide_nominal_panel',
+    'page',
+    'pressure_heat',
+    'aligned_page',
+    'aligned_heat',
+    'guide_catalog',
+    'metadata',
   ];
   const entries = Object.entries(artifacts).sort(([left], [right]) => {
     const leftIndex = orderedNames.indexOf(left);
@@ -2640,6 +3791,518 @@ function renderSymbolRerun() {
     scheduleSymbolRerunPolling();
   } else {
     stopSymbolRerunPolling();
+  }
+}
+
+function currentWordAssistBounds() {
+  const bounds = state.draftBounds || currentBoundsFromForm();
+  if (!bounds || Number(bounds.width || 0) <= 0 || Number(bounds.height || 0) <= 0) {
+    return null;
+  }
+  return {
+    x: Number(bounds.x || 0),
+    y: Number(bounds.y || 0),
+    width: Number(bounds.width || 0),
+    height: Number(bounds.height || 0),
+  };
+}
+
+function wordAssistRequestPayload(includeBoundaries = false) {
+  const bounds = state.wordAssist.bounds || currentWordAssistBounds();
+  const payload = {
+    folio_id: state.wordAssist.folioId || state.currentFolioId,
+    bounds_px: bounds,
+    transcript: dom.wordAssistTranscript.value,
+  };
+  if (includeBoundaries && state.wordAssist.proposal) {
+    payload.units = state.wordAssist.proposal.units || [];
+    payload.boundaries = state.wordAssist.proposal.boundaries || [];
+  }
+  return payload;
+}
+
+function wordAssistCanvasPoint(event) {
+  const transform = state.wordAssist.transform;
+  if (!transform) return null;
+  const rect = dom.wordAssistCanvas.getBoundingClientRect();
+  const canvasX = ((event.clientX - rect.left) / rect.width) * dom.wordAssistCanvas.width;
+  const cropX = (canvasX - transform.offsetX) / transform.scale;
+  return {
+    x: cropX,
+    canvasX,
+  };
+}
+
+function wordAssistBoundaryHitIndex(point) {
+  const proposal = state.wordAssist.proposal;
+  const transform = state.wordAssist.transform;
+  if (!proposal || !transform) return null;
+  for (let index = 1; index < proposal.boundaries.length - 1; index += 1) {
+    const boundaryX = transform.offsetX + (proposal.trimmed_bounds_px.x + proposal.boundaries[index]) * transform.scale;
+    if (Math.abs(point.canvasX - boundaryX) <= 8) {
+      return index;
+    }
+  }
+  return null;
+}
+
+function renderWordAssistCanvas() {
+  const canvas = dom.wordAssistCanvas;
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#f8f3e9';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const bounds = state.wordAssist.bounds;
+  if (!bounds || !dom.image.complete) {
+    ctx.fillStyle = '#6f6757';
+    ctx.font = '16px Georgia';
+    ctx.fillText('Draw a word rectangle on the folio, then open Word Assist.', 18, canvas.height / 2);
+    state.wordAssist.transform = null;
+    return;
+  }
+
+  const cropWidth = Math.max(1, Number(bounds.width));
+  const cropHeight = Math.max(1, Number(bounds.height));
+  const scale = Math.min((canvas.width - 28) / cropWidth, (canvas.height - 28) / cropHeight);
+  const drawWidth = Math.max(1, cropWidth * scale);
+  const drawHeight = Math.max(1, cropHeight * scale);
+  const offsetX = (canvas.width - drawWidth) / 2;
+  const offsetY = (canvas.height - drawHeight) / 2;
+  state.wordAssist.transform = {offsetX, offsetY, scale};
+  ctx.drawImage(dom.image, bounds.x, bounds.y, cropWidth, cropHeight, offsetX, offsetY, drawWidth, drawHeight);
+  ctx.strokeStyle = 'rgba(34, 32, 24, 0.18)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(offsetX + 0.5, offsetY + 0.5, drawWidth - 1, drawHeight - 1);
+
+  const proposal = state.wordAssist.proposal;
+  if (!proposal) {
+    return;
+  }
+  const trim = proposal.trimmed_bounds_px || {x: 0, y: 0, width: cropWidth, height: cropHeight};
+  const trimX = offsetX + Number(trim.x || 0) * scale;
+  const trimY = offsetY + Number(trim.y || 0) * scale;
+  const trimWidth = Number(trim.width || cropWidth) * scale;
+  const trimHeight = Number(trim.height || cropHeight) * scale;
+  ctx.strokeStyle = 'rgba(136, 93, 58, 0.65)';
+  ctx.setLineDash([5, 4]);
+  ctx.strokeRect(trimX + 0.5, trimY + 0.5, trimWidth - 1, trimHeight - 1);
+  ctx.setLineDash([]);
+
+  (proposal.segments || []).forEach((segment) => {
+    const left = trimX + Number(segment.start_x || 0) * scale;
+    const widthPx = Math.max(1, (Number(segment.end_x || 0) - Number(segment.start_x || 0)) * scale);
+    ctx.fillStyle = segment.guide_available ? 'rgba(37, 99, 235, 0.08)' : 'rgba(180, 83, 9, 0.10)';
+    ctx.fillRect(left, trimY, widthPx, trimHeight);
+    ctx.fillStyle = '#222018';
+    ctx.font = '15px Georgia';
+    ctx.fillText(segment.unit, left + 4, Math.max(16, trimY - 6));
+  });
+  for (let index = 1; index < (proposal.boundaries || []).length - 1; index += 1) {
+    const boundaryX = trimX + Number(proposal.boundaries[index]) * scale;
+    ctx.strokeStyle = state.wordAssist.draggingBoundaryIndex === index ? '#dc2626' : '#885d3a';
+    ctx.lineWidth = state.wordAssist.draggingBoundaryIndex === index ? 3 : 2;
+    ctx.beginPath();
+    ctx.moveTo(boundaryX, trimY);
+    ctx.lineTo(boundaryX, trimY + trimHeight);
+    ctx.stroke();
+  }
+}
+
+function renderWordAssistPanel() {
+  const proposal = state.wordAssist.proposal;
+  dom.wordAssistTitle.textContent = 'Word Assist';
+  dom.wordAssistSummary.innerHTML = '';
+  dom.wordAssistSegments.innerHTML = '';
+  dom.wordAssistTranscript.value = state.wordAssist.transcript || dom.wordAssistTranscript.value || '';
+  const busy = false;
+  dom.wordAssistRun.disabled = !state.wordAssist.bounds || busy;
+  dom.wordAssistRescore.disabled = !proposal || busy;
+  dom.wordAssistAccept.disabled = !proposal || busy;
+  if (!state.wordAssist.bounds) {
+    dom.wordAssistMeta.textContent = 'Draw a word rectangle on the folio first. The modal uses that selection as the word crop.';
+    renderStatusBullets(dom.wordAssistSummary, [], 'No word selection yet.');
+    renderWordAssistCanvas();
+    return;
+  }
+  const bounds = state.wordAssist.bounds;
+  dom.wordAssistMeta.textContent = `${bounds.width}×${bounds.height}px selection on ${dom.folioTitle.textContent || 'folio'}`;
+  if (!proposal) {
+    renderStatusBullets(dom.wordAssistSummary, [], 'Type the word transcription, then run DP segmentation.');
+    renderWordAssistCanvas();
+    return;
+  }
+  const summary = [
+    {
+      text: `confidence ${Number(proposal.confidence || 0).toFixed(2)} · mode ${proposal.mode || 'mixed'}`,
+      detail: 'proposal',
+    },
+    {
+      text: `units ${proposal.units.join(' | ')}`,
+      detail: 'transcript units',
+    },
+    {
+      text: `guide templates ${proposal.guide_catalog_summary?.guide_count || 0} · missing exact guides ${proposal.missing_guides?.length || 0}`,
+      detail: 'template bank',
+    },
+  ];
+  if (proposal.highest_cost_unit) {
+    summary.push({
+      text: `${proposal.highest_cost_unit} is the highest-cost unit in the current segmentation.`,
+      detail: 'attention',
+    });
+  }
+  renderStatusBullets(dom.wordAssistSummary, summary, 'No summary yet.');
+  const rows = (proposal.segments || []).map((segment) => ({
+    text:
+      `${segment.unit} · x ${segment.start_x}-${segment.end_x} · ` +
+      `cost ${Number(segment.cost).toFixed(2)} · ${segment.guide_available ? 'exact guide' : 'heuristic only'}`,
+    detail: (segment.issues || []).join(' · ') || 'segment',
+  }));
+  renderStatusBullets(dom.wordAssistSegments, rows, 'No segment breakdown yet.');
+  renderWordAssistCanvas();
+}
+
+async function openWordAssistModal() {
+  const bounds = currentWordAssistBounds();
+  if (!state.currentFolioId || !bounds) {
+    setStatus('Draw a word rectangle on the folio first.', true);
+    return;
+  }
+  state.wordAssist.folioId = state.currentFolioId;
+  state.wordAssist.bounds = bounds;
+  state.wordAssist.transcript = dom.wordAssistTranscript.value || '';
+  state.wordAssist.proposal = null;
+  dom.wordAssistModal.hidden = false;
+  dom.wordAssistModal.setAttribute('aria-hidden', 'false');
+  renderWordAssistPanel();
+}
+
+function closeWordAssistModal() {
+  dom.wordAssistModal.hidden = true;
+  dom.wordAssistModal.setAttribute('aria-hidden', 'true');
+  state.wordAssist.draggingBoundaryIndex = null;
+  state.wordAssist.dragMoved = false;
+}
+
+async function runWordAssistProposal() {
+  try {
+    const response = await fetch('/api/word-assists/propose', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(wordAssistRequestPayload(false)),
+    });
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+    const data = await response.json();
+    state.wordAssist.transcript = dom.wordAssistTranscript.value;
+    state.wordAssist.proposal = data.proposal;
+    renderWordAssistPanel();
+    setStatus('Word segmentation proposed.');
+  } catch (error) {
+    setStatus(String(error), true);
+  }
+}
+
+async function rescoreWordAssistProposal() {
+  if (!state.wordAssist.proposal) return;
+  try {
+    const response = await fetch('/api/word-assists/score', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(wordAssistRequestPayload(true)),
+    });
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+    const data = await response.json();
+    state.wordAssist.transcript = dom.wordAssistTranscript.value;
+    state.wordAssist.proposal = data.proposal;
+    renderWordAssistPanel();
+    setStatus('Word segmentation rescored.');
+  } catch (error) {
+    setStatus(String(error), true);
+  }
+}
+
+async function acceptWordAssistProposal() {
+  if (!state.wordAssist.proposal) {
+    setStatus('Run word segmentation first.', true);
+    return;
+  }
+  try {
+    const response = await fetch('/api/word-assists/accept', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        ...wordAssistRequestPayload(true),
+        quality: dom.wordAssistQuality.value,
+        notes: dom.wordAssistNotes.value.trim(),
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+    const data = await response.json();
+    if (data.state) {
+      state.payload = data.state;
+      dom.manifestPath.textContent = state.payload.reviewed_manifest_path;
+    }
+    state.selectedAnnotationId = data.accepted?.saved?.[0]?.id || null;
+    renderCoverage();
+    renderFolios();
+    syncFormFromSelection();
+    renderAnnotations();
+    renderOverlay();
+    renderCleanupEditor();
+    setStatus(`Saved ${data.accepted?.saved?.length || 0} glyph annotation(s) from word assist.`);
+  } catch (error) {
+    setStatus(String(error), true);
+  }
+}
+
+function stopStringRenderPolling() {
+  if (state.stringRenderPollId !== null) {
+    window.clearTimeout(state.stringRenderPollId);
+    state.stringRenderPollId = null;
+  }
+}
+
+function scheduleStringRenderPolling() {
+  stopStringRenderPolling();
+  const render = currentStringRender();
+  if (!render || render.status !== 'running') return;
+  state.stringRenderPollId = window.setTimeout(async () => {
+    try {
+      await refreshWorkbenchState();
+      renderCoverage();
+      renderFolios();
+      renderAnnotations();
+      renderOverlay();
+      renderCleanupEditor();
+      renderStringRenderPanel();
+      scheduleStringRenderPolling();
+    } catch (error) {
+      setStatus(String(error), true);
+    }
+  }, 2000);
+}
+
+function applyStringRenderDefaults(force = false) {
+  const defaults = state.payload?.string_render_defaults;
+  if (!defaults) return;
+  const profile = defaults.profile || {};
+  const applyValue = (element, value) => {
+    if (!element) return;
+    if (force || !element.value) {
+      element.value = value === null || value === undefined ? '' : String(value);
+    }
+  };
+  applyValue(dom.stringRenderDpi, defaults.dpi);
+  applyValue(dom.stringRenderCatalogs, (defaults.catalog_names || []).join(', '));
+  applyValue(dom.stringRenderSupersample, defaults.supersample);
+  applyValue(dom.stringRenderXHeight, defaults.x_height_mm);
+  applyValue(dom.stringRenderLineSpacing, defaults.line_spacing_mm);
+  applyValue(dom.stringRenderPageWidth, defaults.page_width_mm);
+  applyValue(dom.stringRenderPageHeight, defaults.page_height_mm);
+  applyValue(dom.stringRenderMarginLeft, defaults.margin_left_mm);
+  applyValue(dom.stringRenderMarginTop, defaults.margin_top_mm);
+  applyValue(dom.stringRenderNibWidth, profile['nib.width_mm']);
+  applyValue(dom.stringRenderNibAngle, profile['nib.angle_deg']);
+  applyValue(dom.stringRenderBasePressure, profile['folio.base_pressure']);
+  applyValue(dom.stringRenderBaselineJitter, profile['glyph.baseline_jitter_mm']);
+  applyValue(dom.stringRenderLetterSpacing, profile['letter_spacing_norm']);
+  applyValue(dom.stringRenderWordSpacing, profile['word_spacing_norm']);
+  applyValue(dom.stringRenderWritingSpeed, profile['writing_speed']);
+  applyValue(dom.stringRenderAdvanced, defaults.advanced_overrides || '');
+  state.stringRenderFormReady = true;
+}
+
+async function openStringRenderModal() {
+  try {
+    await refreshWorkbenchState();
+    renderCoverage();
+    renderFolios();
+    renderAnnotations();
+    renderOverlay();
+    renderCleanupEditor();
+  } catch (error) {
+    setStatus(String(error), true);
+  }
+  applyStringRenderDefaults();
+  dom.stringRenderModal.hidden = false;
+  dom.stringRenderModal.setAttribute('aria-hidden', 'false');
+  renderStringRenderPanel();
+}
+
+function closeStringRenderModal() {
+  dom.stringRenderModal.hidden = true;
+  dom.stringRenderModal.setAttribute('aria-hidden', 'true');
+}
+
+function stringRenderRequestPayload(checkOnly) {
+  return {
+    text: dom.stringRenderText.value,
+    catalog_names: dom.stringRenderCatalogs.value,
+    check_only: Boolean(checkOnly),
+    dpi: dom.stringRenderDpi.value,
+    supersample: dom.stringRenderSupersample.value,
+    x_height_mm: dom.stringRenderXHeight.value,
+    line_spacing_mm: dom.stringRenderLineSpacing.value,
+    page_width_mm: dom.stringRenderPageWidth.value,
+    page_height_mm: dom.stringRenderPageHeight.value,
+    margin_left_mm: dom.stringRenderMarginLeft.value,
+    margin_top_mm: dom.stringRenderMarginTop.value,
+    'nib.width_mm': dom.stringRenderNibWidth.value,
+    'nib.angle_deg': dom.stringRenderNibAngle.value,
+    'folio.base_pressure': dom.stringRenderBasePressure.value,
+    'glyph.baseline_jitter_mm': dom.stringRenderBaselineJitter.value,
+    letter_spacing_norm: dom.stringRenderLetterSpacing.value,
+    word_spacing_norm: dom.stringRenderWordSpacing.value,
+    writing_speed: dom.stringRenderWritingSpeed.value,
+    advanced_overrides: dom.stringRenderAdvanced.value,
+  };
+}
+
+function renderStringRenderPanel() {
+  const render = currentStringRender();
+  dom.stringRenderDetails.innerHTML = '';
+  dom.stringRenderArtifacts.innerHTML = '';
+  dom.stringRenderCatalogList.innerHTML = '';
+  const running = Boolean(render && render.status === 'running');
+  dom.stringRenderCheck.disabled = running;
+  dom.stringRenderRun.disabled = running;
+  dom.stringRenderCheck.textContent = running && render?.request?.check_only ? 'Checking...' : 'Check Availability';
+  dom.stringRenderRun.textContent = running && !render?.request?.check_only ? 'Rendering...' : 'Render String';
+  if (!render) {
+    dom.stringRenderMeta.textContent =
+      'Check exact guide availability or render a string through the built-in promoted catalog plus the selected manual guide catalogs.';
+    renderStatusBullets(dom.stringRenderDetails, [], 'No render request yet.');
+    renderRerunArtifacts(dom.stringRenderArtifacts, null, 'No render artifacts yet.');
+  } else {
+    const details = [];
+    if (render.result?.availability) {
+      const availability = render.result.availability;
+      details.push({
+        text: availability.available
+          ? `Exact guides available for ${availability.requested_symbols.length} glyph(s).`
+          : `Missing exact guides for ${availability.missing_symbols.join(', ')}.`,
+        detail: availability.available ? 'availability' : 'missing glyphs',
+      });
+      if (availability.exact_join_count || availability.derived_join_count) {
+        details.push({
+          text: `joins: exact ${availability.exact_join_count || 0} • derived ${availability.derived_join_count || 0}`,
+          detail: 'join coverage',
+        });
+      }
+      (availability.line_reports || []).forEach((line) => {
+        details.push({
+          text: `line ${line.line_index}: ${line.text || '(blank)'}`,
+          detail: line.missing_symbols?.length
+            ? `missing ${line.missing_symbols.join(', ')}`
+            : `glyphs ${line.glyph_count} • exact joins ${line.exact_join_count} • derived joins ${line.derived_join_count}`,
+        });
+      });
+    }
+    if (render.result?.guide_catalog) {
+      const catalog = render.result.guide_catalog;
+      details.push({
+        text: `catalog: ${catalog.glyph_count || 0} glyphs • ${catalog.join_count || 0} joins`,
+        detail: `${catalog.source_label || 'unknown'}${catalog.manual_override_count ? ` • manual overrides ${catalog.manual_override_count}` : ''}`,
+      });
+      if ((catalog.catalog_names || []).length) {
+        details.push({
+          text: (catalog.catalog_names || []).join(', '),
+          detail: 'selected manual catalogs',
+        });
+      }
+    }
+    if (render.result?.resolution?.exact_character_coverage !== undefined) {
+      const resolution = render.result.resolution;
+      details.push({
+        text: `resolution coverage ${(Number(resolution.exact_character_coverage || 0) * 100).toFixed(1)}%`,
+        detail: `glyphs ${resolution.glyph_count || 0}`,
+      });
+    }
+    if (render.error) {
+      details.push({text: render.error, detail: 'error'});
+    }
+    dom.stringRenderMeta.textContent =
+      `${render.status} · ${render.stage} · ${render.percent}%` +
+      (render.message ? ` · ${render.message}` : '');
+    renderStatusBullets(dom.stringRenderDetails, details, 'No render diagnostics yet.');
+    renderRerunArtifacts(dom.stringRenderArtifacts, render.result?.artifacts || null, 'No render artifacts yet.');
+    if (render.status === 'running') {
+      scheduleStringRenderPolling();
+    } else {
+      stopStringRenderPolling();
+    }
+  }
+  (state.payload?.builtin_render_catalogs || []).forEach((catalog) => {
+    const pill = document.createElement('span');
+    pill.className = 'pill';
+    pill.textContent = `${catalog.name} · always included`;
+    dom.stringRenderCatalogList.appendChild(pill);
+  });
+  (state.payload?.manual_guide_catalogs || []).forEach((catalog) => {
+    const pill = document.createElement('span');
+    pill.className = 'pill';
+    pill.textContent = `${catalog.name}: ${catalog.active_entry_count} active / ${catalog.symbol_count} symbols`;
+    dom.stringRenderCatalogList.appendChild(pill);
+  });
+  const effectiveSymbols = render?.result?.guide_catalog?.effective_symbols || [];
+  if (effectiveSymbols.length) {
+    const details = document.createElement('details');
+    details.className = 'catalog-dropdown';
+    const summary = document.createElement('summary');
+    const builtinCount = Number(render.result?.guide_catalog?.builtin_symbol_count || 0);
+    const manualCount = Number(render.result?.guide_catalog?.manual_symbol_count || 0);
+    summary.textContent = `Effective symbols (${effectiveSymbols.length}) · built-in ${builtinCount} · manual ${manualCount}`;
+    details.appendChild(summary);
+    const list = document.createElement('div');
+    list.className = 'catalog-dropdown-list';
+    effectiveSymbols.forEach((entry) => {
+      const pill = document.createElement('span');
+      pill.className = 'pill';
+      pill.textContent =
+        entry.source === 'manual'
+          ? `${entry.symbol} · manual${entry.catalog_name ? ` (${entry.catalog_name})` : ''}`
+          : `${entry.symbol} · built-in`;
+      list.appendChild(pill);
+    });
+    details.appendChild(list);
+    dom.stringRenderCatalogList.appendChild(details);
+  }
+}
+
+async function startStringRender(checkOnly) {
+  try {
+    const response = await fetch('/api/text-renders', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(stringRenderRequestPayload(checkOnly)),
+    });
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+    const data = await response.json();
+    if (data.state) {
+      state.payload = data.state;
+      dom.manifestPath.textContent = state.payload.reviewed_manifest_path;
+    }
+    renderCoverage();
+    renderFolios();
+    renderAnnotations();
+    renderOverlay();
+    renderCleanupEditor();
+    renderStringRenderPanel();
+    scheduleStringRenderPolling();
+    setStatus(checkOnly ? 'Checking string availability.' : 'Rendering string.');
+  } catch (error) {
+    setStatus(String(error), true);
+    dom.stringRenderMeta.textContent = String(error);
   }
 }
 
@@ -2908,6 +4571,34 @@ function guideEditorHandleAtCanvas(canvasX, canvasY) {
   return best;
 }
 
+function guideEditorSegmentAtCanvas(canvasX, canvasY) {
+  let best = null;
+  state.guideEditor.segments.forEach((segment, segmentIndex) => {
+    for (let step = 0; step <= 24; step += 1) {
+      const t = step / 24;
+      const mt = 1 - t;
+      const x =
+        mt ** 3 * segment.p0.x +
+        3 * mt ** 2 * t * segment.p1.x +
+        3 * mt * t ** 2 * segment.p2.x +
+        t ** 3 * segment.p3.x;
+      const y =
+        mt ** 3 * segment.p0.y +
+        3 * mt ** 2 * t * segment.p1.y +
+        3 * mt * t ** 2 * segment.p2.y +
+        t ** 3 * segment.p3.y;
+      const point = guideEditorCanvasPoint({x, y});
+      if (!point) continue;
+      const distance = Math.hypot(point.x - canvasX, point.y - canvasY);
+      if (distance > 10) continue;
+      if (!best || distance < best.distance) {
+        best = {segmentIndex, strokeOrder: Number(segment.stroke_order || 1), distance};
+      }
+    }
+  });
+  return best;
+}
+
 function guideEditorUpdateHandlePoint(handle, point) {
   const clamped = guideEditorClampPoint(point);
   if (handle.type === 'segment') {
@@ -2919,6 +4610,60 @@ function guideEditorUpdateHandlePoint(handle, point) {
   if (handle.type === 'pending' && state.guideEditor.pendingPoints[handle.pendingIndex]) {
     state.guideEditor.pendingPoints[handle.pendingIndex] = clamped;
   }
+}
+
+function normalizeGuideEditorNibMode(value) {
+  const mode = String(value || 'fixed').toLowerCase();
+  return ['fixed', 'auto', 'manual'].includes(mode) ? mode : 'fixed';
+}
+
+function normalizeGuideEditorNibCurve(values, fallback = 40) {
+  const source = Array.isArray(values) && values.length ? values : [fallback, fallback, fallback, fallback];
+  const normalized = source.map((value) => Math.max(25, Math.min(55, Number(value || fallback))));
+  while (normalized.length < 4) {
+    normalized.push(normalized[normalized.length - 1] ?? fallback);
+  }
+  return normalized.slice(0, 4);
+}
+
+function normalizeGuideEditorNibConfidence(values) {
+  const source = Array.isArray(values) && values.length ? values : [0, 0, 0, 0];
+  const normalized = source.map((value) => Math.max(0, Math.min(1, Number(value || 0))));
+  while (normalized.length < 4) {
+    normalized.push(0);
+  }
+  return normalized.slice(0, 4);
+}
+
+function cloneGuideEditorSegments(segments) {
+  return (segments || []).map((segment) => ({
+    stroke_order: Number(segment.stroke_order || 1),
+    stroke_name: String(segment.stroke_name || ''),
+    expected_direction: String(segment.expected_direction || ''),
+    expected_weight: String(segment.expected_weight || ''),
+    proposal_source: String(segment.proposal_source || ''),
+    contact: Boolean(segment.contact),
+    pressure_curve: Array.isArray(segment.pressure_curve)
+      ? segment.pressure_curve.map((value) => Number(value))
+      : [0.4, 0.8, 0.8, 0.4],
+    nib_angle_mode: normalizeGuideEditorNibMode(segment.nib_angle_mode),
+    nib_angle_curve: normalizeGuideEditorNibCurve(segment.nib_angle_curve, Number(segment.nib_angle_deg || 40)),
+    nib_angle_confidence: normalizeGuideEditorNibConfidence(segment.nib_angle_confidence),
+    p0: {...segment.p0},
+    p1: {...segment.p1},
+    p2: {...segment.p2},
+    p3: {...segment.p3},
+  }));
+}
+
+function applyStrokeAssistProposal(proposal) {
+  state.guideEditor.strokeAssistProposal = proposal || null;
+  state.guideEditor.segments = cloneGuideEditorSegments(proposal?.segments || []);
+  state.guideEditor.selectedStrokeOrder = state.guideEditor.segments[0]?.stroke_order || null;
+  state.guideEditor.strokeOrder = Math.max(1, ...state.guideEditor.segments.map((segment) => Number(segment.stroke_order || 1))) + 1;
+  state.guideEditor.desiredStrokeCount = proposal?.requested_stroke_count || proposal?.template_stroke_count || '';
+  state.guideEditor.pendingPoints = [];
+  state.guideEditor.mode = state.guideEditor.segments.length ? 'edit' : 'add';
 }
 
 function setGuideEditorZoom(value) {
@@ -3002,9 +4747,15 @@ function renderGuideEditorCanvas() {
     const p1 = guideEditorCanvasPoint(segment.p1);
     const p2 = guideEditorCanvasPoint(segment.p2);
     const p3 = guideEditorCanvasPoint(segment.p3);
+    const isSelectedStroke = Number(state.guideEditor.selectedStrokeOrder) === Number(segment.stroke_order || 0);
+    const meanPressure = Array.isArray(segment.pressure_curve) && segment.pressure_curve.length
+      ? segment.pressure_curve.reduce((sum, value) => sum + Number(value || 0), 0) / segment.pressure_curve.length
+      : 0.65;
     ctx.save();
-    ctx.strokeStyle = segment.contact ? '#1f5e36' : '#315d8f';
-    ctx.lineWidth = 3;
+    ctx.strokeStyle = isSelectedStroke
+      ? '#dc2626'
+      : (segment.contact ? '#1f5e36' : '#315d8f');
+    ctx.lineWidth = Math.max(2, 1.8 + meanPressure * 2.2 + (isSelectedStroke ? 1.2 : 0));
     ctx.beginPath();
     ctx.moveTo(p0.x, p0.y);
     ctx.bezierCurveTo(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
@@ -3044,6 +4795,40 @@ function renderGuideEditorCanvas() {
     ctx.fillStyle = '#111827';
     ctx.font = '14px Georgia';
     ctx.fillText(`${segment.stroke_order}`, p0.x + 6, p0.y - 6);
+    const nibCurve = normalizeGuideEditorNibCurve(segment.nib_angle_curve, 40);
+    const nibConfidence = normalizeGuideEditorNibConfidence(segment.nib_angle_confidence);
+    [0.15, 0.5, 0.85].forEach((t, markerIndex) => {
+      const mt = 1 - t;
+      const x =
+        mt ** 3 * segment.p0.x +
+        3 * mt ** 2 * t * segment.p1.x +
+        3 * mt * t ** 2 * segment.p2.x +
+        t ** 3 * segment.p3.x;
+      const y =
+        mt ** 3 * segment.p0.y +
+        3 * mt ** 2 * t * segment.p1.y +
+        3 * mt * t ** 2 * segment.p2.y +
+        t ** 3 * segment.p3.y;
+      const canvasPoint = guideEditorCanvasPoint({x, y});
+      if (!canvasPoint) return;
+      const angleDeg = nibCurve[Math.min(nibCurve.length - 1, Math.round(t * (nibCurve.length - 1)))];
+      const confidence = nibConfidence[Math.min(nibConfidence.length - 1, Math.round(t * (nibConfidence.length - 1)))];
+      const radians = (Number(angleDeg || 40) * Math.PI) / 180;
+      const halfLength = 7 + confidence * 4;
+      const dx = Math.cos(radians) * halfLength;
+      const dy = -Math.sin(radians) * halfLength;
+      ctx.beginPath();
+      ctx.strokeStyle = confidence >= 0.55 ? 'rgba(37, 99, 235, 0.8)' : 'rgba(148, 163, 184, 0.72)';
+      ctx.lineWidth = confidence >= 0.55 ? 2 : 1.5;
+      ctx.moveTo(canvasPoint.x - dx, canvasPoint.y - dy);
+      ctx.lineTo(canvasPoint.x + dx, canvasPoint.y + dy);
+      ctx.stroke();
+      if (markerIndex === 1) {
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+        ctx.font = '10px Georgia';
+        ctx.fillText(`${Number(angleDeg || 0).toFixed(0)}°`, canvasPoint.x + 6, canvasPoint.y - 8);
+      }
+    });
     ctx.restore();
   });
 
@@ -3071,6 +4856,7 @@ function renderGuideEditor() {
   const rerun = currentSymbolRerun();
   dom.guideEditorSegments.innerHTML = '';
   dom.guideEditorSavedGuides.innerHTML = '';
+  dom.guideEditorProposal.innerHTML = '';
   dom.guideEditorPreviewArtifacts.innerHTML = '';
   dom.guideEditorRerunArtifacts.innerHTML = '';
   if (!annotation) {
@@ -3088,10 +4874,14 @@ function renderGuideEditor() {
   dom.guideEditorXAdvancePx.value = String(state.guideEditor.xAdvancePx || annotation.bounds_px.width);
   dom.guideEditorCorridor.value = String(state.guideEditor.corridorHalfWidthMm || 0.2);
   dom.guideEditorPaddingPx.value = String(state.guideEditor.paddingPx || 32);
+  dom.guideEditorCatalog.value = String(state.guideEditor.catalogName || 'Workbench');
   dom.guideEditorZoom.value = String(state.guideEditor.zoomPct || 100);
   dom.guideEditorZoomValue.textContent = `${Math.round(state.guideEditor.zoomPct || 100)}%`;
   dom.guideEditorStrokeOrder.value = String(state.guideEditor.strokeOrder || 1);
+  dom.guideEditorDesiredStrokeCount.value = state.guideEditor.desiredStrokeCount === '' ? '' : String(state.guideEditor.desiredStrokeCount);
   dom.guideEditorContact.checked = Boolean(state.guideEditor.contact);
+  dom.guideEditorAnalyze.disabled = false;
+  dom.guideEditorResetProposal.disabled = !state.guideEditor.strokeAssistProposal;
   dom.guideEditorProcess.disabled = Boolean(rerun && rerun.status === 'running');
   dom.guideEditorProcess.textContent = rerun && rerun.status === 'running' ? 'Processing...' : 'Save And Process';
   dom.guideEditorModeAdd.classList.toggle('active', state.guideEditor.mode === 'add');
@@ -3105,6 +4895,43 @@ function renderGuideEditor() {
             : 'Add Segment mode. Click four points to add a cubic segment: p0, p1, p2, p3. Increase canvas padding when the handles need to sit outside the crop.'
         )
       : 'Edit Handles mode. Drag amber endpoints (p0, p3) to move the stroke ends and drag gray/blue handles (p1, p2) to bend the curve. Increase canvas padding when the handles need to sit outside the crop.';
+  if (state.guideEditor.strokeAssistProposal) {
+    const proposal = state.guideEditor.strokeAssistProposal;
+    const items = [
+      {
+        text:
+          `confidence ${Number(proposal.confidence || 0).toFixed(2)} · mode ${proposal.mode || 'auto-minimized'} · traced primitives ${proposal.primitive_count || 0} · ` +
+          `selected strokes ${proposal.selected_stroke_count || proposal.stroke_count || 0} · template strokes ${proposal.template_stroke_count || 0}` +
+          (proposal.requested_stroke_count ? ` · requested ${proposal.requested_stroke_count}` : ''),
+        detail: 'stroke assist',
+      },
+      {
+        text:
+          `image fit ${Number(proposal.image_fit || 0).toFixed(2)} · darkness support ${Number(proposal.darkness_support || 0).toFixed(2)} · ` +
+          `objective ${Number(proposal.selected_objective || 0).toFixed(2)}`,
+        detail: 'ink-matched scoring',
+      },
+      {
+        text: `estimated nib angle ${Number(proposal.nib_angle_deg || 0).toFixed(1)}° · nib width ${Number(proposal.nib_width_px || 0).toFixed(1)}px`,
+        detail: 'measured from crop',
+      },
+      ...(proposal.strokes || []).map((stroke) => ({
+        text:
+          `${stroke.stroke_order}. ${stroke.name} · ${stroke.direction} · ${stroke.weight} · ` +
+          `avg pressure ${Number(stroke.average_pressure || 0).toFixed(2)} · nib ${Number(stroke.mean_nib_angle_deg || 0).toFixed(1)}° · fit ${Number(stroke.fit_score || 0).toFixed(2)} · cost ${Number(stroke.cost || 0).toFixed(2)}`,
+        detail: stroke.lift_before ? 'possible lift before stroke' : `continuous stroke · darkness ${Number(stroke.darkness_support || 0).toFixed(2)}`,
+      })),
+      ...((proposal.candidate_counts || []).map((candidate) => ({
+        text:
+          `${candidate.stroke_count} stroke${candidate.stroke_count === 1 ? '' : 's'} · objective ${Number(candidate.objective || 0).toFixed(2)} · total cost ${Number(candidate.total_cost || 0).toFixed(2)}`,
+        detail: candidate.fallback ? 'fallback grouping used for this count' : 'candidate stroke-count fit',
+      }))),
+      ...((proposal.issues || []).map((item) => ({text: item, detail: 'review hint'}))),
+    ];
+    renderStatusBullets(dom.guideEditorProposal, items, 'No stroke proposal yet.');
+  } else {
+    renderStatusBullets(dom.guideEditorProposal, [], 'Run Analyze Strokes to propose a stroke decomposition for this glyph crop.');
+  }
   if (!state.guideEditor.segments.length) {
     const empty = document.createElement('div');
     empty.className = 'small';
@@ -3114,22 +4941,123 @@ function renderGuideEditor() {
     state.guideEditor.segments.forEach((segment, index) => {
       const row = document.createElement('div');
       row.className = 'guide-editor-segment';
+      row.classList.toggle('active', Number(state.guideEditor.selectedStrokeOrder) === Number(segment.stroke_order || 0));
       const title = document.createElement('strong');
-      title.textContent = `Stroke ${segment.stroke_order} · ${segment.contact ? 'contact' : 'lift'}`;
+      title.textContent =
+        `Stroke ${segment.stroke_order}${segment.stroke_name ? ` · ${segment.stroke_name}` : ''} · ${segment.contact ? 'contact' : 'lift'}`;
       row.appendChild(title);
       const meta = document.createElement('div');
       meta.className = 'small';
       meta.textContent =
         `p0 (${Math.round(segment.p0.x)}, ${Math.round(segment.p0.y)}) → ` +
-        `p3 (${Math.round(segment.p3.x)}, ${Math.round(segment.p3.y)})`;
+        `p3 (${Math.round(segment.p3.x)}, ${Math.round(segment.p3.y)})` +
+        (segment.expected_direction ? ` · ${segment.expected_direction}` : '');
       row.appendChild(meta);
+      const pressureRow = document.createElement('div');
+      pressureRow.className = 'reference-actions';
+      (segment.pressure_curve || [0.4, 0.8, 0.8, 0.4]).forEach((value, pressureIndex) => {
+        const label = document.createElement('label');
+        label.className = 'small';
+        label.textContent = `p${pressureIndex + 1}`;
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.min = '0';
+        input.max = '1.5';
+        input.step = '0.05';
+        input.value = String(Number(value || 0).toFixed(2));
+        input.addEventListener('input', () => {
+          segment.pressure_curve[pressureIndex] = Number(input.value || 0);
+          renderGuideEditorCanvas();
+        });
+        label.appendChild(input);
+        pressureRow.appendChild(label);
+      });
+      row.appendChild(pressureRow);
+      const nibMeta = document.createElement('div');
+      nibMeta.className = 'small';
+      const nibCurve = normalizeGuideEditorNibCurve(segment.nib_angle_curve, 40);
+      const nibConfidence = normalizeGuideEditorNibConfidence(segment.nib_angle_confidence);
+      const meanNibConfidence = nibConfidence.reduce((sum, value) => sum + Number(value || 0), 0) / Math.max(nibConfidence.length, 1);
+      nibMeta.textContent =
+        `Nib angle · ${normalizeGuideEditorNibMode(segment.nib_angle_mode)} · ` +
+        `${nibCurve.map((value) => `${Number(value || 0).toFixed(1)}°`).join(' / ')} · ` +
+        `confidence ${meanNibConfidence.toFixed(2)}`;
+      row.appendChild(nibMeta);
+      const nibModeRow = document.createElement('div');
+      nibModeRow.className = 'reference-actions';
+      const nibModeLabel = document.createElement('label');
+      nibModeLabel.className = 'small';
+      nibModeLabel.textContent = 'Nib mode';
+      const nibModeSelect = document.createElement('select');
+      ['fixed', 'auto', 'manual'].forEach((mode) => {
+        const option = document.createElement('option');
+        option.value = mode;
+        option.textContent = mode;
+        if (normalizeGuideEditorNibMode(segment.nib_angle_mode) === mode) {
+          option.selected = true;
+        }
+        nibModeSelect.appendChild(option);
+      });
+      nibModeSelect.addEventListener('change', () => {
+        segment.nib_angle_mode = normalizeGuideEditorNibMode(nibModeSelect.value);
+        if (segment.nib_angle_mode === 'fixed') {
+          const anchor = normalizeGuideEditorNibCurve(segment.nib_angle_curve, 40)[0];
+          segment.nib_angle_curve = [anchor, anchor, anchor, anchor];
+          segment.nib_angle_confidence = [0, 0, 0, 0];
+        }
+        renderGuideEditor();
+      });
+      nibModeLabel.appendChild(nibModeSelect);
+      nibModeRow.appendChild(nibModeLabel);
+      row.appendChild(nibModeRow);
+      const nibRow = document.createElement('div');
+      nibRow.className = 'reference-actions';
+      nibCurve.forEach((value, nibIndex) => {
+        const label = document.createElement('label');
+        label.className = 'small';
+        label.textContent = `a${nibIndex + 1}`;
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.min = '25';
+        input.max = '55';
+        input.step = '0.5';
+        input.value = String(Number(value || 0).toFixed(1));
+        input.disabled = normalizeGuideEditorNibMode(segment.nib_angle_mode) === 'auto';
+        input.addEventListener('input', () => {
+          const clamped = Math.max(25, Math.min(55, Number(input.value || 40)));
+          if (normalizeGuideEditorNibMode(segment.nib_angle_mode) === 'fixed') {
+            segment.nib_angle_curve = [clamped, clamped, clamped, clamped];
+            segment.nib_angle_confidence = [0, 0, 0, 0];
+          } else {
+            segment.nib_angle_curve[nibIndex] = clamped;
+            segment.nib_angle_mode = 'manual';
+          }
+          renderGuideEditorCanvas();
+          renderGuideEditor();
+        });
+        label.appendChild(input);
+        nibRow.appendChild(label);
+      });
+      row.appendChild(nibRow);
       const actions = document.createElement('div');
       actions.className = 'reference-actions';
+      const selectButton = document.createElement('button');
+      selectButton.type = 'button';
+      selectButton.textContent = Number(state.guideEditor.selectedStrokeOrder) === Number(segment.stroke_order || 0) ? 'Selected' : 'Select Stroke';
+      selectButton.disabled = Number(state.guideEditor.selectedStrokeOrder) === Number(segment.stroke_order || 0);
+      selectButton.addEventListener('click', () => {
+        state.guideEditor.selectedStrokeOrder = Number(segment.stroke_order || 1);
+        renderGuideEditor();
+      });
+      actions.appendChild(selectButton);
       const deleteButton = document.createElement('button');
       deleteButton.type = 'button';
       deleteButton.textContent = 'Delete Segment';
       deleteButton.addEventListener('click', () => {
         state.guideEditor.segments.splice(index, 1);
+        if (Number(state.guideEditor.selectedStrokeOrder) === Number(segment.stroke_order || 0)) {
+          state.guideEditor.selectedStrokeOrder = state.guideEditor.segments[0]?.stroke_order || null;
+        }
         if (!state.guideEditor.segments.length) {
           state.guideEditor.mode = 'add';
         }
@@ -3137,6 +5065,10 @@ function renderGuideEditor() {
       });
       actions.appendChild(deleteButton);
       row.appendChild(actions);
+      row.addEventListener('click', () => {
+        state.guideEditor.selectedStrokeOrder = Number(segment.stroke_order || 1);
+        renderGuideEditor();
+      });
       dom.guideEditorSegments.appendChild(row);
     });
   }
@@ -3153,7 +5085,7 @@ function renderGuideEditor() {
       const title = document.createElement('strong');
       title.textContent =
         `${guide.annotation_id === annotation.id ? 'Current annotation' : 'Saved guide'} ` +
-        `· ${guide.canvas_label || 'unknown'}${guide.active ? ' · active' : ''}`;
+        `· ${guide.catalog_name || 'Workbench'} · ${guide.canvas_label || 'unknown'}${guide.active ? ' · active' : ''}`;
       row.appendChild(title);
       const meta = document.createElement('div');
       meta.className = 'small';
@@ -3175,6 +5107,12 @@ function renderGuideEditor() {
         openGuideEditorForAnnotation(entry, guide.id);
       });
       actions.appendChild(loadButton);
+      const activeButton = document.createElement('button');
+      activeButton.type = 'button';
+      activeButton.textContent = guide.active ? 'Active For Render' : 'Set Active';
+      activeButton.disabled = Boolean(guide.active);
+      activeButton.addEventListener('click', () => activateManualGuide(guide.id));
+      actions.appendChild(activeButton);
       const previewButton = document.createElement('button');
       previewButton.type = 'button';
       previewButton.textContent = 'Open Folio';
@@ -3217,27 +5155,31 @@ function openGuideEditorForAnnotation(entry, guideId = null) {
   state.guideEditor.guideId = manual?.id || guideId || null;
   state.guideEditor.symbolKey = symbolKey(entry.kind, entry.symbol);
   if (manual && manual.annotation_id === entry.id) {
-    state.guideEditor.segments = (manual.segments || []).map((segment) => ({
-      stroke_order: Number(segment.stroke_order || 1),
-      contact: Boolean(segment.contact),
-      p0: {...segment.p0},
-      p1: {...segment.p1},
-      p2: {...segment.p2},
-      p3: {...segment.p3},
-    }));
+    state.guideEditor.segments = cloneGuideEditorSegments(manual.segments || []);
+    state.guideEditor.selectedStrokeOrder = state.guideEditor.segments[0]?.stroke_order || null;
     state.guideEditor.xHeightPx = Number(manual.x_height_px || entry.bounds_px.height);
     state.guideEditor.xAdvancePx = Number(manual.x_advance_px || entry.bounds_px.width);
     state.guideEditor.corridorHalfWidthMm = Number(manual.corridor_half_width_mm || 0.2);
     state.guideEditor.paddingPx = Number(manual.canvas_padding_px || 32);
+    state.guideEditor.catalogName = String(manual.catalog_name || 'Workbench');
     state.guideEditor.strokeOrder = Math.max(1, ...state.guideEditor.segments.map((segment) => Number(segment.stroke_order || 1))) + 1;
+    state.guideEditor.desiredStrokeCount = Math.max(
+      1,
+      new Set(state.guideEditor.segments.map((segment) => Number(segment.stroke_order || 1))).size,
+    );
+    state.guideEditor.strokeAssistProposal = null;
   } else {
     state.guideEditor.segments = [];
+    state.guideEditor.selectedStrokeOrder = null;
     state.guideEditor.xHeightPx = Number(entry.bounds_px.height || 0);
     state.guideEditor.xAdvancePx = Number(entry.bounds_px.width || 0);
     state.guideEditor.corridorHalfWidthMm = 0.2;
     state.guideEditor.paddingPx = Math.max(24, Math.round(Math.max(Number(entry.bounds_px.width || 0), Number(entry.bounds_px.height || 0)) * 0.35));
+    state.guideEditor.catalogName = 'Workbench';
     state.guideEditor.strokeOrder = 1;
+    state.guideEditor.desiredStrokeCount = '';
     state.guideEditor.guideId = null;
+    state.guideEditor.strokeAssistProposal = null;
   }
   state.guideEditor.pendingPoints = [];
   state.guideEditor.mode = state.guideEditor.segments.length ? 'edit' : 'add';
@@ -3297,6 +5239,7 @@ async function saveGuideEditor() {
       body: JSON.stringify({
         id: state.guideEditor.guideId,
         annotation_id: annotation.id,
+        catalog_name: dom.guideEditorCatalog.value,
         x_height_px: Number(dom.guideEditorXHeightPx.value || annotation.bounds_px.height),
         x_advance_px: Number(dom.guideEditorXAdvancePx.value || annotation.bounds_px.width),
         corridor_half_width_mm: Number(dom.guideEditorCorridor.value || 0.2),
@@ -3327,6 +5270,74 @@ async function saveGuideEditor() {
     dom.guideEditorRerunMeta.textContent = `Save failed: ${String(error)}`;
     setStatus(String(error), true);
     return null;
+  }
+}
+
+async function analyzeGuideEditorStrokes() {
+  const annotation = guideEditorAnnotation();
+  if (!annotation) {
+    setStatus('Open a reviewed annotation first.', true);
+    return;
+  }
+  const desiredStrokeCount = Number(dom.guideEditorDesiredStrokeCount.value || 0);
+  try {
+    dom.guideEditorRerunMeta.textContent = `Analyzing stroke decomposition for ${annotation.kind} ${annotation.symbol}...`;
+    const response = await fetch('/api/stroke-assists/propose', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        annotation_id: annotation.id,
+        desired_stroke_count: desiredStrokeCount > 0 ? desiredStrokeCount : null,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+    const data = await response.json();
+    applyStrokeAssistProposal(data.proposal);
+    renderGuideEditor();
+    dom.guideEditorRerunMeta.textContent =
+      `Stroke proposal loaded for ${annotation.kind} ${annotation.symbol}. Confidence ${Number(data.proposal?.confidence || 0).toFixed(2)}.`;
+    setStatus(`Loaded stroke proposal for ${annotation.kind} ${annotation.symbol}`);
+  } catch (error) {
+    dom.guideEditorRerunMeta.textContent = `Stroke analysis failed: ${String(error)}`;
+    setStatus(String(error), true);
+  }
+}
+
+async function activateManualGuide(guideId) {
+  if (!guideId) {
+    setStatus('No saved guide is selected.', true);
+    return;
+  }
+  try {
+    const response = await fetch('/api/manual-guides/activate', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id: guideId}),
+    });
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+    const data = await response.json();
+    if (data.state) {
+      state.payload = data.state;
+      dom.manifestPath.textContent = state.payload.reviewed_manifest_path;
+    }
+    if (data.activated) {
+      state.guideEditor.guideId = data.activated.id;
+      state.guideEditor.catalogName = data.activated.catalog_name || state.guideEditor.catalogName;
+    }
+    renderCoverage();
+    renderFolios();
+    renderAnnotations();
+    renderOverlay();
+    renderCleanupEditor();
+    renderSymbolMenu();
+    renderGuideEditor();
+    setStatus(`Activated guide ${guideId} for render.`);
+  } catch (error) {
+    setStatus(String(error), true);
   }
 }
 
@@ -3615,9 +5626,13 @@ function loadFolio(folioId) {
   state.currentFolioId = folioId;
   state.selectedAnnotationId = null;
   state.draftBounds = null;
+  state.wordAssist.folioId = folioId;
+  state.wordAssist.bounds = null;
+  state.wordAssist.proposal = null;
   renderFolios();
   renderAnnotations();
   syncFormFromSelection();
+  renderWordAssistPanel();
   const folio = state.payload.folios.find((item) => item.id === folioId);
   if (!folio) return;
   dom.folioTitle.textContent = `${folio.canvas_label}`;
@@ -3941,7 +5956,10 @@ function updateDraftFromForm() {
   const bounds = currentBoundsFromForm();
   if (bounds.width > 0 && bounds.height > 0) {
     state.draftBounds = bounds;
+    state.wordAssist.bounds = bounds;
+    state.wordAssist.proposal = null;
     renderOverlay();
+    renderWordAssistPanel();
   }
 }
 
@@ -3978,6 +5996,8 @@ async function saveAnnotation() {
     }
     state.selectedAnnotationId = data.saved.id;
     state.draftBounds = null;
+    state.wordAssist.bounds = null;
+    state.wordAssist.proposal = null;
     renderCoverage();
     renderFolios();
     syncFormFromSelection();
@@ -4009,8 +6029,11 @@ function bindDraftDrawing() {
     const startY = ((event.clientY - rect.top) / rect.height) * state.naturalHeight;
     drag = {startX, startY};
     state.draftBounds = {x: startX, y: startY, width: 1, height: 1};
+    state.wordAssist.bounds = state.draftBounds;
+    state.wordAssist.proposal = null;
     renderAnnotations();
     renderOverlay();
+    renderWordAssistPanel();
     renderMagnifier({x: startX, y: startY});
   });
   window.addEventListener('mousemove', (event) => {
@@ -4036,8 +6059,10 @@ function bindDraftDrawing() {
     const width = Math.abs(currentX - drag.startX);
     const height = Math.abs(currentY - drag.startY);
     state.draftBounds = {x, y, width, height};
+    state.wordAssist.bounds = state.draftBounds;
     applyFormFromBounds(state.draftBounds);
     renderOverlay();
+    renderWordAssistPanel();
   });
   window.addEventListener('mouseup', () => {
     drag = null;
@@ -4056,6 +6081,8 @@ function bindForm() {
   dom.clearButton.addEventListener('click', () => {
     state.selectedAnnotationId = null;
     state.draftBounds = null;
+    state.wordAssist.bounds = null;
+    state.wordAssist.proposal = null;
     dom.annotationId.value = '';
     dom.notes.value = '';
     dom.symbol.value = '';
@@ -4065,6 +6092,7 @@ function bindForm() {
     renderAnnotations();
     renderOverlay();
     renderCleanupEditor();
+    renderWordAssistPanel();
     setStatus('Cleared selection.');
   });
   dom.zoom.addEventListener('input', () => {
@@ -4145,7 +6173,17 @@ function bindForm() {
     const canvasX = ((event.clientX - rect.left) / rect.width) * dom.guideEditorCanvas.width;
     const canvasY = ((event.clientY - rect.top) / rect.height) * dom.guideEditorCanvas.height;
     const handle = guideEditorHandleAtCanvas(canvasX, canvasY);
-    if (!handle) return;
+    if (handle && handle.type === 'segment') {
+      state.guideEditor.selectedStrokeOrder = Number(state.guideEditor.segments[handle.segmentIndex]?.stroke_order || null);
+    }
+    if (!handle) {
+      const hitSegment = guideEditorSegmentAtCanvas(canvasX, canvasY);
+      if (hitSegment) {
+        state.guideEditor.selectedStrokeOrder = hitSegment.strokeOrder;
+        renderGuideEditor();
+      }
+      return;
+    }
     state.guideEditor.draggingHandle = handle;
     state.guideEditor.hoverHandle = handle;
     state.guideEditor.dragMoved = false;
@@ -4211,11 +6249,16 @@ function bindForm() {
       state.guideEditor.segments.push({
         stroke_order: Number(dom.guideEditorStrokeOrder.value || state.guideEditor.strokeOrder || 1),
         contact: Boolean(dom.guideEditorContact.checked),
+        pressure_curve: [0.4, 0.8, 0.8, 0.4],
+        nib_angle_mode: 'fixed',
+        nib_angle_curve: [40, 40, 40, 40],
+        nib_angle_confidence: [0, 0, 0, 0],
         p0: state.guideEditor.pendingPoints[0],
         p1: state.guideEditor.pendingPoints[1],
         p2: state.guideEditor.pendingPoints[2],
         p3: state.guideEditor.pendingPoints[3],
       });
+      state.guideEditor.selectedStrokeOrder = Number(dom.guideEditorStrokeOrder.value || state.guideEditor.strokeOrder || 1);
       state.guideEditor.pendingPoints = [];
       state.guideEditor.strokeOrder = Number(dom.guideEditorStrokeOrder.value || state.guideEditor.strokeOrder || 1) + 1;
       dom.guideEditorStrokeOrder.value = String(state.guideEditor.strokeOrder);
@@ -4239,6 +6282,16 @@ function bindForm() {
   dom.guideEditorZoomReset.addEventListener('click', () => {
     setGuideEditorZoom(100);
   });
+  dom.guideEditorAnalyze.addEventListener('click', analyzeGuideEditorStrokes);
+  dom.guideEditorResetProposal.addEventListener('click', () => {
+    if (!state.guideEditor.strokeAssistProposal) {
+      setStatus('No stroke proposal is loaded.', true);
+      return;
+    }
+    applyStrokeAssistProposal(state.guideEditor.strokeAssistProposal);
+    renderGuideEditor();
+    setStatus('Reset guide editor to the current stroke proposal.');
+  });
   dom.guideEditorSave.addEventListener('click', saveGuideEditor);
   dom.guideEditorProcess.addEventListener('click', processGuideEditor);
   dom.guideEditorDelete.addEventListener('click', deleteCurrentManualGuide);
@@ -4256,6 +6309,13 @@ function bindForm() {
     state.guideEditor.recenterOnRender = true;
     renderGuideEditor();
   });
+  dom.guideEditorCatalog.addEventListener('input', () => {
+    state.guideEditor.catalogName = dom.guideEditorCatalog.value || 'Workbench';
+  });
+  dom.guideEditorDesiredStrokeCount.addEventListener('input', () => {
+    const value = Number(dom.guideEditorDesiredStrokeCount.value || 0);
+    state.guideEditor.desiredStrokeCount = value > 0 ? value : '';
+  });
   dom.guideEditorStrokeOrder.addEventListener('input', () => {
     state.guideEditor.strokeOrder = Number(dom.guideEditorStrokeOrder.value || 1);
   });
@@ -4269,6 +6329,63 @@ function bindForm() {
       closeSymbolRerunModal();
     }
   });
+  dom.stringRenderOpen.addEventListener('click', openStringRenderModal);
+  dom.stringRenderClose.addEventListener('click', closeStringRenderModal);
+  dom.stringRenderModal.addEventListener('click', (event) => {
+    if (event.target === dom.stringRenderModal) {
+      closeStringRenderModal();
+    }
+  });
+  dom.stringRenderCheck.addEventListener('click', () => startStringRender(true));
+  dom.stringRenderRun.addEventListener('click', () => startStringRender(false));
+  dom.wordAssistOpen.addEventListener('click', openWordAssistModal);
+  dom.wordAssistClose.addEventListener('click', closeWordAssistModal);
+  dom.wordAssistModal.addEventListener('click', (event) => {
+    if (event.target === dom.wordAssistModal) {
+      closeWordAssistModal();
+    }
+  });
+  dom.wordAssistTranscript.addEventListener('input', () => {
+    state.wordAssist.transcript = dom.wordAssistTranscript.value;
+  });
+  dom.wordAssistRun.addEventListener('click', runWordAssistProposal);
+  dom.wordAssistRescore.addEventListener('click', rescoreWordAssistProposal);
+  dom.wordAssistAccept.addEventListener('click', acceptWordAssistProposal);
+  dom.wordAssistCanvas.addEventListener('mousedown', (event) => {
+    if (event.button !== 0 || !state.wordAssist.proposal) return;
+    const point = wordAssistCanvasPoint(event);
+    if (!point) return;
+    const index = wordAssistBoundaryHitIndex(point);
+    if (index === null) return;
+    state.wordAssist.draggingBoundaryIndex = index;
+    state.wordAssist.dragMoved = false;
+    renderWordAssistPanel();
+    event.preventDefault();
+  });
+  window.addEventListener('mousemove', (event) => {
+    if (state.wordAssist.draggingBoundaryIndex === null || !state.wordAssist.proposal) return;
+    const point = wordAssistCanvasPoint(event);
+    const proposal = state.wordAssist.proposal;
+    const trimWidth = Number(proposal.trimmed_bounds_px?.width || 0);
+    if (!point || trimWidth <= 0) return;
+    const trimX = Number(proposal.trimmed_bounds_px?.x || 0);
+    const localX = Math.max(1, Math.min(trimWidth - 1, Math.round(point.x - trimX)));
+    const left = Number(proposal.boundaries[state.wordAssist.draggingBoundaryIndex - 1] || 0) + 2;
+    const right = Number(proposal.boundaries[state.wordAssist.draggingBoundaryIndex + 1] || trimWidth) - 2;
+    proposal.boundaries[state.wordAssist.draggingBoundaryIndex] = Math.max(left, Math.min(right, localX));
+    state.wordAssist.dragMoved = true;
+    renderWordAssistPanel();
+  });
+  window.addEventListener('mouseup', () => {
+    if (state.wordAssist.draggingBoundaryIndex === null) return;
+    const shouldRescore = state.wordAssist.dragMoved;
+    state.wordAssist.draggingBoundaryIndex = null;
+    state.wordAssist.dragMoved = false;
+    renderWordAssistPanel();
+    if (shouldRescore) {
+      void rescoreWordAssistProposal();
+    }
+  });
   window.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
     if (!dom.symbolRerunModal.hidden) {
@@ -4279,6 +6396,12 @@ function bindForm() {
     }
     if (!dom.guideEditorModal.hidden) {
       closeGuideEditorModal();
+    }
+    if (!dom.stringRenderModal.hidden) {
+      closeStringRenderModal();
+    }
+    if (!dom.wordAssistModal.hidden) {
+      closeWordAssistModal();
     }
   });
 }
@@ -4396,6 +6519,7 @@ async function init() {
   cleanup.cleanCtx = dom.cleanupCleanCanvas.getContext('2d');
   dom.manifestPath.textContent = state.payload.reviewed_manifest_path;
   chooseInitialSymbol();
+  applyStringRenderDefaults();
   renderCoverage();
   renderFolios();
   bindForm();
@@ -4405,6 +6529,7 @@ async function init() {
   renderPanMode();
   renderMagnifier(null);
   renderCleanupEditor();
+  renderWordAssistPanel();
   const first = state.payload.folios[0];
   if (first) {
     loadFolio(first.id);
@@ -4417,6 +6542,7 @@ dom.image.addEventListener('load', () => {
   applyZoom();
   renderOverlay();
   renderCleanupEditor();
+  renderWordAssistPanel();
   renderGuideEditor();
 });
 
@@ -4461,6 +6587,11 @@ _APP_HTML = """
         <div class="actions">
           <button id="symbol-rerun-button" type="button">Re-run This Symbol</button>
           <button id="symbol-rerun-open" type="button">Open Result Window</button>
+        </div>
+        <h3>String Render</h3>
+        <div class="meta">Render an exact guided string through the built-in promoted catalog and any manual guide catalogs you select.</div>
+        <div class="actions">
+          <button id="string-render-open" type="button">Open Render Panel</button>
         </div>
       </div>
       <h2>Folios</h2>
@@ -4541,6 +6672,11 @@ _APP_HTML = """
         <button id="save-annotation" class="primary">Save Annotation</button>
         <button id="delete-annotation" class="danger" type="button">Delete Selected</button>
         <button id="clear-selection" type="button">Clear</button>
+      </div>
+      <h2>Word Assist</h2>
+      <div class="meta">Select a whole word on the folio, enter its transcript, then let DP propose glyph boundaries using exact guides where available.</div>
+      <div class="actions">
+        <button id="word-assist-open" type="button">Open Word Assist</button>
       </div>
       <h2>Cleanup Editor</h2>
       <div id="cleanup-meta" class="meta">Select a saved annotation to clean nearby artifacts.</div>
@@ -4628,6 +6764,9 @@ _APP_HTML = """
         <div class="guide-editor-side">
           <div class="modal-section">
             <h3>Guide Parameters</h3>
+            <label>Catalog Name
+              <input id="guide-editor-catalog" type="text" value="Workbench">
+            </label>
             <label>X-Height (px)
               <input id="guide-editor-x-height-px" type="number" min="1" step="0.1" value="1">
             </label>
@@ -4640,6 +6779,9 @@ _APP_HTML = """
             <label>Canvas Padding (px)
               <input id="guide-editor-padding-px" type="number" min="0" step="1" value="32">
             </label>
+            <label>Target Stroke Count
+              <input id="guide-editor-desired-stroke-count" type="number" min="1" step="1" placeholder="auto">
+            </label>
             <label>Next Stroke Order
               <input id="guide-editor-stroke-order" type="number" min="1" step="1" value="1">
             </label>
@@ -4648,11 +6790,17 @@ _APP_HTML = """
               Contact Segment
             </label>
             <div class="actions">
+              <button id="guide-editor-analyze" type="button">Analyze Strokes</button>
+              <button id="guide-editor-reset-proposal" type="button">Reset To Proposal</button>
               <button id="guide-editor-clear-pending" type="button">Clear Pending</button>
               <button id="guide-editor-save" class="primary" type="button">Save Manual Guide</button>
               <button id="guide-editor-process" type="button">Save And Process</button>
               <button id="guide-editor-delete" class="danger" type="button">Delete Guide</button>
             </div>
+          </div>
+          <div class="modal-section">
+            <h3>Stroke Assist Proposal</h3>
+            <div id="guide-editor-proposal" class="status-bullets"></div>
           </div>
           <div class="modal-section">
             <h3>Saved Guides For This Symbol</h3>
@@ -4692,6 +6840,145 @@ _APP_HTML = """
         <div class="modal-section">
           <h3>Artifacts</h3>
           <div id="symbol-rerun-artifacts" class="artifact-grid wide"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="string-render-modal" class="modal-backdrop" hidden aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="string-render-title">
+      <div class="modal-head">
+        <div>
+          <h2 id="string-render-title">String Render</h2>
+          <div class="meta">Render a typed string through the guided scribesim pipeline using exact guides only.</div>
+        </div>
+        <button id="string-render-close" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <label>String To Render
+            <textarea id="string-render-text" placeholder="Type the exact glyph string to render"></textarea>
+          </label>
+          <label>Manual Guide Catalogs
+            <input id="string-render-catalogs" type="text" placeholder="Workbench or Workbench, Alternate">
+          </label>
+          <div id="string-render-catalog-list" class="small"></div>
+          <div class="actions">
+            <button id="string-render-check" type="button">Check Availability</button>
+            <button id="string-render-run" class="primary" type="button">Render String</button>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h3>Render Parameters</h3>
+          <div class="grid2">
+            <label>DPI
+              <input id="string-render-dpi" type="number" min="72" step="1" value="300">
+            </label>
+            <label>Supersample
+              <input id="string-render-supersample" type="number" min="1" step="1" value="4">
+            </label>
+            <label>X-Height (mm)
+              <input id="string-render-x-height-mm" type="number" min="0.1" step="0.1" value="3.8">
+            </label>
+            <label>Line Spacing (mm)
+              <input id="string-render-line-spacing-mm" type="number" min="0.1" step="0.1" value="12.0">
+            </label>
+            <label>Page Width (mm)
+              <input id="string-render-page-width-mm" type="number" min="1" step="0.1" value="80.0">
+            </label>
+            <label>Page Height (mm)
+              <input id="string-render-page-height-mm" type="number" min="1" step="0.1" placeholder="auto">
+            </label>
+            <label>Margin Left (mm)
+              <input id="string-render-margin-left-mm" type="number" min="0" step="0.1" value="5.0">
+            </label>
+            <label>Margin Top (mm)
+              <input id="string-render-margin-top-mm" type="number" min="0" step="0.1" value="5.0">
+            </label>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h3>Hand Parameters</h3>
+          <div class="grid2">
+            <label>Nib Width (mm)
+              <input id="string-render-nib-width-mm" type="number" min="0.01" step="0.01">
+            </label>
+            <label>Nib Angle (deg)
+              <input id="string-render-nib-angle-deg" type="number" min="0" step="0.1">
+            </label>
+            <label>Base Pressure
+              <input id="string-render-base-pressure" type="number" min="0" step="0.01">
+            </label>
+            <label>Baseline Jitter (mm)
+              <input id="string-render-baseline-jitter-mm" type="number" min="0" step="0.01">
+            </label>
+            <label>Letter Spacing
+              <input id="string-render-letter-spacing" type="number" min="0.1" step="0.01">
+            </label>
+            <label>Word Spacing
+              <input id="string-render-word-spacing" type="number" min="0.1" step="0.01">
+            </label>
+            <label>Writing Speed
+              <input id="string-render-writing-speed" type="number" min="0.1" step="0.01">
+            </label>
+          </div>
+          <label>Advanced Overrides
+            <textarea id="string-render-advanced-overrides" placeholder="Optional dotted overrides, one per line, for example:&#10;dynamics.max_speed=120&#10;stroke.attack_width_boost=0.1"></textarea>
+          </label>
+        </div>
+        <div class="modal-section">
+          <h3>Render Status</h3>
+          <div id="string-render-meta" class="small">No render request yet.</div>
+          <div id="string-render-details" class="status-bullets"></div>
+        </div>
+        <div class="modal-section">
+          <h3>Artifacts</h3>
+          <div id="string-render-artifacts" class="artifact-grid wide"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="word-assist-modal" class="modal-backdrop" hidden aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="word-assist-title">
+      <div class="modal-head">
+        <div>
+          <h2 id="word-assist-title">Word Assist</h2>
+          <div id="word-assist-meta" class="meta">DP-assisted segmentation of a selected word crop into glyph units.</div>
+        </div>
+        <button id="word-assist-close" type="button">Close</button>
+      </div>
+      <div class="modal-body word-assist">
+        <div class="modal-section">
+          <canvas id="word-assist-canvas" class="word-assist-canvas" width="760" height="280"></canvas>
+        </div>
+        <div class="word-assist-side">
+          <div class="modal-section">
+            <label>Word Transcript
+              <input id="word-assist-transcript" type="text" placeholder="Type the word characters exactly">
+            </label>
+            <label>Saved Quality
+              <select id="word-assist-quality">
+                <option value="trusted">trusted</option>
+                <option value="usable" selected>usable</option>
+                <option value="uncertain">uncertain</option>
+              </select>
+            </label>
+            <label>Notes
+              <textarea id="word-assist-notes" placeholder="Optional note to append to every accepted glyph annotation"></textarea>
+            </label>
+            <div class="actions">
+              <button id="word-assist-run" class="primary" type="button">Segment Word</button>
+              <button id="word-assist-rescore" type="button">Re-score Boundaries</button>
+              <button id="word-assist-accept" type="button">Accept As Glyphs</button>
+            </div>
+          </div>
+          <div class="modal-section">
+            <h3>Summary</h3>
+            <div id="word-assist-summary" class="status-bullets"></div>
+          </div>
+          <div class="modal-section">
+            <h3>Unit Breakdown</h3>
+            <div id="word-assist-segments" class="status-bullets"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -4776,6 +7063,14 @@ class _WorkbenchHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         parsed = urlparse(self.path)
+        if parsed.path == "/api/text-renders":
+            try:
+                payload = self._read_json_body()
+                started = self.workbench.start_string_render(payload)
+                self._send_json({"started": started, "state": self.workbench.get_state()})
+            except Exception as exc:
+                self._send_text(str(exc), status=400)
+            return
         if parsed.path == "/api/symbol-reruns":
             try:
                 payload = self._read_json_body()
@@ -4797,6 +7092,51 @@ class _WorkbenchHandler(BaseHTTPRequestHandler):
                         "state": self.workbench.get_state(),
                     }
                 )
+            except Exception as exc:
+                self._send_text(str(exc), status=400)
+            return
+        if parsed.path == "/api/manual-guides/activate":
+            try:
+                payload = self._read_json_body()
+                activated = self.workbench.set_manual_guide_active(str(payload.get("id", "")))
+                self._send_json(
+                    {
+                        "activated": activated,
+                        "state": self.workbench.get_state(),
+                    }
+                )
+            except Exception as exc:
+                self._send_text(str(exc), status=400)
+            return
+        if parsed.path == "/api/stroke-assists/propose":
+            try:
+                payload = self._read_json_body()
+                proposal = self.workbench.propose_stroke_assist(payload)
+                self._send_json({"proposal": proposal})
+            except Exception as exc:
+                self._send_text(str(exc), status=400)
+            return
+        if parsed.path == "/api/word-assists/propose":
+            try:
+                payload = self._read_json_body()
+                proposal = self.workbench.propose_word_assist(payload)
+                self._send_json({"proposal": proposal})
+            except Exception as exc:
+                self._send_text(str(exc), status=400)
+            return
+        if parsed.path == "/api/word-assists/score":
+            try:
+                payload = self._read_json_body()
+                proposal = self.workbench.score_word_assist(payload)
+                self._send_json({"proposal": proposal})
+            except Exception as exc:
+                self._send_text(str(exc), status=400)
+            return
+        if parsed.path == "/api/word-assists/accept":
+            try:
+                payload = self._read_json_body()
+                accepted = self.workbench.accept_word_assist(payload)
+                self._send_json({"accepted": accepted, "state": self.workbench.get_state()})
             except Exception as exc:
                 self._send_text(str(exc), status=400)
             return

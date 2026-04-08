@@ -14,6 +14,7 @@ class TrajectorySample:
     contact: bool = True
     width_mm: float | None = None
     pressure: float | None = None
+    nib_angle_deg: float | None = None
 
 
 @dataclass(frozen=True)

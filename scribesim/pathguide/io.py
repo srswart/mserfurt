@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import bisect
 import math
 import tomllib
 from pathlib import Path
@@ -43,6 +44,7 @@ def _build_samples_from_waypoints(
     *,
     default_speed: float,
     default_pressure: float,
+    default_nib_angle_deg: float,
     corridor_half_width_mm: float,
     max_step_mm: float = 0.25,
 ) -> tuple[GuideSample, ...]:
@@ -64,11 +66,111 @@ def _build_samples_from_waypoints(
                     contact=c0 and c1,
                     speed_nominal=default_speed,
                     pressure_nominal=default_pressure,
+                    nib_angle_deg=default_nib_angle_deg,
+                    nib_angle_confidence=0.0,
                     corridor_half_width_mm=corridor_half_width_mm,
                 )
             )
 
     return tuple(samples)
+
+
+def _sample_trace_segment_by_arclength(
+    seg,
+    *,
+    x_height_px: float,
+    x_height_mm: float,
+    target_sample_step_mm: float,
+    min_samples_per_segment: int = 12,
+    nib_angle_curve_deg: list[float] | tuple[float, ...] | None = None,
+    nib_angle_confidence_curve: list[float] | tuple[float, ...] | None = None,
+) -> list[tuple[float, float, float, float, bool, float, float, float, float]]:
+    length_mm = seg.length() / x_height_px * x_height_mm
+    sample_count = max(min_samples_per_segment, math.ceil(length_mm / target_sample_step_mm))
+    probe_count = max(sample_count * 8, 128)
+
+    probe_ts = [idx / probe_count for idx in range(probe_count + 1)]
+    probe_points = [seg.evaluate(t) for t in probe_ts]
+    cumulative_px = [0.0]
+    for idx in range(1, len(probe_points)):
+        x0, y0 = probe_points[idx - 1]
+        x1, y1 = probe_points[idx]
+        cumulative_px.append(cumulative_px[-1] + math.hypot(x1 - x0, y1 - y0))
+
+    total_length_px = cumulative_px[-1]
+    if total_length_px <= 1e-9:
+        sample_ts = [0.0]
+    else:
+        sample_ts: list[float] = []
+        for idx in range(sample_count + 1):
+            target_length_px = total_length_px * (idx / sample_count)
+            probe_index = bisect.bisect_left(cumulative_px, target_length_px)
+            if probe_index <= 0:
+                sample_ts.append(0.0)
+                continue
+            if probe_index >= len(cumulative_px):
+                sample_ts.append(1.0)
+                continue
+            left_len = cumulative_px[probe_index - 1]
+            right_len = cumulative_px[probe_index]
+            left_t = probe_ts[probe_index - 1]
+            right_t = probe_ts[probe_index]
+            if right_len - left_len <= 1e-9:
+                sample_ts.append(left_t)
+                continue
+            frac = (target_length_px - left_len) / (right_len - left_len)
+            sample_ts.append(left_t * (1.0 - frac) + right_t * frac)
+
+    raw_points: list[tuple[float, float, float, float, bool, float, float, float, float]] = []
+    for t in sample_ts:
+        x_px, y_px = seg.evaluate(t)
+        dx, dy = seg.tangent(t)
+        tangent = _unit_vector(dx, dy)
+        nib_angle_deg = float(_interp_curve(nib_angle_curve_deg or [40.0, 40.0, 40.0, 40.0], t))
+        nib_angle_confidence = float(_interp_curve(nib_angle_confidence_curve or [0.0, 0.0, 0.0, 0.0], t))
+        raw_points.append(
+            (
+                x_px,
+                y_px,
+                tangent[0],
+                tangent[1],
+                seg.contact,
+                float(seg.speed_at(t)),
+                float(seg.pressure_at(t)),
+                nib_angle_deg,
+                nib_angle_confidence,
+            )
+        )
+    return raw_points
+
+
+def _bridge_trace_points(
+    start: tuple[float, float, float, float, bool, float, float, float, float],
+    end: tuple[float, float, float, float, bool, float, float, float, float],
+    *,
+    x_height_px: float,
+    x_height_mm: float,
+    target_sample_step_mm: float,
+) -> list[tuple[float, float, float, float, bool, float, float, float, float]]:
+    start_xy = (start[0], start[1])
+    end_xy = (end[0], end[1])
+    max_step_px = max(1e-6, target_sample_step_mm / x_height_mm * x_height_px)
+    dense_points = _interpolate_segment(start_xy, end_xy, max_step_mm=max_step_px)
+    tangent = _unit_vector(end_xy[0] - start_xy[0], end_xy[1] - start_xy[1])
+    return [
+        (
+            x_px,
+            y_px,
+            tangent[0],
+            tangent[1],
+            False,
+            1.0,
+            0.0,
+            float(start[7] * 0.5 + end[7] * 0.5),
+            0.0,
+        )
+        for x_px, y_px in dense_points
+    ]
 
 
 def guide_from_waypoints(
@@ -80,6 +182,7 @@ def guide_from_waypoints(
     kind: str = "glyph",
     default_speed: float = 1.0,
     default_pressure: float = 0.5,
+    default_nib_angle_deg: float = 40.0,
     corridor_half_width_mm: float = 0.2,
     source_id: str,
     source_path: str | None = None,
@@ -95,6 +198,7 @@ def guide_from_waypoints(
         waypoints_mm,
         default_speed=default_speed,
         default_pressure=default_pressure,
+        default_nib_angle_deg=default_nib_angle_deg,
         corridor_half_width_mm=corridor_half_width_mm,
     )
     sources = (
@@ -165,6 +269,10 @@ def guide_from_trace_segments(
     x_height_mm: float,
     kind: str = "glyph",
     default_corridor_half_width_mm: float = 0.2,
+    target_sample_step_mm: float = 0.10,
+    stroke_ids: list[int] | tuple[int, ...] | None = None,
+    nib_angle_curves_deg: list[list[float] | tuple[float, ...]] | tuple[list[float] | tuple[float, ...], ...] | None = None,
+    nib_angle_confidence_curves: list[list[float] | tuple[float, ...]] | tuple[list[float] | tuple[float, ...], ...] | None = None,
     source_id: str,
     source_path: str | None = None,
     extraction_run: str | None = None,
@@ -175,28 +283,52 @@ def guide_from_trace_segments(
     """Build a dense guide directly from traced Bezier segments."""
 
     raw_points: list[tuple[float, float, float, float, bool, float, float]] = []
+    if stroke_ids is not None and len(stroke_ids) != len(segments):
+        raise ValueError("stroke_ids must match the number of trace segments")
+    if nib_angle_curves_deg is not None and len(nib_angle_curves_deg) != len(segments):
+        raise ValueError("nib_angle_curves_deg must match the number of trace segments")
+    if nib_angle_confidence_curves is not None and len(nib_angle_confidence_curves) != len(segments):
+        raise ValueError("nib_angle_confidence_curves must match the number of trace segments")
+    previous_stroke_id = None
 
-    for seg in segments:
-        length_mm = seg.length() / x_height_px * x_height_mm
-        sample_count = max(12, math.ceil(length_mm / 0.10))
-        for idx in range(sample_count + 1):
-            t = idx / sample_count
-            if raw_points and idx == 0:
-                continue
-            x_px, y_px = seg.evaluate(t)
-            dx, dy = seg.tangent(t)
-            tangent = _unit_vector(dx, dy)
-            raw_points.append(
-                (
-                    x_px,
-                    y_px,
-                    tangent[0],
-                    tangent[1],
-                    seg.contact,
-                    float(seg.speed_at(t)),
-                    float(seg.pressure_at(t)),
-                )
+    for seg_index, seg in enumerate(segments):
+        segment_points = _sample_trace_segment_by_arclength(
+            seg,
+            x_height_px=x_height_px,
+            x_height_mm=x_height_mm,
+            target_sample_step_mm=target_sample_step_mm,
+            nib_angle_curve_deg=(nib_angle_curves_deg[seg_index] if nib_angle_curves_deg is not None else None),
+            nib_angle_confidence_curve=(
+                nib_angle_confidence_curves[seg_index]
+                if nib_angle_confidence_curves is not None
+                else None
+            ),
+        )
+        current_stroke_id = stroke_ids[seg_index] if stroke_ids is not None else None
+        inserted_bridge = False
+        if (
+            raw_points
+            and stroke_ids is not None
+            and previous_stroke_id is not None
+            and current_stroke_id != previous_stroke_id
+        ):
+            bridge_points = _bridge_trace_points(
+                raw_points[-1],
+                segment_points[0],
+                x_height_px=x_height_px,
+                x_height_mm=x_height_mm,
+                target_sample_step_mm=target_sample_step_mm,
             )
+            for idx, point in enumerate(bridge_points):
+                if raw_points and idx == 0:
+                    continue
+                raw_points.append(point)
+            inserted_bridge = True
+        for idx, point in enumerate(segment_points):
+            if raw_points and idx == 0 and not inserted_bridge:
+                continue
+            raw_points.append(point)
+        previous_stroke_id = current_stroke_id
 
     if not raw_points:
         raise ValueError(f"trace for {symbol!r} produced no points")
@@ -204,7 +336,7 @@ def guide_from_trace_segments(
     min_x = min(point[0] for point in raw_points)
     min_y = min(point[1] for point in raw_points)
     points_mm: list[GuideSample] = []
-    for x_px, y_px, dx, dy, contact, speed, pressure in raw_points:
+    for x_px, y_px, dx, dy, contact, speed, pressure, nib_angle_deg, nib_angle_confidence in raw_points:
         x_mm = (x_px - min_x) / x_height_px * x_height_mm
         y_mm = (y_px - min_y) / x_height_px * x_height_mm
         points_mm.append(
@@ -216,6 +348,8 @@ def guide_from_trace_segments(
                 contact=contact,
                 speed_nominal=speed,
                 pressure_nominal=pressure,
+                nib_angle_deg=nib_angle_deg,
+                nib_angle_confidence=nib_angle_confidence,
                 corridor_half_width_mm=default_corridor_half_width_mm,
             )
         )
@@ -355,6 +489,8 @@ def write_pathguides_toml(guides: dict[str, DensePathGuide], output_path: Path |
             lines.append(f"contact = {'true' if sample.contact else 'false'}")
             lines.append(f"speed_nominal = {sample.speed_nominal:.6f}")
             lines.append(f"pressure_nominal = {sample.pressure_nominal:.6f}")
+            lines.append(f"nib_angle_deg = {sample.nib_angle_deg:.6f}")
+            lines.append(f"nib_angle_confidence = {sample.nib_angle_confidence:.6f}")
             lines.append(f"corridor_half_width_mm = {sample.corridor_half_width_mm:.6f}")
         lines.append("")
 
@@ -389,6 +525,8 @@ def load_pathguides_toml(path: Path | str) -> dict[str, DensePathGuide]:
                 contact=bool(sample.get("contact", True)),
                 speed_nominal=float(sample.get("speed_nominal", 1.0)),
                 pressure_nominal=float(sample.get("pressure_nominal", 0.5)),
+                nib_angle_deg=float(sample.get("nib_angle_deg", 40.0)),
+                nib_angle_confidence=float(sample.get("nib_angle_confidence", 0.0)),
                 corridor_half_width_mm=float(sample.get("corridor_half_width_mm", 0.2)),
             )
             for sample in entry.get("samples", [])
@@ -406,3 +544,14 @@ def load_pathguides_toml(path: Path | str) -> dict[str, DensePathGuide]:
         assert_valid_dense_path_guide(guide)
         guides[guide.symbol] = guide
     return guides
+
+
+def _interp_curve(curve: list[float] | tuple[float, ...], t: float) -> float:
+    if not curve:
+        return 0.0
+    if len(curve) == 1:
+        return float(curve[0])
+    idx_f = t * (len(curve) - 1)
+    idx_lo = min(int(idx_f), len(curve) - 2)
+    frac = idx_f - idx_lo
+    return float(curve[idx_lo] * (1.0 - frac) + curve[idx_lo + 1] * frac)
