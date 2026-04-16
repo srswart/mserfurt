@@ -4,9 +4,9 @@
 
 [hand]
 # Nib and stroke geometry
-nib_angle_deg       = 45.0      # quill angle to baseline (Bastarda: 40–50°)
-nib_width_mm        = 1.8       # cut nib width
-stroke_weight       = 1.0       # relative stroke weight (1.0 = baseline)
+nib_angle_deg       = 40.0      # quill angle to baseline (Thuringian Bastarda: 40°)
+nib_width_mm        = 0.65      # cut nib width (x_height/4.7 ≈ 5 nib-widths per x-height)
+stroke_weight       = 1.5       # relative stroke weight (scales ink darkness)
 
 # Pressure dynamics (0.0–1.0 scale)
 pressure_base       = 0.72      # resting downstroke pressure
@@ -25,7 +25,7 @@ x_height_px         = 38        # at 300 DPI
 
 # Speed and fatigue
 writing_speed       = 1.0       # 1.0 = deliberate scriptorium pace
-fatigue_rate        = 0.0       # increase per line (0.0 = no modelling yet)
+fatigue_rate        = 0.04      # fatigue accumulation per line
 
 # Lateral tilt (Konrad's known slight rightward lean)
 slant_deg           = 3.5       # rightward from vertical

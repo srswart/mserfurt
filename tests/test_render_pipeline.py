@@ -18,6 +18,12 @@ from scribesim.render.pipeline import (
     _page_size_internal,
     _INTERNAL_DPI,
     _OUTPUT_DPI,
+    _nib_half_vec,
+    _polygon_sweep_stroke,
+    _ink_color,
+    _INT_PX_PER_MM,
+    _PARCHMENT_RGB,
+    _INK_RGB,
 )
 
 
@@ -164,3 +170,175 @@ class TestDeterminism:
         img1 = np.array(Image.open(p1))
         img2 = np.array(Image.open(p2))
         np.testing.assert_array_equal(img1, img2)
+
+
+# ---------------------------------------------------------------------------
+# TestNibHalfVec — geometry helpers (TD-015 / ADV-SS-RENDER-004)
+# ---------------------------------------------------------------------------
+
+class TestNibHalfVec:
+    def test_returns_tuple_of_two_floats(self):
+        hx, hy = _nib_half_vec(40.0, 1.8, _INT_PX_PER_MM)
+        assert isinstance(hx, float)
+        assert isinstance(hy, float)
+
+    def test_nib_at_40deg_hx_greater_than_hy(self):
+        # cos(40°) > sin(40°), so hx > hy for nib angles < 45°
+        hx, hy = _nib_half_vec(40.0, 1.8, _INT_PX_PER_MM)
+        assert hx > hy
+
+    def test_nib_at_45deg_hx_equals_hy(self):
+        hx, hy = _nib_half_vec(45.0, 1.8, _INT_PX_PER_MM)
+        assert abs(hx - hy) < 0.001
+
+    def test_scale_with_nib_width(self):
+        hx1, hy1 = _nib_half_vec(40.0, 1.0, _INT_PX_PER_MM)
+        hx2, hy2 = _nib_half_vec(40.0, 2.0, _INT_PX_PER_MM)
+        assert abs(hx2 / hx1 - 2.0) < 0.001
+        assert abs(hy2 / hy1 - 2.0) < 0.001
+
+    def test_full_nib_to_hairline_ratio_exceeds_3(self):
+        # Full nib (2*hx) vs hairline nib (6.5% of full nib) → ratio >> 3
+        # This is the meaningful thick/thin ratio for Bastarda polygon sweep.
+        nib_width_mm = 1.8
+        hx_full, _ = _nib_half_vec(40.0, nib_width_mm, _INT_PX_PER_MM)
+        hx_hair, _ = _nib_half_vec(40.0, nib_width_mm * 0.065, _INT_PX_PER_MM)
+        ratio = (2 * hx_full) / (2 * hx_hair)
+        assert ratio >= 3.0, f"Expected >= 3.0, got {ratio:.2f}"
+
+    def test_ink_color_full_alpha_is_ink(self):
+        assert _ink_color(1.0) == _INK_RGB
+
+    def test_ink_color_zero_alpha_is_parchment(self):
+        assert _ink_color(0.0) == _PARCHMENT_RGB
+
+    def test_ink_color_clamps(self):
+        assert _ink_color(-0.5) == _PARCHMENT_RGB
+        assert _ink_color(1.5) == _INK_RGB
+
+
+# ---------------------------------------------------------------------------
+# TestPolygonSweep — the new stroke renderer (TD-015 / ADV-SS-RENDER-004)
+# ---------------------------------------------------------------------------
+
+def _draw_vertical_stroke(hx, hy, px_per_mm, canvas_px=200):
+    """Render a straight vertical stroke via polygon sweep to a small canvas."""
+    from PIL import Image, ImageDraw
+
+    img = Image.new("RGB", (canvas_px, canvas_px), _PARCHMENT_RGB)
+    draw = ImageDraw.Draw(img)
+    heat = np.zeros((canvas_px, canvas_px), dtype=np.uint8)
+
+    # Vertical stroke: x = 5mm, y from 1mm to 11mm
+    x_mm = 5.0
+    pts = [(x_mm, 1.0 + i * 0.1, i / 100.0) for i in range(101)]
+    _polygon_sweep_stroke(
+        draw, pts, hx, hy, px_per_mm,
+        (0.49, 0.63, 0.63, 0.49),  # _BODY pressure profile
+        stroke_weight=0.9,
+        ink_density=0.85,
+        glyph_opacity=1.0,
+        heat_arr=heat,
+        img_h=canvas_px,
+        img_w=canvas_px,
+    )
+    return np.array(img)
+
+
+def _draw_nib_angle_stroke(hx, hy, px_per_mm, nib_angle_deg=40.0, canvas_px=200):
+    """Render a stroke going at the nib angle — should produce minimum width."""
+    from PIL import Image, ImageDraw
+    import math
+
+    img = Image.new("RGB", (canvas_px, canvas_px), _PARCHMENT_RGB)
+    draw = ImageDraw.Draw(img)
+    heat = np.zeros((canvas_px, canvas_px), dtype=np.uint8)
+
+    # Stroke going at nib_angle_deg (the hairline direction)
+    angle_rad = math.radians(nib_angle_deg)
+    start_x, start_y = 2.0, 6.0
+    pts = [(start_x + i * 0.1 * math.cos(angle_rad),
+            start_y + i * 0.1 * math.sin(angle_rad),
+            i / 100.0)
+           for i in range(101)]
+    _polygon_sweep_stroke(
+        draw, pts, hx, hy, px_per_mm,
+        (0.49, 0.63, 0.63, 0.49),
+        stroke_weight=0.9,
+        ink_density=0.85,
+        glyph_opacity=1.0,
+        heat_arr=heat,
+        img_h=canvas_px,
+        img_w=canvas_px,
+    )
+    return np.array(img)
+
+
+class TestPolygonSweep:
+    def _ink_pixels(self, arr, threshold=220):
+        """Count pixels darker than threshold (ink vs parchment)."""
+        return int(np.sum(arr.min(axis=2) < threshold))
+
+    def _horizontal_ink_width(self, arr, threshold=220):
+        """Max horizontal span of ink pixels across any single row."""
+        max_width = 0
+        for row in arr:
+            ink = row.min(axis=1) < threshold
+            if ink.any():
+                cols = np.where(ink)[0]
+                max_width = max(max_width, int(cols[-1] - cols[0] + 1))
+        return max_width
+
+    def test_vertical_stroke_has_ink(self):
+        hx, hy = _nib_half_vec(40.0, 1.8, _INT_PX_PER_MM)
+        arr = _draw_vertical_stroke(hx, hy, _INT_PX_PER_MM)
+        assert self._ink_pixels(arr) > 0, "Vertical stroke produced no ink"
+
+    def test_vertical_stroke_has_minimum_width(self):
+        # At 400 DPI with 1.8mm nib at 40°, vertical stroke should be ≥ 10px wide
+        hx, hy = _nib_half_vec(40.0, 1.8, _INT_PX_PER_MM)
+        arr = _draw_vertical_stroke(hx, hy, _INT_PX_PER_MM)
+        width = self._horizontal_ink_width(arr)
+        assert width >= 10, f"Vertical stroke too narrow: {width}px (expected ≥ 10)"
+
+    def test_vertical_wider_than_hairline_angle_stroke(self):
+        # Vertical stroke should be substantially wider horizontally than a
+        # stroke going at the nib angle (the hairline direction).
+        nib_width_mm = 1.8
+        hx_full, hy_full = _nib_half_vec(40.0, nib_width_mm, _INT_PX_PER_MM)
+        hx_hair, hy_hair = _nib_half_vec(40.0, nib_width_mm * 0.065, _INT_PX_PER_MM)
+
+        arr_vert = _draw_vertical_stroke(hx_full, hy_full, _INT_PX_PER_MM)
+        arr_hair = _draw_nib_angle_stroke(hx_hair, hy_hair, _INT_PX_PER_MM)
+
+        w_vert = self._horizontal_ink_width(arr_vert)
+        w_hair = self._horizontal_ink_width(arr_hair)
+
+        assert w_vert > 0, "Vertical stroke produced no measurable width"
+        assert w_hair > 0, "Hairline stroke produced no measurable width"
+
+        ratio = w_vert / max(1, w_hair)
+        assert ratio >= 3.0, (
+            f"Expected thick/thin ratio ≥ 3.0, got {ratio:.2f} "
+            f"(vertical={w_vert}px, hairline={w_hair}px)"
+        )
+
+    def test_pipeline_has_ink_after_polygon_sweep(self, tmp_path):
+        layout = _make_minimal_layout()
+        params = HandParams()
+        page_path, _ = render_pipeline(layout, params, tmp_path, "f01r")
+        arr = np.array(Image.open(page_path))
+        ink = np.sum(arr.min(axis=2) < 220)
+        assert ink > 100, f"Pipeline produced too few ink pixels: {ink}"
+
+    def test_pipeline_max_darkness_after_polygon_sweep(self, tmp_path):
+        # At least some pixels should be substantially dark (downstrokes)
+        layout = _make_minimal_layout()
+        params = HandParams()
+        page_path, _ = render_pipeline(layout, params, tmp_path, "f01r")
+        arr = np.array(Image.open(page_path))
+        min_brightness = int(arr.min(axis=2).min())
+        # parchment is ~220+, ink should be << 220; check something is < 100
+        assert min_brightness < 100, (
+            f"Darkest pixel is {min_brightness} — strokes may be too faint"
+        )

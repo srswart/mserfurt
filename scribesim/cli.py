@@ -2701,3 +2701,99 @@ def transcribe_words(words_dir: str, output_path: str, examples_dir: str | None,
     known = sum(1 for w in lines if w != "?")
     click.echo(f"\nTranscription written → {out}")
     click.echo(f"Known: {known}/{total} ({100*known//total}%)   Unknown: {total - known}")
+
+
+# ---------------------------------------------------------------------------
+# Diagnostic rendering — TD-015 / ADV-SS-DIAG-001
+# ---------------------------------------------------------------------------
+
+@main.command("render-glyph")
+@click.argument("glyph_id")
+@click.option("-o", "--output", "output_path", default=None, type=click.Path(),
+              help="Output PNG path (default: debug/<glyph_id>.png)")
+@click.option("--dpi", default=150, type=int, show_default=True,
+              help="Output DPI")
+@click.option("--nib-width", "nib_width_mm", default=0.85, type=float, show_default=True,
+              help="Physical nib width in mm")
+@click.option("--nib-angle", "nib_angle_deg", default=42.0, type=float, show_default=True,
+              help="Nib angle in degrees")
+@click.option("--x-height", "x_height_mm", default=3.8, type=float, show_default=True,
+              help="X-height in mm")
+def render_glyph_cmd(glyph_id: str, output_path: str | None, dpi: int,
+                     nib_width_mm: float, nib_angle_deg: float, x_height_mm: float) -> None:
+    """Render a single glyph from the catalog in isolation.
+
+    GLYPH_ID is a catalog key such as 'n', 'a', 'long_s', 'esszett', etc.
+    Use 'glyph-sheet' to see all available glyph IDs.
+
+    No page compositor is involved — this renders the glyph strokes directly
+    and is the primary tool for verifying the renderer after any change.
+    """
+    import shutil
+    from scribesim.render.diagnostic import render_single_glyph, save_png
+
+    try:
+        arr = render_single_glyph(
+            glyph_id,
+            dpi=float(dpi),
+            nib_width_mm=nib_width_mm,
+            nib_angle_deg=nib_angle_deg,
+            x_height_mm=x_height_mm,
+        )
+    except KeyError as exc:
+        raise click.ClickException(str(exc)) from exc
+
+    out = Path(output_path) if output_path else Path("debug") / f"{glyph_id}.png"
+    save_png(arr, out, dpi=float(dpi))
+
+    dest = Path.home() / "Desktop" / out.name
+    if out.resolve() != dest.resolve():
+        shutil.copy(out, dest)
+
+    h, w = arr.shape[:2]
+    click.echo(f"[render-glyph] '{glyph_id}' → {out}  ({w}×{h}px @ {dpi} DPI)")
+    click.echo(f"               also → {dest}")
+
+
+@main.command("glyph-sheet")
+@click.option("-o", "--output", "output_path", default=None, type=click.Path(),
+              help="Output PNG path (default: debug/glyph-sheet.png)")
+@click.option("--dpi", default=120, type=int, show_default=True,
+              help="Output DPI")
+@click.option("--nib-width", "nib_width_mm", default=0.85, type=float, show_default=True,
+              help="Physical nib width in mm")
+@click.option("--nib-angle", "nib_angle_deg", default=42.0, type=float, show_default=True,
+              help="Nib angle in degrees")
+@click.option("--x-height", "x_height_mm", default=3.8, type=float, show_default=True,
+              help="X-height in mm")
+def glyph_sheet_cmd(output_path: str | None, dpi: int,
+                    nib_width_mm: float, nib_angle_deg: float, x_height_mm: float) -> None:
+    """Render all catalog glyphs as a labeled grid (10 per row).
+
+    Use this to visually verify the complete catalog after any renderer change.
+    Slow — renders every glyph — expect 30–60 s at default settings.
+    """
+    import shutil
+    from scribesim.glyphs.catalog import GLYPH_CATALOG
+    from scribesim.render.diagnostic import render_glyph_sheet, save_png
+
+    n = len(GLYPH_CATALOG)
+    click.echo(f"[glyph-sheet] rendering {n} glyphs at {dpi} DPI…")
+
+    arr = render_glyph_sheet(
+        dpi=float(dpi),
+        nib_width_mm=nib_width_mm,
+        nib_angle_deg=nib_angle_deg,
+        x_height_mm=x_height_mm,
+    )
+
+    out = Path(output_path) if output_path else Path("debug") / "glyph-sheet.png"
+    save_png(arr, out, dpi=float(dpi))
+
+    dest = Path.home() / "Desktop" / out.name
+    if out.resolve() != dest.resolve():
+        shutil.copy(out, dest)
+
+    h, w = arr.shape[:2]
+    click.echo(f"[glyph-sheet] → {out}  ({w}×{h}px)")
+    click.echo(f"               also → {dest}")

@@ -79,11 +79,9 @@ def add_connections_to_line(
     if len(glyphs) < 2:
         return line
 
-    # Detect word boundaries
-    import numpy as np
-    advances = [g.advance_w_mm for g in glyphs]
-    median_adv = float(np.median(advances)) if advances else 1.0
-    gap_threshold = median_adv * 1.5
+    # Detect word boundaries: within-word gaps are ~0mm (kerning only);
+    # inter-word gaps are x_height * word_spacing_norm * ~0.8, always >> 0.3 * x_height.
+    gap_threshold = x_height_mm * 0.3
 
     connections = []
     for i in range(len(glyphs) - 1):
