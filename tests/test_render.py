@@ -78,16 +78,17 @@ class TestRenderPage:
         assert dpi[1] == pytest.approx(300, abs=1)
 
     def test_correct_pixel_dimensions(self, f01r_layout, tmp_path):
-        """300 DPI × 280 mm page width = ~3307 px (±5 for rounding)."""
+        """Pixel dimensions match DPI × page size from the layout geometry."""
         from PIL import Image  # noqa: PLC0415
+        from scribesim.render.rasteriser import _DPI
         render_page = self._render_page()
         layout, params = f01r_layout
         out = tmp_path / "f01r.png"
         render_page(layout, params, out)
         img = Image.open(out)
-        # 280 mm / 25.4 mm/inch × 300 DPI = 3307 px
-        expected_w = round(280 / 25.4 * 300)
-        expected_h = round(400 / 25.4 * 300)
+        g = layout.geometry
+        expected_w = round(g.page_w_mm / 25.4 * _DPI)
+        expected_h = round(g.page_h_mm / 25.4 * _DPI)
         assert abs(img.width - expected_w) <= 5
         assert abs(img.height - expected_h) <= 5
 

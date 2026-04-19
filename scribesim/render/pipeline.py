@@ -31,10 +31,10 @@ import math
 # Resolution
 # ---------------------------------------------------------------------------
 
-_INTERNAL_DPI = 400
-_OUTPUT_DPI = 300
+_INTERNAL_DPI = 800
+_OUTPUT_DPI = 600
 _SCALE = _INTERNAL_DPI / _OUTPUT_DPI  # 4/3 ≈ 1.333
-_INT_PX_PER_MM = _INTERNAL_DPI / _MM_PER_INCH  # ≈ 15.748
+_INT_PX_PER_MM = _INTERNAL_DPI / _MM_PER_INCH  # ≈ 31.496
 
 
 def _page_size_internal(layout: PageLayout) -> tuple[int, int]:
@@ -78,6 +78,31 @@ def _ink_color(alpha: float) -> tuple[int, int, int]:
     )
 
 
+def _local_nib_half_vec(
+    dx_px: float,
+    dy_px: float,
+    base_angle_deg: float,
+    nib_width_mm: float,
+    px_per_mm: float,
+    coupling: float,
+) -> tuple[float, float]:
+    """Compute per-segment nib half-vector with direction coupling.
+
+    At coupling=0, returns the fixed nib half-vector for base_angle_deg.
+    At coupling=1, the nib angle fully tracks the stroke direction.
+    At coupling=0.25, the nib angle is pulled 25% toward the stroke direction.
+
+    A broad-edged nib is thickest when the stroke is perpendicular to the nib
+    edge; coupling makes this happen naturally as the stroke changes direction.
+    """
+    if coupling > 0.0 and (dx_px != 0.0 or dy_px != 0.0):
+        stroke_angle_deg = math.degrees(math.atan2(dy_px, dx_px))
+        effective_angle_deg = base_angle_deg + coupling * stroke_angle_deg
+    else:
+        effective_angle_deg = base_angle_deg
+    return _nib_half_vec(effective_angle_deg, nib_width_mm, px_per_mm)
+
+
 def _polygon_sweep_stroke(
     draw: ImageDraw.ImageDraw,
     pts: list[tuple[float, float, float]],
@@ -91,21 +116,29 @@ def _polygon_sweep_stroke(
     heat_arr,
     img_h: int,
     img_w: int,
+    nib_angle_deg: float | None = None,
+    nib_width_mm: float | None = None,
+    nib_coupling: float = 0.0,
 ) -> None:
     """Sweep the nib edge through sample points as filled polygon quads.
 
     Each pair of consecutive sample points defines a quadrilateral whose
-    corners are offset by (±hx, ±hy) — the nib edge half-vector in pixels.
-    This naturally produces thick marks when the stroke crosses the nib edge
-    and thin marks when the stroke runs parallel to it.
+    corners are offset by the nib edge half-vector in pixels. When
+    nib_coupling > 0, the nib angle is pulled toward the local stroke
+    direction, producing natural calligraphic thick/thin variation:
+    strokes crossing the nib edge are thick, strokes parallel are thin.
 
     Darkness per quad = average of the endpoint pressure values, multiplied
     by stroke_weight × ink_density × glyph_opacity. Skip quads with
     effective darkness < 0.01 (truly invisible).
     """
+    use_coupling = nib_coupling > 0.0 and nib_angle_deg is not None and nib_width_mm is not None
+
     prev_x_px: float | None = None
     prev_y_px: float | None = None
     prev_dark: float | None = None
+    prev_hx: float = hx
+    prev_hy: float = hy
 
     for x_mm, y_mm, t in pts:
         x_px = x_mm * px_per_mm
@@ -116,12 +149,21 @@ def _polygon_sweep_stroke(
         if prev_x_px is not None and prev_dark is not None:
             avg_dark = (prev_dark + dark) / 2.0
             if avg_dark >= 0.01:
+                # Recompute nib half-vector for this segment if coupling is active
+                if use_coupling:
+                    seg_hx, seg_hy = _local_nib_half_vec(
+                        x_px - prev_x_px, y_px - prev_y_px,
+                        nib_angle_deg, nib_width_mm, px_per_mm, nib_coupling,
+                    )
+                else:
+                    seg_hx, seg_hy = hx, hy
+
                 color = _ink_color(avg_dark)
                 quad = [
-                    (prev_x_px - hx, prev_y_px - hy),
-                    (prev_x_px + hx, prev_y_px + hy),
-                    (x_px + hx,      y_px + hy),
-                    (x_px - hx,      y_px - hy),
+                    (prev_x_px - prev_hx, prev_y_px - prev_hy),
+                    (prev_x_px + prev_hx, prev_y_px + prev_hy),
+                    (x_px + seg_hx,       y_px + seg_hy),
+                    (x_px - seg_hx,       y_px - seg_hy),
                 ]
                 draw.polygon(quad, fill=color)
 
@@ -131,10 +173,17 @@ def _polygon_sweep_stroke(
                     heat_val = min(255, int(avg_dark * 255))
                     heat_arr[yi, xi] = min(255, int(heat_arr[yi, xi]) + heat_val)
 
+                prev_hx, prev_hy = seg_hx, seg_hy
+            else:
+                prev_hx, prev_hy = hx, hy
+        else:
+            prev_hx, prev_hy = hx, hy
+
         prev_x_px, prev_y_px, prev_dark = x_px, y_px, dark
 
     # End caps: short line at the nib angle sealing each stroke terminus
     if pts:
+        cap_hx, cap_hy = hx, hy
         for (x_mm, y_mm, t) in (pts[0], pts[-1]):
             x_px = x_mm * px_per_mm
             y_px = y_mm * px_per_mm
@@ -143,9 +192,9 @@ def _polygon_sweep_stroke(
                 pressure * stroke_weight * min(1.0, ink_density) * glyph_opacity))
             if dark >= 0.05:
                 color = _ink_color(dark)
-                cap_w = max(1, round(math.hypot(hx, hy) * 0.4))
+                cap_w = max(1, round(math.hypot(cap_hx, cap_hy) * 0.4))
                 draw.line(
-                    [(x_px - hx, y_px - hy), (x_px + hx, y_px + hy)],
+                    [(x_px - cap_hx, y_px - cap_hy), (x_px + cap_hx, y_px + cap_hy)],
                     fill=color, width=cap_w,
                 )
 
@@ -239,6 +288,9 @@ def _render_at_internal_dpi(layout: PageLayout, hand: HandParams
                     stroke.pressure_profile,
                     hand.stroke_weight, effective_density, pg.opacity,
                     heat_arr, h_px, w_px,
+                    nib_angle_deg=angle_deg,
+                    nib_width_mm=hand.nib_width_mm,
+                    nib_coupling=hand.nib_coupling,
                 )
 
         # Connection strokes use the same per-line nib angle and ink density

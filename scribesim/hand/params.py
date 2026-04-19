@@ -24,6 +24,7 @@ class HandParams:
     nib_angle_deg: float = 45.0
     nib_width_mm: float = 1.8
     stroke_weight: float = 1.0
+    nib_coupling: float = 0.0    # 0.0 = fixed angle; 0.25 = tracks stroke direction at 25%
 
     # Pressure dynamics
     pressure_base: float = 0.72

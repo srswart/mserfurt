@@ -6,6 +6,7 @@
 # Nib and stroke geometry
 nib_angle_deg       = 40.0      # quill angle to baseline (Thuringian Bastarda: 40°)
 nib_width_mm        = 0.65      # cut nib width (x_height/4.7 ≈ 5 nib-widths per x-height)
+nib_coupling        = 0.25      # nib tracks stroke direction at 25% — natural thick/thin
 stroke_weight       = 1.5       # relative stroke weight (scales ink darkness)
 
 # Pressure dynamics (0.0–1.0 scale)

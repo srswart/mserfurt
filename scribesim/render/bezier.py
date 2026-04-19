@@ -1,9 +1,9 @@
 """Cubic Bezier curve evaluation with adaptive subdivision.
 
 All coordinates are in millimetres. The caller supplies control points and
-receives a list of (x, y, t) sample points dense enough for 300 DPI rendering.
+receives a list of (x, y, t) sample points dense enough for 600 DPI rendering.
 
-300 DPI → 1 pixel ≈ 0.0847 mm.  We sample at half that density (0.04 mm
+600 DPI → 1 pixel ≈ 0.0423 mm.  We sample at half that density (0.02 mm
 step) so every pixel along the stroke is hit at least once.
 """
 
@@ -13,8 +13,8 @@ import math
 from typing import Iterator
 
 # Minimum chord length before we stop subdividing (mm)
-_CHORD_THRESHOLD = 0.04   # ≈ half a pixel at 300 DPI
-_MAX_DEPTH = 12           # guard against infinite recursion
+_CHORD_THRESHOLD = 0.02   # ≈ half a pixel at 600 DPI
+_MAX_DEPTH = 14           # one extra level for the finer threshold
 
 
 def _lerp(a: tuple, b: tuple, t: float) -> tuple:

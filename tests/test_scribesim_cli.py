@@ -826,8 +826,8 @@ class TestHandModel:
     def test_resolve_preserves_unmodified_fields(self):
         base = load_base(HAND_TOML)
         params = resolve(base, "f06r")
-        # nib_angle not in f06r modifier — should keep base value
-        assert params.nib_angle_deg == pytest.approx(45.0)
+        # nib_angle not in f06r modifier — should keep base value (40° for Thuringian Bastarda)
+        assert params.nib_angle_deg == pytest.approx(40.0)
 
     def test_script_is_bastarda(self):
         base = load_base(HAND_TOML)
