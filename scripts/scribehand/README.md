@@ -33,6 +33,18 @@ DiffusionPen) so their internal imports resolve; configure clone paths in
 > stderr, which `scribesim` surfaces — include that output in the diagnostic
 > bundle if you need cloud-side help debugging.
 
+## Orchestration (local agent)
+
+| Resource | Role |
+|----------|------|
+| `docs/scribehand-mac-runbook-agent.md` | Agent-oriented runbook (human review is the only stop) |
+| `docs/scribehand-orchestration.yaml` | Machine-readable step manifest |
+| `scripts/scribehand/orchestrate.py` | Status / next / validate / record |
+| `.cursor/commands/scribehand-orchestrate.md` | Cursor slash command |
+
+Copy `docs/scribehand-orchestration.env.example` → `diagnostics/scribehand.env`
+and fill paths before running the pipeline.
+
 ## Typical order (see docs/scribehand-mac-runbook.md for the full runbook)
 
 1. `uv sync --extra scribehand`

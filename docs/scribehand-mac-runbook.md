@@ -4,6 +4,13 @@ Step-by-step workflow for the GPU workstation (Mac M5 Max / MPS). Each stage
 ends with a **diagnostic checkpoint**: what to inspect yourself, and what to
 pack into a bundle to share back for cloud-side evaluation.
 
+> **Agent orchestration:** A local agent can run every step here **except §8
+> (human visual review)**. Use the companion
+> [agent runbook](./scribehand-mac-runbook-agent.md) with
+> [`scribehand-orchestration.yaml`](./scribehand-orchestration.yaml) and
+> `python scripts/scribehand/orchestrate.py`, or invoke `/scribehand-orchestrate`
+> in Cursor.
+
 The CPU dev VM already validated all plumbing end-to-end with stub backends;
 everything below exercises the same code paths with real models.
 
