@@ -3146,3 +3146,103 @@ def diag_pack(diag_dir: str, out_zip: str, max_mb: float) -> None:
     click.echo(f"[diag-pack] → {bundle} ({bundle.stat().st_size / 1024:.0f} KiB)")
     click.echo(f"            runs={summary['runs']} files={summary['files']} "
                f"metrics={'yes' if summary['has_metrics'] else 'no'}")
+
+
+@main.command("bench-neural")
+@click.argument("folio_id")
+@click.option("--input-dir", "input_dir", default="output-live", show_default=True,
+              type=click.Path(exists=True))
+@click.option("--backend", default="stub-evo", show_default=True)
+@click.option("--htr", default=None,
+              help="HTR scorer: stub-echo or a TrOCR checkpoint path")
+@click.option("--anchor-words-dir", "anchor_words_dir", default=None,
+              type=click.Path(exists=True),
+              help="Directory of anchor-hand word crop PNGs for the style gate")
+@click.option("--reference-page", "reference_page", default=None,
+              type=click.Path(exists=True),
+              help="Anchor manuscript page image for the acceptance-band gate")
+@click.option("--gates-toml", "gates_toml", default=None, type=click.Path(exists=True))
+@click.option("--seed", default=1457, type=int, show_default=True)
+@click.option("--out-dir", "out_dir", default="diagnostics/bench", show_default=True,
+              type=click.Path())
+@click.option("--hand-toml", "hand_toml", default=None, type=click.Path(exists=True))
+@click.option("--allow-unverified", is_flag=True, default=False)
+def bench_neural(folio_id: str, input_dir: str, backend: str, htr: str | None,
+                 anchor_words_dir: str | None, reference_page: str | None,
+                 gates_toml: str | None, seed: int, out_dir: str,
+                 hand_toml: str | None, allow_unverified: bool) -> None:
+    """Run the TD-018 promotion gates on a neurally rendered folio.
+
+    Writes metrics.json + proof sheets into OUT_DIR (a diagnostic directory
+    ready for `scribesim diag-pack`). Exits non-zero when hard gates fail.
+    """
+    import numpy as np
+    from PIL import Image as PILImage
+
+    from scribesim.handvalidate.neural_bench import load_neural_gates, run_neural_bench
+    from scribesim.scribehand.backends import backend_from_config
+    from scribesim.scribehand.compose import compose_folio
+    from scribesim.scribehand.diagnostics import write_run_diagnostics
+    from scribesim.scribehand.generate import WordGenerator
+
+    fid = _normalise_folio_id(folio_id)
+    folio_path = Path(input_dir) / f"{fid}.json"
+    if not folio_path.exists():
+        raise click.ClickException(f"folio JSON not found: {folio_path}")
+    folio_dict = json.loads(folio_path.read_text())
+
+    profile = load_profile(Path(hand_toml) if hand_toml else None)
+    profile = resolve_profile(profile, fid, Path(hand_toml) if hand_toml else None)
+
+    try:
+        be = backend_from_config(backend)
+    except (FileNotFoundError, KeyError) as exc:
+        raise click.ClickException(str(exc))
+    out = Path(out_dir)
+    generator = WordGenerator(be, cache_dir=out / ".cache")
+
+    scorer = None
+    if htr == "stub-echo":
+        from scribesim.scribehand.htr import StubScorer
+        scorer = StubScorer("echo")
+    elif htr:
+        from scribesim.scribehand.htr import TrOCRScorer
+        scorer = TrOCRScorer(htr)
+
+    click.echo(f"[bench-neural] folio={fid} backend={backend} htr={htr or 'none'}")
+    composed = compose_folio(
+        folio_dict, profile, generator, scorer=scorer,
+        base_seed=seed, allow_unverified=allow_unverified,
+    )
+
+    anchor_images = None
+    if anchor_words_dir:
+        anchor_images = [
+            np.asarray(PILImage.open(p).convert("L"), dtype=np.uint8)
+            for p in sorted(Path(anchor_words_dir).glob("*.png"))
+        ]
+        click.echo(f"  anchor words : {len(anchor_images)}")
+
+    ref_page = None
+    if reference_page:
+        ref_page = np.asarray(PILImage.open(reference_page).convert("RGB"), dtype=np.uint8)
+
+    gates = load_neural_gates(Path(gates_toml) if gates_toml else None)
+    report = run_neural_bench(
+        composed, gates=gates,
+        anchor_word_images=anchor_images, reference_page=ref_page,
+        out_dir=out,
+    )
+    write_run_diagnostics(
+        out,
+        run_info={"kind": "bench-neural", "folio_id": fid, "backend": backend,
+                  "htr": htr, "seed": seed, "gates_ok": report.ok},
+        composed=composed,
+    )
+
+    d = report.to_dict()
+    click.echo(json.dumps(d, indent=1, ensure_ascii=False))
+    click.echo(f"[bench-neural] diagnostics → {out}")
+    if not report.ok:
+        raise click.ClickException("neural promotion gates FAILED — see metrics.json")
+    click.echo("[bench-neural] all evaluated gates passed")
