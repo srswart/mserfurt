@@ -22,6 +22,10 @@ shared/training/scribehand/**/images/
 shared/training/scribehand/exports/
 shared/models/scribehand/weights/
 
+# ScribeHand orchestration local state (machine-specific paths)
+diagnostics/.scribehand-orchestration-state.json
+diagnostics/scribehand.env
+
 # ARRIVE runtime state
 .arrive/
 
