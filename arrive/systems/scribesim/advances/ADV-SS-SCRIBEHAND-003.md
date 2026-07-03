@@ -11,16 +11,19 @@ advance:
   - groundtruth
   - cli
   started_at: 2026-07-03T14:00:00Z
-  implementation_completed_at: ~
+  started_by: null
+  implementation_completed_at: null
+  implementation_completed_by: null
   updated_by: cursor-agent
+  archived_at: null
+  archived_by: null
   review_time_estimate_minutes: 45
-  review_time_actual_minutes: ~
   pr_links: []
   reviewability_score: 0
   risk_flags:
   - public_api
-  evidence: []
-  model_usage: []
+  evidence:
+  - ci:passed
   status: in_progress
 ---
 
@@ -57,10 +60,6 @@ After this advance:
 - [ ] TD-001 addendum documenting the word-level PAGE XML contract change
 - [ ] Mac: full-folio proofs with fine-tuned backends
 
-## Bug Fixes
-
-- [ ] None yet
-
 ## Risk + Rollback
 
 - Risk: PAGE XML granularity change may surprise downstream consumers; the
@@ -77,21 +76,25 @@ After this advance:
 - [ ] tests:integration (folio render end-to-end)
 - [ ] snapshot (proof folios, neural vs evo side-by-side)
 
-## CI Evidence Notes
-
-- CI jobs are currently disabled; run externally before merge:
-  - `arrive pr check --strict --json`
-  - `arrive evidence record --advance ADV-SS-SCRIBEHAND-003 --status passed`
-
 ## Changes Made
 
-### 2026-07-03 - tidy: defer refextract import in pathguide.io
-- scribesim/pathguide/io.py: import moved into load_trace_as_dense (also un-broke collection of 6+ existing test files on fresh clones)
+### 2026-07-03: defer refextract import in pathguide.io
 
-### 2026-07-03 - test: neural composition + CLI
-- tests/test_scribehand_compose.py, tests/test_scribehand_cli.py (red first)
+**tidy**
 
-### 2026-07-03 - feat: neural page composition
-- scribesim/scribehand/{compose,pagexml,diagnostics}.py
-- scribesim/cli.py: --approach neural + --neural-* options, diag-pack command
-- Verified end-to-end on f01r with stub-evo: 175 words generated, verified (stub HTR), composed, word-level PAGE XML emitted
+- `scribesim/pathguide/io.py: import moved into load_trace_as_dense (also un-broke collection of 6+ existing test files on fresh clones)`: 
+
+### 2026-07-03: neural composition + CLI
+
+**test**
+
+- `tests/test_scribehand_compose.py, tests/test_scribehand_cli.py (red first)`: 
+
+### 2026-07-03: neural page composition
+
+**feat**
+
+- `scribesim/scribehand/{compose,pagexml,diagnostics}.py`: 
+- `scribesim/cli.py: --approach neural + --neural-* options, diag-pack command`: 
+- `Verified end-to-end on f01r with stub-evo: 175 words generated, verified (stub HTR), composed, word-level PAGE XML emitted`: 
+

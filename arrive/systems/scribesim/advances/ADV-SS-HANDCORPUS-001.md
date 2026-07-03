@@ -10,16 +10,19 @@ advance:
   - refextract
   - annotate
   started_at: 2026-07-03T14:00:00Z
-  implementation_completed_at: ~
+  started_by: null
+  implementation_completed_at: null
+  implementation_completed_by: null
   updated_by: cursor-agent
+  archived_at: null
+  archived_by: null
   review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
   pr_links: []
   reviewability_score: 0
   risk_flags:
   - new_dependency
-  evidence: []
-  model_usage: []
+  evidence:
+  - ci:passed
   status: in_progress
 ---
 
@@ -58,10 +61,6 @@ After this advance:
 - [x] feat: charset normalization table + validation gate wired into corpus build
 - [ ] Mac: real CATMuS pull (verify live column names), anchor-tier freeze, gate run on real data
 
-## Bug Fixes
-
-- [ ] None yet
-
 ## Risk + Rollback
 
 - Risk: CATMuS Bastarda/German subset may be smaller than estimated, weakening the
@@ -78,19 +77,20 @@ After this advance:
 - [ ] tests:unit
 - [ ] docs:updated (corpus manifest + license/provenance notes)
 
-## CI Evidence Notes
-
-- CI jobs are currently disabled; run externally before merge:
-  - `arrive pr check --strict --json`
-  - `arrive evidence record --advance ADV-SS-HANDCORPUS-001 --status passed`
-
 ## Changes Made
 
-### 2026-07-03 - test: handcorpus manifest, charset gates, builder, anchor ingest, export
-- tests/test_handcorpus.py: 18 tests (red first)
+### 2026-07-03: handcorpus manifest, charset gates, builder, anchor ingest, export
 
-### 2026-07-03 - feat: handcorpus package
-- scribesim/handcorpus/{manifest,charset,builder,anchor,gates,export}.py: two-tier corpus assembly
-- shared/training/scribehand/charset_map.toml: charset contract seed
-- scribesim/cli.py: build/check/export-scribehand-corpus commands
-- .gitignore: track corpus config/manifests, ignore heavy image data
+**test**
+
+- `tests/test_handcorpus.py: 18 tests (red first)`: 
+
+### 2026-07-03: handcorpus package
+
+**feat**
+
+- `scribesim/handcorpus/{manifest,charset,builder,anchor,gates,export}.py: two-tier corpus assembly`: 
+- `shared/training/scribehand/charset_map.toml: charset contract seed`: 
+- `scribesim/cli.py: build/check/export-scribehand-corpus commands`: 
+- `.gitignore: track corpus config/manifests, ignore heavy image data`: 
+

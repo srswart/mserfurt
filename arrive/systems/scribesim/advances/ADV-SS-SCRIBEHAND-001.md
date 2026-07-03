@@ -8,16 +8,19 @@ advance:
   - scribehand
   - handcorpus
   started_at: 2026-07-03T14:00:00Z
-  implementation_completed_at: ~
+  started_by: null
+  implementation_completed_at: null
+  implementation_completed_by: null
   updated_by: cursor-agent
+  archived_at: null
+  archived_by: null
   review_time_estimate_minutes: 45
-  review_time_actual_minutes: ~
   pr_links: []
   reviewability_score: 0
   risk_flags:
   - new_dependency
-  evidence: []
-  model_usage: []
+  evidence:
+  - ci:passed
   status: in_progress
 ---
 
@@ -54,10 +57,6 @@ After this advance:
 - [x] feat: CommandBackend protocol + One-DM/DiffusionPen runner scripts (Mac-side, best-effort against upstream APIs)
 - [ ] Mac: fine-tune One-DM + DiffusionPen (Tier 1 then Tier 2), freeze style_anchor_v1, checkpoint selection sheets
 
-## Bug Fixes
-
-- [ ] None yet
-
 ## Risk + Rollback
 
 - Risk: fine-tune quality on medieval script may underperform (IAM-pretrained
@@ -74,20 +73,21 @@ After this advance:
 - [ ] tests:unit
 - [ ] snapshot (generated word sheets vs anchor exemplars, both checkpoints)
 
-## CI Evidence Notes
-
-- CI jobs are currently disabled; run externally before merge:
-  - `arrive pr check --strict --json`
-  - `arrive evidence record --advance ADV-SS-SCRIBEHAND-001 --status passed`
-
 ## Changes Made
 
-### 2026-07-03 - test: scribehand core contracts
-- tests/test_scribehand.py: seeds, backends, cache, style anchor, modifier mapping (red first)
+### 2026-07-03: scribehand core contracts
 
-### 2026-07-03 - feat: scribehand core
-- scribesim/scribehand/{types,seeds,generate,style,modifiers}.py
-- scribesim/scribehand/backends/{stub,command}.py + backends.toml resolver
-- scripts/scribehand/{onedm_runner,diffusionpen_runner,env_check}.py
-- shared/models/scribehand/backends.toml: backend registry template
-- pyproject.toml: optional scribehand extra (torch/transformers/datasets/diffusers)
+**test**
+
+- `tests/test_scribehand.py: seeds, backends, cache, style anchor, modifier mapping (red first)`: 
+
+### 2026-07-03: scribehand core
+
+**feat**
+
+- `scribesim/scribehand/{types,seeds,generate,style,modifiers}.py`: 
+- `scribesim/scribehand/backends/{stub,command}.py + backends.toml resolver`: 
+- `scripts/scribehand/{onedm_runner,diffusionpen_runner,env_check}.py`: 
+- `shared/models/scribehand/backends.toml: backend registry template`: 
+- `pyproject.toml: optional scribehand extra (torch/transformers/datasets/diffusers)`: 
+

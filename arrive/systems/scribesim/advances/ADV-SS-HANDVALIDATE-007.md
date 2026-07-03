@@ -10,16 +10,19 @@ advance:
   - metrics
   - annotate
   started_at: 2026-07-03T14:00:00Z
-  implementation_completed_at: ~
+  started_by: null
+  implementation_completed_at: null
+  implementation_completed_by: null
   updated_by: cursor-agent
+  archived_at: null
+  archived_by: null
   review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
   pr_links: []
   reviewability_score: 0
   risk_flags:
   - legibility
-  evidence: []
-  model_usage: []
+  evidence:
+  - ci:passed
   status: in_progress
 ---
 
@@ -63,10 +66,6 @@ After this advance:
 - [ ] workbench side-by-side review mode (human evaluation currently via runbook §8 rubric)
 - [ ] promotion policy wiring once first real bench bundles come back
 
-## Bug Fixes
-
-- [ ] None yet
-
 ## Risk + Rollback
 
 - Risk: gate thresholds calibrated too loosely make promotion meaningless, too
@@ -81,23 +80,19 @@ After this advance:
 - [ ] tests:unit
 - [ ] snapshot (bench dashboard on proof folios)
 
-## CI Evidence Notes
-
-- CI jobs are currently disabled; run externally before merge:
-  - `arrive pr check --strict --json`
-  - `arrive evidence record --advance ADV-SS-HANDVALIDATE-007 --status passed`
-
 ## Changes Made
 
-### 2026-07-03 - test: neural promotion gates
-- tests/test_neural_bench.py: 12 tests incl. bench CLI end-to-end (red first)
+### 2026-07-03: neural promotion gates
 
-### 2026-07-03 - feat: neural bench
-- scribesim/handvalidate/neural_bench.py: gates + BenchReport
-- shared/hands/validation/neural_gates.toml: thresholds (calibration pending)
-- scribesim/cli.py: bench-neural command
+**test**
 
-## Bug Fixes (during red-green)
+- `tests/test_neural_bench.py: 12 tests incl. bench CLI end-to-end (red first)`: 
 
-- neural_bench: cer_mean of exactly 0.0 was treated as missing via `or`-fallback, failing a perfect folio; fixed with explicit None checks
-- metrics suite field is MetricResult.id, not metric_id
+### 2026-07-03: neural bench
+
+**feat**
+
+- `scribesim/handvalidate/neural_bench.py: gates + BenchReport`: 
+- `shared/hands/validation/neural_gates.toml: thresholds (calibration pending)`: 
+- `scribesim/cli.py: bench-neural command`: 
+
