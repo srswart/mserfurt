@@ -10,7 +10,6 @@ from pathlib import Path
 from scribesim.guides.keypoint import LetterformGuide
 from scribesim.pathguide.model import DensePathGuide, GuideSample, GuideSource
 from scribesim.pathguide.validate import assert_valid_dense_path_guide
-from scribesim.refextract.centerline import load_trace
 
 
 def _unit_vector(dx: float, dy: float) -> tuple[float, float]:
@@ -389,6 +388,9 @@ def load_trace_as_dense(
     source_resolution_ppmm: float | None = None,
 ) -> DensePathGuide:
     """Load a JSON trace written by refextract.centerline and convert it."""
+    # Deferred: scribesim.refextract is absent on fresh clones (gitignored);
+    # only this trace-conversion helper needs it.
+    from scribesim.refextract.centerline import load_trace
 
     path = Path(trace_path)
     return guide_from_trace_segments(
