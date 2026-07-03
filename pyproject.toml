@@ -19,6 +19,18 @@ dependencies = [
     "requests>=2.28",
 ]
 
+[project.optional-dependencies]
+# TD-018 learned scribal hand: training/inference on GPU hosts (Mac MPS/CUDA).
+# The base package stays torch-free; stub backends cover CPU dev and CI.
+scribehand = [
+    "torch>=2.3",
+    "torchvision>=0.18",
+    "transformers>=4.44",
+    "datasets>=2.20",
+    "diffusers>=0.30",
+    "accelerate>=0.33",
+]
+
 [project.scripts]
 xl = "xl.__main__:main"
 scribesim = "scribesim.__main__:main"
