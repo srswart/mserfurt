@@ -12,6 +12,7 @@ advance:
   - cli
   started_at: 2026-07-03T14:00:00Z
   implementation_completed_at: ~
+  updated_by: cursor-agent
   review_time_estimate_minutes: 45
   review_time_actual_minutes: ~
   pr_links: []
@@ -20,7 +21,7 @@ advance:
   - public_api
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -47,12 +48,14 @@ After this advance:
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: extract compositor interfaces shared between evo and neural paths (no behavior change)
-- [ ] test: composition geometry + PAGE XML word-level contract tests — red first
-- [ ] feat: word-strip compositor with movement integration and ink tone pass
-- [ ] feat: word-level PAGE XML emission + TD-001 addendum documenting the contract change
-- [ ] feat: `--approach neural` CLI wiring + render report (per-word provenance summary)
+- [x] branch: cursor/learned-scribal-hand-direction-3c31
+- [x] tidy: deferred refextract import in pathguide.io (fresh clones could not import handvalidate at all)
+- [x] test: composition geometry + word-level PAGE XML contract tests — red first
+- [x] feat: word-strip compositor with seeded movement, gap compression + bounded squeeze, lacuna fading
+- [x] feat: word-level PAGE XML emission (TD-001 addendum still pending)
+- [x] feat: --approach neural CLI wiring + render report + diagnostic bundle hook
+- [ ] TD-001 addendum documenting the word-level PAGE XML contract change
+- [ ] Mac: full-folio proofs with fine-tuned backends
 
 ## Bug Fixes
 
@@ -82,4 +85,13 @@ After this advance:
 
 ## Changes Made
 
-(none yet)
+### 2026-07-03 - tidy: defer refextract import in pathguide.io
+- scribesim/pathguide/io.py: import moved into load_trace_as_dense (also un-broke collection of 6+ existing test files on fresh clones)
+
+### 2026-07-03 - test: neural composition + CLI
+- tests/test_scribehand_compose.py, tests/test_scribehand_cli.py (red first)
+
+### 2026-07-03 - feat: neural page composition
+- scribesim/scribehand/{compose,pagexml,diagnostics}.py
+- scribesim/cli.py: --approach neural + --neural-* options, diag-pack command
+- Verified end-to-end on f01r with stub-evo: 175 words generated, verified (stub HTR), composed, word-level PAGE XML emitted

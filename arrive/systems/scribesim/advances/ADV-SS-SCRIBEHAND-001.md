@@ -9,6 +9,7 @@ advance:
   - handcorpus
   started_at: 2026-07-03T14:00:00Z
   implementation_completed_at: ~
+  updated_by: cursor-agent
   review_time_estimate_minutes: 45
   review_time_actual_minutes: ~
   pr_links: []
@@ -17,7 +18,7 @@ advance:
   - new_dependency
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -46,12 +47,12 @@ After this advance:
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: none expected (new subpackage); confirm
-- [ ] test: inference-wrapper contract tests with a stub backend (determinism, provenance, cache) — red first
-- [ ] feat: training scripts/configs for One-DM and DiffusionPen fine-tunes (GPU-run, artifacts pulled back by manifest)
-- [ ] feat: inference wrapper + style anchor freeze + modifier mapping
-- [ ] feat: `generate-word` / `generate-line` CLI subcommands
+- [x] branch: cursor/learned-scribal-hand-direction-3c31
+- [x] tidy: none required (new subpackage)
+- [x] test: inference-wrapper contract tests with stub backends (determinism, provenance, cache) — red first
+- [x] feat: inference wrapper + style anchor + CLIO-7 modifier mapping + generate-word/render CLI
+- [x] feat: CommandBackend protocol + One-DM/DiffusionPen runner scripts (Mac-side, best-effort against upstream APIs)
+- [ ] Mac: fine-tune One-DM + DiffusionPen (Tier 1 then Tier 2), freeze style_anchor_v1, checkpoint selection sheets
 
 ## Bug Fixes
 
@@ -81,4 +82,12 @@ After this advance:
 
 ## Changes Made
 
-(none yet)
+### 2026-07-03 - test: scribehand core contracts
+- tests/test_scribehand.py: seeds, backends, cache, style anchor, modifier mapping (red first)
+
+### 2026-07-03 - feat: scribehand core
+- scribesim/scribehand/{types,seeds,generate,style,modifiers}.py
+- scribesim/scribehand/backends/{stub,command}.py + backends.toml resolver
+- scripts/scribehand/{onedm_runner,diffusionpen_runner,env_check}.py
+- shared/models/scribehand/backends.toml: backend registry template
+- pyproject.toml: optional scribehand extra (torch/transformers/datasets/diffusers)

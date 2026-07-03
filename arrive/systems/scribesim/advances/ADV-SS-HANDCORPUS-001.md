@@ -11,6 +11,7 @@ advance:
   - annotate
   started_at: 2026-07-03T14:00:00Z
   implementation_completed_at: ~
+  updated_by: cursor-agent
   review_time_estimate_minutes: 30
   review_time_actual_minutes: ~
   pr_links: []
@@ -19,7 +20,7 @@ advance:
   - new_dependency
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -49,12 +50,13 @@ After this advance:
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: extract shared segmentation/transcription helpers needed from refextract without behavior change
-- [ ] test: corpus manifest schema tests; charset-coverage gate tests (red first)
-- [ ] feat: CATMuS filter/download tooling (HF datasets), tier manifests, split assignment
-- [ ] feat: anchor-hand freeze from reviewed workbench exports into `shared/training/scribehand/anchor_v1`
-- [ ] feat: charset normalization table + validation gate wired into corpus build
+- [x] branch: cursor/learned-scribal-hand-direction-3c31
+- [x] tidy: none required (new package)
+- [x] test: corpus manifest schema tests; charset-coverage gate tests (red first)
+- [x] feat: CATMuS filter tooling (record-based core + streaming HF wrapper), tier manifests, split assignment
+- [x] feat: anchor-hand ingestion (labels.tsv) into shared/training/scribehand
+- [x] feat: charset normalization table + validation gate wired into corpus build
+- [ ] Mac: real CATMuS pull (verify live column names), anchor-tier freeze, gate run on real data
 
 ## Bug Fixes
 
@@ -84,4 +86,11 @@ After this advance:
 
 ## Changes Made
 
-(none yet)
+### 2026-07-03 - test: handcorpus manifest, charset gates, builder, anchor ingest, export
+- tests/test_handcorpus.py: 18 tests (red first)
+
+### 2026-07-03 - feat: handcorpus package
+- scribesim/handcorpus/{manifest,charset,builder,anchor,gates,export}.py: two-tier corpus assembly
+- shared/training/scribehand/charset_map.toml: charset contract seed
+- scribesim/cli.py: build/check/export-scribehand-corpus commands
+- .gitignore: track corpus config/manifests, ignore heavy image data

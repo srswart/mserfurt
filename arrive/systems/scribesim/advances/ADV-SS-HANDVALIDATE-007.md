@@ -11,6 +11,7 @@ advance:
   - annotate
   started_at: 2026-07-03T14:00:00Z
   implementation_completed_at: ~
+  updated_by: cursor-agent
   review_time_estimate_minutes: 30
   review_time_actual_minutes: ~
   pr_links: []
@@ -19,7 +20,7 @@ advance:
   - legibility
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -53,12 +54,14 @@ After this advance:
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: factor gate-report plumbing shared with the TD-014 folio bench (no behavior change)
-- [ ] test: gate threshold logic + anti-font variance computation — red first
-- [ ] feat: style-distance + FID evaluation harness with same-writer band calibration
-- [ ] feat: bench CLI + workbench side-by-side review mode
-- [ ] feat: promotion policy wiring (default-renderer switch requires passing bench)
+- [x] branch: cursor/learned-scribal-hand-direction-3c31
+- [x] tidy: covered by pathguide.io import fix (ADV-SS-SCRIBEHAND-003)
+- [x] test: gate threshold logic + anti-font NCC + HOG style distance + bench CLI — red first
+- [x] feat: neural_bench with CER bands, anti-font check, HOG style-distance baseline, acceptance bands (M1-M9)
+- [x] feat: bench-neural CLI writing metrics.json + diagnostic sheets; gates in shared/hands/validation/neural_gates.toml
+- [ ] Mac: calibrate style/acceptance thresholds on real anchor pages (real pages must pass their own gates)
+- [ ] workbench side-by-side review mode (human evaluation currently via runbook §8 rubric)
+- [ ] promotion policy wiring once first real bench bundles come back
 
 ## Bug Fixes
 
@@ -86,4 +89,15 @@ After this advance:
 
 ## Changes Made
 
-(none yet)
+### 2026-07-03 - test: neural promotion gates
+- tests/test_neural_bench.py: 12 tests incl. bench CLI end-to-end (red first)
+
+### 2026-07-03 - feat: neural bench
+- scribesim/handvalidate/neural_bench.py: gates + BenchReport
+- shared/hands/validation/neural_gates.toml: thresholds (calibration pending)
+- scribesim/cli.py: bench-neural command
+
+## Bug Fixes (during red-green)
+
+- neural_bench: cer_mean of exactly 0.0 was treated as missing via `or`-fallback, failing a perfect folio; fixed with explicit None checks
+- metrics suite field is MetricResult.id, not metric_id
