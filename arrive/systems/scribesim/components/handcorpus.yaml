@@ -1,0 +1,21 @@
+component:
+  id: handcorpus
+  name: "Learned Hand Training Corpus"
+  type: data-contract
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/handcorpus/**"
+    - "shared/training/scribehand/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "Corpus manifest (TOML/JSON): line/word image + transcription pairs with provenance, tier (script-family vs anchor-hand), and split assignment"
+  - "Charset normalization table: XL character inventory -> training charset (MUFI-aligned)"
+
+invariants: []

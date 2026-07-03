@@ -1375,3 +1375,59 @@ passes:
       - ADV-SS-HANDFLOW-006
       - ADV-SS-HANDFLOW-007
       notes: Add a reviewed proof sensitivity bench and classify controls as inactive, active-safe, or active-unsafe based on deterministic deltas and legibility gates.
+- id: pass-14
+  title: 'Pass 14: TD-018 — Learned Scribal Hand Synthesis'
+  order: 45
+  phases:
+  - id: td018-corpus
+    title: Training corpus assembly and charset gates
+    order: 1
+    items:
+    - id: ADV-SS-HANDCORPUS-001
+      advance_id: ADV-SS-HANDCORPUS-001
+      title: Bastarda Training Corpus — CATMuS Filter, Anchor-Hand Freeze, Charset Gates
+      status: planned
+      owner: shawn
+      dependencies: []
+      notes: Reuses TD-009 refselect harvest and TD-014 reviewed annotation workbench for the anchor-hand tier; CATMuS Medieval filtered to cursiva/bastarda/hybrida for the script-family tier.
+  - id: td018-model
+    title: Model bring-up and text-fidelity gate
+    order: 2
+    items:
+    - id: ADV-SS-SCRIBEHAND-001
+      advance_id: ADV-SS-SCRIBEHAND-001
+      title: ScribeHand Model Bring-Up — Fine-Tuned Diffusion Word Generation with Style Anchor
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDCORPUS-001
+      notes: Parallel fine-tune of One-DM and DiffusionPen; style anchor freeze; deterministic seed policy; GPU training runs external to the dev VM, reproducible from committed configs.
+    - id: ADV-SS-SCRIBEHAND-002
+      advance_id: ADV-SS-SCRIBEHAND-002
+      title: HTR Fidelity Gate — Bastarda HTR Rejection Sampling with Per-Word Provenance
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDCORPUS-001
+      - ADV-SS-SCRIBEHAND-001
+      notes: Replaces the "letterforms never touched by AI" invariant with "every generated word verified to read as its source text".
+  - id: td018-composition
+    title: Page composition and promotion gates
+    order: 3
+    items:
+    - id: ADV-SS-SCRIBEHAND-003
+      advance_id: ADV-SS-SCRIBEHAND-003
+      title: Neural Page Composition — Layout Integration, Word-Level PAGE XML, --approach neural
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-SCRIBEHAND-002
+      notes: Requires a TD-001 addendum for the word-level PAGE XML contract; evo remains default until gates pass.
+    - id: ADV-SS-HANDVALIDATE-007
+      advance_id: ADV-SS-HANDVALIDATE-007
+      title: Neural Promotion Gates — Style Distance, CER Bands, Anti-Font Check, A/B Bench
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-SCRIBEHAND-003
+      notes: Promotion of --approach neural to default renderer is mechanically blocked until all gates pass on the reviewed proof-folio set.
