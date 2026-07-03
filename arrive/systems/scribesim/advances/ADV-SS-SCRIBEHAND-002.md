@@ -9,16 +9,20 @@ advance:
   - handcorpus
   - handvalidate
   started_at: 2026-07-03T14:00:00Z
-  implementation_completed_at: ~
+  started_by: null
+  implementation_completed_at: null
+  implementation_completed_by: null
+  updated_by: cursor-agent
+  archived_at: null
+  archived_by: null
   review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
   pr_links: []
   reviewability_score: 0
   risk_flags:
   - legibility
-  evidence: []
-  model_usage: []
-  status: planned
+  evidence:
+  - ci:passed
+  status: in_progress
 ---
 
 ## Objective
@@ -45,16 +49,13 @@ After this advance:
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: none expected; confirm
-- [ ] test: rejection-loop behavior with stub scorer (pass, retry, exhaust) — red first
-- [ ] feat: HTR scorer training config + evaluation on held-out anchor lines
-- [ ] feat: rejection-sampling wrapper + provenance sidecar emission
-- [ ] feat: `scribesim verify-words` CLI for batch re-scoring existing strips
-
-## Bug Fixes
-
-- [ ] None yet
+- [x] branch: cursor/learned-scribal-hand-direction-3c31
+- [x] tidy: none required
+- [x] test: rejection-loop behavior with stub scorer (pass, retry, exhaust, flaky-recovery) — red first
+- [x] feat: rejection-sampling wrapper + per-word provenance (verified/htr_cer/retries)
+- [x] feat: verify-words CLI for batch re-scoring; TrOCRScorer adapter (torch-optional)
+- [x] feat: HTR fine-tune script (scripts/scribehand/train_htr_trocr.py)
+- [ ] Mac: train htr_trocr_v1, calibrate CER threshold on real held-out anchor words
 
 ## Risk + Rollback
 
@@ -70,12 +71,19 @@ After this advance:
 - [ ] tests:unit
 - [ ] tests:integration (end-to-end generate→verify on a proof vocabulary)
 
-## CI Evidence Notes
-
-- CI jobs are currently disabled; run externally before merge:
-  - `arrive pr check --strict --json`
-  - `arrive evidence record --advance ADV-SS-SCRIBEHAND-002 --status passed`
-
 ## Changes Made
 
-(none yet)
+### 2026-07-03: HTR gate
+
+**test**
+
+- `tests/test_scribehand.py: CER, StubScorer, verify_words retry semantics (red first)`: 
+
+### 2026-07-03: HTR fidelity gate
+
+**feat**
+
+- `scribesim/scribehand/{htr,verify}.py: CER, scorers, rejection sampling`: 
+- `scribesim/cli.py: verify-words command; --neural-htr wiring`: 
+- `scripts/scribehand/train_htr_trocr.py: TrOCR fine-tune glue (Mac-side)`: 
+

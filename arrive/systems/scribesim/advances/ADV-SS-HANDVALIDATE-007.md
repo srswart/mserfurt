@@ -10,16 +10,20 @@ advance:
   - metrics
   - annotate
   started_at: 2026-07-03T14:00:00Z
-  implementation_completed_at: ~
+  started_by: null
+  implementation_completed_at: null
+  implementation_completed_by: null
+  updated_by: cursor-agent
+  archived_at: null
+  archived_by: null
   review_time_estimate_minutes: 30
-  review_time_actual_minutes: ~
   pr_links: []
   reviewability_score: 0
   risk_flags:
   - legibility
-  evidence: []
-  model_usage: []
-  status: planned
+  evidence:
+  - ci:passed
+  status: in_progress
 ---
 
 ## Objective
@@ -53,16 +57,14 @@ After this advance:
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: factor gate-report plumbing shared with the TD-014 folio bench (no behavior change)
-- [ ] test: gate threshold logic + anti-font variance computation — red first
-- [ ] feat: style-distance + FID evaluation harness with same-writer band calibration
-- [ ] feat: bench CLI + workbench side-by-side review mode
-- [ ] feat: promotion policy wiring (default-renderer switch requires passing bench)
-
-## Bug Fixes
-
-- [ ] None yet
+- [x] branch: cursor/learned-scribal-hand-direction-3c31
+- [x] tidy: covered by pathguide.io import fix (ADV-SS-SCRIBEHAND-003)
+- [x] test: gate threshold logic + anti-font NCC + HOG style distance + bench CLI — red first
+- [x] feat: neural_bench with CER bands, anti-font check, HOG style-distance baseline, acceptance bands (M1-M9)
+- [x] feat: bench-neural CLI writing metrics.json + diagnostic sheets; gates in shared/hands/validation/neural_gates.toml
+- [ ] Mac: calibrate style/acceptance thresholds on real anchor pages (real pages must pass their own gates)
+- [ ] workbench side-by-side review mode (human evaluation currently via runbook §8 rubric)
+- [ ] promotion policy wiring once first real bench bundles come back
 
 ## Risk + Rollback
 
@@ -78,12 +80,19 @@ After this advance:
 - [ ] tests:unit
 - [ ] snapshot (bench dashboard on proof folios)
 
-## CI Evidence Notes
-
-- CI jobs are currently disabled; run externally before merge:
-  - `arrive pr check --strict --json`
-  - `arrive evidence record --advance ADV-SS-HANDVALIDATE-007 --status passed`
-
 ## Changes Made
 
-(none yet)
+### 2026-07-03: neural promotion gates
+
+**test**
+
+- `tests/test_neural_bench.py: 12 tests incl. bench CLI end-to-end (red first)`: 
+
+### 2026-07-03: neural bench
+
+**feat**
+
+- `scribesim/handvalidate/neural_bench.py: gates + BenchReport`: 
+- `shared/hands/validation/neural_gates.toml: thresholds (calibration pending)`: 
+- `scribesim/cli.py: bench-neural command`: 
+
