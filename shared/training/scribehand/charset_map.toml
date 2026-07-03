@@ -1,0 +1,15 @@
+# TD-018 charset contract — XL character inventory -> training charset.
+#
+# Characters NOT listed here must appear verbatim in the training charset
+# (derived from the corpus manifest). Characters listed here are rewritten
+# before generation/HTR scoring. Populate after the first CATMuS pull once
+# the actual training charset is known (`scribesim check-scribehand-corpus`
+# reports the gaps).
+#
+# Example (uncomment/adjust as gaps surface):
+# "\u017f" = "s"      # long s -> s, only if the corpus lacks U+017F
+# "\u00df" = "sz"     # eszett fallback, only if the corpus lacks it
+
+schema = 1
+
+[map]
