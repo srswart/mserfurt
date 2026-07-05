@@ -13,3 +13,24 @@
 schema = 1
 
 [map]
+# XL punctuation / quotes not in CATMuS diplomatic charset
+"!" = "."
+"?" = "."
+"*" = "."
+"\"" = "'"
+"„" = "'"
+"–" = "-"
+"—" = "-"
+
+# Umlauts / accents → digraphs or base vowels (corpus lacks composed forms)
+"ä" = "ae"
+"ö" = "oe"
+"ü" = "ue"
+"Ö" = "O"
+"Ü" = "U"
+"ê" = "e"
+"î" = "i"
+
+# Rare in corpus but appear in XL inventory (Latin / numerals)
+"J" = "I"
+"V" = "u"

@@ -30,7 +30,8 @@ class WordGenerator:
     def _cache_key(self, req: WordRequest) -> str:
         checkpoint = getattr(self.backend, "checkpoint", None) or ""
         payload = json.dumps(
-            [self.backend.name, checkpoint, req.text, req.seed, req.controls],
+            [self.backend.name, checkpoint, req.text, req.seed, req.controls,
+             req.mode],
             sort_keys=True, ensure_ascii=False,
         )
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:24]
@@ -92,6 +93,7 @@ class WordGenerator:
             "folio_id": req.folio_id,
             "line_index": req.line_index,
             "word_index": req.word_index,
+            "mode": req.mode,
             "controls": req.controls,
             "cache_hit": cache_hit,
         }

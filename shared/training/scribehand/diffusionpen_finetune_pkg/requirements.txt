@@ -1,0 +1,19 @@
+# DiffusionPen fine-tune deps (Nebius AI Cloud GPU VM).
+#
+# Install torch FIRST, matched to the box's CUDA, e.g. for CUDA 12.1:
+#   pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cu121
+# (check `nvidia-smi` for the CUDA version and pick the matching wheel index)
+#
+# Then: pip install -r requirements.txt
+
+diffusers==0.39.0
+transformers==5.12.1
+timm==1.0.27
+pillow==12.1.1
+numpy==2.4.3
+opencv-python-headless==5.0.0
+einops==0.8.2
+huggingface_hub
+tqdm
+safetensors
+accelerate

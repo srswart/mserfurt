@@ -115,6 +115,7 @@ def _render_folio_neural(
     base_seed: int,
     allow_unverified: bool,
     diag_dir: str | None,
+    granularity: str = "word",
 ) -> tuple[Path, Path, Path]:
     """TD-018 neural page render: generate → verify → compose → PAGE XML."""
     import numpy as np
@@ -140,6 +141,7 @@ def _render_folio_neural(
     composed = compose_folio(
         folio_dict, profile, generator, scorer=scorer,
         base_seed=base_seed, allow_unverified=allow_unverified,
+        granularity=granularity,
     )
 
     page_path = output_dir / f"{folio_id}.png"
@@ -274,6 +276,7 @@ def _render_folio(
     neural_seed: int = 1457,
     neural_allow_unverified: bool = False,
     neural_diag_dir: str | None = None,
+    neural_granularity: str = "word",
 ) -> tuple[Path, Path, Path]:
     from PIL import Image as PILImage
     from scribesim.layout import place
@@ -286,6 +289,7 @@ def _render_folio(
             backend_name=neural_backend, htr=neural_htr,
             cache_dir=neural_cache_dir, base_seed=neural_seed,
             allow_unverified=neural_allow_unverified, diag_dir=neural_diag_dir,
+            granularity=neural_granularity,
         )
 
     layout = place(folio_dict, params, profile=profile)
@@ -515,6 +519,9 @@ def _render_folio(
               help="Base seed for the deterministic per-word seed policy")
 @click.option("--neural-allow-unverified", "neural_allow_unverified", is_flag=True, default=False,
               help="Compose words that failed HTR verification (exploratory only)")
+@click.option("--neural-granularity", "neural_granularity", default="word", show_default=True,
+              type=click.Choice(["word", "line"]),
+              help="Generate one strip per word, or one strip per line (for line-trained backends)")
 @click.option("--neural-diag-dir", "neural_diag_dir", default=None, type=click.Path(),
               help="Write a TD-018 diagnostic bundle directory for this render")
 @click.option("--dry-run", is_flag=True, default=False,
@@ -526,7 +533,8 @@ def render(folio_id: str, input_dir: str, output_dir: str,
            character_model: str, char_rounds: int, char_candidates: int,
            guided_supersample: int, guided_exact_symbols: bool, guided_guide_catalog: str | None,
            neural_backend: str, neural_htr: str | None, neural_cache_dir: str | None,
-           neural_seed: int, neural_allow_unverified: bool, neural_diag_dir: str | None,
+           neural_seed: int, neural_allow_unverified: bool, neural_granularity: str,
+           neural_diag_dir: str | None,
            dry_run: bool, overrides: tuple) -> None:
     """Render a single folio to PNG + pressure heatmap.
 
@@ -599,6 +607,7 @@ def render(folio_id: str, input_dir: str, output_dir: str,
         neural_seed=neural_seed,
         neural_allow_unverified=neural_allow_unverified,
         neural_diag_dir=neural_diag_dir,
+        neural_granularity=neural_granularity,
     )
 
     click.echo(f"  page    → {png_path}")
@@ -3000,7 +3009,7 @@ def verify_words_cmd(strips_tsv: str, htr: str, cer_threshold: float,
     rows = [r.split("\t") for r in Path(strips_tsv).read_text().strip().splitlines()]
     images = [np.asarray(PILImage.open(r[0]).convert("L"), dtype=np.uint8) for r in rows]
     expected = [r[1] for r in rows]
-    readings = scorer.read(images, expected=expected)
+    readings = scorer.read(images, expected=expected, from_ink_mask=False)
 
     records, failures = [], 0
     for (path, want), got in zip(rows, readings):

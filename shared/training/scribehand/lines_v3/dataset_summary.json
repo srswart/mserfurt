@@ -1,0 +1,23 @@
+{
+  "kept": 1816,
+  "train": 1630,
+  "val": 186,
+  "dropped": {
+    "illegible": 855,
+    "too_short": 10,
+    "too_long": 213,
+    "narrow": 0,
+    "multi_line": 556,
+    "junk_chars": 32,
+    "missing": 0
+  },
+  "writer": "cgm628",
+  "charset_size": 81,
+  "charset": " ',-.01268:?ABCDEGHIJLMNOPRSUVWZabcdefghijklmnopqrstuvwxyz·ßäæñöüÿēōśůſʃʒ̃̄͗ͤͦẏẽꝛ",
+  "filters": {
+    "min_chars": 8,
+    "max_chars": 200,
+    "min_width": 120,
+    "val_frac": 0.1
+  }
+}

@@ -68,10 +68,21 @@ class TrOCRScorer:
         self.model.eval()
         self.checkpoint = checkpoint
 
-    def read(self, images: list[np.ndarray], expected: list[str] | None = None) -> list[str]:  # pragma: no cover
+    def read(
+        self,
+        images: list[np.ndarray],
+        expected: list[str] | None = None,
+        *,
+        from_ink_mask: bool = True,
+    ) -> list[str]:  # pragma: no cover
         from PIL import Image
 
-        pil = [Image.fromarray(255 - img).convert("RGB") for img in images]  # dark ink on light
+        pil: list[Image.Image] = []
+        for img in images:
+            if from_ink_mask:
+                pil.append(Image.fromarray(255 - img).convert("RGB"))
+            else:
+                pil.append(Image.fromarray(img).convert("RGB"))
         with self.torch.no_grad():
             batch = self.processor(images=pil, return_tensors="pt").pixel_values.to(self.device)
             generated = self.model.generate(batch, max_new_tokens=32)

@@ -19,8 +19,18 @@ scribesim/transcribe/
 shared/training/*
 !shared/training/scribehand/
 shared/training/scribehand/**/images/
+shared/training/scribehand/**/skeleton/
+shared/training/scribehand/**/ink/
 shared/training/scribehand/exports/
+shared/training/scribehand/corpus_v1/
 shared/models/scribehand/weights/
+
+# ScribeHand local harvest/anchor working data (regeneratable, image-heavy)
+work/
+anchors/images/
+anchor_words/
+diagnostics/*.zip
+diagnostics/**/.scribehand-cache/
 
 # ScribeHand orchestration local state (machine-specific paths)
 diagnostics/.scribehand-orchestration-state.json

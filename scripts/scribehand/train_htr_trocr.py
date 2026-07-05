@@ -36,6 +36,8 @@ def main() -> None:
     ap.add_argument("--batch-size", type=int, default=16)
     ap.add_argument("--lr", type=float, default=5e-5)
     ap.add_argument("--max-target-len", type=int, default=64)
+    ap.add_argument("--num-workers", type=int, default=0,
+                    help="DataLoader workers (use 0 on macOS spawn)")
     args = ap.parse_args()
 
     import torch
@@ -77,8 +79,9 @@ def main() -> None:
             return {"pixel_values": pixel_values, "labels": labels}
 
     train_dl = DataLoader(WordDataset(train_rows), batch_size=args.batch_size,
-                          shuffle=True, num_workers=2)
-    val_dl = DataLoader(WordDataset(val_rows), batch_size=args.batch_size)
+                          shuffle=True, num_workers=args.num_workers)
+    val_dl = DataLoader(WordDataset(val_rows), batch_size=args.batch_size,
+                        num_workers=args.num_workers)
 
     optim = torch.optim.AdamW(model.parameters(), lr=args.lr)
     steps = args.epochs * max(1, len(train_dl))

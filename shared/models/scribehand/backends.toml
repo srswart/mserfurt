@@ -1,19 +1,22 @@
 # TD-018 generation backends for `scribesim --neural-backend <name>`.
-#
-# `stub-pil` and `stub-evo` are built in (CPU dev). Entries here define
-# CommandBackend runners for the fine-tuned models on the GPU workstation.
-# Uncomment and adjust paths after fine-tuning (docs/scribehand-mac-runbook.md).
+# Bootstrap IAM pretrained weights — replace after bastarda fine-tune.
 
 schema = 1
 
-# [backends.onedm]
-# argv = ["python", "/ABS/PATH/mserfurt/scripts/scribehand/onedm_runner.py"]
-# workdir = "/ABS/PATH/One-DM"            # upstream repo clone (imports resolve here)
-# checkpoint = "/ABS/PATH/One-DM/ckpt/onedm_bastarda_v1.pt"
-# style_dir = "/ABS/PATH/mserfurt/shared/models/scribehand/style_anchor_v1"
+[backends.onedm]
+argv = ["/Users/shawn/Projects/041-mserfurt/.venv/bin/python", "/Users/shawn/Projects/041-mserfurt/scripts/scribehand/onedm_runner.py"]
+workdir = "/Users/shawn/Projects/One-DM"
+checkpoint = "/Users/shawn/Projects/One-DM/ckpt/onedm_bastarda_v1.pt"
+style_dir = "/Users/shawn/Projects/041-mserfurt/shared/models/scribehand/style_anchor_v1"
 
-# [backends.diffusionpen]
-# argv = ["python", "/ABS/PATH/mserfurt/scripts/scribehand/diffusionpen_runner.py"]
-# workdir = "/ABS/PATH/DiffusionPen"
-# checkpoint = "/ABS/PATH/DiffusionPen/ckpt/diffusionpen_bastarda_v1"
-# style_dir = "/ABS/PATH/mserfurt/shared/models/scribehand/style_anchor_v1"
+[backends.inking]
+argv = ["/Users/shawn/Projects/041-mserfurt/.venv/bin/python", "/Users/shawn/Projects/041-mserfurt/scripts/scribehand/inking_runner.py"]
+workdir = "/Users/shawn/Projects/041-mserfurt"
+checkpoint = "/Users/shawn/Projects/041-mserfurt/shared/models/scribehand/weights/inking_cgm628_v1"
+style_dir = "/Users/shawn/Projects/041-mserfurt/shared/models/scribehand/style_anchor_v1"
+
+[backends.diffusionpen]
+argv = ["/Users/shawn/Projects/041-mserfurt/.venv/bin/python", "/Users/shawn/Projects/041-mserfurt/scripts/scribehand/diffusionpen_runner.py"]
+workdir = "/Users/shawn/Projects/DiffusionPen"
+checkpoint = "/Users/shawn/Projects/041-mserfurt/shared/models/scribehand/weights/diffusionpen_cgm628_v3"
+style_dir = "/Users/shawn/Projects/041-mserfurt/shared/models/scribehand/style_anchor_v1"

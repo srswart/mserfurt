@@ -61,6 +61,7 @@ class CommandBackend:
                     "id": f"w{i}",
                     "text": req.text,
                     "seed": req.seed,
+                    "mode": req.mode,
                     "controls": req.controls,
                     "out": str(tmp / f"w{i}.png"),
                 })

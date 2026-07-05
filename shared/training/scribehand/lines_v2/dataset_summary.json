@@ -1,0 +1,21 @@
+{
+  "kept": 2404,
+  "train": 2150,
+  "val": 254,
+  "dropped": {
+    "illegible": 855,
+    "too_short": 10,
+    "too_long": 213,
+    "narrow": 0,
+    "missing": 0
+  },
+  "writer": "cgm628",
+  "charset_size": 95,
+  "charset": " '(),-.01268:=?ABCDEGHIJLMNOPRSTUVWZ[]abcdefghijklmnopqrstuvwxyz|~·ßäæñöúüÿēōśůſʃʒ̃̄͗ͤͦбестẏẽ…ꝛ",
+  "filters": {
+    "min_chars": 8,
+    "max_chars": 200,
+    "min_width": 120,
+    "val_frac": 0.1
+  }
+}

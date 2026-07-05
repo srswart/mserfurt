@@ -9,13 +9,18 @@ import numpy as np
 
 @dataclass
 class WordRequest:
-    """One word to generate."""
+    """One text span to generate — a single word or a whole line.
+
+    ``mode`` is "word" (default) or "line". Line requests carry the full line
+    text; the backend renders one wide strip with natural word spacing.
+    """
 
     text: str
     seed: int
     folio_id: str = ""
     line_index: int = 0
     word_index: int = 0
+    mode: str = "word"
     controls: dict = field(default_factory=dict)   # GenControls.to_dict()
 
 
