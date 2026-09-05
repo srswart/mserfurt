@@ -95,7 +95,8 @@ def verify_baseline(record: dict, output: Path) -> None:
 
 
 def evaluate_benchmark(contract: dict, manifest: dict, output: Path,
-                       dataset: dict | None = None, review: dict | None = None) -> dict:
+                       dataset: dict | None = None, review: dict | None = None,
+                       dataset_root: Path | None = None) -> dict:
     validate_contract(contract)
     blocked, failures = [], []
     records = manifest.get("baselines", [])
@@ -117,6 +118,15 @@ def evaluate_benchmark(contract: dict, manifest: dict, output: Path,
     if dataset is None:
         blocked.append("dataset_missing")
     else:
+        if dataset_root is None:
+            blocked.append("dataset_integrity_unverified")
+        else:
+            from scribesim.evofit.reference_dataset import validate_dataset
+
+            try:
+                validate_dataset(dataset, dataset_root)
+            except (ValueError, KeyError, TypeError, OSError) as error:
+                failures.append(f"dataset_integrity_failure: {error}")
         if dataset.get("contract_sha256") != object_digest(contract):
             failures.append("dataset_contract_identity_mismatch")
         if not dataset.get("samples"):

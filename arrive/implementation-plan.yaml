@@ -1408,11 +1408,11 @@ passes:
     - id: ADV-SS-EXEMPLAR-007
       advance_id: ADV-SS-EXEMPLAR-007
       title: "Konrad Word Observations — Line Masks, Label Uncertainty and Frozen Splits"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-007
-      notes: "Implement the bounded TD-018 stage with focused red/green tests, provenance and explicit failed/blocked outcomes. No model promotion implied by Advance completion."
+      notes: "Completed bounded data preparation: 60 candidates, zero admitted. Exact visible mappings, usable support, source calibration and target review remain unresolved. Integrity and G0 integration implemented; 38 focused/regression tests pass. G0 is blocked independently of this item being done."
   - id: td018-nominal
     title: Recover reusable forms and decide the three-line nominal milestone
     order: 2
