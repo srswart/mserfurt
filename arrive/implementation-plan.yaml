@@ -1428,11 +1428,11 @@ passes:
     - id: ADV-SS-EVOFIT-006
       advance_id: ADV-SS-EVOFIT-006
       title: "Konrad Nominal Recovery — Bounded Topology Search and Context Fitting"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EVOFIT-005
-      notes: "Implement the bounded TD-018 stage with focused red/green tests, provenance and explicit failed/blocked outcomes. No model promotion implied by Advance completion."
+      notes: "Implemented bounded structural/shared-geometry/context recovery and development-only checkpoint selection. Nine synthetic ablations completed at 5000 evaluations each; structural recovery beats fixed topology. 58 tests pass. Real-corpus attempt is blocked at G0 with zero evaluations; no recovered hand or promotion claimed."
     - id: ADV-SS-HANDVALIDATE-008
       advance_id: ADV-SS-HANDVALIDATE-008
       title: "Konrad Nominal Specimen — Unseen Words and Three-Line Acceptance"
