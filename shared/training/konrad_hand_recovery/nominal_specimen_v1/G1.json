@@ -1,0 +1,15 @@
+{
+  "gate": "G1",
+  "status": "blocked",
+  "reasons": [
+    "G0_not_passed",
+    "calibrated_tolerances_not_frozen",
+    "independent_reading_missing",
+    "locked_test_not_scored",
+    "no_recovered_real_corpus_candidate",
+    "owner_appearance_review_missing"
+  ],
+  "promoted": false,
+  "recommendation": "stop_and_repair_prerequisites",
+  "scope": "Nominal appearance/text milestone, not historical ductus or production promotion"
+}

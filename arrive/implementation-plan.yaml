@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-05T18:20:02Z
+  updated_at: 2026-09-05T19:00:15Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1436,11 +1436,11 @@ passes:
     - id: ADV-SS-HANDVALIDATE-008
       advance_id: ADV-SS-HANDVALIDATE-008
       title: "Konrad Nominal Specimen — Unseen Words and Three-Line Acceptance"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EVOFIT-006
-      notes: "First decision milestone: G1 nominal three-line specimen. A completed failed experiment does not authorize guided integration. Freeze/review unseen-word and text evidence."
+      notes: "Implemented frozen three-line/five-string proofs, artifact-aware G1, exact mappings and fresh-process replay. 74 focused/regression tests pass. Actual specimen is an unaccepted seed diagnostic: G1 blocked on G0, real checkpoint/calibration, owner review and independent reading; no locked-test scoring or guided integration."
   - id: td018-guided
     title: Preserve forms through guided execution and evaluate coherent state
     order: 3

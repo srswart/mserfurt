@@ -204,10 +204,12 @@ This project uses [ARRIVE](arrive/) for outcome-first development. The three sys
 
 The next ScribeSim development track is specified in
 [TD-018 — Reference-Grounded Recovery of Konrad's Hand](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md).
-Its ten planned Advances in [Pass 15](arrive/implementation-plan.yaml) progress
+Its ten Advances in [Pass 15](arrive/implementation-plan.yaml) progress
 from clean reference words and a reusable stroke repertoire to a three-line
-specimen, guided execution and opt-in folio evaluation. This is a design and
-implementation plan; the new hand is not implemented or promoted yet.
+specimen, guided execution and opt-in folio evaluation. The benchmark and nominal
+infrastructure are implemented; the recovered reference hand is not accepted or
+promoted. G0 and G1 remain blocked on usable observations and review.
+See the [nominal outcome and replay commands](shared/training/konrad_hand_recovery/nominal_specimen_v1/README.md).
 
 Development follows **Tidy First → Test First → Implement**. Run the test suite with:
 
