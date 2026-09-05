@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "konrad-benchmark-v1",
+  "required_backends": [
+    "plain",
+    "evo",
+    "v1_fitted"
+  ],
+  "required_measurements": [
+    "appearance_review",
+    "image_similarity",
+    "motion_diagnostics",
+    "text_mapping_coverage"
+  ],
+  "rubric": [
+    "letterform_identity",
+    "proportions",
+    "joins_spacing",
+    "hand_coherence",
+    "distortions"
+  ],
+  "split_policy": "source_line_disjoint_test_locked",
+  "source_sha256": "dd818bb99030329b38299faff9583ecc0cb58af23675b9ab2d75ac7ded96ae71",
+  "source_manifest_sha256": "ac5bdb028b8df7f055904b2e6258e12e4ce57cc752157a1c4d979f6fe662b74c",
+  "proofs": [
+    {
+      "kind": "reconstruction",
+      "text": "alle das ist",
+      "label_status": "machine_hypotheses"
+    },
+    {
+      "kind": "unseen",
+      "text": "dein lied deine hand rein",
+      "label_status": "synthetic_unscored"
+    },
+    {
+      "kind": "project_text",
+      "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+      "source": "output-live/f01r.json:line1",
+      "label_status": "project_text"
+    }
+  ],
+  "calibration_protocol": {
+    "status": "pending_clean_dataset",
+    "tune_on": [
+      "train",
+      "development"
+    ],
+    "controls": [
+      "correct",
+      "wrong_letter",
+      "filled_counter",
+      "extra_stroke",
+      "distorted_aspect"
+    ],
+    "freeze_before_test": true,
+    "unknown_fraction_max": 0.35,
+    "symbol_training_instances_min": 3,
+    "symbol_training_word_contexts_min": 2,
+    "initial_instance_target": [
+      30,
+      60
+    ],
+    "note": "Mask/support limits are engineering admission rules, not calibrated image-quality thresholds."
+  },
+  "target_review": "pending",
+  "independent_reading": "unverified",
+  "locked_test_reservation": {
+    "status": "unfilled",
+    "exclude": "all inspected v1 source lines"
+  }
+}

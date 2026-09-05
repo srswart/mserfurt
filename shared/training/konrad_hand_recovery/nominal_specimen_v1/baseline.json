@@ -1,0 +1,1925 @@
+{
+  "schema_version": 2,
+  "units": "local-xheight-y-up",
+  "acceptance": "unaccepted",
+  "forms": {
+    ",:catalog": {
+      "logical": ",",
+      "visible": ",",
+      "mapping": "identity",
+      "advance": 0.25,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.1
+              ],
+              [
+                0.15,
+                0.15
+              ],
+              [
+                0.15,
+                0.0
+              ],
+              [
+                0.1,
+                -0.1
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "comma",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.1
+        ],
+        "exit": [
+          0.1,
+          -0.1
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.04999999999999999,
+          0.04999999999999999
+        ],
+        "exit": [
+          -0.04999999999999999,
+          -0.1
+        ]
+      }
+    },
+    "H:catalog": {
+      "logical": "H",
+      "visible": "H",
+      "mapping": "identity",
+      "advance": 0.72,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.13,
+                0.75
+              ],
+              [
+                0.08,
+                1.35
+              ],
+              [
+                0.06,
+                1.8
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.6,
+                0.0
+              ],
+              [
+                0.63,
+                0.75
+              ],
+              [
+                0.58,
+                1.35
+              ],
+              [
+                0.56,
+                1.8
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.9
+              ],
+              [
+                0.25,
+                0.9
+              ],
+              [
+                0.45,
+                0.9
+              ],
+              [
+                0.6,
+                0.9
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "H",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.0
+        ],
+        "exit": [
+          0.6,
+          0.9
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.03,
+          0.75
+        ],
+        "exit": [
+          0.14999999999999997,
+          0.0
+        ]
+      }
+    },
+    "a:catalog": {
+      "logical": "a",
+      "visible": "a",
+      "mapping": "identity",
+      "advance": 0.55,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.3,
+                0.7
+              ],
+              [
+                0.08,
+                0.92
+              ],
+              [
+                -0.02,
+                0.48
+              ],
+              [
+                0.1,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.28,
+                -0.03
+              ],
+              [
+                0.42,
+                0.25
+              ],
+              [
+                0.42,
+                0.7
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.42,
+                0.7
+              ],
+              [
+                0.43,
+                1.02
+              ],
+              [
+                0.41,
+                0.48
+              ],
+              [
+                0.38,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "a",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.3,
+          0.7
+        ],
+        "exit": [
+          0.38,
+          0.0
+        ]
+      },
+      "tangents": {
+        "entry": [
+          -0.21999999999999997,
+          0.22000000000000008
+        ],
+        "exit": [
+          -0.02999999999999997,
+          -0.48
+        ]
+      }
+    },
+    "b:catalog": {
+      "logical": "b",
+      "visible": "b",
+      "mapping": "identity",
+      "advance": 0.55,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.13,
+                0.7
+              ],
+              [
+                0.08,
+                1.4
+              ],
+              [
+                0.05,
+                1.8
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.7
+              ],
+              [
+                0.28,
+                0.95
+              ],
+              [
+                0.5,
+                0.75
+              ],
+              [
+                0.5,
+                0.4
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.5,
+                0.4
+              ],
+              [
+                0.48,
+                0.08
+              ],
+              [
+                0.28,
+                -0.03
+              ],
+              [
+                0.1,
+                0.02
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "b",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.0
+        ],
+        "exit": [
+          0.1,
+          0.02
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.03,
+          0.7
+        ],
+        "exit": [
+          -0.18000000000000002,
+          0.05
+        ]
+      }
+    },
+    "c:catalog": {
+      "logical": "c",
+      "visible": "c",
+      "mapping": "identity",
+      "advance": 0.48,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.45,
+                0.72
+              ],
+              [
+                0.12,
+                0.95
+              ],
+              [
+                -0.03,
+                0.62
+              ],
+              [
+                0.0,
+                0.35
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.35
+              ],
+              [
+                -0.02,
+                0.08
+              ],
+              [
+                0.18,
+                -0.03
+              ],
+              [
+                0.45,
+                0.02
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "c",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.45,
+          0.72
+        ],
+        "exit": [
+          0.45,
+          0.02
+        ]
+      },
+      "tangents": {
+        "entry": [
+          -0.33,
+          0.22999999999999998
+        ],
+        "exit": [
+          0.27,
+          0.05
+        ]
+      }
+    },
+    "d:catalog": {
+      "logical": "d",
+      "visible": "d",
+      "mapping": "identity",
+      "advance": 0.55,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.72
+              ],
+              [
+                0.18,
+                0.95
+              ],
+              [
+                -0.02,
+                0.72
+              ],
+              [
+                0.0,
+                0.35
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.35
+              ],
+              [
+                -0.02,
+                0.08
+              ],
+              [
+                0.22,
+                -0.02
+              ],
+              [
+                0.4,
+                0.1
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.1
+              ],
+              [
+                0.42,
+                0.75
+              ],
+              [
+                0.38,
+                1.35
+              ],
+              [
+                0.36,
+                1.8
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "d",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.4,
+          0.72
+        ],
+        "exit": [
+          0.36,
+          1.8
+        ]
+      },
+      "tangents": {
+        "entry": [
+          -0.22000000000000003,
+          0.22999999999999998
+        ],
+        "exit": [
+          -0.020000000000000018,
+          0.44999999999999996
+        ]
+      }
+    },
+    "e:catalog": {
+      "logical": "e",
+      "visible": "e",
+      "mapping": "identity",
+      "advance": 0.5,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.5
+              ],
+              [
+                -0.02,
+                0.65
+              ],
+              [
+                -0.02,
+                0.92
+              ],
+              [
+                0.4,
+                0.92
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.92
+              ],
+              [
+                0.52,
+                0.48
+              ],
+              [
+                0.38,
+                -0.02
+              ],
+              [
+                0.08,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.05,
+                0.5
+              ],
+              [
+                0.18,
+                0.48
+              ],
+              [
+                0.32,
+                0.48
+              ],
+              [
+                0.45,
+                0.5
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "e",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.5
+        ],
+        "exit": [
+          0.45,
+          0.5
+        ]
+      },
+      "tangents": {
+        "entry": [
+          -0.12000000000000001,
+          0.15000000000000002
+        ],
+        "exit": [
+          0.13,
+          0.020000000000000018
+        ]
+      }
+    },
+    "g:catalog": {
+      "logical": "g",
+      "visible": "g",
+      "mapping": "identity",
+      "advance": 0.52,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.72
+              ],
+              [
+                0.18,
+                0.95
+              ],
+              [
+                -0.02,
+                0.72
+              ],
+              [
+                0.0,
+                0.35
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.35
+              ],
+              [
+                -0.02,
+                0.08
+              ],
+              [
+                0.22,
+                -0.02
+              ],
+              [
+                0.4,
+                0.02
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.02
+              ],
+              [
+                0.42,
+                -0.35
+              ],
+              [
+                0.18,
+                -0.62
+              ],
+              [
+                -0.02,
+                -0.48
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                -0.02,
+                -0.48
+              ],
+              [
+                -0.12,
+                -0.28
+              ],
+              [
+                0.02,
+                -0.08
+              ],
+              [
+                0.22,
+                0.02
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "g",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.4,
+          0.72
+        ],
+        "exit": [
+          0.22,
+          0.02
+        ]
+      },
+      "tangents": {
+        "entry": [
+          -0.22000000000000003,
+          0.22999999999999998
+        ],
+        "exit": [
+          0.2,
+          0.1
+        ]
+      }
+    },
+    "h:catalog": {
+      "logical": "h",
+      "visible": "h",
+      "mapping": "identity",
+      "advance": 0.6,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.13,
+                0.7
+              ],
+              [
+                0.08,
+                1.35
+              ],
+              [
+                0.06,
+                1.8
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.82
+              ],
+              [
+                0.22,
+                1.02
+              ],
+              [
+                0.42,
+                1.02
+              ],
+              [
+                0.5,
+                0.82
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.5,
+                0.82
+              ],
+              [
+                0.52,
+                0.38
+              ],
+              [
+                0.48,
+                0.08
+              ],
+              [
+                0.47,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "h",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.0
+        ],
+        "exit": [
+          0.47,
+          0.0
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.03,
+          0.7
+        ],
+        "exit": [
+          -0.010000000000000009,
+          -0.08
+        ]
+      }
+    },
+    "i:catalog": {
+      "logical": "i",
+      "visible": "i",
+      "mapping": "identity",
+      "advance": 0.32,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.15,
+                0.0
+              ],
+              [
+                0.17,
+                0.28
+              ],
+              [
+                0.14,
+                0.72
+              ],
+              [
+                0.13,
+                1.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                1.22
+              ],
+              [
+                0.14,
+                1.26
+              ],
+              [
+                0.2,
+                1.26
+              ],
+              [
+                0.25,
+                1.22
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "i",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.15,
+          0.0
+        ],
+        "exit": [
+          0.25,
+          1.22
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.020000000000000018,
+          0.28
+        ],
+        "exit": [
+          0.04999999999999999,
+          -0.040000000000000036
+        ]
+      }
+    },
+    "l:catalog": {
+      "logical": "l",
+      "visible": "l",
+      "mapping": "identity",
+      "advance": 0.3,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.15,
+                0.0
+              ],
+              [
+                0.18,
+                0.7
+              ],
+              [
+                0.13,
+                1.35
+              ],
+              [
+                0.1,
+                1.8
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "l",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.15,
+          0.0
+        ],
+        "exit": [
+          0.1,
+          1.8
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.03,
+          0.7
+        ],
+        "exit": [
+          -0.03,
+          0.44999999999999996
+        ]
+      }
+    },
+    "m:catalog": {
+      "logical": "m",
+      "visible": "m",
+      "mapping": "identity",
+      "advance": 0.8,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.13,
+                0.45
+              ],
+              [
+                0.11,
+                0.78
+              ],
+              [
+                0.1,
+                1.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.92
+              ],
+              [
+                0.22,
+                1.04
+              ],
+              [
+                0.36,
+                1.02
+              ],
+              [
+                0.4,
+                0.9
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.9
+              ],
+              [
+                0.42,
+                0.38
+              ],
+              [
+                0.39,
+                0.08
+              ],
+              [
+                0.38,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.92
+              ],
+              [
+                0.52,
+                1.04
+              ],
+              [
+                0.66,
+                1.02
+              ],
+              [
+                0.7,
+                0.9
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.7,
+                0.9
+              ],
+              [
+                0.72,
+                0.38
+              ],
+              [
+                0.69,
+                0.08
+              ],
+              [
+                0.68,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "m",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.0
+        ],
+        "exit": [
+          0.68,
+          0.0
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.03,
+          0.45
+        ],
+        "exit": [
+          -0.009999999999999898,
+          -0.08
+        ]
+      }
+    },
+    "n:catalog": {
+      "logical": "n",
+      "visible": "n",
+      "mapping": "identity",
+      "advance": 0.55,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.13,
+                0.45
+              ],
+              [
+                0.11,
+                0.78
+              ],
+              [
+                0.1,
+                1.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.92
+              ],
+              [
+                0.22,
+                1.04
+              ],
+              [
+                0.36,
+                1.02
+              ],
+              [
+                0.4,
+                0.9
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.4,
+                0.9
+              ],
+              [
+                0.42,
+                0.38
+              ],
+              [
+                0.39,
+                0.08
+              ],
+              [
+                0.38,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "n",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.0
+        ],
+        "exit": [
+          0.38,
+          0.0
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.03,
+          0.45
+        ],
+        "exit": [
+          -0.010000000000000009,
+          -0.08
+        ]
+      }
+    },
+    "r:catalog": {
+      "logical": "r",
+      "visible": "r",
+      "mapping": "identity",
+      "advance": 0.43,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.13,
+                0.45
+              ],
+              [
+                0.11,
+                0.78
+              ],
+              [
+                0.1,
+                1.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.92
+              ],
+              [
+                0.22,
+                1.04
+              ],
+              [
+                0.32,
+                1.02
+              ],
+              [
+                0.4,
+                0.82
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "r",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          0.0
+        ],
+        "exit": [
+          0.4,
+          0.82
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.03,
+          0.45
+        ],
+        "exit": [
+          0.08000000000000002,
+          -0.20000000000000007
+        ]
+      }
+    },
+    "s:catalog": {
+      "logical": "s",
+      "visible": "s",
+      "mapping": "identity",
+      "advance": 0.48,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.35,
+                0.88
+              ],
+              [
+                0.08,
+                0.98
+              ],
+              [
+                -0.03,
+                0.72
+              ],
+              [
+                0.0,
+                0.5
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.5
+              ],
+              [
+                -0.02,
+                0.18
+              ],
+              [
+                0.22,
+                -0.02
+              ],
+              [
+                0.42,
+                0.12
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.42,
+                0.12
+              ],
+              [
+                0.52,
+                0.22
+              ],
+              [
+                0.5,
+                0.62
+              ],
+              [
+                0.38,
+                0.82
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "s",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.35,
+          0.88
+        ],
+        "exit": [
+          0.38,
+          0.82
+        ]
+      },
+      "tangents": {
+        "entry": [
+          -0.26999999999999996,
+          0.09999999999999998
+        ],
+        "exit": [
+          -0.12,
+          0.19999999999999996
+        ]
+      }
+    },
+    "t:catalog": {
+      "logical": "t",
+      "visible": "t",
+      "mapping": "identity",
+      "advance": 0.42,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.2,
+                -0.1
+              ],
+              [
+                0.22,
+                0.45
+              ],
+              [
+                0.19,
+                1.05
+              ],
+              [
+                0.17,
+                1.5
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.72
+              ],
+              [
+                0.1,
+                0.68
+              ],
+              [
+                0.3,
+                0.68
+              ],
+              [
+                0.4,
+                0.72
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "t",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.2,
+          -0.1
+        ],
+        "exit": [
+          0.4,
+          0.72
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.01999999999999999,
+          0.55
+        ],
+        "exit": [
+          0.10000000000000003,
+          0.039999999999999925
+        ]
+      }
+    },
+    "u:catalog": {
+      "logical": "u",
+      "visible": "u",
+      "mapping": "identity",
+      "advance": 0.55,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                1.0
+              ],
+              [
+                0.12,
+                0.48
+              ],
+              [
+                0.09,
+                0.18
+              ],
+              [
+                0.08,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.08,
+                0.0
+              ],
+              [
+                0.18,
+                -0.04
+              ],
+              [
+                0.35,
+                -0.04
+              ],
+              [
+                0.42,
+                0.02
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.42,
+                0.02
+              ],
+              [
+                0.41,
+                0.22
+              ],
+              [
+                0.43,
+                0.52
+              ],
+              [
+                0.42,
+                1.0
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "u",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.1,
+          1.0
+        ],
+        "exit": [
+          0.42,
+          1.0
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.01999999999999999,
+          -0.52
+        ],
+        "exit": [
+          -0.010000000000000009,
+          0.48
+        ]
+      }
+    },
+    "z:catalog": {
+      "logical": "z",
+      "visible": "z",
+      "mapping": "identity",
+      "advance": 0.47,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.0,
+                1.0
+              ],
+              [
+                0.12,
+                1.02
+              ],
+              [
+                0.32,
+                0.98
+              ],
+              [
+                0.45,
+                1.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.45,
+                1.0
+              ],
+              [
+                0.32,
+                0.68
+              ],
+              [
+                0.15,
+                0.32
+              ],
+              [
+                0.0,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                0.12,
+                -0.02
+              ],
+              [
+                0.32,
+                0.02
+              ],
+              [
+                0.45,
+                0.0
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "z",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.0,
+          1.0
+        ],
+        "exit": [
+          0.45,
+          0.0
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.12,
+          0.020000000000000018
+        ],
+        "exit": [
+          0.13,
+          -0.02
+        ]
+      }
+    },
+    "ß:catalog": {
+      "logical": "ß",
+      "visible": "ß",
+      "mapping": "identity",
+      "advance": 0.52,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.2,
+                1.8
+              ],
+              [
+                0.15,
+                1.4
+              ],
+              [
+                0.1,
+                1.0
+              ],
+              [
+                0.1,
+                0.5
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                0.5
+              ],
+              [
+                0.1,
+                0.2
+              ],
+              [
+                0.1,
+                0.0
+              ],
+              [
+                0.1,
+                -0.05
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                1.6
+              ],
+              [
+                0.2,
+                1.7
+              ],
+              [
+                0.35,
+                1.7
+              ],
+              [
+                0.4,
+                1.6
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                1.4
+              ],
+              [
+                0.25,
+                1.45
+              ],
+              [
+                0.4,
+                1.35
+              ],
+              [
+                0.45,
+                1.1
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.45,
+                1.1
+              ],
+              [
+                0.45,
+                0.8
+              ],
+              [
+                0.35,
+                0.6
+              ],
+              [
+                0.2,
+                0.5
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.2,
+                0.5
+              ],
+              [
+                0.35,
+                0.5
+              ],
+              [
+                0.45,
+                0.4
+              ],
+              [
+                0.45,
+                0.1
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "esszett",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.2,
+          1.8
+        ],
+        "exit": [
+          0.45,
+          0.1
+        ]
+      },
+      "tangents": {
+        "entry": [
+          -0.05000000000000002,
+          -0.40000000000000013
+        ],
+        "exit": [
+          0.0,
+          -0.30000000000000004
+        ]
+      }
+    }
+  },
+  "rules": [],
+  "joins": [],
+  "x_height_mm": 3.8,
+  "nib_width_mm": 0.6,
+  "nib_angle_deg": 42.0,
+  "letter_gap": 0.08,
+  "space_advance": 0.6
+}

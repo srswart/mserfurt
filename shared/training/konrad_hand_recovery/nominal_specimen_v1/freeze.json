@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "scope": "unaccepted-seed-diagnostic",
+  "g0": {
+    "gate": "G0",
+    "status": "blocked",
+    "reasons": [
+      "admitted_split_coverage_missing",
+      "calibration_missing",
+      "fewer_than_30_usable_instances",
+      "insufficient_training_support",
+      "split_coverage_missing",
+      "target_review_missing"
+    ],
+    "promoted": false,
+    "contract_sha256": "5727880e40845294df9a96c0d36f8c7f29937390c5b27f1e929b68d9afe3b4aa",
+    "scope": "benchmark readiness; no model, readability or historical approval"
+  },
+  "criteria": {
+    "status": "pending_real_source_calibration",
+    "per_case_max_loss": null,
+    "per_case_max_regression": null,
+    "unseen_mean_min_gain": null
+  },
+  "proofs": [
+    {
+      "kind": "reconstruction",
+      "text": "alle das ist",
+      "label_status": "machine_hypotheses"
+    },
+    {
+      "kind": "unseen",
+      "text": "dein lied deine hand rein",
+      "label_status": "synthetic_unscored"
+    },
+    {
+      "kind": "project_text",
+      "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+      "source": "output-live/f01r.json:line1",
+      "label_status": "project_text"
+    }
+  ],
+  "training_texts": [],
+  "synthetic_unseen": [
+    "dein",
+    "lied",
+    "deine",
+    "hand",
+    "rein"
+  ],
+  "test_inventory": [
+    {
+      "id": "native29-proposal-052",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "b79c3103764732440acccc389597f53ebf05db79f9e04d87194d289f6c62884c",
+      "mask_sha256": "a01eef2925c7003efbd38cc6fb9112c4a0cf3ac61967249292ca73da14139899"
+    },
+    {
+      "id": "native29-proposal-053",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "904e4ca02eea0dfa8b4a27a00d649d8d87d049c39dced1bf9161165b6cb6c2f2",
+      "mask_sha256": "551982fa8831a23974aa2004f309d4f30b15117e0ff7673bdbc23d39b78c672a"
+    },
+    {
+      "id": "native29-proposal-054",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "59566b0a6eb7598e6e1e88746bb109ea17b35e4d8265f729a9e26fd1ac3aa0d3",
+      "mask_sha256": "89520f2b01884a6b482e9d8eb85e83cee3905e073fb1cb125c51ae8b8790de4f"
+    },
+    {
+      "id": "native29-proposal-055",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "817bcf20bb1e15abde43a062b22a0f16e0e6841eb6fe7c51d3f56a1562297f65",
+      "mask_sha256": "e4bcff6e3695a2dd72c5a07a7aeb8239637bc85ceb2d60ed9224db6c53c497d7"
+    },
+    {
+      "id": "native29-proposal-056",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "4a9ad3db451288be9bbc87346a3f6251b7b04a5a54965b8495ddcaf0bc3639dd",
+      "mask_sha256": "99c3e3ee65315003616cf02207bc801eaefdfa58da92ceca13fc22b054315ba8"
+    },
+    {
+      "id": "native29-proposal-057",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "1c10dd746c1897c4f9a30f8544622d1834bcf1e183f4024b21ab656463ccc4f9",
+      "mask_sha256": "d6a8cc5f364d5f6ea0750a73549d084d88b8f693e983fae22f69eebe26c0755f"
+    },
+    {
+      "id": "native29-proposal-058",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "7267b130df3616fd3f4bc39026bc263392f5b87c8730fdeacc5110975b9f1fa6",
+      "mask_sha256": "8d73aaed8e491c793cc4dadbf13ca92a4fa7c2b230475bc59fee6b3dd5d5c28b"
+    },
+    {
+      "id": "native29-proposal-059",
+      "text": "",
+      "admission": "quarantined",
+      "group": "unseen",
+      "exclusions": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "raw_sha256": "c17ea9a9cecb57fde41a4fb6073e0c86472953230caf2b0c2e9be76b93bb41a0",
+      "mask_sha256": "c4fa9c1ee35244aac6a043b25ff203439727274e7c2aff412c70713c324cecc1"
+    }
+  ],
+  "model_sha256": "c28801092685fd5f66f5e8a61f0beaeb15aa7f1f56adc808cb647b7779bf769c",
+  "baseline_sha256": "d7a4f393c7e9c53e94f203534500c4765b9459f4ac9e09023aa308a2c8867a15",
+  "revision": 0,
+  "recovery_report_sha256": null,
+  "dataset_sha256": "4d3cf14b236644a9232f59d476821e521c3166cf56e278b61c6af213ee6176a0",
+  "contract_sha256": "5727880e40845294df9a96c0d36f8c7f29937390c5b27f1e929b68d9afe3b4aa",
+  "dpi": 180,
+  "objective": {
+    "version": "masked-native-multiscale-v1",
+    "ink": 0.5,
+    "contour": 0.2,
+    "spacing": 0.15,
+    "counters": 0.1,
+    "mass": 0.05,
+    "complexity": 0.001,
+    "translation_px": 2,
+    "isotropic_scales": [
+      0.95,
+      1.0,
+      1.05
+    ],
+    "note": "Engineering synthetic-tested weights; real-source calibration remains required"
+  },
+  "nuisance_policy": "native xheight scale; baseline-centered placement frozen for both candidates",
+  "baseline_identity": "neutral catalog repertoire adapter; not the production CLI",
+  "files": {
+    "candidate.json": "f7777406fe58271efbc4d98e70ff42d2158b2265ad8a5f9d8f6c7dd09decb80a",
+    "baseline.json": "f8041e45bd02eb4f5d47aa9254a49c3548693aabc3f6fa517e167ec28e1aec75",
+    "contract.json": "4b5bb78414db180e33bede0c1573311adcb60662b5d008b5c290082d60917c5b",
+    "criteria.json": "c2c0ac9bfe33c95d7b69a32a199731add7aee0bcec8650338861adcde8f0b0b6",
+    "reference-sheet.png": "221c1a54e594ecf40849b2eb299e780180e88cffac88623f312e71cb262342b9"
+  },
+  "code": {
+    "scribesim/handvalidate/nominal.py": "232f8b41db5c0aef112ef427668fbffda0b33b288597952d85310d428de8cf7a",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evo/renderer.py": "dfe4c6ac0917293e89b303ec0ed198676ad7d3e6c919133d98b73e86d5acb0e7",
+    "scribesim/evo/genome.py": "bc90893d993e39be2623559d68cfa60182f70c64ef597498028d241e35a3f32c"
+  }
+}

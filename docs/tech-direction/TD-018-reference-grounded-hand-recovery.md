@@ -1,9 +1,9 @@
 # TD-018 — Reference-Grounded Recovery of Konrad's Hand
 
-**Status:** proposed implementation design; no hand or renderer promoted.  
+**Status:** benchmark/nominal infrastructure implemented; G0/G1 blocked; no hand or renderer promoted.
 **Date:** 2026-09-05  
 **First milestone:** three convincing lines generated from reusable stroke programs, including unseen words.  
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), ten planned Advances.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), ten Advances; five implementation outcomes complete.
 
 ## 1. Outcome and scope
 
@@ -338,8 +338,22 @@ retains failed evidence; no reference or production output is overwritten.
 
 ## 10. Advances and execution sequence
 
-All records below are planned; their checklists and evidence are prospective.
-Draft timestamps record document creation, not completed implementation work.
+The benchmark and nominal records now contain executed evidence. Their completed
+implementation outcomes do not mean G0/G1 passed: the corpus has zero admitted
+observations and no accepted recovered checkpoint. Guided/folio records remain
+planned. Draft timestamps alone do not indicate implementation completion.
+
+### Implemented nominal interfaces and evidence boundary
+
+- `python -m scribesim.evofit.repertoire --model <json> --text <exact-text> --output <new-png>` renders shared contact programs directly. No production backend defaults change.
+- `python -m scribesim.evofit.recovery --output <new-run> --evaluations 5000` runs a synthetic missing-loop control. Add `--dataset-root reference/konrad_hand_recovery_v2` for the actual gated corpus attempt, which currently stops at G0.
+- `python -m scribesim.handvalidate.nominal build --output <new-bundle>` records the three-line and five-string seed diagnostic, randomized equal-scale comparisons, replay evidence and blocked G1. It is not a convincing-hand claim.
+- A later real specimen requires `--recovery-root <real-run>`, identity-bound `--criteria <json>` calibrated on train/development, and the G0 `--target-review <json>`. `evaluate` accepts the separate owner/independent-reading `--review <json>` and rechecks artifacts, live readiness and frozen per-case losses.
+- The nominal specimen lives in a focused sibling module, `handvalidate/nominal.py`, reusing the benchmark module rather than expanding its baseline CLI. This replaces the proposed nominal `hand-proof` surface; guided CLI integration is still pending.
+- The implemented image objective uses native masked overlap at three morphological scales, contour, projections/spacing, counter and mass terms. Its synthetic controls are not real-source calibration. Skeleton chains and counter ellipses are hypotheses, not recovered historical ductus.
+- Matched synthetic ablations establish missing-loop recoverability, not a contextual-form advantage or manuscript generalization. The full corpus ablations and owner-accepted specimen remain gated and unexecuted.
+
+See [the frozen nominal outcome](../../shared/training/konrad_hand_recovery/nominal_specimen_v1/README.md).
 
 | Advance | Reviewable outcome | Depends on |
 |---|---|---|

@@ -516,6 +516,9 @@ def run_recovery(output, *, dataset_root=None, benchmark_root=None, review=None,
     report = {"status": scope, "promoted": False, "runs": runs, "selected": best,
               "selection": "development only; locked test not scored", "objective_sha256": object_digest(OBJECTIVE),
               "code_sha256": digest(Path(__file__)), "config_sha256": digest(output / "config.json"),
+              "initial_sha256": digest(output / "initial.json"),
+              "dataset_sha256": digest(dataset_root / "manifest.json") if dataset_root is not None else None,
+              "contract_sha256": object_digest(contract) if dataset_root is not None else None,
               "selected_sha256": digest(output / "selected.json")}
     write_json(output / "report.json", report)
     return report
