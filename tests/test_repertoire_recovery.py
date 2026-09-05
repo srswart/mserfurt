@@ -116,3 +116,15 @@ def test_invalid_and_unsupported_inputs_do_not_get_silently_dropped():
         fit_repertoire(samples, seed, max_evaluations=10)
     with pytest.raises(ValueError, match="development"):
         fit_repertoire(samples[:1], seed, max_evaluations=10)
+
+
+def test_initialization_timeout_and_duplicate_observation_ids_are_explicit():
+    seed, samples = synthetic_case()
+    result = fit_repertoire(samples, seed, max_evaluations=10, seconds=1e-12)
+    assert result["stop_reason"] == "wall_time"
+    assert result["status"] == "unresolved_initialization"
+    assert result["model"] is None
+    assert result["evaluations"] == 0
+    samples[-1]["id"] = samples[0]["id"]
+    with pytest.raises(ValueError, match="Duplicate"):
+        fit_repertoire(samples, seed, max_evaluations=10)
