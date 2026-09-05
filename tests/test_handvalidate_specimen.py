@@ -13,6 +13,7 @@ from scribesim.handvalidate.specimen import (
     verify_baseline,
     write_equal_scale_panel,
     render_worker,
+    object_digest,
 )
 
 
@@ -106,3 +107,16 @@ def test_evo_smoke_places_catalog_strokes_inside_its_canvas(tmp_path):
     assert len(ink_rows) > 50
     assert ink_rows.min() > 0
     assert ink_rows.max() < pixels.shape[0] - 1
+
+
+def test_unverified_dataset_summary_cannot_make_g0_pass(benchmark):
+    contract = json.loads((benchmark / "contract.json").read_text())
+    baselines = json.loads((benchmark / "baseline_manifest.json").read_text())
+    fake = {"contract_sha256": object_digest(contract), "samples": [{"id": "pretend"}],
+            "status": "pass", "split_counts": {"train": 30, "development": 10, "test": 10},
+            "calibration": {"status": "pass"}}
+    review = {"reviewer": "fixture", "date": "2026-09-05", "decision": "acceptable",
+              "contract_sha256": object_digest(contract)}
+    decision = evaluate_benchmark(contract, baselines, benchmark, dataset=fake, review=review)
+    assert decision["status"] == "blocked"
+    assert "dataset_integrity_unverified" in decision["reasons"]

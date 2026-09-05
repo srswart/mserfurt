@@ -157,6 +157,22 @@ def test_modified_export_and_forged_admission_are_detected(manifest, tmp_path):
         validate_dataset(altered, tmp_path / "dataset")
 
 
+def test_transform_and_same_hash_source_aliases_cannot_hide_errors(manifest, tmp_path):
+    result = build_fixture(manifest, tmp_path)
+    altered = copy.deepcopy(result)
+    altered["samples"][0]["source_to_crop"][2] = 300
+    with pytest.raises(ValueError, match="transform"):
+        validate_dataset(altered, tmp_path / "dataset")
+    altered = copy.deepcopy(result)
+    source = copy.deepcopy(altered["sources"][0])
+    source["id"] = "alias"
+    altered["sources"].append(source)
+    altered["samples"][1]["source_id"] = "alias"
+    altered["samples"][1]["line_index"] = 0
+    with pytest.raises(ValueError, match="line shared"):
+        validate_dataset(altered, tmp_path / "dataset")
+
+
 def test_v1_heldout_lines_cannot_reenter_training_or_locked_test():
     manifest = prepare_v1_manifest()
     samples = manifest["samples"]
