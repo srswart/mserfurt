@@ -142,3 +142,10 @@ Actual local evidence:
 - Added narrow v2 artifact tracking and focused test selector coverage.
 - Generated raw/mask/cleaned crops, source/split manifests, six paginated review sheets, coverage/calibration reports and G0.
 - Finished the bounded 60-candidate experiment with its failure reasons retained. This does not unblock nominal recovery.
+
+### 2026-09-05 — verify: Clean-checkout execution before merge
+
+- A fresh local clone containing only tracked files passed all 38 focused/regression tests (12.46s).
+- The documented dataset command in that clone reproduced 60 candidates, zero admitted, the 41/11/8 candidate split and the same blocked G0 reasons.
+- Merge target is local `master`, authorized by the user. No remote push or provider CI is claimed.
+- Locate the merge with `git log --merges --grep=ADV-SS-EXEMPLAR-007`; all evidence is recorded before that merge.
