@@ -6,7 +6,7 @@ advance:
   primary_component: "handvalidate"
   components: ["handvalidate", "evo", "tests"]
   started_at: "2026-09-05T17:30:14Z"
-  implementation_completed_at: "2026-09-05T18:58:03Z"
+  implementation_completed_at: "2026-09-05T19:00:15Z"
   review_time_estimate_minutes: 25
   review_time_actual_minutes: ~
   pr_links: []
@@ -120,6 +120,13 @@ G1 rejects omitted or aliased text, stale artifacts, forged per-case summaries, 
 - Actual result: G1 blocked; no locked-test scores, no repeated/unseen reference losses, no independent readings and no owner acceptance. All eight schema-level mappings are exact, but that does not establish correct visible historical forms. No diagnosed revision or guided integration was attempted.
 - Broader legacy checks: 13 passed and one folio benchmark failed because the existing exact guided renderer lacks a guide for uppercase H. No guided code changed; baseline verification is recorded below separately.
 - `arrive plan check` passed. Strict PR check was executed and hit the same installed three-part-ID parsing limitation (ids=[]). No provider CI or owner review is claimed.
+
+### Clean-checkout and baseline verification
+
+- Feature checkpoint `5ae8781` was cloned locally without ignored workspace files into `/tmp/td018-nominal-clean.TdwAfK`. The seven focused/regression test files passed all 74 tests in 16.89 seconds; the committed specimen independently re-evaluated to the same blocked G1 result.
+- The broader legacy folio failure was checked at pre-phase checkpoint `50c163c` in `/tmp/td018-baseline-audit.a4V8eY`. That clean baseline first failed because its handsim training manifest is ignored/untracked. After supplying the existing local handsim fixture via a symlink in the temporary audit checkout only, it reproduced the identical uppercase-H missing-guide failure and deterministic_pass_rate 0.0. Neither legacy issue was introduced or fixed by this phase.
+- Earlier phase integration receipts: repertoire merge `0aff3ea`; recovery merge `06b163a`. This final Advance includes only a three-field recovery-export identity addition needed to bind a future real G1 checkpoint to its initial model, dataset and contract; historical synthetic run hashes retain their original execution provenance.
+- The implementation outcome is complete; unchecked real-acceptance gates above remain intentionally unmet. The next action is reference admission/calibration/target review, not guided realism.
 
 ## Changes Made
 
