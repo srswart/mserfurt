@@ -28,3 +28,10 @@ previously inspected held-out pixels are development evidence only.
 
 G0 being blocked is an expected, honest result while a required dataset or
 target review is missing. Completing the implementation does not promote a hand.
+
+The second phase item produced `reference/konrad_hand_recovery_v2/`: 60 candidate
+regions, zero admitted, with raw/mask/cleaned panels and explicit coverage debt.
+Its `G0.json` is the latest combined dataset/benchmark readiness result.
+The implementation rejects forged pass summaries by revalidating actual dataset
+artifacts. Missing exact visible mappings, usable observations, source calibration
+and target review still block the nominal-recovery milestone.

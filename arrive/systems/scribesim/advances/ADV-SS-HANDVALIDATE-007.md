@@ -141,3 +141,9 @@ Actual local evidence:
 - Added scoped test/evidence selectors and a narrow tracked training-artifact exception.
 - Generated and visually inspected the immutable benchmark bundle; preserved EVOFIT-004 as in progress.
 - Implementation is complete; model acceptance is not. Dataset preparation is the next phase item.
+
+### 2026-09-05 — merge: Verify clean checkout and integrate
+
+- A clean local clone passed the same 17 tests (15.26s).
+- Merged into local `master` as `0bdb157`; no remote push or provider CI performed.
+- An earlier source-archive check lacked Git metadata required by baseline capture; the real clean-clone check replaces that unsuitable harness.
