@@ -1,0 +1,101 @@
+{
+  "status": "synthetic-known-loop-only-not-Konrad",
+  "promoted": false,
+  "runs": [
+    {
+      "mode": "fixed",
+      "seed": 7,
+      "development_loss": 0.3962154207997321,
+      "model_sha256": "6fbf4dc8ec220b74a7e3e86d4f52350737dfcb9ad0ce89219a2c84ea849df684",
+      "evaluations": 5000,
+      "runtime_seconds": 8.496028291992843,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "fixed",
+      "seed": 19,
+      "development_loss": 0.3992390055703096,
+      "model_sha256": "295813576d64aab116da7cac5e6bd6e83d44b5341f7b8d88f31a58404448287d",
+      "evaluations": 5000,
+      "runtime_seconds": 8.565493792004418,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "fixed",
+      "seed": 41,
+      "development_loss": 0.39693006156381155,
+      "model_sha256": "e142062fe8685b0b7b810f9ead70089db31628a5802c64cc29fafba11a9a4a6c",
+      "evaluations": 5000,
+      "runtime_seconds": 8.4422403749777,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "structural",
+      "seed": 7,
+      "development_loss": 0.06636043524775165,
+      "model_sha256": "52e70e4adad142c47b618c0aef546ea23ec0e9800fe1f65b34754001f9da95f9",
+      "evaluations": 5000,
+      "runtime_seconds": 11.49248712498229,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "structural",
+      "seed": 19,
+      "development_loss": 0.08897631027386205,
+      "model_sha256": "6cdfc7f1f8469a19586bf4b14db6589008939a8bf8da90b96f25482d1df000ad",
+      "evaluations": 5000,
+      "runtime_seconds": 11.840812875016127,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "structural",
+      "seed": 41,
+      "development_loss": 0.06843203760137251,
+      "model_sha256": "20a9ff49e3b838ed620247913f6893d7b4fe969ae56c3fef09ce13c9de00b2fe",
+      "evaluations": 5000,
+      "runtime_seconds": 11.812869291985407,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "context",
+      "seed": 7,
+      "development_loss": 0.08464448021010867,
+      "model_sha256": "cf833c7516726572346e018efc180062650f9145b18b7851836d4a34c3e8a091",
+      "evaluations": 5000,
+      "runtime_seconds": 12.549850084003992,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "context",
+      "seed": 19,
+      "development_loss": 0.11459994532743197,
+      "model_sha256": "4473d5e3e5819583fea9c1b968202890217ea42a0657ab5a7f8da4590d4c480c",
+      "evaluations": 5000,
+      "runtime_seconds": 11.048135666991584,
+      "stop_reason": "evaluation_budget"
+    },
+    {
+      "mode": "context",
+      "seed": 41,
+      "development_loss": 0.11020336642762271,
+      "model_sha256": "17d74d9cd9bae7b0676d90572899a377455f9d3eb3067ff0508bb4521d5d7a14",
+      "evaluations": 5000,
+      "runtime_seconds": 14.246801542001776,
+      "stop_reason": "evaluation_budget"
+    }
+  ],
+  "selected": {
+    "mode": "structural",
+    "seed": 7,
+    "development_loss": 0.06636043524775165,
+    "model_sha256": "52e70e4adad142c47b618c0aef546ea23ec0e9800fe1f65b34754001f9da95f9",
+    "evaluations": 5000,
+    "runtime_seconds": 11.49248712498229,
+    "stop_reason": "evaluation_budget"
+  },
+  "selection": "development only; locked test not scored",
+  "objective_sha256": "65c6bf092c5f641e7031be320d37558f8cdf1daf3b500109eb7da1cc74842851",
+  "code_sha256": "dab9ac1dbf8729c0bb40b96ed7f344509ae90feb5e79f0481d3da208be7125bc",
+  "config_sha256": "fdd6952b7526b238098880a48dd30f0212d3f5156930fa76591fc4fe74d891ad",
+  "selected_sha256": "61243b2b4bf9bc7139687dcc868f7a1eca1970984af95388e37a64a2b2d3993c"
+}

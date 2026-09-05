@@ -1,0 +1,35 @@
+{
+  "command": "python -m scribesim.evofit.recovery --output <new-directory> --evaluations 5000",
+  "python": "3.13.5",
+  "numpy": "2.4.3",
+  "pillow": "12.1.1",
+  "code": {
+    "scribesim/evofit/recovery.py": "dab9ac1dbf8729c0bb40b96ed7f344509ae90feb5e79f0481d3da208be7125bc",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/evo/renderer.py": "dfe4c6ac0917293e89b303ec0ed198676ad7d3e6c919133d98b73e86d5acb0e7",
+    "scribesim/evo/genome.py": "bc90893d993e39be2623559d68cfa60182f70c64ef597498028d241e35a3f32c"
+  },
+  "artifacts": {
+    "config.json": "fdd6952b7526b238098880a48dd30f0212d3f5156930fa76591fc4fe74d891ad",
+    "context-19.json": "d2e65ea1314902106c80730c1fe5531f993c553f50c5d34c59a407f92c66c311",
+    "context-41.json": "3e7773140ada1766357995a6a99908119cb57db99914f3ce89d60107c1fe3d66",
+    "context-7.json": "82bd8d9eca75178b131b0edb9b9f613364f9f138313d65a37c6fca1a62ac7f58",
+    "fixed-19.json": "c423de477e1694bd70fd5b3ae9570f3e90ef1d00291ad2567a376e0d69ff4bcf",
+    "fixed-41.json": "8c832f20d6c1c7473d408a89e46d402db863fd192f15870174f22f98d969b025",
+    "fixed-7.json": "6908dcc268bcd195a41a80f76f3c03957f41fde9be105cecff0cbd272a2bf2c6",
+    "initial.json": "90054884169839c301c049805287c88d350a54b2208a2bbde0ec6566a61991df",
+    "report.json": "d02d1d6808b8771c9094a877a680aeac95a3f3405e85dd90678936e7d77ccbb1",
+    "selected.json": "61243b2b4bf9bc7139687dcc868f7a1eca1970984af95388e37a64a2b2d3993c",
+    "smoke.json": "7da8e96c40c4888b45924177d13a57c9c24dab401478f1781a5878a2f009a63a",
+    "structural-19.json": "a1cc0516b7f13aa60f6cf021670ac48561f8405821878b6bfccf40cae2fa7805",
+    "structural-41.json": "e3b2c37671c633c3d7cc86e2abb03e583f1087301f754fae4fe30013e431465e",
+    "structural-7.json": "e75c342e2c008f61cd3f22ac19badf3ee3ea6e9de10759a0c7914462920087de",
+    "synthetic-0-mask.png": "128ff2b87cd3a48c72803bc941fa678b89ee48feeddbd467f1cdded306214997",
+    "synthetic-0-raw.png": "0aa1687514ac831f5f89f15e1ee35aff38eb34b64a861a0207551682723a750a",
+    "synthetic-1-mask.png": "e6375d3300eb1f91654913551f9d00776e38dd3bcfe322f06f90529c0290c504",
+    "synthetic-1-raw.png": "15aa5c87c084a47ff46bc5259f41077d7b8f66c507be350b0398cc8cc093d600",
+    "synthetic-2-mask.png": "128ff2b87cd3a48c72803bc941fa678b89ee48feeddbd467f1cdded306214997",
+    "synthetic-2-raw.png": "0aa1687514ac831f5f89f15e1ee35aff38eb34b64a861a0207551682723a750a",
+    "train-development.png": "d5bba08a2520a8cf80db77e1900fb8277a8c231fbcdb4f4f6a7c3e4b049e8f07"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "status": "blocked",
+  "reason": "G0 did not pass; no fitting or locked-test scoring performed",
+  "dataset_sha256": "4d3cf14b236644a9232f59d476821e521c3166cf56e278b61c6af213ee6176a0",
+  "contract_sha256": "5727880e40845294df9a96c0d36f8c7f29937390c5b27f1e929b68d9afe3b4aa",
+  "evaluations": 0,
+  "promoted": false,
+  "gate": {
+    "gate": "G0",
+    "status": "blocked",
+    "reasons": [
+      "admitted_split_coverage_missing",
+      "calibration_missing",
+      "fewer_than_30_usable_instances",
+      "insufficient_training_support",
+      "split_coverage_missing",
+      "target_review_missing"
+    ],
+    "promoted": false,
+    "contract_sha256": "5727880e40845294df9a96c0d36f8c7f29937390c5b27f1e929b68d9afe3b4aa",
+    "scope": "benchmark readiness; no model, readability or historical approval"
+  }
+}
