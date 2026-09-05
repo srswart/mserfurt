@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 from PIL import Image
+import numpy as np
 
 from scribesim.handvalidate.specimen import (
     build_benchmark,
@@ -11,6 +12,7 @@ from scribesim.handvalidate.specimen import (
     validate_contract,
     verify_baseline,
     write_equal_scale_panel,
+    render_worker,
 )
 
 
@@ -92,3 +94,15 @@ def test_legacy_results_are_reconciled_without_promotion(benchmark):
     assert record["counts"]["training"] == 14
     assert record["heldout_reuse_policy"] == "development_only"
     assert record["remaining_work"]
+
+
+def test_evo_smoke_places_catalog_strokes_inside_its_canvas(tmp_path):
+    from scribesim.evofit.word_recovery import seed_hand
+
+    (tmp_path / "model.json").write_text(json.dumps(seed_hand("und")))
+    render_worker("evo", tmp_path)
+    pixels = np.asarray(Image.open(tmp_path / "image.png").convert("L"))
+    ink_rows = np.nonzero(pixels < 100)[0]
+    assert len(ink_rows) > 50
+    assert ink_rows.min() > 0
+    assert ink_rows.max() < pixels.shape[0] - 1
