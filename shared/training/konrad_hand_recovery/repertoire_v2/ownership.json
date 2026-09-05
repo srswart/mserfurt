@@ -1,0 +1,1807 @@
+{
+  "status": "unaccepted",
+  "source": "catalog and existing allograph priors; not learned from manuscript",
+  "plans": [
+    {
+      "schema_version": 2,
+      "text": "sins",
+      "model_sha256": "f719cf64b9da389b38e8b792cb7e37ec874e43e823df57fbb06a97be6e8c2662",
+      "coverage": 1.0,
+      "occurrences": [
+        {
+          "form_id": "s:long_medial",
+          "span": [
+            0,
+            1
+          ],
+          "logical": "s",
+          "visible": "ſ",
+          "x": 0.0
+        },
+        {
+          "form_id": "i:compact",
+          "span": [
+            1,
+            2
+          ],
+          "logical": "i",
+          "visible": "i",
+          "x": 0.43
+        },
+        {
+          "form_id": "n:tight",
+          "span": [
+            2,
+            3
+          ],
+          "logical": "n",
+          "visible": "n",
+          "x": 0.815
+        },
+        {
+          "form_id": "s:round_final",
+          "span": [
+            3,
+            4
+          ],
+          "logical": "s",
+          "visible": "s",
+          "x": 1.425
+        }
+      ],
+      "contact_ownership": [
+        {
+          "occurrence": 0,
+          "chain": 0,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 1,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 2,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 0,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 1,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 0,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 1,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 2,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 0,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 1,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 2,
+          "span": [
+            3,
+            4
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            0,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            1
+          ],
+          "to": [
+            0,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            0
+          ],
+          "to": [
+            1,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            2
+          ],
+          "to": [
+            1,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            0
+          ],
+          "to": [
+            2,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            1
+          ],
+          "to": [
+            2,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            1
+          ],
+          "to": [
+            2,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            0
+          ],
+          "to": [
+            3,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            1
+          ],
+          "to": [
+            3,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            2
+          ],
+          "to": [
+            3,
+            0
+          ],
+          "kind": "air"
+        }
+      ],
+      "width": 1.905,
+      "beam": 32,
+      "pruned_states": 0
+    },
+    {
+      "schema_version": 2,
+      "text": "rein",
+      "model_sha256": "f719cf64b9da389b38e8b792cb7e37ec874e43e823df57fbb06a97be6e8c2662",
+      "coverage": 1.0,
+      "occurrences": [
+        {
+          "form_id": "r:flat",
+          "span": [
+            0,
+            1
+          ],
+          "logical": "r",
+          "visible": "r",
+          "x": 0.0
+        },
+        {
+          "form_id": "e:closed",
+          "span": [
+            1,
+            2
+          ],
+          "logical": "e",
+          "visible": "e",
+          "x": 0.51
+        },
+        {
+          "form_id": "i:plain",
+          "span": [
+            2,
+            3
+          ],
+          "logical": "i",
+          "visible": "i",
+          "x": 1.078
+        },
+        {
+          "form_id": "n:tight",
+          "span": [
+            3,
+            4
+          ],
+          "logical": "n",
+          "visible": "n",
+          "x": 1.4780000000000002
+        }
+      ],
+      "contact_ownership": [
+        {
+          "occurrence": 0,
+          "chain": 0,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 1,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 0,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 1,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 2,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 0,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 1,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 0,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 1,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 2,
+          "span": [
+            3,
+            4
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            0,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            0
+          ],
+          "to": [
+            1,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            1
+          ],
+          "to": [
+            1,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            1
+          ],
+          "to": [
+            1,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            0
+          ],
+          "to": [
+            2,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            2
+          ],
+          "to": [
+            2,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            0
+          ],
+          "to": [
+            3,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            1
+          ],
+          "to": [
+            3,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            1
+          ],
+          "to": [
+            3,
+            0
+          ],
+          "kind": "air"
+        }
+      ],
+      "width": 2.008,
+      "beam": 32,
+      "pruned_states": 0
+    },
+    {
+      "schema_version": 2,
+      "text": "dein",
+      "model_sha256": "f719cf64b9da389b38e8b792cb7e37ec874e43e823df57fbb06a97be6e8c2662",
+      "coverage": 1.0,
+      "occurrences": [
+        {
+          "form_id": "d:catalog",
+          "span": [
+            0,
+            1
+          ],
+          "logical": "d",
+          "visible": "d",
+          "x": 0.0
+        },
+        {
+          "form_id": "e:closed",
+          "span": [
+            1,
+            2
+          ],
+          "logical": "e",
+          "visible": "e",
+          "x": 0.63
+        },
+        {
+          "form_id": "i:lean",
+          "span": [
+            2,
+            3
+          ],
+          "logical": "i",
+          "visible": "i",
+          "x": 1.198
+        },
+        {
+          "form_id": "n:plain",
+          "span": [
+            3,
+            4
+          ],
+          "logical": "n",
+          "visible": "n",
+          "x": 1.598
+        }
+      ],
+      "contact_ownership": [
+        {
+          "occurrence": 0,
+          "chain": 0,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 1,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 2,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 0,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 1,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 2,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 0,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 1,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 0,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 1,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 2,
+          "span": [
+            3,
+            4
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            0,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            1
+          ],
+          "to": [
+            0,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            0
+          ],
+          "to": [
+            1,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            1
+          ],
+          "to": [
+            1,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            2
+          ],
+          "to": [
+            1,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            0
+          ],
+          "to": [
+            2,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            2
+          ],
+          "to": [
+            2,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            0
+          ],
+          "to": [
+            3,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            1
+          ],
+          "to": [
+            3,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            1
+          ],
+          "to": [
+            3,
+            0
+          ],
+          "kind": "air"
+        }
+      ],
+      "width": 2.148,
+      "beam": 32,
+      "pruned_states": 0
+    },
+    {
+      "schema_version": 2,
+      "text": "lied",
+      "model_sha256": "f719cf64b9da389b38e8b792cb7e37ec874e43e823df57fbb06a97be6e8c2662",
+      "coverage": 1.0,
+      "occurrences": [
+        {
+          "form_id": "l:catalog",
+          "span": [
+            0,
+            1
+          ],
+          "logical": "l",
+          "visible": "l",
+          "x": 0.0
+        },
+        {
+          "form_id": "i:lean",
+          "span": [
+            1,
+            2
+          ],
+          "logical": "i",
+          "visible": "i",
+          "x": 0.38
+        },
+        {
+          "form_id": "e:open",
+          "span": [
+            2,
+            3
+          ],
+          "logical": "e",
+          "visible": "e",
+          "x": 0.7799999999999999
+        },
+        {
+          "form_id": "d:catalog",
+          "span": [
+            3,
+            4
+          ],
+          "logical": "d",
+          "visible": "d",
+          "x": 1.37
+        }
+      ],
+      "contact_ownership": [
+        {
+          "occurrence": 0,
+          "chain": 0,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 0,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 1,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 0,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 1,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 2,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 0,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 1,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 2,
+          "span": [
+            3,
+            4
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "from": [
+            1,
+            0
+          ],
+          "to": [
+            1,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            1,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            0
+          ],
+          "to": [
+            2,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            1
+          ],
+          "to": [
+            2,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            1
+          ],
+          "to": [
+            2,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            0
+          ],
+          "to": [
+            3,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            1
+          ],
+          "to": [
+            3,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            2
+          ],
+          "to": [
+            3,
+            0
+          ],
+          "kind": "air"
+        }
+      ],
+      "width": 1.9200000000000002,
+      "beam": 32,
+      "pruned_states": 0
+    },
+    {
+      "schema_version": 2,
+      "text": "deine",
+      "model_sha256": "f719cf64b9da389b38e8b792cb7e37ec874e43e823df57fbb06a97be6e8c2662",
+      "coverage": 1.0,
+      "occurrences": [
+        {
+          "form_id": "d:catalog",
+          "span": [
+            0,
+            1
+          ],
+          "logical": "d",
+          "visible": "d",
+          "x": 0.0
+        },
+        {
+          "form_id": "e:plain",
+          "span": [
+            1,
+            2
+          ],
+          "logical": "e",
+          "visible": "e",
+          "x": 0.63
+        },
+        {
+          "form_id": "i:lean",
+          "span": [
+            2,
+            3
+          ],
+          "logical": "i",
+          "visible": "i",
+          "x": 1.21
+        },
+        {
+          "form_id": "n:open",
+          "span": [
+            3,
+            4
+          ],
+          "logical": "n",
+          "visible": "n",
+          "x": 1.61
+        },
+        {
+          "form_id": "e:closed",
+          "span": [
+            4,
+            5
+          ],
+          "logical": "e",
+          "visible": "e",
+          "x": 2.25
+        }
+      ],
+      "contact_ownership": [
+        {
+          "occurrence": 0,
+          "chain": 0,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 1,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 2,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 0,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 1,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 2,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 0,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 1,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 0,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 1,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 2,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 4,
+          "chain": 0,
+          "span": [
+            4,
+            5
+          ]
+        },
+        {
+          "occurrence": 4,
+          "chain": 1,
+          "span": [
+            4,
+            5
+          ]
+        },
+        {
+          "occurrence": 4,
+          "chain": 2,
+          "span": [
+            4,
+            5
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            0,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            1
+          ],
+          "to": [
+            0,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            0
+          ],
+          "to": [
+            1,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            1
+          ],
+          "to": [
+            1,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            2
+          ],
+          "to": [
+            1,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            0
+          ],
+          "to": [
+            2,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            2
+          ],
+          "to": [
+            2,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            0
+          ],
+          "to": [
+            3,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            1
+          ],
+          "to": [
+            3,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            1
+          ],
+          "to": [
+            3,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            4,
+            0
+          ],
+          "to": [
+            4,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            4,
+            1
+          ],
+          "to": [
+            4,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            2
+          ],
+          "to": [
+            4,
+            0
+          ],
+          "kind": "air"
+        }
+      ],
+      "width": 2.738,
+      "beam": 32,
+      "pruned_states": 0
+    },
+    {
+      "schema_version": 2,
+      "text": "hand",
+      "model_sha256": "f719cf64b9da389b38e8b792cb7e37ec874e43e823df57fbb06a97be6e8c2662",
+      "coverage": 1.0,
+      "occurrences": [
+        {
+          "form_id": "h:catalog",
+          "span": [
+            0,
+            1
+          ],
+          "logical": "h",
+          "visible": "h",
+          "x": 0.0
+        },
+        {
+          "form_id": "a:catalog",
+          "span": [
+            1,
+            2
+          ],
+          "logical": "a",
+          "visible": "a",
+          "x": 0.6799999999999999
+        },
+        {
+          "form_id": "n:tight",
+          "span": [
+            2,
+            3
+          ],
+          "logical": "n",
+          "visible": "n",
+          "x": 1.31
+        },
+        {
+          "form_id": "d:catalog",
+          "span": [
+            3,
+            4
+          ],
+          "logical": "d",
+          "visible": "d",
+          "x": 1.9200000000000002
+        }
+      ],
+      "contact_ownership": [
+        {
+          "occurrence": 0,
+          "chain": 0,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 1,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 2,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 0,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 1,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 2,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 0,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 1,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 2,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 0,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 1,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 2,
+          "span": [
+            3,
+            4
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            0,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            1
+          ],
+          "to": [
+            0,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            0
+          ],
+          "to": [
+            1,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            1
+          ],
+          "to": [
+            1,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            2
+          ],
+          "to": [
+            1,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            0
+          ],
+          "to": [
+            2,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            1
+          ],
+          "to": [
+            2,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            2
+          ],
+          "to": [
+            2,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            0
+          ],
+          "to": [
+            3,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            1
+          ],
+          "to": [
+            3,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            2
+          ],
+          "to": [
+            3,
+            0
+          ],
+          "kind": "air"
+        }
+      ],
+      "width": 2.47,
+      "beam": 32,
+      "pruned_states": 0
+    },
+    {
+      "schema_version": 2,
+      "text": "inin",
+      "model_sha256": "f719cf64b9da389b38e8b792cb7e37ec874e43e823df57fbb06a97be6e8c2662",
+      "coverage": 1.0,
+      "occurrences": [
+        {
+          "form_id": "i:plain",
+          "span": [
+            0,
+            1
+          ],
+          "logical": "i",
+          "visible": "i",
+          "x": 0.0
+        },
+        {
+          "form_id": "n:tight",
+          "span": [
+            1,
+            2
+          ],
+          "logical": "n",
+          "visible": "n",
+          "x": 0.4
+        },
+        {
+          "form_id": "i:plain",
+          "span": [
+            2,
+            3
+          ],
+          "logical": "i",
+          "visible": "i",
+          "x": 1.01
+        },
+        {
+          "form_id": "n:plain",
+          "span": [
+            3,
+            4
+          ],
+          "logical": "n",
+          "visible": "n",
+          "x": 1.4100000000000001
+        }
+      ],
+      "contact_ownership": [
+        {
+          "occurrence": 0,
+          "chain": 0,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 0,
+          "chain": 1,
+          "span": [
+            0,
+            1
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 0,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 1,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 1,
+          "chain": 2,
+          "span": [
+            1,
+            2
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 0,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 2,
+          "chain": 1,
+          "span": [
+            2,
+            3
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 0,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 1,
+          "span": [
+            3,
+            4
+          ]
+        },
+        {
+          "occurrence": 3,
+          "chain": 2,
+          "span": [
+            3,
+            4
+          ]
+        }
+      ],
+      "transitions": [
+        {
+          "from": [
+            0,
+            0
+          ],
+          "to": [
+            0,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            0
+          ],
+          "to": [
+            1,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            1
+          ],
+          "to": [
+            1,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            0,
+            1
+          ],
+          "to": [
+            1,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            0
+          ],
+          "to": [
+            2,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            1,
+            2
+          ],
+          "to": [
+            2,
+            0
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            0
+          ],
+          "to": [
+            3,
+            1
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            3,
+            1
+          ],
+          "to": [
+            3,
+            2
+          ],
+          "kind": "air"
+        },
+        {
+          "from": [
+            2,
+            1
+          ],
+          "to": [
+            3,
+            0
+          ],
+          "kind": "air"
+        }
+      ],
+      "width": 1.9600000000000002,
+      "beam": 32,
+      "pruned_states": 0
+    }
+  ],
+  "render_keys": [
+    "f76379295a7d55732f1480e287d4ccd41642adc49ce25f9c4bf9e574c6e07fb6",
+    "445829e724827faa578c72def543a9bb88b87b45c9f48d966fca5681e7293c26",
+    "0891081762c2dec157f80b66a685a368603d9fbadbdc3c4b68662d3c55354216",
+    "9a551dc5cf051b0c858b814db2652bd6cfd32c6bd889f25e3ed4ac2c7cb4f0d6",
+    "ac9afe9f8be81bd3df427267ef0e4c991091d3da643ecba5e5b1b5a7eebf947d",
+    "70c2cbcd0846caeed6f68a84c40b060c41c1610706cc04eba9884e0f230df814",
+    "78d5f5bf7438eca0724568e4d742b88faa89e13680c64f719e4f2c5d43f96a3e"
+  ],
+  "artifacts": {
+    "4.png": "e9fb52bdb49c2bcb8050d92c88b28bf03be88d7e11f39459809d7239a773c8f2",
+    "5.png": "3b1e377f7616c03ead0e351be272a5ce18afae69033ca33675b654d25fa8dbbe",
+    "6.png": "2c5ea740b15fca849d96edd26e7aced415fa6a7e2121aa375d04783485590a4f",
+    "2.png": "4fd00022c2e6dd252d0a129fc953437733c35b5b62058f7ef5c03034a18da0a6",
+    "3.png": "7b74ca001bd49bec84efdeed9a24fd7b41f07b677151d588bedd4a7ad72d5b10",
+    "novel_seed_panel.png": "87edc6ab4821db47f93388f515b1ab9551587b3636558c09ff51e69cbc02726e",
+    "1.png": "73e26529701e38b5fb9c0ac27535b6d7724a9d2ad11cca923fc0693b57764b47",
+    "seed.json": "a5d6b9588a2a851bfdcdbe35b90fb8f9cdfa98e2bcaf002d9f4a21fa38a51319",
+    "0.png": "c9e52d0517cd32e8fbe76aff18c301757865be2b4e19940501cef6741021922c"
+  }
+}
