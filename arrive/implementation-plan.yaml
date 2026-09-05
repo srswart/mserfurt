@@ -1401,10 +1401,10 @@ passes:
     - id: ADV-SS-HANDVALIDATE-007
       advance_id: ADV-SS-HANDVALIDATE-007
       title: "Konrad Specimen Benchmark — Visual Target, Baselines and Gate Contract"
-      status: planned
+      status: done
       owner: shawn
       dependencies: []
-      notes: "TD-018 sections 2, 5 and 8. Reconcile saved EVOFIT-004 evidence without assuming completion. Freeze benchmark and target; missing review remains pending. All work here is planned."
+      notes: "Implemented baseline capture, identity/replay checks, target sheet, proof contract and prior-experiment reconciliation; 17 focused/regression tests pass. G0 remains blocked on dataset and target review, independently of Advance completion. EVOFIT-004 retains its true open status."
     - id: ADV-SS-EXEMPLAR-007
       advance_id: ADV-SS-EXEMPLAR-007
       title: "Konrad Word Observations — Line Masks, Label Uncertainty and Frozen Splits"

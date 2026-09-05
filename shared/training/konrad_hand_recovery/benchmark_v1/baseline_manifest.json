@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "baselines": [
+    {
+      "backend": "plain",
+      "entrypoint": "scribesim.render.pipeline._render_at_internal_dpi",
+      "fresh_process": true,
+      "command": [
+        "/Users/shawn/Projects/041-mserfurt/.venv/bin/python",
+        "-m",
+        "scribesim.handvalidate.specimen",
+        "worker",
+        "--backend",
+        "plain",
+        "--output",
+        "/Users/shawn/Projects/041-mserfurt/shared/training/konrad_hand_recovery/benchmark_v1/plain"
+      ],
+      "environment": {
+        "PYTHONHASHSEED": "42",
+        "random_seed": 42,
+        "python": "3.13.5",
+        "numpy": "2.4.3"
+      },
+      "xheight_px": 26.92913385826772,
+      "scope": "word raster smoke, not full default CLI/folio or optimization run",
+      "replay_path": "plain/replay.png",
+      "same_seed_replay": true,
+      "hash_seed_independent": false,
+      "image_path": "plain/image.png",
+      "image_sha256": "de4cef6cc0a230fc0c27b5c34a516a00d0190e0b64098546cf3b088330d310d0",
+      "model_path": "plain/model.json",
+      "model_sha256": "dea9e93698a0edf9cc13670c2f8a04c4bbe9b79460ef2fba809694117b999832",
+      "source_path": "plain/source.jpg",
+      "source_sha256": "dd818bb99030329b38299faff9583ecc0cb58af23675b9ab2d75ac7ded96ae71",
+      "code_path": "plain/code.json",
+      "code_sha256": "a8c45a65e5a02afd2ac53bcd504ac20ba0fdb7e36f20ef5212a1d1ee2abce6e2",
+      "config_path": "plain/config.json",
+      "config_sha256": "ae8c1d619b900b6b84397f0a5b6e4a90077916d2aeeb8d25acdb69ed514c1ab3"
+    },
+    {
+      "backend": "evo",
+      "entrypoint": "scribesim.evo.renderer.render_word_from_genome",
+      "fresh_process": true,
+      "command": [
+        "/Users/shawn/Projects/041-mserfurt/.venv/bin/python",
+        "-m",
+        "scribesim.handvalidate.specimen",
+        "worker",
+        "--backend",
+        "evo",
+        "--output",
+        "/Users/shawn/Projects/041-mserfurt/shared/training/konrad_hand_recovery/benchmark_v1/evo"
+      ],
+      "environment": {
+        "PYTHONHASHSEED": "42",
+        "random_seed": 42,
+        "python": "3.13.5",
+        "numpy": "2.4.3"
+      },
+      "xheight_px": 26.92913385826772,
+      "scope": "word raster smoke, not full default CLI/folio or optimization run",
+      "replay_path": "evo/replay.png",
+      "same_seed_replay": true,
+      "hash_seed_independent": true,
+      "image_path": "evo/image.png",
+      "image_sha256": "ad4b86b1891877a6439c151430a986c9e68c2a98aa2d260ae826327423cfacb2",
+      "model_path": "evo/model.json",
+      "model_sha256": "582c6c8639a884bc7cd68b1cf02243812233014e87542584f3137fe29882624c",
+      "source_path": "evo/source.jpg",
+      "source_sha256": "dd818bb99030329b38299faff9583ecc0cb58af23675b9ab2d75ac7ded96ae71",
+      "code_path": "evo/code.json",
+      "code_sha256": "a8c45a65e5a02afd2ac53bcd504ac20ba0fdb7e36f20ef5212a1d1ee2abce6e2",
+      "config_path": "evo/config.json",
+      "config_sha256": "60f830188e5cd7416385605d1f02b97898deec2e57b709f1b208cd7e506db618"
+    },
+    {
+      "backend": "v1_fitted",
+      "entrypoint": "scribesim.evofit.word_recovery.render_shared_word",
+      "fresh_process": true,
+      "command": [
+        "/Users/shawn/Projects/041-mserfurt/.venv/bin/python",
+        "-m",
+        "scribesim.handvalidate.specimen",
+        "worker",
+        "--backend",
+        "v1_fitted",
+        "--output",
+        "/Users/shawn/Projects/041-mserfurt/shared/training/konrad_hand_recovery/benchmark_v1/v1_fitted"
+      ],
+      "environment": {
+        "PYTHONHASHSEED": "42",
+        "random_seed": 42,
+        "python": "3.13.5",
+        "numpy": "2.4.3"
+      },
+      "xheight_px": 26.92913385826772,
+      "scope": "word raster smoke, not full default CLI/folio or optimization run",
+      "replay_path": "v1_fitted/replay.png",
+      "same_seed_replay": true,
+      "hash_seed_independent": true,
+      "image_path": "v1_fitted/image.png",
+      "image_sha256": "64c18bc30783edd313c8ea2db2ce365885b14517c3c66782cfe45273da49fa23",
+      "model_path": "v1_fitted/model.json",
+      "model_sha256": "bd2a1aae8be3f73a52fd86074a9a47733dc75802c0e089efa270179787ec0341",
+      "source_path": "v1_fitted/source.jpg",
+      "source_sha256": "dd818bb99030329b38299faff9583ecc0cb58af23675b9ab2d75ac7ded96ae71",
+      "code_path": "v1_fitted/code.json",
+      "code_sha256": "a8c45a65e5a02afd2ac53bcd504ac20ba0fdb7e36f20ef5212a1d1ee2abce6e2",
+      "config_path": "v1_fitted/config.json",
+      "config_sha256": "8cfa9fe9cc95aaaf4d2effa3a680417737ab641c7f40d2cfef230fa1ec9ef6b2"
+    }
+  ],
+  "commit": "428f31cd98471daa14874bfcbe57a0bd5f9f06e1",
+  "dirty_patch_sha256": "b34e941b0839750b184aa62215fb9edd64011ba718ec13eff7701ff47d25f141",
+  "code_identity_includes_working_files": true
+}

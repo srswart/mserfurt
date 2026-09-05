@@ -1,0 +1,52 @@
+{
+  "advance_status": "in_progress",
+  "decision": "not_promoted",
+  "report_path": "reference/konrad_word_recovery_v1/evidence/report.json",
+  "report_sha256": "be4b381129f18a30719f3c170eee0e5672a8e11573ab6ed5b65a3122dabec42e",
+  "counts": {
+    "training": 14,
+    "heldout": 8
+  },
+  "image_losses": {
+    "training": {
+      "count": 14,
+      "before": 0.672660616739776,
+      "after": 0.570671459515409
+    },
+    "heldout": {
+      "count": 8,
+      "before": 0.6718131694114481,
+      "after": 0.6354601363964281
+    },
+    "heldout_novel_word": {
+      "count": 5,
+      "before": 0.6901716492018828,
+      "after": 0.6505995036616331
+    }
+  },
+  "exclusions": [
+    {
+      "id": "cgm628_native29_r_03",
+      "reason": "uncertain_machine_label"
+    },
+    {
+      "id": "cgm628_native29_r_05",
+      "reason": "uncertain_machine_label"
+    },
+    {
+      "id": "cgm628_native29_r_09",
+      "reason": "uncertain_machine_label"
+    },
+    {
+      "id": "cgm628_native29_r_14",
+      "reason": "uncertain_machine_label"
+    }
+  ],
+  "heldout_reuse_policy": "development_only",
+  "historical_readability_evidence": "none",
+  "remaining_work": [
+    "Reconcile EVOFIT-004 checklist and implementation status with owner workflow",
+    "Machine readings and apparent-hand attribution are still unverified",
+    "Archive actual focused test commands; no provider CI or owner approval inferred"
+  ]
+}
