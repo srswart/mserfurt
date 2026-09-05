@@ -12,6 +12,7 @@ from scribesim.evofit.reference_dataset import (
     line_mask,
     validate_dataset,
     prepare_v1_manifest,
+    calibrate_observations,
 )
 from scribesim.handvalidate.specimen import digest, object_digest
 
@@ -49,6 +50,13 @@ def test_touching_lines_and_pale_strokes_remain_unknown():
     mask = line_mask(image, lines, 0)
     assert mask[39, 15] == 128
     assert mask[20, 56] == 128
+
+
+def test_pale_ink_connected_to_a_strong_target_is_preserved():
+    image = page_fixture()
+    ImageDraw.Draw(image).rectangle((19, 17, 24, 24), fill=155)
+    mask = line_mask(image, detect_lines(image), 0)
+    assert mask[20, 22] == 255
 
 
 @pytest.fixture
@@ -157,3 +165,16 @@ def test_v1_heldout_lines_cannot_reenter_training_or_locked_test():
     assert all(sample["split"] == "development" for sample in samples if sample["line_index"] in heldout_lines)
     assert all(sample["split"] != "test" for sample in samples if sample.get("v1_split"))
     assert all(sample["mapping_status"] == "unverified" for sample in samples if sample.get("v1_split"))
+
+
+def test_calibration_uses_only_admitted_non_test_repeats(manifest, tmp_path):
+    result = build_fixture(manifest, tmp_path)
+    calibration = calibrate_observations(result["samples"], tmp_path / "dataset")
+    assert calibration["status"] == "pass"
+    assert calibration["repeat_pair_count"] == 1
+    assert "word-2" not in calibration["used_sample_ids"]
+    assert all(control["passed"] for control in calibration["controls"])
+    changed = copy.deepcopy(result["samples"])
+    changed[2]["text"] = "anything"
+    assert calibrate_observations(changed, tmp_path / "dataset") == calibration
+    assert calibrate_observations([], tmp_path / "dataset")["status"] == "blocked"
