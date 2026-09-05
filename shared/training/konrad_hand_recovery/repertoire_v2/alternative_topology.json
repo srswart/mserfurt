@@ -1,0 +1,157 @@
+{
+  "schema_version": 2,
+  "units": "local-xheight-y-up",
+  "acceptance": "unaccepted",
+  "forms": {
+    "i:catalog": {
+      "logical": "i",
+      "visible": "i",
+      "mapping": "identity",
+      "advance": 0.32,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0.15,
+                0.0
+              ],
+              [
+                0.17,
+                0.28
+              ],
+              [
+                0.14,
+                0.72
+              ],
+              [
+                0.13,
+                1.0
+              ]
+            ]
+          ],
+          "closed": false
+        },
+        {
+          "cubics": [
+            [
+              [
+                0.1,
+                1.22
+              ],
+              [
+                0.14,
+                1.26
+              ],
+              [
+                0.2,
+                1.26
+              ],
+              [
+                0.25,
+                1.22
+              ]
+            ]
+          ],
+          "closed": false
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "unaccepted-catalog-prior",
+        "catalog_id": "i",
+        "allograph": "catalog"
+      },
+      "landmarks": {
+        "entry": [
+          0.15,
+          0.0
+        ],
+        "exit": [
+          0.25,
+          1.22
+        ]
+      },
+      "tangents": {
+        "entry": [
+          0.020000000000000018,
+          0.28
+        ],
+        "exit": [
+          0.04999999999999999,
+          -0.040000000000000036
+        ]
+      }
+    },
+    "i:loop": {
+      "logical": "i",
+      "visible": "i",
+      "mapping": "identity",
+      "advance": 0.32,
+      "chains": [
+        {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                -1,
+                1
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "closed": true
+        }
+      ],
+      "allow_intersections": true,
+      "provenance": {
+        "kind": "synthetic-topology-fixture-not-historical"
+      },
+      "landmarks": {
+        "entry": [
+          0,
+          0
+        ],
+        "exit": [
+          0,
+          0
+        ]
+      },
+      "tangents": {
+        "entry": [
+          1,
+          1
+        ],
+        "exit": [
+          1,
+          -1
+        ]
+      }
+    }
+  },
+  "rules": [
+    {
+      "form_id": "i:loop",
+      "position": "any",
+      "previous": null,
+      "next": null,
+      "cost": -1
+    }
+  ],
+  "joins": [],
+  "x_height_mm": 3.8,
+  "nib_width_mm": 0.6,
+  "nib_angle_deg": 42.0,
+  "letter_gap": 0.08,
+  "space_advance": 0.6
+}

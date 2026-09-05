@@ -1420,11 +1420,11 @@ passes:
     - id: ADV-SS-EVOFIT-005
       advance_id: ADV-SS-EVOFIT-005
       title: "Konrad Stroke Repertoire — Alternative Forms and Exact Word Plans"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EXEMPLAR-007
-      notes: "Implement the bounded TD-018 stage with focused red/green tests, provenance and explicit failed/blocked outcomes. No model promotion implied by Advance completion."
+      notes: "Implemented exact bounded repertoire, text-only allographs, contact/lift ownership and deterministic broad-edge playback. 51 focused/regression tests pass. Seed panels are unaccepted priors, not learned handwriting; G0 remains blocked."
     - id: ADV-SS-EVOFIT-006
       advance_id: ADV-SS-EVOFIT-006
       title: "Konrad Nominal Recovery — Bounded Topology Search and Context Fitting"
