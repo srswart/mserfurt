@@ -6,7 +6,8 @@ weather-output/
 debug/
 
 # Manuscript reference images (large binary data)
-reference/
+reference/*
+!reference/konrad_word_recovery_v1/
 docs/samples/
 
 # ScribeSim runtime caches

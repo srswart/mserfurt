@@ -578,3 +578,61 @@ TD-014 therefore adds a dedicated parameter-sensitivity track:
 - refuse to treat unwired profile fields as tuning evidence
 
 This closes the current gap where the repo exposes more expressive controls than the reviewed guided path actually uses.
+
+## Automatic Whole-Word Recovery Experiment (2026-09-05)
+
+Follow-on implementation design:
+[TD-018 — Reference-Grounded Recovery of Konrad's Hand](TD-018-reference-grounded-hand-recovery.md).
+It stages clean word observations, alternative shared stroke programs, nominal
+three-line acceptance, guided state and folio evaluation in Pass 15. Existing
+TD-014 history and planned parameter work remain recorded; TD-018 defines the
+next specimen-first execution sequence and its promotion gates.
+
+ADV-SS-EVOFIT-004 tests the automatic-first policy without requiring a
+calligrapher, manual stroke tracing, or a fully labeled alphabet. It is an
+exploratory nominal-form experiment, not a new production renderer or a
+promotion of the guided folio path.
+
+### Question and bounded representation
+
+Can shared letter geometry fitted against whole-word images improve both
+reconstruction and held-out word images, while requiring no new human tracing?
+
+The first experiment uses approximately 24 word crops from one source page.
+Labels are machine-proposed hypotheses; apparent visual continuity on that page
+does not establish historical single-scribe attribution. The source image,
+native bounds, URL and SHA256 remain attached to every sample.
+
+The initial hypothesis is intentionally constrained: existing cubic stroke
+topology, a shared per-character geometry/advance, and a deterministic
+broad-edge nib sweep. Whole-word image comparison updates reusable character
+parameters rather than fitting and storing an unrelated drawing per word.
+No independent letter crop is required. Alternative stroke topologies,
+contextual allograph families, inferred historical stroke order and ink/session
+behavior are not claimed by this experiment.
+
+### Evidence and leakage boundaries
+
+- Training and held-out crops may not share source pixels.
+- Candidate selection uses training images only; held-out results are reported
+  after fitting, including repeated-word and unseen-word cases separately.
+- Every evaluated candidate must render its own geometry. A static snapshot
+  or target-against-itself objective is not fitting.
+- Missing symbols and uncertain labels remain explicit exclusions, never
+  replacement periods or automatically trusted annotations.
+- Baseline, fitted and source images are shown together without independent
+  aspect-ratio distortion. New combinations use the exported shared hand.
+- Reports record source/configuration identities, seeds, losses, exclusions,
+  fixed-topology limitations and actual human interventions.
+- Image similarity is not OCR accuracy, paleographic approval or proof that the
+  inferred trajectory is the original historical motion.
+
+### Decision
+
+Finishing the runner and experiment can complete the Advance even if the
+candidate loses. Its model remains experimental: no automatic promotion based
+on overlap/distance scores. Visual inspection of held-out and generated words,
+trustworthy labels, and later folio/ground-truth gates remain necessary.
+The next experiment is chosen from the observed failure: label/crop quality,
+nominal topology, shared-context modeling or rasterization, not from a desire
+to add another controller.

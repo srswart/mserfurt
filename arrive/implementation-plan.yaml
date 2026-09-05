@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-03-26T00:00:00Z
+  updated_at: 2026-09-05T17:30:14Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1260,7 +1260,7 @@ passes:
     - id: ADV-SS-ANNOTATE-006
       advance_id: ADV-SS-ANNOTATE-006
       title: Glyph Status Inspector — Per-Symbol Processing History and Selection Guidance in the Annotation Workbench
-      status: proposed
+      status: planned
       owner: shawn
       dependencies:
       - ADV-SS-ANNOTATE-001
@@ -1375,3 +1375,117 @@ passes:
       - ADV-SS-HANDFLOW-006
       - ADV-SS-HANDFLOW-007
       notes: Add a reviewed proof sensitivity bench and classify controls as inactive, active-safe, or active-unsafe based on deterministic deltas and legibility gates.
+- id: pass-14
+  title: 'Pass 14: Automatic Whole-Word Recovery'
+  order: 45
+  phases:
+  - id: automatic-word-recovery
+    title: Test shared forms without human tracing
+    order: 1
+    items:
+    - id: ADV-SS-EVOFIT-004
+      advance_id: ADV-SS-EVOFIT-004
+      title: Automatic Whole-Word Recovery — Shared Geometry and Held-Out Evidence
+      status: in_progress
+      owner: Main
+      dependencies: []
+      notes: 'Opt-in TD-014 whole-word experiment; no new human tracing. Local execution ownership only: plan start cannot acquire a lease because existing interface metadata is incompatible with the installed CLI. Production renderers and previous guides remain unchanged.'
+- id: pass-15
+  title: 'Pass 15: TD-018 — Reference-Grounded Recovery of Konrad''s Hand'
+  order: 46
+  phases:
+  - id: td018-benchmark
+    title: Freeze visual target and usable word observations
+    order: 1
+    items:
+    - id: ADV-SS-HANDVALIDATE-007
+      advance_id: ADV-SS-HANDVALIDATE-007
+      title: "Konrad Specimen Benchmark — Visual Target, Baselines and Gate Contract"
+      status: planned
+      owner: shawn
+      dependencies: []
+      notes: "TD-018 sections 2, 5 and 8. Reconcile saved EVOFIT-004 evidence without assuming completion. Freeze benchmark and target; missing review remains pending. All work here is planned."
+    - id: ADV-SS-EXEMPLAR-007
+      advance_id: ADV-SS-EXEMPLAR-007
+      title: "Konrad Word Observations — Line Masks, Label Uncertainty and Frozen Splits"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-007
+      notes: "Implement the bounded TD-018 stage with focused red/green tests, provenance and explicit failed/blocked outcomes. No model promotion implied by Advance completion."
+  - id: td018-nominal
+    title: Recover reusable forms and decide the three-line nominal milestone
+    order: 2
+    items:
+    - id: ADV-SS-EVOFIT-005
+      advance_id: ADV-SS-EVOFIT-005
+      title: "Konrad Stroke Repertoire — Alternative Forms and Exact Word Plans"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-007
+      notes: "Implement the bounded TD-018 stage with focused red/green tests, provenance and explicit failed/blocked outcomes. No model promotion implied by Advance completion."
+    - id: ADV-SS-EVOFIT-006
+      advance_id: ADV-SS-EVOFIT-006
+      title: "Konrad Nominal Recovery — Bounded Topology Search and Context Fitting"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EVOFIT-005
+      notes: "Implement the bounded TD-018 stage with focused red/green tests, provenance and explicit failed/blocked outcomes. No model promotion implied by Advance completion."
+    - id: ADV-SS-HANDVALIDATE-008
+      advance_id: ADV-SS-HANDVALIDATE-008
+      title: "Konrad Nominal Specimen — Unseen Words and Three-Line Acceptance"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EVOFIT-006
+      notes: "First decision milestone: G1 nominal three-line specimen. A completed failed experiment does not authorize guided integration. Freeze/review unseen-word and text evidence."
+  - id: td018-guided
+    title: Preserve forms through guided execution and evaluate coherent state
+    order: 3
+    items:
+    - id: ADV-SS-PATHGUIDE-005
+      advance_id: ADV-SS-PATHGUIDE-005
+      title: "Konrad Guided Bridge — Preserve Forms, Contact and Text Ownership"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-008
+      notes: "Runtime prerequisite: G1 pass for the selected model, beyond plan dependency completion. Establish G2 with actual trajectory and ownership preservation."
+    - id: ADV-SS-HANDFLOW-008
+      advance_id: ADV-SS-HANDFLOW-008
+      title: "Konrad Persistent Execution — Ink, Rhythm and Stable Session State"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-PATHGUIDE-005
+      notes: "Runtime prerequisite: G2 pass. Reuse existing guided state; defer the broader HANDFLOW-007 tremor/warp track until this specimen succeeds."
+    - id: ADV-SS-HANDVALIDATE-009
+      advance_id: ADV-SS-HANDVALIDATE-009
+      title: "Konrad Expressive Specimen — Controlled Variation and G3 Evaluation"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-008
+      notes: "Second decision milestone: G3 expressive three-line specimen. Inactive/unsafe controls cannot count as improvement. HANDVALIDATE-006 remains a separate deferred scope."
+  - id: td018-folio
+    title: Integrate opt-in folios and evaluate the release candidate
+    order: 4
+    items:
+    - id: ADV-SS-RENDER-006
+      advance_id: ADV-SS-RENDER-006
+      title: "Konrad Folio Candidate — Guided CLI and Trajectory-Based Exports"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-009
+      notes: "Runtime prerequisite: G3 pass. Inventory changes require the revised hand to re-pass G1–G3. Exact text and actual-trajectory PNG/XML/pressure contracts; no default switch."
+    - id: ADV-SS-HANDVALIDATE-010
+      advance_id: ADV-SS-HANDVALIDATE-010
+      title: "Konrad Folio Evaluation — Four-Case Evidence and Rollout Decision"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-RENDER-006
+      notes: "Final decision milestone: G4 four-folio evidence and owner review. Produce an opt-in release recommendation; a default-renderer switch is a separate decision."

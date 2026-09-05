@@ -10,6 +10,7 @@ selectors:
   paths:
     - "scribesim/tests/**"
     - "tests/scribesim/**"
+    - "tests/test_word_recovery.py"
   build_modules: []
   tags: []
   contracts: []
