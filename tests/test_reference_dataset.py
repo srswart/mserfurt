@@ -104,7 +104,7 @@ def test_build_preserves_raw_pixels_and_reversible_transform(manifest, tmp_path)
     assert "insufficient_training_support" in result["reasons"]
 
 
-@pytest.mark.parametrize("problem", ["source_hash", "shared_line", "shared_pixels", "inspected_test", "duplicate_id"])
+@pytest.mark.parametrize("problem", ["source_hash", "shared_line", "shared_pixels", "inspected_test", "duplicate_id", "duplicate_pixels"])
 def test_dataset_rejects_integrity_and_split_errors(manifest, tmp_path, problem):
     payload = json.loads(manifest.read_text())
     if problem == "source_hash":
@@ -115,8 +115,12 @@ def test_dataset_rejects_integrity_and_split_errors(manifest, tmp_path, problem)
         payload["samples"][1]["bbox"] = [20, 20, 60, 70]
     elif problem == "inspected_test":
         payload["samples"][2]["previously_inspected"] = True
-    else:
+    elif problem == "duplicate_id":
         payload["samples"][1]["id"] = payload["samples"][0]["id"]
+    else:
+        duplicate = copy.deepcopy(payload["samples"][0])
+        duplicate["id"] = "duplicate-pixels"
+        payload["samples"].append(duplicate)
     manifest.write_text(json.dumps(payload))
     with pytest.raises(ValueError):
         build_fixture(manifest, tmp_path)
@@ -194,3 +198,35 @@ def test_calibration_uses_only_admitted_non_test_repeats(manifest, tmp_path):
     changed[2]["text"] = "anything"
     assert calibrate_observations(changed, tmp_path / "dataset") == calibration
     assert calibrate_observations([], tmp_path / "dataset")["status"] == "blocked"
+
+
+def test_usable_independent_corpus_can_pass_dataset_readiness(manifest, tmp_path):
+    payload = json.loads(manifest.read_text())
+    image = Image.new("L", (140, 1600), 245)
+    draw = ImageDraw.Draw(image)
+    payload["samples"] = []
+    for index in range(40):
+        top = 15 + 40 * index
+        for left in (12, 28, 44):
+            draw.rectangle((left, top, left + 7, top + 11), fill=25)
+        text = "in" if index % 2 else "ni"
+        payload["samples"].append({
+            "id": f"independent-{index}", "source_id": "page", "line_index": index,
+            "bbox": [5, top - 5, 65, top + 20],
+            "split": "train" if index < 30 else "development" if index < 35 else "test",
+            "text": text, "label_status": "machine_hypothesis", "confidence": 0.9,
+            "label_origin": "synthetic admission fixture", "mapping_status": "declared",
+            "visible_mapping": [{"logical": character, "visible": character} for character in text],
+            "previously_inspected": False,
+        })
+    source = Path(payload["sources"][0]["path"])
+    image.save(source)
+    payload["sources"][0].update(sha256=digest(source), region=[0, 0, 140, 1600])
+    manifest.write_text(json.dumps(payload))
+    result = build_fixture(manifest, tmp_path)
+    assert result["status"] == "pass"
+    assert result["admitted_count"] == 40
+    assert result["calibration"]["status"] == "pass"
+    assert result["support_debt"] == {}
+    assert all(sample["id"] not in result["calibration"]["used_sample_ids"]
+               for sample in result["samples"] if sample["split"] == "test")
