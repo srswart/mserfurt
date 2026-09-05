@@ -202,6 +202,13 @@ Add `--dry-run` to skip the API call and inspect the generated prompt without sp
 
 This project uses [ARRIVE](arrive/) for outcome-first development. The three systems (xl, scribesim, weather) each have component YAMLs and advance records under `arrive/systems/`. Cross-system architectural decisions live in `docs/tech-direction/`.
 
+The next ScribeSim development track is specified in
+[TD-018 — Reference-Grounded Recovery of Konrad's Hand](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md).
+Its ten planned Advances in [Pass 15](arrive/implementation-plan.yaml) progress
+from clean reference words and a reusable stroke repertoire to a three-line
+specimen, guided execution and opt-in folio evaluation. This is a design and
+implementation plan; the new hand is not implemented or promoted yet.
+
 Development follows **Tidy First → Test First → Implement**. Run the test suite with:
 
 ```bash

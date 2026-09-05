@@ -10,6 +10,7 @@ selectors:
   paths:
     - "scribesim/handvalidate/**"
     - "tests/test_handvalidate*.py"
+    - "shared/training/konrad_hand_recovery/**"
   build_modules: []
   tags: []
   contracts: []

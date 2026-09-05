@@ -1,0 +1,385 @@
+{
+  "schema_version": 1,
+  "hand_id": "konrad_proxy_cgm628_native29_right_column_unverified",
+  "source": {
+    "manuscript_id": "BSB Cgm 628 / bsb00144295",
+    "image_path": "reference/konrad_word_recovery_v1/source_bsb00144295_00029.jpg",
+    "sha256": "dd818bb99030329b38299faff9583ecc0cb58af23675b9ab2d75ac7ded96ae71",
+    "canvas_id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00144295/canvas/29",
+    "image_url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb00144295_00029/full/full/0/default.jpg",
+    "hand_identity_status": "UNVERIFIED: one visually coherent right-column hand in BSB Cgm 628, current official canvas 29; no evidence identifies this scribe as Konrad or establishes the fictional Konrad hand. Harvest filenames and current IIIF canvas mapping disagree; see provenance.json."
+  },
+  "label_policy": "MACHINE-ONLY reading hypotheses; no human, calligrapher, paleographer, or expert verified these labels. Confidence values are subjective and uncalibrated, not probabilities of historical truth. Labels are lowercase normalized word readings, not glyph-exact diplomatic transcriptions: long-s is normalized to logical s, case and graphic allographs are not distinguished, and uncertain historical spelling/abbreviation may remain. Original pixels preserve allograph forms, joins, and abbreviations. A one-shape-per-character renderer cannot model that distinction. Whole-word boxes are machine-selected from projection proposals, not letter cutouts or manual tracing; neighboring-line ink and pale-stroke boundary uncertainty remain. Below-threshold hypotheses remain recorded rather than relabeled or silently treated as verified. Generated texts are synthetic combinations of the admitted training alphabet, not claims about manuscript wording.",
+  "human_interventions": [],
+  "samples": [
+    {
+      "id": "cgm628_native29_r_01",
+      "text": "in",
+      "bbox": [
+        809,
+        235,
+        856,
+        255
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.82,
+      "notes": "Right-column projection line 1; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_02",
+      "text": "in",
+      "bbox": [
+        794,
+        300,
+        838,
+        320
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.84,
+      "notes": "Right-column projection line 3; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_03",
+      "text": "ungehindert",
+      "bbox": [
+        697,
+        303,
+        883,
+        372
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.74,
+      "notes": "Right-column projection line 4; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_04",
+      "text": "seines",
+      "bbox": [
+        883,
+        324,
+        972,
+        371
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.8,
+      "notes": "Right-column projection line 4; machine-selected whole-word proposal 2-3. Lowercase normalized reading hypothesis, not expert verified. Automatic fragments merged into one whole-word region; no letter outlines traced. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_05",
+      "text": "wercks",
+      "bbox": [
+        972,
+        318,
+        1125,
+        352
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.78,
+      "notes": "Right-column projection line 4; machine-selected whole-word proposal 4-4. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_06",
+      "text": "alle",
+      "bbox": [
+        680,
+        374,
+        760,
+        419
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.89,
+      "notes": "Right-column projection line 6; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_07",
+      "text": "dy",
+      "bbox": [
+        760,
+        385,
+        803,
+        443
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.84,
+      "notes": "Right-column projection line 6; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_08",
+      "text": "das",
+      "bbox": [
+        680,
+        419,
+        748,
+        456
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.91,
+      "notes": "Right-column projection line 7; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_09",
+      "text": "kains",
+      "bbox": [
+        748,
+        408,
+        843,
+        477
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.77,
+      "notes": "Right-column projection line 7; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_10",
+      "text": "als",
+      "bbox": [
+        843,
+        408,
+        903,
+        462
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.9,
+      "notes": "Right-column projection line 7; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_11",
+      "text": "ist",
+      "bbox": [
+        680,
+        456,
+        739,
+        503
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.87,
+      "notes": "Right-column projection line 8; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_12",
+      "text": "es",
+      "bbox": [
+        739,
+        461,
+        781,
+        512
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.91,
+      "notes": "Right-column projection line 8; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_13",
+      "text": "der",
+      "bbox": [
+        738,
+        582,
+        794,
+        629
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.91,
+      "notes": "Right-column projection line 12; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_14",
+      "text": "heiligen",
+      "bbox": [
+        794,
+        582,
+        916,
+        651
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.75,
+      "notes": "Right-column projection line 12; machine-selected whole-word proposal 3-4. Lowercase normalized reading hypothesis, not expert verified. Automatic fragments merged into one whole-word region; no letter outlines traced. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_15",
+      "text": "kirchen",
+      "bbox": [
+        916,
+        593,
+        1016,
+        640
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.84,
+      "notes": "Right-column projection line 12; machine-selected whole-word proposal 5-5. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_16",
+      "text": "vil",
+      "bbox": [
+        946,
+        1007,
+        998,
+        1042
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.86,
+      "notes": "Right-column projection line 24; machine-selected whole-word proposal 4-4. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_17",
+      "text": "glider",
+      "bbox": [
+        814,
+        760,
+        925,
+        829
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.81,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_18",
+      "text": "und",
+      "bbox": [
+        680,
+        895,
+        756,
+        964
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.89,
+      "notes": "Right-column projection line 21; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_19",
+      "text": "alles",
+      "bbox": [
+        1007,
+        895,
+        1125,
+        952
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.9,
+      "notes": "Right-column projection line 21; machine-selected whole-word proposal 5-5. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_20",
+      "text": "ain",
+      "bbox": [
+        804,
+        504,
+        867,
+        546
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.9,
+      "notes": "Right-column projection line 9; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_21",
+      "text": "sind",
+      "bbox": [
+        680,
+        760,
+        761,
+        829
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.86,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_22",
+      "text": "das",
+      "bbox": [
+        925,
+        760,
+        978,
+        829
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.92,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 4-4. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_23",
+      "text": "ain",
+      "bbox": [
+        978,
+        790,
+        1030,
+        808
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.89,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 5-5. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_24",
+      "text": "ist",
+      "bbox": [
+        1030,
+        783,
+        1125,
+        829
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.88,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 6-6. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_25",
+      "text": "der",
+      "bbox": [
+        680,
+        996,
+        746,
+        1048
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.88,
+      "notes": "Right-column projection line 24; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated."
+    },
+    {
+      "id": "cgm628_native29_r_26",
+      "text": "den",
+      "bbox": [
+        1031,
+        793,
+        1125,
+        842
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.82,
+      "notes": "Right-column projection line 18; machine-selected whole-word proposals 5-6 merged. Lowercase normalized reading hypothesis, not expert verified; final n versus m remains paleographically uncertain. Conservative original-pixel box can include neighboring-line ink. Confidence is subjective and uncalibrated."
+    }
+  ],
+  "generated_texts": [
+    "die hand ist rein",
+    "alle sind da",
+    "und ain glider"
+  ]
+}

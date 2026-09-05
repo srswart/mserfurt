@@ -1,0 +1,6162 @@
+{
+  "schema_version": 1,
+  "hand_id": "konrad_proxy_cgm628_native29_right_column_unverified",
+  "experimental": true,
+  "promoted": false,
+  "decision": "not_promoted",
+  "provenance": {
+    "manifest_path": "reference/konrad_word_recovery_v1/manifest.json",
+    "manifest_sha256": "ac5bdb028b8df7f055904b2e6258e12e4ce57cc752157a1c4d979f6fe662b74c",
+    "source": {
+      "manuscript_id": "BSB Cgm 628 / bsb00144295",
+      "image_path": "reference/konrad_word_recovery_v1/source_bsb00144295_00029.jpg",
+      "sha256": "dd818bb99030329b38299faff9583ecc0cb58af23675b9ab2d75ac7ded96ae71",
+      "canvas_id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00144295/canvas/29",
+      "image_url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb00144295_00029/full/full/0/default.jpg",
+      "hand_identity_status": "UNVERIFIED: one visually coherent right-column hand in BSB Cgm 628, current official canvas 29; no evidence identifies this scribe as Konrad or establishes the fictional Konrad hand. Harvest filenames and current IIIF canvas mapping disagree; see provenance.json."
+    },
+    "label_policy": "MACHINE-ONLY reading hypotheses; no human, calligrapher, paleographer, or expert verified these labels. Confidence values are subjective and uncalibrated, not probabilities of historical truth. Labels are lowercase normalized word readings, not glyph-exact diplomatic transcriptions: long-s is normalized to logical s, case and graphic allographs are not distinguished, and uncertain historical spelling/abbreviation may remain. Original pixels preserve allograph forms, joins, and abbreviations. A one-shape-per-character renderer cannot model that distinction. Whole-word boxes are machine-selected from projection proposals, not letter cutouts or manual tracing; neighboring-line ink and pale-stroke boundary uncertainty remain. Below-threshold hypotheses remain recorded rather than relabeled or silently treated as verified. Generated texts are synthetic combinations of the admitted training alphabet, not claims about manuscript wording.",
+    "human_interventions": [],
+    "human_intervention_count": 0
+  },
+  "config": {
+    "iterations": 400,
+    "max_iterations": 2000,
+    "seed": 42,
+    "dpi": 100.0,
+    "min_label_confidence": 0.8,
+    "canonical_height_px": 48,
+    "coordinate_bound_xheight": 0.4,
+    "advance_bounds_seed_ratio": [
+      0.5,
+      1.5
+    ],
+    "nib_width_bounds_mm": [
+      0.3,
+      0.9
+    ],
+    "nib_angle_bounds_deg": [
+      20,
+      65
+    ],
+    "renderer": "evo polygon nib sweep; 32 intervals; 3x supersampling; constant ink; no RNG"
+  },
+  "human_intervention_count": 0,
+  "training": {
+    "count": 14,
+    "before": 0.672660616739776,
+    "after": 0.570671459515409
+  },
+  "heldout": {
+    "count": 8,
+    "before": 0.6718131694114481,
+    "after": 0.6354601363964281
+  },
+  "heldout_exact_repeat": {
+    "count": 3,
+    "before": 0.6412157030940568,
+    "after": 0.6102278576210864
+  },
+  "heldout_novel_word": {
+    "count": 5,
+    "before": 0.6901716492018828,
+    "after": 0.6505995036616331
+  },
+  "samples": [
+    {
+      "id": "cgm628_native29_r_01",
+      "text": "in",
+      "bbox": [
+        809,
+        235,
+        856,
+        255
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.82,
+      "notes": "Right-column projection line 1; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.8338443120115205,
+      "after": 0.7231959069890422,
+      "crop_rgb_sha256": "08d9f3b180fd709ddbf0de6f40805a4cecced800cbb51159d0575aca7142f6dd",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_02",
+      "text": "in",
+      "bbox": [
+        794,
+        300,
+        838,
+        320
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.84,
+      "notes": "Right-column projection line 3; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.8626708315666319,
+      "after": 0.7845793220336122,
+      "crop_rgb_sha256": "d64c12a99e4e848a8945830c4b5cf09c05daac68f6464b60cbaffaf16c5f0e47",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_03",
+      "text": "ungehindert",
+      "bbox": [
+        697,
+        303,
+        883,
+        372
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.74,
+      "notes": "Right-column projection line 4; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": null,
+      "after": null,
+      "crop_rgb_sha256": "5d441ce891f323f33554ad0cec0c0b2b4072c8403ffdc25cbf561d1e3ce61d67",
+      "exclusion": "uncertain_machine_label",
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_04",
+      "text": "seines",
+      "bbox": [
+        883,
+        324,
+        972,
+        371
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.8,
+      "notes": "Right-column projection line 4; machine-selected whole-word proposal 2-3. Lowercase normalized reading hypothesis, not expert verified. Automatic fragments merged into one whole-word region; no letter outlines traced. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6142777427382311,
+      "after": 0.5950164376007608,
+      "crop_rgb_sha256": "76d6099fa1270e6bc5c99f50ab17302f608ab417913faa55f6c4141392772e08",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_05",
+      "text": "wercks",
+      "bbox": [
+        972,
+        318,
+        1125,
+        352
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.78,
+      "notes": "Right-column projection line 4; machine-selected whole-word proposal 4-4. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": null,
+      "after": null,
+      "crop_rgb_sha256": "bbd49939f674f72495c13bcbf0f8e2c72ee2cda7dd1bcacdd52fc32b174151e1",
+      "exclusion": "uncertain_machine_label",
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_06",
+      "text": "alle",
+      "bbox": [
+        680,
+        374,
+        760,
+        419
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.89,
+      "notes": "Right-column projection line 6; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.623624193537643,
+      "after": 0.4941514965030199,
+      "crop_rgb_sha256": "21616540cce1275a5dd3320db59d5a1478bc648a4ae1dbf5711257bca270868b",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_07",
+      "text": "dy",
+      "bbox": [
+        760,
+        385,
+        803,
+        443
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.84,
+      "notes": "Right-column projection line 6; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6366070667537165,
+      "after": 0.5514301332193294,
+      "crop_rgb_sha256": "2a71f720c0a7ca108d39c0a3b33a17dd86f9765a336a7fa05e6ad4e529de22a9",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_08",
+      "text": "das",
+      "bbox": [
+        680,
+        419,
+        748,
+        456
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.91,
+      "notes": "Right-column projection line 7; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6405636387441727,
+      "after": 0.5004481867488347,
+      "crop_rgb_sha256": "b627255cd98f41010042dd94a142510df8e3317f816ebda0213c7d56334e8d32",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_09",
+      "text": "kains",
+      "bbox": [
+        748,
+        408,
+        843,
+        477
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.77,
+      "notes": "Right-column projection line 7; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": null,
+      "after": null,
+      "crop_rgb_sha256": "93654780b13fe0c0ec08acbbd082de7815acfdbd5044369a0e0fe75561670775",
+      "exclusion": "uncertain_machine_label",
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_10",
+      "text": "als",
+      "bbox": [
+        843,
+        408,
+        903,
+        462
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.9,
+      "notes": "Right-column projection line 7; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6998770558262603,
+      "after": 0.5651639607170803,
+      "crop_rgb_sha256": "b8a5f2e3fb316b08fda6478badac1d6ac22c8efe7529f39fb4121621e054d4f9",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_11",
+      "text": "ist",
+      "bbox": [
+        680,
+        456,
+        739,
+        503
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.87,
+      "notes": "Right-column projection line 8; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6370435831124032,
+      "after": 0.5209131512511921,
+      "crop_rgb_sha256": "01390d01886db20168bcd076aee32e8db08a91c0f2d549a8df731e7c5dc2c2c9",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_12",
+      "text": "es",
+      "bbox": [
+        739,
+        461,
+        781,
+        512
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.91,
+      "notes": "Right-column projection line 8; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6503186775689808,
+      "after": 0.5526135753585886,
+      "crop_rgb_sha256": "c894a9210982b68193bd72249a1990490ab6af8de231648cdf496261abc49a38",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_13",
+      "text": "der",
+      "bbox": [
+        738,
+        582,
+        794,
+        629
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.91,
+      "notes": "Right-column projection line 12; machine-selected whole-word proposal 2-2. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6376574831270491,
+      "after": 0.5495508681171277,
+      "crop_rgb_sha256": "c0ea10f9bbf423f0ecb2be80ed2ff6dde7fc1017a397aeb525beb3c758e3aac1",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_14",
+      "text": "heiligen",
+      "bbox": [
+        794,
+        582,
+        916,
+        651
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.75,
+      "notes": "Right-column projection line 12; machine-selected whole-word proposal 3-4. Lowercase normalized reading hypothesis, not expert verified. Automatic fragments merged into one whole-word region; no letter outlines traced. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": null,
+      "after": null,
+      "crop_rgb_sha256": "f06232b0aebe1a1e76bf85d214347df03760d6878498a72a16607006ee8e59a4",
+      "exclusion": "uncertain_machine_label",
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_15",
+      "text": "kirchen",
+      "bbox": [
+        916,
+        593,
+        1016,
+        640
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.84,
+      "notes": "Right-column projection line 12; machine-selected whole-word proposal 5-5. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6309052133941823,
+      "after": 0.5181998140323826,
+      "crop_rgb_sha256": "82932eb6a2f86f92a24edd971b7ec9551433c1ebc87525116e85c4a853f058bd",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_16",
+      "text": "vil",
+      "bbox": [
+        946,
+        1007,
+        998,
+        1042
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.86,
+      "notes": "Right-column projection line 24; machine-selected whole-word proposal 4-4. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.68077685200551,
+      "after": 0.5147686392913932,
+      "crop_rgb_sha256": "bcd5459694ba4312d3cc8655fb6695ab2bf9160c42683a3f973dff7b9774a245",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_17",
+      "text": "glider",
+      "bbox": [
+        814,
+        760,
+        925,
+        829
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.81,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6412921913769845,
+      "after": 0.5726034933684118,
+      "crop_rgb_sha256": "e2eb4d898671c3bab91ac540c6a4e09721b5e8c036b41c3e62956286a1fe612e",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_18",
+      "text": "und",
+      "bbox": [
+        680,
+        895,
+        756,
+        964
+      ],
+      "split": "train",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.89,
+      "notes": "Right-column projection line 21; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6277897925935769,
+      "after": 0.5467654479849501,
+      "crop_rgb_sha256": "44f244a3d9fc8ba4012ddbc1803df074fa6190cfa1c6938d4d7bbf80a696445c",
+      "exclusion": null,
+      "absent_alphabet": []
+    },
+    {
+      "id": "cgm628_native29_r_19",
+      "text": "alles",
+      "bbox": [
+        1007,
+        895,
+        1125,
+        952
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.9,
+      "notes": "Right-column projection line 21; machine-selected whole-word proposal 5-5. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6188780680500361,
+      "after": 0.5925820925359039,
+      "crop_rgb_sha256": "0d175691744b6ae186ecb550cde2392fc4c016f782164b043b782262683e4477",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "novel_word"
+    },
+    {
+      "id": "cgm628_native29_r_20",
+      "text": "ain",
+      "bbox": [
+        804,
+        504,
+        867,
+        546
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.9,
+      "notes": "Right-column projection line 9; machine-selected whole-word proposal 3-3. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.7607709259609206,
+      "after": 0.6919506891231991,
+      "crop_rgb_sha256": "dd1300866a0206c03480ba46abe081807c2cdaca891424cb59b4511d5f8003f6",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "novel_word"
+    },
+    {
+      "id": "cgm628_native29_r_21",
+      "text": "sind",
+      "bbox": [
+        680,
+        760,
+        761,
+        829
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.86,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.7154550465670194,
+      "after": 0.6951261511362965,
+      "crop_rgb_sha256": "f3d47ac7c5a001dd26ca9885674335f2caf216f6a5598dd868522f6d7fb7184b",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "novel_word"
+    },
+    {
+      "id": "cgm628_native29_r_22",
+      "text": "das",
+      "bbox": [
+        925,
+        760,
+        978,
+        829
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.92,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 4-4. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6702207799717996,
+      "after": 0.682074868554001,
+      "crop_rgb_sha256": "d2e9de5d5a473a1f0a44e50be4a91b415c595d8559ac78fbbef44f09021a302b",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "exact_repeat"
+    },
+    {
+      "id": "cgm628_native29_r_23",
+      "text": "ain",
+      "bbox": [
+        978,
+        790,
+        1030,
+        808
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.89,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 5-5. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.7734128793333217,
+      "after": 0.7062951347575084,
+      "crop_rgb_sha256": "2aafd893e084206e313334ea178dd785170c25bc452d9c4ff63121e74da0cb26",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "novel_word"
+    },
+    {
+      "id": "cgm628_native29_r_24",
+      "text": "ist",
+      "bbox": [
+        1030,
+        783,
+        1125,
+        829
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.88,
+      "notes": "Right-column projection line 17; machine-selected whole-word proposal 6-6. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6248083743488061,
+      "after": 0.5311020035762507,
+      "crop_rgb_sha256": "58f35c82caf7df48394ef900f81f5d87e5745f028c6285f9b4e7adac81971ce2",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "exact_repeat"
+    },
+    {
+      "id": "cgm628_native29_r_25",
+      "text": "der",
+      "bbox": [
+        680,
+        996,
+        746,
+        1048
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.88,
+      "notes": "Right-column projection line 24; machine-selected whole-word proposal 1-1. Lowercase normalized reading hypothesis, not expert verified. Conservative original-pixel box can include neighboring-line ink; pale strokes/joins and crop boundaries remain uncertain. Confidence is subjective and uncalibrated.",
+      "before": 0.6286179549615648,
+      "after": 0.6175067007330076,
+      "crop_rgb_sha256": "69044202eb9268b56380e878a334aea6c295d12b10b54fdad1c2e0d64e1876d9",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "exact_repeat"
+    },
+    {
+      "id": "cgm628_native29_r_26",
+      "text": "den",
+      "bbox": [
+        1031,
+        793,
+        1125,
+        842
+      ],
+      "split": "heldout",
+      "label_source": "machine_vision_hypothesis_from_native_crop",
+      "confidence": 0.82,
+      "notes": "Right-column projection line 18; machine-selected whole-word proposals 5-6 merged. Lowercase normalized reading hypothesis, not expert verified; final n versus m remains paleographically uncertain. Conservative original-pixel box can include neighboring-line ink. Confidence is subjective and uncalibrated.",
+      "before": 0.5823413260981162,
+      "after": 0.5670434507552575,
+      "crop_rgb_sha256": "9b0067c50c2b0e8747a6d8bea0207ced480b776d8e970da7da6d89f868e0d8c7",
+      "exclusion": null,
+      "absent_alphabet": [],
+      "generalization": "novel_word"
+    }
+  ],
+  "generated": [
+    {
+      "text": "die hand ist rein",
+      "status": "rendered",
+      "absent_alphabet": [],
+      "novel_words": [
+        "die",
+        "hand",
+        "rein"
+      ]
+    },
+    {
+      "text": "alle sind da",
+      "status": "rendered",
+      "absent_alphabet": [],
+      "novel_words": [
+        "sind",
+        "da"
+      ]
+    },
+    {
+      "text": "und ain glider",
+      "status": "rendered",
+      "absent_alphabet": [],
+      "novel_words": [
+        "ain"
+      ]
+    }
+  ],
+  "training_alphabet": [
+    "a",
+    "c",
+    "d",
+    "e",
+    "g",
+    "h",
+    "i",
+    "k",
+    "l",
+    "n",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "y"
+  ],
+  "fit": {
+    "accepted_proposals": 133,
+    "render_evaluations": 1436,
+    "training_ids": [
+      "cgm628_native29_r_01",
+      "cgm628_native29_r_02",
+      "cgm628_native29_r_04",
+      "cgm628_native29_r_06",
+      "cgm628_native29_r_07",
+      "cgm628_native29_r_08",
+      "cgm628_native29_r_10",
+      "cgm628_native29_r_11",
+      "cgm628_native29_r_12",
+      "cgm628_native29_r_13",
+      "cgm628_native29_r_15",
+      "cgm628_native29_r_16",
+      "cgm628_native29_r_17",
+      "cgm628_native29_r_18"
+    ],
+    "history": [
+      {
+        "iteration": 1,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": true,
+        "candidate_loss": 0.6678994379821563,
+        "best_loss": 0.6678994379821563,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 2,
+        "character": "g",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6682900134442186,
+        "best_loss": 0.6678994379821563,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 3,
+        "character": "u",
+        "parameter": "segment_0_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.6682799993806133,
+        "best_loss": 0.6678994379821563,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 4,
+        "character": "a",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6696382403565597,
+        "best_loss": 0.6678994379821563,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 5,
+        "character": "v",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6683305779936158,
+        "best_loss": 0.6678994379821563,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 6,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6664411218079781,
+        "best_loss": 0.6664411218079781,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 7,
+        "character": "g",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6664969135461842,
+        "best_loss": 0.6664411218079781,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 8,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.664877914277961,
+        "best_loss": 0.664877914277961,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 9,
+        "character": "s",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6715890151125793,
+        "best_loss": 0.664877914277961,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 10,
+        "character": "l",
+        "parameter": "segment_0_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.6635733141341003,
+        "best_loss": 0.6635733141341003,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 11,
+        "character": "n",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6649502515482334,
+        "best_loss": 0.6635733141341003,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 12,
+        "character": "i",
+        "parameter": "segment_0_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.6636763375362095,
+        "best_loss": 0.6635733141341003,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 13,
+        "character": "k",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6635185902341023,
+        "best_loss": 0.6635185902341023,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 14,
+        "character": "l",
+        "parameter": "segment_0_p1_1",
+        "accepted": true,
+        "candidate_loss": 0.6634812080570621,
+        "best_loss": 0.6634812080570621,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 15,
+        "character": "i",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6649517459094113,
+        "best_loss": 0.6634812080570621,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 16,
+        "character": "h",
+        "parameter": "segment_0_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.6635002398698998,
+        "best_loss": 0.6634812080570621,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 17,
+        "character": "k",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.6626150153386409,
+        "best_loss": 0.6626150153386409,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 18,
+        "character": "c",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6627435740242336,
+        "best_loss": 0.6626150153386409,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 19,
+        "character": "d",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.6589127791242976,
+        "best_loss": 0.6589127791242976,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 20,
+        "character": "y",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.6583945385214179,
+        "best_loss": 0.6583945385214179,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 21,
+        "character": "l",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.656166269497698,
+        "best_loss": 0.656166269497698,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 22,
+        "character": "l",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.6512354137417262,
+        "best_loss": 0.6512354137417262,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 23,
+        "character": "k",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.6511761774495526,
+        "best_loss": 0.6511761774495526,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 24,
+        "character": "c",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6502299316793252,
+        "best_loss": 0.6502299316793252,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 25,
+        "character": "h",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6495311159408733,
+        "best_loss": 0.6495311159408733,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 26,
+        "character": "d",
+        "parameter": "segment_1_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.6488708602932817,
+        "best_loss": 0.6488708602932817,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 27,
+        "character": "a",
+        "parameter": "segment_2_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.6487053941918057,
+        "best_loss": 0.6487053941918057,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 28,
+        "character": "n",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6513178731708058,
+        "best_loss": 0.6487053941918057,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 29,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6467110458783054,
+        "best_loss": 0.6467110458783054,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 30,
+        "character": "h",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.6466990045062077,
+        "best_loss": 0.6466990045062077,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 31,
+        "character": "i",
+        "parameter": "segment_1_p1_0",
+        "accepted": true,
+        "candidate_loss": 0.6442967698240032,
+        "best_loss": 0.6442967698240032,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 32,
+        "character": "r",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.6465088798643019,
+        "best_loss": 0.6442967698240032,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 33,
+        "character": "k",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.6440983772048077,
+        "best_loss": 0.6440983772048077,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 34,
+        "character": "d",
+        "parameter": "segment_2_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.6441987882451974,
+        "best_loss": 0.6440983772048077,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 35,
+        "character": "g",
+        "parameter": "segment_3_p1_0",
+        "accepted": true,
+        "candidate_loss": 0.6438902343973872,
+        "best_loss": 0.6438902343973872,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 36,
+        "character": "u",
+        "parameter": "segment_2_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.6442525728569947,
+        "best_loss": 0.6438902343973872,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 37,
+        "character": "s",
+        "parameter": "segment_2_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.6440555011430027,
+        "best_loss": 0.6438902343973872,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 38,
+        "character": "k",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6440417918730293,
+        "best_loss": 0.6438902343973872,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 39,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": true,
+        "candidate_loss": 0.6389033505265341,
+        "best_loss": 0.6389033505265341,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 40,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.6440911292064931,
+        "best_loss": 0.6389033505265341,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 41,
+        "character": "d",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6412799259441824,
+        "best_loss": 0.6389033505265341,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 42,
+        "character": "k",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6387755638795841,
+        "best_loss": 0.6387755638795841,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 43,
+        "character": "i",
+        "parameter": "segment_1_p1_0",
+        "accepted": true,
+        "candidate_loss": 0.638533084693253,
+        "best_loss": 0.638533084693253,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 44,
+        "character": "i",
+        "parameter": "segment_0_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.6387858760137514,
+        "best_loss": 0.638533084693253,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 45,
+        "character": "u",
+        "parameter": "segment_2_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.6385045766813794,
+        "best_loss": 0.6385045766813794,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 46,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": true,
+        "candidate_loss": 0.6338536715285706,
+        "best_loss": 0.6338536715285706,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 47,
+        "character": "k",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6332911737225874,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 48,
+        "character": "v",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6334430845526743,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 49,
+        "character": "l",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6349318053229105,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 50,
+        "character": "d",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6394080348184227,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 51,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.6414196591434095,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 52,
+        "character": "h",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6333636638413022,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 53,
+        "character": "i",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.6333490860929887,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 54,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.6380088663605722,
+        "best_loss": 0.6332911737225874,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 55,
+        "character": "n",
+        "parameter": "segment_2_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.6328889812959899,
+        "best_loss": 0.6328889812959899,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 56,
+        "character": "n",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.6325955183218351,
+        "best_loss": 0.6325955183218351,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 57,
+        "character": "c",
+        "parameter": "segment_0_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.6325327380585809,
+        "best_loss": 0.6325327380585809,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 58,
+        "character": "h",
+        "parameter": "segment_2_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.6324299656985526,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 59,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6382928487814059,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 60,
+        "character": "e",
+        "parameter": "segment_2_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.6339027683400505,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 61,
+        "character": "r",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.6324299656985526,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 62,
+        "character": "t",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6325795609827081,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 63,
+        "character": "r",
+        "parameter": "segment_0_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.6327441773075095,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 64,
+        "character": "i",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6353328564540665,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 65,
+        "character": "s",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.63441712679463,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 66,
+        "character": "s",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6347030963047716,
+        "best_loss": 0.6324299656985526,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 67,
+        "character": "n",
+        "parameter": "segment_2_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.6306526004759504,
+        "best_loss": 0.6306526004759504,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 68,
+        "character": "l",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6315238995392561,
+        "best_loss": 0.6306526004759504,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 69,
+        "character": "g",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6304412552454393,
+        "best_loss": 0.6304412552454393,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 70,
+        "character": "i",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6322200119860855,
+        "best_loss": 0.6304412552454393,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 71,
+        "character": "y",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6307638670935044,
+        "best_loss": 0.6304412552454393,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 72,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6316383946780207,
+        "best_loss": 0.6304412552454393,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 73,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": true,
+        "candidate_loss": 0.6273225174317928,
+        "best_loss": 0.6273225174317928,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 74,
+        "character": "l",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6296427200734163,
+        "best_loss": 0.6273225174317928,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 75,
+        "character": "u",
+        "parameter": "segment_0_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.6265601997486445,
+        "best_loss": 0.6265601997486445,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 76,
+        "character": "c",
+        "parameter": "segment_0_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.6265070553293931,
+        "best_loss": 0.6265070553293931,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 77,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": true,
+        "candidate_loss": 0.6232478533686631,
+        "best_loss": 0.6232478533686631,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 78,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.6265070553293931,
+        "best_loss": 0.6232478533686631,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 79,
+        "character": "e",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6239226772907532,
+        "best_loss": 0.6232478533686631,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 80,
+        "character": "g",
+        "parameter": "segment_1_p1_0",
+        "accepted": true,
+        "candidate_loss": 0.6232439226700653,
+        "best_loss": 0.6232439226700653,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 81,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": true,
+        "candidate_loss": 0.6104504163004495,
+        "best_loss": 0.6104504163004495,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 82,
+        "character": "k",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.6104563337865336,
+        "best_loss": 0.6104504163004495,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 83,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.6172141353120038,
+        "best_loss": 0.6104504163004495,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 84,
+        "character": "v",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.609841929532947,
+        "best_loss": 0.609841929532947,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 85,
+        "character": "k",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6101534668875127,
+        "best_loss": 0.609841929532947,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 86,
+        "character": "r",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.609841929532947,
+        "best_loss": 0.609841929532947,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 87,
+        "character": "t",
+        "parameter": "segment_0_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.6095311084900301,
+        "best_loss": 0.6095311084900301,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 88,
+        "character": "l",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6104342363958001,
+        "best_loss": 0.6095311084900301,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 89,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6108237915599697,
+        "best_loss": 0.6095311084900301,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 90,
+        "character": "u",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6095598221361753,
+        "best_loss": 0.6095311084900301,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 91,
+        "character": "i",
+        "parameter": "segment_0_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.6084862625116155,
+        "best_loss": 0.6084862625116155,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 92,
+        "character": "i",
+        "parameter": "segment_1_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.6062622041341914,
+        "best_loss": 0.6062622041341914,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 93,
+        "character": "r",
+        "parameter": "segment_1_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.6059699933581447,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 94,
+        "character": "t",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6060853848896868,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 95,
+        "character": "u",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6059704934232208,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 96,
+        "character": "n",
+        "parameter": "segment_2_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.6060877916531465,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 97,
+        "character": "i",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.609334693901039,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 98,
+        "character": "v",
+        "parameter": "segment_0_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.6063858952121778,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 99,
+        "character": "n",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6067399493676033,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 100,
+        "character": "k",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6059699933581447,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 101,
+        "character": "i",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6060287286755338,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 102,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.6199286767727256,
+        "best_loss": 0.6059699933581447,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 103,
+        "character": "d",
+        "parameter": "segment_1_p1_1",
+        "accepted": true,
+        "candidate_loss": 0.6059231712341442,
+        "best_loss": 0.6059231712341442,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 104,
+        "character": "t",
+        "parameter": "segment_0_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.6064578755274737,
+        "best_loss": 0.6059231712341442,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 105,
+        "character": "k",
+        "parameter": "segment_2_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.6059366220632162,
+        "best_loss": 0.6059231712341442,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 106,
+        "character": "k",
+        "parameter": "segment_1_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.6060285716536035,
+        "best_loss": 0.6059231712341442,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 107,
+        "character": "r",
+        "parameter": "segment_1_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.6058386573848278,
+        "best_loss": 0.6058386573848278,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 108,
+        "character": "v",
+        "parameter": "segment_0_p2_1",
+        "accepted": true,
+        "candidate_loss": 0.6055858361540274,
+        "best_loss": 0.6055858361540274,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 109,
+        "character": "l",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6113591687856959,
+        "best_loss": 0.6055858361540274,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 110,
+        "character": "k",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6080812319305648,
+        "best_loss": 0.6055858361540274,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 111,
+        "character": "d",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6087874226828012,
+        "best_loss": 0.6055858361540274,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 112,
+        "character": "t",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6073105912533064,
+        "best_loss": 0.6055858361540274,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 113,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6061501085287462,
+        "best_loss": 0.6055858361540274,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 114,
+        "character": "v",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.6061332503205701,
+        "best_loss": 0.6055858361540274,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 115,
+        "character": "u",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.6055411276047888,
+        "best_loss": 0.6055411276047888,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 116,
+        "character": "t",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.6055411276047888,
+        "best_loss": 0.6055411276047888,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 117,
+        "character": "u",
+        "parameter": "segment_1_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.6055411276047888,
+        "best_loss": 0.6055411276047888,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 118,
+        "character": "y",
+        "parameter": "segment_1_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.6058327648960764,
+        "best_loss": 0.6055411276047888,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 119,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.6045569524362203,
+        "best_loss": 0.6045569524362203,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 120,
+        "character": "a",
+        "parameter": "segment_2_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.6046776556022209,
+        "best_loss": 0.6045569524362203,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 121,
+        "character": "g",
+        "parameter": "segment_1_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.6045085423448492,
+        "best_loss": 0.6045085423448492,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 122,
+        "character": "r",
+        "parameter": "segment_1_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.6045794282412655,
+        "best_loss": 0.6045085423448492,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 123,
+        "character": "l",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.6045847027354537,
+        "best_loss": 0.6045085423448492,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 124,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.6093932659746014,
+        "best_loss": 0.6045085423448492,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 125,
+        "character": "d",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6075684073743755,
+        "best_loss": 0.6045085423448492,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 126,
+        "character": "i",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.6039823997434716,
+        "best_loss": 0.6039823997434716,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 127,
+        "character": "g",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.6038777634372309,
+        "best_loss": 0.6038777634372309,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 128,
+        "character": "i",
+        "parameter": "segment_1_p2_1",
+        "accepted": true,
+        "candidate_loss": 0.6038194629509697,
+        "best_loss": 0.6038194629509697,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 129,
+        "character": "e",
+        "parameter": "segment_1_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.6043649310263017,
+        "best_loss": 0.6038194629509697,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 130,
+        "character": "t",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.60831901158532,
+        "best_loss": 0.6038194629509697,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 131,
+        "character": "k",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6050017495822688,
+        "best_loss": 0.6038194629509697,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 132,
+        "character": "e",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.6019715236712552,
+        "best_loss": 0.6019715236712552,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 133,
+        "character": "u",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.6019715236712552,
+        "best_loss": 0.6019715236712552,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 134,
+        "character": "y",
+        "parameter": "segment_1_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.6017466576446084,
+        "best_loss": 0.6017466576446084,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 135,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.602479600278045,
+        "best_loss": 0.6017466576446084,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 136,
+        "character": "l",
+        "parameter": "segment_0_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.6029754576437174,
+        "best_loss": 0.6017466576446084,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 137,
+        "character": "k",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6021725101663477,
+        "best_loss": 0.6017466576446084,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 138,
+        "character": "k",
+        "parameter": "segment_2_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.6018171112372155,
+        "best_loss": 0.6017466576446084,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 139,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.6099740950288332,
+        "best_loss": 0.6017466576446084,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 140,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.6017466576446084,
+        "best_loss": 0.6017466576446084,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 141,
+        "character": "l",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.6014372801655747,
+        "best_loss": 0.6014372801655747,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 142,
+        "character": "l",
+        "parameter": "segment_0_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.60058994806828,
+        "best_loss": 0.60058994806828,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 143,
+        "character": "y",
+        "parameter": "segment_2_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.60058994806828,
+        "best_loss": 0.60058994806828,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 144,
+        "character": "a",
+        "parameter": "segment_1_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.6005915062771098,
+        "best_loss": 0.60058994806828,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 145,
+        "character": "n",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.599431532371092,
+        "best_loss": 0.599431532371092,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 146,
+        "character": "s",
+        "parameter": "segment_2_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.599529672425526,
+        "best_loss": 0.599431532371092,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 147,
+        "character": "l",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5995168914747371,
+        "best_loss": 0.599431532371092,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 148,
+        "character": "r",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.6008356565503549,
+        "best_loss": 0.599431532371092,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 149,
+        "character": "i",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5974157724734319,
+        "best_loss": 0.5974157724734319,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 150,
+        "character": "n",
+        "parameter": "segment_0_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.5968976737416092,
+        "best_loss": 0.5968976737416092,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 151,
+        "character": "h",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5968764063937038,
+        "best_loss": 0.5968764063937038,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 152,
+        "character": "g",
+        "parameter": "segment_0_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5968378569862766,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 153,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5968378569862766,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 154,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5999693039499469,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 155,
+        "character": "v",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5970430124240436,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 156,
+        "character": "e",
+        "parameter": "segment_1_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.5982893452495271,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 157,
+        "character": "c",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5969605611681421,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 158,
+        "character": "e",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5971965137750886,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 159,
+        "character": "t",
+        "parameter": "segment_1_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.5969212531734887,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 160,
+        "character": "c",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.596840555615178,
+        "best_loss": 0.5968378569862766,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 161,
+        "character": "l",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5959306346234837,
+        "best_loss": 0.5959306346234837,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 162,
+        "character": "h",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5962343844554869,
+        "best_loss": 0.5959306346234837,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 163,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5990958361650389,
+        "best_loss": 0.5959306346234837,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 164,
+        "character": "y",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.595992945846156,
+        "best_loss": 0.5959306346234837,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 165,
+        "character": "v",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5958986515529393,
+        "best_loss": 0.5958986515529393,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 166,
+        "character": "i",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5968349657571803,
+        "best_loss": 0.5958986515529393,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 167,
+        "character": "k",
+        "parameter": "segment_1_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.5960043855786703,
+        "best_loss": 0.5958986515529393,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 168,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.6148363257360191,
+        "best_loss": 0.5958986515529393,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 169,
+        "character": "n",
+        "parameter": "segment_0_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.5957470918846538,
+        "best_loss": 0.5957470918846538,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 170,
+        "character": "l",
+        "parameter": "segment_0_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5955633620164836,
+        "best_loss": 0.5955633620164836,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 171,
+        "character": "r",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5966117868568321,
+        "best_loss": 0.5955633620164836,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 172,
+        "character": "a",
+        "parameter": "segment_2_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5955121254572087,
+        "best_loss": 0.5955121254572087,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 173,
+        "character": "v",
+        "parameter": "segment_0_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5974975973666885,
+        "best_loss": 0.5955121254572087,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 174,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5955121254572087,
+        "best_loss": 0.5955121254572087,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 175,
+        "character": "r",
+        "parameter": "segment_0_p1_1",
+        "accepted": true,
+        "candidate_loss": 0.5955074925259153,
+        "best_loss": 0.5955074925259153,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 176,
+        "character": "y",
+        "parameter": "segment_2_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5955602732038306,
+        "best_loss": 0.5955074925259153,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 177,
+        "character": "d",
+        "parameter": "segment_1_p2_1",
+        "accepted": true,
+        "candidate_loss": 0.5951464163434029,
+        "best_loss": 0.5951464163434029,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 178,
+        "character": "a",
+        "parameter": "segment_1_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5953858663426674,
+        "best_loss": 0.5951464163434029,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 179,
+        "character": "s",
+        "parameter": "segment_2_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.594772509555556,
+        "best_loss": 0.594772509555556,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 180,
+        "character": "l",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5953277385291689,
+        "best_loss": 0.594772509555556,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 181,
+        "character": "y",
+        "parameter": "segment_0_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.5949068623073129,
+        "best_loss": 0.594772509555556,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 182,
+        "character": "a",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5954772779957374,
+        "best_loss": 0.594772509555556,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 183,
+        "character": "e",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5946881307008752,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 184,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5946881307008752,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 185,
+        "character": "l",
+        "parameter": "segment_0_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5956087820894667,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 186,
+        "character": "g",
+        "parameter": "segment_1_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5946881307008752,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 187,
+        "character": "u",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5947455852201645,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 188,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.6006836183386389,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 189,
+        "character": "y",
+        "parameter": "segment_1_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.5948693570117661,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 190,
+        "character": "t",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5953860973595432,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 191,
+        "character": "k",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5964743521395667,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 192,
+        "character": "c",
+        "parameter": "segment_1_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5948428301090193,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 193,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5946881307008752,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 194,
+        "character": "r",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5960797999418842,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 195,
+        "character": "e",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5949893945133183,
+        "best_loss": 0.5946881307008752,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 196,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5938106870459526,
+        "best_loss": 0.5938106870459526,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 197,
+        "character": "r",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5941456717800887,
+        "best_loss": 0.5938106870459526,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 198,
+        "character": "t",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5977814038280144,
+        "best_loss": 0.5938106870459526,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 199,
+        "character": "c",
+        "parameter": "segment_0_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.5937241677890498,
+        "best_loss": 0.5937241677890498,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 200,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5942524752158518,
+        "best_loss": 0.5937241677890498,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 201,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.596298248283538,
+        "best_loss": 0.5937241677890498,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 202,
+        "character": "a",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5945162953415786,
+        "best_loss": 0.5937241677890498,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 203,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.6005800820261095,
+        "best_loss": 0.5937241677890498,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 204,
+        "character": "u",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5936715196025413,
+        "best_loss": 0.5936715196025413,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 205,
+        "character": "u",
+        "parameter": "segment_0_p1_0",
+        "accepted": true,
+        "candidate_loss": 0.5932705590340969,
+        "best_loss": 0.5932705590340969,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 206,
+        "character": "t",
+        "parameter": "segment_1_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.5932705590340969,
+        "best_loss": 0.5932705590340969,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 207,
+        "character": "l",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5935471250768805,
+        "best_loss": 0.5932705590340969,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 208,
+        "character": "h",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5932366786271297,
+        "best_loss": 0.5932366786271297,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 209,
+        "character": "n",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5961592283094139,
+        "best_loss": 0.5932366786271297,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 210,
+        "character": "n",
+        "parameter": "segment_1_p3_0",
+        "accepted": true,
+        "candidate_loss": 0.5931701522934685,
+        "best_loss": 0.5931701522934685,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 211,
+        "character": "t",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5972108096268445,
+        "best_loss": 0.5931701522934685,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 212,
+        "character": "a",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5930949491549846,
+        "best_loss": 0.5930949491549846,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 213,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.6047082478866138,
+        "best_loss": 0.5930949491549846,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 214,
+        "character": "k",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5944119314439577,
+        "best_loss": 0.5930949491549846,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 215,
+        "character": "l",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5934971390112844,
+        "best_loss": 0.5930949491549846,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 216,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5978677790631771,
+        "best_loss": 0.5930949491549846,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 217,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5999605920178575,
+        "best_loss": 0.5930949491549846,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 218,
+        "character": "n",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5929305080251581,
+        "best_loss": 0.5929305080251581,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 219,
+        "character": "h",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5930304966664834,
+        "best_loss": 0.5929305080251581,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 220,
+        "character": "l",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5935378572399664,
+        "best_loss": 0.5929305080251581,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 221,
+        "character": "r",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5930999025739331,
+        "best_loss": 0.5929305080251581,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 222,
+        "character": "g",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5919974787038996,
+        "best_loss": 0.5919974787038996,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 223,
+        "character": "s",
+        "parameter": "segment_1_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.5935721467383593,
+        "best_loss": 0.5919974787038996,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 224,
+        "character": "e",
+        "parameter": "segment_1_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.592014420497566,
+        "best_loss": 0.5919974787038996,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 225,
+        "character": "e",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5938271725691554,
+        "best_loss": 0.5919974787038996,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 226,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5972533206025519,
+        "best_loss": 0.5919974787038996,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 227,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5944234062317122,
+        "best_loss": 0.5919974787038996,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 228,
+        "character": "e",
+        "parameter": "segment_0_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.5919064001815706,
+        "best_loss": 0.5919064001815706,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 229,
+        "character": "e",
+        "parameter": "segment_0_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.5920092089040551,
+        "best_loss": 0.5919064001815706,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 230,
+        "character": "s",
+        "parameter": "segment_2_p1_1",
+        "accepted": true,
+        "candidate_loss": 0.5916622351415634,
+        "best_loss": 0.5916622351415634,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 231,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5916622351415634,
+        "best_loss": 0.5916622351415634,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 232,
+        "character": "c",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5915316693009902,
+        "best_loss": 0.5915316693009902,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 233,
+        "character": "v",
+        "parameter": "segment_1_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.5918543454744752,
+        "best_loss": 0.5915316693009902,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 234,
+        "character": "s",
+        "parameter": "segment_1_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.591780280087168,
+        "best_loss": 0.5915316693009902,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 235,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5943898843217401,
+        "best_loss": 0.5915316693009902,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 236,
+        "character": "a",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.591921530672957,
+        "best_loss": 0.5915316693009902,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 237,
+        "character": "g",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5916856960624407,
+        "best_loss": 0.5915316693009902,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 238,
+        "character": "i",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5944744837776341,
+        "best_loss": 0.5915316693009902,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 239,
+        "character": "a",
+        "parameter": "segment_0_p1_1",
+        "accepted": true,
+        "candidate_loss": 0.5913614638158403,
+        "best_loss": 0.5913614638158403,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 240,
+        "character": "e",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.597383871781721,
+        "best_loss": 0.5913614638158403,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 241,
+        "character": "a",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5931336940519732,
+        "best_loss": 0.5913614638158403,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 242,
+        "character": "r",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.592726642520745,
+        "best_loss": 0.5913614638158403,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 243,
+        "character": "c",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5914723675394881,
+        "best_loss": 0.5913614638158403,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 244,
+        "character": "e",
+        "parameter": "segment_1_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.5918599400110619,
+        "best_loss": 0.5913614638158403,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 245,
+        "character": "e",
+        "parameter": "segment_2_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5913853752293193,
+        "best_loss": 0.5913614638158403,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 246,
+        "character": "n",
+        "parameter": "segment_2_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5913034617645073,
+        "best_loss": 0.5913034617645073,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 247,
+        "character": "t",
+        "parameter": "segment_0_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.593921981282163,
+        "best_loss": 0.5913034617645073,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 248,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5913581885146258,
+        "best_loss": 0.5913034617645073,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 249,
+        "character": "g",
+        "parameter": "segment_1_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.5912767671384328,
+        "best_loss": 0.5912767671384328,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 250,
+        "character": "n",
+        "parameter": "segment_2_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5913456511965035,
+        "best_loss": 0.5912767671384328,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 251,
+        "character": "i",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5954737394928091,
+        "best_loss": 0.5912767671384328,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 252,
+        "character": "k",
+        "parameter": "segment_1_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.5911925792008866,
+        "best_loss": 0.5911925792008866,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 253,
+        "character": "e",
+        "parameter": "segment_1_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.5912519134791953,
+        "best_loss": 0.5911925792008866,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 254,
+        "character": "g",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5924470003202569,
+        "best_loss": 0.5911925792008866,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 255,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5948375637483422,
+        "best_loss": 0.5911925792008866,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 256,
+        "character": "e",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5914664546252715,
+        "best_loss": 0.5911925792008866,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 257,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5912778532720724,
+        "best_loss": 0.5911925792008866,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 258,
+        "character": "c",
+        "parameter": "segment_1_p2_1",
+        "accepted": true,
+        "candidate_loss": 0.5907921579311989,
+        "best_loss": 0.5907921579311989,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 259,
+        "character": "i",
+        "parameter": "segment_1_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.5908619438171978,
+        "best_loss": 0.5907921579311989,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 260,
+        "character": "s",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5906094292471591,
+        "best_loss": 0.5906094292471591,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 261,
+        "character": "k",
+        "parameter": "segment_2_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5904859480357257,
+        "best_loss": 0.5904859480357257,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 262,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.6025552647296858,
+        "best_loss": 0.5904859480357257,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 263,
+        "character": "r",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5909835048246297,
+        "best_loss": 0.5904859480357257,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 264,
+        "character": "g",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5916576177366718,
+        "best_loss": 0.5904859480357257,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 265,
+        "character": "g",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5901725174881081,
+        "best_loss": 0.5901725174881081,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 266,
+        "character": "i",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5915922377486071,
+        "best_loss": 0.5901725174881081,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 267,
+        "character": "v",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.5902220738853753,
+        "best_loss": 0.5901725174881081,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 268,
+        "character": "d",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5913488318892675,
+        "best_loss": 0.5901725174881081,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 269,
+        "character": "c",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.590519419120165,
+        "best_loss": 0.5901725174881081,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 270,
+        "character": "v",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5896298959991776,
+        "best_loss": 0.5896298959991776,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 271,
+        "character": "v",
+        "parameter": "segment_1_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5896298959991776,
+        "best_loss": 0.5896298959991776,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 272,
+        "character": "u",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5899456024188817,
+        "best_loss": 0.5896298959991776,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 273,
+        "character": "y",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5896920883438412,
+        "best_loss": 0.5896298959991776,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 274,
+        "character": "c",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5896924546598975,
+        "best_loss": 0.5896298959991776,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 275,
+        "character": "l",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5894704163312252,
+        "best_loss": 0.5894704163312252,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 276,
+        "character": "e",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5891706967384336,
+        "best_loss": 0.5891706967384336,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 277,
+        "character": "h",
+        "parameter": "segment_1_p1_0",
+        "accepted": true,
+        "candidate_loss": 0.5891273941999329,
+        "best_loss": 0.5891273941999329,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 278,
+        "character": "t",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5891273941999329,
+        "best_loss": 0.5891273941999329,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 279,
+        "character": "a",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.589196962176337,
+        "best_loss": 0.5891273941999329,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 280,
+        "character": "t",
+        "parameter": "segment_1_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5891194352107592,
+        "best_loss": 0.5891194352107592,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 281,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5937521632306365,
+        "best_loss": 0.5891194352107592,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 282,
+        "character": "v",
+        "parameter": "segment_0_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5911566272371152,
+        "best_loss": 0.5891194352107592,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 283,
+        "character": "u",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5890665686682354,
+        "best_loss": 0.5890665686682354,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 284,
+        "character": "n",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.5890665686682354,
+        "best_loss": 0.5890665686682354,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 285,
+        "character": "e",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5889961522442287,
+        "best_loss": 0.5889961522442287,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 286,
+        "character": "s",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5898878399949657,
+        "best_loss": 0.5889961522442287,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 287,
+        "character": "g",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5898567651206225,
+        "best_loss": 0.5889961522442287,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 288,
+        "character": "h",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.589605458689778,
+        "best_loss": 0.5889961522442287,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 289,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5889961522442287,
+        "best_loss": 0.5889961522442287,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 290,
+        "character": "v",
+        "parameter": "segment_1_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5889961522442287,
+        "best_loss": 0.5889961522442287,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 291,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5889961522442287,
+        "best_loss": 0.5889961522442287,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 292,
+        "character": "l",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5888307818564577,
+        "best_loss": 0.5888307818564577,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 293,
+        "character": "d",
+        "parameter": "segment_1_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.5887057723886358,
+        "best_loss": 0.5887057723886358,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 294,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5928347817397631,
+        "best_loss": 0.5887057723886358,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 295,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5871162652351856,
+        "best_loss": 0.5871162652351856,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 296,
+        "character": "c",
+        "parameter": "segment_0_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.5871479184075462,
+        "best_loss": 0.5871162652351856,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 297,
+        "character": "g",
+        "parameter": "segment_3_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.5872117725938537,
+        "best_loss": 0.5871162652351856,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 298,
+        "character": "h",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5879333793572161,
+        "best_loss": 0.5871162652351856,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 299,
+        "character": "v",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.586581832224911,
+        "best_loss": 0.586581832224911,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 300,
+        "character": "s",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5896540343805595,
+        "best_loss": 0.586581832224911,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 301,
+        "character": "r",
+        "parameter": "segment_1_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.5865400521630395,
+        "best_loss": 0.5865400521630395,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 302,
+        "character": "t",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5865400521630395,
+        "best_loss": 0.5865400521630395,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 303,
+        "character": "g",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5865698538664715,
+        "best_loss": 0.5865400521630395,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 304,
+        "character": "g",
+        "parameter": "segment_2_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5874228934422667,
+        "best_loss": 0.5865400521630395,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 305,
+        "character": "d",
+        "parameter": "segment_2_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.5837712597573456,
+        "best_loss": 0.5837712597573456,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 306,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5844277413585578,
+        "best_loss": 0.5837712597573456,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 307,
+        "character": "s",
+        "parameter": "segment_1_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5838832535820201,
+        "best_loss": 0.5837712597573456,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 308,
+        "character": "r",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5835635166626301,
+        "best_loss": 0.5835635166626301,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 309,
+        "character": "g",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5839012102584791,
+        "best_loss": 0.5835635166626301,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 310,
+        "character": "e",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5851471560334286,
+        "best_loss": 0.5835635166626301,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 311,
+        "character": "g",
+        "parameter": "segment_1_p1_1",
+        "accepted": true,
+        "candidate_loss": 0.5835359528130876,
+        "best_loss": 0.5835359528130876,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 312,
+        "character": "h",
+        "parameter": "segment_0_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.5834959117146871,
+        "best_loss": 0.5834959117146871,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 313,
+        "character": "v",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5837793832366179,
+        "best_loss": 0.5834959117146871,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 314,
+        "character": "k",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5843914880013326,
+        "best_loss": 0.5834959117146871,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 315,
+        "character": "s",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5827164013945926,
+        "best_loss": 0.5827164013945926,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 316,
+        "character": "t",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5832158734760596,
+        "best_loss": 0.5827164013945926,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 317,
+        "character": "g",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5826677409958194,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 318,
+        "character": "s",
+        "parameter": "segment_2_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.5826844770043513,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 319,
+        "character": "h",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5844986614668927,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 320,
+        "character": "g",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5826741670329568,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 321,
+        "character": "a",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5829916242874412,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 322,
+        "character": "s",
+        "parameter": "segment_1_p0_0",
+        "accepted": false,
+        "candidate_loss": 0.5826798080483128,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 323,
+        "character": "a",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5829916242874412,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 324,
+        "character": "g",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5829268159901025,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 325,
+        "character": "y",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5831528542198939,
+        "best_loss": 0.5826677409958194,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 326,
+        "character": "a",
+        "parameter": "segment_0_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.5816418181495433,
+        "best_loss": 0.5816418181495433,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 327,
+        "character": "u",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5825696249658714,
+        "best_loss": 0.5816418181495433,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 328,
+        "character": "k",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5819461074407494,
+        "best_loss": 0.5816418181495433,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 329,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.5966786197388174,
+        "best_loss": 0.5816418181495433,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 330,
+        "character": "v",
+        "parameter": "segment_0_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.5818048191903136,
+        "best_loss": 0.5816418181495433,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 331,
+        "character": "k",
+        "parameter": "segment_1_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.5817361447015575,
+        "best_loss": 0.5816418181495433,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 332,
+        "character": "s",
+        "parameter": "segment_2_p3_0",
+        "accepted": true,
+        "candidate_loss": 0.5808354053688415,
+        "best_loss": 0.5808354053688415,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 333,
+        "character": "s",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.5797004599222463,
+        "best_loss": 0.5797004599222463,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 334,
+        "character": "a",
+        "parameter": "segment_1_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5791102827972506,
+        "best_loss": 0.5791102827972506,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 335,
+        "character": "l",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5788439722080161,
+        "best_loss": 0.5788439722080161,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 336,
+        "character": "s",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5799491485795858,
+        "best_loss": 0.5788439722080161,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 337,
+        "character": "r",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5799130738633025,
+        "best_loss": 0.5788439722080161,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 338,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": true,
+        "candidate_loss": 0.5783352528329971,
+        "best_loss": 0.5783352528329971,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 339,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5787530212376927,
+        "best_loss": 0.5783352528329971,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 340,
+        "character": "g",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5789647597217717,
+        "best_loss": 0.5783352528329971,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 341,
+        "character": "c",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5783466957090518,
+        "best_loss": 0.5783352528329971,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 342,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.578861936770907,
+        "best_loss": 0.5783352528329971,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 343,
+        "character": "t",
+        "parameter": "segment_1_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5780844754805108,
+        "best_loss": 0.5780844754805108,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 344,
+        "character": "s",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5753927727018286,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 345,
+        "character": "e",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5754406351394173,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 346,
+        "character": "v",
+        "parameter": "segment_1_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5753927727018286,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 347,
+        "character": "s",
+        "parameter": "segment_0_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5757502913948569,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 348,
+        "character": "h",
+        "parameter": "segment_1_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5754406591447464,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 349,
+        "character": "n",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5757327421309089,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 350,
+        "character": "u",
+        "parameter": "segment_2_p3_0",
+        "accepted": false,
+        "candidate_loss": 0.576072095151363,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 351,
+        "character": "c",
+        "parameter": "segment_1_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.5754078447058959,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 352,
+        "character": "t",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5753927727018286,
+        "best_loss": 0.5753927727018286,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 353,
+        "character": "h",
+        "parameter": "segment_0_p3_0",
+        "accepted": true,
+        "candidate_loss": 0.5753663001495157,
+        "best_loss": 0.5753663001495157,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 354,
+        "character": "d",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5776563398198943,
+        "best_loss": 0.5753663001495157,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 355,
+        "character": "s",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5783732076826072,
+        "best_loss": 0.5753663001495157,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 356,
+        "character": "g",
+        "parameter": "segment_2_p2_1",
+        "accepted": false,
+        "candidate_loss": 0.5757024524955051,
+        "best_loss": 0.5753663001495157,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 357,
+        "character": "g",
+        "parameter": "advance",
+        "accepted": true,
+        "candidate_loss": 0.575213772015616,
+        "best_loss": 0.575213772015616,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 358,
+        "character": "r",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.576568097176881,
+        "best_loss": 0.575213772015616,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 359,
+        "character": "y",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.575213772015616,
+        "best_loss": 0.575213772015616,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 360,
+        "character": "e",
+        "parameter": "segment_1_p3_1",
+        "accepted": true,
+        "candidate_loss": 0.5751333983298513,
+        "best_loss": 0.5751333983298513,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 361,
+        "character": "n",
+        "parameter": "segment_0_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5755365054270911,
+        "best_loss": 0.5751333983298513,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 362,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5760277571809792,
+        "best_loss": 0.5751333983298513,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 363,
+        "character": "d",
+        "parameter": "segment_2_p2_1",
+        "accepted": true,
+        "candidate_loss": 0.5750162997137969,
+        "best_loss": 0.5750162997137969,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 364,
+        "character": "n",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5750162997137969,
+        "best_loss": 0.5750162997137969,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 365,
+        "character": "k",
+        "parameter": "segment_0_p1_0",
+        "accepted": true,
+        "candidate_loss": 0.5747831193257388,
+        "best_loss": 0.5747831193257388,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 366,
+        "character": "a",
+        "parameter": "segment_2_p2_1",
+        "accepted": true,
+        "candidate_loss": 0.5746759035612591,
+        "best_loss": 0.5746759035612591,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10"
+        ]
+      },
+      {
+        "iteration": 367,
+        "character": "g",
+        "parameter": "segment_0_p2_0",
+        "accepted": true,
+        "candidate_loss": 0.57461924978436,
+        "best_loss": 0.57461924978436,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 368,
+        "character": "u",
+        "parameter": "segment_2_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5746358267341737,
+        "best_loss": 0.57461924978436,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 369,
+        "character": "d",
+        "parameter": "scale_y",
+        "accepted": true,
+        "candidate_loss": 0.5729868401212711,
+        "best_loss": 0.5729868401212711,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 370,
+        "character": "s",
+        "parameter": "segment_2_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.577990767716238,
+        "best_loss": 0.5729868401212711,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 371,
+        "character": "c",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.573065883305394,
+        "best_loss": 0.5729868401212711,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 372,
+        "character": "r",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.573697096446591,
+        "best_loss": 0.5729868401212711,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 373,
+        "character": "n",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.574815317566735,
+        "best_loss": 0.5729868401212711,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 374,
+        "character": "l",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5727256192430223,
+        "best_loss": 0.5727256192430223,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 375,
+        "character": "d",
+        "parameter": "segment_2_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.5733766320693284,
+        "best_loss": 0.5727256192430223,
+        "affected_training_ids": [
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 376,
+        "character": "r",
+        "parameter": "segment_0_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.5724471872926273,
+        "best_loss": 0.5724471872926273,
+        "affected_training_ids": [
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 377,
+        "character": "l",
+        "parameter": "segment_0_p0_0",
+        "accepted": true,
+        "candidate_loss": 0.5715337770097608,
+        "best_loss": 0.5715337770097608,
+        "affected_training_ids": [
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 378,
+        "character": "n",
+        "parameter": "segment_1_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5716856828416842,
+        "best_loss": 0.5715337770097608,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 379,
+        "character": "v",
+        "parameter": "scale_x",
+        "accepted": true,
+        "candidate_loss": 0.5712313688094411,
+        "best_loss": 0.5712313688094411,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 380,
+        "character": "v",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5714169917389192,
+        "best_loss": 0.5712313688094411,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 381,
+        "character": "v",
+        "parameter": "segment_1_p1_0",
+        "accepted": false,
+        "candidate_loss": 0.5712313688094411,
+        "best_loss": 0.5712313688094411,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 382,
+        "character": "s",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5714678497046616,
+        "best_loss": 0.5712313688094411,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 383,
+        "character": "e",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5713348069669436,
+        "best_loss": 0.5712313688094411,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 384,
+        "character": "e",
+        "parameter": "segment_1_p1_1",
+        "accepted": true,
+        "candidate_loss": 0.5710593433405016,
+        "best_loss": 0.5710593433405016,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 385,
+        "character": "c",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.5712962905138287,
+        "best_loss": 0.5710593433405016,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 386,
+        "character": "u",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5712293625095468,
+        "best_loss": 0.5710593433405016,
+        "affected_training_ids": [
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 387,
+        "character": "h",
+        "parameter": "scale_y",
+        "accepted": false,
+        "candidate_loss": 0.5710991190789843,
+        "best_loss": 0.5710593433405016,
+        "affected_training_ids": [
+          "cgm628_native29_r_15"
+        ]
+      },
+      {
+        "iteration": 388,
+        "character": "n",
+        "parameter": "segment_0_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.570907440351013,
+        "best_loss": 0.570907440351013,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 389,
+        "character": "v",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5710763488177585,
+        "best_loss": 0.570907440351013,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 390,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5721403864967872,
+        "best_loss": 0.570907440351013,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 391,
+        "character": "y",
+        "parameter": "segment_2_p0_1",
+        "accepted": false,
+        "candidate_loss": 0.5709358082340732,
+        "best_loss": 0.570907440351013,
+        "affected_training_ids": [
+          "cgm628_native29_r_07"
+        ]
+      },
+      {
+        "iteration": 392,
+        "character": "g",
+        "parameter": "segment_2_p3_1",
+        "accepted": false,
+        "candidate_loss": 0.5711122126853936,
+        "best_loss": 0.570907440351013,
+        "affected_training_ids": [
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 393,
+        "character": null,
+        "parameter": "nib_angle_deg",
+        "accepted": false,
+        "candidate_loss": 0.5732187896549085,
+        "best_loss": 0.570907440351013,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 394,
+        "character": "i",
+        "parameter": "segment_1_p0_1",
+        "accepted": true,
+        "candidate_loss": 0.5707688750801495,
+        "best_loss": 0.5707688750801495,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17"
+        ]
+      },
+      {
+        "iteration": 395,
+        "character": "v",
+        "parameter": "segment_0_p1_1",
+        "accepted": false,
+        "candidate_loss": 0.5709388650790548,
+        "best_loss": 0.5707688750801495,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 396,
+        "character": "s",
+        "parameter": "segment_2_p2_1",
+        "accepted": true,
+        "candidate_loss": 0.570671459515409,
+        "best_loss": 0.570671459515409,
+        "affected_training_ids": [
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12"
+        ]
+      },
+      {
+        "iteration": 397,
+        "character": "t",
+        "parameter": "scale_x",
+        "accepted": false,
+        "candidate_loss": 0.5720035227416768,
+        "best_loss": 0.570671459515409,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      },
+      {
+        "iteration": 398,
+        "character": null,
+        "parameter": "nib_width_mm",
+        "accepted": false,
+        "candidate_loss": 0.58630015074404,
+        "best_loss": 0.570671459515409,
+        "affected_training_ids": [
+          "cgm628_native29_r_01",
+          "cgm628_native29_r_02",
+          "cgm628_native29_r_04",
+          "cgm628_native29_r_06",
+          "cgm628_native29_r_07",
+          "cgm628_native29_r_08",
+          "cgm628_native29_r_10",
+          "cgm628_native29_r_11",
+          "cgm628_native29_r_12",
+          "cgm628_native29_r_13",
+          "cgm628_native29_r_15",
+          "cgm628_native29_r_16",
+          "cgm628_native29_r_17",
+          "cgm628_native29_r_18"
+        ]
+      },
+      {
+        "iteration": 399,
+        "character": "v",
+        "parameter": "segment_0_p2_0",
+        "accepted": false,
+        "candidate_loss": 0.5708414495143144,
+        "best_loss": 0.570671459515409,
+        "affected_training_ids": [
+          "cgm628_native29_r_16"
+        ]
+      },
+      {
+        "iteration": 400,
+        "character": "t",
+        "parameter": "advance",
+        "accepted": false,
+        "candidate_loss": 0.570671459515409,
+        "best_loss": 0.570671459515409,
+        "affected_training_ids": [
+          "cgm628_native29_r_11"
+        ]
+      }
+    ]
+  },
+  "objective": {
+    "direction": "lower_is_better",
+    "weights": {
+      "binary_iou": 0.65,
+      "proximity": 0.2,
+      "aspect": 0.15
+    },
+    "normalization": "Independent per-crop Otsu; tight foreground; uniform scale to 48px height; centered alignment",
+    "selection": "Mean training-image loss only; all heldout metrics computed after fitting"
+  },
+  "limitations": [
+    "Fixed catalog topology and stroke count; bounded coordinates cannot discover missing strokes or new allographs.",
+    "One geometry per exact Unicode character; no contextual allographs or learned joins.",
+    "Machine transcription hypotheses and unverified hand identity are not historical ground truth.",
+    "Image similarity is not OCR accuracy, legibility, or evidence of recovered historical ductus.",
+    "Per-crop thresholding may retain bleed-through or marginal noise; no letter segmentation or manual tracing.",
+    "Geometry-only rendering excludes stochastic ink, paper, weathering, and scribal motion dynamics.",
+    "Single-page heldout crops measure local transfer only, not independent-manuscript generalization."
+  ],
+  "artifacts": {
+    "report": "report.json",
+    "learned_hand": "learned_hand.json",
+    "baseline_hand": "baseline_hand.json",
+    "comparison": "comparison.png",
+    "generated": "generated.png"
+  }
+}

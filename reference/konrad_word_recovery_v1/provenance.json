@@ -1,0 +1,1352 @@
+{
+  "schema_version": 1,
+  "experiment": "bounded_machine_only_whole_word_recovery",
+  "created_at_utc": "2026-09-05T15:41:35.171053+00:00",
+  "source": {
+    "path": "reference/konrad_word_recovery_v1/source_bsb00144295_00029.jpg",
+    "sha256": "dd818bb99030329b38299faff9583ecc0cb58af23675b9ab2d75ac7ded96ae71",
+    "native_dimensions": [
+      1390,
+      1976
+    ],
+    "download_url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb00144295_00029/full/full/0/default.jpg",
+    "info_url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb00144295_00029/info.json",
+    "official_manifest_url": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00144295/manifest",
+    "official_canvas": {
+      "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00144295/canvas/29",
+      "@type": "sc:Canvas",
+      "label": "(0029)",
+      "images": [
+        {
+          "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00144295/anno/29-1",
+          "@type": "oa:Annotation",
+          "motivation": "sc:painting",
+          "resource": {
+            "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb00144295_00029/full/full/0/default.jpg",
+            "@type": "dctypes:Image",
+            "format": "image/jpeg",
+            "service": {
+              "@context": "http://iiif.io/api/image/2/context.json",
+              "@id": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb00144295_00029",
+              "profile": "http://iiif.io/api/image/2/level2.json"
+            },
+            "width": 1390,
+            "height": 1976
+          },
+          "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00144295/canvas/29"
+        }
+      ],
+      "width": 1390,
+      "height": 1976
+    },
+    "attribution": [
+      {
+        "@language": "en",
+        "@value": "München, Bayerische Staatsbibliothek"
+      },
+      {
+        "@language": "en",
+        "@value": "Bayerische Staatsbibliothek"
+      },
+      {
+        "@language": "de",
+        "@value": "München, Bayerische Staatsbibliothek"
+      },
+      {
+        "@language": "de",
+        "@value": "Bayerische Staatsbibliothek"
+      },
+      {
+        "@language": "zh",
+        "@value": "München, Bayerische Staatsbibliothek"
+      },
+      {
+        "@language": "zh",
+        "@value": "Bayerische Staatsbibliothek"
+      }
+    ],
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "harvest_provenance": "shared/training/handsim/exemplar_harvest_v1/provenance.json",
+    "harvest_images_inspected": [
+      {
+        "path": "shared/training/handsim/exemplar_harvest_v1/folios/BSB_Cgm_628_Tauler._Mystische_Texte_u.a._Meister_Eckhart/0029.jpg",
+        "dimensions": [
+          1500,
+          2132
+        ],
+        "sha256": "224227534319a383cf653b2ba4235caad30f30738152c799166b765f5fe216fe"
+      },
+      {
+        "path": "shared/training/handsim/exemplar_harvest_v1/folios/BSB_Cgm_628_Tauler._Mystische_Texte_u.a._Meister_Eckhart/0036.jpg",
+        "dimensions": [
+          1500,
+          2141
+        ],
+        "sha256": "ece0363bfdf114be2d37445ae47302a45e0db4e3219b22c73ea750b8bfdec497"
+      }
+    ],
+    "mapping_discrepancy": "The current official native image URL ending _00029 visually matches the existing harvest 0036.jpg, not harvest 0029.jpg. Current official manifest confirms canvas/29 maps to this _00029 image. The discrepancy cause is unknown; legacy filename/canvas correspondence is not assumed. Exact fetched bytes and native coordinates govern this experiment.",
+    "resolution_note": "Current official info.json advertises only 1390x1976 native pixels, smaller than the 1500-pixel-wide harvested JPEGs. No genuine higher-resolution original was available from this known official image endpoint; no upsampling is presented as additional evidence.",
+    "selection_reason": "Selected the clearer page visually matching the permitted alternate harvest 0036.jpg and its coherent right column; original preferred 0029.jpg has weaker contrast and more interference. Single-column selection is a machine visual consistency judgement, not scribal attribution.",
+    "hand_identity_status": "UNVERIFIED: one visually coherent right-column hand in BSB Cgm 628, current official canvas 29; no evidence identifies this scribe as Konrad or establishes the fictional Konrad hand. Harvest filenames and current IIIF canvas mapping disagree; see provenance.json."
+  },
+  "segmentation": {
+    "region_bbox": [
+      680,
+      205,
+      1125,
+      1110
+    ],
+    "coordinate_semantics": "Native source pixels; [x0,y0,x1,y1] half-open rectangles, never coordinates from enlarged previews.",
+    "proposal_method": "Binary foreground gray<170; right-column row sum smoothed with Gaussian sigma=3; scipy.signal.find_peaks distance=25,prominence=10. For each row peak, sum a 16-pixel core band (-8,+8), call a column occupied when >=2 foreground pixels, propose word gaps from unoccupied runs >=5 pixels. Machine vision selects and merges adjacent word-level proposals; no letter labels, letter outlines, manual tracing, or cut-and-paste glyphs are produced.",
+    "final_bound_method": "Each selected whole-word x span uses midpoint gap bounds (no cross-word padding). Vertical bounds are the union of foreground (gray<210) connected components in peak[-38,+31) intersecting core peak[-6,+7), ignoring connected components smaller than 4 pixels. This deliberately retains connected pale strokes and may retain nearby-line ink; rectangular crops are not asserted to isolate all ink perfectly.",
+    "line_proposals": [
+      {
+        "line": 1,
+        "peak": 244,
+        "words": [
+          [
+            680,
+            220,
+            809,
+            262
+          ],
+          [
+            809,
+            220,
+            856,
+            262
+          ],
+          [
+            856,
+            220,
+            940,
+            262
+          ],
+          [
+            940,
+            220,
+            1042,
+            262
+          ],
+          [
+            1054,
+            220,
+            1100,
+            262
+          ]
+        ]
+      },
+      {
+        "line": 2,
+        "peak": 274,
+        "words": [
+          [
+            680,
+            250,
+            806,
+            292
+          ],
+          [
+            806,
+            250,
+            854,
+            292
+          ],
+          [
+            854,
+            250,
+            871,
+            292
+          ],
+          [
+            871,
+            250,
+            936,
+            292
+          ],
+          [
+            936,
+            250,
+            1125,
+            292
+          ]
+        ]
+      },
+      {
+        "line": 3,
+        "peak": 308,
+        "words": [
+          [
+            680,
+            284,
+            750,
+            326
+          ],
+          [
+            750,
+            284,
+            794,
+            326
+          ],
+          [
+            794,
+            284,
+            838,
+            326
+          ],
+          [
+            838,
+            284,
+            935,
+            326
+          ],
+          [
+            935,
+            284,
+            951,
+            326
+          ],
+          [
+            951,
+            284,
+            1007,
+            326
+          ],
+          [
+            1007,
+            284,
+            1125,
+            326
+          ]
+        ]
+      },
+      {
+        "line": 4,
+        "peak": 341,
+        "words": [
+          [
+            697,
+            317,
+            883,
+            359
+          ],
+          [
+            883,
+            317,
+            932,
+            359
+          ],
+          [
+            932,
+            317,
+            972,
+            359
+          ],
+          [
+            972,
+            317,
+            1125,
+            359
+          ]
+        ]
+      },
+      {
+        "line": 5,
+        "peak": 376,
+        "words": [
+          [
+            680,
+            352,
+            765,
+            394
+          ],
+          [
+            765,
+            352,
+            857,
+            394
+          ],
+          [
+            857,
+            352,
+            868,
+            394
+          ],
+          [
+            868,
+            352,
+            1010,
+            394
+          ],
+          [
+            1010,
+            352,
+            1060,
+            394
+          ],
+          [
+            1072,
+            352,
+            1125,
+            394
+          ]
+        ]
+      },
+      {
+        "line": 6,
+        "peak": 412,
+        "words": [
+          [
+            680,
+            388,
+            760,
+            430
+          ],
+          [
+            760,
+            388,
+            803,
+            430
+          ],
+          [
+            803,
+            388,
+            976,
+            430
+          ],
+          [
+            976,
+            388,
+            1068,
+            430
+          ]
+        ]
+      },
+      {
+        "line": 7,
+        "peak": 446,
+        "words": [
+          [
+            680,
+            422,
+            748,
+            464
+          ],
+          [
+            748,
+            422,
+            843,
+            464
+          ],
+          [
+            843,
+            422,
+            903,
+            464
+          ],
+          [
+            903,
+            422,
+            1051,
+            464
+          ]
+        ]
+      },
+      {
+        "line": 8,
+        "peak": 481,
+        "words": [
+          [
+            680,
+            457,
+            739,
+            499
+          ],
+          [
+            739,
+            457,
+            781,
+            499
+          ],
+          [
+            781,
+            457,
+            827,
+            499
+          ],
+          [
+            827,
+            457,
+            847,
+            499
+          ],
+          [
+            847,
+            457,
+            871,
+            499
+          ],
+          [
+            882,
+            457,
+            932,
+            499
+          ],
+          [
+            932,
+            457,
+            1037,
+            499
+          ],
+          [
+            1037,
+            457,
+            1125,
+            499
+          ]
+        ]
+      },
+      {
+        "line": 9,
+        "peak": 515,
+        "words": [
+          [
+            680,
+            491,
+            729,
+            533
+          ],
+          [
+            729,
+            491,
+            804,
+            533
+          ],
+          [
+            804,
+            491,
+            867,
+            533
+          ],
+          [
+            867,
+            491,
+            1074,
+            533
+          ]
+        ]
+      },
+      {
+        "line": 10,
+        "peak": 552,
+        "words": [
+          [
+            680,
+            528,
+            787,
+            570
+          ],
+          [
+            787,
+            528,
+            798,
+            570
+          ],
+          [
+            798,
+            528,
+            810,
+            570
+          ],
+          [
+            810,
+            528,
+            825,
+            570
+          ],
+          [
+            825,
+            528,
+            891,
+            570
+          ],
+          [
+            891,
+            528,
+            952,
+            570
+          ],
+          [
+            952,
+            528,
+            1065,
+            570
+          ]
+        ]
+      },
+      {
+        "line": 11,
+        "peak": 588,
+        "words": [
+          [
+            680,
+            564,
+            771,
+            606
+          ],
+          [
+            782,
+            564,
+            821,
+            606
+          ],
+          [
+            821,
+            564,
+            993,
+            606
+          ],
+          [
+            993,
+            564,
+            1068,
+            606
+          ],
+          [
+            1082,
+            564,
+            1125,
+            606
+          ]
+        ]
+      },
+      {
+        "line": 12,
+        "peak": 620,
+        "words": [
+          [
+            680,
+            596,
+            738,
+            638
+          ],
+          [
+            738,
+            596,
+            794,
+            638
+          ],
+          [
+            794,
+            596,
+            868,
+            638
+          ],
+          [
+            868,
+            596,
+            916,
+            638
+          ],
+          [
+            916,
+            596,
+            1016,
+            638
+          ],
+          [
+            1016,
+            596,
+            1125,
+            638
+          ]
+        ]
+      },
+      {
+        "line": 13,
+        "peak": 658,
+        "words": [
+          [
+            680,
+            634,
+            750,
+            676
+          ],
+          [
+            750,
+            634,
+            770,
+            676
+          ],
+          [
+            770,
+            634,
+            854,
+            676
+          ],
+          [
+            854,
+            634,
+            887,
+            676
+          ],
+          [
+            887,
+            634,
+            1002,
+            676
+          ],
+          [
+            1002,
+            634,
+            1015,
+            676
+          ],
+          [
+            1015,
+            634,
+            1042,
+            676
+          ]
+        ]
+      },
+      {
+        "line": 14,
+        "peak": 693,
+        "words": [
+          [
+            680,
+            669,
+            756,
+            711
+          ],
+          [
+            756,
+            669,
+            844,
+            711
+          ],
+          [
+            844,
+            669,
+            879,
+            711
+          ],
+          [
+            879,
+            669,
+            918,
+            711
+          ],
+          [
+            918,
+            669,
+            929,
+            711
+          ],
+          [
+            929,
+            669,
+            950,
+            711
+          ],
+          [
+            962,
+            669,
+            1025,
+            711
+          ],
+          [
+            1025,
+            669,
+            1059,
+            711
+          ]
+        ]
+      },
+      {
+        "line": 15,
+        "peak": 731,
+        "words": [
+          [
+            680,
+            707,
+            738,
+            749
+          ],
+          [
+            738,
+            707,
+            806,
+            749
+          ],
+          [
+            806,
+            707,
+            831,
+            749
+          ],
+          [
+            831,
+            707,
+            852,
+            749
+          ],
+          [
+            875,
+            707,
+            892,
+            749
+          ],
+          [
+            892,
+            707,
+            922,
+            749
+          ],
+          [
+            936,
+            707,
+            972,
+            749
+          ],
+          [
+            972,
+            707,
+            1066,
+            749
+          ]
+        ]
+      },
+      {
+        "line": 16,
+        "peak": 766,
+        "words": [
+          [
+            680,
+            742,
+            798,
+            784
+          ],
+          [
+            798,
+            742,
+            847,
+            784
+          ],
+          [
+            847,
+            742,
+            1050,
+            784
+          ],
+          [
+            1050,
+            742,
+            1069,
+            784
+          ]
+        ]
+      },
+      {
+        "line": 17,
+        "peak": 798,
+        "words": [
+          [
+            680,
+            774,
+            761,
+            816
+          ],
+          [
+            761,
+            774,
+            814,
+            816
+          ],
+          [
+            814,
+            774,
+            925,
+            816
+          ],
+          [
+            925,
+            774,
+            978,
+            816
+          ],
+          [
+            978,
+            774,
+            1030,
+            816
+          ],
+          [
+            1030,
+            774,
+            1125,
+            816
+          ]
+        ]
+      },
+      {
+        "line": 18,
+        "peak": 831,
+        "words": [
+          [
+            680,
+            807,
+            702,
+            849
+          ],
+          [
+            702,
+            807,
+            717,
+            849
+          ],
+          [
+            749,
+            807,
+            882,
+            849
+          ],
+          [
+            882,
+            807,
+            1031,
+            849
+          ],
+          [
+            1031,
+            807,
+            1070,
+            849
+          ],
+          [
+            1070,
+            807,
+            1125,
+            849
+          ]
+        ]
+      },
+      {
+        "line": 19,
+        "peak": 868,
+        "words": [
+          [
+            680,
+            844,
+            801,
+            886
+          ],
+          [
+            811,
+            844,
+            911,
+            886
+          ],
+          [
+            911,
+            844,
+            1012,
+            886
+          ],
+          [
+            1012,
+            844,
+            1125,
+            886
+          ]
+        ]
+      },
+      {
+        "line": 20,
+        "peak": 901,
+        "words": [
+          [
+            680,
+            877,
+            779,
+            919
+          ],
+          [
+            779,
+            877,
+            812,
+            919
+          ],
+          [
+            812,
+            877,
+            910,
+            919
+          ],
+          [
+            910,
+            877,
+            928,
+            919
+          ],
+          [
+            928,
+            877,
+            1002,
+            919
+          ],
+          [
+            1008,
+            877,
+            1022,
+            919
+          ],
+          [
+            1022,
+            877,
+            1076,
+            919
+          ],
+          [
+            1076,
+            877,
+            1125,
+            919
+          ]
+        ]
+      },
+      {
+        "line": 21,
+        "peak": 933,
+        "words": [
+          [
+            680,
+            909,
+            756,
+            951
+          ],
+          [
+            756,
+            909,
+            805,
+            951
+          ],
+          [
+            805,
+            909,
+            921,
+            951
+          ],
+          [
+            921,
+            909,
+            1007,
+            951
+          ],
+          [
+            1007,
+            909,
+            1125,
+            951
+          ]
+        ]
+      },
+      {
+        "line": 22,
+        "peak": 967,
+        "words": [
+          [
+            680,
+            943,
+            754,
+            985
+          ],
+          [
+            754,
+            943,
+            768,
+            985
+          ],
+          [
+            768,
+            943,
+            786,
+            985
+          ],
+          [
+            786,
+            943,
+            839,
+            985
+          ],
+          [
+            839,
+            943,
+            870,
+            985
+          ],
+          [
+            870,
+            943,
+            930,
+            985
+          ],
+          [
+            930,
+            943,
+            1061,
+            985
+          ],
+          [
+            1061,
+            943,
+            1070,
+            985
+          ]
+        ]
+      },
+      {
+        "line": 23,
+        "peak": 999,
+        "words": [
+          [
+            680,
+            975,
+            801,
+            1017
+          ],
+          [
+            801,
+            975,
+            877,
+            1017
+          ],
+          [
+            877,
+            975,
+            894,
+            1017
+          ],
+          [
+            894,
+            975,
+            964,
+            1017
+          ],
+          [
+            964,
+            975,
+            1016,
+            1017
+          ],
+          [
+            1024,
+            975,
+            1046,
+            1017
+          ]
+        ]
+      },
+      {
+        "line": 24,
+        "peak": 1034,
+        "words": [
+          [
+            680,
+            1010,
+            746,
+            1052
+          ],
+          [
+            746,
+            1010,
+            823,
+            1052
+          ],
+          [
+            823,
+            1010,
+            946,
+            1052
+          ],
+          [
+            946,
+            1010,
+            998,
+            1052
+          ],
+          [
+            998,
+            1010,
+            1044,
+            1052
+          ]
+        ]
+      },
+      {
+        "line": 25,
+        "peak": 1070,
+        "words": [
+          [
+            680,
+            1046,
+            881,
+            1088
+          ],
+          [
+            881,
+            1046,
+            1125,
+            1088
+          ]
+        ]
+      }
+    ],
+    "selected_proposals": [
+      {
+        "sample_id": "cgm628_native29_r_01",
+        "line": 1,
+        "first_proposal": 2,
+        "last_proposal": 2
+      },
+      {
+        "sample_id": "cgm628_native29_r_02",
+        "line": 3,
+        "first_proposal": 3,
+        "last_proposal": 3
+      },
+      {
+        "sample_id": "cgm628_native29_r_03",
+        "line": 4,
+        "first_proposal": 1,
+        "last_proposal": 1
+      },
+      {
+        "sample_id": "cgm628_native29_r_04",
+        "line": 4,
+        "first_proposal": 2,
+        "last_proposal": 3
+      },
+      {
+        "sample_id": "cgm628_native29_r_05",
+        "line": 4,
+        "first_proposal": 4,
+        "last_proposal": 4
+      },
+      {
+        "sample_id": "cgm628_native29_r_06",
+        "line": 6,
+        "first_proposal": 1,
+        "last_proposal": 1
+      },
+      {
+        "sample_id": "cgm628_native29_r_07",
+        "line": 6,
+        "first_proposal": 2,
+        "last_proposal": 2
+      },
+      {
+        "sample_id": "cgm628_native29_r_08",
+        "line": 7,
+        "first_proposal": 1,
+        "last_proposal": 1
+      },
+      {
+        "sample_id": "cgm628_native29_r_09",
+        "line": 7,
+        "first_proposal": 2,
+        "last_proposal": 2
+      },
+      {
+        "sample_id": "cgm628_native29_r_10",
+        "line": 7,
+        "first_proposal": 3,
+        "last_proposal": 3
+      },
+      {
+        "sample_id": "cgm628_native29_r_11",
+        "line": 8,
+        "first_proposal": 1,
+        "last_proposal": 1
+      },
+      {
+        "sample_id": "cgm628_native29_r_12",
+        "line": 8,
+        "first_proposal": 2,
+        "last_proposal": 2
+      },
+      {
+        "sample_id": "cgm628_native29_r_13",
+        "line": 12,
+        "first_proposal": 2,
+        "last_proposal": 2
+      },
+      {
+        "sample_id": "cgm628_native29_r_14",
+        "line": 12,
+        "first_proposal": 3,
+        "last_proposal": 4
+      },
+      {
+        "sample_id": "cgm628_native29_r_15",
+        "line": 12,
+        "first_proposal": 5,
+        "last_proposal": 5
+      },
+      {
+        "sample_id": "cgm628_native29_r_16",
+        "line": 24,
+        "first_proposal": 4,
+        "last_proposal": 4
+      },
+      {
+        "sample_id": "cgm628_native29_r_17",
+        "line": 17,
+        "first_proposal": 3,
+        "last_proposal": 3
+      },
+      {
+        "sample_id": "cgm628_native29_r_18",
+        "line": 21,
+        "first_proposal": 1,
+        "last_proposal": 1
+      },
+      {
+        "sample_id": "cgm628_native29_r_19",
+        "line": 21,
+        "first_proposal": 5,
+        "last_proposal": 5
+      },
+      {
+        "sample_id": "cgm628_native29_r_20",
+        "line": 9,
+        "first_proposal": 3,
+        "last_proposal": 3
+      },
+      {
+        "sample_id": "cgm628_native29_r_21",
+        "line": 17,
+        "first_proposal": 1,
+        "last_proposal": 1
+      },
+      {
+        "sample_id": "cgm628_native29_r_22",
+        "line": 17,
+        "first_proposal": 4,
+        "last_proposal": 4
+      },
+      {
+        "sample_id": "cgm628_native29_r_23",
+        "line": 17,
+        "first_proposal": 5,
+        "last_proposal": 5
+      },
+      {
+        "sample_id": "cgm628_native29_r_24",
+        "line": 17,
+        "first_proposal": 6,
+        "last_proposal": 6
+      },
+      {
+        "sample_id": "cgm628_native29_r_25",
+        "line": 24,
+        "first_proposal": 1,
+        "last_proposal": 1
+      },
+      {
+        "sample_id": "cgm628_native29_r_26",
+        "line": 18,
+        "first_proposal": 5,
+        "last_proposal": 6
+      }
+    ],
+    "coordinate_fingerprint_sha256": "f598a8044be5d54dfd1b9504b63f645af34419b8196aae57eae6d768a0745b9d"
+  },
+  "label_policy": "MACHINE-ONLY reading hypotheses; no human, calligrapher, paleographer, or expert verified these labels. Confidence values are subjective and uncalibrated, not probabilities of historical truth. Labels are lowercase normalized word readings, not glyph-exact diplomatic transcriptions: long-s is normalized to logical s, case and graphic allographs are not distinguished, and uncertain historical spelling/abbreviation may remain. Original pixels preserve allograph forms, joins, and abbreviations. A one-shape-per-character renderer cannot model that distinction. Whole-word boxes are machine-selected from projection proposals, not letter cutouts or manual tracing; neighboring-line ink and pale-stroke boundary uncertainty remain. Below-threshold hypotheses remain recorded rather than relabeled or silently treated as verified. Generated texts are synthetic combinations of the admitted training alphabet, not claims about manuscript wording.",
+  "human_interventions": [],
+  "machine_interventions": [
+    {
+      "event": "inspect_sources",
+      "detail": "Machine visually compared the two permitted harvest images and read existing provenance."
+    },
+    {
+      "event": "fetch_official_native",
+      "detail": "Fetched official image info, native JPEG and current presentation manifest; identified stale harvest/current-canvas mismatch."
+    },
+    {
+      "event": "propose_words",
+      "detail": "Computed right-column line peaks and projection word-gap proposals; machine selected/merged complete-word candidates."
+    },
+    {
+      "event": "hypothesize_labels",
+      "detail": "Machine vision read source region and crop contact sheets; labels and subjective confidence are unreviewed hypotheses."
+    },
+    {
+      "event": "split_and_cover",
+      "detail": "Assigned spatially distinct native rectangles to train/heldout and retained low-confidence exclusions without score inflation."
+    },
+    {
+      "event": "package_evidence",
+      "detail": "Packaged original public-domain source bytes, exact manifest coordinates, provenance, labeled page and word contact sheet. No renderer promotion or historical approval."
+    }
+  ],
+  "corpus_summary": {
+    "sample_count": 26,
+    "train_count": 18,
+    "heldout_count": 8,
+    "all_train_alphabet": "acdeghiklnrstuvwy",
+    "consumer_admission_threshold": 0.8,
+    "admitted_train_count": 14,
+    "admitted_train_alphabet": "acdeghiklnrstuvy",
+    "excluded_training_hypotheses": [
+      {
+        "id": "cgm628_native29_r_03",
+        "text": "ungehindert",
+        "confidence": 0.74
+      },
+      {
+        "id": "cgm628_native29_r_05",
+        "text": "wercks",
+        "confidence": 0.78
+      },
+      {
+        "id": "cgm628_native29_r_09",
+        "text": "kains",
+        "confidence": 0.77
+      },
+      {
+        "id": "cgm628_native29_r_14",
+        "text": "heiligen",
+        "confidence": 0.75
+      }
+    ],
+    "heldout_alphabet": "adeilnrst",
+    "novel_heldout_texts": [
+      "ain",
+      "alles",
+      "den",
+      "sind"
+    ],
+    "missing_heldout_characters_after_admission": [],
+    "missing_generated_characters_after_admission": [],
+    "uncovered_ascii_lowercase_after_admission": "bfjmopqwxz",
+    "full_alphabet_or_allograph_coverage_claimed": false
+  },
+  "generated_texts_policy": "Synthetic demonstration phrases built from admitted training characters; not manuscript quotations or language-historical claims. They include unseen whole words/combinations rather than assembling copied word images.",
+  "artifacts": {
+    "manifest": "reference/konrad_word_recovery_v1/manifest.json",
+    "native_source": "reference/konrad_word_recovery_v1/source_bsb00144295_00029.jpg",
+    "word_contact_sheet": "reference/konrad_word_recovery_v1/word_contact_sheet.png",
+    "labeled_source": "reference/konrad_word_recovery_v1/labeled_source.png"
+  },
+  "limitations": [
+    "Source is an unverified Cgm628 proxy; Konrad authorship, date-specific hand identity and historical approval are not established.",
+    "Machine labels can be wrong; confidence is uncalibrated and not independent evidence.",
+    "Projection rectangles retain neighboring-line ink, faint-stroke uncertainty and scribal abbreviation/allograph ambiguity.",
+    "Admitted inventory omits many letters and all allograph distinctions; no full alphabet reconstruction is claimed.",
+    "Single-page crops and heldout labels share source and machine labeler; spatial separation is not independent expert evaluation.",
+    "No private assets or runtime network calls are required to consume the stored corpus."
+  ]
+}
