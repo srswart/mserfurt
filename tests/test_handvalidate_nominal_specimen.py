@@ -64,6 +64,19 @@ def test_seed_diagnostic_or_unfrozen_tolerances_cannot_pass():
     freeze["scope"] = "unaccepted-seed-diagnostic"
     report["freeze_sha256"] = object_digest(freeze)
     assert decide_g1(freeze, report, None)["status"] == "blocked"
+
+
+def test_explicit_visual_rejection_is_failure_not_missing_evidence():
+    freeze, report, review = gate_fixture()
+    review["rubric"]["letterform_identity"] = "unacceptable"
+    assert decide_g1(freeze, report, review)["status"] == "fail"
+
+
+def test_reusing_training_words_as_synthetic_unseen_is_rejected():
+    freeze, report, _ = gate_fixture()
+    freeze["training_texts"] = ["dein"]
+    report["freeze_sha256"] = object_digest(freeze)
+    assert decide_g1(freeze, report, None)["status"] == "fail"
     freeze, report, review = gate_fixture()
     freeze["criteria"]["per_case_max_loss"] = None
     report["freeze_sha256"] = object_digest(freeze)
