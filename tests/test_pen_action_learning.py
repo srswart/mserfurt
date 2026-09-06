@@ -1,5 +1,3 @@
-import copy
-
 import pytest
 
 from scribesim.evofit.stroke_gestures import migrate_v1
@@ -54,3 +52,20 @@ def test_real_mode_cannot_reuse_synthetic_admission(tmp_path):
     report = run_actions(tmp_path / 'real', real=True)
     assert report['status'] == 'blocked'
     assert 'live_real_G0_and_real_lower_layers_required' in report['reasons']
+
+
+def test_midtrack_motion_is_not_a_fixed_baseline():
+    model = migrate_v1(seed_language())
+    model['sampling'] = 'gesture-arc-v2'
+    model['actions']['fixed']['orientation'] = [[0, 40], [.5, 42], [1, 40]]
+    with pytest.raises(ValueError, match='fixed'):
+        candidate_models(model, 'edge')
+
+
+def test_changed_tool_contract_invalidates_admission(monkeypatch):
+    from scribesim.curriculum import pen_actions
+
+    original = pen_actions.digest
+    monkeypatch.setattr(pen_actions, 'digest', lambda path: 'changed' if path.name == 'spec-v1.json'
+                        and path.parent.name == 'tool_contract' else original(path))
+    assert 'tool_identity_stale' in pen_actions.prerequisites()['reasons']
