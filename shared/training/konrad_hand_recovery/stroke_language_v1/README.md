@@ -83,6 +83,8 @@ trajectories/ownership and transfer pixels, and rejects incomplete evidence.
 ownership; compression has fixed timestamps. Inspect it with Python `gzip`/`json`.
 `candidate.json` retains the full shared model, not just generated letter images.
 
-Implementation validation: 122 focused/regression tests pass locally. Provider
+Implementation validation: 122 focused/regression tests pass locally and in a
+clean clone of cba4d05. That clone independently re-evaluates the frozen S1 bundle
+with the same passing decision and hashes. Provider
 CI and human appearance approval are not claimed. The installed strict PR checker
 still fails to parse this repository's three-part Advance IDs.

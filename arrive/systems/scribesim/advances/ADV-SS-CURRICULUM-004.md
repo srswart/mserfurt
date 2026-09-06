@@ -94,7 +94,7 @@ not historical snapshots or production defaults. Review estimate: 40 minutes.
 
 ### Executed outcome
 
-- Red commit 36b569a failed before the learning module existed. No preparatory refactor was needed. Local focused/regression validation passes 122 tests in 86.65 seconds; clean-checkout verification follows before merge.
+- Red commit 36b569a failed before the learning module existed. No preparatory refactor was needed. Local focused/regression validation passes 122 tests in 86.65 seconds. A clean clone of cba4d05 passes the same 122 tests in 80.40 seconds and independently re-evaluates the frozen S1 bundle with the same passing hashes; imports resolve to the clone, not the original checkout.
 - Implemented bounded coordinate optimization of shared primitive interior control points. Endpoints, port cones, recipes, nib/pressure/speed and all expressive controls remain fixed. Synthetic targets are known handcrafted strokes, not manuscript-derived trajectories.
 - Six families, seeds 7/19/41 and two fresh workers per seed completed. Fitting render counts are 586/586/584 against a frozen 5000/1800-second cap. Initial held-out loss 0.49101268 falls to 0.08150537/0.08566833/0.06495253. Seed 41 is selected by development loss. Test images are scored only after fitting and cannot affect the selected model.
 - Frozen-prior versus fitted-shared comparisons include unseen scale/position and paired compositions. All six primitive families change. The unchanged supplied i/u recipes receive the learned shared stem/exit parameters; they are decomposition/transfer demonstrations, not learned letters or new context rules.
