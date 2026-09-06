@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api","migration"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,10 @@ advance:
 Determine the smallest reusable return vocabulary and bounded composition contract that can support ordinary starter constructions without letter-specific curves.
 
 **Work kind:** Investigation and bounded contract implementation. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
-Timestamp records drafting only; implementation, experiments, CI and review are not claimed.
+Implementation authorized. Audit hypotheses, new-family interfaces, independent
+target specifications and conditional six-occurrence contract are frozen before
+implementation in `foundation_repair/contract/spec-v1.json`. No fitting or
+completed audit is claimed yet; unsupported checklist forms remain explicit debt.
 
 ## Behavioral Change
 
@@ -115,4 +118,3 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
-
