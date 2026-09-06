@@ -243,3 +243,15 @@ def test_presentation_rerenders_native_geometry_at_high_dpi():
     image = presentation_image(result, 'actual', budget, frame=[-1, 2, -1, 2])
     assert image.shape[0] >= 100 and image.shape[1] >= 100
     assert budget.used == 1
+
+
+def test_braking_contact_duration_does_not_depend_on_the_final_sample_gap():
+    from dataclasses import replace
+    from scribesim.handflow.planning import retime_air_braking
+
+    durations = []
+    for count in (70, 140):
+        samples = [sample(index * 3.5 / count / 12, index * 3.5 / count) for index in range(count + 1)]
+        samples[-1] = replace(samples[-1], vx_mm_s=0, speed_mm_s=0)
+        durations.append(retime_air_braking(plan(samples)).plan.total_time_s)
+    assert durations[0] == pytest.approx(durations[1], abs=1e-10)
