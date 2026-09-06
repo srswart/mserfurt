@@ -9,7 +9,7 @@ import pytest
 
 from scribesim.evofit.repertoire import compose, refresh_form, seed_repertoire
 from scribesim.pathguide.repertoire import convert_word, load_bundle, save_bundle, require_g1
-from scribesim.handvalidate.bridge import compare_bridge, run_bridge
+from scribesim.handvalidate.bridge import compare_bridge, run_bridge, decide_g2
 
 
 def test_arc_length_orientation_lifts_and_exact_ownership(tmp_path):
@@ -28,7 +28,7 @@ def test_arc_length_orientation_lifts_and_exact_ownership(tmp_path):
     save_bundle(bundle, tmp_path / "guide.json")
     assert asdict(load_bundle(tmp_path / "guide.json")) == asdict(bundle)
     payload = json.loads((tmp_path / "guide.json").read_text())
-    del payload["metadata"]["owners"]
+    del payload["payload"]["metadata"]["owners"]
     (tmp_path / "guide.json").write_text(json.dumps(payload))
     with pytest.raises(ValueError):
         load_bundle(tmp_path / "guide.json")
@@ -87,3 +87,15 @@ from scribesim.pathguide.repertoire import convert_word
 from scribesim.handflow import GuidedHandFlowController
 """
     subprocess.run([sys.executable, "-c", script], check=True)
+
+
+def test_sampling_convergence_and_nonfinite_tolerances():
+    hand = seed_repertoire("in")
+    coarse = compare_bridge(convert_word("in", hand, step_mm=.1), hand)
+    fine = compare_bridge(convert_word("in", hand, step_mm=.025), hand)
+    assert fine["metrics"]["sampled_image_loss"] <= coarse["metrics"]["sampled_image_loss"] + .02
+    from scribesim.handvalidate.bridge import SYNTHETIC_BOUNDS
+    limits = {**SYNTHETIC_BOUNDS, "actual_image_loss": float("nan")}
+    gate = decide_g2([{"text": "in", "metrics": fine["metrics"]}], prerequisite={"status": "pass"},
+                     scope="real-candidate", tolerances=limits)
+    assert gate["status"] != "pass"
