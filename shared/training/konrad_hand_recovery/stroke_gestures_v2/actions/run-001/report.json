@@ -1,0 +1,113 @@
+{
+  "status": "blocked",
+  "scope": "synthetic",
+  "reasons": [
+    "bridge_convergence_not_passed",
+    "gesture_code_identity_stale",
+    "gesture_gate_not_passed",
+    "required_gesture_coverage_missing"
+  ],
+  "prerequisite": {
+    "status": "blocked",
+    "reasons": [
+      "bridge_convergence_not_passed",
+      "gesture_code_identity_stale",
+      "gesture_gate_not_passed",
+      "required_gesture_coverage_missing"
+    ],
+    "identities": {
+      "gesture_evaluation/run-001/S1-gesture.json": "7b5b854e8d7196674418e340baf7c5dc809a431e485bff17f3f44bb81012f3a1",
+      "action_bridge/run-002/report.json": "d6e712a0e00b2a84a84905888769894da1e49f7c59d8f428b6f67fb0fa0cc0db"
+    },
+    "renders": 0,
+    "real": false
+  },
+  "spec_sha256": "41a3f98ff7b9739d7df6999e9b8130954e2a4458b6ab0670f4a98b085e5ab344",
+  "spec": {
+    "schema_version": "isolated-pen-action-experiment-v1",
+    "scope": "synthetic-only runner contract; current matching prerequisites fail, so no fitting is authorized",
+    "tool_sha256": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+    "upstream": {
+      "gesture_evaluation/run-001/S1-gesture.json": "7b5b854e8d7196674418e340baf7c5dc809a431e485bff17f3f44bb81012f3a1",
+      "action_bridge/run-002/report.json": "d6e712a0e00b2a84a84905888769894da1e49f7c59d8f428b6f67fb0fa0cc0db"
+    },
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "ablations": [
+      "rotation",
+      "edge",
+      "finishing"
+    ],
+    "rotation_endpoint_deltas_deg": [
+      -10,
+      10,
+      20
+    ],
+    "edge_release_fractions": [
+      0.25,
+      0.5
+    ],
+    "finishing": {
+      "recipe": "i",
+      "gesture": "gesture-0",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          0.1,
+          0
+        ]
+      ]
+    },
+    "max_knots": 4,
+    "max_renders_per_ablation_seed": 5000,
+    "max_seconds_per_ablation_seed": 1800,
+    "max_revisions": 1,
+    "selection": "training proposes, development selects; fixed candidate wins ties; held-out scoring occurs after selection and never selects a replacement",
+    "activation": {
+      "heldout_ratio_max": 0.95,
+      "actual_sensitivity_min": 0.01,
+      "null_actual_loss_max": 0.05
+    },
+    "negative_control_policy": "original global control minimum 0.1 and local blank limit 0.01 remain unchanged; activation benefit does not replace them",
+    "lesson_policy": "no approved lesson exists yet; a new scope-matching accepted gate and frozen named-failure train/dev/test manifest must be registered before opening target pixels",
+    "pressure": 0.5,
+    "speed_mm_s": 12,
+    "ink": "constant adequate",
+    "geometry": "frozen primitives and gestures; only the separate finishing ablation may add a declared lifted existing gesture",
+    "frame_mm": [
+      -2,
+      14,
+      2,
+      14
+    ],
+    "dpi": 150
+  },
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "982e94618eb39498518d212d7e1fad06938df831e3bc190471a65a20fa2e654f",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "6cc3360e28bdf7c9792a94ea7a738cce509eaef309fb7b22ab3fb4f5d12e4560",
+    "scribesim/evofit/stroke_language.py": "2355fdd4dc5ccd651df19bcadb3d1479697372dcbce3425122b6e903eb7e0886",
+    "scribesim/handflow/controller.py": "765a1dee89e04035e60e10bf28c8c278e03fd5def2c887f3659d8b462ad0899c",
+    "scribesim/handflow/planning.py": "57b335684eb04a3f83c7501daeb8831fedfbbd4c995a327815ab1451498e7aa3",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/curriculum/pen_actions.py": "bd4dc2ea71c57424c9e0be7393e3a30c65f878c33ab29af30e02c2a986c9a878"
+  },
+  "renders": 0,
+  "optimization_evaluations": 0,
+  "candidates": [],
+  "revision": 0,
+  "S1_action_accepted": false,
+  "promoted": false,
+  "target_pixels_opened": false,
+  "artifacts": {}
+}

@@ -1577,12 +1577,12 @@ passes:
     - id: ADV-SS-CURRICULUM-009
       advance_id: ADV-SS-CURRICULUM-009
       title: "Pen-Action Learning — Frozen-Path Rotation and Edge-Release Ablations"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-013
       - ADV-SS-PATHGUIDE-006
-      notes: "IMPLEMENTATION: one-track frozen-path ablations and separate finishing-pass comparison. Requires matching accepted S1-gesture; fixed/null actions remain valid."
+      notes: "COMPLETE runner implementation; fitting BLOCKED before pixels/optimization by stale/failed S1-gesture, missing coverage and failed bridge convergence. Isolated proposals/selection and admission tested; 65 tests in clean clone. Actual fitted/transfer tasks remain unchecked, no candidates or null acceptance."
     - id: ADV-SS-HANDVALIDATE-014
       advance_id: ADV-SS-HANDVALIDATE-014
       title: "Pen-Action Evaluation — S1-Action and Letter-Readiness Decision"
