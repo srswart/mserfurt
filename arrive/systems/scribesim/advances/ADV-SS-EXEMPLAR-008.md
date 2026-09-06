@@ -50,26 +50,26 @@ authorize real candidate execution. Completed blocked experiments do not pass ga
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm authorization before creating a branch or committing.
-- [ ] tidy: assess preparatory changes; avoid unrelated refactoring.
-- [ ] test: establish and record failing behavioral tests before implementation.
-- [ ] feat/evaluate: Freeze v2 lineage and report overlapping exclusion reasons per non-test candidate. Begin with the seven legacy crops excluded only for exact mapping; do not assume their readings are verified.
-- [ ] feat/evaluate: Provide an auditable review/import path for logical text, visible forms, abbreviation/ligature spans, uncertainty, reviewer or machine identity and source coordinates. Reject incomplete mappings, unverifiable approval assertions and changes to reserved split membership.
-- [ ] feat/evaluate: Improve line assignment using strong-ink seeds and local line evidence; preserve ambiguous touching strokes as unknown. Do not whiten unknown ink for fitting or reduce the admission thresholds simply to increase counts.
-- [ ] feat/evaluate: Preserve native source bytes, reversible crop coordinates, aspect ratio and mask semantics. Record extraction configuration, code identity and every annotation or mask intervention.
-- [ ] feat/evaluate: Limit the first repair pass to the 41 training and 11 development reservations. Keep the eight locked-test reservations sealed and preserve source-line/overlap grouping; previously inspected data never becomes test data.
-- [ ] feat/evaluate: Write v3 to a new directory with before/after non-test contact sheets, exclusion deltas, coverage and independent instance/context counts. Retain v2 unchanged.
-- [ ] feat/evaluate: Stop after one diagnosed extraction revision and one non-test annotation pass. If support remains inadequate, report the missing symbols/contexts and propose a separately approved source-acquisition or annotation budget; do not silently expand scope.
+- [x] branch: confirm authorization before creating a branch or committing.
+- [x] tidy: assess preparatory changes; avoid unrelated refactoring.
+- [x] test: establish and record failing behavioral tests before implementation.
+- [x] feat/evaluate: Freeze v2 lineage and report overlapping exclusion reasons per non-test candidate. Begin with the seven legacy crops excluded only for exact mapping; do not assume their readings are verified.
+- [x] feat/evaluate: Provide an auditable review/import path for logical text, visible forms, abbreviation/ligature spans, uncertainty, reviewer or machine identity and source coordinates. Reject incomplete mappings, unverifiable approval assertions and changes to reserved split membership.
+- [x] feat/evaluate: Improve line assignment using strong-ink seeds and local line evidence; preserve ambiguous touching strokes as unknown. Do not whiten unknown ink for fitting or reduce the admission thresholds simply to increase counts.
+- [x] feat/evaluate: Preserve native source bytes, reversible crop coordinates, aspect ratio and mask semantics. Record extraction configuration, code identity and every annotation or mask intervention.
+- [x] feat/evaluate: Limit the first repair pass to the 41 training and 11 development reservations. Keep the eight locked-test reservations sealed and preserve source-line/overlap grouping; previously inspected data never becomes test data.
+- [x] feat/evaluate: Write v3 to a new directory with before/after non-test contact sheets, exclusion deltas, coverage and independent instance/context counts. Retain v2 unchanged.
+- [x] feat/evaluate: Stop after one diagnosed extraction revision and one non-test annotation pass. If support remains inadequate, report the missing symbols/contexts and propose a separately approved source-acquisition or annotation budget; do not silently expand scope.
 - [ ] feat/evaluate: Calibrate source losses using independent admitted train/development repeats and negative controls; obtain genuine target review bound to frozen source/benchmark identities. Recompute G0 before any reference-derived stroke fitting. Missing support, calibration or review remains blocked; this must not wait for the downstream layer evaluation.
-- [ ] feat/evaluate: Record primitive/letter support and uncertain stroke assignments without treating repeated slices of a single word as independent observations. Freeze a supported starter inventory; source images alone do not verify pen order or force.
-- [ ] evidence: record red/green commands, artifact identities and the actual outcome before marking implementation complete.
+- [x] feat/evaluate: Record primitive/letter support and uncertain stroke assignments without treating repeated slices of a single word as independent observations. Freeze a supported starter inventory; source images alone do not verify pen order or force.
+- [x] evidence: record red/green commands, artifact identities and the actual outcome before marking implementation complete.
 
 ## Validation Gates
 
-- [ ] Regression fixtures cover adjacent-line contamination, pale connected strokes, genuine touching ambiguity, empty masks and exact multi-character visible mappings.
-- [ ] Tampered hashes, invented review status, incomplete mappings and split leakage are rejected; artifact reconstruction recomputes admission.
-- [ ] At least 30 usable observations and existing per-symbol independent support requirements are measured, not inferred from candidate count. Failure produces a blocked corpus report, not a lowered target.
-- [ ] No locked-test image or statistic enters repair previews, threshold selection or source calibration.
+- [x] Regression fixtures cover adjacent-line contamination, pale connected strokes, genuine touching ambiguity, empty masks and exact multi-character visible mappings.
+- [x] Tampered hashes, invented review status, incomplete mappings and split leakage are rejected; artifact reconstruction recomputes admission.
+- [x] At least 30 usable observations and existing per-symbol independent support requirements are measured, not inferred from candidate count. Failure produces a blocked corpus report, not a lowered target.
+- [x] No locked-test image or statistic enters repair previews, threshold selection or source calibration.
 
 ## Invariant Impact
 
@@ -85,12 +85,12 @@ Review estimate: 45 minutes, not a measured reviewability score.
 
 ## Evidence
 
-Planned evidence: Versioned non-test review ledger; before/after masks and contact sheets; admitted/excluded counts with reasons; native source, split and intervention hashes. Initial live G0 readiness belongs here before reference-grounded stroke fitting; HANDVALIDATE-011 later revalidates it alongside the layer and nominal/neutral gates.
+Executed evidence: Versioned pending non-test review ledger; before/after masks and contact sheets; admitted/excluded counts with reasons; native source, split and intervention hashes. Initial live G0 readiness belongs here before reference-grounded stroke fitting; HANDVALIDATE-011 later revalidates it alongside the layer and nominal/neutral gates.
 
-- [ ] Record focused tests and reproducibility checks.
-- [ ] Run `arrive plan check` and `git diff --check`.
-- [ ] Before an authorized merge, run `arrive pr check --strict --json` and record any installed-tool limitation separately from provider CI.
-- [ ] Do not claim provider CI or human approval without actual evidence.
+- [x] Record focused tests and reproducibility checks.
+- [x] Run `arrive plan check` and `git diff --check`.
+- [x] Before an authorized merge, run `arrive pr check --strict --json` and record any installed-tool limitation separately from provider CI.
+- [x] Do not claim provider CI or human approval without actual evidence.
 
 ### Executed outcome
 

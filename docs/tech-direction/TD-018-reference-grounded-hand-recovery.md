@@ -1,15 +1,16 @@
 # TD-018 — Reference-Grounded Recovery of Konrad's Hand
 
-**Status:** benchmark/nominal/guided infrastructure implemented; real G0–G3 blocked; no hand or renderer promoted.
+**Status:** benchmark/nominal/guided and stroke-phase infrastructure implemented; synthetic S0/S1 pass; real G0–G3 blocked; no hand or renderer promoted.
 **Date:** 2026-09-05  
 **Revised:** 2026-09-06 — shared stroke language and staged learning before expressive simulation.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), nineteen Advances; eight historical implementation outcomes complete, eleven planned. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), nineteen Advances; eleven implementation outcomes complete, eight planned. Ink, fatigue and other expressive work are later.
 
 Section 12 is the authoritative revision for new work. Earlier implemented
-character-program recovery remains a diagnostic baseline, not proof that the
-shared stroke-language curriculum exists. New S0–S4 layer gates supplement
+character-program recovery remains a diagnostic baseline, not proof of shared
+stroke-language learning. The new compiler and primitive curriculum now have
+separate synthetic S0/S1 evidence. New S0–S4 layer gates supplement
 G0–G4; no previous pass or completion record satisfies them automatically.
 
 ## 1. Outcome and scope
@@ -365,7 +366,8 @@ The benchmark, nominal and guided records now contain executed evidence. Their c
 implementation outcomes do not mean G0/G1 passed: the corpus has zero admitted
 observations and no accepted recovered checkpoint. The former repair-first
 proposal is replaced by four stroke-language learning phases, then deferred
-expressive and folio phases. These eleven implementation outcomes remain planned.
+expressive and folio phases. The stroke phase is implemented; the remaining
+eight outcomes stay planned.
 Synthetic bridge/control evidence is not a real G2/G3 acceptance. Draft timestamps
 alone do not indicate implementation completion.
 
@@ -454,7 +456,8 @@ character-level stroke programs. Neither demonstrates the requested learned
 shared stroke vocabulary. Existing synthetic sheets reuse catalog letterforms;
 their similarity is expected and they must not be shown as successive stages
 of stroke learning. Preserve those artifacts and their honest blocked/failed
-outcomes. No new implementation or training is claimed by this revision.
+outcomes. The revision was initially planning-only; the executed stroke-phase
+result is recorded below without retroactively accepting the old catalog sheets.
 
 ### Layered representation: one source of truth
 
@@ -605,7 +608,19 @@ practice sheet**, not another nearly identical three-line catalog specimen.
 
 ### Existing samples
 
-The latest executed samples are still the **unaccepted synthetic v1** artifacts:
+The new [stroke practice and transfer results](../../shared/training/konrad_hand_recovery/stroke_language_v1/README.md)
+implement the first three Advances. Six shared primitive families actually fit
+synthetic targets; three seeds reduce held-out loss 0.491 to 0.065–0.086. The
+development-selected checkpoint preserves nominal strokes through actual neutral
+execution. S0 and synthetic S1 pass with deterministic fresh-process replay.
+Supplied i/u recipes demonstrate shared-parameter transfer, not learned letters.
+
+The v3 reference repair reduces non-test no-target exclusions 32 to 10 and
+excess-unknown exclusions 44 to 36, but zero observations are admitted. Real
+stroke fitting stops at G0 with zero evaluations. Pending exact readings and
+target review remain explicit; no fatigue or expressive ink is activated.
+
+The earlier guided **unaccepted catalog-prior v1** artifacts remain available:
 
 - [Neutral three-line sheet](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/neutral-three-line.png)
 - [Ink three-line sheet showing excessive fading](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/ink-three-line.png)

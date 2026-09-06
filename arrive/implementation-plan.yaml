@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T04:10:57Z
+  updated_at: 2026-09-06T04:49:00Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1493,12 +1493,12 @@ passes:
     - id: ADV-SS-CURRICULUM-004
       advance_id: ADV-SS-CURRICULUM-004
       title: "Stroke Learning — Shared Primitive Practice and Transfer"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EVOFIT-007
       - ADV-SS-EXEMPLAR-008
-      notes: "Shared stroke-language layer with explicit S0/S1 evidence; synthetic mechanics may run without real admission, reference fitting requires live G0. No expressive activation."
+      notes: "Implemented actual shared-primitive fitting and three-seed fresh-process replay. Synthetic held-out loss 0.491 to 0.065–0.086; neutral S1 passes. Real fitting stops at G0 with zero evaluations. Practice/transfer sheets published; letters/context/expressive work not claimed."
   - id: td018-letters
     title: Combine learned strokes into letter recipes
     order: 5

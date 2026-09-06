@@ -215,19 +215,21 @@ See the [guided outcome and replay commands](shared/training/konrad_hand_recover
 The revised direction is a **shared stroke language**, with five new Advances:
 `EVOFIT-007` for the language/compiler and `CURRICULUM-004` through
 `CURRICULUM-007` for stroke learning, letter construction, within-word stroke
-context and inter-word stroke context. Start with **td018-strokes**, then
-**td018-letters**, **td018-letter-context** and **td018-word-context**.
+context and inter-word stroke context. **td018-strokes** is implemented with
+synthetic S0/S1 evidence; **td018-letters**, **td018-letter-context** and
+**td018-word-context** remain planned.
 Reference admission stays necessary for real training; final layered validation
 rechecks G0–G2. Ink, fatigue and other expressive work come later.
 See [the layered design and revised sequence](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md#12-stroke-language-and-layered-learning-revised-direction).
 
-The first new review artifact will be a stroke practice/transfer sheet, followed
-by numbered letter assembly, neighbor-context and word-boundary proofs. These
-are planned, not generated yet. Existing primitives are predefined controller
-exercises; existing catalog-based character curves are not a learned shared
-stroke vocabulary.
+Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)
+and [shared-stroke decomposition](shared/training/konrad_hand_recovery/stroke_language_v1/language/decomposition.png).
+Six primitive families now learn shared geometry on synthetic targets; held-out
+stroke loss improves from 0.491 to 0.065–0.086 across three seeds. The supplied
+`i/u` recipes demonstrate transfer, not learned letter construction. Real-reference
+training remains blocked at zero admitted observations. See [results and commands](shared/training/konrad_hand_recovery/stroke_language_v1/README.md).
 
-Latest samples (unaccepted catalog-prior diagnostics, not recovered handwriting):
+Earlier guided samples (unaccepted catalog-prior diagnostics, not learning stages):
 [neutral three-line sheet](shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/neutral-three-line.png),
 [unsafe ink sheet](shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/ink-three-line.png),
 [combined controls](shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/combined-three-line.png),
