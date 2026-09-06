@@ -13,7 +13,7 @@ from scribesim.evofit.stroke_language import seed_language
 from scribesim.evofit.stroke_gestures import migrate_v1
 from scribesim.handvalidate.gestures import _endpoint_difference
 from scribesim.handvalidate.nib_contact import BASE
-from scribesim.handvalidate.specimen import ROOT, digest, write_json
+from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_json
 from scribesim.handvalidate.tool_contract import ProbeBudget
 from scribesim.pathguide.gesture_actions import action_bundle, code_identities, execute_actions
 from scribesim.curriculum.stroke_learning import stroke_loss
@@ -41,7 +41,9 @@ def fixture_models():
     return models
 
 
-def build(output):
+def build(output, *, revision=0):
+    if type(revision) is not int or revision not in (0, 1):
+        raise ValueError('Only one diagnosed revision allowed')
     output = Path(output)
     if output.exists() and any(output.iterdir()):
         raise ValueError('Use an empty output directory')
@@ -64,8 +66,8 @@ def build(output):
             budget.consume()
             runs[label] = execute_actions(SPEC['text'], model, step_mm=step, dt=timestep, dpi=SPEC['dpi'],
                                           frame=SPEC['frame_mm'], angular_rate=angular_rate, edge_rate=edge_rate)
-        write_json(output / (name + '-bundle.json'), {'payload': asdict(action_bundle(SPEC['text'], model)),
-            'note': 'diagnostic plan; use the strict payload hash envelope when importing'})
+        payload = asdict(action_bundle(SPEC['text'], model))
+        write_json(output / (name + '-bundle.json'), {'payload': payload, 'sha256': object_digest(payload)})
         baseline = runs['baseline']
         comparisons = {}
         for label in ('step', 'time'):
@@ -81,7 +83,7 @@ def build(output):
         for column, (label, array) in enumerate(panels):
             draw.text((column * 300 + 6, row_index * 260 + 6), name + ' | ' + label, fill='black')
             image = Image.fromarray(array)
-            image.thumbnail((294, 228))
+            image = image.resize((294, 220), Image.Resampling.NEAREST)
             panel.paste(image, (column * 300 + 3, row_index * 260 + 30))
     budget.consume()
     panel.save(output / 'action-comparison.png')
@@ -90,7 +92,7 @@ def build(output):
               'forced_lag_detected': all(not row['forced_tracking_pass'] for row in rows
                                          if row['profile'] in ('rotation', 'negative_edge', 'positive_edge')),
               'bridge_checks_pass': all(row['tracking_pass'] and all(check['pass'] for check in row['convergence'].values()) for row in rows),
-              'renders': budget.renders, 'max_renders': 100, 'max_seconds': 900, 'optimization_evaluations': 0, 'revision': 0,
+              'renders': budget.renders, 'max_renders': 100, 'max_seconds': 900, 'optimization_evaluations': 0, 'revision': revision,
               'artifacts': {path.name: digest(path) for path in sorted(output.iterdir())},
               'decision': 'infrastructure diagnostics only; S1-gesture and action fitting remain blocked'}
     budget.check_time()
@@ -102,8 +104,9 @@ def build(output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--revision', type=int, choices=(0, 1), default=0)
     args = parser.parse_args()
-    report = build(args.output)
+    report = build(args.output, revision=args.revision)
     print(json.dumps({key: report[key] for key in ('bridge_checks_pass', 'forced_lag_detected', 'renders')}))
 
 
