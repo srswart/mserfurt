@@ -121,6 +121,11 @@ silently labeling a six-occurrence result as v2.
 
 ## Changes Made
 
+### 2026-09-06 — 0b94dfc: Local merge receipt
+
+- Merged `advance/ss-gesture-002` into `master` with `--no-ff` after audit, clean replay and documented governance checks. Full merge: `0b94dfc66e46f2c9a28b000c5d3ae8f5dd9422ad`; no remote push.
+- The implementation and frozen evidence identities are unchanged by the documentation and merge. Strict parser and pre-existing test limitations remain disclosed; this receipt does not imply provider CI or owner review.
+
 ### 2026-09-06 — 633dabc: Complete the bounded return contract audit
 
 - Frozen spec-v1 precedes implementation; old run-005 motion and original primitive provenance are verified independently of current compiler identities. Original evidence remains immutable.
