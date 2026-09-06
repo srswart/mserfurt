@@ -1527,13 +1527,13 @@ passes:
     - id: ADV-SS-GESTURE-001
       advance_id: ADV-SS-GESTURE-001
       title: "Stroke Gestures — Versioned Composition, Actions and Legacy Migration"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EVOFIT-007
       - ADV-SS-EXEMPLAR-009
       - ADV-SS-NIBCONTACT-001
-      notes: "IMPLEMENTATION: opt-in versioned gesture/action contract and explicit v1 migration; continuous contact, ownership and expanded-letter budgets remain enforced."
+      notes: "COMPLETE: explicit v2 gesture/action schema, lossless fixed-tool migration, continuous arc sampling and overlap/layer ownership. 36 tests and byte-identical clean-clone replay. Dynamic actions and new-family learning remain unsupported/unaccepted."
     - id: ADV-SS-CURRICULUM-008
       advance_id: ADV-SS-CURRICULUM-008
       title: "Gesture Learning — Fixed-Tool Construction Practice and Transfer"
