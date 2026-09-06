@@ -5,6 +5,9 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, fields, replace
 
+import numpy as np
+from numpy.polynomial import Polynomial
+
 from scribesim.pathguide import DensePathGuide
 
 from .model import TrackPlan, TrackPlanSample
@@ -19,11 +22,11 @@ class BrakedPlan:
     source_indices: tuple[int, ...]
     arrivals: tuple[dict, ...]
     version: str = AIR_BRAKING_VERSION
+    corners: tuple[dict, ...] = ()
 
 
-def _contact_clock(distance, length, stop):
-    acceleration = 250.0
-    peak = min(12.0, math.sqrt(acceleration * length)) if stop else 12.0
+def _contact_clock(distance, length, stop, *, acceleration=250.0, ceiling=12.0):
+    peak = min(ceiling, math.sqrt(acceleration * length)) if stop else ceiling
     ramp = peak ** 2 / (2 * acceleration)
     if stop and distance >= length - ramp:
         remaining = max(0.0, length - distance)
@@ -34,7 +37,7 @@ def _contact_clock(distance, length, stop):
     return peak / acceleration + (distance - ramp) / peak, peak
 
 
-def retime_air_braking(plan: TrackPlan) -> BrakedPlan:
+def retime_air_braking(plan: TrackPlan, *, _contact_timing=None) -> BrakedPlan:
     """Opt-in fixed-tool braking, rest-to-rest air travel and contact acceleration."""
     if not plan.samples or not plan.samples[0].contact or not plan.samples[-1].contact:
         raise ValueError("Braking requires complete contact-bounded input")
@@ -87,6 +90,9 @@ def retime_air_braking(plan: TrackPlan) -> BrakedPlan:
                 contact_distance += distance
                 local_time, speed = _contact_clock(contact_distance, contact_length, stop)
                 elapsed = contact_start + local_time
+            if _contact_timing is not None:
+                local_time, speed = _contact_timing[cursor]
+                elapsed = contact_start + local_time
             ratio = speed / source.speed_mm_s if source.speed_mm_s else 0
             append(source, cursor, t_s=elapsed, speed_mm_s=speed,
                    vx_mm_s=source.vx_mm_s * ratio, vy_mm_s=source.vy_mm_s * ratio)
@@ -135,6 +141,103 @@ def retime_air_braking(plan: TrackPlan) -> BrakedPlan:
                            'planned_air_acceleration_max_mm_s2': acceleration, 'source_entry_index': end}
         cursor = end
     return BrakedPlan(replace(plan, samples=tuple(samples)), tuple(indices), tuple(arrivals))
+
+
+def cubic_curvature_max(cubic):
+    """Maximum regular cubic curvature from derivative-polynomial extrema."""
+    controls = np.asarray(cubic, dtype=float)
+    if controls.shape != (4, 2) or not np.isfinite(controls).all():
+        raise ValueError('Finite cubic geometry required')
+    derivatives = 3 * np.diff(controls, axis=0)
+    velocity = [Polynomial([derivatives[0, axis], 2 * (derivatives[1, axis] - derivatives[0, axis]),
+                           derivatives[0, axis] - 2 * derivatives[1, axis] + derivatives[2, axis]])
+                for axis in (0, 1)]
+    squared = velocity[0] ** 2 + velocity[1] ** 2
+    cross = velocity[0] * velocity[1].deriv() - velocity[1] * velocity[0].deriv()
+
+    def candidates(polynomial):
+        return [0.0, 1.0] + [float(root.real) for root in polynomial.roots()
+                             if abs(root.imag) < 1e-8 and 0 < root.real < 1]
+
+    if min(squared(value) for value in candidates(squared.deriv())) <= 1e-14:
+        raise ValueError('Stationary cubic cusp unsupported by contact timing')
+    stationary = 2 * cross.deriv() * squared - 3 * cross * squared.deriv()
+    return max(abs(cross(value)) / squared(value) ** 1.5 for value in candidates(stationary))
+
+
+def retime_corner_timing(plan: TrackPlan, owners, strokes) -> BrakedPlan:
+    """Shared fixed-tool contact clock, driven by exact compiled ports and curves."""
+    if len(owners) != len(plan.samples) or not strokes:
+        raise ValueError('Complete contact ownership required')
+    if len({row['occurrence_id'] for row in strokes}) != len(strokes):
+        raise ValueError('Unique primitive ownership required')
+    indexed = {row['occurrence_id']: row for row in strokes}
+    if {owner.get('occurrence_id') for point, owner in zip(plan.samples, owners) if point.contact} != set(indexed):
+        raise ValueError('Contact ownership does not match geometry')
+    physical = {key: [[[point[0] * plan.x_height_mm, 10 - point[1] * plan.x_height_mm]
+                       for point in cubic] for cubic in row['cubics']] for key, row in indexed.items()}
+    timing, corners = {}, []
+    cursor = 0
+    while cursor < len(plan.samples):
+        if not plan.samples[cursor].contact:
+            cursor += 1
+            continue
+        end = cursor
+        while end + 1 < len(plan.samples) and plan.samples[end + 1].contact:
+            end += 1
+        keys = list(dict.fromkeys(owner['occurrence_id'] for owner in owners[cursor:end + 1]))
+        sections = []
+        beginning, curves = cursor, []
+        previous = None
+        for key in keys:
+            row, cubics = indexed[key], physical[key]
+            if previous is not None:
+                if math.dist(previous[-1], cubics[0][0]) > 1e-8:
+                    raise ValueError('Disconnected contact port')
+                incoming = np.subtract(previous[-1], previous[-2])
+                outgoing = np.subtract(cubics[0][1], cubics[0][0])
+                alignment = float(np.dot(incoming, outgoing) / (np.linalg.norm(incoming) * np.linalg.norm(outgoing)))
+                if row['transition'] == 'corner':
+                    matches = [index for index in range(beginning, end + 1)
+                               if math.dist((plan.samples[index].x_mm, plan.samples[index].y_mm), cubics[0][0]) <= 1e-8
+                               and owners[index]['occurrence_id'] in (key, keys[keys.index(key) - 1])]
+                    if len(matches) != 1 or matches[0] <= beginning:
+                        raise ValueError('Exact unique corner port required')
+                    boundary = matches[0]
+                    sections.append((beginning, boundary, curves, True))
+                    corners.append({'source_index': boundary, 'occurrence_id': key, 'position_mm': cubics[0][0]})
+                    beginning, curves = boundary, []
+                elif row['transition'] != 'smooth' or alignment < 1 - 1e-6:
+                    raise ValueError('Declared smooth port requires matching tangents')
+            elif row['transition'] not in ('start', 'lift'):
+                raise ValueError('Contact run requires an explicit start/lift port')
+            for before, after in zip(cubics, cubics[1:]):
+                incoming, outgoing = np.subtract(before[-1], before[-2]), np.subtract(after[1], after[0])
+                if (math.dist(before[-1], after[0]) > 1e-8 or
+                        np.dot(incoming, outgoing) < (1 - 1e-6) * np.linalg.norm(incoming) * np.linalg.norm(outgoing)):
+                    raise ValueError('Internal cubic join must be smooth')
+            curves.extend(cubics)
+            previous = cubics[-1]
+        sections.append((beginning, end, curves, plan.samples[end].speed_mm_s == 0))
+        elapsed = 0.0
+        for beginning, ending, curves, stop in sections:
+            curvature = max(cubic_curvature_max(cubic) for cubic in curves)
+            ceiling = min(12.0, math.sqrt(62.5 / (1.05 * curvature))) if curvature else 12.0
+            distances = [0.0]
+            for before, after in zip(plan.samples[beginning:ending], plan.samples[beginning + 1:ending + 1]):
+                distances.append(distances[-1] + math.dist((before.x_mm, before.y_mm), (after.x_mm, after.y_mm)))
+            if distances[-1] <= 0:
+                raise ValueError('Nonstationary contact section required')
+            for index, distance in enumerate(distances, start=beginning):
+                local_time, speed = _contact_clock(distance, distances[-1], stop, acceleration=125.0, ceiling=ceiling)
+                timing[index] = elapsed + local_time, speed
+            elapsed = timing[ending][0]
+        cursor = end + 1
+    result = retime_air_braking(plan, _contact_timing=timing)
+    mapped = {source: index for index, source in enumerate(result.source_indices) if result.plan.samples[index].contact}
+    return replace(result, version='corner-time-v1', corners=tuple(
+        {**corner, 'plan_index': mapped[corner['source_index']],
+         'time_s': result.plan.samples[mapped[corner['source_index']]].t_s} for corner in corners))
 
 
 def build_track_plan(

@@ -14,12 +14,12 @@ from PIL import Image, ImageDraw
 
 from scribesim.curriculum import stroke_learning as strokes
 from scribesim.curriculum.gesture_learning import LOWER, LOWER_HASHES, BASE
-from scribesim.evofit.stroke_gestures import gesture_guide, migrate_v1
-from scribesim.evofit.stroke_language import language_guide, seed_language, validate_language
+from scribesim.evofit.stroke_gestures import compile_gestures, gesture_guide, migrate_v1
+from scribesim.evofit.stroke_language import compile_text, language_guide, seed_language, validate_language
 from scribesim.evofit.recovery import image_objective
 from scribesim.handflow.controller import GuidedHandFlowController
 from scribesim.handflow.controls import RepertoireControls
-from scribesim.handflow.planning import build_track_plan, retime_air_braking
+from scribesim.handflow.planning import build_track_plan, retime_corner_timing
 from scribesim.handvalidate.bridge import neutral_profile, paint_trajectory
 from scribesim.handvalidate.gestures import _subdivide
 from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_json
@@ -27,9 +27,9 @@ from scribesim.pathguide.gesture_actions import ActionController, action_bundle,
 from scribesim.evo.nib_contact import ContactSample, VERSION
 
 
-SPEC_PATH = BASE / 'foundation_repair/motion/spec-v3.json'
+SPEC_PATH = BASE / 'foundation_repair/motion/spec-v4.json'
 SPEC = json.loads(SPEC_PATH.read_text())
-TARGET_VERSION = 'braked-air-v1'
+TARGET_VERSION = 'corner-time-v1'
 
 
 class Budget:
@@ -133,10 +133,22 @@ def execute(model, text, *, step, dt, version, budget, physical=False, subdivisi
         from scribesim.handvalidate.model import TrajectorySample
         playback = [TrajectorySample(sample.x_mm, sample.y_mm, sample.contact, .45,
                                      sample.pressure, sample.nib_angle_deg) for sample in plan.samples]
-    original_time, arrivals = plan.total_time_s, ()
+    original_time, arrivals, corners = plan.total_time_s, (), ()
+    geometry_errors = 0
+    expected_corners = []
     if version == TARGET_VERSION:
-        retimed = retime_air_braking(plan)
+        compiled = compile_gestures(text, model)['strokes']
+        expected_corners = [row for row in compiled if row['transition'] == 'corner']
+        retimed = retime_corner_timing(plan, owners, compiled)
+        for point, index in zip(retimed.plan.samples, retimed.source_indices):
+            if point.contact:
+                before = plan.samples[index]
+                geometry_errors += int(any(getattr(point, field) != getattr(before, field)
+                                           for field in ('x_mm', 'y_mm', 'contact', 'pressure', 'nib_angle_deg')))
+        geometry_errors += int([index for point, index in zip(retimed.plan.samples, retimed.source_indices) if point.contact]
+                               != [index for index, point in enumerate(plan.samples) if point.contact])
         plan, arrivals = retimed.plan, retimed.arrivals
+        corners = retimed.corners
         owners = [owners[index] for index in retimed.source_indices]
     observations = []
     original = engine.step
@@ -186,6 +198,15 @@ def execute(model, text, *, step, dt, version, budget, physical=False, subdivisi
                         (row['time_s'] - row['time_before']) for row in trace if row['time_s'] > row['time_before']), default=0)
     discontinuities = sum(row['to_mm'] != row['from_mm'] or row['velocity_mm_s'] != row['velocity_before_mm_s']
                           for row in trace if row['time_s'] == row['time_before'])
+    corner_rows = [next((row for row in trace if row['time_s'] == corner['time_s']
+                        and row['plan_index'] == corner['plan_index']), None) for corner in corners]
+    corner_errors = sum(row is None or not row['contact'] for row in corner_rows)
+    corner_errors += int([corner['occurrence_id'] for corner in corners] != [row['occurrence_id'] for row in expected_corners])
+    for corner in corners:
+        point = plan.samples[corner['plan_index']]
+        corner_errors += int(not point.contact or point.speed_mm_s != 0 or point.vx_mm_s != 0 or point.vy_mm_s != 0
+                             or math.dist((point.x_mm, point.y_mm), corner['position_mm']) > 1e-8)
+    desired_metrics = desired_motion_metrics(plan)
     metrics = {'planned_time_s': plan.total_time_s, 'executed_time_s': result.final_state.time_s,
                'floor_excess_s': sum(max(dt, duration) - duration for duration in durations),
                'rounded_largest_step_s': max((max(dt, duration) / max(1, round(max(dt, duration) / dt))
@@ -198,10 +219,13 @@ def execute(model, text, *, step, dt, version, budget, physical=False, subdivisi
                'entry_speed_mm_s': max((math.hypot(*row['velocity_mm_s']) for row in entry_rows), default=0),
                'entry_position_error_mm': max((math.dist(row['to_mm'], row['desired_mm']) for row in entry_rows), default=0),
                'actual_acceleration_mm_s2': acceleration, 'zero_time_discontinuities': discontinuities,
-               'air_ink_errors': sum(row['pressure'] != 0 for row in trace if not row['contact'])}
+               'air_ink_errors': sum(row['pressure'] != 0 for row in trace if not row['contact']),
+               **desired_metrics, 'geometry_errors': geometry_errors, 'corner_errors': corner_errors,
+               'corner_speed_mm_s': max((math.hypot(*row['velocity_mm_s']) for row in corner_rows if row), default=0),
+               'corner_position_error_mm': max((math.dist(row['to_mm'], row['desired_mm']) for row in corner_rows if row), default=0)}
     return {'model_sha256': object_digest(model), 'text': text, 'version': version, 'step_mm': step, 'dt_s': dt,
             'tool': VERSION if physical else 'legacy-full-edge', 'plan': asdict(plan), 'metrics': metrics,
-            'groups': contact_groups, 'trace': trace, 'arrivals': arrivals, 'images': rendered}
+            'groups': contact_groups, 'trace': trace, 'arrivals': arrivals, 'corners': corners, 'images': rendered}
 
 
 def compare(first, second):
@@ -257,19 +281,19 @@ def revalidate_baseline(budget, *, root=LOWER, version=TARGET_VERSION):
         plan = build_track_plan(bundle.guide, base_speed_mm_s=12)
         owners = bundle.metadata['owners']
         if version == TARGET_VERSION:
-            retimed = retime_air_braking(plan)
+            retimed = retime_corner_timing(plan, owners, compile_text(text, model)['strokes'])
             plan, owners = retimed.plan, [owners[index] for index in retimed.source_indices]
         result = engine.follow_plan(plan, dt=.002, settle_time_s=0)
         frame = bundle.metadata['frame_mm']
         nominal = budget.render(strokes.render_exercise, candidate, {**sample, 'frame': frame})
         image = budget.render(paint_trajectory, result.trajectory, frame, dpi=strokes.DPI)
         mask = np.where(np.asarray(Image.fromarray(nominal).convert('L')) < 180, 255, 0).astype(np.uint8)
-        metrics = {'image_loss': image_objective(nominal, mask, image)['total'],
+        metrics = {**desired_motion_metrics(plan), 'image_loss': image_objective(nominal, mask, image)['total'],
                    'corridor_mm': max((math.dist(row['to_mm'], row['desired_mm'])
                                       for row in result.final_state.execution_trace if row['contact']), default=0),
                    'contact_errors': sum(point.contact != result.plan.samples[index].contact
                                          for point, index in zip(result.trajectory, result.trajectory_plan_indices))}
-        if metrics['image_loss'] > .35 or metrics['corridor_mm'] > .25 or metrics['contact_errors']:
+        if metrics['image_loss'] > .35 or metrics['corridor_mm'] > .25 or metrics['contact_errors'] or not desired_pass(metrics):
             failures.append(name + ':actual_baseline')
         actual[name] = {'metrics': metrics, 'trace': result.final_state.execution_trace,
                         'owners': [owners[index] for index in result.trajectory_plan_indices]}
@@ -284,10 +308,10 @@ def revalidate_baseline(budget, *, root=LOWER, version=TARGET_VERSION):
 def decide_motion(checks, baseline):
     required = {f'{name}:{label}:{metric}' for name in SPEC['fixture_families']
                 for label in ('base', 'arc', 'time', 'subdivision')
-                for metric in ('time', 'corridor', 'image', 'ownership', 'no_projection', 'entry', 'mechanics')}
+                for metric in ('time', 'corridor', 'image', 'ownership', 'no_projection', 'entry', 'mechanics', 'desired', 'corners')}
     required.update(f'{name}:{label}:convergence' for name in SPEC['fixture_families']
                     for label in ('arc', 'time', 'subdivision'))
-    required.update(('physical:arc', 'physical:time', 'physical:tracking'))
+    required.update(('physical:arc', 'physical:time', 'physical:tracking', 'physical:desired', 'physical:corners'))
     passed = set(checks) == required and all(value is True for value in checks.values())
     current_baseline = (baseline.get('status') == 'pass' and baseline.get('current_code_sha256') == identities()
                         and baseline.get('historical_sha256') == LOWER_HASHES)
@@ -332,6 +356,29 @@ def mechanics_pass(metrics):
             and metrics['air_ink_errors'] == 0)
 
 
+def desired_motion_metrics(plan):
+    acceleration, discontinuities = 0.0, 0
+    for before, after in zip(plan.samples, plan.samples[1:]):
+        duration = after.t_s - before.t_s
+        change = math.dist((before.vx_mm_s, before.vy_mm_s), (after.vx_mm_s, after.vy_mm_s))
+        if duration > 0:
+            acceleration = max(acceleration, change / duration)
+        else:
+            discontinuities += int(change > 1e-9 or math.dist((before.x_mm, before.y_mm), (after.x_mm, after.y_mm)) > 1e-9)
+    return {'desired_acceleration_mm_s2': acceleration, 'desired_discontinuities': discontinuities,
+            'desired_contact_speed_mm_s': max(point.speed_mm_s for point in plan.samples if point.contact)}
+
+
+def desired_pass(metrics):
+    return (metrics['desired_acceleration_mm_s2'] <= 250 + 1e-8 and metrics['desired_discontinuities'] == 0
+            and metrics['desired_contact_speed_mm_s'] <= 12 and metrics.get('geometry_errors', 0) == 0)
+
+
+def corners_pass(metrics):
+    return (metrics['corner_errors'] == 0 and metrics['corner_speed_mm_s'] <= .5
+            and metrics['corner_position_error_mm'] <= .05)
+
+
 def entry_pass(metrics):
     return metrics['entry_speed_mm_s'] <= .5 and metrics['entry_position_error_mm'] <= .05
 
@@ -368,13 +415,15 @@ def build(output):
                         checks[f'{name}:{label}:no_projection'] = metrics['max_projection_mm'] <= 1e-12
                         checks[f'{name}:{label}:entry'] = entry_pass(metrics)
                         checks[f'{name}:{label}:mechanics'] = mechanics_pass(metrics)
+                        checks[f'{name}:{label}:desired'] = desired_pass(metrics)
+                        checks[f'{name}:{label}:corners'] = corners_pass(metrics)
                     for label, comparison in comparisons.items():
                         checks[f'{name}:{label}:convergence'] = comparison['pass']
                 executions[version] = runs
             labels = SPEC['fixture_labels'][name]
             tiles.extend([(labels + ' | desired', presentation_image(executions[TARGET_VERSION]['base'], 'desired', budget)),
                           (labels + ' | old actual', presentation_image(executions['legacy-v1']['base'], 'actual', budget)),
-                          (labels + ' | braked actual', presentation_image(executions[TARGET_VERSION]['base'], 'actual', budget)),
+                          (labels + ' | corner-timed actual', presentation_image(executions[TARGET_VERSION]['base'], 'actual', budget)),
                           (labels + ' | refined actual', presentation_image(executions[TARGET_VERSION]['time'], 'actual', budget))])
             traces[name] = {version: {label: {key: value for key, value in result.items() if key != 'images'}
                                      for label, result in runs.items()} for version, runs in executions.items()}
@@ -387,6 +436,8 @@ def build(output):
         checks['physical:tracking'] = all(result['metrics']['corridor_mm'] <= .25 and result['metrics']['owner_errors'] == 0
                                            and result['metrics']['image_loss'] <= .35 and entry_pass(result['metrics'])
                                            and mechanics_pass(result['metrics']) for result in physical.values())
+        checks['physical:desired'] = all(desired_pass(result['metrics']) for result in physical.values())
+        checks['physical:corners'] = all(corners_pass(result['metrics']) for result in physical.values())
         traces['physical-fixed'] = {label: {key: value for key, value in result.items() if key != 'images'}
                                      for label, result in physical.items()}
         budget.render(panel, output / 'comparison.png', tiles)
@@ -409,7 +460,7 @@ def build(output):
     decision = decide_motion(checks, baseline)
     report = {'scope': SPEC['scope'], 'decision': decision, 'checks': checks, 'rows': rows,
               'renders': budget.used, 'max_renders': budget.maximum, 'optimization_evaluations': 0,
-              'attempt': 2, 'revision': 0, 'allowance': 'authorized-air-braking-followup-001',
+              'attempt': 3, 'revision': 0, 'allowance': SPEC['allowance'],
               'code_sha256': identities(), 'spec_sha256': digest(SPEC_PATH),
               'artifacts': {path.name: digest(path) for path in sorted(output.iterdir()) if path.is_file()}}
     write_json(output / 'report.json', report)

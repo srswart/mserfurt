@@ -278,7 +278,8 @@ class GuidedHandFlowController:
                 events.setdefault(desired.t_s, []).append(index)
         schedule = sorted(set([min(index * dt, plan.total_time_s)
                                for index in range(1, math.ceil(plan.total_time_s / dt) + 1)]
-                              + list(events) + [plan.total_time_s]))
+                              + list(events) + [sample.t_s for sample in plan.samples if sample.contact and sample.speed_mm_s == 0]
+                              + [plan.total_time_s]))
         advance(plan.samples[0], 0, 0)
         elapsed = 0.0
         for instant in schedule:
