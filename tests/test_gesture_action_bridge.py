@@ -75,3 +75,22 @@ def test_bridge_proofs_record_failures_without_granting_acceptance(tmp_path):
     assert not report['S1_action_accepted']
     assert report['renders'] <= 100
     assert report['forced_lag_detected']
+
+
+def test_partition_and_edge_side_change_do_not_move_the_centerline():
+    from scribesim.handvalidate.gestures import _subdivide
+
+    program = model()
+    original = execute_actions('i', program)
+    partitioned = execute_actions('i', _subdivide(program))
+    assert len(original['trajectory']) == len(partitioned['trajectory'])
+    assert max(abs(first['nib_angle_deg'] - second['nib_angle_deg']) for first, second in
+               zip(original['trajectory'], partitioned['trajectory'])) < 1e-4
+    program['actions']['fixed']['orientation'] = [[0, 40], [1, 40]]
+    program['actions']['fixed']['edge'] = [[0, 0, 1], [1, 0, .5]]
+    negative = execute_actions('i', program)
+    program['actions']['fixed']['edge'] = [[0, 0, 1], [1, .5, 1]]
+    positive = execute_actions('i', program)
+    assert [(point['x_mm'], point['y_mm']) for point in negative['trajectory']] == [
+        (point['x_mm'], point['y_mm']) for point in positive['trajectory']]
+    assert not np.array_equal(negative['images']['actual'], positive['images']['actual'])
