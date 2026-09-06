@@ -1,0 +1,529 @@
+[
+  {
+    "id": "stem",
+    "primitive_roles": [
+      "descend"
+    ],
+    "segments": [
+      [
+        [
+          0,
+          1
+        ],
+        [
+          0.0,
+          0.6666666666666667
+        ],
+        [
+          0.0,
+          0.33333333333333337
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "i: stem plus unresolved exit",
+    "closed": false,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  },
+  {
+    "id": "rise",
+    "primitive_roles": [
+      "rise"
+    ],
+    "segments": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          0.18333333333333335,
+          0.3333333333333333
+        ],
+        [
+          0.3666666666666667,
+          0.6666666666666666
+        ],
+        [
+          0.55,
+          1
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "u: entry approach, not a complete letter",
+    "closed": false,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  },
+  {
+    "id": "underturn",
+    "primitive_roles": [
+      "descend",
+      "lower_turn",
+      "rise"
+    ],
+    "segments": [
+      [
+        [
+          0,
+          1
+        ],
+        [
+          0.0,
+          0.75
+        ],
+        [
+          0.0,
+          0.5
+        ],
+        [
+          0,
+          0.25
+        ]
+      ],
+      [
+        [
+          0,
+          0.25
+        ],
+        [
+          0,
+          -0.08333333333333333
+        ],
+        [
+          0.5,
+          -0.08333333333333333
+        ],
+        [
+          0.5,
+          0.25
+        ]
+      ],
+      [
+        [
+          0.5,
+          0.25
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.75
+        ],
+        [
+          0.5,
+          1
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "u: underturn plus stem (4 primitive occurrences)",
+    "closed": false,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  },
+  {
+    "id": "overturn",
+    "primitive_roles": [
+      "rise",
+      "upper_turn",
+      "descend"
+    ],
+    "segments": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          0.0,
+          0.25
+        ],
+        [
+          0.0,
+          0.5
+        ],
+        [
+          0,
+          0.75
+        ]
+      ],
+      [
+        [
+          0,
+          0.75
+        ],
+        [
+          0,
+          1.0833333333333333
+        ],
+        [
+          0.5,
+          1.0833333333333333
+        ],
+        [
+          0.5,
+          0.75
+        ]
+      ],
+      [
+        [
+          0.5,
+          0.75
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0.25
+        ],
+        [
+          0.5,
+          0
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "n: overturn plus stem (4 primitive occurrences)",
+    "closed": false,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  },
+  {
+    "id": "compound_curve",
+    "primitive_roles": [
+      "upper_turn",
+      "lower_turn"
+    ],
+    "segments": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0.5,
+          1
+        ],
+        [
+          0.5,
+          0.5
+        ]
+      ],
+      [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          0.5,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "m: alternative compound construction hypothesis, not an accepted recipe",
+    "closed": false,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  },
+  {
+    "id": "left_bowl",
+    "primitive_roles": [
+      "left_bowl"
+    ],
+    "segments": [
+      [
+        [
+          0.7,
+          1
+        ],
+        [
+          -0.1,
+          1
+        ],
+        [
+          -0.1,
+          0
+        ],
+        [
+          0.7,
+          0
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "c: open bowl construction hypothesis",
+    "closed": false,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  },
+  {
+    "id": "upper_loop",
+    "primitive_roles": [
+      "upper_loop"
+    ],
+    "segments": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          -0.4,
+          1.4
+        ],
+        [
+          0.6,
+          1.4
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "l: loop plus stem construction hypothesis",
+    "closed": true,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  },
+  {
+    "id": "lower_loop",
+    "primitive_roles": [
+      "lower_loop"
+    ],
+    "segments": [
+      [
+        [
+          0,
+          0
+        ],
+        [
+          0.6,
+          -1.4
+        ],
+        [
+          -0.4,
+          -1.4
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    ],
+    "contact": "continuous",
+    "construction_hypothesis": "g: descender only; bowl/attachment unresolved",
+    "closed": true,
+    "action": "fixed-full-edge-baseline",
+    "provenance": "project-authored analytic hypothesis; not a learned or historical stroke",
+    "practice": {
+      "scale": 1.0,
+      "composition": "single",
+      "offset": [
+        0,
+        0
+      ]
+    },
+    "transfer": {
+      "scale": 0.8,
+      "composition": "two occurrences separated by explicit lift",
+      "offsets": [
+        [
+          0,
+          0
+        ],
+        [
+          1.1,
+          0
+        ]
+      ],
+      "split": "synthetic-held-out"
+    }
+  }
+]

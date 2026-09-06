@@ -15,7 +15,7 @@ advance:
   risk_flags: []
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,8 @@ advance:
 Determine which additional stroke variants and continuous constructions the starter letters actually require, and whether real-source evidence can support them. Resolve coverage before adding attractive but unsupported shapes.
 
 **Work kind:** Investigation. Follows [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md), including its [delivery and budget contract](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
-Drafting timestamp only: no implementation, investigation run, gate pass, CI or owner approval is claimed.
+Investigation execution started. Synthetic fixtures and blocked source readiness
+are being validated; no real gate pass, CI or owner approval is claimed.
 
 ## Behavioral Change
 
@@ -105,4 +106,3 @@ diagnosis and bounded repair; unrelated changes and threshold relaxation are exc
 
 1. Which proposed gestures have independent source support rather than repeated slices or modern instructional analogies?
 2. What must be supplied or separately budgeted before real fitting can begin?
-
