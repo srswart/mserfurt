@@ -1,11 +1,13 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
 **Status:** HANDFLOW-010 motion repair and GESTURE-002 return-contract audit are
-complete; four Advances remain planned. The audit freezes two untrained returns,
+complete; CURRICULUM-010 is in progress and three Advances remain planned. The audit freezes two untrained returns,
 actual-tangent ports, a six-expanded-occurrence opt-in cap and explicit inventory
 debt. Run-005 retains its accepted pre-audit motion result; compiler identities
-have changed, so CURRICULUM-010 must refresh motion/baseline admission before
-fitting. No new learning, S1-action, real-hand or owner appearance approval is claimed.
+changed; CURRICULUM-010 has refreshed admission and fitted return candidates.
+Its frozen frame crops the compound's lower return, so learning completion and
+merge remain blocked pending an authorized measurement-only follow-up. No new
+S1, S1-action, real-hand or owner appearance approval is claimed.
 See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
 and the [executed vocabulary audit](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/README.md).
 **Date:** 2026-09-06

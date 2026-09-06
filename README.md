@@ -242,7 +242,8 @@ action pictures are not learned results. See
 [samples, findings and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
 and [the Advance map](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
 
-**Current: `td018-foundation-repair`**, motion repair and return-contract audit complete; four Advances planned:
+**Current: `td018-foundation-repair`**, motion repair and return-contract audit complete;
+return learning in progress, three Advances planned:
 refresh the motion/baseline proof, train new return primitives, independently
 accept them, then train and evaluate shared gestures. No new learning Advance
 completes on scaffolding alone. [Implementation order, budgets and success criteria](docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
@@ -250,8 +251,11 @@ completes on scaffolding alone. [Implementation order, budgets and success crite
 The return audit adds untrained lower/upper-return families and an explicit six-stroke
 composition cap, preserving old readers and the six original shapes. Five supplied
 starter constructions are feasible; unresolved bowls/loops and other checklist forms
-remain debt. No new learning has run. Compiler identities changed, so CURRICULUM-010
-must refresh motion/baseline validation before fitting. [New return shapes, constructions and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html).
+remain debt. CURRICULUM-010 now fits the two returns with fresh baseline admission,
+but the frozen comparison frame crops the compound's lower return. Completion and
+merge wait for an authorized full-frame measurement of the same candidates, not
+more fitting. See the [learning evidence](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/README.md).
+[New return shapes, constructions and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html).
 
 Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)
 and [shared-stroke decomposition](shared/training/konrad_hand_recovery/stroke_language_v1/language/decomposition.png).

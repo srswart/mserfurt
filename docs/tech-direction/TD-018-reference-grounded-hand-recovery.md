@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty-two outcomes complete and twelve planned. Foundation motion repair passes its 239 frozen gates; GESTURE-002 completes the two-return vocabulary/port and six-occurrence contract audit. New returns are untrained. CURRICULUM-010 must refresh motion/baseline admission under changed compiler identities before fitting. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty-two outcomes complete, CURRICULUM-010 in progress and eleven planned. Fresh motion/baseline admission passes all 239 gates. Return fitting now runs, but a cropped compound measurement region blocks learning completion and merge pending an authorized no-refit measurement follow-up. No new S1 or gesture-learning permission is granted. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket
@@ -634,8 +634,10 @@ train and independently evaluate shared gestures. Runner-only delivery does not
 complete either new learning Advance. HANDFLOW-010 has two original attempts
 and the authorized braking/corner/curve-clock follow-ups: all motion and current
 baseline gates pass in run-005, including arc-refinement event timing. No
-new training has run. GESTURE-002's return audit is also complete; the remaining
-four foundation Advances stay planned, starting with fresh-baseline return learning.
+new training ran in that motion-only step. GESTURE-002's return audit is also complete.
+CURRICULUM-010 now fits returns after fresh baseline admission, but remains in
+progress because its compound measurement is cropped. The remaining three
+foundation Advances stay planned; no independent primitive acceptance is claimed.
 
 1. **td018-strokes:** EXEMPLAR-008 reference readiness; EVOFIT-007 stroke
    language/compiler; CURRICULUM-004 actual shared-primitive learning.

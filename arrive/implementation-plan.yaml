@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T20:35:04Z
+  updated_at: 2026-09-06T21:04:21Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1624,7 +1624,7 @@ passes:
       dependencies:
       - ADV-SS-HANDFLOW-010
       - ADV-SS-GESTURE-002
-      notes: "IN PROGRESS: freeze return-only fitting protocol and tests, refresh current-code motion/baseline admission before target access, then execute seeds 7/19/41. Old six/tool/ports/scaffolds remain fixed; HANDVALIDATE-015 remains the independent acceptance gate. No completed experiment is claimed yet."
+      notes: "IN PROGRESS, NOT MERGED: run-002 fits both returns for seeds 7/19/41 after 239/239 fresh admission; old six/tool/ports/scaffolds fixed. Four held-out fixtures pass with loss ratios 0.232..0.410; compound lower-return measurement is cropped and undefined, so every seed correctly fails completion. 5796 renders across three per-seed budgets; first attempt 1158 renders retained. One numeric revision used; additional no-refit full-frame measurement needs user approval. Clean replay matches 111 non-wall-clock artifacts; 150 tests pass plus one old failure."
     - id: ADV-SS-HANDVALIDATE-015
       advance_id: ADV-SS-HANDVALIDATE-015
       title: "Foundation Primitive Acceptance — Independent Current-Code S1 Extension"

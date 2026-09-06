@@ -5,6 +5,54 @@ handle lengths: two for each shared return. Old-six geometry, endpoints, tangent
 rays, fixed tool, controller and supplied construction scaffolds cannot change.
 This is synthetic primitive learning, not historical handwriting or letter learning.
 
+## Result: fitted, but completion blocked by the comparison frame
+
+Run-002 executes all three seeds after fresh 239/239 motion/baseline admission.
+Each seed selects identical shared handles: lower return **0.23/0.37**, upper
+return **0.30/0.31**, versus frozen initialization **0.28/0.28**. Exhaustive search
+order differs by seed; no held-out score selects a seed or replacement candidate.
+
+| Held-out fixture | Learned / initial full-image loss | Result, every seed |
+|---|---:|---|
+| Lower return, unseen scale | 0.328928 | Pass |
+| Upper return, unseen scale | 0.287814 | Pass |
+| Underturn attachment | 0.409520 | Pass |
+| Overturn attachment | 0.232461 | Pass |
+| Compound attachment | 0.289710, **cropped** | **Fail: lower-return local loss undefined** |
+
+The measurable required family ratios are also below 0.75; the worst of the four
+valid fixtures is 0.409886. These are roughly **59–77% lower losses**, not claims
+of artistic quality or historical accuracy. The full compound average must not
+hide its missing lower-return measurement. Its endpoint is y=13.15 mm, beyond the
+frozen frame's y=13 mm edge. The candidate and actual trace contain the stroke;
+the image omits it. No full-frame compound image benefit is established.
+
+All reported motion/refinement checks pass; maximum contact lag is 0.005516 mm
+and maximum refinement endpoint difference is 0.001024 mm. Image-based motion
+metrics still inherit the cropped frame and cannot certify the omitted region.
+Original geometry, actions, ports and scaffolds are unchanged in all candidates.
+
+- [Seed 7 practice sheet](run-002/seed-7/practice-sheet.png), [ports](run-002/seed-7/ports.svg), [candidate](run-002/seed-7/candidate.json), [metrics](run-002/seed-7/report.json)
+- [Seed 19 practice sheet](run-002/seed-19/practice-sheet.png), [candidate](run-002/seed-19/candidate.json), [metrics](run-002/seed-19/report.json)
+- [Seed 41 practice sheet](run-002/seed-41/practice-sheet.png), [candidate](run-002/seed-41/candidate.json), [metrics](run-002/seed-41/report.json)
+- [Failed experiment report](run-002/report.json), [budget ledger](ledger.json), [clean verification](verification.json)
+- [Measurement-only follow-up proposal — approval pending](measurement-request.md)
+
+Run-002 uses 2134/1831/1831 renders and 208.406950/193.208989/193.558916 seconds
+for seeds 7/19/41; seed 7 includes all 303 fresh baseline renders. Total: 5796
+renders and 5046 optimization evaluations. The stopped first attempt adds 1158
+renders. Neither exceeds its per-seed cap. Clean hash-seed-839 replay reproduces
+all **111 non-wall-clock artifacts byte-for-byte**, including the failures, with
+5796 separately labeled verification renders. Expanded local and clean tests each
+have **150 passes and one pre-existing missing-nib-angle constructor failure**.
+Twelve new tests pass. ARRIVE retains ten old artifact issues and the installed
+strict PR-ID parser limitation; no provider CI or human review is claimed.
+
+**CURRICULUM-010 stays in progress and unmerged.** One automatic revision is used.
+Do not repeat fitting: the proposed next work remeasures the same frozen candidates
+in a complete frame, with unchanged criteria and zero optimization, only after
+explicit authorization. HANDVALIDATE-015 remains a separate acceptance decision.
+
 ## Frozen experiment
 
 - [Initial protocol](spec-v1.json), committed before target rendering or search;
