@@ -6,16 +6,16 @@ advance:
   primary_component: "nibcontact"
   components: ["nibcontact","gesture","evo","handvalidate","tests"]
   started_at: "2026-09-06T12:03:29Z"
-  implementation_completed_at: ~
+  implementation_completed_at: "2026-09-06T14:12:03Z"
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit", "tests:integration"]
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -23,7 +23,7 @@ advance:
 Extend the existing broad-edge swept-nib path to support the frozen orientation and partial-edge contract without a parallel renderer or ink-depletion workaround.
 
 **Work kind:** Implementation. Follows [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md), including its [delivery and budget contract](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
-Drafting timestamp only: no implementation, investigation run, gate pass, CI or owner approval is claimed.
+Implementation/evaluation status and any unexecuted acceptance work are recorded below. No provider CI or owner approval is claimed.
 
 ## Behavioral Change
 
@@ -51,22 +51,22 @@ downstream execution; synthetic demonstrations never authorize real fitting.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm authorization before creating branches or commits.
-- [ ] tidy: assess narrow preparation; record any required behavior-preserving refactor separately.
-- [ ] test: add failing tests before any new or changed tooling; record red/green evidence. For investigation-only runs, record why code changes and TDD are not applicable rather than fabricating test evidence.
-- [ ] Implement the frozen tool width/thickness and active-edge interval geometry in a focused helper called by the canonical sweep. Extend existing rendering paths; do not create an independent brush or acceptance-only renderer.
-- [ ] Apply unwrapped orientation and asymmetric surviving-edge endpoints in the declared physical frame. Transform y-up/y-down orientation and edge-side conventions consistently; reject invalid or unsupported fields.
-- [ ] Separate geometric contact from pressure and optical deposition on the new opt-in action path. Keep adequate constant ink and pressure; no reservoir/dip repair, pressure deformation or direction-width double application.
-- [ ] Preserve the exact legacy full-edge fixed-tool mode and prior bundle playback. Any new semantics require an explicit version; no default switch or rewriting frozen evidence.
-- [ ] Validate against the independent fixtures from NIBCONTACT-001, including left/right endpoint translations, fixed-angle lines/arcs, wraps and declared overlap geometry.
-- [ ] Reject stationary dabs/nonconstant pressure-speed tracks until separately scoped; unsupported actions cannot degrade silently to centered width reduction or opacity.
-- [ ] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
+- [x] branch: confirm authorization before creating branches or commits.
+- [x] tidy: assess narrow preparation; record any required behavior-preserving refactor separately.
+- [x] test: add failing tests before any new or changed tooling; record red/green evidence. For investigation-only runs, record why code changes and TDD are not applicable rather than fabricating test evidence.
+- [x] Implement the frozen tool width/thickness and active-edge interval geometry in a focused helper called by the canonical sweep. Extend existing rendering paths; do not create an independent brush or acceptance-only renderer.
+- [x] Apply unwrapped orientation and asymmetric surviving-edge endpoints in the declared physical frame. Transform y-up/y-down orientation and edge-side conventions consistently; reject invalid or unsupported fields.
+- [x] Separate geometric contact from pressure and optical deposition on the new opt-in action path. Keep adequate constant ink and pressure; no reservoir/dip repair, pressure deformation or direction-width double application.
+- [x] Preserve the exact legacy full-edge fixed-tool mode and prior bundle playback. Any new semantics require an explicit version; no default switch or rewriting frozen evidence.
+- [x] Validate against the independent fixtures from NIBCONTACT-001, including left/right endpoint translations, fixed-angle lines/arcs, wraps and declared overlap geometry.
+- [x] Reject stationary dabs/nonconstant pressure-speed tracks until separately scoped; unsupported actions cannot degrade silently to centered width reduction or opacity.
+- [x] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
 
 ## Validation Gates
 
-- [ ] Full-contact legacy fixtures remain equivalent; asymmetric edge cases produce the expected translated endpoints, not just equal scalar widths.
-- [ ] Rotation/release alter swept geometry with constant ink and pressure; frozen analytic and convergence checks pass.
-- [ ] Direct and trajectory renderers use the same helper while test expectations remain independent. This implementation pass is not S1-action or historical pen acceptance.
+- [x] Full-contact legacy fixtures remain equivalent; asymmetric edge cases produce the expected translated endpoints, not just equal scalar widths.
+- [x] Rotation/release alter swept geometry with constant ink and pressure; frozen analytic and convergence checks pass.
+- [x] Direct and trajectory renderers use the same helper while test expectations remain independent. This implementation pass is not S1-action or historical pen acceptance.
 
 ## Invariant Impact
 
@@ -83,12 +83,12 @@ Review estimate: 40 minutes, not a measured reviewability score.
 
 ## Evidence
 
-- [ ] Frozen inputs, criteria and identities; complete render/time and revision ledger.
-- [ ] Readable equal-scale evidence and a reproducible command/sample index under the planned bundle.
-- [ ] Scope-qualified decision with negative/null/unresolved outcomes and genuine review only when performed.
-- [ ] Tidy assessment and TDD red/green evidence for code changes; focused tests and clean-checkout replay where applicable.
-- [ ] `arrive plan check`, changed-link checks and `git diff --check`.
-- [ ] Before authorized merge, run `arrive pr check --strict --json`; report installed-tool limitations separately from provider CI. Never claim unobserved CI or owner approval.
+- [x] Frozen inputs, criteria and identities; complete render/time and revision ledger.
+- [x] Readable equal-scale evidence and a reproducible command/sample index under the planned bundle.
+- [x] Scope-qualified decision with negative/null/unresolved outcomes and genuine review only when performed.
+- [x] Tidy assessment and TDD red/green evidence for code changes; focused tests and clean-checkout replay where applicable.
+- [x] `arrive plan check`, changed-link checks and `git diff --check`.
+- [x] Before authorized merge, run `arrive pr check --strict --json`; report installed-tool limitations separately from provider CI. Never claim unobserved CI or owner approval.
 
 ## Bug Fixes
 
@@ -102,8 +102,28 @@ diagnosis and bounded repair; unrelated changes and threshold relaxation are exc
 - Added to Pass 15 phase `td018-pen-actions`.
 - Implementation, experiments and acceptance remain pending.
 
+### 2026-09-06 — complete: Implementation outcome
+
+- Authorized feature branch and per-Advance local merge; no preparatory refactor needed.
+- Red geometry/legacy tests: `49eb8e2`; implementation `181e295`.
+  Evidence-builder red: `c3fa40e`; immutable proofs `3fdc385`.
+- Single physical footprint helper feeds the existing canonical sweep; the
+  bridge uses the same sweep for nominal/actual versioned contact samples.
+  Legacy call path and frozen pixel hash are unchanged; old readers reject new fields.
+- Eight independent fixture checks pass: maximum oracle disagreement 0.021383
+  (bound 0.05), refinement 0.006514 or less (bound 0.03). Directed edge reflection
+  and endpoint translation tested; fixed pressure/width and unsupported dabs fail closed.
+- 25 renders in 0.2733s, no optimization or revision. 49 tests pass locally
+  (3.60s) and clean clone `/tmp/td018-contact-clean.Ardmyb` at `3fdc385` (3.75s).
+  Hash-seed-839 report/PNG replay is byte-identical; only wall receipt differs.
+- Whole-file renderer/bridge identities change deliberately. Older frozen gate
+  records are retained unchanged and must fail current admission as stale.
+  Pixel compatibility does not refresh an acceptance identity; no new S1 pass.
+- Strict PR metadata check ran and hit the existing three-part-ID parser
+  limitation (`ids: []`), not provider CI. Plan/link/diff checks pass.
+- [Samples and replay](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/contact/README.md).
+
 ## Check for Understanding
 
 1. Where is the single source of truth for active nib footprint geometry?
 2. How do the tests distinguish correct partial-edge motion from a centered shrink?
-
