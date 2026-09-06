@@ -16,6 +16,7 @@ from scribesim.evofit.repertoire import render_nominal, seed_repertoire
 from scribesim.evofit.recovery import image_objective
 from scribesim.hand.profile import HandProfile
 from scribesim.handflow.controller import GuidedHandFlowController
+from scribesim.handflow.controls import RepertoireControls
 from scribesim.handvalidate.model import TrajectorySample
 from scribesim.handvalidate.specimen import digest, object_digest, write_json, write_equal_scale_panel
 from scribesim.pathguide.repertoire import convert_word, require_g1, save_bundle
@@ -60,11 +61,11 @@ def paint_trajectory(trajectory, frame, *, dpi=180):
     return np.asarray(image.resize((size[0] // 3, size[1] // 3), Image.Resampling.LANCZOS))
 
 
-def compare_bridge(bundle, hand, *, result=None, dpi=180):
+def compare_bridge(bundle, hand, *, result=None, dpi=180, controller_controls=None):
     if bundle.metadata["model_sha256"] != object_digest(hand):
         raise ValueError("Bridge model identity mismatch")
     if result is None:
-        result = GuidedHandFlowController(neutral_profile(hand)).simulate_guide(bundle.guide, base_speed_mm_s=12)
+        result = GuidedHandFlowController(neutral_profile(hand), repertoire_controls=controller_controls).simulate_guide(bundle.guide, base_speed_mm_s=12)
     if len(result.trajectory_plan_indices) != len(result.trajectory):
         raise ValueError("Actual trajectory lacks plan ownership")
     playback = tuple(TrajectorySample(sample.x_mm, sample.y_mm, sample.contact,
@@ -118,7 +119,7 @@ def decide_g2(rows, *, prerequisite, scope, tolerances):
             "reasons": sorted(set(reasons + failures)), "promoted": False, "executed": bool(rows)}
 
 
-def run_bridge(output, *, nominal_root=None, dataset_root=None, benchmark_root=None, target_review=None, review=None, tolerances=None):
+def run_bridge(output, *, nominal_root=None, dataset_root=None, benchmark_root=None, target_review=None, review=None, tolerances=None, repertoire_mode=False):
     output = Path(output)
     if output.exists() and any(output.iterdir()):
         raise ValueError("Use a new empty bridge directory")
@@ -148,13 +149,14 @@ def run_bridge(output, *, nominal_root=None, dataset_root=None, benchmark_root=N
     write_json(output / "model.json", hand)
     freeze = {"schema_version": 1, "scope": scope, "texts": texts, "model_sha256": object_digest(hand),
               "prerequisite": prerequisite, "tolerances": tolerances, "profile": asdict(neutral_profile(hand)),
+              "controller_controls": asdict(RepertoireControls()) if repertoire_mode else None,
               "sampling_mm": .05, "dpi": 180, "base_speed_mm_s": 12}
     write_json(output / "freeze.json", freeze)
     rows, tiles = [], []
     for index, text in enumerate(texts):
         bundle = convert_word(text, hand)
         save_bundle(bundle, output / f"guide-{index}.json")
-        comparison = compare_bridge(bundle, hand)
+        comparison = compare_bridge(bundle, hand, controller_controls=RepertoireControls() if repertoire_mode else None)
         row = {"text": text, "metrics": comparison["metrics"]}
         rows.append(row)
         write_json(output / f"actual-{index}.json", {"trajectory": [asdict(sample) for sample in comparison["result"].trajectory],
@@ -174,8 +176,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--nominal-root", type=Path)
+    parser.add_argument("--dataset-root", type=Path)
+    parser.add_argument("--benchmark-root", type=Path)
+    parser.add_argument("--target-review", type=Path)
+    parser.add_argument("--review", type=Path)
+    parser.add_argument("--tolerances", type=Path)
+    parser.add_argument("--repertoire-mode", action="store_true")
     args = parser.parse_args()
-    print(json.dumps(run_bridge(args.output, nominal_root=args.nominal_root), indent=2))
+    print(json.dumps(run_bridge(args.output, nominal_root=args.nominal_root, dataset_root=args.dataset_root,
+        benchmark_root=args.benchmark_root, target_review=json.loads(args.target_review.read_text()) if args.target_review else None,
+        review=json.loads(args.review.read_text()) if args.review else None,
+        tolerances=json.loads(args.tolerances.read_text()) if args.tolerances else None, repertoire_mode=args.repertoire_mode), indent=2))
 
 
 if __name__ == "__main__":

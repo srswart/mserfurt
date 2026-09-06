@@ -87,3 +87,17 @@ def test_g2_summary_is_not_an_execution_authorization(tmp_path):
     (tmp_path / "G2.json").write_text('{"gate":"G2","status":"pass"}')
     with pytest.raises(ValueError, match="G2"):
         require_g2(tmp_path, nominal_root=tmp_path)
+
+
+def test_neutral_repertoire_nib_contract_and_air_tangents():
+    from scribesim.handvalidate.bridge import compare_bridge
+    hand = seed_repertoire("in")
+    bundle = convert_word("in", hand)
+    session = PersistentRepertoireSession(hand, seed=1)
+    result = session.write_plan(build_track_plan(bundle.guide, base_speed_mm_s=12, stop_at_end=False))
+    measured = compare_bridge(bundle, hand, result=result)["metrics"]
+    assert measured["width_delta_mm"] == 0
+    assert measured["actual_image_loss"] < .2
+    session._air_to((-10, 20), kind="line_return")
+    assert session.state.pos_x_mm < 0
+    assert session.state.ink_reservoir == 1
