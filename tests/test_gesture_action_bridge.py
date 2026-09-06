@@ -65,3 +65,13 @@ def test_wrap_is_unwrapped_and_constant_tool_required():
     program['actions']['fixed']['speed_mm_s'] = 13
     with pytest.raises(ValueError):
         execute_actions('i', program)
+
+
+def test_bridge_proofs_record_failures_without_granting_acceptance(tmp_path):
+    from scribesim.handvalidate.action_bridge import build
+
+    report = build(tmp_path / 'proofs')
+    assert report['scope'].startswith('analytic')
+    assert not report['S1_action_accepted']
+    assert report['renders'] <= 100
+    assert report['forced_lag_detected']
