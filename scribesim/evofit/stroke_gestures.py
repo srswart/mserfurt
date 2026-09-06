@@ -28,7 +28,8 @@ ACTION_FIELDS = {'frame', 'orientation', 'edge', 'pressure', 'speed_mm_s'}
 
 def _lower(model):
     lowered = {key: copy.deepcopy(model[key]) for key in legacy.MODEL_FIELDS if key != 'recipes'}
-    lowered['schema_version'] = legacy.SCHEMA
+    lowered['schema_version'] = ('shared-stroke-language-foundation-v1'
+                                 if model['schema_version'] == 'shared-stroke-gestures-foundation-v1' else legacy.SCHEMA)
     lowered['recipes'], bindings = {}, {}
     for identifier, recipe in model['recipes'].items():
         if set(recipe) != {'logical', 'visible', 'advance', 'gestures'} or not 1 <= len(recipe['gestures']) <= 4:
@@ -73,10 +74,13 @@ def _lower(model):
 
 def validate_gestures(model):
     try:
-        if (set(model) != legacy.MODEL_FIELDS | EXTRA_FIELDS or model['schema_version'] != SCHEMA
+        if (set(model) != legacy.MODEL_FIELDS | EXTRA_FIELDS or model['schema_version'] not in {SCHEMA, 'shared-stroke-gestures-foundation-v1'}
                 or model['sampling'] not in {'legacy-v1', 'gesture-arc-v2', 'gesture-arc-v3'}
                 or model['letter_rules'] or model['word_rules']):
             raise ValueError('Explicit gesture schema/sampling required; context overlays are not supported yet')
+        if model['schema_version'] == 'shared-stroke-gestures-foundation-v1':
+            from scribesim.evofit.foundation_contract import validate_extensions
+            validate_extensions(model)
         if not isinstance(model['migration_source_sha256'], str) or len(model['migration_source_sha256']) != 64:
             raise ValueError('Migration/source identity required')
         if not 1 <= len(model['gestures']) <= 8 or not 1 <= len(model['actions']) <= 8:
@@ -193,7 +197,7 @@ def compile_gestures(text, model):
         row['primitive_sha256'] = object_digest(model['primitives'][row['primitive']])
         row['gesture_sha256'] = object_digest(model['gestures'][row['gesture']])
         row['action_sha256'] = object_digest(model['actions'][row['action_profile']])
-    plan.update(schema_version=SCHEMA, model_sha256=object_digest(model))
+    plan.update(schema_version=model['schema_version'], model_sha256=object_digest(model))
     return plan
 
 
@@ -279,7 +283,7 @@ def gesture_guide(text, model, *, step_mm=.05, include_curve_positions=False):
                                exit_tangent=(samples[-1].tangent_dx, samples[-1].tangent_dy),
                                sources=(GuideSource(object_digest(model), confidence_tier='soft_accepted', split='synthetic-gesture'),))
         bundle = RepertoireGuide(guide, {'owners': owners, 'frame_mm': frame})
-    bundle.metadata.update(schema_version=SCHEMA, model_sha256=object_digest(model), plan=plan,
+    bundle.metadata.update(schema_version=model['schema_version'], model_sha256=object_digest(model), plan=plan,
                            step_mm=step_mm, sampling=model['sampling'], guide_sha256=object_digest(asdict(bundle.guide)),
                            acceptance='compiler mechanics only; no gesture/action or real hand acceptance')
     return bundle
