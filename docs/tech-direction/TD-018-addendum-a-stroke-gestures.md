@@ -1,6 +1,6 @@
 # TD-018 Addendum A — Stroke Gestures and Intentional Pen Actions
 
-**Status:** both investigation Advances complete; seven supporting Advances remain planned. Gesture/action implementation and acceptance are pending.
+**Status:** both investigations and three gesture-phase Advances complete; four intentional-action Advances remain planned. S1-gesture is blocked by missing family coverage and failed lifted-pair endpoint convergence; no action fitting or real promotion.
 
 **Date:** 2026-09-06
 
@@ -335,8 +335,8 @@ deletion of unsuccessful experiments is authorized by this design.
 
 ## 10. Planned Advances and delivery contract
 
-Of the nine supporting records, the two investigations are **complete** and
-seven remain planned; investigation completion is not layer acceptance. The current repository
+Of the nine supporting records, the two investigations and three gesture-phase
+records are **complete** and four remain planned; completion is not layer acceptance. The current repository
 template capability does not support typed investigation/evaluation profiles;
 each record states its work kind explicitly in its Objective without upgrading
 governance or inventing unsupported frontmatter. Existing completed records and
@@ -488,7 +488,40 @@ separates analytic fixtures from trained strokes and executed actions.
   Preserve those failures. Later evaluation must additionally reject undeclared
   contacts/contributors and test local attachment/counter regions with criteria
   frozen before new candidates, not lower this threshold after the result.
-- **Next:** `td018-gestures`, starting with versioned representation and explicit
+- **Next at that investigation snapshot:** `td018-gestures`, starting with versioned representation and explicit
   compatibility. These investigations authorize neither action learning nor
   reference-grounded fitting. Physical tool calibration and all session effects
   remain outside the completed scope.
+
+### Gesture-phase outcome — 2026-09-06
+
+GESTURE-001, CURRICULUM-008 and HANDVALIDATE-013 are implemented and locally
+merged. The compiler preserves explicit v1 compatibility and adds shared
+continuous gestures, bounded action representation and owner identities.
+Dynamic actions remain non-executable until the planned realized-action bridge.
+
+The bounded lesson freezes all six learned primitives and fits one shared
+stem-terminal construction, choosing rise versus exit and bounded placement.
+Supplied i/u recipes are probes, not learned letters. Three seeds and three
+ablations yield held-out loss 0.4424 fixed, 0.3116 placement-only and 0.0 with
+composition; the project-authored target is exactly in the search grid. This
+does not supply the missing underturn/overturn/compound-return/loop inventory.
+
+Independent evaluation reconstructs the frozen experiment and replays selected
+checkpoints without optimization. Actual image loss, contact corridor, owner
+checks, exact subdivision and timestep refinement pass in the narrow scope.
+**Arc-step refinement fails:** the lifted pair's second contact entry changes
+by 0.399871 mm against the frozen 0.01 mm endpoint limit, despite image change
+0.022739 passing its 0.03 limit. The same failure occurs for all three seeds.
+444 renders including replay/presentation, 21.39 seconds, zero evaluation
+optimization/revisions; no thresholds relaxed or failed evidence replaced.
+
+Original global negative-control failures are retained; predeclared local
+blank-region and exact realized-contact/contributor checks detect them.
+Synthetic oracle counter guards are not acceptance of learned counters.
+
+**Decision: STOP / REVISE fixed-tool foundations.** Scope missing primitive
+coverage and a lift/re-entry convergence repair, preserving legacy identities.
+Do not start action fitting or learned letters from Advance completion alone.
+Real G0/lower-layer admission and owner review remain blocked/unperformed.
+See [samples, identities, measurements and replay](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/README.md).

@@ -1,11 +1,19 @@
-# TD-018 gesture investigation evidence
+# TD-018 gesture evidence
 
-**Phase td018-gesture-investigation is complete.** These are synthetic
-specifications and engineering probes, not newly trained strokes or a recovered
-historical hand. The new gesture/action schema and acceptance remain pending.
+**Phases td018-gesture-investigation and td018-gestures are implemented.**
+The latter fits one shared stem-terminal construction on frozen primitives,
+not a full gesture vocabulary or historical hand. **S1-gesture is blocked:**
+missing returns/loops and failed lifted-pair endpoint convergence must be
+repaired before action fitting. Advance completion does not mean acceptance.
 
 ## View the samples
 
+- [Latest learned construction practice](gestures/run-002/practice-sheet.png):
+  initial → target → fitted nominal → sampled desired → actual; equal scale.
+  [Learning results and limits](gestures/README.md).
+- [Independent evaluation, controls and next work](gesture_evaluation/README.md):
+  all three seeds fail the 0.01 mm contact-entry convergence bound (0.40 mm).
+- [Versioned compiler and explicit migration samples](language/README.md).
 - [Eight gesture centerline hypotheses](coverage/run-001/synthetic-fixtures.png):
   colored segments show how one pen-down gesture can contain multiple pieces.
   Right-hand examples specify smaller lifted-pair transfer, not fitted results.
@@ -14,7 +22,7 @@ historical hand. The new gesture/action schema and acceptance remain pending.
   pass. Legacy partial contact is deliberately approximated by an incorrect
   centered shrink to expose the missing geometry; it is not actual new actuation.
 - [Earlier learned primitive practice](../stroke_language_v1/strokes/synthetic/practice-sheet.png)
-  remains the training evidence. Do not confuse these new specifications with it.
+  remains the underlying geometric learning evidence; the new lesson freezes it.
 
 ## Findings and replay
 
@@ -34,12 +42,18 @@ contact/ownership checks are necessary: hidden connectors and overbuilt terminal
 fall below the unchanged 0.1 global image-sensitivity threshold. Failed controls
 are retained, not converted into passes or hidden by a threshold change.
 
-Focused/regression validation: 44 tests pass locally and in a clean local clone.
+Investigation validation: 44 tests pass locally and in a clean local clone.
 Fresh-process replay reproduces semantic artifacts exactly; the tool probe's
 separate execution receipt records variable wall time. No provider CI, owner
 appearance approval or S1-gesture/S1-action pass is claimed.
 
-Next is **td018-gestures**. Start with versioned composition and explicit v1
-compatibility; new primitive geometry or expansion-limit needs require separately
+Gesture-phase validation: 51 focused/regression tests pass locally and in a
+clean clone; full independent evaluation replays byte-for-byte except wall
+receipts. Its failing S1-gesture decision is retained, not converted into GO.
+
+Next is **fixed-tool repair**, not action fitting: scope the
+[missing primitive coverage](gestures/primitive-extension-request.md) and
+[lift/re-entry convergence failure](gesture_evaluation/README.md#required-next-work).
+New primitive geometry or expansion-limit needs require separately
 scoped work before fitting. Ink depletion, fatigue and other session effects
 remain deferred. Immutable run directories and their freezes retain all results.
