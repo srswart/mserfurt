@@ -47,6 +47,9 @@ def retime_air_braking(plan: TrackPlan) -> BrakedPlan:
             raise ValueError("Braking requires a fixed tool profile")
         if sample.contact and sample.speed_mm_s not in (0, 12):
             raise ValueError("Braking requires the frozen nominal contact speed")
+        if sample.contact and (sample.pressure != .5 or not math.isclose(
+                math.hypot(sample.vx_mm_s, sample.vy_mm_s), sample.speed_mm_s, abs_tol=1e-9)):
+            raise ValueError("Inconsistent fixed-tool contact state")
     if first.t_s != 0 or any(after.t_s < before.t_s for before, after in zip(plan.samples, plan.samples[1:])):
         raise ValueError("Braking requires ordered zero-origin time")
     acceleration, air_speed, sample_time = 250.0, 16.2, .001
