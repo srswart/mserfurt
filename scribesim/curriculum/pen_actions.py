@@ -25,6 +25,8 @@ SPEC = json.loads(SPEC_PATH.read_text())
 
 def prerequisites(*, real=False):
     reasons, identities, reports = [], {}, {}
+    if digest(BASE / 'tool_contract/spec-v1.json') != SPEC['tool_sha256']:
+        reasons.append('tool_identity_stale')
     for relative, expected in SPEC['upstream'].items():
         path = BASE / relative
         try:
@@ -60,7 +62,8 @@ def candidate_models(model, ablation):
         raise ValueError('Unfrozen action ablation')
     validate_gestures(model)
     for profile in model['actions'].values():
-        if profile['orientation'][0][1] != profile['orientation'][-1][1] or profile['edge'] != [[0, 0, 1], [1, 0, 1]]:
+        if (any(knot[1] != profile['orientation'][0][1] for knot in profile['orientation'])
+                or profile['edge'] != [[0, 0, 1], [1, 0, 1]]):
             raise ValueError('A fixed full-edge baseline is required')
     proposals = [copy.deepcopy(model)]
     if ablation in ('rotation', 'edge'):
