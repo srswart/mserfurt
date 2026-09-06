@@ -91,3 +91,28 @@ def test_contract_run_is_budgeted_read_only_and_fail_closed(tmp_path):
     assert report['optimization_evaluations'] == report['training_renders'] == 0
     assert not report['training_permitted']
     with pytest.raises(ValueError): build(tmp_path / 'run')
+
+
+def test_foundation_identity_survives_compilation_and_tracking_metadata():
+    from scribesim.evofit.foundation_contract import initial_model, SCHEMA
+    from scribesim.evofit.stroke_gestures import compile_gestures, gesture_guide
+    from scribesim.pathguide.gesture_actions import code_identities
+
+    model = initial_model()
+    assert compile_gestures('m', model)['schema_version'] == SCHEMA
+    assert gesture_guide('m', model).metadata['schema_version'] == SCHEMA
+    assert 'scribesim/evofit/foundation_contract.py' in code_identities()
+    assert any(name.endswith('contract/spec-v1.json') for name in code_identities())
+
+
+def test_foundation_allows_only_port_preserving_fit_and_fixed_tool():
+    from scribesim.evofit.foundation_contract import initial_model, SPEC
+    from scribesim.evofit.stroke_gestures import validate_gestures
+
+    model = initial_model()
+    contract = SPEC['new_families']['lower-return']
+    model['primitives']['lower-return']['cubics'][0][1] = [value + .30 * rate for value, rate in zip(contract['start'], contract['entry'])]
+    validate_gestures(model)
+    model['actions']['fixed']['orientation'] = [[0, 40], [1, 41]]
+    with pytest.raises(ValueError, match='[Ff]ixed'):
+        validate_gestures(model)
