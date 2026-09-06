@@ -59,3 +59,28 @@ def test_local_controls_preserve_failed_global_results_and_detect_locally():
     assert not result['overbuilt_terminal']['global_meets_minimum']
     assert all(result[name]['detected_locally'] for name in ('hidden_connector', 'overbuilt_terminal', 'erased_counter'))
     assert result['scope'] == 'independent synthetic guard fixtures; not learned counter acceptance'
+
+
+def test_independent_replay_does_not_optimize_or_hide_endpoint_failure(monkeypatch):
+    from scribesim.curriculum import gesture_learning
+    from scribesim.handvalidate.gestures import evaluate_seed
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError('Evaluation must never optimize')
+
+    monkeypatch.setattr(gesture_learning, 'fit_gestures', forbidden)
+    result = evaluate_seed(BASE / 'gestures/run-002', 7)
+    assert result['subset_status'] == 'fail'
+    assert not result['checks']['unseen-pair:step:convergence']
+    assert result['measurements']['unseen-pair']['comparisons']['step']['endpoint_difference_mm'] > .39
+    assert result['S1_gesture'] == 'blocked'
+    assert result['optimization_evaluations'] == 0
+    assert not result['action_fitting_allowed']
+
+
+def test_current_code_identity_required(monkeypatch):
+    from scribesim.curriculum import gesture_learning
+
+    monkeypatch.setattr(gesture_learning, 'code_identities', lambda: {})
+    with pytest.raises(ValueError, match='Stale'):
+        load_training(BASE / 'gestures/run-002')

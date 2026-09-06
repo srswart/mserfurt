@@ -1,0 +1,266 @@
+{
+  "seed": 19,
+  "model_sha256": "fed212218215d4907bac7105e3944dc1462a869804496154fa26698eaeae486d",
+  "checks": {
+    "heldout_transfer": true,
+    "single:training:contact_ownership": true,
+    "single:training:corridor": true,
+    "single:training:image": true,
+    "single:coarse:contact_ownership": true,
+    "single:coarse:corridor": true,
+    "single:coarse:image": true,
+    "single:step:contact_ownership": true,
+    "single:step:corridor": true,
+    "single:step:image": true,
+    "single:time:contact_ownership": true,
+    "single:time:corridor": true,
+    "single:time:image": true,
+    "single:repartition:contact_ownership": true,
+    "single:repartition:corridor": true,
+    "single:repartition:image": true,
+    "single:dense_desired": true,
+    "single:step:convergence": true,
+    "single:time:convergence": true,
+    "single:repartition:convergence": true,
+    "unseen-scale:training:contact_ownership": true,
+    "unseen-scale:training:corridor": true,
+    "unseen-scale:training:image": true,
+    "unseen-scale:coarse:contact_ownership": true,
+    "unseen-scale:coarse:corridor": true,
+    "unseen-scale:coarse:image": true,
+    "unseen-scale:step:contact_ownership": true,
+    "unseen-scale:step:corridor": true,
+    "unseen-scale:step:image": true,
+    "unseen-scale:time:contact_ownership": true,
+    "unseen-scale:time:corridor": true,
+    "unseen-scale:time:image": true,
+    "unseen-scale:repartition:contact_ownership": true,
+    "unseen-scale:repartition:corridor": true,
+    "unseen-scale:repartition:image": true,
+    "unseen-scale:dense_desired": true,
+    "unseen-scale:step:convergence": true,
+    "unseen-scale:time:convergence": true,
+    "unseen-scale:repartition:convergence": true,
+    "unseen-pair:training:contact_ownership": true,
+    "unseen-pair:training:corridor": true,
+    "unseen-pair:training:image": true,
+    "unseen-pair:coarse:contact_ownership": true,
+    "unseen-pair:coarse:corridor": true,
+    "unseen-pair:coarse:image": true,
+    "unseen-pair:step:contact_ownership": true,
+    "unseen-pair:step:corridor": true,
+    "unseen-pair:step:image": true,
+    "unseen-pair:time:contact_ownership": true,
+    "unseen-pair:time:corridor": true,
+    "unseen-pair:time:image": true,
+    "unseen-pair:repartition:contact_ownership": true,
+    "unseen-pair:repartition:corridor": true,
+    "unseen-pair:repartition:image": true,
+    "unseen-pair:dense_desired": true,
+    "unseen-pair:step:convergence": false,
+    "unseen-pair:time:convergence": true,
+    "unseen-pair:repartition:convergence": true,
+    "local:hidden_connector": true,
+    "local:overbuilt_terminal": true,
+    "local:erased_counter": true,
+    "trace_control:undeclared_lift": true,
+    "trace_control:painted_air": true,
+    "trace_control:overbuilt_contributor": true,
+    "detached_geometry_rejected": true
+  },
+  "subset_status": "fail",
+  "measurements": {
+    "single": {
+      "actual": {
+        "image_loss": 0.048962949831590157,
+        "corridor_error_mm": 0.20000000000000084,
+        "contact_schedule_preserved": true
+      },
+      "endpoints_mm": {
+        "0:0": [
+          [
+            2.516636051765344e-05,
+            6.500414216705747
+          ],
+          [
+            1.584791339432356,
+            9.057794860362531
+          ]
+        ]
+      },
+      "comparisons": {
+        "dense_desired": {
+          "image_loss": 0.0078740157480315
+        },
+        "step": {
+          "image_loss": 0.011951896392229419,
+          "endpoint_difference_mm": 0.004083860371690991
+        },
+        "time": {
+          "image_loss": 0.0039764359351988215,
+          "endpoint_difference_mm": 0.0031161884808216015
+        },
+        "repartition": {
+          "image_loss": 0.0,
+          "endpoint_difference_mm": 1.3623088571492903e-07
+        }
+      }
+    },
+    "unseen-scale": {
+      "actual": {
+        "image_loss": 0.07860910534132227,
+        "corridor_error_mm": 0.2000000000000009,
+        "contact_schedule_preserved": true
+      },
+      "endpoints_mm": {
+        "0:0": [
+          [
+            0.6125244315047655,
+            7.550411051801582
+          ],
+          [
+            1.6842337786019845,
+            9.365022848027552
+          ]
+        ]
+      },
+      "comparisons": {
+        "dense_desired": {
+          "image_loss": 0.006542189962274963
+        },
+        "step": {
+          "image_loss": 0.015485847183617903,
+          "endpoint_difference_mm": 0.0023339854710752524
+        },
+        "time": {
+          "image_loss": 0.011530106388904362,
+          "endpoint_difference_mm": 0.0031281922695604782
+        },
+        "repartition": {
+          "image_loss": 0.0,
+          "endpoint_difference_mm": 1.3591557286112908e-07
+        }
+      }
+    },
+    "unseen-pair": {
+      "actual": {
+        "image_loss": 0.05153644017804472,
+        "corridor_error_mm": 0.20000000000000084,
+        "contact_schedule_preserved": true
+      },
+      "endpoints_mm": {
+        "0:0": [
+          [
+            2.516636051765344e-05,
+            6.500414216705747
+          ],
+          [
+            1.5445574297388933,
+            9.083885461883293
+          ]
+        ],
+        "0:1": [
+          [
+            1.9090828155333361,
+            6.699365601944403
+          ],
+          [
+            3.5097913393674096,
+            9.05779486023675
+          ]
+        ]
+      },
+      "comparisons": {
+        "dense_desired": {
+          "image_loss": 0.008744268498474442
+        },
+        "step": {
+          "image_loss": 0.022738589211618254,
+          "endpoint_difference_mm": 0.39987113597047746
+        },
+        "time": {
+          "image_loss": 0.0028743625405655998,
+          "endpoint_difference_mm": 0.0031161884807248638
+        },
+        "repartition": {
+          "image_loss": 0.0,
+          "endpoint_difference_mm": 1.3623088571492903e-07
+        }
+      }
+    }
+  },
+  "learning_metrics": {
+    "fixed": {
+      "train": {
+        "before": 0.45252212430368616,
+        "after": 0.45252212430368616
+      },
+      "development": {
+        "before": 0.46304149863405747,
+        "after": 0.46304149863405747
+      },
+      "test": {
+        "before": 0.44237356670617733,
+        "after": 0.44237356670617733
+      }
+    },
+    "placement": {
+      "train": {
+        "before": 0.45252212430368616,
+        "after": 0.3315420804031761
+      },
+      "development": {
+        "before": 0.46304149863405747,
+        "after": 0.35089799063481725
+      },
+      "test": {
+        "before": 0.44237356670617733,
+        "after": 0.3115914770754401
+      }
+    },
+    "composition": {
+      "train": {
+        "before": 0.45252212430368616,
+        "after": 0.0
+      },
+      "development": {
+        "before": 0.46304149863405747,
+        "after": 0.0
+      },
+      "test": {
+        "before": 0.44237356670617733,
+        "after": 0.0
+      }
+    }
+  },
+  "local_controls": {
+    "scope": "independent synthetic guard fixtures; not learned counter acceptance",
+    "hidden_connector": {
+      "global_disagreement": 0.010178857059764432,
+      "global_meets_minimum": false,
+      "baseline_local_ink_fraction": 0.0,
+      "local_ink_fraction": 0.05845881310894597,
+      "detected_locally": true
+    },
+    "overbuilt_terminal": {
+      "global_disagreement": 0.09661579296615792,
+      "global_meets_minimum": false,
+      "baseline_local_ink_fraction": 0.0,
+      "local_ink_fraction": 0.0942823187640301,
+      "detected_locally": true
+    },
+    "erased_counter": {
+      "global_disagreement": 0.2933659461887885,
+      "global_meets_minimum": true,
+      "baseline_local_ink_fraction": 0.0,
+      "local_ink_fraction": 1.0,
+      "detected_locally": true
+    },
+    "renders": 5
+  },
+  "renders": 73,
+  "optimization_evaluations": 0,
+  "S1_gesture": "blocked",
+  "action_fitting_allowed": false,
+  "traces_sha256": "999d57f7f9a6a0ea637ff7daefeecb9084618e3edf40bd0132b1b88a1779ea4d"
+}
