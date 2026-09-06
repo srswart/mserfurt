@@ -8,8 +8,10 @@ from scribesim.handvalidate.tool_contract import ProbeBudget, edge_endpoints, pr
 def test_directed_half_edges_shift_footprint_center():
     negative = edge_endpoints((2, 3), 0, (0, .5))
     positive = edge_endpoints((2, 3), 0, (.5, 1))
-    assert negative == pytest.approx(((1.775, 3), (2, 3)))
-    assert positive == pytest.approx(((2, 3), (2.225, 3)))
+    assert negative[0] == pytest.approx((1.775, 3))
+    assert negative[1] == pytest.approx((2, 3))
+    assert positive[0] == pytest.approx((2, 3))
+    assert positive[1] == pytest.approx((2.225, 3))
 
 
 def test_reflection_keeps_directed_edge_labels_and_wrap_is_continuous():
