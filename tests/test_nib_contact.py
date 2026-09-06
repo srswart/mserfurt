@@ -57,3 +57,14 @@ def test_stationary_dab_is_not_silently_painted():
     sample = ContactSample(1, 1, width_mm=.45, pressure=.5, nib_angle_deg=40)
     with pytest.raises(ValueError, match='stationary'):
         paint_trajectory([sample, sample], [0, 3, 0, 3], contact_version='physical-edge-v1')
+
+
+def test_geometry_evidence_is_immutable_and_scope_qualified(tmp_path):
+    from scribesim.handvalidate.nib_contact import build
+
+    report = build(tmp_path / 'proofs')
+    assert report['geometry_checks_pass']
+    assert not report['S1_action_accepted']
+    assert report['renders'] <= 100
+    with pytest.raises(ValueError):
+        build(tmp_path / 'proofs')
