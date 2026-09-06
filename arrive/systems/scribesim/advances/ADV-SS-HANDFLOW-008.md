@@ -4,7 +4,7 @@ advance:
   title: "Konrad Persistent Execution — Ink, Rhythm and Stable Session State"
   system: "scribesim"
   primary_component: "handflow"
-  components: ["handflow", "ink", "hand", "tests"]
+  components: ["handflow", "ink", "hand", "handvalidate", "tests"]
   started_at: "2026-09-05T17:30:14Z"
   implementation_completed_at: "2026-09-06T03:30:46Z"
   review_time_estimate_minutes: 35
@@ -34,7 +34,7 @@ After implementation: Contact consumes ink, explicit word-boundary dips refill i
 ## Component Impact
 
 Primary component: `handflow`. Impacted components:
-`handflow`, `ink`, `hand`, `tests`.
+`handflow`, `ink`, `hand`, `handvalidate`, `tests`.
 
 Implemented paths:
 

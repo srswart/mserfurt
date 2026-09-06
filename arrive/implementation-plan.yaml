@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-05T19:00:15Z
+  updated_at: 2026-09-06T03:48:06Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1464,11 +1464,11 @@ passes:
     - id: ADV-SS-HANDVALIDATE-009
       advance_id: ADV-SS-HANDVALIDATE-009
       title: "Konrad Expressive Specimen — Controlled Variation and G3 Evaluation"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDFLOW-008
-      notes: "Second decision milestone: G3 expressive three-line specimen. Inactive/unsafe controls cannot count as improvement. HANDVALIDATE-006 remains a separate deferred scope."
+      notes: "Implemented frozen three-line multi-seed sensitivity, actual-state audits, replay and G3. 90 focused tests pass. Full synthetic ink/combined settings are active-unsafe; real G3 is blocked by G1/G2 and review. No promotion; broader HANDVALIDATE-006 scope remains deferred."
   - id: td018-folio
     title: Integrate opt-in folios and evaluate the release candidate
     order: 4

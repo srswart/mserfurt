@@ -4,7 +4,7 @@ advance:
   title: "Konrad Guided Bridge — Preserve Forms, Contact and Text Ownership"
   system: "scribesim"
   primary_component: "pathguide"
-  components: ["pathguide", "handflow", "handvalidate", "tests"]
+  components: ["pathguide", "handflow", "handvalidate", "evo", "tests"]
   started_at: "2026-09-05T17:30:14Z"
   implementation_completed_at: "2026-09-06T03:22:46Z"
   review_time_estimate_minutes: 30
@@ -34,7 +34,7 @@ After implementation: The selected WordPlan is sampled into physical trajectorie
 ## Component Impact
 
 Primary component: `pathguide`. Impacted components:
-`pathguide`, `handflow`, `handvalidate`, `tests`.
+`pathguide`, `handflow`, `handvalidate`, `evo`, `tests`.
 
 Implemented paths:
 

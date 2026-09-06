@@ -22,7 +22,7 @@ def test_state_audit_rejects_double_consumption_hidden_resets_and_angle_excursio
     assert assess_session(payload)["errors"] == []
     for change in ("double", "reset", "angle", "habit"):
         broken = copy.deepcopy(payload)
-        row = next(row for row in broken["state"]["execution_trace"] if row["consumed"] > 0)
+        row = next(row for row in broken["state"]["execution_trace"] if row["consumed"] > 0 and row["ink_before"] < .9999)
         if change == "double":
             row["consumed"] *= 2
         elif change == "reset":
@@ -65,6 +65,7 @@ def test_actual_multiseed_artifacts_and_stale_summary_detection(bundle, tmp_path
     report = json.loads((bundle / "report.json").read_text())
     assert len(report["matrix"]) == 15
     assert all(row["replay"] for row in report["matrix"])
+    assert all(not row["errors"] for row in report["matrix"])
     assert evaluate_expressive(bundle)["status"] in {"blocked", "fail"}
     assert (bundle / "comparison.png").is_file()
     shutil.copytree(bundle, tmp_path / "copy")
