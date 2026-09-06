@@ -1,7 +1,11 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** planned; six Advances added to `td018-foundation-repair`. No repair,
-new training run, gate pass, commit/merge or owner appearance approval is implied.
+**Status:** implementation started; HANDFLOW-010 is in progress and the other five
+Advances remain planned. Two bounded motion attempts repair timing/convergence
+and revalidate the original six primitives, but repeated-contact corridor checks
+still fail. The permitted revision is spent. No implementation merge, new learning,
+motion admission or owner appearance approval is claimed. See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
+and the [required additional repair scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/revision-request.md).
 **Date:** 2026-09-06
 **Parent:** [TD-018](TD-018-reference-grounded-hand-recovery.md) and
 [Addendum A](TD-018-addendum-a-stroke-gestures.md).

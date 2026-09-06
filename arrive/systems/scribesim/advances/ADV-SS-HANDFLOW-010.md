@@ -13,9 +13,9 @@ advance:
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api","migration"]
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit", "tests:integration", "experiment:failed-motion-gate"]
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,9 @@ advance:
 Diagnose and repair sampling-dependent actual contact entry before any new stroke or action fitting; provide current-code validation of the frozen primitive baseline.
 
 **Work kind:** Investigation and implementation. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
-Timestamp records drafting only; implementation, experiments, CI and review are not claimed.
+Implementation and two bounded experiments have executed. The Advance remains
+in progress: re-entry corridor acceptance fails. No implementation merge,
+downstream training, provider CI or human approval is claimed.
 
 ## Behavioral Change
 
@@ -53,22 +55,22 @@ test isolation are not repaired by this synthetic phase.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm implementation/commit/merge authorization and preserve unrelated work.
-- [ ] tidy: assess narrow preparation; commit any required behavior-preserving refactor separately.
-- [ ] test: commit failing behavioral tests before implementation when commits are authorized; planning-only edits do not claim TDD execution.
-- [ ] Freeze the saved u / i u failures and continuous, separated-contact, coincident-overlap, word-space and exact-subdivision controls. Add red tests for first/last actual contact positions, event timing and ownership before code changes.
-- [ ] Isolate segment-duration flooring, substep rounding, held desired samples and corridor projection as hypotheses. Measure planned versus executed time and state on both sides of every lift; record the demonstrated cause rather than assuming one.
-- [ ] Repair the existing positional integrator through an explicit opt-in execution version if semantics change. No second simulator, contact-position teleport, ideal-trace substitution, image correction or weaker threshold.
-- [ ] Preserve legacy playback, fixed-tool behavior and full contact ownership; check the physical-edge fixed-profile bridge separately. Freeze contact-event and time tolerances before comparing repaired candidates.
-- [ ] Implement read-only revalidation of the six frozen primitive models against their original synthetic targets and applicable original S1 criteria under current code/tool/motion. Emit fresh baseline admission only after measured checks pass; never edit old freezes or refit baseline geometry.
-- [ ] Publish before/after entry close-ups, velocity/time/contact traces and a reusable baseline revalidator. Reuse it after later compiler changes, with work charged to the consuming run.
-- [ ] evidence: record commands, identities, actual budgets, sample paths and outcome before completion; keep unexecuted tasks unchecked.
+- [x] branch: user authorized implementation/update/merge; preserved planning in master commit `64f818f`, then used `advance/ss-handflow-010`.
+- [x] tidy: assessed narrow preparation; reused the existing controller step without a second simulator. No separate preparatory refactor was necessary or claimed.
+- [x] test: red tests committed before each behavioral change (`638728d`, `b3d5545`, `1dec942`). Eighteen new tests pass.
+- [x] Freeze the saved u / i u failures and continuous, separated-contact, coincident-overlap, word-space and exact-subdivision controls. Add red tests for first/last actual contact positions, event timing and ownership before code changes.
+- [x] Isolate duration flooring arithmetically, record rounded step excess, and measure projection/held-target behavior through delegated step observation. The saved old 0.399871 mm failure is reproduced; no unmeasured causal attribution to independent ablations is claimed.
+- [x] Implement explicit opt-in event-time-v1/v2 in the existing positional integrator, plus boundary-preserving gesture-arc-v3. No teleport, ideal-trace substitution, image correction or threshold relaxation. Overall motion repair remains incomplete because the corridor gate fails.
+- [x] Preserve legacy playback, fixed-tool behavior and full contact ownership; separately check the physical-edge fixed-profile bridge. Frozen timing bounds are 1e-10 s duration error and 0.1 ms cross-sampling event shift.
+- [x] Implement read-only revalidation of the six frozen primitive models against their original targets and original applicable S1 metrics. The revised six-family baseline checks pass, but global motion admission stays false; old freezes were not edited and no geometry was refitted.
+- [x] Publish before/after ink panels and an enlarged re-entry path/velocity/lag plot, with actual time/contact/owner traces and a reusable baseline revalidator. Downstream compiler-triggered revalidation remains a future consuming-run obligation.
+- [x] evidence: immutable attempts, current-code verification and cumulative budget recorded; the failed acceptance gate remains unchecked.
 
 ## Validation Gates
 
 - [ ] Required actual contact endpoints converge within 0.01 mm across dt 0.002/0.001 s, arc steps 0.025/0.0125 mm and equivalent segmentation; image difference <= 0.03 and contact corridor <= 0.25 mm.
-- [ ] Zero extra/missing contacts or text/owner errors, no painted air, no sampling-induced accumulated time drift beyond the independently frozen timing criterion; lag is actual measured state.
-- [ ] Legacy regressions remain equivalent in legacy mode; matching current baseline admission is possible only from fresh read-only proof, not a historical pass label. An unresolved cause or baseline failure blocks primitive fitting.
+- [x] Zero contact-group/owner errors and exact event-time execution on the six fixtures; pen-up samples do not paint. Actual lag remains visible and is not projected away.
+- [x] Legacy rows are identical across both attempts. Fresh current-code baseline proof is required, and failed motion still blocks primitive fitting. Pre-existing stale-identity/constructor test failures are retained separately below.
 
 ## Budget and Stop Rules
 
@@ -93,18 +95,30 @@ Review estimate is 45 minutes, not measured review or approval.
 
 ## Evidence
 
-- [ ] Frozen inputs, independent targets/controls, criteria and scope-specific identities.
-- [ ] Actual work/budget ledger, equal-scale samples, failures and executable replay commands.
-- [ ] Focused red/green regression tests and clean-checkout replay when code changes.
-- [ ] `arrive plan check`, changed local-link checks and `git diff --check`.
-- [ ] Before an authorized merge run `arrive pr check --strict --json`; report installed ID-parser limitations separately from provider CI.
-- [ ] Scope-qualified result; no unperformed learning, candidate evaluation or human review counted as complete.
+- [x] Frozen inputs, original independent primitive targets, criteria and code/model/tool identities in both motion attempts.
+- [x] [Samples and actual-lag explanation](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html), [ledger](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/ledger.json), [replay instructions](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/run-002/README.md).
+- [x] Eighteen new tests pass; expanded local and clean-checkout runs each yield 84 passed and one pre-existing missing-`nib_angle_deg` failure, reproduced at `64f818f`. Eleven additional stale-frozen-identity failures in old gesture-learning/evaluation tests also reproduce before this work; no old hashes or tests were weakened.
+- [x] `arrive plan check`, changed local links and `git diff --check` pass. Artifact doctor retains ten pre-existing issues; agent-rule sync has no stale output.
+- [x] Strict PR metadata check executed but installed parser reports no recognized ID for `ADV-SS-HANDFLOW-010`; no provider CI or successful strict gate is claimed. No implementation merge performed because the Advance is incomplete.
+- [x] Scope-qualified failed outcome; no new learning or owner approval counted as complete.
 
 ## Bug Fixes
 
-None yet. The planned diagnosis/repair is not an implemented or validated fix.
+Sampling-dependent elapsed-time flooring, contact-event stepping and corner
+chording are repaired in opt-in versions. Endpoint convergence now passes, but
+the supplied air-travel plan requests an acceleration-infeasible velocity reversal
+at contact. The revised saved `i u` corridor maximum is 0.795909 mm versus the
+unchanged 0.25 mm limit. This is not a completed foundation motion repair.
 
 ## Changes Made
+
+### 2026-09-06 — implement and stop: Re-entry feasibility still fails
+
+- `dfac9c9`: first immutable attempt, 266 renders, 17.091055 s; unprojected baseline failed.
+- `c66e9f5`: single permitted revision, 266 renders, 14.706725 s. All fixture endpoint/image/time refinements pass; fresh old-six baseline passes; repeated-contact corridor checks fail.
+- `ca08732`: fail-closed completeness/current-identity checks and a bounded time-grid guard; no additional motion candidate. Clean-checkout verification reproduces all measured rows, baseline traces and failed checks with 266 separately labeled verification renders.
+- Zero optimizer evaluations, no source/reference access or later Advance execution. Remaining five records stay planned. This branch is not merged as a completed Advance.
+- [Required next scope](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/revision-request.md): acceleration-feasible pen-up braking and tangent-compatible re-entry. The allowed revision is spent; another motion experiment needs explicit new scope.
 
 ### 2026-09-06 — plan: Prioritize reliable learned stroke foundations
 
@@ -115,4 +129,3 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
-

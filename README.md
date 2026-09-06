@@ -242,10 +242,14 @@ action pictures are not learned results. See
 [samples, findings and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
 and [the Advance map](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
 
-**Next: `td018-foundation-repair`**, six planned Advances: repair contact timing,
+**Current: `td018-foundation-repair`**, one Advance in progress and five planned: repair contact timing,
 audit return primitives and composition limits, train new primitives, independently
 accept them, then train and evaluate shared gestures. No new learning Advance
 completes on scaffolding alone. [Implementation order, budgets and success criteria](docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
+
+The first repair fixes timing/convergence and revalidates the six old primitives,
+but actual re-entry still fails its corridor limit. The permitted revision is spent;
+no implementation merge or later training is claimed. [New samples, velocity/lag plots and next repair](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html).
 
 Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)
 and [shared-stroke decomposition](shared/training/konrad_hand_recovery/stroke_language_v1/language/decomposition.png).

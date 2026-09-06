@@ -19,6 +19,7 @@ selectors:
 interfaces:
   - "TrackPlan API (desired position, desired velocity, desired contact, desired pressure)"
   - "HandState v2 API (continuous state carried across stroke, glyph, word, line)"
+  - "Opt-in event-time-v1/v2 execution with exact contact times; v2 uses an acceleration-limited velocity servo without corridor projection. Legacy execution remains default."
   - "Profile activation matrix for reviewed guided rendering (which HandProfile fields materially affect handflow output)"
   - "Planned realized orientation and active-edge state under bounded gesture action tracking"
 
@@ -26,4 +27,5 @@ invariants:
   - "The controller follows planned state, not raw keypoints, when plan tracking is enabled."
   - "Pen lifts are explicit state transitions; joins are modeled as planned contact or planned air motion."
   - "Out-of-corridor motion triggers correction or validation failure before page rendering."
+  - "Timing or image convergence cannot override a failed actual-contact corridor gate; foundation re-entry acceptance remains blocked."
   - "A profile field is not considered a tuning knob for TD-014 until the reviewed guided path measurably responds to it."

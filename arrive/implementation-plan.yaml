@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T16:02:10Z
+  updated_at: 2026-09-06T16:47:47Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1599,13 +1599,13 @@ passes:
     - id: ADV-SS-HANDFLOW-010
       advance_id: ADV-SS-HANDFLOW-010
       title: "Foundation Motion Repair — Stable Time and Lift/Re-entry"
-      status: planned
+      status: in_progress
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-013
       - ADV-SS-PATHGUIDE-006
       - ADV-SS-HANDVALIDATE-014
-      notes: "FIRST: diagnose and repair sampling-dependent contact entry; explicit legacy/new modes and fresh read-only six-primitive baseline validation. No new fitting before the baseline passes."
+      notes: "IN PROGRESS, NOT MERGED: two bounded motion attempts executed. Timing/endpoint convergence and fresh six-primitive baseline pass, but re-entry corridor reaches 0.795909mm against 0.25mm. Single revision spent; scope acceleration-feasible air braking/re-entry before proceeding. No new fitting or Advance completion."
     - id: ADV-SS-GESTURE-002
       advance_id: ADV-SS-GESTURE-002
       title: "Foundation Vocabulary — Return Ports and Audited Composition Limits"
@@ -1615,7 +1615,7 @@ passes:
       - ADV-SS-HANDFLOW-010
       - ADV-SS-GESTURE-001
       - ADV-SS-EXEMPLAR-009
-      notes: "Audit two return families and twelve construction-feasibility characters; conditional new version may use the smallest justified letter cap up to eight. No letter fitting or hidden cap bypass."
+      notes: "NOT STARTED: HANDFLOW-010 remains in progress with failed re-entry corridor. After repair, audit two return families/twelve feasibility characters; conditional smallest justified cap up to eight. No letter fitting or hidden cap bypass."
     - id: ADV-SS-CURRICULUM-010
       advance_id: ADV-SS-CURRICULUM-010
       title: "Foundation Primitive Learning — Shared Lower and Upper Returns"
