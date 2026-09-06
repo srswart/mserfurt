@@ -1,4 +1,3 @@
-from dataclasses import replace
 import math
 
 import pytest
@@ -114,3 +113,45 @@ def test_actual_motion_gate_does_not_admit_a_good_image_with_bad_geometry():
     assert decision['status'] == 'fail'
     assert not decision['baseline_admitted']
     assert not decision['primitive_training_permitted']
+
+
+def test_revision_servo_remains_acceleration_limited_without_projection():
+    desired = plan([sample(0, 0), sample(.1, 1.2), sample(.2, 2.4)])
+    result = controller('event-time-v2').follow_plan(desired, dt=.002, settle_time_s=0)
+    for row in result.final_state.execution_trace:
+        duration = row['time_s'] - row['time_before']
+        acceleration = math.dist(row['velocity_before_mm_s'], row['velocity_mm_s'])
+        assert acceleration <= 500 * duration + 1e-9
+        assert math.dist(row['to_mm'], row['desired_mm']) <= .25
+        expected = [position + (before + after) * duration / 2 for position, before, after in
+                    zip(row['from_mm'], row['velocity_before_mm_s'], row['velocity_mm_s'])]
+        assert row['to_mm'] == pytest.approx(expected, abs=1e-12)
+
+
+def test_corner_preserving_sampling_stabilizes_saved_contact_duration():
+    import json
+    from scribesim.curriculum.gesture_learning import BASE
+    from scribesim.evofit.stroke_gestures import gesture_guide
+    from scribesim.handflow.planning import build_track_plan
+
+    model = json.loads((BASE / 'gestures/run-002/candidate.json').read_text())
+    model['sampling'] = 'gesture-arc-v3'
+    coarse = build_track_plan(gesture_guide('i u', model, step_mm=.025).guide, base_speed_mm_s=12)
+    refined = build_track_plan(gesture_guide('i u', model, step_mm=.0125).guide, base_speed_mm_s=12)
+    assert abs(coarse.total_time_s - refined.total_time_s) <= .0001
+    first = controller('event-time-v2').follow_plan(coarse, dt=.002, settle_time_s=0)
+    second = controller('event-time-v2').follow_plan(coarse, dt=.001, settle_time_s=0)
+    assert math.dist([first.final_state.pos_x_mm, first.final_state.pos_y_mm],
+                     [second.final_state.pos_x_mm, second.final_state.pos_y_mm]) <= .01
+
+
+def test_physical_bridge_accepts_explicit_corner_sampling_and_execution():
+    from scribesim.evofit.stroke_gestures import migrate_v1
+    from scribesim.pathguide.gesture_actions import ActionController, action_bundle
+
+    model = migrate_v1(seed_language())
+    model['sampling'] = 'gesture-arc-v3'
+    desired = action_bundle('u', model)
+    engine = ActionController(model, execution_version='event-time-v2')
+    result = engine.follow_plan(desired.plan, settle_time_s=0)
+    assert all(point.contact_version == 'physical-edge-v1' for point in result.trajectory)
