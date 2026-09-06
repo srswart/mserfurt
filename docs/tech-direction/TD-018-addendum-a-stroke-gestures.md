@@ -6,6 +6,10 @@
 
 **Parent:** [TD-018 — Reference-Grounded Recovery of Konrad's Hand](TD-018-reference-grounded-hand-recovery.md)
 
+**Current next work:** [Addendum B — foundation repair](TD-018-addendum-b-foundation-repair.md)
+adds six planned Advances for stable contact, audited vocabulary/limits and
+actual primitive/gesture learning with independent acceptance before later layers.
+
 ## 1. Decision and scope
 
 Extend the shared stroke language with a continuous **gesture** layer between
@@ -27,8 +31,9 @@ This is a design amendment, not another completed implementation phase. Existing
 synthetic S0/S1 results remain valid only for their frozen fixed-tool scope. No
 new gesture gate, real-source training or owner appearance approval is claimed.
 Existing Advance IDs and completion records remain unchanged. The planning
-follow-up adds nine prerequisites to Pass 15, now twenty-eight Advances:
-twenty outcomes complete and eight planned. Blocked action experiments remain unexecuted. Section 10
+follow-up added nine prerequisites; Addendum B adds six foundation repairs to
+Pass 15, now thirty-four Advances: twenty outcomes complete and fourteen planned.
+Blocked action experiments remain unexecuted. Section 10
 records the new phases and downstream dependency changes, not gate passes.
 
 ## 2. Resources and evidence boundaries

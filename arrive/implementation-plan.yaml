@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T12:55:46Z
+  updated_at: 2026-09-06T16:02:10Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1592,9 +1592,69 @@ passes:
       - ADV-SS-CURRICULUM-009
       - ADV-SS-HANDVALIDATE-013
       notes: "COMPLETE early-stop evaluation: independent current identities/failed actual checks, 3 fresh-process seeds, zero renders/fitting; 68 tests and clean replay. S1-action/letters BLOCKED. Candidate metrics/controls remain unexecuted pending fixed-tool repairs and a newly frozen evaluation."
+  - id: td018-foundation-repair
+    title: Repair actual contact and learn transferable stroke foundations
+    order: 8
+    items:
+    - id: ADV-SS-HANDFLOW-010
+      advance_id: ADV-SS-HANDFLOW-010
+      title: "Foundation Motion Repair — Stable Time and Lift/Re-entry"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-013
+      - ADV-SS-PATHGUIDE-006
+      - ADV-SS-HANDVALIDATE-014
+      notes: "FIRST: diagnose and repair sampling-dependent contact entry; explicit legacy/new modes and fresh read-only six-primitive baseline validation. No new fitting before the baseline passes."
+    - id: ADV-SS-GESTURE-002
+      advance_id: ADV-SS-GESTURE-002
+      title: "Foundation Vocabulary — Return Ports and Audited Composition Limits"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-010
+      - ADV-SS-GESTURE-001
+      - ADV-SS-EXEMPLAR-009
+      notes: "Audit two return families and twelve construction-feasibility characters; conditional new version may use the smallest justified letter cap up to eight. No letter fitting or hidden cap bypass."
+    - id: ADV-SS-CURRICULUM-010
+      advance_id: ADV-SS-CURRICULUM-010
+      title: "Foundation Primitive Learning — Shared Lower and Upper Returns"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-010
+      - ADV-SS-GESTURE-002
+      notes: "LEARNING: fresh baseline admission, independent targets, fit only new returns; old six/tool/motion frozen. A runner-only or zero-render attempt does not complete this Advance."
+    - id: ADV-SS-HANDVALIDATE-015
+      advance_id: ADV-SS-HANDVALIDATE-015
+      title: "Foundation Primitive Acceptance — Independent Current-Code S1 Extension"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-010
+      notes: "EVALUATION: independent current-code primitive-extension S1, three seed replays and negative controls. Matching pass is a runtime prerequisite for gesture fitting."
+    - id: ADV-SS-CURRICULUM-011
+      advance_id: ADV-SS-CURRICULUM-011
+      title: "Foundation Gesture Learning — Underturn, Overturn and Compound Transfer"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-015
+      - ADV-SS-GESTURE-002
+      notes: "LEARNING: accepted primitives fixed; learn underturn/overturn/compound constructions with topology-disjoint transfer. Require executed learning, not supplied-recipe playback."
+    - id: ADV-SS-HANDVALIDATE-016
+      advance_id: ADV-SS-HANDVALIDATE-016
+      title: "Foundation Readiness — Independent Gesture Transfer and Next-Stage Eligibility"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-011
+      - ADV-SS-HANDVALIDATE-015
+      - ADV-SS-HANDVALIDATE-014
+      notes: "EVALUATION: independent stable-contact/shared-transfer S1-gesture and explicit foundation-manifest admission. Only next-experiment eligibility; no automatic S1-action, letters or real promotion."
   - id: td018-letters
     title: Combine learned strokes into letter recipes
-    order: 8
+    order: 9
     items:
     - id: ADV-SS-CURRICULUM-005
       advance_id: ADV-SS-CURRICULUM-005
@@ -1604,10 +1664,11 @@ passes:
       dependencies:
       - ADV-SS-CURRICULUM-004
       - ADV-SS-HANDVALIDATE-014
-      notes: "Consume frozen accepted primitive, gesture and intentional-action identities. Scope-qualified S1-gesture/S1-action and live G0 are runtime prerequisites for real fitting; no session effects."
+      - ADV-SS-HANDVALIDATE-016
+      notes: "Require repaired foundation acceptance and a newly registered accepted action/null candidate evaluation; HANDVALIDATE-014 early-stop completion is not S1-action. Real fitting also needs live G0 and accepted real layers. No session effects."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
-    order: 9
+    order: 10
     items:
     - id: ADV-SS-CURRICULUM-006
       advance_id: ADV-SS-CURRICULUM-006
@@ -1619,7 +1680,7 @@ passes:
       notes: "Preserve frozen primitive/gesture/action/letter identities; bounded geometric context does not mutate shared action profiles. No ink depletion, fatigue or session effects."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
-    order: 10
+    order: 11
     items:
     - id: ADV-SS-CURRICULUM-007
       advance_id: ADV-SS-CURRICULUM-007
@@ -1643,7 +1704,7 @@ passes:
       notes: "Audit S0–S4 plus S1-gesture/S1-action, matching tool/controller identities and current G0/G1/G2 with session effects disabled. Missing inventory/review stops real acceptance."
   - id: td018-expressive-later
     title: Deferred ink and expressive evaluation after layered acceptance
-    order: 11
+    order: 12
     items:
     - id: ADV-SS-HANDFLOW-009
       advance_id: ADV-SS-HANDFLOW-009
@@ -1666,7 +1727,7 @@ passes:
       notes: "DEFERRED expressive G3 evaluation of the learned layered candidate; requires matching live G0–G2 and genuine review. Synthetic catalog replay cannot authorize folios; fatigue and broader state effects remain separately scoped."
   - id: td018-folio
     title: Integrate opt-in folios and evaluate the release candidate
-    order: 12
+    order: 13
     items:
     - id: ADV-SS-RENDER-006
       advance_id: ADV-SS-RENDER-006

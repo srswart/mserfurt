@@ -45,11 +45,17 @@ No production renderer or component stage changes.
 
 - [ADV-SS-CURRICULUM-004](ADV-SS-CURRICULUM-004.md)
 - [ADV-SS-HANDVALIDATE-014](ADV-SS-HANDVALIDATE-014.md)
+- [ADV-SS-HANDVALIDATE-016](ADV-SS-HANDVALIDATE-016.md)
 
 [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md)
 requires matching accepted primitive, S1-gesture and S1-action/readiness records
 for the intended scope. A fixed/null profile is valid only for its declared
 coverage; a required unresolved action blocks the affected inventory.
+
+[Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md)
+inserts foundation repair before this work. A matching foundation pass and a
+newly scoped accepted action/null candidate evaluation are runtime prerequisites;
+HANDVALIDATE-014's completed early-stop record is not S1-action acceptance.
 
 Completion is not acceptance. Synthetic scaffolding may execute with explicitly
 unaccepted inputs. Reference-derived fitting requires live G0, and real layer
@@ -61,7 +67,7 @@ an older curriculum's pass summary as evidence of shared-stroke learning.
 - [ ] branch: confirm authorization before branches or commits.
 - [ ] tidy: assess narrowly required preparation; preserve unrelated work.
 - [ ] test: commit failing behavioral tests before feature implementation when commits are authorized.
-- [ ] feat/evaluate: Freeze up to 12 starter lowercase characters from admitted coverage before training; unsupported requested characters fail explicitly. Fit at most two recipes per character from the accepted shared gesture inventory, retaining all expanded primitive limits; macros cannot bypass the four-primitive-per-recipe cap.
+- [ ] feat/evaluate: Freeze up to 12 starter lowercase characters from admitted coverage before training; unsupported requested characters fail explicitly. Fit at most two recipes per character from the accepted shared gesture inventory, retaining the matching contract's audited expansion limit. The legacy cap remains four; only an accepted explicit GESTURE-002 contract can introduce a justified cap up to eight. Macros cannot bypass either version's limit.
 - [ ] feat/evaluate: Represent sequence, attachment ports, bounded translation/scale/rotation, lifts, permitted crossings and baseline/x-height/counter constraints explicitly. Do not add independent cubic geometry as a fallback.
 - [ ] feat/evaluate: Keep accepted primitive, gesture and action-profile checkpoints plus tool/controller identities frozen while fitting bounded recipe choices and placements. Optimize from admitted training word/letter evidence with uncertain allocations recorded; development selects the recipe checkpoint. Do not learn new action tracks, hidden finishing passes or session controls at this layer.
 - [ ] feat/evaluate: Compare shared-stroke recipes against frozen prior recipes and the legacy independent-form diagnostic under matched render/time budgets. Cap each ablation/seed at 5000 target renders or 1800 seconds, seeds 7/19/41; one diagnosed revision.

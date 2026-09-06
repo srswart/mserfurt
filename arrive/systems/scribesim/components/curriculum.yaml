@@ -13,9 +13,13 @@ selectors:
     - "tests/test_gesture_coverage.py"
     - "tests/test_gesture_learning.py"
     - "tests/test_pen_action_learning.py"
+    - "tests/test_foundation_primitives.py"
+    - "tests/test_foundation_gestures.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/coverage/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/**"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/**"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/**"
   build_modules: []
   tags: []
   contracts: []

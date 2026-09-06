@@ -10,6 +10,8 @@ selectors:
   paths:
     - "scribesim/handflow/**"
     - "tests/test_gesture_action_bridge.py"
+    - "tests/test_handflow_reentry.py"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/**"
   build_modules: []
   tags: []
   contracts: []

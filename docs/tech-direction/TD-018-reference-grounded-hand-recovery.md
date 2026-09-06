@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), twenty-eight Advances; twenty outcomes complete, eight planned. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty outcomes complete, fourteen planned. Six new foundation-repair Advances precede further training. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket
@@ -627,6 +627,12 @@ does not cover required returns/loops; independent evaluation also finds a
 Repair both fixed-tool blockers before action fitting. See the
 [evaluation and next work](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/README.md).
 
+[Addendum B](TD-018-addendum-b-foundation-repair.md) now makes that adjustment
+executable as six planned foundation-repair Advances. Fix motion first, audit
+vocabulary/caps, actually train new primitives, independently accept them, then
+train and independently evaluate shared gestures. Runner-only delivery does not
+complete either new learning Advance. No repair or new training has run yet.
+
 1. **td018-strokes:** EXEMPLAR-008 reference readiness; EVOFIT-007 stroke
    language/compiler; CURRICULUM-004 actual shared-primitive learning.
 2. **td018-gesture-investigation:** EXEMPLAR-009 coverage and G0 readiness;
@@ -636,16 +642,21 @@ Repair both fixed-tool blockers before action fitting. See the
 4. **td018-pen-actions:** NIBCONTACT-002 canonical footprint extension;
    PATHGUIDE-006 realized action bridge; CURRICULUM-009 isolated action
    ablations; HANDVALIDATE-014 S1-action and letter-readiness decision.
-5. **td018-letters:** CURRICULUM-005 letter recipes and construction evidence,
-   now dependent on HANDVALIDATE-014 and matching accepted lower-layer scope.
-6. **td018-letter-context:** CURRICULUM-006 within-word stroke adaptation.
-7. **td018-word-context:** CURRICULUM-007 inter-word effects, then
+5. **td018-foundation-repair:** HANDFLOW-010 motion/baseline repair; GESTURE-002
+   vocabulary/limit audit; CURRICULUM-010 return-primitive learning;
+   HANDVALIDATE-015 primitive acceptance; CURRICULUM-011 shared-gesture learning;
+   HANDVALIDATE-016 independent foundation readiness.
+6. **td018-letters:** CURRICULUM-005 letter recipes and construction evidence,
+   now dependent on foundation acceptance and a separately scoped accepted
+   action/null evaluation; HANDVALIDATE-014's old early-stop record is not a pass.
+7. **td018-letter-context:** CURRICULUM-006 within-word stroke adaptation.
+8. **td018-word-context:** CURRICULUM-007 inter-word effects, then
    HANDVALIDATE-011 layered transfer and real G0–G2 decision.
-8. **td018-expressive-later:** retain HANDFLOW-009 ink repair and
+9. **td018-expressive-later:** retain HANDFLOW-009 ink repair and
    HANDVALIDATE-012 G3 evaluation as planned but deferred; require layered
    neutral acceptance and an explicit later go-ahead. Broader fatigue,
    tremor/warp and state work remain separately scoped, not smuggled into S4.
-9. **td018-folio:** unchanged opt-in release boundary after real G3.
+10. **td018-folio:** unchanged opt-in release boundary after real G3.
 
 Existing primitive evidence remains under `stroke_language_v1/`; new gesture,
 action and downstream stages publish immutable bundles under

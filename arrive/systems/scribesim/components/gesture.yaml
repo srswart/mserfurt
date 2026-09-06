@@ -10,10 +10,14 @@ selectors:
   paths:
     - "scribesim/evofit/stroke_language.py"
     - "scribesim/evofit/stroke_gestures.py"
+    - "scribesim/evofit/foundation_contract.py"
     - "tests/test_stroke_language.py"
     - "tests/test_stroke_gestures.py"
+    - "tests/test_foundation_contract.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/language/**"
     - "docs/tech-direction/TD-018-addendum-a-stroke-gestures.md"
+    - "docs/tech-direction/TD-018-addendum-b-foundation-repair.md"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/**"
   build_modules: []
   tags: []
   contracts: []

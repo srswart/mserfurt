@@ -1,5 +1,10 @@
 # Required follow-up: primitive ports and return-curve coverage
 
+**Planning update:** [TD-018 Addendum B](../../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md)
+and its six `td018-foundation-repair` Advances now define the executable follow-up.
+The original proposal below is retained as history; Addendum B governs the
+conditional audited cap revision and the required motion/baseline repair first.
+
 **Disposition: separately scoped proposal, not an executed experiment or an Advance completion.**
 The current lesson cannot certify the broader gesture workbook. Do not proceed
 to action fitting merely because the three gesture-phase implementations finish.

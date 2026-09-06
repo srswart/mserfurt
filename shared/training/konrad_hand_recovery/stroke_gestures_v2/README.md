@@ -64,6 +64,10 @@ receipts. Its failing S1-gesture decision is retained, not converted into GO.
 Next is **fixed-tool repair**, not action fitting: scope the
 [missing primitive coverage](gestures/primitive-extension-request.md) and
 [lift/re-entry convergence failure](gesture_evaluation/README.md#required-next-work).
+
+That work now has six planned Advances in **td018-foundation-repair**:
+[ordered records, concrete deliverables and gate criteria](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#3-ordered-advances-and-deliverables).
+No repair-phase code, new training or gate acceptance is claimed yet.
 New primitive geometry or expansion-limit needs require separately
 scoped work before fitting. Ink depletion, fatigue and other session effects
 remain deferred. Immutable run directories and their freezes retain all results.
