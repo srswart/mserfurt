@@ -1,0 +1,122 @@
+{
+  "freeze_sha256": "8c14e960f0bb384e12d8641f7d10d601efe06660b5bffbcb4b803b4c76fc8630",
+  "scope": "synthetic-known-strokes-not-Konrad",
+  "selected_seed": 41,
+  "selection_split": "development",
+  "rows": [
+    {
+      "seed": 7,
+      "status": "complete",
+      "evaluations": 586,
+      "metrics": {
+        "train": {
+          "before": 0.517803362267955,
+          "after": 0.08032615013862403
+        },
+        "development": {
+          "before": 0.5587063748761224,
+          "after": 0.10734319278024708
+        },
+        "test": {
+          "before": 0.49101268194372616,
+          "after": 0.08150536730674733
+        }
+      },
+      "model_sha256": "a268cefbe458401ff3a050446bbe43d57dc6985b55b5bf3c5565e404e8c583df"
+    },
+    {
+      "seed": 19,
+      "status": "complete",
+      "evaluations": 586,
+      "metrics": {
+        "train": {
+          "before": 0.517803362267955,
+          "after": 0.08911091336359535
+        },
+        "development": {
+          "before": 0.5587063748761224,
+          "after": 0.10659478181309667
+        },
+        "test": {
+          "before": 0.49101268194372616,
+          "after": 0.08566833223682536
+        }
+      },
+      "model_sha256": "ef592cede18046f4343da0f9396b439e70b8045c42003b86e8b4a4e88e51f68e"
+    },
+    {
+      "seed": 41,
+      "status": "complete",
+      "evaluations": 584,
+      "metrics": {
+        "train": {
+          "before": 0.517803362267955,
+          "after": 0.06287565455971694
+        },
+        "development": {
+          "before": 0.5587063748761224,
+          "after": 0.08519081090171364
+        },
+        "test": {
+          "before": 0.49101268194372616,
+          "after": 0.06495253117462808
+        }
+      },
+      "model_sha256": "0ee198a230bac50f91815d7605bf7baaf786c7e95da30f9075688810ce32ce54"
+    }
+  ],
+  "actual": {
+    "bowl": {
+      "image_loss": 0.041796933814447754,
+      "corridor_error_mm": 0.20000000000000082,
+      "contact_schedule_preserved": true,
+      "coverage": 1.0
+    },
+    "exit": {
+      "image_loss": 0.05537994066997389,
+      "corridor_error_mm": 0.2000000000000004,
+      "contact_schedule_preserved": true,
+      "coverage": 1.0
+    },
+    "loop": {
+      "image_loss": 0.032272840570256416,
+      "corridor_error_mm": 0.20000000000000087,
+      "contact_schedule_preserved": true,
+      "coverage": 1.0
+    },
+    "rise": {
+      "image_loss": 0.027069115612025765,
+      "corridor_error_mm": 0.20000000000000082,
+      "contact_schedule_preserved": true,
+      "coverage": 1.0
+    },
+    "stem": {
+      "image_loss": 0.020333509439014026,
+      "corridor_error_mm": 0.2000000000000009,
+      "contact_schedule_preserved": true,
+      "coverage": 1.0
+    },
+    "turn": {
+      "image_loss": 0.041913655525029674,
+      "corridor_error_mm": 0.20000000000000082,
+      "contact_schedule_preserved": true,
+      "coverage": 1.0
+    }
+  },
+  "promoted": false,
+  "replay": true,
+  "artifacts": {
+    "actual-traces.json.gz": "088c3e5dd3f48520f4bfac2d5087e8c891e639a552097d51e7f3dfb6605059cb",
+    "transfer-target.png": "736ac6c2b4788ae45d78810e4c2b0b8e874aa61b195b592618362953e3ece5dd",
+    "7-replay.json": "ad7a82082315fe05eb50fddd50709d6e8cd810287eefe82044e2f45edb5782c7",
+    "41-replay.json": "85aca47eeb8f5080d0d69f885e07f45160b4a269e3d021f32785a8b2b48cdd85",
+    "transfer-initial.png": "8ab6aae3bfa4b21f2f7f9c7224f5e4166c5ad4fca3e155037c1e587473d91ac4",
+    "candidate.json": "c86db60ebbc2d1ad4fbb82a03afec360ec079873522af165b9dbca2043d5603f",
+    "19-first.json": "850666285c6ba4739527fe4b70c3e250f8c6ad22625f3a13f3e1558c802c308b",
+    "7-first.json": "ad7a82082315fe05eb50fddd50709d6e8cd810287eefe82044e2f45edb5782c7",
+    "41-first.json": "85aca47eeb8f5080d0d69f885e07f45160b4a269e3d021f32785a8b2b48cdd85",
+    "19-replay.json": "850666285c6ba4739527fe4b70c3e250f8c6ad22625f3a13f3e1558c802c308b",
+    "transfer-learned.png": "a0d0d00dbc7790775d89145a4d6ae8ecbc6d0d01dd84da54f708d6edc5f4ee75",
+    "practice-sheet.png": "67e8c0a59024dbb7db01491d2ffbf574bff27a906cede54cab3ff78889d9a299"
+  }
+}

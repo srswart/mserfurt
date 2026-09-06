@@ -31,7 +31,14 @@ target review is missing. Completing the implementation does not promote a hand.
 
 The second phase item produced `reference/konrad_hand_recovery_v2/`: 60 candidate
 regions, zero admitted, with raw/mask/cleaned panels and explicit coverage debt.
-Its `G0.json` is the latest combined dataset/benchmark readiness result.
+Its `G0.json` preserves the initial combined dataset/benchmark readiness result.
 The implementation rejects forged pass summaries by revalidating actual dataset
 artifacts. Missing exact visible mappings, usable observations, source calibration
 and target review still block the nominal-recovery milestone.
+
+The latest [stroke-language phase](stroke_language_v1/README.md) supplies actual
+shared-primitive learning, visible practice sheets, decomposition and held-out
+synthetic transfer. The new v3 admission repair improves non-test masks but still
+admits zero observations; its G0 remains blocked. The older guided control sheets
+are not stages of learning this new vocabulary. Real learned letters and both
+context layers remain later work.

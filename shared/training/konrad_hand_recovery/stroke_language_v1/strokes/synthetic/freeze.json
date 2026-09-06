@@ -1,0 +1,1217 @@
+{
+  "scope": "synthetic-known-strokes-not-Konrad",
+  "initial": {
+    "schema_version": "shared-stroke-language-v1",
+    "units": "local-xheight-y-up",
+    "scope": "unaccepted-synthetic",
+    "primitives": {
+      "stem": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0.22,
+              0.78
+            ],
+            [
+              -0.18,
+              0.3
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.7071067811865475,
+          -0.7071067811865475
+        ],
+        "exit": [
+          0.5144957554275265,
+          -0.8574929257125441
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "rise": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              -0.2,
+              0.5
+            ],
+            [
+              0.1,
+              0.8
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.3713906763541038,
+          0.9284766908852594
+        ],
+        "exit": [
+          0.894427190999916,
+          0.44721359549995787
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "bowl": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              1.2,
+              0.9
+            ],
+            [
+              1.1,
+              0.1
+            ],
+            [
+              0.65,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.9965457582448797,
+          -0.08304547985373996
+        ],
+        "exit": [
+          -0.9761870601839527,
+          -0.21693045781865616
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "turn": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              -0.2,
+              0.6
+            ],
+            [
+              0.75,
+              0.1
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.31622776601683794,
+          0.9486832980505138
+        ],
+        "exit": [
+          -0.2676438637860946,
+          0.9635179096299405
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "loop": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              -0.3,
+              1.6
+            ],
+            [
+              1,
+              1.6
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          -0.18428853505018533,
+          0.9828721869343219
+        ],
+        "exit": [
+          -0.5299989400031799,
+          -0.8479983040050879
+        ],
+        "closed": true,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "exit": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.1,
+              -0.18
+            ],
+            [
+              0.3,
+              0.35
+            ],
+            [
+              0.45,
+              0.15
+            ]
+          ]
+        ],
+        "entry": [
+          0.4856429311786321,
+          -0.8741572761215378
+        ],
+        "exit": [
+          0.6000000000000001,
+          -0.7999999999999999
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      }
+    },
+    "recipes": {
+      "i": {
+        "logical": "i",
+        "visible": "i",
+        "advance": 0.65,
+        "allow_crossings": false,
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "exit",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "corner"
+          }
+        ]
+      },
+      "u": {
+        "logical": "u",
+        "visible": "u",
+        "advance": 1.2,
+        "allow_crossings": false,
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "exit",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "corner"
+          },
+          {
+            "primitive": "stem",
+            "offset": [
+              0.55,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "lift"
+          },
+          {
+            "primitive": "exit",
+            "offset": [
+              0.55,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "corner"
+          }
+        ]
+      }
+    },
+    "letter_rules": [],
+    "word_rules": [],
+    "x_height_mm": 3.5,
+    "nib_width_mm": 0.45,
+    "nib_angle_deg": 40.0,
+    "letter_gap": 0.15,
+    "word_gap": 0.8,
+    "line_pitch": 3.0
+  },
+  "target": {
+    "schema_version": "shared-stroke-language-v1",
+    "units": "local-xheight-y-up",
+    "scope": "unaccepted-synthetic",
+    "primitives": {
+      "stem": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0.72
+            ],
+            [
+              0,
+              0.28
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.7071067811865475,
+          -0.7071067811865475
+        ],
+        "exit": [
+          0.5144957554275265,
+          -0.8574929257125441
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "rise": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.12,
+              0.32
+            ],
+            [
+              0.35,
+              0.72
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.3713906763541038,
+          0.9284766908852594
+        ],
+        "exit": [
+          0.894427190999916,
+          0.44721359549995787
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "bowl": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0.62,
+              0.99
+            ],
+            [
+              0.92,
+              0.34
+            ],
+            [
+              0.65,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.9965457582448797,
+          -0.08304547985373996
+        ],
+        "exit": [
+          -0.9761870601839527,
+          -0.21693045781865616
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "turn": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.3,
+              0.16
+            ],
+            [
+              0.5,
+              0.65
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.31622776601683794,
+          0.9486832980505138
+        ],
+        "exit": [
+          -0.2676438637860946,
+          0.9635179096299405
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "loop": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              -0.65,
+              1.3
+            ],
+            [
+              0.85,
+              1.3
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          -0.18428853505018533,
+          0.9828721869343219
+        ],
+        "exit": [
+          -0.5299989400031799,
+          -0.8479983040050879
+        ],
+        "closed": true,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "exit": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.12,
+              0.01
+            ],
+            [
+              0.32,
+              0.1
+            ],
+            [
+              0.45,
+              0.15
+            ]
+          ]
+        ],
+        "entry": [
+          0.4856429311786321,
+          -0.8741572761215378
+        ],
+        "exit": [
+          0.6000000000000001,
+          -0.7999999999999999
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      }
+    },
+    "recipes": {
+      "i": {
+        "logical": "i",
+        "visible": "i",
+        "advance": 0.65,
+        "allow_crossings": false,
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "exit",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "corner"
+          }
+        ]
+      },
+      "u": {
+        "logical": "u",
+        "visible": "u",
+        "advance": 1.2,
+        "allow_crossings": false,
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "exit",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "corner"
+          },
+          {
+            "primitive": "stem",
+            "offset": [
+              0.55,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "lift"
+          },
+          {
+            "primitive": "exit",
+            "offset": [
+              0.55,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "corner"
+          }
+        ]
+      }
+    },
+    "letter_rules": [],
+    "word_rules": [],
+    "x_height_mm": 3.5,
+    "nib_width_mm": 0.45,
+    "nib_angle_deg": 40.0,
+    "letter_gap": 0.15,
+    "word_gap": 0.8,
+    "line_pitch": 3.0
+  },
+  "samples": [
+    {
+      "id": "bowl-base",
+      "split": "train",
+      "primitives": [
+        "bowl"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "135a547750f3102422fc7c237b42adbb732d195dfd6c559cad68fc71f8da32e6"
+    },
+    {
+      "id": "bowl-small",
+      "split": "train",
+      "primitives": [
+        "bowl"
+      ],
+      "scale": 0.85,
+      "offset": [
+        0.1,
+        0.1
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "dfad5dcfcba39975d64af42876c14da965a966d83bf279043fe763317ffb7fe4"
+    },
+    {
+      "id": "bowl-large",
+      "split": "development",
+      "primitives": [
+        "bowl"
+      ],
+      "scale": 1.1,
+      "offset": [
+        -0.1,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "125034c699dfe942e8c1c850b678895215948686659227fe499b6fdaafa471d7"
+    },
+    {
+      "id": "bowl-unseen-scale",
+      "split": "test",
+      "primitives": [
+        "bowl"
+      ],
+      "scale": 0.7,
+      "offset": [
+        0.25,
+        0.2
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "328265172d13b7cecb9017369ae7dc34f5270edd4ee30b8d4d993365056016f7"
+    },
+    {
+      "id": "bowl-unseen-pair",
+      "split": "test",
+      "primitives": [
+        "bowl",
+        "bowl"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "a5445cc1a25c1075f27c7665f1567a39f3614284bce0560d18dc6f2de1405e74"
+    },
+    {
+      "id": "exit-base",
+      "split": "train",
+      "primitives": [
+        "exit"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "113bae57a580f510bdd9756b12f824070fdd98027fda4a3e97ef8905a01680ce"
+    },
+    {
+      "id": "exit-small",
+      "split": "train",
+      "primitives": [
+        "exit"
+      ],
+      "scale": 0.85,
+      "offset": [
+        0.1,
+        0.1
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "62b46e8843b327732dc9c329e11afbefe19f2d7328204715a7a6e18710d3902e"
+    },
+    {
+      "id": "exit-large",
+      "split": "development",
+      "primitives": [
+        "exit"
+      ],
+      "scale": 1.1,
+      "offset": [
+        -0.1,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "1bece537237f51350902af30a89d67fd715a147971117e88d78b07297079de69"
+    },
+    {
+      "id": "exit-unseen-scale",
+      "split": "test",
+      "primitives": [
+        "exit"
+      ],
+      "scale": 0.7,
+      "offset": [
+        0.25,
+        0.2
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "aae50d75dd52cb1ea9f7f6b4b411fe0cc13485f382409466ef5f9cb56e313bef"
+    },
+    {
+      "id": "exit-unseen-pair",
+      "split": "test",
+      "primitives": [
+        "exit",
+        "exit"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "94dc88b57b6b213c299bd9d773bfea6e8e480ea04c407a7877f72c822c60c244"
+    },
+    {
+      "id": "loop-base",
+      "split": "train",
+      "primitives": [
+        "loop"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "4b40b1afc11e021b9c7d5d5caac0929eedfcc1978ef2d43a734f24e9e305e6a2"
+    },
+    {
+      "id": "loop-small",
+      "split": "train",
+      "primitives": [
+        "loop"
+      ],
+      "scale": 0.85,
+      "offset": [
+        0.1,
+        0.1
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "74a17438c54be7f7fb22b91401c6ae220767ff70e5a9b970e632d23ad6121ed5"
+    },
+    {
+      "id": "loop-large",
+      "split": "development",
+      "primitives": [
+        "loop"
+      ],
+      "scale": 1.1,
+      "offset": [
+        -0.1,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "cf65085b167eda619348cb2ec7c63664065aaf05d340931fb9eef249c6017b40"
+    },
+    {
+      "id": "loop-unseen-scale",
+      "split": "test",
+      "primitives": [
+        "loop"
+      ],
+      "scale": 0.7,
+      "offset": [
+        0.25,
+        0.2
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "b89d086688cefec7e025367b303a89f8939aaa2e4428fbdaec379dfeb9af2112"
+    },
+    {
+      "id": "loop-unseen-pair",
+      "split": "test",
+      "primitives": [
+        "loop",
+        "loop"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "8cac7a5c31008b6a2712574ac027a946d76767045feee2dff0ba88328a65992e"
+    },
+    {
+      "id": "rise-base",
+      "split": "train",
+      "primitives": [
+        "rise"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "f7bf6adca6301e0d8db04a61a379e73725f158a22c7746400e8439a3368177ab"
+    },
+    {
+      "id": "rise-small",
+      "split": "train",
+      "primitives": [
+        "rise"
+      ],
+      "scale": 0.85,
+      "offset": [
+        0.1,
+        0.1
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "a31bf2640aebfa7076cea653d181cc1d8b305e5fadeea156c5aa8fdb10176704"
+    },
+    {
+      "id": "rise-large",
+      "split": "development",
+      "primitives": [
+        "rise"
+      ],
+      "scale": 1.1,
+      "offset": [
+        -0.1,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "742546709bd424224850627afad384475d88df391743890529aa6bde0f56fd2b"
+    },
+    {
+      "id": "rise-unseen-scale",
+      "split": "test",
+      "primitives": [
+        "rise"
+      ],
+      "scale": 0.7,
+      "offset": [
+        0.25,
+        0.2
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "48eb8e2fd365a1223429d5c9f5b6099a06f4e786f9d46fe05fabf0f93dd2cd8b"
+    },
+    {
+      "id": "rise-unseen-pair",
+      "split": "test",
+      "primitives": [
+        "rise",
+        "rise"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "1f4dfb7a84d6f2bd5d38800d3c4333fcf9960f993de0725821f925cbdc397b98"
+    },
+    {
+      "id": "stem-base",
+      "split": "train",
+      "primitives": [
+        "stem"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "f3f32457c875ed96f8c46cb840cfb408eb80af0a045409e3c6d142e211afdfbc"
+    },
+    {
+      "id": "stem-small",
+      "split": "train",
+      "primitives": [
+        "stem"
+      ],
+      "scale": 0.85,
+      "offset": [
+        0.1,
+        0.1
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "223c7b680502194bcd3d98737db01c13521cc2f48d5ba4485620b9c4634f6dc9"
+    },
+    {
+      "id": "stem-large",
+      "split": "development",
+      "primitives": [
+        "stem"
+      ],
+      "scale": 1.1,
+      "offset": [
+        -0.1,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "523add7ed96eac0a2df529b5a11f73890583819dd7f643a289a7e8ebb682d507"
+    },
+    {
+      "id": "stem-unseen-scale",
+      "split": "test",
+      "primitives": [
+        "stem"
+      ],
+      "scale": 0.7,
+      "offset": [
+        0.25,
+        0.2
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "908e4968c81b12bbff58597f7fd5b0713be405642af42559b671842b7079d0fa"
+    },
+    {
+      "id": "stem-unseen-pair",
+      "split": "test",
+      "primitives": [
+        "stem",
+        "stem"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "9d1fa9fee51f396404ed5ebb2b77751113d912fbccb314f83be79047d53044f5"
+    },
+    {
+      "id": "turn-base",
+      "split": "train",
+      "primitives": [
+        "turn"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "6ce616d64507a84177180bd315dd6bb0fe9403d5b5f496fc11bbf90b8b52cda5"
+    },
+    {
+      "id": "turn-small",
+      "split": "train",
+      "primitives": [
+        "turn"
+      ],
+      "scale": 0.85,
+      "offset": [
+        0.1,
+        0.1
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "dfe7a6f0193f3fd429332c3216c36db6c987b31524c4c43a73369daba087a82b"
+    },
+    {
+      "id": "turn-large",
+      "split": "development",
+      "primitives": [
+        "turn"
+      ],
+      "scale": 1.1,
+      "offset": [
+        -0.1,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "b16714d39dff1cefa4ed8315f9579fa288a7633784973629e4d4503ee7abdb96"
+    },
+    {
+      "id": "turn-unseen-scale",
+      "split": "test",
+      "primitives": [
+        "turn"
+      ],
+      "scale": 0.7,
+      "offset": [
+        0.25,
+        0.2
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "1b64d5b7f95198cf58a86ba73c5b8b586bf87e882585e3795c9a33e5cf5cde84"
+    },
+    {
+      "id": "turn-unseen-pair",
+      "split": "test",
+      "primitives": [
+        "turn",
+        "turn"
+      ],
+      "scale": 1.0,
+      "offset": [
+        0,
+        0
+      ],
+      "frame": [
+        -2.0,
+        12.0,
+        2.0,
+        14.0
+      ],
+      "dpi": 150,
+      "raw_sha256": "9ad32c101dbdb9b8f4c8e9ee0e851ee525d95752da188dde83e92bf17f794aa8"
+    }
+  ],
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "max_evaluations": 5000,
+  "max_seconds_per_seed": 1800,
+  "ablations": [
+    "frozen-prior",
+    "learned-shared-primitives"
+  ],
+  "environment": {
+    "python": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "numpy": "2.4.3",
+    "pillow": "12.1.1"
+  },
+  "limits": {
+    "heldout_improvement_ratio": 0.75,
+    "actual_image_loss": 0.35,
+    "corridor_error_mm": 0.25,
+    "minimum_parameter_change": 0.01
+  },
+  "code_sha256": {
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/evofit/stroke_language.py": "2355fdd4dc5ccd651df19bcadb3d1479697372dcbce3425122b6e903eb7e0886",
+    "scribesim/handflow/controller.py": "765a1dee89e04035e60e10bf28c8c278e03fd5def2c887f3659d8b462ad0899c",
+    "scribesim/handflow/planning.py": "57b335684eb04a3f83c7501daeb8831fedfbbd4c995a327815ab1451498e7aa3",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/pathguide/repertoire.py": "7741734df7a16787d15c2d8609a3e061b1d5fc855f1168b42a2599f8ebc86469",
+    "scribesim/handvalidate/bridge.py": "9366a453b1c130d95d52a796594bef42207483d830f78dca959b1f6e3e6207cb",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evo/renderer.py": "dfe4c6ac0917293e89b303ec0ed198676ad7d3e6c919133d98b73e86d5acb0e7",
+    "scribesim/evo/genome.py": "bc90893d993e39be2623559d68cfa60182f70c64ef597498028d241e35a3f32c",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2"
+  }
+}
