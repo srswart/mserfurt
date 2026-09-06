@@ -288,7 +288,10 @@ def execute_gestures(text, model, *, dpi=180, frame=None, step_mm=.05, dt=.002):
     owners = [copy.deepcopy(bundle.metadata['owners'][index]) for index in result.trajectory_plan_indices]
     desired = render_gestures(text, model, dpi=dpi, frame=frame, step_mm=step_mm)
     actual = paint_trajectory(result.trajectory, frame or bundle.metadata['frame_mm'], dpi=dpi)
-    return {'metrics': {'image_loss': stroke_loss(desired, actual), 'corridor_error_mm': result.max_corridor_error_mm,
+    contact_error = max((math.dist((sample.x_mm, sample.y_mm),
+                                  (result.plan.samples[index].x_mm, result.plan.samples[index].y_mm))
+                         for sample, index in zip(result.trajectory, result.trajectory_plan_indices) if sample.contact), default=0)
+    return {'metrics': {'image_loss': stroke_loss(desired, actual), 'corridor_error_mm': contact_error,
                         'contact_schedule_preserved': all(sample.contact == result.plan.samples[index].contact
                             for sample, index in zip(result.trajectory, result.trajectory_plan_indices))},
             'owners': owners, 'trajectory': [asdict(sample) for sample in result.trajectory],

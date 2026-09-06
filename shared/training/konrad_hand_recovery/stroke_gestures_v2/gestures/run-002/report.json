@@ -1,0 +1,270 @@
+{
+  "status": "complete",
+  "scope": "synthetic stem-terminal construction only; not the eight-family coverage inventory",
+  "freeze_sha256": "c988889744b2ed0af651aff32194fc99fa087c2365d33d90f81078e0016f5f05",
+  "selected_seed": 7,
+  "selection_split": "development",
+  "selected": [
+    {
+      "seed": 7,
+      "ablation": "composition",
+      "model_sha256": "fed212218215d4907bac7105e3944dc1462a869804496154fa26698eaeae486d"
+    },
+    {
+      "seed": 19,
+      "ablation": "composition",
+      "model_sha256": "fed212218215d4907bac7105e3944dc1462a869804496154fa26698eaeae486d"
+    },
+    {
+      "seed": 41,
+      "ablation": "composition",
+      "model_sha256": "fed212218215d4907bac7105e3944dc1462a869804496154fa26698eaeae486d"
+    }
+  ],
+  "rows": [
+    {
+      "seed": 7,
+      "ablation": "fixed",
+      "renders": 13,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.45252212430368616
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.46304149863405747
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.44237356670617733
+        }
+      }
+    },
+    {
+      "seed": 7,
+      "ablation": "placement",
+      "renders": 38,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.3315420804031761
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.35089799063481725
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.3115914770754401
+        }
+      }
+    },
+    {
+      "seed": 7,
+      "ablation": "composition",
+      "renders": 61,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.0
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.0
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.0
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "ablation": "fixed",
+      "renders": 13,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.45252212430368616
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.46304149863405747
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.44237356670617733
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "ablation": "placement",
+      "renders": 38,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.3315420804031761
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.35089799063481725
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.3115914770754401
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "ablation": "composition",
+      "renders": 61,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.0
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.0
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.0
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "ablation": "fixed",
+      "renders": 13,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.45252212430368616
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.46304149863405747
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.44237356670617733
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "ablation": "placement",
+      "renders": 37,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.3315420804031761
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.35089799063481725
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.3115914770754401
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "ablation": "composition",
+      "renders": 59,
+      "status": "complete",
+      "metrics": {
+        "train": {
+          "before": 0.45252212430368616,
+          "after": 0.0
+        },
+        "development": {
+          "before": 0.46304149863405747,
+          "after": 0.0
+        },
+        "test": {
+          "before": 0.44237356670617733,
+          "after": 0.0
+        }
+      }
+    }
+  ],
+  "actual": {
+    "single": {
+      "image_loss": 0.048962949831590157,
+      "corridor_error_mm": 0.20000000000000084,
+      "contact_schedule_preserved": true
+    },
+    "unseen-scale": {
+      "image_loss": 0.07860910534132227,
+      "corridor_error_mm": 0.2000000000000009,
+      "contact_schedule_preserved": true
+    },
+    "unseen-pair": {
+      "image_loss": 0.05153644017804472,
+      "corridor_error_mm": 0.20000000000000084,
+      "contact_schedule_preserved": true
+    }
+  },
+  "replay": true,
+  "promoted": false,
+  "broad_S1_gesture": "blocked-coverage",
+  "real_fitting_evaluations": 0,
+  "budget": {
+    "worker_target_renders_per_attempt": 5,
+    "main_setup_and_presentation_renders": 18,
+    "main_charge": "seed 7 fixed ablation; all worker counts plus five setup renders per attempt",
+    "first_attempt_renders": 396,
+    "verification_replay_renders": 378,
+    "max_per_ablation_seed": 5000,
+    "max_seconds_per_ablation_seed": 1800,
+    "revision": 1
+  },
+  "coverage_debt": [
+    "No new primitive geometry fitted; only existing stem plus rise/exit choices.",
+    "Underturn, overturn, compound return, lower-loop and directional bowl coverage unresolved.",
+    "Scope a primitive extension and revalidate S1 before broad gesture acceptance."
+  ],
+  "artifacts": {
+    "19-composition-first.json": "885bdf59074ad2fb821f26788ff385eb4f20ce00d3cfec8f3b7d4153e7a5b4c8",
+    "19-composition-replay.json": "885bdf59074ad2fb821f26788ff385eb4f20ce00d3cfec8f3b7d4153e7a5b4c8",
+    "19-fixed-first.json": "be9883c45fdbf6796ea33ed7c887bc5ffb87ba4060329a539c8d55b7b181365f",
+    "19-fixed-replay.json": "be9883c45fdbf6796ea33ed7c887bc5ffb87ba4060329a539c8d55b7b181365f",
+    "19-placement-first.json": "f9a0bf910cc46a09b7c9d7e222ee3e063843c94e697da2925741ab825a1d44bf",
+    "19-placement-replay.json": "f9a0bf910cc46a09b7c9d7e222ee3e063843c94e697da2925741ab825a1d44bf",
+    "41-composition-first.json": "bebf911de41b93404387aecfac349b698fe790cd4d8bee18337c37b2938697f8",
+    "41-composition-replay.json": "bebf911de41b93404387aecfac349b698fe790cd4d8bee18337c37b2938697f8",
+    "41-fixed-first.json": "2ae999a70b418a830747347b3fbf4f61a93978a86504595e4f9a36086a71d951",
+    "41-fixed-replay.json": "2ae999a70b418a830747347b3fbf4f61a93978a86504595e4f9a36086a71d951",
+    "41-placement-first.json": "342dc58198baff665694fe4a88432a0ef626569912c93f6762e233a7aca3c500",
+    "41-placement-replay.json": "342dc58198baff665694fe4a88432a0ef626569912c93f6762e233a7aca3c500",
+    "7-composition-first.json": "3ddebfb227da9cee6b405c98ffffd75ca8f24c46373e018d2a4f1cb13ae9eb42",
+    "7-composition-replay.json": "3ddebfb227da9cee6b405c98ffffd75ca8f24c46373e018d2a4f1cb13ae9eb42",
+    "7-fixed-first.json": "d1fa086a1cf282c821d95f004b2dbf246f53655e212312dba3f03c9e0bede552",
+    "7-fixed-replay.json": "d1fa086a1cf282c821d95f004b2dbf246f53655e212312dba3f03c9e0bede552",
+    "7-placement-first.json": "88af1f134760b52d8b94c4b8ae468755d490dbb71916a037a8294a620846d065",
+    "7-placement-replay.json": "88af1f134760b52d8b94c4b8ae468755d490dbb71916a037a8294a620846d065",
+    "actual-traces.json.gz": "d2134de8c9fd48919d4872eb9085aaed37307d96faf1b5a3ca52576594243bd2",
+    "candidate.json": "84a311b2c17135bc6cd4bc0bd808e3eaa5dffd5109c86ea5172d3b2693db823e",
+    "development-target.png": "bf28c4835ab8133ce9f47713837a933c8263cbd9051ffb53f83dadb5a4a0472f",
+    "practice-sheet.png": "e3668cdb5b7c25c2fcbd69e8f658726fcd2281610f660d06efab27b0ade2c9d4",
+    "single-target.png": "8a4181fdff2b564a8bf87d98c7dc1f90348b70e96553d51a6a13df696e4ccf22",
+    "small-target.png": "73ef2b68cf3c3771416adc5085d9694d8c0ffe000809159e1ad8e0938bf855db",
+    "unseen-pair-target.png": "429f89a4dee9799844e864ff3fbb5b7e2018f0c2827d8a94ebea46be45514a13",
+    "unseen-scale-target.png": "be98b8ce92d2c1fd770ebc42f4342d691d667f33a8e8c0913bc7408417567173"
+  }
+}

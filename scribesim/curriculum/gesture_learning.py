@@ -184,7 +184,9 @@ def _practice(output, initial, target, chosen, samples):
     return {identifier: record['metrics'] for identifier, record in traces.items()}
 
 
-def run_learning(output, *, real=False):
+def run_learning(output, *, real=False, revision=0):
+    if type(revision) is not int or revision not in (0, 1):
+        raise ValueError('Only one diagnosed experiment revision is allowed')
     output = Path(output)
     if output.exists() and any(output.iterdir()):
         raise ValueError('Use a new empty output directory')
@@ -241,7 +243,7 @@ def run_learning(output, *, real=False):
                          'main_charge': 'seed 7 fixed ablation; all worker counts plus five setup renders per attempt',
                          'first_attempt_renders': sum(record['renders'] + 5 for record in records) + presentation_renders,
                          'verification_replay_renders': sum(record['renders'] + 5 for record in records),
-                         'max_per_ablation_seed': 5000, 'max_seconds_per_ablation_seed': 1800, 'revision': 0},
+                         'max_per_ablation_seed': 5000, 'max_seconds_per_ablation_seed': 1800, 'revision': revision},
               'coverage_debt': ['No new primitive geometry fitted; only existing stem plus rise/exit choices.',
                                 'Underturn, overturn, compound return, lower-loop and directional bowl coverage unresolved.',
                                 'Scope a primitive extension and revalidate S1 before broad gesture acceptance.']}
@@ -258,13 +260,14 @@ def main():
     parser.add_argument('--seed', type=int, default=7)
     parser.add_argument('--ablation', default='composition')
     parser.add_argument('--real', action='store_true')
+    parser.add_argument('--revision', type=int, choices=(0, 1), default=0)
     args = parser.parse_args()
     if args.command == 'worker':
         initial, _, samples = experiment()
         result = fit_gestures(initial, samples, ablation=args.ablation, seed=args.seed, max_evaluations=4995)
         write_json(args.output, result)
     else:
-        result = run_learning(args.output, real=args.real)
+        result = run_learning(args.output, real=args.real, revision=args.revision)
         print(json.dumps({key: result[key] for key in ('status', 'scope')}))
 
 
