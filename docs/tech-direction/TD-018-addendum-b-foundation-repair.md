@@ -1,13 +1,13 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** HANDFLOW-010 motion repair is complete; the other five Advances remain
-planned. Run-005's authorized curve-derived clock passes all 239 motion gates
-and the current six-primitive baseline, with byte-identical clean replay.
-Arc-density event drift is zero; exact-subdivision drift is below 9e-16 seconds.
-Earlier failures remain immutable. Admission covers fixed-tool synthetic motion
-only; no new learning, S1-action, real-hand or owner appearance approval is claimed.
-Next is GESTURE-002's return vocabulary/port audit. See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
-and the [executed clock scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/arc-clock-request.md).
+**Status:** HANDFLOW-010 motion repair and GESTURE-002 return-contract audit are
+complete; four Advances remain planned. The audit freezes two untrained returns,
+actual-tangent ports, a six-expanded-occurrence opt-in cap and explicit inventory
+debt. Run-005 retains its accepted pre-audit motion result; compiler identities
+have changed, so CURRICULUM-010 must refresh motion/baseline admission before
+fitting. No new learning, S1-action, real-hand or owner appearance approval is claimed.
+See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
+and the [executed vocabulary audit](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/README.md).
 **Date:** 2026-09-06
 **Parent:** [TD-018](TD-018-reference-grounded-hand-recovery.md) and
 [Addendum A](TD-018-addendum-a-stroke-gestures.md).
@@ -128,6 +128,34 @@ eight named gestures, acyclic references and finite transform envelopes. Retain
 old readers/caps; expose actual expansion counts. No silent macro bypass, reflection,
 180-degree rotation or unbounded residuals. If the audit needs more than these
 bounds or incompatible ports, stop and revise this design before implementing it.
+
+### 5.1 Executed vocabulary decision
+
+GESTURE-002 spec-v1 and run-001 retain all six original primitives byte-for-byte.
+New lower-return ports match actual stem-exit/rise-entry tangents; upper-return
+ports match rise-exit/stem-entry. Stored old directions differ from those actual
+tangents and are reported, not rewritten. The older vertical analytic hypotheses
+are not claimed as exact matches: the frozen rise exit cannot reach vertical
+within the existing ±20-degree envelope. This does not require broader transforms;
+the new return interface is explicitly compatible with the actual frozen strokes.
+
+Each new return has fixed endpoints [0,0] and [0.5,0], one cubic, and two control
+handle lengths bounded to 0.12–0.40 along the fixed tangent rays. Generic untrained
+initial lengths are 0.28. Independent future targets use endpoint/tangent Hermite
+interpolation plus a signed sinusoidal bulge, with no candidate handles, recipe
+geometry or search-grid access. Single returns define train/development fixtures;
+underturn, overturn and mixed-return attachments are topology-held-out specs.
+No target pixels or fitting were used in this audit.
+
+The smallest sufficient cap for the frozen supplied subset is six: i=2, n/u/h=4,
+m=6 from two explicit lifted three-piece overturns. Caps four/five cannot contain
+that m scaffold. This is not a universal minimum or a claim that all twelve forms
+are supported. r/l remain partial; o/a/d/e/g, opposite bowls and lower loops remain
+debt. A present upper-loop primitive is not an o/l alias or proof of ink counters.
+The new foundation reader rejects unsupported forms, nonfinite/detached geometry,
+extra families, recursive/macro references, changed old primitives or dynamic tools.
+Legacy readers keep their four-occurrence cap. A failed or missing current-code
+baseline still blocks training, regardless of the completed contract Advance.
 
 ## 6. Learning, held-out evidence and acceptance
 

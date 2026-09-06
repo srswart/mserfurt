@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T18:25:34Z
+  updated_at: 2026-09-06T18:50:38Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1609,13 +1609,13 @@ passes:
     - id: ADV-SS-GESTURE-002
       advance_id: ADV-SS-GESTURE-002
       title: "Foundation Vocabulary — Return Ports and Audited Composition Limits"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDFLOW-010
       - ADV-SS-GESTURE-001
       - ADV-SS-EXEMPLAR-009
-      notes: "NEXT, NOT STARTED: HANDFLOW-010 motion/baseline acceptance passes. Audit two return families/twelve feasibility characters; conditional smallest justified cap up to eight. Consume verified current identities, not a copied pass label. No letter fitting or hidden cap bypass."
+      notes: "COMPLETE contract audit: eight hypotheses/twelve characters, two untrained return families with actual-tangent ports, opt-in six-expanded-stroke cap; old readers retain four. i/n/u/m/h supplied scaffolds; r/l partial and o/a/d/e/g unsupported. 22 nominal renders, no fitting/target renders; byte-identical clean replay; 138 local/clean passes plus one pre-existing failure. Changed compiler identities require fresh motion/baseline validation before training."
     - id: ADV-SS-CURRICULUM-010
       advance_id: ADV-SS-CURRICULUM-010
       title: "Foundation Primitive Learning — Shared Lower and Upper Returns"
@@ -1624,7 +1624,7 @@ passes:
       dependencies:
       - ADV-SS-HANDFLOW-010
       - ADV-SS-GESTURE-002
-      notes: "LEARNING: fresh baseline admission, independent targets, fit only new returns; old six/tool/motion frozen. A runner-only or zero-render attempt does not complete this Advance."
+      notes: "NEXT LEARNING, NOT STARTED: consume GESTURE-002 spec-v1 and initial-model; first refresh current-code motion/baseline admission within this run budget. Freeze full independent-target selection/metrics and topology-held-out protocol, then fit only lower/upper-return handles; old six/tool/ports/motion fixed. A runner-only or zero-render attempt does not complete this Advance."
     - id: ADV-SS-HANDVALIDATE-015
       advance_id: ADV-SS-HANDVALIDATE-015
       title: "Foundation Primitive Acceptance — Independent Current-Code S1 Extension"

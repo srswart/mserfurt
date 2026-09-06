@@ -110,8 +110,12 @@ def _has_crossings(expanded):
 
 def validate_language(model):
     try:
-        if set(model) != MODEL_FIELDS or model["schema_version"] != SCHEMA or model["units"] != "local-xheight-y-up":
+        foundation = model['schema_version'] == 'shared-stroke-language-foundation-v1'
+        if set(model) != MODEL_FIELDS or model["schema_version"] not in {SCHEMA, 'shared-stroke-language-foundation-v1'} or model["units"] != "local-xheight-y-up":
             raise ValueError("Explicit stroke-language schema required")
+        if foundation:
+            from scribesim.evofit.foundation_contract import validate_extensions
+            validate_extensions(model)
         for key, lower, upper in (("x_height_mm", .5, 10), ("nib_width_mm", .05, 2), ("nib_angle_deg", -180, 180),
                                    ("letter_gap", 0, .5), ("word_gap", .1, 2), ("line_pitch", 2, 6)):
             if not _number(model[key], lower, upper):
@@ -152,7 +156,7 @@ def validate_language(model):
                 raise ValueError("Exact lowercase logical span required")
             if recipe["visible"] != logical and (logical, recipe["visible"]) != ("s", "ſ"):
                 raise ValueError("Undeclared visible mapping")
-            if not _number(recipe["advance"], .1, 4) or not isinstance(recipe["allow_crossings"], bool) or not 1 <= len(recipe["strokes"]) <= 4:
+            if not _number(recipe["advance"], .1, 4) or not isinstance(recipe["allow_crossings"], bool) or not 1 <= len(recipe["strokes"]) <= (6 if foundation else 4):
                 raise ValueError("Recipe bounds")
             for index, stroke in enumerate(recipe["strokes"]):
                 if set(stroke) != STROKE_FIELDS or stroke["primitive"] not in model["primitives"]:

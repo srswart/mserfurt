@@ -65,14 +65,18 @@ Next is **fixed-tool repair**, not action fitting: scope the
 [missing primitive coverage](gestures/primitive-extension-request.md) and
 [lift/re-entry convergence failure](gesture_evaluation/README.md#required-next-work).
 
-That work now has motion repair complete and five Advances planned in **td018-foundation-repair**:
+That work now has motion repair and return-contract audit complete, with four Advances planned in **td018-foundation-repair**:
 [ordered records, concrete deliverables and gate criteria](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#3-ordered-advances-and-deliverables).
 Run-005's authorized curve-derived clock passes all 239 motion gates and the
 fresh six-primitive baseline. Arc-density event-time drift is zero; subdivision
 drift is below 9e-16 seconds. Maximum contact lag is 0.007411 mm. Source geometry,
 tools and prior failed records remain unchanged; clean replay is byte-identical.
 This admits fixed-tool synthetic motion, not new trained strokes, letters,
-S1-action or a historical hand. Next is GESTURE-002's return vocabulary/port audit.
+S1-action or a historical hand. GESTURE-002 now adds two untrained return families,
+actual-tangent port contracts, a bounded opt-in six-occurrence cap and explicit
+coverage debt. [Audit, return diagrams and supplied constructions](foundation_repair/contract/README.md).
+Its compiler changes mean run-005 is pre-audit provenance, not fresh current admission:
+CURRICULUM-010 must revalidate motion/baseline before fitting only the new returns.
 [Sharper 900-DPI-derived samples, all six primitives and an explanation
 of the L-like motion fixtures](foundation_repair/index.html).
 New primitive geometry or expansion-limit needs require separately

@@ -55,6 +55,8 @@ def code_identities():
              'scribesim/evofit/stroke_gestures.py', 'scribesim/evofit/stroke_language.py',
              'scribesim/handflow/controller.py', 'scribesim/handflow/planning.py', 'scribesim/handflow/model.py',
              'scribesim/handflow/controls.py', 'scribesim/handvalidate/model.py', 'scribesim/handvalidate/bridge.py')
+    names += ('scribesim/evofit/foundation_contract.py',
+              'shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json')
     return {name: digest(ROOT / name) for name in names}
 
 

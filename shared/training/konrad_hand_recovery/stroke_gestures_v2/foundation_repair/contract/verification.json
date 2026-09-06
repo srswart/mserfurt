@@ -1,0 +1,99 @@
+{
+  "advance": "ADV-SS-GESTURE-002",
+  "implementation_commit": "633dabc8054c954be48f74e9efecc9fa901e7e2a",
+  "clean_checkout": {
+    "python_hash_seed": 839,
+    "command": "PYTHONHASHSEED=839 /absolute/path/to/.venv/bin/python -m scribesim.evofit.foundation_contract --output /tmp/return-audit-new",
+    "renders": 22,
+    "elapsed_seconds": 1.244628084008582,
+    "byte_identical_artifacts": [
+      "report.json",
+      "audit.md",
+      "construction-checklist.png",
+      "freeze.json",
+      "gesture-expansions.png",
+      "initial-model.json",
+      "primitive-ports.png",
+      "target-specs.json"
+    ],
+    "wall_clock_receipt_excluded": true
+  },
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+  },
+  "spec_sha256": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+  "report_sha256": "178c68dabcfd3a0a3cfb82cbafc6b091108ba65d0cf38f4bff6bd6d25cbaa799",
+  "artifact_sha256": {
+    "audit.md": "8243897e45dfe5d9b1cc30e3f4d734c0b8b85eb1bb874961027ec530f94ee298",
+    "construction-checklist.png": "eb1edccb5db38b285f34064e371ec071cc422b9afeb2440917fdf374e51faf5f",
+    "freeze.json": "de81a4587bc61a3e9be8310f0e53ea86c7be64f2a72480b059ebf0e0776e3efe",
+    "gesture-expansions.png": "f45b4d28ff01b12318ccfc206bd1a298f1de00fe2d548bcb7a26c3949bbb1555",
+    "initial-model.json": "db822bf5d38f3a8651df7c1b57ae670a0e4a8c5333fb1d55cd33413f8882957b",
+    "primitive-ports.png": "8de03f49dc5c848c3f852a1f8f61e6851715ae163ce8912354fe013972d3b11a",
+    "target-specs.json": "820e5ce78e9688398ca860184e67f2b31d4e76d972bd9884e6bbe836eaf448eb"
+  },
+  "tests": {
+    "red_commits": [
+      "10b7b84",
+      "f1db548"
+    ],
+    "new_contract_tests": 16,
+    "focused_passed": 59,
+    "focused_seconds": 17.42,
+    "expanded_local": {
+      "passed": 138,
+      "failed": 1,
+      "seconds": 34.89
+    },
+    "expanded_clean": {
+      "passed": 138,
+      "failed": 1,
+      "seconds": 36.47
+    },
+    "known_failure": "tests/test_handflow.py::test_desired_velocity_affects_acceleration: missing nib_angle_deg constructor argument; pre-existing and not modified"
+  },
+  "prerequisites": {
+    "status": "pass",
+    "scope": "accepted pre-audit motion and original primitive lineage",
+    "fresh_post_compiler_baseline_required": true
+  },
+  "governance": {
+    "changed_local_links_checked": 138,
+    "missing_local_links": 0,
+    "immutable_artifact_manifests_verified": 6,
+    "return_ports_svg_xml": "pass",
+    "current_code_identities": "match run-001",
+    "git_diff_check": "pass",
+    "plan_check": "pass",
+    "artifact_doctor_existing_issues": 10,
+    "artifact_doctor_new_issues": 0,
+    "stale_generated_rules": 0,
+    "strict_pr_check": "executed; installed parser does not recognize ADV-SS-GESTURE-002 (ids empty); no successful strict gate claimed",
+    "provider_ci_claimed": false,
+    "owner_review_claimed": false
+  },
+  "training_permitted": false,
+  "learned_primitives_accepted": false
+}

@@ -1,0 +1,69 @@
+{
+  "provenance": "Independent project-authored analytic target specification frozen before fitting, no historical-source pixels or candidate/control-grid access",
+  "method": "Cubic Hermite endpoint/tangent interpolation plus signed sin(pi*t)^2 vertical bulge; the target generator takes target specifications only, never a candidate model",
+  "endpoint_derivative_magnitudes": [
+    0.66,
+    0.87
+  ],
+  "signed_bulge_magnitude": 0.035,
+  "ports": "Same fixed interface directions as new_families; not candidate control handles",
+  "train": [
+    {
+      "id": "lower-single",
+      "family": "lower-return",
+      "scale": 1,
+      "topology": "single"
+    },
+    {
+      "id": "upper-single",
+      "family": "upper-return",
+      "scale": 1,
+      "topology": "single"
+    }
+  ],
+  "development": [
+    {
+      "id": "lower-scale",
+      "family": "lower-return",
+      "scale": 0.8,
+      "topology": "single"
+    },
+    {
+      "id": "upper-scale",
+      "family": "upper-return",
+      "scale": 1.2,
+      "topology": "single"
+    }
+  ],
+  "topology_held_out": [
+    {
+      "id": "underturn-attachment",
+      "topology": [
+        "stem",
+        "lower-return",
+        "rise"
+      ],
+      "scale": 1
+    },
+    {
+      "id": "overturn-attachment",
+      "topology": [
+        "rise",
+        "upper-return",
+        "stem"
+      ],
+      "scale": 1
+    },
+    {
+      "id": "compound-attachment",
+      "topology": [
+        "upper-return",
+        "stem",
+        "lower-return",
+        "rise"
+      ],
+      "scale": 0.9
+    }
+  ],
+  "split_policy": "Single returns train/development; attached and mixed-return topologies held out from optimization and development selection. Future consuming runs freeze full metrics/selection, regenerate independent targets without candidate access and rerun matching motion/baseline first."
+}
