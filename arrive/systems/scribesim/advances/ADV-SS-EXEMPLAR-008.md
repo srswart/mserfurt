@@ -6,16 +6,16 @@ advance:
   primary_component: "refextract"
   components: ["refextract","evo","handvalidate","tests"]
   started_at: "2026-09-06T03:57:59Z"
-  implementation_completed_at: ~
+  implementation_completed_at: "2026-09-06T04:35:00Z"
   review_time_estimate_minutes: 45
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tdd:red-green", "reference/konrad_hand_recovery_v3/repair_report.json", "reference/konrad_hand_recovery_v3/G0.json"]
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -23,8 +23,7 @@ advance:
 Repair the specific exclusions in the v2 reference observations without turning machine guesses into verified labels or using locked-test pixels for development.
 
 Follows [TD-018 section 12](../../../../docs/tech-direction/TD-018-reference-grounded-hand-recovery.md#12-stroke-language-and-layered-learning-revised-direction).
-This is a planned outcome record. The timestamp records drafting only;
-implementation, experimental execution, CI and owner approval are not claimed.
+Implementation and one bounded non-test mask experiment are complete. Real G0 remains blocked; verified readings and owner target review have not occurred.
 
 ## Behavioral Change
 
@@ -92,6 +91,14 @@ Planned evidence: Versioned non-test review ledger; before/after masks and conta
 - [ ] Run `arrive plan check` and `git diff --check`.
 - [ ] Before an authorized merge, run `arrive pr check --strict --json` and record any installed-tool limitation separately from provider CI.
 - [ ] Do not claim provider CI or human approval without actual evidence.
+
+### Executed outcome
+
+- Red: a9b15f2, missing repair module. Green: 30 reference repair/dataset tests pass. No preparatory refactor was needed; legacy masks remain the default.
+- Implemented externally attested source-bound review/import, immutable lineage, live admission verification and a three-pixel strong-seed mask revision. No real review approvals were supplied; all non-test entries remain pending.
+- v3 preserves all 60 reservations and native source pixels. Among 52 non-test crops, no-target exclusions fall 32 to 10 and excess-unknown exclusions 44 to 36. Locked-test artifacts remain byte-identical.
+- Admitted count remains zero. G0 blocks on support, split admission, calibration and target review; no reference training was performed. The finite repair budget is exhausted, not silently expanded.
+- Local plan/diff checks pass. Strict PR metadata checking has the existing installed three-part Advance-ID limitation; no provider CI or human approval is claimed.
 
 ## Bug Fixes
 

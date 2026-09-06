@@ -1,0 +1,827 @@
+{
+  "scope": "bounded non-test repair; no automatic human approval",
+  "admitted_before": 0,
+  "admitted_after": 0,
+  "rows": [
+    {
+      "id": "cgm628_native29_r_01",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 335,
+      "target_after": 251
+    },
+    {
+      "id": "cgm628_native29_r_02",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 352,
+      "target_after": 312
+    },
+    {
+      "id": "cgm628_native29_r_03",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 425,
+      "target_after": 1620
+    },
+    {
+      "id": "cgm628_native29_r_04",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 1081,
+      "target_after": 678
+    },
+    {
+      "id": "cgm628_native29_r_05",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 154,
+      "target_after": 561
+    },
+    {
+      "id": "cgm628_native29_r_06",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 204,
+      "target_after": 961
+    },
+    {
+      "id": "cgm628_native29_r_07",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 426
+    },
+    {
+      "id": "cgm628_native29_r_08",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 857,
+      "target_after": 349
+    },
+    {
+      "id": "cgm628_native29_r_09",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 698,
+      "target_after": 850
+    },
+    {
+      "id": "cgm628_native29_r_10",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 682,
+      "target_after": 641
+    },
+    {
+      "id": "cgm628_native29_r_11",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 635,
+      "target_after": 357
+    },
+    {
+      "id": "cgm628_native29_r_12",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 422,
+      "target_after": 190
+    },
+    {
+      "id": "cgm628_native29_r_13",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 449
+    },
+    {
+      "id": "cgm628_native29_r_14",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 807
+    },
+    {
+      "id": "cgm628_native29_r_15",
+      "split": "train",
+      "before": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 1360,
+      "target_after": 743
+    },
+    {
+      "id": "cgm628_native29_r_16",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 0,
+      "target_after": 350
+    },
+    {
+      "id": "cgm628_native29_r_17",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "cgm628_native29_r_18",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 89
+    },
+    {
+      "id": "cgm628_native29_r_19",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 366
+    },
+    {
+      "id": "cgm628_native29_r_20",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 457,
+      "target_after": 447
+    },
+    {
+      "id": "cgm628_native29_r_21",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "cgm628_native29_r_22",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "cgm628_native29_r_23",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "cgm628_native29_r_24",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "cgm628_native29_r_25",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 766,
+      "target_after": 332
+    },
+    {
+      "id": "cgm628_native29_r_26",
+      "split": "development",
+      "before": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "native29-proposal-026",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 332,
+      "target_after": 306
+    },
+    {
+      "id": "native29-proposal-027",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 267,
+      "target_after": 604
+    },
+    {
+      "id": "native29-proposal-028",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 0,
+      "target_after": 127
+    },
+    {
+      "id": "native29-proposal-029",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "native29-proposal-030",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "native29-proposal-031",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 12,
+      "target_after": 538
+    },
+    {
+      "id": "native29-proposal-032",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 0,
+      "target_after": 431
+    },
+    {
+      "id": "native29-proposal-033",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 283
+    },
+    {
+      "id": "native29-proposal-034",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "native29-proposal-035",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 467
+    },
+    {
+      "id": "native29-proposal-036",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 37
+    },
+    {
+      "id": "native29-proposal-037",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 0
+    },
+    {
+      "id": "native29-proposal-038",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 186
+    },
+    {
+      "id": "native29-proposal-039",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 0,
+      "target_after": 923
+    },
+    {
+      "id": "native29-proposal-040",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 62
+    },
+    {
+      "id": "native29-proposal-041",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 750,
+      "target_after": 1007
+    },
+    {
+      "id": "native29-proposal-042",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 0,
+      "target_after": 986
+    },
+    {
+      "id": "native29-proposal-043",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 21,
+      "target_after": 978
+    },
+    {
+      "id": "native29-proposal-044",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 223
+    },
+    {
+      "id": "native29-proposal-045",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 200
+    },
+    {
+      "id": "native29-proposal-046",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 286
+    },
+    {
+      "id": "native29-proposal-047",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 56
+    },
+    {
+      "id": "native29-proposal-048",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "target_before": 0,
+      "target_after": 202
+    },
+    {
+      "id": "native29-proposal-049",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 0,
+      "target_after": 278
+    },
+    {
+      "id": "native29-proposal-050",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "no_target_ink",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 0,
+      "target_after": 142
+    },
+    {
+      "id": "native29-proposal-051",
+      "split": "train",
+      "before": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping",
+        "excess_unknown_ink"
+      ],
+      "after": [
+        "uncertain_or_missing_label",
+        "unsupported_or_unverified_visible_mapping"
+      ],
+      "target_before": 9,
+      "target_after": 928
+    }
+  ],
+  "promoted": false,
+  "exclusions_before": {
+    "unsupported_or_unverified_visible_mapping": 52,
+    "uncertain_or_missing_label": 30,
+    "excess_unknown_ink": 44,
+    "no_target_ink": 32
+  },
+  "exclusions_after": {
+    "unsupported_or_unverified_visible_mapping": 52,
+    "uncertain_or_missing_label": 30,
+    "excess_unknown_ink": 36,
+    "no_target_ink": 10
+  },
+  "approval_boundary": "approvals are externally supplied trust inputs, not cryptographic proof of reviewer identity"
+}
