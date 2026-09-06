@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 from scribesim.evofit.stroke_language import (
-    compile_text, language_guide, render_language, seed_language, validate_language,
+    compile_text, execute_language, language_guide, load_language_bundle, render_language, seed_language, validate_language,
 )
 from scribesim.handvalidate.specimen import object_digest
 
@@ -95,3 +95,24 @@ def test_fresh_process_language_pixels_and_plan_replay():
     outputs = [subprocess.check_output([sys.executable, "-c", code], env={**os.environ, "PYTHONHASHSEED": seed})
                for seed in ("7", "839")]
     assert outputs[0] == outputs[1]
+
+
+def test_actual_neutral_trajectory_has_complete_stroke_ownership():
+    result = execute_language("i u", seed_language())
+    assert result["metrics"]["contact_schedule_preserved"]
+    assert result["metrics"]["corridor_error_mm"] <= .25
+    assert len(result["owners"]) == len(result["trajectory"])
+    assert all("primitive" in owner for sample, owner in zip(result["trajectory"], result["owners"]) if sample["contact"])
+
+
+def test_language_bundle_rejects_changed_ownership(tmp_path):
+    from dataclasses import asdict
+    model = seed_language()
+    payload = asdict(language_guide("i", model))
+    path = tmp_path / "bundle.json"
+    path.write_text(json.dumps({"payload": payload, "sha256": object_digest(payload)}))
+    assert load_language_bundle(path, model).guide.symbol == "i"
+    payload["metadata"]["owners"][0]["primitive"] = "forged"
+    path.write_text(json.dumps({"payload": payload, "sha256": object_digest(payload)}))
+    with pytest.raises(ValueError):
+        load_language_bundle(path, model)
