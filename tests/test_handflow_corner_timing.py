@@ -118,8 +118,8 @@ def test_missing_corner_records_cannot_silently_pass(monkeypatch):
     from dataclasses import replace
     from scribesim.handvalidate import foundation_motion as motion
 
-    original = motion.retime_corner_timing
-    monkeypatch.setattr(motion, 'retime_corner_timing', lambda *args: replace(original(*args), corners=()))
+    original = motion.retime_curve_timing
+    monkeypatch.setattr(motion, 'retime_curve_timing', lambda *args: replace(original(*args), corners=()))
     result = motion.execute(migrate_v1(seed_language()), 'i', step=.025, dt=.002,
                             version=motion.TARGET_VERSION, budget=motion.Budget())
     assert not motion.corners_pass(result['metrics'])

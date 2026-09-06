@@ -1,7 +1,9 @@
 # Proposed next scope — geometry-derived contact arc clock
 
-**Not authorized or implemented as another candidate.** Run-004 spends the
-single corner-timing allowance. HANDFLOW-010 stays in progress and unmerged.
+**Authorized by the user's request to incorporate the fix and rerun.**
+[Spec-v5](spec-v5.json) freezes one additional candidate, without an automatic
+revision. Run-004 remains immutable. HANDFLOW-010 stays in progress until the
+full new evaluation and verification pass; only then may it complete and merge.
 
 ## Evidence and diagnosis
 

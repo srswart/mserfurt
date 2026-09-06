@@ -1,0 +1,88 @@
+{
+  "schema_version": "foundation-motion-v5",
+  "scope": "User-authorized geometry-derived arc clock: one shared candidate, no fitting or automatic revision",
+  "authorization": "User: incorporate the suggested clock fix and rerun to make sure it worked; prior complete-and-merge instruction applies to HANDFLOW-010 only on full acceptance.",
+  "allowance": "authorized-arc-clock-followup-001",
+  "saved_candidate": "gestures/run-002/candidate.json",
+  "saved_candidate_sha256": "84a311b2c17135bc6cd4bc0bd808e3eaa5dffd5109c86ea5172d3b2693db823e",
+  "fixture_families": [
+    "continuous",
+    "separated",
+    "coincident-overlap",
+    "word-space",
+    "saved-u",
+    "saved-i-u"
+  ],
+  "fixture_labels": {
+    "continuous": "One stem + terminal",
+    "separated": "Two lifted repeats",
+    "coincident-overlap": "Overlaid repeats",
+    "word-space": "One + two, with gap",
+    "saved-u": "Frozen paired scaffold",
+    "saved-i-u": "Frozen gapped scaffold"
+  },
+  "execution_versions": [
+    "legacy-v1",
+    "curve-time-v1"
+  ],
+  "criteria": {
+    "endpoint_mm": 0.01,
+    "event_time_s": 0.0001,
+    "duration_s": 1e-10,
+    "convergence_loss": 0.03,
+    "actual_loss": 0.35,
+    "corridor_mm": 0.25,
+    "owner_errors": 0,
+    "arrival_speed_mm_s": 0.5,
+    "arrival_position_error_mm": 0.05,
+    "desired_acceleration_mm_s2": 250,
+    "corner_speed_mm_s": 0.5,
+    "corner_position_error_mm": 0.05
+  },
+  "candidate": "Existing event-time-v2 controller and gesture-arc-v3 boundary geometry. Shared planner divides each contact run only at declared corner ports; smooth joins retain continuous motion. Each section has an analytic arc-distance acceleration clock at 125mm/s2, with rest at entry, exact corners and the existing final stop. Its speed ceiling is min(12,sqrt(62.5/(1.05*maximum cubic curvature))). Maximum curvature uses cubic derivative polynomial stationary roots, independent of guide sampling and exact cubic subdivision. Reserve normal/tangential acceleration headroom under the independently checked 250mm/s2 desired and unchanged 500mm/s2 actual limits. Preserve all contact source samples and owners; retain braked-air-v1 lifted braking/quintic travel. Contact rest instants enter the existing global clock without dwell, lift or pose reset. No per-letter tuning. Replace sampled chord sums used by the contact clock with integrals of cubic derivative magnitude. Preserve source sample positions and tangents exactly; opt-in metadata records the originating cubic and parameter, including the existing 256-chord interpolation representation for gesture-arc-v3. Validate reconstruction, owner continuity, monotonic progress and complete endpoints before timing. No nearest-point matching across loops/overlaps. Keep the previous speed/acceleration policy and air braking without tuning.",
+  "timing_contract_change": "Explicit curve-time-v1 timing; corner-time-v1 and legacy defaults remain available unchanged. Cubic arc length uses deterministic adaptive 16/32-point Gauss-Legendre quadrature, 1e-10 mm absolute estimated error per partial/complete integral, maximum depth 12 and 4096 panels per integral, fail closed on exhaustion. Source curve parameters eliminate a separate inverse search. Analytic contact events use complete curve integrals rather than sampled chords; guide geometry and the path-distance diagnostic field remain unchanged. Predeclared unit checks use analytic lines, independently high-order quadrature, exact subdivisions, partial-length additivity, malformed provenance and repeated saved-fixture timing. Frozen 0.1ms event-time and all existing motion gates unchanged.",
+  "dt_s": [
+    0.002,
+    0.001
+  ],
+  "arc_step_mm": [
+    0.025,
+    0.0125
+  ],
+  "settle_time_s": 0,
+  "tool": {
+    "width_mm": 0.45,
+    "angle_deg": 40,
+    "pressure": 0.5,
+    "speed_mm_s": 12,
+    "footprint": "legacy-full-edge",
+    "session_effects": false
+  },
+  "physical_fixed_bridge": "Separate physical-edge-v1 fixed-profile i u replay, including air arrival and realized acceleration checks; no S1-action acceptance",
+  "frame_mm": [
+    -2,
+    16,
+    3,
+    13
+  ],
+  "dpi": 180,
+  "presentation_dpi": 900,
+  "presentation_frame_mm": [
+    -0.8,
+    11,
+    5.5,
+    10.9
+  ],
+  "primitive_frame_mm": [
+    -2,
+    5,
+    4,
+    11
+  ],
+  "presentation": "Rerender the saved geometric/actual samples at native 900 DPI, then downsample with Lanczos only. Do not enlarge 180 DPI evaluation pixels. Presentation images do not replace evaluation or manufacture new geometry. Show all six existing primitives separately from repeated stem-terminal motion fixtures.",
+  "max_renders": 500,
+  "max_seconds": 1800,
+  "max_revisions": 0,
+  "optimization_evaluations": 0,
+  "baseline": "Read-only original-target/three-seed nominal checks unchanged; actual six-family checks use opt-in source-parameter metadata and curve-time-v1. No historical freeze/hash edits or fitting."
+}
