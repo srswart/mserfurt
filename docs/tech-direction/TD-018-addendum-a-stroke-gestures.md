@@ -1,6 +1,6 @@
 # TD-018 Addendum A — Stroke Gestures and Intentional Pen Actions
 
-**Status:** both investigations and three gesture-phase Advances complete; four intentional-action Advances remain planned. S1-gesture is blocked by missing family coverage and failed lifted-pair endpoint convergence; no action fitting or real promotion.
+**Status:** all nine supporting Advance outcomes recorded, including opt-in contact/realized-action infrastructure and guarded learning/readiness tooling. S1-gesture/S1-action remain blocked; action fitting and selected-candidate acceptance are unexecuted. No real promotion.
 
 **Date:** 2026-09-06
 
@@ -28,7 +28,7 @@ synthetic S0/S1 results remain valid only for their frozen fixed-tool scope. No
 new gesture gate, real-source training or owner appearance approval is claimed.
 Existing Advance IDs and completion records remain unchanged. The planning
 follow-up adds nine prerequisites to Pass 15, now twenty-eight Advances:
-thirteen outcomes complete and fifteen planned. Section 10
+twenty outcomes complete and eight planned. Blocked action experiments remain unexecuted. Section 10
 records the new phases and downstream dependency changes, not gate passes.
 
 ## 2. Resources and evidence boundaries
@@ -335,8 +335,9 @@ deletion of unsuccessful experiments is authorized by this design.
 
 ## 10. Planned Advances and delivery contract
 
-Of the nine supporting records, the two investigations and three gesture-phase
-records are **complete** and four remain planned; completion is not layer acceptance. The current repository
+All nine supporting records have implementation/investigation/evaluation
+outcomes recorded; fitting and selected-action evaluation stop at failed
+prerequisites, with unexecuted tasks explicitly unchecked. Completion is not layer acceptance. The current repository
 template capability does not support typed investigation/evaluation profiles;
 each record states its work kind explicitly in its Objective without upgrading
 governance or inventing unsupported frontmatter. Existing completed records and
@@ -498,7 +499,8 @@ separates analytic fixtures from trained strokes and executed actions.
 GESTURE-001, CURRICULUM-008 and HANDVALIDATE-013 are implemented and locally
 merged. The compiler preserves explicit v1 compatibility and adds shared
 continuous gestures, bounded action representation and owner identities.
-Dynamic actions remain non-executable until the planned realized-action bridge.
+At that snapshot dynamic actions remained non-executable; the later opt-in
+realized-action bridge below adds diagnostic execution, not learned acceptance.
 
 The bounded lesson freezes all six learned primitives and fits one shared
 stem-terminal construction, choosing rise versus exit and bounded placement.
@@ -525,3 +527,31 @@ coverage and a lift/re-entry convergence repair, preserving legacy identities.
 Do not start action fitting or learned letters from Advance completion alone.
 Real G0/lower-layer admission and owner review remain blocked/unperformed.
 See [samples, identities, measurements and replay](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/README.md).
+
+### Pen-action phase outcome — 2026-09-06
+
+- **NIBCONTACT-002:** opt-in `physical-edge-v1` contact uses the existing canonical
+  sweep and one physical width/thickness/shifted-edge helper. Eight independent
+  fixtures pass frozen geometry/refinement criteria in 25 renders. Legacy pixels
+  remain identical; changed whole-file renderer/bridge hashes make old accepted
+  evidence stale for current admission. Old freezes are not rewritten.
+- **PATHGUIDE-006:** versioned action plans/state subclass existing types and the
+  existing controller; no second positional simulator. Actual angle/edge updates
+  are bounded to 180 degrees/s and 3 fractions/s, including lifts. Forced-lag
+  controls fail tracking as intended. Both arc and timestep endpoint refinement
+  still fail at about 0.40 mm against 0.01 mm. Two 51-render diagnostic attempts
+  retain an export/presentation repair; motion and thresholds do not change.
+- **CURRICULUM-009:** bounded isolated proposal/selection/fitting infrastructure
+  is implemented, but admitted rendered-lesson execution is untested/unexecuted.
+  Synthetic and real attempts stop before pixels or fitting: zero renders, zero
+  candidates and no justified null profile. Registration of a matching accepted
+  baseline and frozen named-failure lesson remains necessary.
+- **HANDVALIDATE-014:** independent pinned-identity/actual-failure admission
+  evaluation repeats seeds 7/19/41 in fresh processes. Zero renders, no optimizer,
+  no selected-action metric/control claims. The unexecuted candidate tasks stay
+  unchecked; the only current readiness outcome is **STOP / REVISE**.
+
+Synthetic tool diagnostics do not replace missing learned returns/loops, repair
+lift/re-entry, refresh S1-gesture, or authorize real G0/G1/G2. Scope those fixed-tool
+repairs first, then run action experiments and freeze a new candidate evaluation.
+See [layered sample index, boundaries and reproduction](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/action_evaluation/README.md).

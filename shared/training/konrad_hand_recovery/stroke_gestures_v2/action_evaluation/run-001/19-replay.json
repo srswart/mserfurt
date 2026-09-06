@@ -1,0 +1,64 @@
+{
+  "seed": 19,
+  "status": "blocked",
+  "reasons": [
+    "bridge_actual_convergence_failed",
+    "current_code_invalidates:gesture_evaluation/run-001/S1-gesture.json",
+    "gesture_actual_execution_failed",
+    "matching_covered_S1_gesture_not_passed",
+    "no_admitted_fitted_or_justified_null_actions"
+  ],
+  "identities": {
+    "learning_report_sha256": "6e8afd16c8cabbfcb3c5e584a1446face46b560740772560afbd1f1b0ddd30d2",
+    "gesture_evaluation/run-001/S1-gesture.json": "7b5b854e8d7196674418e340baf7c5dc809a431e485bff17f3f44bb81012f3a1",
+    "action_bridge/run-002/report.json": "d6e712a0e00b2a84a84905888769894da1e49f7c59d8f428b6f67fb0fa0cc0db",
+    "model_sha256": "fed212218215d4907bac7105e3944dc1462a869804496154fa26698eaeae486d"
+  },
+  "renders": 0,
+  "optimization_evaluations": 0,
+  "candidate_evaluation": "not_run_prerequisites_failed",
+  "letter_training_allowed": false,
+  "real_letter_training_allowed": false,
+  "original_global_controls": {
+    "wrong_orientation": {
+      "disagreement": 0.7356438148241842,
+      "meets_frozen_minimum": true
+    },
+    "swapped_edge": {
+      "disagreement": 0.47926624467123113,
+      "meets_frozen_minimum": true
+    },
+    "centered_shrink": {
+      "disagreement": 0.2989114445425125,
+      "meets_frozen_minimum": true
+    },
+    "hidden_connector": {
+      "disagreement": 0.010178857059764432,
+      "meets_frozen_minimum": false
+    },
+    "overbuilt_terminal": {
+      "disagreement": 0.09661579296615792,
+      "meets_frozen_minimum": false
+    },
+    "filled_counter": {
+      "disagreement": 0.2933659461887885,
+      "meets_frozen_minimum": true
+    }
+  },
+  "new_negative_controls": {
+    "wrong angle": "not_run_prerequisites_failed",
+    "swapped edge": "not_run_prerequisites_failed",
+    "undeclared lift": "not_run_prerequisites_failed",
+    "overbuilt terminal": "not_run_prerequisites_failed",
+    "erased counter": "not_run_prerequisites_failed",
+    "desired-only actual proof": "not_run_prerequisites_failed"
+  },
+  "action_outcomes": {
+    "rotation": "unresolved_no_admitted_candidates",
+    "edge": "unresolved_no_admitted_candidates",
+    "finishing": "unresolved_no_admitted_candidates"
+  },
+  "real_requirements": "no real admission without live G0, matching real lower layers, G1 independent appearance/reading and G2 actual fidelity",
+  "owner_review": "not performed",
+  "promoted": false
+}

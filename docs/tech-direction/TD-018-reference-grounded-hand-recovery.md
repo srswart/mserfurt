@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), twenty-eight Advances; sixteen outcomes complete, twelve planned. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), twenty-eight Advances; twenty outcomes complete, eight planned. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket
@@ -13,7 +13,9 @@ fixed-angle/pressure deferral when an intentional action is necessary for letter
 construction. Nine supporting investigation, implementation and evaluation
 Advances now precede the existing letter phase; the gesture compiler, bounded
 construction lesson and evaluator are implemented, but S1-gesture is blocked.
-Intentional-action implementation remains pending. Completed records and gates are unchanged. Earlier implemented
+Opt-in intentional-contact geometry, bounded realized action tracking and guarded
+learning/readiness tooling are implemented. Action fitting remains blocked;
+selected-candidate acceptance is unexecuted. Completed records and gates are unchanged. Earlier implemented
 character-program recovery remains a diagnostic baseline, not proof of shared
 stroke-language learning. The new compiler and primitive curriculum now have
 separate synthetic S0/S1 evidence. New S0–S4 layer gates supplement
@@ -616,8 +618,10 @@ real gate rather than advancing to expressive or folio work.
 The list below is the current implementation-plan sequence, not evidence of
 layer acceptance. Addendum A Section 10 records nine new
 Advances, two incubating components and their bounded delivery/evaluation
-contract. Five are complete: two investigations and three gesture-phase records.
-Four intentional-action records remain planned. The shared stem-terminal lesson
+contract. All nine implementation/investigation/evaluation outcomes are recorded,
+including four intentional-action records. The learning runner and independent
+readiness evaluation stop before fitting/candidate checks on failed prerequisites;
+completion does not mean those experiments ran. The shared stem-terminal lesson
 does not cover required returns/loops; independent evaluation also finds a
 0.399871 mm lifted-pair endpoint shift under sampling refinement (limit 0.01 mm).
 Repair both fixed-tool blockers before action fitting. See the
