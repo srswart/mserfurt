@@ -1586,12 +1586,12 @@ passes:
     - id: ADV-SS-HANDVALIDATE-014
       advance_id: ADV-SS-HANDVALIDATE-014
       title: "Pen-Action Evaluation — S1-Action and Letter-Readiness Decision"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-009
       - ADV-SS-HANDVALIDATE-013
-      notes: "EVALUATION: S1-action/readiness with actual contact, held-out benefit and scope-bound decisions. Real G0 and accepted real lower layers remain necessary before real letter fitting."
+      notes: "COMPLETE early-stop evaluation: independent current identities/failed actual checks, 3 fresh-process seeds, zero renders/fitting; 68 tests and clean replay. S1-action/letters BLOCKED. Candidate metrics/controls remain unexecuted pending fixed-tool repairs and a newly frozen evaluation."
   - id: td018-letters
     title: Combine learned strokes into letter recipes
     order: 8

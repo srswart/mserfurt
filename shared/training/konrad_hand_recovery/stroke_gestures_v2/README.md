@@ -1,13 +1,23 @@
 # TD-018 gesture evidence
 
-**Phases td018-gesture-investigation and td018-gestures are implemented.**
+**Phases td018-gesture-investigation and td018-gestures are implemented;
+td018-pen-actions infrastructure and early-stop evaluation are also delivered.**
 The latter fits one shared stem-terminal construction on frozen primitives,
 not a full gesture vocabulary or historical hand. **S1-gesture is blocked:**
 missing returns/loops and failed lifted-pair endpoint convergence must be
 repaired before action fitting. Advance completion does not mean acceptance.
 
+The new action runner stops at failed prerequisites: **no action training ran**.
+Physical contact and bounded actual-action diagnostics are visible separately;
+S1-action/letter readiness is blocked and candidate acceptance checks are unexecuted.
+
 ## View the samples
 
+- [Latest layered sample index and S1-action decision](action_evaluation/README.md).
+- [Physical contact comparison](contact/run-001/contact-comparison.png): independent
+  geometry versus canonical sweep; fixed angle, rotations, partial edge and finishing.
+- [Desired/actual/forced-lag action sheet](action_bridge/run-002/action-comparison.png):
+  supplied i/u controller diagnostics, **not newly learned actions or letters**.
 - [Latest learned construction practice](gestures/run-002/practice-sheet.png):
   initial → target → fitted nominal → sampled desired → actual; equal scale.
   [Learning results and limits](gestures/README.md).

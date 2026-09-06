@@ -234,7 +234,11 @@ coverage and tool-contract investigations, not real acceptance.
 **td018-gestures** is also implemented: versioned composition, a bounded shared
 stem-terminal lesson and independent evaluation. **S1-gesture is blocked** by
 missing gesture-family coverage and a 0.40 mm lifted-pair endpoint-convergence
-failure. Repair those fixed-tool foundations before action fitting. See
+failure. Repair those fixed-tool foundations before action fitting.
+**td018-pen-actions** now adds opt-in physical contact, realized bounded action
+tracking, a guarded learning runner and an independent early-stop readiness
+evaluation. Training runs render nothing because prerequisites fail; diagnostic
+action pictures are not learned results. See
 [samples, findings and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
 and [the Advance map](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
 
