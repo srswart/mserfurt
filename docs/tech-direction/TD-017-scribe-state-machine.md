@@ -5,6 +5,13 @@
 **Date**: 2026-04-17  
 **Depends on**: TD-015 (polygon sweep renderer), TD-010 (ink cycle)
 
+**TD-018 scope clarification (2026-09-06):** Intentional pen actions used to
+construct a letter are specified separately in
+[TD-018 Addendum A](TD-018-addendum-a-stroke-gestures.md). A deliberate orientation
+change or edge release is part of the gesture, not evidence of fatigue or
+emotion. This state-machine work remains deferred for the current curriculum;
+future state effects must modulate, not replace, accepted gesture programs.
+
 ---
 
 ## Problem Statement

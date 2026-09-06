@@ -204,7 +204,7 @@ This project uses [ARRIVE](arrive/) for outcome-first development. The three sys
 
 The next ScribeSim development track is specified in
 [TD-018 — Reference-Grounded Recovery of Konrad's Hand](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md).
-Its nineteen Advances in [Pass 15](arrive/implementation-plan.yaml) progress
+Its twenty-eight Advances in [Pass 15](arrive/implementation-plan.yaml) progress
 from clean reference words and a reusable stroke repertoire to a three-line
 specimen, guided execution and opt-in folio evaluation. Benchmark, nominal and
 guided infrastructure are implemented; the recovered reference hand is not accepted
@@ -212,7 +212,7 @@ or promoted. Real G0–G3 remain blocked on prerequisites and review. Synthetic
 expressive evaluation flags ink/combined settings as unsafe, not as an improvement.
 See the [guided outcome and replay commands](shared/training/konrad_hand_recovery/expressive_specimen_v1/README.md).
 
-The revised direction is a **shared stroke language**, with five new Advances:
+The first layered revision introduced a **shared stroke language**, with five Advances:
 `EVOFIT-007` for the language/compiler and `CURRICULUM-004` through
 `CURRICULUM-007` for stroke learning, letter construction, within-word stroke
 context and inter-word stroke context. **td018-strokes** is implemented with
@@ -221,6 +221,17 @@ synthetic S0/S1 evidence; **td018-letters**, **td018-letter-context** and
 Reference admission stays necessary for real training; final layered validation
 rechecks G0–G2. Ink, fatigue and other expressive work come later.
 See [the layered design and revised sequence](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md#12-stroke-language-and-layered-learning-revised-direction).
+
+[TD-018 Addendum A](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md)
+documents the next design refinement: geometric primitives → continuous stroke
+gestures → letters → words → lines, with intentional nib/contact actions distinct
+from later fatigue and ink depletion. It includes the supplied calligraphy
+resources, tool/ownership contracts and evaluation requirements. Nine new planned
+Advances cover investigation, continuous-gesture learning, intentional contact
+and independent evaluation before letters, with new incubating `gesture` and
+`nibcontact` components. Start with **td018-gesture-investigation**; then
+**td018-gestures** and **td018-pen-actions**. Implementation and acceptance remain
+pending. See [the Advance map and evidence delivery contract](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
 
 Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)
 and [shared-stroke decomposition](shared/training/konrad_hand_recovery/stroke_language_v1/language/decomposition.png).

@@ -4,7 +4,7 @@ advance:
   title: "Konrad Layered Acceptance — Stroke Transfer and Revalidated G0–G2"
   system: "scribesim"
   primary_component: "handvalidate"
-  components: ["handvalidate","evo","curriculum","pathguide","tests"]
+  components: ["handvalidate","evo","gesture","nibcontact","curriculum","pathguide","handflow","tests"]
   started_at: "2026-09-06T03:57:59Z"
   implementation_completed_at: ~
   review_time_estimate_minutes: 40
@@ -28,7 +28,7 @@ implementation, experimental execution, CI and owner approval are not claimed.
 
 ## Behavioral Change
 
-After implementation: Frozen S0–S4 checkpoints and their visible learning/transfer evidence accompany either identity-bound real G0/G1/neutral G2 results or an explicit stop at the first failed prerequisite. Familiar catalog shapes and controller-profile selection cannot certify shared-stroke learning.
+After implementation: Frozen S0–S4 plus S1-gesture/S1-action checkpoints and their visible learning/transfer evidence accompany either identity-bound real G0/G1/session-neutral G2 results or an explicit stop at the first failed prerequisite. Familiar catalog shapes and controller-profile selection cannot certify shared-stroke learning.
 
 ## Component Impact
 
@@ -38,7 +38,7 @@ Primary component: `handvalidate`. Planned paths and artifacts:
 - `scribesim/curriculum/stroke_learning.py, letter_recipes.py, letter_context.py and word_context.py (planned checkpoint/evidence sources)`
 - `scribesim/handvalidate/nominal.py and bridge.py`
 - `tests/test_reference_dataset.py, tests/test_repertoire_recovery.py, tests/test_handvalidate_nominal_specimen.py, tests/test_repertoire_pathguide.py`
-- `shared/training/konrad_hand_recovery/stroke_language_v1/acceptance/ (new evidence and stage sample index)`
+- `shared/training/konrad_hand_recovery/stroke_gestures_v2/acceptance/ (new evidence and stage sample index)`
 
 No component stage changes. Add narrow ownership/test selectors only if required.
 
@@ -48,6 +48,12 @@ No component stage changes. Add narrow ownership/test selectors only if required
 - [ADV-SS-CURRICULUM-007](ADV-SS-CURRICULUM-007.md)
 - [ADV-SS-HANDVALIDATE-008](ADV-SS-HANDVALIDATE-008.md)
 - [ADV-SS-PATHGUIDE-005](ADV-SS-PATHGUIDE-005.md)
+- [ADV-SS-HANDVALIDATE-014](ADV-SS-HANDVALIDATE-014.md)
+
+[TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md)
+governs the new gesture/action and realized-contact identities. Session-neutral
+G2 retains accepted intentional construction actions; it does not force the
+candidate back to fixed angle or erase edge-release profiles.
 
 Dependencies order implementation; live identity-bound gate records separately
 authorize real candidate execution. Completed blocked experiments do not pass gates.
@@ -59,8 +65,8 @@ authorize real candidate execution. Completed blocked experiments do not pass ga
 - [ ] test: establish and record failing behavioral tests before implementation.
 - [ ] feat/evaluate: Recompute v3 integrity, admission, source-line leakage and symbol/context coverage. Freeze calibration from independent admitted train/development repeats and negative shape controls, excluding test observations.
 - [ ] feat/evaluate: Obtain genuine target review against the existing benchmark contract, recording reviewer identity, date and artifact hashes. Emit blocked G0 when evidence or review is missing; never fill review fields on the owner's behalf.
-- [ ] feat/evaluate: Revalidate S0–S4 model/code identities, fixed lower-layer checkpoints, objective/limit freezes, bounded training ledgers and composition-disjoint transfer evidence. Replay selected staged checkpoints for seeds 7/19/41; this Advance performs evaluation, not another unbudgeted optimization run.
-- [ ] feat/evaluate: Prove primitives are shared across letters and both context layers preserve lineage. Compare frozen-prior, learned and context-off/spacing-only/stroke-context results as appropriate. Reject per-letter residual curves or per-word caches used to bypass the hierarchy.
+- [ ] feat/evaluate: Revalidate S0–S4 plus S1-gesture/S1-action model/code/tool/controller identities, fixed lower-layer checkpoints, objective/limit freezes, bounded training ledgers and composition-disjoint transfer evidence. Replay selected staged checkpoints for seeds 7/19/41; this Advance performs evaluation, not another unbudgeted optimization run. Reject older fixed-tool evidence presented as new gesture/action acceptance.
+- [ ] feat/evaluate: Prove primitives, gestures and action profiles are shared across letters and both context layers preserve lineage without mutating frozen profiles. Compare frozen-prior, learned and context-off/spacing-only/stroke-context results as appropriate. Reject per-letter residual curves or per-word caches used to bypass the hierarchy; verify actual contact and overlap contributors through all five layers.
 - [ ] feat/evaluate: Adapt model identity checks, compilation and nominal/bridge evidence to the versioned stroke language, preserving strict rejection of stale summaries and old schema-2 models posing as new checkpoints. Freeze criteria before candidate proof inspection. Build the unchanged three-line and five-string nominal specimen; unsupported inventory blocks G1 and is reported, not normalized away. Collect genuine appearance and independent-reading review.
 - [ ] feat/evaluate: Only after live G1 passes, freeze model-bound development tolerances and evaluate the exact neutral repertoire bridge for G2. Revalidate code/configuration identities after any controller changes before later G3 execution.
 - [ ] feat/evaluate: Keep test reservations locked through development. If a later evaluation opens them, record that exposure and never reuse those observations as a fresh test set.
@@ -89,7 +95,7 @@ Review estimate: 40 minutes, not a measured reviewability score.
 
 ## Evidence
 
-Planned evidence: stroke practice, letter assembly, pair/triple context and word-sequence sheets; frozen S0–S4 learning/transfer/ablation ledgers; revalidated G0; nominal G1/reading review and neutral G2 when allowed; otherwise exact scope debt and first blocking reason. Synthetic and real-stage acceptance remain separately labeled.
+Planned evidence: stroke practice, continuous gestures, intentional-action comparisons, letter assembly, pair/triple context and word-sequence sheets; frozen S0–S4 and S1-gesture/S1-action learning/transfer/ablation ledgers; revalidated G0; nominal G1/reading review and session-neutral G2 when allowed; otherwise exact scope debt and first blocking reason. Synthetic and real-stage acceptance remain separately labeled.
 
 - [ ] Record focused tests and reproducibility checks.
 - [ ] Run `arrive plan check` and `git diff --check`.
@@ -112,6 +118,11 @@ No implementation changes yet; this record scopes the diagnosed repair/evaluatio
 - Moved to phase `td018-word-context`; supersedes the earlier `td018-repair` ordering.
 - Strokes, letter recipes, within-word context and inter-word context are separate learned layers.
 - Ink, fatigue and other expressive work are deferred; no implementation or acceptance is claimed.
+
+### 2026-09-06 — plan: Require gesture/action readiness
+
+Added HANDVALIDATE-014 as an explicit prerequisite and extended the audit to
+gesture/action/tool/controller identities. Existing gate outcomes are unchanged.
 
 ## Check for Understanding
 

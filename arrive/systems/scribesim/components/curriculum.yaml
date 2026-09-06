@@ -10,6 +10,12 @@ selectors:
   paths:
     - "scribesim/curriculum/**"
     - "shared/training/handsim/**"
+    - "tests/test_gesture_coverage.py"
+    - "tests/test_gesture_learning.py"
+    - "tests/test_pen_action_learning.py"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/coverage/**"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/**"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/**"
   build_modules: []
   tags: []
   contracts: []
@@ -17,6 +23,7 @@ selectors:
 interfaces:
   - "Curriculum stages for primitive, glyph, word, line, and folio training"
   - "Training-set manifests with acceptance gates and evidence outputs"
+  - "Planned fixed-tool gesture learning and isolated intentional-action ablations"
 
 invariants:
   - "A stage cannot advance until its validation gate passes."

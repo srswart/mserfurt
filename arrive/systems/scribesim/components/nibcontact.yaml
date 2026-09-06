@@ -1,0 +1,29 @@
+component:
+  id: nibcontact
+  name: "Intentional Broad-Edge Contact Geometry"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/evo/nib_contact.py"
+    - "scribesim/evo/renderer.py"
+    - "scribesim/handvalidate/bridge.py"
+    - "tests/test_nib_contact.py"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/**"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/contact/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "Planned active-edge endpoint geometry and orientation contract for the existing canonical nib sweep"
+  - "Declared synthetic or calibrated physical tool fixtures with versioned bounds"
+
+invariants:
+  - "Partial-edge contact changes footprint position and extent, not only centered width or opacity."
+  - "Nominal and actual painting share canonical physical geometry; independent tests do not use the same sweep as their oracle."
+  - "Intentional contact, mechanical pressure and optical deposition remain distinct; session ink repair is separate."
+  - "The controller owns realized state, gesture owns intended tracks, and handvalidate owns acceptance."

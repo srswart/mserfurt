@@ -3,6 +3,15 @@
 ## Status
 **Active** — extends the Annotation Workbench glyph decomposition (TD-012 Addendum B).
 
+**TD-018 scope clarification (2026-09-06):** For current shared-stroke recovery,
+[TD-018 Addendum A](TD-018-addendum-a-stroke-gestures.md) governs intentional nib
+actions and acceptance. The inverse-width reasoning below proposes hypotheses;
+it does not uniquely recover historical angle or pressure from static ink.
+Contact footprint, trajectory, ink spread and alternative stroke constructions
+can explain similar pixels. Preserve uncertainty and validate forward-rendered
+nominal/actual results rather than treating the older exact-recovery language
+as an accepted capability. This note does not change the historical experiment.
+
 ## Context
 The current nib model assumes a fixed angle (40°) throughout all strokes. But a real scribe's nib angle drifts during writing — the wrist rolls slightly during curved strokes, the hand adjusts between different stroke types, and there's a subtle but measurable difference between the nib angle on a downstroke versus a horizontal connector.
 

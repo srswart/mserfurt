@@ -2,12 +2,17 @@
 
 **Status:** benchmark/nominal/guided and stroke-phase infrastructure implemented; synthetic S0/S1 pass; real G0–G3 blocked; no hand or renderer promoted.
 **Date:** 2026-09-05  
-**Revised:** 2026-09-06 — shared stroke language and staged learning before expressive simulation.
+**Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), nineteen Advances; eleven implementation outcomes complete, eight planned. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), twenty-eight Advances; eleven implementation outcomes complete, seventeen planned. Ink, fatigue and other expressive work are later.
 
-Section 12 is the authoritative revision for new work. Earlier implemented
+Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
+are the authoritative direction for new work; the addendum supersedes blanket
+fixed-angle/pressure deferral when an intentional action is necessary for letter
+construction. Nine supporting investigation, implementation and evaluation
+Advances now precede the existing letter phase; gesture/action implementation
+and acceptance remain pending. Completed records and gates are unchanged. Earlier implemented
 character-program recovery remains a diagnostic baseline, not proof of shared
 stroke-language learning. The new compiler and primitive curriculum now have
 separate synthetic S0/S1 evidence. New S0–S4 layer gates supplement
@@ -15,7 +20,8 @@ G0–G4; no previous pass or completion record satisfies them automatically.
 
 ## 1. Outcome and scope
 
-Learn a reusable stroke vocabulary, assemble strokes into letters, learn how
+Learn reusable geometric primitives, compose continuous stroke gestures with
+explicit pen actions, assemble gestures into letters, and learn how
 neighboring letters alter those strokes within words, then learn supported
 word-boundary effects when words form lines. The hierarchy must remain visible
 in both its representation and its training evidence. Character-level curves
@@ -25,8 +31,10 @@ The first deliverable is a stroke practice and transfer sheet, followed by
 letter construction sheets, within-word context proofs and inter-word/line
 proofs. Convincing unseen words and the existing three-line benchmark remain
 later acceptance targets. Use the existing neutral renderer/controller to
-measure execution fidelity; defer fatigue, depletion and expressive variation
-until the compositional foundations pass. Full folios follow later gates.
+measure execution fidelity. Start with fixed-tool gestures; introduce bounded,
+deliberate orientation/contact actions only when a reference form needs them.
+Defer fatigue, depletion and stochastic/session variation until compositional
+foundations pass. Full folios follow later gates.
 
 The intended character remains Brother Konrad: a professional scribe writing
 a private manuscript, with the folio-specific variations described by the
@@ -280,9 +288,13 @@ Pressure, nib angle, speed and baseline drift evolve slowly with elapsed writing
 and explicit profile inputs. Fatigue and passage variation use bounded,
 documented controls; do not infer historical emotional state from keywords.
 
-For the revised curriculum, keep neutral execution throughout S0–S4 and G1/G2.
-Only in the explicitly deferred expressive phase activate ink consumption/dips
-and a small set of pressure, angle and rhythm controls. Each control must visibly and measurably
+For the revised curriculum, keep execution free of fatigue, depletion and
+stochastic/session variation throughout S0–S4 and G1/G2. Fixed nib settings are
+the initial baseline. Addendum A allows separately evaluated intentional
+orientation/contact profiles as part of gesture construction before S2; these
+are not the session-level pressure/angle/rhythm controls discussed below.
+Only in the deferred expressive phase activate ink consumption/dips and those
+session-level controls. Each control must visibly and measurably
 affect the selected path while preserving symbol identity. Warp/tremor expansion
 is deferred. Preserve intended crossings rather than imposing zero intersections
 on every letter.
@@ -451,26 +463,33 @@ replaces the prior immediate ink-repair priority. The analogy to phonemes is
 useful for compositional structure, not a claim that handwriting has a unique
 universal alphabet of motor primitives.
 
-Current code can follow predefined primitive paths and optimize independent
-character-level stroke programs. Neither demonstrates the requested learned
-shared stroke vocabulary. Existing synthetic sheets reuse catalog letterforms;
-their similarity is expected and they must not be shown as successive stages
-of stroke learning. Preserve those artifacts and their honest blocked/failed
-outcomes. The revision was initially planning-only; the executed stroke-phase
-result is recorded below without retroactively accepting the old catalog sheets.
+Before the stroke phase, code followed predefined primitive paths or optimized
+independent character-level programs. The older guided sheets reused catalog
+letterforms and were not learning stages. The new shared primitive curriculum
+now has its own synthetic S0/S1 evidence, recorded below. Preserve both sets of
+artifacts and their honest outcomes. The additional continuous gesture/action
+layer specified in Addendum A is still design-only.
 
 ### Layered representation: one source of truth
 
 Use a small declarative, versioned data model rather than a new general-purpose
-programming language. The notation below is conceptual, not an available API:
+programming language. The complete proposed hierarchy is **geometric primitives
+→ stroke gestures → letters → words → lines**. The notation below describes
+the design; not all records exist in the current v1 schema:
 
 - **StrokePrimitive:** a shared parameterized path family (initial hypotheses:
   downstroke, rising stroke, curve, turn/hook, loop, entry/exit connector).
   Stable ID, units, geometry, entry/exit position and tangent, permitted
   curvature, transform limits, provenance and uncertainty. Lift is an explicit
   transition, not an ink stroke.
-- **LetterRecipe:** an ordered list of primitive references and bounded
-  placement/attachment parameters, with legal lifts, joins, crossings, counters
+- **StrokeGesture:** an ordered sequence of shared primitives executed as one
+  uninterrupted contact gesture, with declared internal joins and a bounded
+  pen-action profile. Multiple geometric segments do not imply multiple lifts.
+- **PenActionProfile:** intentional orientation and active-edge tracks, with
+  explicit beginning/finishing behavior; pressure/speed remain constant until
+  separately justified. It is not fatigue, depleted ink or random variation.
+- **LetterRecipe:** an ordered list of gesture references and bounded
+  placement/attachment parameters, with legal lifts, overlaps, crossings, counters
   and baseline/x-height/ascender/descender constraints. Example concept:
   a stem primitive plus a turn and exit primitive, not a fresh list of unrelated
   cubic curves. Actual historical recipes must be fitted/validated, not assumed.
@@ -483,8 +502,9 @@ programming language. The notation below is conceptual, not an available API:
 
 Compilation expands these references to the existing nominal and neutral guided
 paths. Derived cubics are compiled output, never the authoritative learned
-letter geometry. Every rendered sample retains primitive ID, occurrence ID,
-recipe/character span, word and line ownership, including explicit shared ink.
+letter geometry. Every rendered sample retains primitive, gesture, action-profile
+and occurrence IDs, recipe/character span, word and line ownership, including
+explicit shared ink and intentional finishing overlaps.
 A primitive edit propagates to all users and invalidates compiled caches.
 Context overlays never mutate canonical primitive or recipe records.
 
@@ -501,7 +521,9 @@ per-letter/per-word residual geometry.
 |---|---|---|---|
 | S0: language | Schema, constraints, deterministic compiler and ownership | Synthetic declared programs; no learning claim | Recipe listings, colored decomposition and shared-edit propagation |
 | S1: strokes | Shared primitive geometry and ports | Fixed nib, pressure, nominal speed and neutral execution | Isolated practice sheets, before/after parameters, held-out transfer |
-| S2: letters | Recipe selection and bounded assembly parameters | Accepted primitive checkpoint | Numbered stroke assembly, isolated letters, common primitives across letters |
+| S1-gesture (proposed) | Continuous shared-primitive gesture composition | Accepted primitives and fixed-tool baseline | Direction/segment/lift overlays and unseen gesture combinations |
+| S1-action (proposed) | One justified intentional pen action at a time | Frozen path geometry, no session effects | Fixed/active footprint comparison and actual pose/contact replay |
+| S2: letters | Recipe selection and bounded assembly parameters | Accepted primitive/gesture/action checkpoints | Numbered stroke assembly, isolated letters, common primitives across letters |
 | S3: letters in words | Bounded adjacent-letter stroke/spacing rules | Primitive and recipe checkpoints | Same letter in contrasting neighbors; pairs/triples and unseen words |
 | S4: words in lines | Supported word-edge stroke/gap/transition rules | All lower-layer checkpoints | Same word alone/in different sequences; highlighted boundary changes |
 
@@ -538,19 +560,23 @@ change where the source only supports a gap or lift: a documented null rule is
 better than invented behavior. Interior strokes are unchanged unless an explicit
 predeclared, supported rule permits otherwise.
 
-Throughout these stages use fixed nib/pressure/speed and disable ink depletion,
-fatigue, stochastic rhythm, tremor and warp. Retain the existing neutral controller
-for execution-fidelity checks, not for explaining away wrong nominal shapes.
-Reservoir repair, variable pressure/angle/rhythm and fatigue are later work.
+Begin with fixed nib/pressure/speed. Continuous gestures may subsequently carry
+bounded intentional pen actions under Addendum A's separate checks, with path
+geometry frozen while an action is evaluated. Keep ink depletion, fatigue,
+stochastic rhythm, tremor and warp disabled. Retain the existing controller for
+execution-fidelity checks, not for explaining away wrong nominal shapes.
+Reservoir repair and session-level pressure/angle/rhythm variation remain later
+work; a deliberate terminal release is not such a session effect.
 
 ### Reference preparation, budgets and gates
 
-EXEMPLAR-008 stays necessary: v2 has 60 reservations (41 train, 11 development,
-8 locked test) and zero admitted observations. Repair non-test mappings and
-masks, preserve uncertainty/native bytes, and freeze v3 with calibration and
-genuine target review. One extraction revision and one annotation pass are
-budgeted. Unresolved labels or support produce a blocked G0, never invented
-readings or relaxed thresholds. Keep test pixels sealed; previously inspected
+EXEMPLAR-008 implemented the bounded v3 repair of 60 reservations (41 train,
+11 development, 8 locked test); zero observations are admitted and real
+calibration/target review remain blocked. Its mask-repair budget is exhausted.
+EXEMPLAR-009 now owns one bounded non-test coverage/annotation audit and upstream
+G0 readiness decision, with genuine supplied reviews only. It does not authorize
+another mask search or new source acquisition. Unresolved labels or support
+produce a blocked G0, never invented readings or relaxed thresholds. Keep test pixels sealed; previously inspected
 data never becomes a fresh test set. Opening a test set is recorded and ends
 its eligibility for future tuning.
 
@@ -586,20 +612,34 @@ real gate rather than advancing to expressive or folio work.
 
 ### Revised Advance sequence and delivery
 
+The list below is the current implementation-plan sequence, not evidence that
+the new gesture layer is implemented. Addendum A Section 10 records nine new
+Advances, two incubating components and their bounded delivery/evaluation
+contract. All nine are planned; earlier completion states remain unchanged.
+
 1. **td018-strokes:** EXEMPLAR-008 reference readiness; EVOFIT-007 stroke
    language/compiler; CURRICULUM-004 actual shared-primitive learning.
-2. **td018-letters:** CURRICULUM-005 letter recipes and construction evidence.
-3. **td018-letter-context:** CURRICULUM-006 within-word stroke adaptation.
-4. **td018-word-context:** CURRICULUM-007 inter-word effects, then
+2. **td018-gesture-investigation:** EXEMPLAR-009 coverage and G0 readiness;
+   NIBCONTACT-001 tool/actuator semantics and frozen independent fixtures.
+3. **td018-gestures:** GESTURE-001 versioned compiler; CURRICULUM-008
+   fixed-tool gesture learning; HANDVALIDATE-013 S1-gesture evaluation.
+4. **td018-pen-actions:** NIBCONTACT-002 canonical footprint extension;
+   PATHGUIDE-006 realized action bridge; CURRICULUM-009 isolated action
+   ablations; HANDVALIDATE-014 S1-action and letter-readiness decision.
+5. **td018-letters:** CURRICULUM-005 letter recipes and construction evidence,
+   now dependent on HANDVALIDATE-014 and matching accepted lower-layer scope.
+6. **td018-letter-context:** CURRICULUM-006 within-word stroke adaptation.
+7. **td018-word-context:** CURRICULUM-007 inter-word effects, then
    HANDVALIDATE-011 layered transfer and real G0–G2 decision.
-5. **td018-expressive-later:** retain HANDFLOW-009 ink repair and
+8. **td018-expressive-later:** retain HANDFLOW-009 ink repair and
    HANDVALIDATE-012 G3 evaluation as planned but deferred; require layered
    neutral acceptance and an explicit later go-ahead. Broader fatigue,
    tremor/warp and state work remain separately scoped, not smuggled into S4.
-6. **td018-folio:** unchanged opt-in release boundary after real G3.
+9. **td018-folio:** unchanged opt-in release boundary after real G3.
 
-Each stage publishes a new immutable bundle under
-`shared/training/konrad_hand_recovery/stroke_language_v1/`, with a sample index,
+Existing primitive evidence remains under `stroke_language_v1/`; new gesture,
+action and downstream stages publish immutable bundles under
+`shared/training/konrad_hand_recovery/stroke_gestures_v2/`, with a sample index,
 reference/synthetic labels, before/after images at matching physical scale,
 decomposition overlays and clean final renders. Show parameter/rule changes
 beside the images. Replays and control sensitivities are labeled as such, never

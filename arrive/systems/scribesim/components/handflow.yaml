@@ -9,6 +9,7 @@ component:
 selectors:
   paths:
     - "scribesim/handflow/**"
+    - "tests/test_gesture_action_bridge.py"
   build_modules: []
   tags: []
   contracts: []
@@ -17,6 +18,7 @@ interfaces:
   - "TrackPlan API (desired position, desired velocity, desired contact, desired pressure)"
   - "HandState v2 API (continuous state carried across stroke, glyph, word, line)"
   - "Profile activation matrix for reviewed guided rendering (which HandProfile fields materially affect handflow output)"
+  - "Planned realized orientation and active-edge state under bounded gesture action tracking"
 
 invariants:
   - "The controller follows planned state, not raw keypoints, when plan tracking is enabled."

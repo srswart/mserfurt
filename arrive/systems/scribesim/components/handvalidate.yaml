@@ -19,6 +19,7 @@ interfaces:
   - "Metrics API for corridor containment, path self-intersection, DTW, width profile error, OCR/recognition score"
   - "Gate evaluator for stop/go promotion across curriculum levels"
   - "Parameter sensitivity bench for reviewed guided proofs"
+  - "Planned independent S1-gesture/S1-action evaluation and scope-qualified letter readiness"
 
 invariants:
   - "Every metric used as a gate must be deterministic for fixed inputs."

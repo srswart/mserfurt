@@ -1,0 +1,109 @@
+---
+advance:
+  id: "ADV-SS-HANDVALIDATE-014"
+  title: "Pen-Action Evaluation — S1-Action and Letter-Readiness Decision"
+  system: "scribesim"
+  primary_component: "handvalidate"
+  components: ["handvalidate","gesture","nibcontact","curriculum","pathguide","handflow","tests"]
+  started_at: "2026-09-06T12:03:29Z"
+  implementation_completed_at: ~
+  review_time_estimate_minutes: 40
+  review_time_actual_minutes: ~
+  pr_links: []
+  external_refs: []
+  reviewability_score: 0
+  risk_flags: []
+  evidence: []
+  model_usage: []
+  status: planned
+---
+
+## Objective
+
+Decide whether the frozen gesture/action layer is ready for letter-recipe learning, with supported and null actions explicitly scoped and real acceptance kept distinct from synthetic mechanics.
+
+**Work kind:** Evaluation. Follows [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md), including its [delivery and budget contract](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
+Drafting timestamp only: no implementation, investigation run, gate pass, CI or owner approval is claimed.
+
+## Behavioral Change
+
+After this Advance: A reproducible S1-action/readiness record binds primitive, gesture, tool, controller and action identities. It permits only the evidenced scope downstream and explains blocked or rejected actions visibly.
+
+## Component Impact
+
+- `scribesim/handvalidate/pen_actions.py (planned evaluator)`
+- `tests/test_handvalidate_pen_actions.py (planned)`
+- `shared/training/konrad_hand_recovery/stroke_gestures_v2/action_evaluation/ (planned decision/sample index)`
+
+These are planned implementation/evidence locations, not existing APIs.
+Components remain incubating; production defaults and frozen v1 evidence stay unchanged.
+
+## Dependencies
+
+- [ADV-SS-CURRICULUM-009](ADV-SS-CURRICULUM-009.md)
+- [ADV-SS-HANDVALIDATE-013](ADV-SS-HANDVALIDATE-013.md)
+
+Dependencies order work, not acceptance. Investigation completion can conclude
+blocked. Live scope-qualified gate identities separately authorize fitting and
+downstream execution; synthetic demonstrations never authorize real fitting.
+
+## Planned Implementation Tasks
+
+- [ ] branch: confirm authorization before creating branches or commits.
+- [ ] tidy: assess narrow preparation; record any required behavior-preserving refactor separately.
+- [ ] test: add failing tests before any new or changed tooling; record red/green evidence. For investigation-only runs, record why code changes and TDD are not applicable rather than fabricating test evidence.
+- [ ] Validate live lower-layer hashes and S1-gesture decisions, then independently recompute the predeclared action metrics on frozen selected candidates. No tuning, new objectives or posthoc threshold relaxation.
+- [ ] Replay all three seed checkpoints in fresh processes; compare direct, sampled desired and realized footprints, edge endpoints, angular/contact-rate tracking, contact topology and counter preservation.
+- [ ] Use wrong-angle, swapped-edge, undeclared-lift, overbuilt-terminal, erased-counter and desired-only controls; verify each is detected by a named criterion.
+- [ ] Check fixed-geometry ablations, held-out combinations, finite bounds and action activation. A profile labeled active but insensitive fails; supported fixed/null profiles may pass only within their declared scope.
+- [ ] Apply timestep and arc-length refinement against the frozen convergence bounds and common replay budget. Record scope and spent renders/time even if the evaluation stops early.
+- [ ] Publish a side-by-side sample index covering the original primitive baseline, continuous gesture practice, action comparisons and shared supplied-letter probes. Label synthetic, reference-grounded and human-reviewed evidence separately.
+- [ ] Issue an explicit letter-readiness decision: synthetic construction may proceed only with matching accepted synthetic lower layers; real fitting additionally requires live G0 and matching accepted real lower-layer evidence. Missing mandatory construction/action coverage blocks that inventory, not the entire existence of a fixed-tool baseline.
+- [ ] Carry forward G1 appearance/independent reading and G2 actual fidelity requirements; no action result authorizes fatigue, ink repair, folios or a default switch.
+- [ ] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
+
+## Validation Gates
+
+- [ ] All activated actions have actual tracking and held-out benefit under frozen criteria; justified null outcomes retain an exact fixed-tool mode without pretending activation.
+- [ ] Readiness is invalidated by model/tool/controller/split changes and missing required coverage; stale or fabricated gate records fail closed.
+- [ ] A completed evaluation publishes stop/revise/proceed with all failures and scope restrictions. CURRICULUM-005 cannot infer accepted real prerequisites from Advance completion.
+
+## Invariant Impact
+
+Exact text and source uncertainty, locked-test isolation, shared lower-layer
+lineage, deterministic replay and realized-contact ownership remain mandatory.
+No fatigue, depletion/dips, random rhythm, tremor, warp or semantic state effects.
+S1-gesture/S1-action supplement rather than replace S0–S4 and real G0–G4.
+
+## Risk + Rollback
+
+A broad GO label can turn synthetic tool success into an unsupported historical-hand claim. Emit scope-qualified decisions and required inventory debt; rollback to fixed-tool checkpoints while retaining all negative evidence.
+
+Review estimate: 40 minutes, not a measured reviewability score.
+
+## Evidence
+
+- [ ] Frozen inputs, criteria and identities; complete render/time and revision ledger.
+- [ ] Readable equal-scale evidence and a reproducible command/sample index under the planned bundle.
+- [ ] Scope-qualified decision with negative/null/unresolved outcomes and genuine review only when performed.
+- [ ] Tidy assessment and TDD red/green evidence for code changes; focused tests and clean-checkout replay where applicable.
+- [ ] `arrive plan check`, changed-link checks and `git diff --check`.
+- [ ] Before authorized merge, run `arrive pr check --strict --json`; report installed-tool limitations separately from provider CI. Never claim unobserved CI or owner approval.
+
+## Bug Fixes
+
+None implemented. Defects discovered during execution require a recorded
+diagnosis and bounded repair; unrelated changes and threshold relaxation are excluded.
+
+## Changes Made
+
+### 2026-09-06 — plan: Scope TD-018 gesture and intentional-action work
+
+- Added to Pass 15 phase `td018-pen-actions`.
+- Implementation, experiments and acceptance remain pending.
+
+## Check for Understanding
+
+1. Which exact layer/tool/controller identities authorize the next letter experiment?
+2. What is permitted after synthetic readiness when real G0 or appearance review remains blocked?
+

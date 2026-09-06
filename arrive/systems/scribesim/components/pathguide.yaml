@@ -10,6 +10,8 @@ selectors:
   paths:
     - "scribesim/pathguide/**"
     - "shared/hands/pathguides/**"
+    - "tests/test_gesture_action_bridge.py"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_bridge/**"
   build_modules: []
   tags: []
   contracts: []
@@ -17,6 +19,7 @@ selectors:
 interfaces:
   - "DensePathGuide schema (centerline, corridor, contact schedule, nominal speed/pressure)"
   - "Import/export interfaces from extracted guides and trace datasets"
+  - "Planned versioned gesture action guides with explicit desired versus realized contact ownership"
 
 invariants:
   - "Every guide must define entry/exit tangents and a finite x_advance."

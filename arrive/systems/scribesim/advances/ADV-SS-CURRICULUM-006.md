@@ -4,7 +4,7 @@ advance:
   title: "Letter Context — Bounded Stroke Changes Within Words"
   system: "scribesim"
   primary_component: "curriculum"
-  components: ["curriculum","evo","handvalidate","tests"]
+  components: ["curriculum","evo","gesture","handvalidate","tests"]
   started_at: "2026-09-06T04:10:57Z"
   implementation_completed_at: ~
   review_time_estimate_minutes: 40
@@ -35,7 +35,7 @@ learning and transfer evidence before downstream acceptance.
 - `scribesim/curriculum/letter_context.py (new)`
 - `scribesim/evofit/stroke_language.py (word compiler and rule overlays)`
 - `tests/test_letter_context.py (new)`
-- `shared/training/konrad_hand_recovery/stroke_language_v1/letter_context/ (new evidence)`
+- `shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/ (new evidence)`
 
 Use tracked modules and scoped test selectors; clean-checkout imports are required.
 No production renderer or component stage changes.
@@ -43,6 +43,11 @@ No production renderer or component stage changes.
 ## Dependencies
 
 - [ADV-SS-CURRICULUM-005](ADV-SS-CURRICULUM-005.md)
+
+Per [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md),
+consume matching primitive/gesture/action/letter identities and S1-gesture/
+S1-action readiness inherited through CURRICULUM-005. Neutral execution retains
+accepted deliberate actions while disabling fatigue and other session effects.
 
 Completion is not acceptance. Synthetic scaffolding may execute with explicitly
 unaccepted inputs. Reference-derived fitting requires live G0, and real layer
@@ -54,7 +59,7 @@ an older curriculum's pass summary as evidence of shared-stroke learning.
 - [ ] branch: confirm authorization before branches or commits.
 - [ ] tidy: assess narrowly required preparation; preserve unrelated work.
 - [ ] test: commit failing behavioral tests before feature implementation when commits are authorized.
-- [ ] feat/evaluate: Freeze primitive and letter checkpoints. Fit a bounded rule table keyed only by declared preceding/following letter or stroke class and word position; at most 16 rules, with deterministic precedence and explicit no-rule behavior.
+- [ ] feat/evaluate: Freeze primitive, gesture, action-profile and letter checkpoints plus tool/controller identities. Fit a bounded rule table keyed only by declared preceding/following letter or stroke class and word position; at most 16 rules, with deterministic precedence and explicit no-rule behavior. No new action tracks or mutations of shared profiles; context selects only supported frozen gesture/recipe alternatives within existing limits.
 - [ ] feat/evaluate: Allow bounded entry/exit adaptation, port-compatible joins/lifts, recipe alternatives and advance changes. Preserve counters and landmark constraints, and record exactly which primitive occurrence changed and why.
 - [ ] feat/evaluate: Test the same letter alone, in repeated minims and beside contrasting neighbors; show independent juxtaposition versus context-enabled composition. Include explicit shared ownership for any supported multi-character form.
 - [ ] feat/evaluate: Optimize context parameters on training combinations only. Freeze a composition-disjoint development/test vocabulary before fitting; familiar letters in unseen combinations are the transfer test, not merely new random seeds.
@@ -66,7 +71,7 @@ an older curriculum's pass summary as evidence of shared-stroke learning.
 
 - [ ] S3: measurable source-supported contextual stroke changes preserve primitive lineage, letter identity, ports/counters and declared deformation limits.
 - [ ] Context effects cannot be explained solely by spacing or by per-word cached shapes; unseen combinations must be generated without reference-image access.
-- [ ] Fresh-process replay, deterministic rule resolution and exact join/ligature ownership pass; context overlays never mutate shared primitive or recipe checkpoints.
+- [ ] Fresh-process replay, deterministic rule resolution and exact join/ligature ownership pass through every primitive/gesture/profile occurrence; context overlays never mutate shared primitive, gesture, action-profile or recipe checkpoints.
 - [ ] Context-enabled output must meet frozen quality criteria on held-out combinations; numeric improvement is separate from genuine reading/appearance review.
 
 ## Invariant Impact
@@ -103,8 +108,12 @@ contract, not the later ink or fatigue defects.
 - Added to Pass 15 phase `td018-letter-context`.
 - Deferred expressive work until strokes, letters and both context levels are proven.
 
+### 2026-09-06 — plan: Require gesture/action readiness
+
+Inherited gesture/action readiness and immutable lower-layer identity now govern
+context fitting; new evidence uses the v2 namespace. No execution is claimed.
+
 ## Check for Understanding
 
 1. What changes are learned at this layer, and which lower-layer parameters stay frozen?
 2. Which visible transfer test prevents this layer from merely reproducing supplied shapes?
-
