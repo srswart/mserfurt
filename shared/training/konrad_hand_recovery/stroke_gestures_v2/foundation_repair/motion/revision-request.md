@@ -7,6 +7,10 @@ automatic revision. This is a separate authorized scope, not a silent extension
 of the two retained attempts. Implementation/acceptance is recorded in the
 Advance and the new run; later foundation learning remains outside this follow-up.
 
+**Executed:** [run-003](run-003/README.md) passes braking/re-entry checks. Full
+motion acceptance still fails at a sharp continuous-contact corner, not landing.
+See the [separately proposed contact-timing work](corner-timing-request.md).
+
 ## Established result
 
 The second attempt fixes time/endpoint convergence and revalidates the old six

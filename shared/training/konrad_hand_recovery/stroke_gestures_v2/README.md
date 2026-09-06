@@ -67,9 +67,11 @@ Next is **fixed-tool repair**, not action fitting: scope the
 
 That work now has one Advance in progress and five planned in **td018-foundation-repair**:
 [ordered records, concrete deliverables and gate criteria](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#3-ordered-advances-and-deliverables).
-The first two motion attempts are implemented, but repeated-contact corridor
-checks still fail. Timing/convergence and old-six baseline revalidation pass;
-no downstream training or motion admission is claimed. [New samples and actual-lag plots](foundation_repair/index.html).
+The first two attempts and the authorized braking follow-up are implemented.
+Arrival, timing/convergence and old-six baseline checks pass; sharp stem-terminal
+corner tracking still fails, so there is no downstream training or full motion
+admission. [Sharper 900-DPI-derived samples, all six primitives and an explanation
+of the L-like motion fixtures](foundation_repair/index.html).
 New primitive geometry or expansion-limit needs require separately
 scoped work before fitting. Ink depletion, fatigue and other session effects
 remain deferred. Immutable run directories and their freezes retain all results.

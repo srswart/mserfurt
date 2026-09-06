@@ -1,11 +1,12 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
 **Status:** implementation started; HANDFLOW-010 is in progress and the other five
-Advances remain planned. Two bounded motion attempts repair timing/convergence
-and revalidate the original six primitives, but repeated-contact corridor checks
-still fail. The permitted revision is spent. No implementation merge, new learning,
+Advances remain planned. Two original attempts plus the user-authorized braking
+follow-up repair timing, convergence and re-entry, and revalidate the original six
+primitives. Sharp stem-to-terminal corner tracking still fails. The braking
+allowance is spent. No implementation merge, new learning,
 motion admission or owner appearance approval is claimed. See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
-and the [required additional repair scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/revision-request.md).
+and the [proposed shared corner-timing scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/corner-timing-request.md).
 **Date:** 2026-09-06
 **Parent:** [TD-018](TD-018-reference-grounded-hand-recovery.md) and
 [Addendum A](TD-018-addendum-a-stroke-gestures.md).
@@ -156,6 +157,13 @@ before new results; do not relax a failed criterion after observing it.
 - Motion repair: at most six fixture families, 500 diagnostic renders or 1800 s
   per attempt; zero optimization, one diagnosed revision. Baseline revalidation
   shares the budget, including its actual renders and replay.
+- Subsequent user-authorized air-braking follow-up: separate spec-v3 allowance,
+  one candidate, 500 renders or 1800 s, zero optimization and no automatic revision.
+  It explicitly permits prescribed air braking and acceleration/deceleration around
+  contact rest targets, retaining the 12 mm/s nominal ceiling, fixed angle/pressure
+  and unchanged acceptance limits. It used 303 renders; sharp-corner failure still
+  blocks the phase. Presentation rerenders at 900 DPI are charged to this allowance
+  and do not replace 180-DPI evaluation or introduce fitted geometry.
 - Vocabulary/contract audit: at most eight gesture hypotheses, twelve feasibility
   characters, two proposed families and 100 diagnostic renders or 900 s per
   attempt; zero optimization, one diagnosed revision.

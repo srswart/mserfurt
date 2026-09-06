@@ -1,21 +1,37 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Foundation repair — motion findings</title>
-<style>body{margin:0;background:#f5f1e7;color:#24342f;font:17px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:38px;line-height:1.15}h2{margin-top:38px}a{color:#235d77}aside{border-left:5px solid #b24932;padding:16px 24px;background:#fff7f0}figure{margin:24px 0;padding:20px;background:white;border:1px solid #d9ded8;border-radius:10px}svg,img{max-width:100%;height:auto}figcaption{font-size:15px;color:#52605a}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}.ok{color:#276946}.fail{color:#a43a28}code{font-size:.9em}li{margin:7px 0}</style></head>
-<body><main><p>TD-018 / FOUNDATION REPAIR / SYNTHETIC EVIDENCE</p>
-<h1>Stable timing. Re-entry still needs work.</h1>
-<aside><strong>NOT READY FOR TRAINING.</strong> HANDFLOW-010 remains in progress; the other five Advances remain planned. Both permitted motion attempts are retained. No return primitives, gestures, letters or pen actions were learned in this phase. No implementation merge or appearance approval is claimed.</aside>
-<h2>What changed</h2>
-<table><tr><th>Check</th><th>Result</th></tr>
-<tr><td>Saved u endpoint shift under arc refinement</td><td class="ok">0.399871 → 0.000927 mm (limit 0.01 mm)</td></tr>
-<tr><td>All six fixture endpoint refinements</td><td class="ok">Worst 0.002557 mm; all pass</td></tr>
-<tr><td>Planned versus executed time; contact owners</td><td class="ok">No accumulated time drift; no owner errors</td></tr>
-<tr><td>Original six primitive baseline</td><td class="ok">Fresh read-only revalidation passes; no refitting</td></tr>
-<tr><td>Saved i u maximum contact lag</td><td class="fail">0.795909 mm (limit 0.25 mm): FAIL</td></tr>
-</table>
-<h2>Why a similar-looking picture is not enough</h2>
-<p>The pen reaches the second stroke moving upward at about 16.6 mm/s. The supplied plan immediately asks it to write downward at 12 mm/s. Acceleration is bounded: reversing direction takes time. The old controller snapped positions into a corridor; the new opt-in mode reports the actual delay rather than hiding it.</p>
-<figure><svg viewBox="0 0 1100 500" role="img" aria-label="Actual and desired second-stroke motion, downward velocity and contact lag over 160 milliseconds">
+<title>Foundation repair — clearer strokes and braking results</title>
+<style>body{margin:0;background:#f5f1e7;color:#24342f;font:17px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:38px;line-height:1.15}h2{margin-top:38px}a{color:#235d77}aside{border-left:5px solid #b24932;padding:16px 24px;background:#fff7f0}figure{margin:24px 0;padding:20px;background:white;border:1px solid #d9ded8;border-radius:10px}svg,img{max-width:100%;height:auto}figcaption{font-size:15px;color:#52605a}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}.ok{color:#276946}.fail{color:#a43a28}code{font-size:.9em}li{margin:7px 0}summary{cursor:pointer;font-weight:650}</style></head>
+<body><main><p>TD-018 / FOUNDATION REPAIR / RUN 003</p>
+<h1>Clearer strokes. Controlled pen landing.</h1>
+<aside><strong>Braking and re-entry checks pass; full motion acceptance does not.</strong> The remaining failure is the sharp stem-to-terminal corner in the saved fitted scaffold. HANDFLOW-010 stays in progress and unmerged; the other five Advances remain planned. No new stroke, gesture or letter training is claimed.</aside>
+<h2>Why were the old previews pixelated?</h2>
+<p>The inexpensive evaluation images were rendered at 180 DPI. A 0.45 mm nib is only about 3 pixels wide at that resolution. Enlarging those pixels with nearest-neighbor scaling made them visibly blocky. That was a presentation mistake, not the intended quality of the scribe.</p>
+<p>These new presentation images are rerendered from geometric or actual trajectory samples at <strong>900 DPI</strong>, then smoothly downsampled when assembled. They are not enlarged or retouched evaluation bitmaps. Evaluation still uses the original 180-DPI criteria; prettier presentation cannot change a gate.</p>
+<h2>The six existing stroke primitives</h2>
+<p>Stem, rise, bowl, turn, loop and exit. These are the existing frozen, synthetic-trained families, revalidated under the braking planner—not new training or a complete historical stroke vocabulary.</p>
+<figure><a href="motion/run-003/primitive-gallery.png"><img src="motion/run-003/primitive-gallery.png" alt="High-resolution stem, rise, bowl, turn, loop and exit, each with nominal and actual rendering"></a><figcaption>Each family appears as frozen nominal / actual pen output. All panels share a physical frame and scale. Click to inspect.</figcaption></figure>
+<h2>Why do the comparison marks look like L?</h2>
+<p>That comparison deliberately repeats <strong>one downstroke plus its terminal</strong>. We test it alone, repeated with a lift, overlapped and separated by a gap so geometry stays controlled while motion changes. This L-like construction diagnoses pen landing; it is not evidence of an alphabet or a broad set of learned gestures. Old i/u labels were scaffold identifiers, not claims of successful letter learning.</p>
+<figure><a href="motion/run-003/comparison.png"><img src="motion/run-003/comparison.png" alt="Repeated stem-terminal fixtures, with desired, old actual, braked actual and refined actual columns"></a><figcaption>A motion fixture, not a specimen alphabet. New labels describe the construction. Geometry and tool settings stay fixed; no image cleanup is applied.</figcaption></figure>
+<h2>What the braking fix achieves</h2>
+<table><tr><th>Check</th><th>Measured result</th></tr>
+<tr><td>Saved u re-entry speed, base run</td><td class="ok">About 16.6 mm/s upward before → 0.001221 mm/s after</td></tr>
+<tr><td>Saved u re-entry position error, base run</td><td class="ok">0.0000603 mm, below the 0.05 mm arrival limit</td></tr>
+<tr><td>Measured arrivals and all refinements</td><td class="ok">Entry, time, endpoint and mechanics checks pass</td></tr>
+<tr><td>Original six-primitives baseline</td><td class="ok">Fresh read-only validation passes; no fitting</td></tr>
+<tr><td>Ordinary stem-terminal fixtures, base runs</td><td class="ok">Maximum contact lag 0.0913 mm, below 0.25 mm</td></tr>
+<tr><td>Saved fitted pair, base run</td><td class="fail">Sharp-corner lag 0.3710 mm, above 0.25 mm</td></tr>
+<tr><td>Downstream training admission</td><td class="fail">Still false</td></tr></table>
+<p>The pen brakes while lifted, follows a prescribed rest-to-rest air path, and accelerates into the next stroke without resetting position or velocity. Added time is explicitly planned. Speed, acceleration and tool limits are unchanged; no adaptive wait is chosen from rendered results.</p>
+<h2>Remaining work: plan the sharp corner</h2>
+<p>The remaining failure occurs during continuous contact at the saved scaffold’s sharp stem-to-exit corner. We should not keep adjusting air travel to hide that different problem. The next proposal is shared, acceleration-aware timing at declared stroke joins and along curved paths, preserving geometry and contact topology. It requires a separately authorized experiment: this follow-up allowed one candidate and no automatic revision.</p>
+<ul><li><a href="motion/run-003/README.md">Results, budgets and replay commands</a></li>
+<li><a href="motion/corner-timing-request.md">Proposed shared corner-timing scope</a></li>
+<li><a href="motion/run-003/report.json">Full gate and per-case results</a></li>
+<li><a href="motion/ledger.json">All attempts and verification</a></li>
+<li><a href="motion/run-002/README.md">Retained pre-braking failure</a></li></ul>
+<details><summary>Historical re-entry plot — run 002, before this fix</summary><p>This is retained evidence of the old landing problem, not the current result.</p><figure><svg viewBox="0 0 1100 500" role="img" aria-label="Actual and desired second-stroke motion, downward velocity and contact lag over 160 milliseconds">
 <rect width="1100" height="500" fill="white"/>
 <g font-family="system-ui" font-size="16" fill="#24342f">
 <text x="35" y="25">Re-entry path — physical y increases downward</text>
@@ -33,17 +49,5 @@
 <path d="M500.00,313.01 L501.71,311.65 L507.96,306.65 L514.21,301.65 L520.46,296.65 L526.71,291.65 L532.96,286.65 L539.21,281.65 L545.46,276.65 L551.71,271.66 L557.96,266.66 L564.21,261.66 L570.46,256.66 L576.71,251.66 L582.96,246.67 L589.21,241.67 L595.46,236.67 L601.71,231.67 L607.96,226.68 L614.21,221.68 L620.46,216.68 L626.71,211.69 L632.96,206.69 L639.21,201.69 L645.46,196.70 L651.71,191.70 L657.96,186.71 L664.21,181.71 L670.46,176.72 L676.71,171.72 L682.96,166.73 L689.21,161.74 L695.46,156.75 L701.71,151.75 L707.96,146.76 L714.21,141.77 L720.46,136.79 L726.71,131.80 L732.96,126.81 L739.21,121.83 L745.46,116.85 L751.71,111.88 L757.96,106.93 L764.21,107.73 L770.46,110.22 L776.71,112.62 L782.96,114.92 L789.21,117.12 L795.46,119.24 L801.71,121.27 L807.96,123.22 L814.21,125.10 L820.46,126.90 L826.71,128.62 L832.96,130.28 L839.21,131.87 L845.46,133.40 L851.71,134.86 L857.96,136.27 L864.21,137.62 L870.46,138.92 L876.71,140.16 L882.96,141.35 L889.21,142.50 L895.46,143.60 L901.71,144.66 L907.96,145.67 L914.21,146.65 L920.46,147.58 L926.71,148.48 L932.96,149.34 L939.21,150.16 L945.46,150.96 L951.71,151.72 L957.96,152.45 L964.21,153.15 L970.46,153.82 L976.71,154.47 L982.96,155.09 L989.21,155.69 L995.46,156.26" fill="none" stroke="#b24932" stroke-width="3"/>
 <line x1="500" y1="392.5" x2="1000" y2="392.5" stroke="#b24932" stroke-dasharray="5 4"/><text x="1010" y="398">0.25 limit</text>
 <path d="M500.00,425.88 L501.71,427.41 L507.96,422.32 L514.21,414.47 L520.46,406.78 L526.71,399.37 L532.96,392.24 L539.21,385.41 L545.46,378.87 L551.71,372.63 L557.96,366.69 L564.21,361.04 L570.46,355.70 L576.71,350.65 L582.96,345.90 L589.21,341.45 L595.46,337.30 L601.71,333.45 L607.96,329.90 L614.21,326.65 L620.46,323.70 L626.71,321.05 L632.96,318.69 L639.21,316.64 L645.46,314.89 L651.71,313.43 L657.96,312.28 L664.21,311.42 L670.46,310.87 L676.71,310.61 L682.96,310.66 L689.21,311.00 L695.46,311.65 L701.71,312.59 L707.96,313.83 L714.21,315.38 L720.46,317.22 L726.71,319.36 L732.96,321.80 L739.21,324.55 L745.46,327.59 L751.71,330.93 L757.96,334.57 L764.21,338.33 L770.46,342.00 L776.71,345.52 L782.96,348.90 L789.21,352.14 L795.46,355.26 L801.71,358.25 L807.96,361.12 L814.21,363.87 L820.46,366.52 L826.71,369.06 L832.96,371.49 L839.21,373.83 L845.46,376.08 L851.71,378.24 L857.96,380.31 L864.21,382.30 L870.46,384.20 L876.71,386.04 L882.96,387.79 L889.21,389.48 L895.46,391.10 L901.71,392.66 L907.96,394.15 L914.21,395.59 L920.46,396.96 L926.71,398.28 L932.96,399.55 L939.21,400.77 L945.46,401.94 L951.71,403.06 L957.96,404.14 L964.21,405.17 L970.46,406.17 L976.71,407.12 L982.96,408.04 L989.21,408.91 L995.46,409.76" fill="none" stroke="#b24932" stroke-width="3"/>
-</svg><figcaption>Plots derive from saved run-002 actual execution traces, not ideal ink, synthetic motion or a new experiment. Dot marks actual re-entry; traces retain measured velocity and lag. The chart uses unequal horizontal/vertical scales for path readability, not ink evaluation.</figcaption></figure>
-<h2>Equal-scale ink examples</h2>
-<p>Columns: desired / legacy actual / revised actual / timestep-refined actual. These are frozen supplied constructions, not newly learned letters.</p>
-<figure><img src="motion/run-002/comparison.png" alt="Six synthetic cases compared at equal scale"><figcaption>All image-comparison gates pass. That does not override the failed actual-contact corridor gate.</figcaption></figure>
-<h2>Next required scope</h2>
-<p>Plan acceleration-feasible pen-up braking and a tangent-compatible approach before lowering the pen. Keep actual velocity continuous and account for the additional air time. Do not delay an event only until it looks good, reset pose/velocity, paint air, raise acceleration limits or relax the 0.25 mm bound. This requires a newly authorized repair scope: the single revision allowance is used.</p>
-<ul>
-<li><a href="motion/revision-request.md">Bounded next-repair proposal and required tests</a></li>
-<li><a href="motion/run-002/README.md">Revision findings and exact replay commands</a></li>
-<li><a href="motion/run-002/baseline.png">Six frozen primitives: nominal versus actual</a></li>
-<li><a href="motion/run-001/README.md">Original failed attempt — preserved</a></li>
-<li><a href="motion/ledger.json">Cumulative experiment and verification ledger</a></li>
-</ul></main></body></html>
-
+</svg><figcaption>Historical actual path, velocity and lag. Unequal horizontal/vertical plot scales improve readability; these are not ink-evaluation scales.</figcaption></figure></details>
+</main></body></html>

@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty outcomes complete, one in progress, thirteen planned. Foundation motion repair has executed two attempts but remains blocked on re-entry corridor acceptance. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty outcomes complete, one in progress, thirteen planned. Foundation motion repair and the authorized braking follow-up now pass re-entry checks, but sharp contact corners still fail. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket
@@ -631,8 +631,9 @@ Repair both fixed-tool blockers before action fitting. See the
 executable as six foundation-repair Advances. Fix motion first, audit
 vocabulary/caps, actually train new primitives, independently accept them, then
 train and independently evaluate shared gestures. Runner-only delivery does not
-complete either new learning Advance. HANDFLOW-010 now has two motion attempts:
-timing and baseline checks improve, but re-entry corridor acceptance fails. No
+complete either new learning Advance. HANDFLOW-010 now has two original attempts
+and the authorized braking follow-up: timing, arrival and baseline checks pass,
+but sharp contact corners still fail. No
 new training has run; the remaining five foundation Advances stay planned.
 
 1. **td018-strokes:** EXEMPLAR-008 reference readiness; EVOFIT-007 stroke

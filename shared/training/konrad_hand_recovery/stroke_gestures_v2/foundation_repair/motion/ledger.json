@@ -1,19 +1,77 @@
 {
   "scope": "HANDFLOW-010 bounded motion repair; no learning",
   "attempts": [
-    {"attempt": 0, "revision": 0, "directory": "run-001", "implementation_commit": "dfac9c9", "renders": 266, "elapsed_seconds": 17.09105470799841, "max_renders": 500, "max_seconds": 1800, "optimization_evaluations": 0, "outcome": "failed motion and baseline"},
-    {"attempt": 1, "revision": 1, "directory": "run-002", "implementation_commit": "c66e9f5", "renders": 266, "elapsed_seconds": 14.70672499993816, "max_renders": 500, "max_seconds": 1800, "optimization_evaluations": 0, "outcome": "timing, endpoint refinements and old-six baseline pass; repeated-contact corridor fails"}
+    {
+      "attempt": 0,
+      "revision": 0,
+      "directory": "run-001",
+      "implementation_commit": "dfac9c9",
+      "renders": 266,
+      "elapsed_seconds": 17.09105470799841,
+      "max_renders": 500,
+      "max_seconds": 1800,
+      "optimization_evaluations": 0,
+      "outcome": "failed motion and baseline"
+    },
+    {
+      "attempt": 1,
+      "revision": 1,
+      "directory": "run-002",
+      "implementation_commit": "c66e9f5",
+      "renders": 266,
+      "elapsed_seconds": 14.70672499993816,
+      "max_renders": 500,
+      "max_seconds": 1800,
+      "optimization_evaluations": 0,
+      "outcome": "timing, endpoint refinements and old-six baseline pass; repeated-contact corridor fails"
+    },
+    {
+      "attempt": 2,
+      "revision": 0,
+      "allowance": "authorized-air-braking-followup-001",
+      "directory": "run-003",
+      "implementation_commit": "eb10004",
+      "renders": 303,
+      "elapsed_seconds": 9.426153957960196,
+      "max_renders": 500,
+      "max_seconds": 1800,
+      "optimization_evaluations": 0,
+      "outcome": "arrival, timing, endpoint, mechanics and baseline checks pass; sharp contact corner fails"
+    }
   ],
-  "cumulative_experiment_renders": 532,
-  "cumulative_experiment_seconds": 31.79777970793657,
+  "cumulative_experiment_renders": 835,
+  "cumulative_experiment_seconds": 41.223933665896766,
   "optimization_evaluations": 0,
   "permitted_revisions": 1,
   "used_revisions": 1,
   "additional_candidates_permitted": false,
-  "verification": {"commit": "ca08732", "kind": "clean-checkout regression only, not candidate exploration", "renders": 266, "elapsed_seconds": 6.870598707930185, "rows_and_baseline_traces_identical": true},
-  "presentation": {"kind": "Static HTML/SVG derived from existing saved traces and panels; no additional simulation or raster rendering", "additional_simulation_renders": 0},
+  "verification": {
+    "commit": "ca08732",
+    "kind": "clean-checkout regression only, not candidate exploration",
+    "renders": 266,
+    "elapsed_seconds": 6.870598707930185,
+    "rows_and_baseline_traces_identical": true
+  },
+  "presentation": {
+    "kind": "Static HTML/SVG derived from existing saved traces and panels; no additional simulation or raster rendering",
+    "additional_simulation_renders": 0
+  },
   "unit_tests": "Separately labeled regression verification, not optimizer or candidate search; old diagnostic-runner tests execute their own bounded fixed-fixture renders outside the experiment allowance.",
   "primitive_training_permitted": false,
   "advance_status": "in_progress",
-  "implementation_merged": false
+  "implementation_merged": false,
+  "braking_followup_allowance": {
+    "authorized_by": "User requested the next required fix",
+    "candidates": 1,
+    "used_candidates": 1,
+    "max_revisions": 0,
+    "additional_candidates_permitted": false
+  },
+  "braking_verification": {
+    "commit": "f222169",
+    "kind": "fresh-process clean-checkout regression, no new candidate or optimizer",
+    "elapsed_seconds": 8.140424540964887,
+    "renders": 303,
+    "rows_traces_and_images_identical": true
+  }
 }
