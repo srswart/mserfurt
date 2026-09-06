@@ -255,3 +255,12 @@ def test_braking_contact_duration_does_not_depend_on_the_final_sample_gap():
         samples[-1] = replace(samples[-1], vx_mm_s=0, speed_mm_s=0)
         durations.append(retime_air_braking(plan(samples)).plan.total_time_s)
     assert durations[0] == pytest.approx(durations[1], abs=1e-10)
+
+
+def test_braking_rejects_inconsistent_velocity_and_nonfixed_pressure():
+    from dataclasses import replace
+    from scribesim.handflow.planning import retime_air_braking
+
+    for broken in (replace(sample(0, 0), vx_mm_s=40), replace(sample(0, 0), pressure=.7)):
+        with pytest.raises(ValueError):
+            retime_air_braking(plan([broken, sample(.1, 1.2)]))
