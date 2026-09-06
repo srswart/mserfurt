@@ -6,16 +6,16 @@ advance:
   primary_component: "pathguide"
   components: ["pathguide","handflow","gesture","nibcontact","handvalidate","tests"]
   started_at: "2026-09-06T12:03:29Z"
-  implementation_completed_at: ~
+  implementation_completed_at: "2026-09-06T14:22:53Z"
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api","migration"]
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit", "tests:integration"]
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -23,7 +23,7 @@ advance:
 Carry intentional gesture actions through the existing planner/controller into auditable actual trajectory fields, rather than painting the desired profile as if it had been achieved.
 
 **Work kind:** Implementation. Follows [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md), including its [delivery and budget contract](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
-Drafting timestamp only: no implementation, investigation run, gate pass, CI or owner approval is claimed.
+Implementation/evaluation status and any unexecuted acceptance work are recorded below. No provider CI or owner approval is claimed.
 
 ## Behavioral Change
 
@@ -52,23 +52,23 @@ downstream execution; synthetic demonstrations never authorize real fitting.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm authorization before creating branches or commits.
-- [ ] tidy: assess narrow preparation; record any required behavior-preserving refactor separately.
-- [ ] test: add failing tests before any new or changed tooling; record red/green evidence. For investigation-only runs, record why code changes and TDD are not applicable rather than fabricating test evidence.
-- [ ] Sample desired pose/action tracks by physical gesture arc length, retaining topology across primitive boundaries and transforming tangents, angle and edge side into the physical frame.
-- [ ] Extend versioned planner/controller state with supported realized orientation and active-edge interval. Use frozen actuator rate/tracking bounds; define deterministic updates and initialization at explicit contact/lift events.
-- [ ] Keep pressure/speed constant and session expression disabled. Reuse the existing controller; do not add a second simulator or make desired action values stand in for realized state.
-- [ ] Render actual proofs exclusively from realized pose/contact fields. Persist desired versus actual tracking errors, topology and primitive/gesture/profile/letter/word/line spans with multiple overlap contributors.
-- [ ] Reject missing required new fields in old readers, stale model/tool IDs and unsupported action tracks. Preserve legacy guide/repertoire operation through explicit version handling.
-- [ ] Test deliberately rate-limited action tracking, swapped edge sides, wrap transitions, gesture segmentation, no-ink air motion and word-space boundaries. Desired-perfect/actual-wrong fixtures must fail.
-- [ ] Publish direct/sampled/actual panels and fresh-process traces under the frozen synthetic tool contract; real G1/G2 prerequisites still apply to real proof execution.
-- [ ] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
+- [x] branch: confirm authorization before creating branches or commits.
+- [x] tidy: assess narrow preparation; record any required behavior-preserving refactor separately.
+- [x] test: add failing tests before any new or changed tooling; record red/green evidence. For investigation-only runs, record why code changes and TDD are not applicable rather than fabricating test evidence.
+- [x] Sample desired pose/action tracks by physical gesture arc length, retaining topology across primitive boundaries and transforming tangents, angle and edge side into the physical frame.
+- [x] Extend versioned planner/controller state with supported realized orientation and active-edge interval. Use frozen actuator rate/tracking bounds; define deterministic updates and initialization at explicit contact/lift events.
+- [x] Keep pressure/speed constant and session expression disabled. Reuse the existing controller; do not add a second simulator or make desired action values stand in for realized state.
+- [x] Render actual proofs exclusively from realized pose/contact fields. Persist desired versus actual tracking errors, topology and primitive/gesture/profile/letter/word/line spans with multiple overlap contributors.
+- [x] Reject missing required new fields in old readers, stale model/tool IDs and unsupported action tracks. Preserve legacy guide/repertoire operation through explicit version handling.
+- [x] Test deliberately rate-limited action tracking, swapped edge sides, wrap transitions, gesture segmentation, no-ink air motion and word-space boundaries. Desired-perfect/actual-wrong fixtures must fail.
+- [x] Publish direct/sampled/actual panels and fresh-process traces under the frozen synthetic tool contract; real G1/G2 prerequisites still apply to real proof execution.
+- [x] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
 
 ## Validation Gates
 
 - [ ] Actual tracking/contact errors and convergence meet the independently frozen bounds; failed actuation remains visible even when desired playback is perfect.
-- [ ] Every realized mark has exact continuous-contact and logical ownership; explicit lifts and spaces create no ink connectors.
-- [ ] Legacy replay remains unchanged or unsupported migrations fail explicitly. Controller implementation does not itself approve a learned action profile.
+- [x] Every realized mark has exact continuous-contact and logical ownership; explicit lifts and spaces create no ink connectors.
+- [x] Legacy replay remains unchanged or unsupported migrations fail explicitly. Controller implementation does not itself approve a learned action profile.
 
 ## Invariant Impact
 
@@ -85,12 +85,12 @@ Review estimate: 40 minutes, not a measured reviewability score.
 
 ## Evidence
 
-- [ ] Frozen inputs, criteria and identities; complete render/time and revision ledger.
-- [ ] Readable equal-scale evidence and a reproducible command/sample index under the planned bundle.
-- [ ] Scope-qualified decision with negative/null/unresolved outcomes and genuine review only when performed.
-- [ ] Tidy assessment and TDD red/green evidence for code changes; focused tests and clean-checkout replay where applicable.
-- [ ] `arrive plan check`, changed-link checks and `git diff --check`.
-- [ ] Before authorized merge, run `arrive pr check --strict --json`; report installed-tool limitations separately from provider CI. Never claim unobserved CI or owner approval.
+- [x] Frozen inputs, criteria and identities; complete render/time and revision ledger.
+- [x] Readable equal-scale evidence and a reproducible command/sample index under the planned bundle.
+- [x] Scope-qualified decision with negative/null/unresolved outcomes and genuine review only when performed.
+- [x] Tidy assessment and TDD red/green evidence for code changes; focused tests and clean-checkout replay where applicable.
+- [x] `arrive plan check`, changed-link checks and `git diff --check`.
+- [x] Before authorized merge, run `arrive pr check --strict --json`; report installed-tool limitations separately from provider CI. Never claim unobserved CI or owner approval.
 
 ## Bug Fixes
 
@@ -104,8 +104,40 @@ diagnosis and bounded repair; unrelated changes and threshold relaxation are exc
 - Added to Pass 15 phase `td018-pen-actions`.
 - Implementation, experiments and acceptance remain pending.
 
+### 2026-09-06 — complete: Implementation outcome
+
+- Red tests `b9023d8`; realized adapter `7fddeff`. Diagnostic criteria/red
+  `290fb3d`; first proofs `bebd083`; strict-import regression `2f74e8c`;
+  repaired exports/readable panel and run-002 `6f88820`.
+- No preparatory refactor. New versioned ActionPlanSample/ActionState extend the
+  existing types; ActionController subclasses the existing controller and
+  inherits planning/follow-plan/positional integration rather than implementing
+  another simulator. Base controller and legacy dataclasses stay unchanged.
+- Gesture-local arc tracks, original action/model identities and logical owners
+  reach actual ContactSample fields. State is initialized once; explicit air
+  prepares the next entry without teleporting actuators. Constant pressure,
+  adequate ink and no session effects; exact contact/air ownership tested.
+- Normal diagnostic action tracking passes; rate-forced rotation and release
+  fail visibly. Swapped edge sides change ink geometry without changing positions.
+  Unwrapped 179-to-181 and exact cubic subdivision are tested.
+- Convergence FAILS: 0.399742mm arc refinement and 0.399462mm timestep refinement
+  exceed 0.01mm on the supplied lifted/word-space probe, despite image differences
+  below 0.03. Retain the failed validation checkbox and underlying positional
+  repair requirement. This infrastructure is not learned-action acceptance.
+- 51 renders/attempt; two attempts total 102, zero optimization. One diagnosed
+  export/presentation revision; actual traces/metrics unchanged. Wall receipts
+  8.84s and 18.20s. Immutable run-001 keeps the original non-importable proof envelope.
+- 55 focused/regression tests pass locally (20.82s) and in clean clone
+  `/tmp/td018-action-bridge-clean.Xn902c` at `6f88820` (14.26s).
+  All semantic artifacts match full hash-seed-839 replay; elapsed receipts vary.
+- Broader test probe finds pre-existing `test_desired_velocity_affects_acceleration`
+  missing required nib_angle_deg. Reproduced in the prior contact clean clone;
+  base controller/model/test files are unchanged. Not repaired or counted as passing.
+- Strict PR check runs but installed ID parser returns `ids: []`; no provider CI.
+  Plan/link/diff validation passes. Older code-bound gate evidence stays stale.
+- [Samples, traces, identities and commands](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/action_bridge/README.md).
+
 ## Check for Understanding
 
 1. Which state fields prove the controller realized an action instead of copying its requested profile?
 2. How are orientation and left/right contact transformed without swapping the physical edge?
-

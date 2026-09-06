@@ -1,0 +1,200 @@
+{
+  "scope": "analytic adapter/controller diagnostics on supplied i/u recipes, not learned or accepted gestures",
+  "rows": [
+    {
+      "profile": "fixed",
+      "tracking_pass": true,
+      "metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 0.0,
+        "realized_edge_rate_s": 0.0,
+        "image_loss": 0.0661532677914355
+      },
+      "convergence": {
+        "step": {
+          "endpoint_error_mm": 0.3997421533651394,
+          "image_loss": 0.02116323132571625,
+          "pass": false
+        },
+        "time": {
+          "endpoint_error_mm": 0.3994623160026892,
+          "image_loss": 0.013953381717286372,
+          "pass": false
+        }
+      },
+      "forced_metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 0.0,
+        "realized_edge_rate_s": 0.0,
+        "image_loss": 0.0661532677914355
+      },
+      "forced_tracking_pass": true
+    },
+    {
+      "profile": "rotation",
+      "tracking_pass": true,
+      "metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 179.99999999999972,
+        "realized_edge_rate_s": 0.0,
+        "image_loss": 0.07040449097960658
+      },
+      "convergence": {
+        "step": {
+          "endpoint_error_mm": 0.3997421533651394,
+          "image_loss": 0.018155582102262646,
+          "pass": false
+        },
+        "time": {
+          "endpoint_error_mm": 0.3994623160026892,
+          "image_loss": 0.013590114555415884,
+          "pass": false
+        }
+      },
+      "forced_metrics": {
+        "orientation_error_deg": 19.53177174097852,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 1.000000000001707,
+        "realized_edge_rate_s": 0.0,
+        "image_loss": 0.08520528497172036
+      },
+      "forced_tracking_pass": false
+    },
+    {
+      "profile": "negative_edge",
+      "tracking_pass": true,
+      "metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 0.0,
+        "realized_edge_rate_s": 3.0000000000000027,
+        "image_loss": 0.07763252406263467
+      },
+      "convergence": {
+        "step": {
+          "endpoint_error_mm": 0.3997421533651394,
+          "image_loss": 0.024575826482420852,
+          "pass": false
+        },
+        "time": {
+          "endpoint_error_mm": 0.3994623160026892,
+          "image_loss": 0.017057569296375266,
+          "pass": false
+        }
+      },
+      "forced_metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.4953177174097849,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 0.0,
+        "realized_edge_rate_s": 0.010000000000026701,
+        "image_loss": 0.14899760641329265
+      },
+      "forced_tracking_pass": false
+    },
+    {
+      "profile": "positive_edge",
+      "tracking_pass": true,
+      "metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 0.0,
+        "realized_edge_rate_s": 3.0000000000000027,
+        "image_loss": 0.07938684838354834
+      },
+      "convergence": {
+        "step": {
+          "endpoint_error_mm": 0.3997421533651394,
+          "image_loss": 0.02697950595220938,
+          "pass": false
+        },
+        "time": {
+          "endpoint_error_mm": 0.3994623160026892,
+          "image_loss": 0.019909788260981987,
+          "pass": false
+        }
+      },
+      "forced_metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.4953177174097849,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 0.0,
+        "realized_edge_rate_s": 0.0100000000000002,
+        "image_loss": 0.16100142479136983
+      },
+      "forced_tracking_pass": false
+    },
+    {
+      "profile": "wrap",
+      "tracking_pass": true,
+      "metrics": {
+        "orientation_error_deg": 0.0,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 180.00000000000682,
+        "realized_edge_rate_s": 0.0,
+        "image_loss": 0.06548958389406255
+      },
+      "convergence": {
+        "step": {
+          "endpoint_error_mm": 0.3997421533651394,
+          "image_loss": 0.017374815337463892,
+          "pass": false
+        },
+        "time": {
+          "endpoint_error_mm": 0.3994623160026892,
+          "image_loss": 0.012664123491838182,
+          "pass": false
+        }
+      },
+      "forced_metrics": {
+        "orientation_error_deg": 1.5317717409784848,
+        "edge_error_fraction": 0.0,
+        "corridor_error_mm": 0.20000000000000112,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 1.000000000006775,
+        "realized_edge_rate_s": 0.0,
+        "image_loss": 0.06534222519096307
+      },
+      "forced_tracking_pass": true
+    }
+  ],
+  "S1_action_accepted": false,
+  "promoted": false,
+  "forced_lag_detected": true,
+  "bridge_checks_pass": false,
+  "renders": 51,
+  "max_renders": 100,
+  "max_seconds": 900,
+  "optimization_evaluations": 0,
+  "revision": 1,
+  "artifacts": {
+    "action-comparison.png": "23e6000f99f8f3f90888ee979c0266741db9097edaf71a321ece71c13ca7979a",
+    "actual-traces.json.gz": "95f959805bac3131ee348b349fe463cf73d005938b8630923145436990cfcc59",
+    "fixed-bundle.json": "f47acce081f89da52659a38bac8b715e1f07efb8e63b983a03c970017d8619e3",
+    "freeze.json": "c142c9948182ae50a3dde7cefcc1425e3151a896ab9f1cf8686ea33cd4f94b61",
+    "negative_edge-bundle.json": "f7a4b28133e3263a90a1dafc308cea7bdb19f9849226202a505abddd43d0655b",
+    "positive_edge-bundle.json": "6ae31536973eebb1940c7fbbb1c6ea9a5ad198a794d1f8ff68f4639b377f4dd6",
+    "rotation-bundle.json": "b40e0e9eabe341b9bc73e2a086aedb3c415a9d40c58ee9a6b130579a670b9856",
+    "wrap-bundle.json": "d17dbf6499593c4a62520f6cc933fe747a32644dabe0c607661ce9f9d70305b5"
+  },
+  "decision": "infrastructure diagnostics only; S1-gesture and action fitting remain blocked"
+}
