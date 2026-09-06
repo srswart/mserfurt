@@ -2,17 +2,30 @@
 
 **Status:** benchmark/nominal/guided infrastructure implemented; real G0–G3 blocked; no hand or renderer promoted.
 **Date:** 2026-09-05  
-**First milestone:** three convincing lines generated from reusable stroke programs, including unseen words.  
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), ten Advances; eight implementation outcomes complete.
+**Revised:** 2026-09-06 — shared stroke language and staged learning before expressive simulation.
+
+**First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), nineteen Advances; eight historical implementation outcomes complete, eleven planned. Ink, fatigue and other expressive work are later.
+
+Section 12 is the authoritative revision for new work. Earlier implemented
+character-program recovery remains a diagnostic baseline, not proof that the
+shared stroke-language curriculum exists. New S0–S4 layer gates supplement
+G0–G4; no previous pass or completion record satisfies them automatically.
 
 ## 1. Outcome and scope
 
-Recover the letterforms, contextual variants, joins, and spacing that make one
-coherent reference hand recognizable. Use that repertoire to write new text,
-then execute it through the existing continuous guided hand simulation. The
-first deliverable is a small specimen whose appearance the project owner can
-assess directly. Full folios follow only after nominal and simulated specimens
-pass separate gates.
+Learn a reusable stroke vocabulary, assemble strokes into letters, learn how
+neighboring letters alter those strokes within words, then learn supported
+word-boundary effects when words form lines. The hierarchy must remain visible
+in both its representation and its training evidence. Character-level curves
+with no shared primitive references do not meet this objective.
+
+The first deliverable is a stroke practice and transfer sheet, followed by
+letter construction sheets, within-word context proofs and inter-word/line
+proofs. Convincing unseen words and the existing three-line benchmark remain
+later acceptance targets. Use the existing neutral renderer/controller to
+measure execution fidelity; defer fatigue, depletion and expressive variation
+until the compositional foundations pass. Full folios follow later gates.
 
 The intended character remains Brother Konrad: a professional scribe writing
 a private manuscript, with the folio-specific variations described by the
@@ -49,8 +62,10 @@ the saved evidence; this document does not mark it complete.
 
 - Retain TD-014's nominal-before-controller sequence, exact-symbol coverage,
   provenance, corridor tracking, and opt-in folio rollout.
-- Extend its nominal recovery with whole-word supervision, multiple structural
-  hypotheses, explicit context selection, and a small visual acceptance bench.
+- Revise nominal recovery into shared primitives and explicit letter recipes,
+  with whole-word supervision constraining the hierarchy rather than replacing
+  it. The older primitive curriculum selects controller configurations on fixed
+  exercise paths; it does not supply learned primitives to the new letters.
 - Reuse TD-012's allograph/composition concepts after verifying their behavior.
   Existing variants are candidate seeds, not automatically accepted exemplars.
 - Reuse TD-015's broad-edge sweep for nominal observation and the existing
@@ -156,6 +171,13 @@ while that review remains pending.
 
 ## 6. Reusable stroke programs and recovery
 
+This section describes the implemented character-level baseline. Its direct
+per-form cubic representation and unrestricted per-form geometry proposals are
+not the revised learning model. Section 12 replaces that model with shared
+primitive references, bounded recipes and separately fitted context layers.
+Retain the code and experiments as baselines; reuse losses, masks and budget
+machinery where compatible, not the bypass around shared strokes.
+
 ### Representation
 
 A versioned `HandRepertoire` contains units in local x-height coordinates,
@@ -257,8 +279,9 @@ Pressure, nib angle, speed and baseline drift evolve slowly with elapsed writing
 and explicit profile inputs. Fatigue and passage variation use bounded,
 documented controls; do not infer historical emotional state from keywords.
 
-Begin with neutral execution, then activate ink consumption/dips and a small set
-of pressure, angle and rhythm controls. Each control must visibly and measurably
+For the revised curriculum, keep neutral execution throughout S0–S4 and G1/G2.
+Only in the explicitly deferred expressive phase activate ink consumption/dips
+and a small set of pressure, angle and rhythm controls. Each control must visibly and measurably
 affect the selected path while preserving symbol identity. Warp/tremor expansion
 is deferred. Preserve intended crossings rather than imposing zero intersections
 on every letter.
@@ -340,7 +363,9 @@ retains failed evidence; no reference or production output is overwritten.
 
 The benchmark, nominal and guided records now contain executed evidence. Their completed
 implementation outcomes do not mean G0/G1 passed: the corpus has zero admitted
-observations and no accepted recovered checkpoint. Folio records remain planned.
+observations and no accepted recovered checkpoint. The former repair-first
+proposal is replaced by four stroke-language learning phases, then deferred
+expressive and folio phases. These eleven implementation outcomes remain planned.
 Synthetic bridge/control evidence is not a real G2/G3 acceptance. Draft timestamps
 alone do not indicate implementation completion.
 
@@ -377,7 +402,16 @@ See [guided evidence, limitations and commands](../../shared/training/konrad_han
 | [ADV-SS-PATHGUIDE-005](../../arrive/systems/scribesim/advances/ADV-SS-PATHGUIDE-005.md) | Loss-bounded guided bridge and G2 evidence | HANDVALIDATE-008; G1 pass |
 | [ADV-SS-HANDFLOW-008](../../arrive/systems/scribesim/advances/ADV-SS-HANDFLOW-008.md) | Persistent, seeded stroke/word/line state | PATHGUIDE-005; G2 pass |
 | [ADV-SS-HANDVALIDATE-009](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-009.md) | G3 expressive specimen and control sensitivity decision | HANDFLOW-008 |
-| [ADV-SS-RENDER-006](../../arrive/systems/scribesim/advances/ADV-SS-RENDER-006.md) | Opt-in folio rendering and actual-trajectory exports | HANDVALIDATE-009; G3 pass |
+| [ADV-SS-EXEMPLAR-008](../../arrive/systems/scribesim/advances/ADV-SS-EXEMPLAR-008.md) | Admitted observations, calibration and G0 input readiness | EXEMPLAR-007; HANDVALIDATE-009 |
+| [ADV-SS-EVOFIT-007](../../arrive/systems/scribesim/advances/ADV-SS-EVOFIT-007.md) | Stroke Language — Shared Primitives and Layered Compilation | EVOFIT-005 |
+| [ADV-SS-CURRICULUM-004](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-004.md) | Stroke Learning — Shared Primitive Practice and Transfer | EVOFIT-007; EXEMPLAR-008 |
+| [ADV-SS-CURRICULUM-005](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-005.md) | Letter Construction — Recipes Built from Learned Strokes | CURRICULUM-004 |
+| [ADV-SS-CURRICULUM-006](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-006.md) | Letter Context — Bounded Stroke Changes Within Words | CURRICULUM-005 |
+| [ADV-SS-CURRICULUM-007](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-007.md) | Word Context — Boundary Effects on Stroke Programs | CURRICULUM-006 |
+| [ADV-SS-HANDVALIDATE-011](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-011.md) | Layer transfer and real G0–G2 decision | EXEMPLAR-008; CURRICULUM-007; HANDVALIDATE-008; PATHGUIDE-005 |
+| [ADV-SS-HANDFLOW-009](../../arrive/systems/scribesim/advances/ADV-SS-HANDFLOW-009.md) | Deferred ink repair after layered neutral acceptance | HANDFLOW-008; HANDVALIDATE-009; HANDVALIDATE-011 |
+| [ADV-SS-HANDVALIDATE-012](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-012.md) | Deferred expressive G3 readiness decision | HANDVALIDATE-011; HANDFLOW-009 |
+| [ADV-SS-RENDER-006](../../arrive/systems/scribesim/advances/ADV-SS-RENDER-006.md) | Opt-in folio rendering and actual-trajectory exports | HANDVALIDATE-009; HANDVALIDATE-012; real G3 pass |
 | [ADV-SS-HANDVALIDATE-010](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-010.md) | G4 four-folio evaluation and rollout recommendation | RENDER-006 |
 
 The first Advance reconciles prior results as evidence, without changing
@@ -403,3 +437,181 @@ control whether downstream integration may execute with a given candidate.
 After the initial bounded recovery run and one diagnosed revision, issue a
 written stop/revise/proceed decision. Further search, larger datasets or manual
 annotation must be motivated by a named unresolved failure and a new budget.
+
+## 12. Stroke language and layered learning: revised direction
+
+### Decision and evidence boundary
+
+The owner clarified the intended progression on 2026-09-06: **strokes → stroke
+combinations forming letters → letter-context effects on strokes → word-context
+effects on strokes**, with fatigue and other expressive behavior later. This
+replaces the prior immediate ink-repair priority. The analogy to phonemes is
+useful for compositional structure, not a claim that handwriting has a unique
+universal alphabet of motor primitives.
+
+Current code can follow predefined primitive paths and optimize independent
+character-level stroke programs. Neither demonstrates the requested learned
+shared stroke vocabulary. Existing synthetic sheets reuse catalog letterforms;
+their similarity is expected and they must not be shown as successive stages
+of stroke learning. Preserve those artifacts and their honest blocked/failed
+outcomes. No new implementation or training is claimed by this revision.
+
+### Layered representation: one source of truth
+
+Use a small declarative, versioned data model rather than a new general-purpose
+programming language. The notation below is conceptual, not an available API:
+
+- **StrokePrimitive:** a shared parameterized path family (initial hypotheses:
+  downstroke, rising stroke, curve, turn/hook, loop, entry/exit connector).
+  Stable ID, units, geometry, entry/exit position and tangent, permitted
+  curvature, transform limits, provenance and uncertainty. Lift is an explicit
+  transition, not an ink stroke.
+- **LetterRecipe:** an ordered list of primitive references and bounded
+  placement/attachment parameters, with legal lifts, joins, crossings, counters
+  and baseline/x-height/ascender/descender constraints. Example concept:
+  a stem primitive plus a turn and exit primitive, not a fresh list of unrelated
+  cubic curves. Actual historical recipes must be fitted/validated, not assumed.
+- **WordProgram:** exact letter/recipe instances plus adjacent-letter context
+  overlays. Entry/exit adaptations, permitted alternatives, joins and spacing
+  are bounded and recorded per affected primitive occurrence.
+- **LineProgram:** exact word programs plus inter-word boundary and layout
+  rules. Terminal/initial stroke adjustments, gaps and air transitions are
+  explicit; spaces do not silently become ink joins.
+
+Compilation expands these references to the existing nominal and neutral guided
+paths. Derived cubics are compiled output, never the authoritative learned
+letter geometry. Every rendered sample retains primitive ID, occurrence ID,
+recipe/character span, word and line ownership, including explicit shared ink.
+A primitive edit propagates to all users and invalidates compiled caches.
+Context overlays never mutate canonical primitive or recipe records.
+
+Guardrails reject missing/cyclic references, unauthorized text aliases,
+unbounded deformation, illegal ports/contact, unsupported inventory and silent
+overflow. New models have an explicit schema/version and adapter; do not
+reinterpret old schema-2 catalog files as learned stroke-language models.
+Do not implement a second controller, a word-image lookup, or unrestricted
+per-letter/per-word residual geometry.
+
+### What is learned, and in what order
+
+| Stage | Learn or establish | Keep fixed | Required visible proof |
+|---|---|---|---|
+| S0: language | Schema, constraints, deterministic compiler and ownership | Synthetic declared programs; no learning claim | Recipe listings, colored decomposition and shared-edit propagation |
+| S1: strokes | Shared primitive geometry and ports | Fixed nib, pressure, nominal speed and neutral execution | Isolated practice sheets, before/after parameters, held-out transfer |
+| S2: letters | Recipe selection and bounded assembly parameters | Accepted primitive checkpoint | Numbered stroke assembly, isolated letters, common primitives across letters |
+| S3: letters in words | Bounded adjacent-letter stroke/spacing rules | Primitive and recipe checkpoints | Same letter in contrasting neighbors; pairs/triples and unseen words |
+| S4: words in lines | Supported word-edge stroke/gap/transition rules | All lower-layer checkpoints | Same word alone/in different sequences; highlighted boundary changes |
+
+Training means optimizing shared parameters from evidence and retaining a
+checkpoint, not choosing among fixed profile configurations or replaying paths.
+Begin each stage with a frozen initialization and matched frozen-prior baseline.
+Reusing loss/calibration/budget machinery is encouraged, but fitting arbitrary
+per-character curves would bypass the new abstraction and fails acceptance.
+
+Synthetic known-program exercises establish recoverability and compiler/controller
+correctness. Reference-grounded fitting requires live G0 admission and calibrated
+source evidence. Real primitives may be inferred jointly as latent assignments
+inside admitted word crops; we do not require manually traced isolated strokes.
+Record alternative assignments and uncertainty. A static ink image cannot
+uniquely establish historical pen order, timing or pressure; learned paths remain
+constrained explanatory hypotheses.
+
+Fit each layer separately with lower layers frozen to prove transfer. Do not
+add end-to-end refinement that can erase the hierarchy before that proof.
+Any later shared-primitive revision invalidates dependent recipe/context
+checkpoints and requires their gates again.
+
+### Context is geometric, not fatigue
+
+Within words, rules may depend on declared neighboring letter/stroke classes
+and word position. Across words, rules may depend on boundary classes, gap and
+line position. They may not depend on target-image pixels, arbitrary word IDs,
+semantic/emotional labels or a hidden elapsed-time/fatigue variable.
+
+A word boundary can change exit/entry preparation and spacing without changing
+the identity of either word. Compare no-context, spacing-only and stroke-context
+models to show which effect is actually learned. Do not force a visible shape
+change where the source only supports a gap or lift: a documented null rule is
+better than invented behavior. Interior strokes are unchanged unless an explicit
+predeclared, supported rule permits otherwise.
+
+Throughout these stages use fixed nib/pressure/speed and disable ink depletion,
+fatigue, stochastic rhythm, tremor and warp. Retain the existing neutral controller
+for execution-fidelity checks, not for explaining away wrong nominal shapes.
+Reservoir repair, variable pressure/angle/rhythm and fatigue are later work.
+
+### Reference preparation, budgets and gates
+
+EXEMPLAR-008 stays necessary: v2 has 60 reservations (41 train, 11 development,
+8 locked test) and zero admitted observations. Repair non-test mappings and
+masks, preserve uncertainty/native bytes, and freeze v3 with calibration and
+genuine target review. One extraction revision and one annotation pass are
+budgeted. Unresolved labels or support produce a blocked G0, never invented
+readings or relaxed thresholds. Keep test pixels sealed; previously inspected
+data never becomes a fresh test set. Opening a test set is recorded and ends
+its eligibility for future tuning.
+
+Synthetic language/stroke work can start without real G0. Reference preparation
+owns initial G0 readiness so it does not depend on the later HANDVALIDATE-011
+decision. Every real fitting stage independently revalidates G0; that final
+Advance rechecks it rather than supplying a prerequisite retroactively.
+
+Initial model caps: eight primitive families, 12 lowercase characters, two
+recipes per character, four primitive occurrences per recipe, 16 adjacent-letter
+rules and eight inter-word rules. These are pilot complexity budgets, not
+historical facts. Unsupported symbols and bound hits are explicit scope debt.
+Freeze the covered inventory from admitted support before real fitting.
+Do not rewrite the original three-line benchmark to conceal inventory gaps.
+
+For each learning stage use seeds 7/19/41 and at most 5000 rendered targets or
+1800 seconds per ablation/seed, whichever occurs first. Stroke and letter
+stages have at most three predeclared ablations; both context stages use
+no-context, spacing-only and stroke-context. Allow one diagnosed revision;
+then publish stop/revise/proceed and require a new budget for expansion.
+Choose checkpoints on development evidence. Freeze numeric constraints and
+evaluation combinations before inspecting results; new seeds alone are not
+unseen composition tests.
+
+S0–S4 require traceable shared use, valid compilation, measurable learning where
+claimed, frozen held-out transfer, actual-neutral fidelity and readable practice
+evidence. Each record distinguishes synthetic engineering status, real-source
+status and human review. G0–G4 remain intact: S0–S4 cannot certify historical
+appearance or replace nominal G1/neutral G2. HANDVALIDATE-011 audits the full
+hierarchy, exact unchanged benchmark text, real review and G0–G2 after S4.
+A missing inventory, failed transfer or absent review blocks the corresponding
+real gate rather than advancing to expressive or folio work.
+
+### Revised Advance sequence and delivery
+
+1. **td018-strokes:** EXEMPLAR-008 reference readiness; EVOFIT-007 stroke
+   language/compiler; CURRICULUM-004 actual shared-primitive learning.
+2. **td018-letters:** CURRICULUM-005 letter recipes and construction evidence.
+3. **td018-letter-context:** CURRICULUM-006 within-word stroke adaptation.
+4. **td018-word-context:** CURRICULUM-007 inter-word effects, then
+   HANDVALIDATE-011 layered transfer and real G0–G2 decision.
+5. **td018-expressive-later:** retain HANDFLOW-009 ink repair and
+   HANDVALIDATE-012 G3 evaluation as planned but deferred; require layered
+   neutral acceptance and an explicit later go-ahead. Broader fatigue,
+   tremor/warp and state work remain separately scoped, not smuggled into S4.
+6. **td018-folio:** unchanged opt-in release boundary after real G3.
+
+Each stage publishes a new immutable bundle under
+`shared/training/konrad_hand_recovery/stroke_language_v1/`, with a sample index,
+reference/synthetic labels, before/after images at matching physical scale,
+decomposition overlays and clean final renders. Show parameter/rule changes
+beside the images. Replays and control sensitivities are labeled as such, never
+as learning progression. The immediate owner-review artifact is a **stroke
+practice sheet**, not another nearly identical three-line catalog specimen.
+
+### Existing samples
+
+The latest executed samples are still the **unaccepted synthetic v1** artifacts:
+
+- [Neutral three-line sheet](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/neutral-three-line.png)
+- [Ink three-line sheet showing excessive fading](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/ink-three-line.png)
+- [Combined-control three-line sheet](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/combined-three-line.png)
+- [All six configurations for seed 7](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/comparison.png)
+- [Frozen reference sheet](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/reference-sheet.png)
+
+The upright catalog-prior shapes are not recovered Konrad handwriting. Fading
+in these diagnostic sheets is the recorded failure this repair must address.

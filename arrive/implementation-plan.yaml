@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T03:52:03Z
+  updated_at: 2026-09-06T04:10:57Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1469,9 +1469,109 @@ passes:
       dependencies:
       - ADV-SS-HANDFLOW-008
       notes: "Implemented frozen three-line multi-seed sensitivity, actual-state audits, replay and G3. 90 focused tests pass. Full synthetic ink/combined settings are active-unsafe; real G3 is blocked by G1/G2 and review. No promotion; broader HANDVALIDATE-006 scope remains deferred."
+  - id: td018-strokes
+    title: Shared stroke language and basic stroke learning
+    order: 4
+    items:
+    - id: ADV-SS-EXEMPLAR-008
+      advance_id: ADV-SS-EXEMPLAR-008
+      title: "Konrad Admission Repair — Verified Mappings and Native Line Masks"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-007
+      - ADV-SS-HANDVALIDATE-009
+      notes: "Repair non-test mappings/masks and initial G0 calibration/review for layered training; immutable v3, preserved test reservations, no invented labels or threshold relaxation."
+    - id: ADV-SS-EVOFIT-007
+      advance_id: ADV-SS-EVOFIT-007
+      title: "Stroke Language — Shared Primitives and Layered Compilation"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EVOFIT-005
+      notes: "Shared stroke-language layer with explicit S0/S1 evidence; synthetic mechanics may run without real admission, reference fitting requires live G0. No expressive activation."
+    - id: ADV-SS-CURRICULUM-004
+      advance_id: ADV-SS-CURRICULUM-004
+      title: "Stroke Learning — Shared Primitive Practice and Transfer"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EVOFIT-007
+      - ADV-SS-EXEMPLAR-008
+      notes: "Shared stroke-language layer with explicit S0/S1 evidence; synthetic mechanics may run without real admission, reference fitting requires live G0. No expressive activation."
+  - id: td018-letters
+    title: Combine learned strokes into letter recipes
+    order: 5
+    items:
+    - id: ADV-SS-CURRICULUM-005
+      advance_id: ADV-SS-CURRICULUM-005
+      title: "Letter Construction — Recipes Built from Learned Strokes"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-004
+      notes: "Frozen lower-layer checkpoints; bounded fitting and visible decomposition/held-out transfer. No ink, fatigue or expressive simulation."
+  - id: td018-letter-context
+    title: Learn how combining letters changes their strokes
+    order: 6
+    items:
+    - id: ADV-SS-CURRICULUM-006
+      advance_id: ADV-SS-CURRICULUM-006
+      title: "Letter Context — Bounded Stroke Changes Within Words"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-005
+      notes: "Frozen lower-layer checkpoints; bounded fitting and visible decomposition/held-out transfer. No ink, fatigue or expressive simulation."
+  - id: td018-word-context
+    title: Learn word-boundary stroke effects and validate the hierarchy
+    order: 7
+    items:
+    - id: ADV-SS-CURRICULUM-007
+      advance_id: ADV-SS-CURRICULUM-007
+      title: "Word Context — Boundary Effects on Stroke Programs"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-006
+      notes: "Frozen lower-layer checkpoints; bounded fitting and visible decomposition/held-out transfer. No ink, fatigue or expressive simulation."
+    - id: ADV-SS-HANDVALIDATE-011
+      advance_id: ADV-SS-HANDVALIDATE-011
+      title: "Konrad Layered Acceptance — Stroke Transfer and Revalidated G0–G2"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-EXEMPLAR-008
+      - ADV-SS-CURRICULUM-007
+      - ADV-SS-HANDVALIDATE-008
+      - ADV-SS-PATHGUIDE-005
+      notes: "Audit S0–S4 shared-stroke learning, composition transfer and current G0/G1/neutral G2. Missing inventory/review stops acceptance; old character fits and catalog sheets cannot satisfy the new layer gates."
+  - id: td018-expressive-later
+    title: Deferred ink and expressive evaluation after layered acceptance
+    order: 8
+    items:
+    - id: ADV-SS-HANDFLOW-009
+      advance_id: ADV-SS-HANDFLOW-009
+      title: "Konrad Ink Repair — Separate Contact Pressure from Optical Ink Load"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-008
+      - ADV-SS-HANDVALIDATE-009
+      - ADV-SS-HANDVALIDATE-011
+      notes: "DEFERRED until real layered S0–S4/G1/G2 acceptance and explicit later go-ahead. Preserve failure evidence; revise pressure/load/dips only after compositional foundations. Legacy defaults unchanged."
+    - id: ADV-SS-HANDVALIDATE-012
+      advance_id: ADV-SS-HANDVALIDATE-012
+      title: "Konrad Repair Evaluation — Ink Sensitivity and G3 Readiness Decision"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-011
+      - ADV-SS-HANDFLOW-009
+      notes: "DEFERRED expressive G3 evaluation of the learned layered candidate; requires matching live G0–G2 and genuine review. Synthetic catalog replay cannot authorize folios; fatigue and broader state effects remain separately scoped."
   - id: td018-folio
     title: Integrate opt-in folios and evaluate the release candidate
-    order: 4
+    order: 9
     items:
     - id: ADV-SS-RENDER-006
       advance_id: ADV-SS-RENDER-006
@@ -1480,6 +1580,7 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-009
+      - ADV-SS-HANDVALIDATE-012
       notes: "Runtime prerequisite: G3 pass. Inventory changes require the revised hand to re-pass G1–G3. Exact text and actual-trajectory PNG/XML/pressure contracts; no default switch."
     - id: ADV-SS-HANDVALIDATE-010
       advance_id: ADV-SS-HANDVALIDATE-010

@@ -48,6 +48,7 @@ where the current selectors do not cover them.
 ## Dependencies
 
 - [ADV-SS-HANDVALIDATE-009](ADV-SS-HANDVALIDATE-009.md)
+- [ADV-SS-HANDVALIDATE-012](ADV-SS-HANDVALIDATE-012.md): post-guided repair decision; real matching G3 must pass before folio execution.
 
 Plan completion and model acceptance are separate: dependent candidate execution
 requires the applicable TD-018 gate record to pass for the same model and
@@ -120,4 +121,3 @@ regressions here during execution; do not imply unrelated renderer defects are f
 
 1. What prevents folio layout from silently dropping input lines or unsupported letters?
 2. How is shared ink attributed without inventing pixel-accurate independent glyph shapes?
-

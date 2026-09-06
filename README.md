@@ -204,13 +204,34 @@ This project uses [ARRIVE](arrive/) for outcome-first development. The three sys
 
 The next ScribeSim development track is specified in
 [TD-018 — Reference-Grounded Recovery of Konrad's Hand](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md).
-Its ten Advances in [Pass 15](arrive/implementation-plan.yaml) progress
+Its nineteen Advances in [Pass 15](arrive/implementation-plan.yaml) progress
 from clean reference words and a reusable stroke repertoire to a three-line
 specimen, guided execution and opt-in folio evaluation. Benchmark, nominal and
 guided infrastructure are implemented; the recovered reference hand is not accepted
 or promoted. Real G0–G3 remain blocked on prerequisites and review. Synthetic
 expressive evaluation flags ink/combined settings as unsafe, not as an improvement.
 See the [guided outcome and replay commands](shared/training/konrad_hand_recovery/expressive_specimen_v1/README.md).
+
+The revised direction is a **shared stroke language**, with five new Advances:
+`EVOFIT-007` for the language/compiler and `CURRICULUM-004` through
+`CURRICULUM-007` for stroke learning, letter construction, within-word stroke
+context and inter-word stroke context. Start with **td018-strokes**, then
+**td018-letters**, **td018-letter-context** and **td018-word-context**.
+Reference admission stays necessary for real training; final layered validation
+rechecks G0–G2. Ink, fatigue and other expressive work come later.
+See [the layered design and revised sequence](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md#12-stroke-language-and-layered-learning-revised-direction).
+
+The first new review artifact will be a stroke practice/transfer sheet, followed
+by numbered letter assembly, neighbor-context and word-boundary proofs. These
+are planned, not generated yet. Existing primitives are predefined controller
+exercises; existing catalog-based character curves are not a learned shared
+stroke vocabulary.
+
+Latest samples (unaccepted catalog-prior diagnostics, not recovered handwriting):
+[neutral three-line sheet](shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/neutral-three-line.png),
+[unsafe ink sheet](shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/ink-three-line.png),
+[combined controls](shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/combined-three-line.png),
+and [all six seed-7 configurations](shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic/comparison.png).
 
 Development follows **Tidy First → Test First → Implement**. Run the test suite with:
 
