@@ -1,0 +1,16 @@
+{
+  "schema_version": "pen-action-readiness-evaluation-v1",
+  "scope": "current frozen action attempt; fail-closed independent admission evaluation before candidate metrics",
+  "learning_report_sha256": "6e8afd16c8cabbfcb3c5e584a1446face46b560740772560afbd1f1b0ddd30d2",
+  "original_control_report_sha256": "5a4914e308a5e34b9b9c6fab14e15859ee733b09b055311291e686ee429c09ed",
+  "seeds": [7, 19, 41],
+  "hash_seeds": [7, 839],
+  "max_renders_per_seed_including_replay": 5000,
+  "max_seconds_per_seed_including_replay": 1800,
+  "optimization_evaluations": 0,
+  "revision": 0,
+  "criteria": "retain existing tool-contract and gesture/action convergence bounds; no posthoc tuning",
+  "negative_controls_required_after_admission": ["wrong angle", "swapped edge", "undeclared lift", "overbuilt terminal", "erased counter", "desired-only actual proof"],
+  "policy": "stop before target pixels and candidate proofs on any unmet prerequisite; unexecuted candidate checks remain explicit, not vacuously passed; new accepted inputs require a newly frozen candidate evaluation",
+  "real_policy": "no real admission without live G0, matching real lower layers, G1 independent appearance/reading and G2 actual fidelity"
+}
