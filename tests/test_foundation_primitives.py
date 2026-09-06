@@ -107,3 +107,33 @@ def test_one_failed_family_or_fixture_cannot_average_into_pass():
     assert not benefit_pass(.2, .15)
     assert not benefit_pass(0, 0)
     assert not benefit_pass(.2, float('nan'))
+
+
+def test_direction_overlay_is_saved_model_geometry_not_pixel_touchup(tmp_path):
+    import xml.etree.ElementTree as ET
+    from scribesim.curriculum.foundation_primitives import port_overlay, initial_model, with_handles
+
+    candidate = with_handles(initial_model(), 'lower-return', [.21, .31])
+    destination = tmp_path / 'ports.svg'
+    port_overlay(destination, candidate)
+    ET.parse(destination)
+    content = destination.read_text()
+    assert 'lower-return' in content and 'upper-return' in content
+    assert 'entry' in content and 'exit' in content
+
+
+def test_failed_seed_is_retained_and_never_grants_acceptance(tmp_path, monkeypatch):
+    from scribesim.curriculum import foundation_primitives as learning
+
+    monkeypatch.setattr(learning, 'refresh_baseline', lambda output, budget: {'status': 'pass'})
+
+    def fake_seed(output, seed, budget):
+        record = {'status': 'fail' if seed == 19 else 'pass', 'renders_including_setup': 1,
+                  'candidate_sha256': str(seed), 'optimization_evaluations': 1}
+        (output / 'report.json').write_text(json.dumps(record))
+        return record
+
+    monkeypatch.setattr(learning, 'fit_seed', fake_seed)
+    report = learning.build(tmp_path / 'run')
+    assert report['status'] == 'fail' and len(report['seeds']) == 3
+    assert not report['S1_accepted'] and not report['gesture_training_permitted']
