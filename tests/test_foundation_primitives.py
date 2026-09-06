@@ -137,3 +137,27 @@ def test_failed_seed_is_retained_and_never_grants_acceptance(tmp_path, monkeypat
     report = learning.build(tmp_path / 'run')
     assert report['status'] == 'fail' and len(report['seeds']) == 3
     assert not report['S1_accepted'] and not report['gesture_training_permitted']
+
+
+def test_exact_handle_boundaries_are_representable_without_relaxing_contract():
+    from scribesim.curriculum.foundation_primitives import initial_model, with_handles
+    from scribesim.evofit.foundation_contract import validate_extensions
+
+    for family in ('lower-return', 'upper-return'):
+        for entry in (.12, .28, .4):
+            for exit_handle in (.12, .28, .4):
+                validate_extensions(with_handles(initial_model(), family, [entry, exit_handle]))
+    with pytest.raises(ValueError):
+        with_handles(initial_model(), 'upper-return', [np.nextafter(.4, 1), .28])
+
+
+def test_exact_subdivision_probe_keeps_source_and_ownership():
+    from scribesim.curriculum.foundation_primitives import execute_fixture, initial_model, SPEC, Budget
+
+    initial = initial_model()
+    before = copy.deepcopy(initial)
+    runs, comparisons = execute_fixture(initial, SPEC['splits']['held_out'][-1], Budget())
+    assert initial == before
+    assert set(runs) == {'base', 'arc', 'time', 'subdivision'}
+    assert all(row['metrics']['owner_errors'] == 0 for row in runs.values())
+    assert all(row['owner_match'] for row in comparisons.values())
