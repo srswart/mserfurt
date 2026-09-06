@@ -104,3 +104,41 @@ def test_migration_refuses_unqualified_context_or_crossings():
     model['recipes']['i']['allow_crossings'] = True
     with pytest.raises(ValueError, match='migration'):
         migrate_v1(model)
+
+
+def test_repartitioned_cubic_preserves_contact_path_without_boundary_pauses():
+    model = migrate_v1(legacy.seed_language())
+    model['sampling'] = 'gesture-arc-v2'
+    before = gesture_guide('i', model)
+    points = np.array(model['primitives']['stem']['cubics'][0])
+    middle = (points[:-1] + points[1:]) / 2
+    inner = (middle[:-1] + middle[1:]) / 2
+    center = (inner[0] + inner[1]) / 2
+    model['primitives']['stem']['cubics'] = [
+        [points[0].tolist(), middle[0].tolist(), inner[0].tolist(), center.tolist()],
+        [center.tolist(), inner[1].tolist(), middle[2].tolist(), points[-1].tolist()]]
+    after = gesture_guide('i', model)
+    assert len(before.guide.samples) == len(after.guide.samples)
+    assert all(first.contact == second.contact for first, second in zip(before.guide.samples, after.guide.samples))
+    assert max(np.hypot(first.x_mm - second.x_mm, first.y_mm - second.y_mm)
+               for first, second in zip(before.guide.samples, after.guide.samples)) < .001
+
+
+def test_declared_overlap_retains_two_lifted_contributors():
+    model = migrate_v1(legacy.seed_language())
+    model['sampling'] = 'gesture-arc-v2'
+    model['recipes']['u']['gestures'][1].update(offset=[0, 0], overlap_with=[0])
+    bundle = gesture_guide('u', model)
+    assert any(not sample.contact for sample in bundle.guide.samples)
+    assert any(owner.get('overlap_contributors') == ['0:0'] for owner in bundle.metadata['owners'])
+
+
+def test_action_rate_and_falsely_smooth_corner_are_rejected():
+    model = migrate_v1(legacy.seed_language())
+    model['actions']['fixed']['orientation'] = [[0, 40], [.001, 50], [1, 50]]
+    with pytest.raises(ValueError, match='rate'):
+        validate_gestures(model)
+    model = migrate_v1(legacy.seed_language())
+    model['gestures']['gesture-0']['strokes'][1]['transition'] = 'smooth'
+    with pytest.raises(ValueError, match='Smooth'):
+        validate_gestures(model)
