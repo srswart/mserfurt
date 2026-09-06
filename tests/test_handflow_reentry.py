@@ -168,3 +168,66 @@ def test_physical_bridge_accepts_explicit_corner_sampling_and_execution():
     engine = ActionController(model, execution_version='event-time-v2')
     result = engine.follow_plan(desired.plan, settle_time_s=0)
     assert all(point.contact_version == 'physical-edge-v1' for point in result.trajectory)
+
+
+def test_braking_plan_preserves_contact_geometry_and_has_rest_arrivals():
+    from dataclasses import asdict
+    from scribesim.evofit.stroke_gestures import gesture_guide, migrate_v1
+    from scribesim.handflow.planning import build_track_plan, retime_air_braking
+
+    model = migrate_v1(seed_language())
+    model['sampling'] = 'gesture-arc-v3'
+    source = build_track_plan(gesture_guide('i u', model, step_mm=.025).guide, base_speed_mm_s=12)
+    before = asdict(source)
+    retimed = retime_air_braking(source)
+    assert asdict(source) == before
+    assert retimed.source_indices == tuple(sorted(retimed.source_indices))
+    contact_indices = [index for point, index in zip(retimed.plan.samples, retimed.source_indices) if point.contact]
+    assert contact_indices == [index for index, point in enumerate(source.samples) if point.contact]
+    assert len(retimed.arrivals) == 2
+    for point, index in zip(retimed.plan.samples, retimed.source_indices):
+        if point.contact:
+            original = source.samples[index]
+            assert (point.x_mm, point.y_mm, point.pressure, point.nib_angle_deg) == (
+                original.x_mm, original.y_mm, original.pressure, original.nib_angle_deg)
+    for previous, point in zip(retimed.plan.samples, retimed.plan.samples[1:]):
+        duration = point.t_s - previous.t_s
+        if point.contact != previous.contact:
+            assert duration == 0
+            assert (point.x_mm, point.y_mm, point.vx_mm_s, point.vy_mm_s) == (
+                previous.x_mm, previous.y_mm, previous.vx_mm_s, previous.vy_mm_s)
+        if not previous.contact and not point.contact and duration > 0:
+            assert math.dist((point.vx_mm_s, point.vy_mm_s), (previous.vx_mm_s, previous.vy_mm_s)) <= 250 * duration + 1e-8
+    for arrival in retimed.arrivals:
+        point = retimed.plan.samples[arrival['plan_index']]
+        assert point.contact and point.speed_mm_s == point.vx_mm_s == point.vy_mm_s == 0
+        assert arrival['brake_time_s'] > 0 and arrival['travel_time_s'] > 0
+
+
+def test_braking_plan_realizes_entry_without_teleport_or_velocity_reset():
+    from scribesim.evofit.stroke_gestures import gesture_guide, migrate_v1
+    from scribesim.handflow.planning import build_track_plan, retime_air_braking
+
+    model = migrate_v1(seed_language())
+    model['sampling'] = 'gesture-arc-v3'
+    source = build_track_plan(gesture_guide('u', model).guide, base_speed_mm_s=12)
+    retimed = retime_air_braking(source)
+    result = controller('event-time-v2').follow_plan(retimed.plan, settle_time_s=0)
+    for row in result.final_state.execution_trace:
+        duration = row['time_s'] - row['time_before']
+        assert math.dist(row['velocity_before_mm_s'], row['velocity_mm_s']) <= 500 * duration + 1e-8
+        if row['contact']:
+            assert math.dist(row['to_mm'], row['desired_mm']) <= .25
+        if row['contact'] and not row['previous_contact']:
+            assert math.hypot(*row['velocity_mm_s']) <= .5
+            assert row['from_mm'] == row['to_mm']
+            assert row['velocity_mm_s'] == row['velocity_before_mm_s']
+
+
+def test_braking_plan_rejects_incomplete_or_nonfinite_inputs():
+    from scribesim.handflow.planning import retime_air_braking
+
+    for samples in ([], [sample(0, 0, False)], [sample(0, 0), sample(.02, float('nan'))],
+                    [sample(0, 0), sample(.02, 1, False)]):
+        with pytest.raises(ValueError):
+            retime_air_braking(plan(samples))
