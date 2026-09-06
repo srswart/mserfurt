@@ -107,6 +107,12 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 ## Changes Made
 
+### 2026-09-07 — 53e2f46: First admitted attempt stopped on numeric representation
+
+- Fresh baseline passed all 239 gates. Run-001 then stopped after 842 optimization evaluations and 1158 total renders (107.382996 s), before held-out access, because a valid boundary handle projected slightly outside its strict range through floating-point arithmetic.
+- Preserved run-001; `2c2fd27` reproduces the boundary fault and verifies subdivision ownership. Spec-v2 freezes the single allowed diagnosed revision: reject out-of-range requested values and construct boundary cubics using bounded inward representable steps. No target/grid/gate or old-primitive change.
+- The learning experiment remains incomplete until all three seeds and required unseen-attachment proofs execute successfully. No merge or independent acceptance is claimed.
+
 ### 2026-09-06 — plan: Prioritize reliable learned stroke foundations
 
 - Added the bounded work to Pass 15 `td018-foundation-repair`.

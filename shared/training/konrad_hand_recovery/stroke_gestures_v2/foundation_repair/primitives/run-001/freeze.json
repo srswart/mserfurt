@@ -1,0 +1,868 @@
+{
+  "spec": {
+    "schema_version": "foundation-return-learning-v1",
+    "advance": "ADV-SS-CURRICULUM-010",
+    "scope": "Synthetic return primitive fitting only; independent acceptance belongs to HANDVALIDATE-015",
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "ablations": [
+      "fit-handles",
+      "fixed-null"
+    ],
+    "placement_only": "Inapplicable: endpoints, port directions and supplied placements are fixed; placement-only is exactly the fixed-null control",
+    "max_renders": 5000,
+    "max_seconds": 1800,
+    "max_revisions": 1,
+    "budget_policy": "Count all target, baseline, optimizer, development, held-out, direct/sampled/actual/refinement and presentation renders. Shared current-code motion build is charged to seed 7 fit-handles, not a separate free allowance. Fixed-null is evaluated alongside each seed, charged conservatively to its fitted run. Unit/clean replay is separately labeled verification, never extra candidate search.",
+    "prerequisites": "Verify GESTURE-002 frozen contract and original lineage, then rerun the full HANDFLOW-010 motion build with current identities. Check exact required gate set, artifact digests, current baseline identities and original provenance before any new target rendering or scoring. Retain failure and stop on non-admission.",
+    "initialization": "GESTURE-002 initial-model unchanged: both handles 0.28, not degraded for this experiment",
+    "families": [
+      "lower-return",
+      "upper-return"
+    ],
+    "freedoms": "Only two handle lengths on frozen rays for each new family; original six, endpoints, ports, tool, actions, recipes and scaffolds fixed",
+    "search": {
+      "method": "Per-family exhaustive finite handle grid in seeded shuffled order; no target-derived proposals or refinement",
+      "handle_values": [
+        0.12,
+        0.13,
+        0.14,
+        0.15,
+        0.16,
+        0.17,
+        0.18,
+        0.19,
+        0.2,
+        0.21,
+        0.22,
+        0.23,
+        0.24,
+        0.25,
+        0.26,
+        0.27,
+        0.28,
+        0.29,
+        0.3,
+        0.31,
+        0.32,
+        0.33,
+        0.34,
+        0.35,
+        0.36,
+        0.37,
+        0.38,
+        0.39,
+        0.4
+      ],
+      "train_shortlist": 8,
+      "selection": "Train ranks proposals by (loss, entry handle, exit handle). Development selects from the top eight plus unchanged initial by (development loss, entry handle, exit handle). Held-out targets are generated only after both family checkpoints are fixed; no fallback or seed selection from held-out outcomes. Hand all three seeds to evaluator."
+    },
+    "target": "Consume independent GESTURE-002 analytic target_points; target assembly uses frozen original primitives and endpoint translations only, never candidate grammar, handles or recipes. No source or locked real-test pixels.",
+    "splits": {
+      "train": [
+        {
+          "id": "lower-train",
+          "topology": [
+            "lower-return"
+          ],
+          "scale": 1.0
+        },
+        {
+          "id": "upper-train",
+          "topology": [
+            "upper-return"
+          ],
+          "scale": 1.0
+        }
+      ],
+      "development": [
+        {
+          "id": "lower-dev",
+          "topology": [
+            "lower-return"
+          ],
+          "scale": 0.8
+        },
+        {
+          "id": "upper-dev",
+          "topology": [
+            "upper-return"
+          ],
+          "scale": 1.2
+        }
+      ],
+      "held_out": [
+        {
+          "id": "lower-unseen-scale",
+          "topology": [
+            "lower-return"
+          ],
+          "scale": 0.65
+        },
+        {
+          "id": "upper-unseen-scale",
+          "topology": [
+            "upper-return"
+          ],
+          "scale": 0.9
+        },
+        {
+          "id": "underturn-attachment",
+          "topology": [
+            "stem",
+            "lower-return",
+            "rise"
+          ],
+          "scale": 1.0
+        },
+        {
+          "id": "overturn-attachment",
+          "topology": [
+            "rise",
+            "upper-return",
+            "stem"
+          ],
+          "scale": 1.0
+        },
+        {
+          "id": "compound-attachment",
+          "topology": [
+            "upper-return",
+            "stem",
+            "lower-return",
+            "rise"
+          ],
+          "scale": 0.9
+        }
+      ]
+    },
+    "frame_mm": [
+      -2,
+      9,
+      3,
+      13
+    ],
+    "dpi": 180,
+    "presentation_dpi": 900,
+    "sampling": "Independent target and direct nominal: 257 uniform parameter points per segment; sampled guide: gesture-arc-v3; actual: curve-time-v1/event-time-v2, legacy full-edge footprint, angle40 pressure0.5 width0.45 speed ceiling12",
+    "execution_probe": "Read-only single supplied gesture <=4 primitives, translated using fixed anchors and scaled via instance transform. Validate foundation first. For exact subdivision only, lower an isolated proof copy to existing v2 reader (same geometry/tool/owners, never a saved fitted model) so subdivided representation can be replayed without weakening the one-cubic fitted contract.",
+    "refinements": [
+      {
+        "id": "base",
+        "step": 0.025,
+        "dt": 0.002,
+        "subdivision": false
+      },
+      {
+        "id": "arc",
+        "step": 0.0125,
+        "dt": 0.002,
+        "subdivision": false
+      },
+      {
+        "id": "time",
+        "step": 0.025,
+        "dt": 0.001,
+        "subdivision": false
+      },
+      {
+        "id": "subdivision",
+        "step": 0.025,
+        "dt": 0.002,
+        "subdivision": true
+      }
+    ],
+    "metrics": {
+      "image_loss": "Existing stroke_loss: normalized absolute ink difference, identical physical frame and DPI",
+      "held_out": "Every fixture and each participating family per seed must have nominal learned/initial image loss ratio <0.75. Family-local crop is frozen to the return endpoint neighborhood x[-0.25,0.80], y[-0.50,0.50], scaled and translated with that occurrence, including its attachment ink. Zero initial loss is undefined and fails rather than giving free improvement. Full construction loss is also required.",
+      "heldout_ratio": 0.75,
+      "actual_desired_loss": 0.35,
+      "corridor_mm": 0.25,
+      "convergence_image": 0.03,
+      "endpoint_mm": 0.01,
+      "event_time_s": 0.0001,
+      "contact_text_owner_errors": 0,
+      "blank_ink_fraction": 0.01,
+      "blank_regions": "Per return local x[0.20,0.30]; lower y[0.18,0.28], upper y[-0.28,-0.18]. Open interior probes, not closed-counter acceptance; report target occupancy too and fail if region is not actually blank. Use grayscale<180 ink fraction.",
+      "motion": "Also require unchanged motion mechanical, desired acceleration, entry, corner, time and no-projection checks; report every refinement, not just base.",
+      "fixed_null": "Unchanged initializer loss ratio1 (not required to pass improvement). Empty-image global control loss >=0.1 per fixture. No placement freedom exists."
+    },
+    "negative_control_handoff": "HANDVALIDATE-015 must independently run wrong-port/direction, detached geometry, hidden lift/air connector, extra terminal/overlap and erased-counter controls with exact ownership and predeclared local regions. Retain old global0.1 sensitivity failures. This learning run reports fixed/blank nulls and does not self-certify the independent adversarial gate.",
+    "completion": "All seeds execute with per-family unseen benefit and contact/refinement evidence; any failure leaves learning in progress. No new S1, gesture-fitting permission, historical or human appearance acceptance."
+  },
+  "spec_sha256": "4e5798d95e46f26b7eeb9eb77b1b5eaee25031d5f7d025d774f1d60d5a8c8c67",
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+    "scribesim/curriculum/foundation_primitives.py": "e2abdde93f7150c7f7cdff4eca070920db79bf9b8044d46c88f7827bec6b0f07",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v1.json": "4e5798d95e46f26b7eeb9eb77b1b5eaee25031d5f7d025d774f1d60d5a8c8c67",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a"
+  },
+  "contract_sha256": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+  "initial": {
+    "schema_version": "shared-stroke-gestures-foundation-v1",
+    "units": "local-xheight-y-up",
+    "scope": "untrained-foundation-contract",
+    "primitives": {
+      "stem": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0.019999999999999997,
+              0.7
+            ],
+            [
+              -0.01999999999999999,
+              0.5399999999999999
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.7071067811865475,
+          -0.7071067811865475
+        ],
+        "exit": [
+          0.5144957554275265,
+          -0.8574929257125441
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "rise": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.07999999999999999,
+              0.24999999999999994
+            ],
+            [
+              0.30000000000000004,
+              0.6200000000000001
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.3713906763541038,
+          0.9284766908852594
+        ],
+        "exit": [
+          0.894427190999916,
+          0.44721359549995787
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "bowl": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0.89,
+              0.8
+            ],
+            [
+              0.8,
+              0.27
+            ],
+            [
+              0.65,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.9965457582448797,
+          -0.08304547985373996
+        ],
+        "exit": [
+          -0.9761870601839527,
+          -0.21693045781865616
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "turn": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.10999999999999999,
+              0.2899999999999999
+            ],
+            [
+              0.44,
+              0.09
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.31622776601683794,
+          0.9486832980505138
+        ],
+        "exit": [
+          -0.2676438637860946,
+          0.9635179096299405
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "loop": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              -0.61,
+              1.45
+            ],
+            [
+              0.84,
+              1.29
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          -0.18428853505018533,
+          0.9828721869343219
+        ],
+        "exit": [
+          -0.5299989400031799,
+          -0.8479983040050879
+        ],
+        "closed": true,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "exit": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.28,
+              0.04000000000000001
+            ],
+            [
+              0.42,
+              0.16999999999999998
+            ],
+            [
+              0.45,
+              0.15
+            ]
+          ]
+        ],
+        "entry": [
+          0.4856429311786321,
+          -0.8741572761215378
+        ],
+        "exit": [
+          0.6000000000000001,
+          -0.7999999999999999
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "lower-return": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.010363264942766471,
+              -0.27980815345469484
+            ],
+            [
+              0.41466279641094056,
+              -0.2666787612158108
+            ],
+            [
+              0.5,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.03701166050988025,
+          -0.9993148337667671
+        ],
+        "exit": [
+          0.30477572710378376,
+          0.9524241471993242
+        ],
+        "closed": false,
+        "provenance": "New untrained project-authored lower-return prior; old turn is not relabeled"
+      },
+      "upper-return": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.13040900119313428,
+              0.2477771022669551
+            ],
+            [
+              0.4813746770533433,
+              0.27937984419985057
+            ],
+            [
+              0.5,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.46574643283262235,
+          0.8849182223819824
+        ],
+        "exit": [
+          0.06651901052377392,
+          -0.997785157856609
+        ],
+        "closed": false,
+        "provenance": "New untrained project-authored upper-return prior; old loop is not relabeled"
+      }
+    },
+    "recipes": {
+      "i": {
+        "logical": "i",
+        "visible": "i",
+        "advance": 0.65,
+        "gestures": [
+          {
+            "gesture": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "terminal",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "n": {
+        "logical": "n",
+        "visible": "n",
+        "advance": 1.3,
+        "gestures": [
+          {
+            "gesture": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "overturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "u": {
+        "logical": "u",
+        "visible": "u",
+        "advance": 1.3,
+        "gestures": [
+          {
+            "gesture": "underturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "stem",
+            "offset": [
+              1,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "m": {
+        "logical": "m",
+        "visible": "m",
+        "advance": 2.3,
+        "gestures": [
+          {
+            "gesture": "overturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "overturn",
+            "offset": [
+              1,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "h": {
+        "logical": "h",
+        "visible": "h",
+        "advance": 1.3,
+        "gestures": [
+          {
+            "gesture": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.5,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "overturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      }
+    },
+    "letter_rules": [],
+    "word_rules": [],
+    "x_height_mm": 3.5,
+    "nib_width_mm": 0.45,
+    "nib_angle_deg": 40,
+    "letter_gap": 0.15,
+    "word_gap": 0.8,
+    "line_pitch": 3,
+    "sampling": "gesture-arc-v3",
+    "migration_source_sha256": "3d3e310a1e8e394372fee1daca8c1aafc268239a67ffdaac7ce7b2bcd0f7ba55",
+    "gestures": {
+      "stem": {
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "rise": {
+        "strokes": [
+          {
+            "primitive": "rise",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "underturn": {
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "lower-return",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "rise",
+            "offset": [
+              0.5,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          }
+        ],
+        "action": "fixed"
+      },
+      "overturn": {
+        "strokes": [
+          {
+            "primitive": "rise",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "upper-return",
+            "offset": [
+              0.5,
+              1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "stem",
+            "offset": [
+              1.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          }
+        ],
+        "action": "fixed"
+      },
+      "compound_curve": {
+        "strokes": [
+          {
+            "primitive": "upper-return",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "stem",
+            "offset": [
+              0.5,
+              -1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "lower-return",
+            "offset": [
+              0.5,
+              -1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "rise",
+            "offset": [
+              1.0,
+              -1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          }
+        ],
+        "action": "fixed"
+      },
+      "upper_loop": {
+        "strokes": [
+          {
+            "primitive": "loop",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "terminal": {
+        "strokes": [
+          {
+            "primitive": "exit",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "shoulder": {
+        "strokes": [
+          {
+            "primitive": "upper-return",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      }
+    },
+    "actions": {
+      "fixed": {
+        "frame": "physical-y-down",
+        "orientation": [
+          [
+            0,
+            40
+          ],
+          [
+            1,
+            40
+          ]
+        ],
+        "edge": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "pressure": 0.5,
+        "speed_mm_s": 12
+      }
+    }
+  }
+}
