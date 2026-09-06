@@ -1567,13 +1567,13 @@ passes:
     - id: ADV-SS-PATHGUIDE-006
       advance_id: ADV-SS-PATHGUIDE-006
       title: "Gesture Action Bridge — Desired Tracks, Realized Contact and Ownership"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-NIBCONTACT-002
       - ADV-SS-PATHGUIDE-005
       - ADV-SS-HANDFLOW-008
-      notes: "IMPLEMENTATION: intended versus realized orientation/contact through the existing controller; forced tracking-failure and exact ownership tests."
+      notes: "COMPLETE infrastructure: realized rate-limited angle/edge via existing controller, exact owners and forced-lag controls. 55 tests and clean replay. Contact-entry convergence still FAILS (~0.40mm versus 0.01mm); no learned-action acceptance or fitting authorization."
     - id: ADV-SS-CURRICULUM-009
       advance_id: ADV-SS-CURRICULUM-009
       title: "Pen-Action Learning — Frozen-Path Rotation and Edge-Release Ablations"
