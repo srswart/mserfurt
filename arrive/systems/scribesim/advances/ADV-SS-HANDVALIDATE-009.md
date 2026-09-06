@@ -6,7 +6,7 @@ advance:
   primary_component: "handvalidate"
   components: ["handvalidate", "handflow", "tests"]
   started_at: "2026-09-05T17:30:14Z"
-  implementation_completed_at: "2026-09-06T03:48:06Z"
+  implementation_completed_at: "2026-09-06T03:52:03Z"
   review_time_estimate_minutes: 25
   review_time_actual_minutes: ~
   pr_links: []
@@ -119,6 +119,13 @@ The audit detects double consumption, unrecorded ink/time/position/fatigue/motor
 - Runtime candidate evaluation revalidates G2/G1, model/contract identity, actual artifact hashes, isolated control configurations, exact three-line inventory and report/review identity. An edited summary cannot forge a pass; the evaluator re-executes the frozen sessions and compares both traces and reviewed pixels.
 - Broader existing pathguide/handflow/integration checks: 24 passed and one failed because an old test omits required TrackPlanSample.nib_angle_deg. A local clone checked out at pre-phase `c904bde` (`/tmp/td018-guided-baseline.HMWOGy`) reproduced the same failure. It was not changed by this phase.
 - `arrive plan check` passes. Strict PR check was executed and retains the known installed three-part-ID parser limitation. No provider CI or owner approval is claimed.
+
+### Final integration verification
+
+- Feature checkpoint `846f1fa` was cloned into `/tmp/td018-guided-clean.2x1alA` without workspace-only assets. All 90 focused tests passed in 76.59 seconds. The explicit extraction-import refusal regression also ensures this new path cannot silently depend on ignored extraction modules through the editable installation.
+- The committed full expressive bundle was independently evaluated in that clone. Frozen seeded trajectories and images replayed, and the same G3 failure was reproduced for ink/combined on seeds 7/19/41, with missing real prerequisites and owner review still explicit.
+- Prior per-Advance local merges are `26e8c90` (guided bridge) and `39f9941` (persistent execution). The final merge completes implementation records, not runtime acceptance. Folio and broader tremor/warp scopes remain planned/deferred.
+- Next action: repair/admit the reference corpus for genuine nominal recovery/acceptance, and revise the unsafe ink configuration without relaxing the recorded post-hoc bounds. Keep neutral/default production behavior unchanged.
 
 ## Changes Made
 

@@ -107,8 +107,10 @@ Local synthetic evidence follows; no real-hand review or provider CI is claimed.
 
 ## Bug Fixes
 
-None implemented in this planning change. Record scoped defects and their
-regressions here during execution; do not imply unrelated renderer defects are fixed.
+The new opt-in mode fixes the repertoire bridge’s major-width/nominal-pressure
+contract and prevents time-based or duplicate ink consumption. Neutral continuous
+plan partitions do not introduce hidden settling steps. Legacy defaults remain
+unchanged; broader production renderer defects are not claimed as fixed.
 
 ### Execution outcome
 
