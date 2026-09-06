@@ -24,13 +24,13 @@ from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_j
 
 
 BASE = contract.BASE / 'foundation_repair/primitives'
-SPEC_PATH = BASE / 'spec-v1.json'
+SPEC_PATH = BASE / 'spec-v2.json'
 SPEC = json.loads(SPEC_PATH.read_text())
 
 
 def identities():
     names = ('scribesim/curriculum/foundation_primitives.py',
-             'shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v1.json',
+             'shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json',
              'shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json',
              'scribesim/pathguide/model.py')
     return {**contract.identities(), **{name: digest(ROOT / name) for name in names}}
@@ -78,8 +78,21 @@ def with_handles(initial, family, handles):
     result = copy.deepcopy(initial)
     ports = contract.SPEC['new_families'][family]
     cubic = result['primitives'][family]['cubics'][0]
-    cubic[1] = [value + handles[0] * rate for value, rate in zip(cubic[0], ports['entry'])]
-    cubic[2] = [value - handles[1] * rate for value, rate in zip(cubic[3], ports['exit'])]
+    lower, upper = ports['handle_bounds']
+    for length, index, endpoint, direction, sign in ((handles[0], 1, cubic[0], ports['entry'], 1),
+                                                   (handles[1], 2, cubic[3], ports['exit'], -1)):
+        if type(length) not in (int, float, np.float64) or not math.isfinite(length) or not lower <= length <= upper:
+            raise ValueError('Requested handle outside frozen bounds')
+        effective = float(length)
+        for attempt in range(16):
+            point = [value + sign * effective * rate for value, rate in zip(endpoint, direction)]
+            projected = float(np.dot((np.asarray(point) - endpoint) * sign, direction))
+            if lower <= projected <= upper:
+                cubic[index] = point
+                break
+            effective = math.nextafter(effective, (lower + upper) / 2)
+        else:
+            raise ValueError('Boundary handle could not be represented within fixed bounds')
     require_lineage(result, initial)
     return result
 
@@ -394,7 +407,7 @@ def build(output):
     write_json(output / 'freeze.json', {'spec': SPEC, 'spec_sha256': digest(SPEC_PATH), 'code_sha256': identities(),
                                        'contract_sha256': digest(contract.SPEC_PATH), 'initial': initial_model()})
     report = {'status': 'blocked', 'scope': SPEC['scope'], 'S1_accepted': False, 'gesture_training_permitted': False,
-              'optimization_evaluations': 0, 'seeds': [], 'code_sha256': identities(), 'revision': 0}
+              'optimization_evaluations': 0, 'seeds': [], 'code_sha256': identities(), 'revision': SPEC['revision']}
     try:
         report['admission'] = refresh_baseline(output / 'baseline', budget)
         if report['admission']['status'] != 'pass':
