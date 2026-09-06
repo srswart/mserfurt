@@ -1537,12 +1537,12 @@ passes:
     - id: ADV-SS-CURRICULUM-008
       advance_id: ADV-SS-CURRICULUM-008
       title: "Gesture Learning — Fixed-Tool Construction Practice and Transfer"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-GESTURE-001
       - ADV-SS-CURRICULUM-004
-      notes: "IMPLEMENTATION: fixed-tool gesture fitting with frozen primitives, bounded budgets and visible held-out transfer. Real fitting requires live G0; runner completion is not acceptance."
+      notes: "COMPLETE runner and bounded synthetic stem-terminal lesson; 3 seeds/3 ablations, held-out loss 0.4424 to 0.0 on representable synthetic targets. 42 tests/clean rerun. Broader returns/loops need separately scoped primitive extension; no full S1-gesture or real acceptance."
     - id: ADV-SS-HANDVALIDATE-013
       advance_id: ADV-SS-HANDVALIDATE-013
       title: "Gesture Evaluation — Continuity, Shared Transfer and S1-Gesture Decision"

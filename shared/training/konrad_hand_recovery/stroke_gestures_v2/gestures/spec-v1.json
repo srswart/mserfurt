@@ -1,0 +1,58 @@
+{
+  "schema_version": "fixed-tool-gesture-learning-spec-v1",
+  "scope": "synthetic stem-terminal construction only; not the eight-family coverage inventory",
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "ablations": [
+    "fixed",
+    "placement",
+    "composition"
+  ],
+  "max_renders": 5000,
+  "max_seconds": 1800,
+  "maximum_revisions": 1,
+  "freedoms": {
+    "gesture": "gesture-0",
+    "stroke_index": 1,
+    "primitive_choices": [
+      "rise",
+      "exit"
+    ],
+    "scales": [
+      0.6,
+      0.8,
+      1,
+      1.2,
+      1.4
+    ],
+    "rotations_deg": [
+      -12,
+      0,
+      12
+    ],
+    "geometry": "all shared primitive cubics frozen",
+    "profiles": "fixed angle/full edge/pressure 0.5/speed 12"
+  },
+  "initial": "explicitly perturbed program: stem then rise, not an original hand-quality baseline",
+  "target": "project-authored synthetic stem then shared exit at scale 1.2, rotation 12; no target cubic fitting",
+  "selection": "training scores propose checkpoints; development selects; test is scored only after selection",
+  "criteria": {
+    "heldout_ratio_max": 0.75,
+    "actual_image_loss_max": 0.35,
+    "corridor_mm_max": 0.25,
+    "convergence_image_loss_max": 0.03,
+    "convergence_endpoint_mm_max": 0.01,
+    "required_contact_or_ownership_errors": 0
+  },
+  "coverage_policy": "Do not call the result underturn/overturn/compound-curve learning. Full S1-gesture readiness remains blocked pending primitive coverage repair.",
+  "frame_mm": [
+    -2,
+    10,
+    2,
+    14
+  ],
+  "dpi": 150
+}

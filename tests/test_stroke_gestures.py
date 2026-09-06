@@ -138,6 +138,13 @@ def test_action_rate_and_falsely_smooth_corner_are_rejected():
     model['actions']['fixed']['orientation'] = [[0, 40], [.001, 50], [1, 50]]
     with pytest.raises(ValueError, match='rate'):
         validate_gestures(model)
+
+
+def test_actual_contact_corridor_excludes_pen_up_travel():
+    model = migrate_v1(legacy.seed_language())
+    model['sampling'] = 'gesture-arc-v2'
+    result = execute_gestures('i u', model)
+    assert result['metrics']['corridor_error_mm'] <= .25
     model = migrate_v1(legacy.seed_language())
     model['gestures']['gesture-0']['strokes'][1]['transition'] = 'smooth'
     with pytest.raises(ValueError, match='Smooth'):
