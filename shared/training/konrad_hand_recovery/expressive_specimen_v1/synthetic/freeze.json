@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "scope": "synthetic-diagnostic",
+  "prerequisite": {
+    "status": "blocked"
+  },
+  "texts": [
+    "alle das ist",
+    "dein lied deine hand rein",
+    "Hie hebt sich an, das ein schreiber nit mag laßen zu"
+  ],
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "controls": {
+    "neutral": {
+      "ink": false,
+      "ink_per_mm": 0.004,
+      "pressure": 0.0,
+      "angle_deg": 0.0,
+      "rhythm": 0.0
+    },
+    "ink": {
+      "ink": true,
+      "ink_per_mm": 0.004,
+      "pressure": 0.0,
+      "angle_deg": 0.0,
+      "rhythm": 0.0
+    },
+    "pressure": {
+      "ink": false,
+      "ink_per_mm": 0.004,
+      "pressure": 0.15,
+      "angle_deg": 0.0,
+      "rhythm": 0.0
+    },
+    "angle": {
+      "ink": false,
+      "ink_per_mm": 0.004,
+      "pressure": 0.0,
+      "angle_deg": 3,
+      "rhythm": 0.0
+    },
+    "rhythm": {
+      "ink": false,
+      "ink_per_mm": 0.004,
+      "pressure": 0.0,
+      "angle_deg": 0.0,
+      "rhythm": 0.15
+    },
+    "combined": {
+      "ink": true,
+      "ink_per_mm": 0.004,
+      "pressure": 0.15,
+      "angle_deg": 3,
+      "rhythm": 0.15
+    }
+  },
+  "dt": 0.002,
+  "dpi": 180,
+  "limits": {
+    "image_loss": 0.35,
+    "corridor_mm": 0.25,
+    "angle_deg": 5,
+    "pressure": 1.15
+  },
+  "model_sha256": "c28801092685fd5f66f5e8a61f0beaeb15aa7f1f56adc808cb647b7779bf769c",
+  "model_file_sha256": "f7777406fe58271efbc4d98e70ff42d2158b2265ad8a5f9d8f6c7dd09decb80a",
+  "code": {
+    "scribesim/handvalidate/expressive.py": "a3b13196b7bdb5c54f498bc8e1b0221d1c6551b560e8a3bb3a4fd777533d7f68",
+    "scribesim/handflow/execution.py": "84bd0fefc7d064c1b14b429a97b8519d52e4736c75133c8dffeddb1aed25b9a3",
+    "scribesim/handflow/controller.py": "765a1dee89e04035e60e10bf28c8c278e03fd5def2c887f3659d8b462ad0899c",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handflow/planning.py": "57b335684eb04a3f83c7501daeb8831fedfbbd4c995a327815ab1451498e7aa3",
+    "scribesim/pathguide/repertoire.py": "7741734df7a16787d15c2d8609a3e061b1d5fc855f1168b42a2599f8ebc86469",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/handvalidate/bridge.py": "9366a453b1c130d95d52a796594bef42207483d830f78dca959b1f6e3e6207cb"
+  }
+}

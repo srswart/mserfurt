@@ -206,10 +206,11 @@ The next ScribeSim development track is specified in
 [TD-018 — Reference-Grounded Recovery of Konrad's Hand](docs/tech-direction/TD-018-reference-grounded-hand-recovery.md).
 Its ten Advances in [Pass 15](arrive/implementation-plan.yaml) progress
 from clean reference words and a reusable stroke repertoire to a three-line
-specimen, guided execution and opt-in folio evaluation. The benchmark and nominal
-infrastructure are implemented; the recovered reference hand is not accepted or
-promoted. G0 and G1 remain blocked on usable observations and review.
-See the [nominal outcome and replay commands](shared/training/konrad_hand_recovery/nominal_specimen_v1/README.md).
+specimen, guided execution and opt-in folio evaluation. Benchmark, nominal and
+guided infrastructure are implemented; the recovered reference hand is not accepted
+or promoted. Real G0–G3 remain blocked on prerequisites and review. Synthetic
+expressive evaluation flags ink/combined settings as unsafe, not as an improvement.
+See the [guided outcome and replay commands](shared/training/konrad_hand_recovery/expressive_specimen_v1/README.md).
 
 Development follows **Tidy First → Test First → Implement**. Run the test suite with:
 

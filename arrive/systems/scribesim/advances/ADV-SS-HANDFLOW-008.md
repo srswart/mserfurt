@@ -4,7 +4,7 @@ advance:
   title: "Konrad Persistent Execution — Ink, Rhythm and Stable Session State"
   system: "scribesim"
   primary_component: "handflow"
-  components: ["handflow", "ink", "hand", "tests"]
+  components: ["handflow", "ink", "hand", "handvalidate", "tests"]
   started_at: "2026-09-05T17:30:14Z"
   implementation_completed_at: "2026-09-06T03:30:46Z"
   review_time_estimate_minutes: 35
@@ -34,7 +34,7 @@ After implementation: Contact consumes ink, explicit word-boundary dips refill i
 ## Component Impact
 
 Primary component: `handflow`. Impacted components:
-`handflow`, `ink`, `hand`, `tests`.
+`handflow`, `ink`, `hand`, `handvalidate`, `tests`.
 
 Implemented paths:
 
@@ -107,8 +107,10 @@ Local synthetic evidence follows; no real-hand review or provider CI is claimed.
 
 ## Bug Fixes
 
-None implemented in this planning change. Record scoped defects and their
-regressions here during execution; do not imply unrelated renderer defects are fixed.
+The new opt-in mode fixes the repertoire bridge’s major-width/nominal-pressure
+contract and prevents time-based or duplicate ink consumption. Neutral continuous
+plan partitions do not introduce hidden settling steps. Legacy defaults remain
+unchanged; broader production renderer defects are not claimed as fixed.
 
 ### Execution outcome
 

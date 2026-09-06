@@ -4,7 +4,7 @@ advance:
   title: "Konrad Guided Bridge — Preserve Forms, Contact and Text Ownership"
   system: "scribesim"
   primary_component: "pathguide"
-  components: ["pathguide", "handflow", "handvalidate", "tests"]
+  components: ["pathguide", "handflow", "handvalidate", "evo", "tests"]
   started_at: "2026-09-05T17:30:14Z"
   implementation_completed_at: "2026-09-06T03:22:46Z"
   review_time_estimate_minutes: 30
@@ -34,7 +34,7 @@ After implementation: The selected WordPlan is sampled into physical trajectorie
 ## Component Impact
 
 Primary component: `pathguide`. Impacted components:
-`pathguide`, `handflow`, `handvalidate`, `tests`.
+`pathguide`, `handflow`, `handvalidate`, `evo`, `tests`.
 
 Implemented paths:
 
@@ -107,14 +107,15 @@ Actual local evidence is recorded below. Provider CI and owner acceptance are no
 
 ## Bug Fixes
 
-None implemented in this planning change. Record scoped defects and their
-regressions here during execution; do not imply unrelated renderer defects are fixed.
+Missing ownership/physical metadata and nonfinite acceptance bounds are rejected.
+Ignored extraction packages are no longer imported by the tracked conversion path
+unless their legacy extraction functions are actually requested.
 
 ### Execution outcome
 
 - Authorized branch: `feat/td018-guided-bridge`. Tidy assessment: no broad refactor needed. Two legacy extraction imports were made function-local so the tracked bridge does not require ignored extraction packages at import time; a subprocess actively rejects those dependencies.
 - Red: module-contract tests failed before implementation (`8fe94e2`); a finite-bound regression then exposed an accidental NaN pass (`30ad200`) and was fixed. The early convergence test was strengthened so another failed metric could not mask the NaN defect.
-- Green: focused bridge and nominal/recovery regressions pass. The broad pathguide/handflow check had 27 passing tests and one legacy constructor mismatch: `test_desired_velocity_affects_acceleration` omits the already-required nib_angle_deg field. This change does not alter that constructor.
+- Green: the focused bridge and nominal/recovery set passed 42 tests in 11.70 seconds. The broad pathguide/handflow check had 27 passing tests and one legacy constructor mismatch: `test_desired_velocity_affects_acceleration` omits the already-required nib_angle_deg field. This change does not alter that constructor.
 - The adapter resolves the whole WordPlan first, samples physical arc length, flips y above baseline into physical y-down, records declared air/contact transitions and shared ligature/join spans. Versioned JSON preserves the DensePathGuide object plus mandatory per-sample ownership; existing TOML loaders are unchanged. Intentional crossings are retained, rather than routed through the legacy zero-intersection validator.
 - SimulationResult now reports actual trajectory-to-plan indices with a backward-compatible default. Bridge imagery is painted from the actual trajectory using the same broad-edge primitive and physical frame as nominal playback; aligned samples cannot conceal injected displacement.
 - `guided_bridge_v1/synthetic/` retains three nominal/sampled/actual panels and ownership sidecars. Panel inspected. G2 is fail because maximum width delta exceeds 0.5 mm in all three synthetic cases. This exposes the legacy direction-dependent width prior; it is not an accepted hand result.

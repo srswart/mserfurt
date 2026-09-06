@@ -1,9 +1,9 @@
 # TD-018 — Reference-Grounded Recovery of Konrad's Hand
 
-**Status:** benchmark/nominal infrastructure implemented; G0/G1 blocked; no hand or renderer promoted.
+**Status:** benchmark/nominal/guided infrastructure implemented; real G0–G3 blocked; no hand or renderer promoted.
 **Date:** 2026-09-05  
 **First milestone:** three convincing lines generated from reusable stroke programs, including unseen words.  
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), ten Advances; five implementation outcomes complete.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), ten Advances; eight implementation outcomes complete.
 
 ## 1. Outcome and scope
 
@@ -338,10 +338,11 @@ retains failed evidence; no reference or production output is overwritten.
 
 ## 10. Advances and execution sequence
 
-The benchmark and nominal records now contain executed evidence. Their completed
+The benchmark, nominal and guided records now contain executed evidence. Their completed
 implementation outcomes do not mean G0/G1 passed: the corpus has zero admitted
-observations and no accepted recovered checkpoint. Guided/folio records remain
-planned. Draft timestamps alone do not indicate implementation completion.
+observations and no accepted recovered checkpoint. Folio records remain planned.
+Synthetic bridge/control evidence is not a real G2/G3 acceptance. Draft timestamps
+alone do not indicate implementation completion.
 
 ### Implemented nominal interfaces and evidence boundary
 
@@ -354,6 +355,17 @@ planned. Draft timestamps alone do not indicate implementation completion.
 - Matched synthetic ablations establish missing-loop recoverability, not a contextual-form advantage or manuscript generalization. The full corpus ablations and owner-accepted specimen remain gated and unexecuted.
 
 See [the frozen nominal outcome](../../shared/training/konrad_hand_recovery/nominal_specimen_v1/README.md).
+
+### Implemented guided interfaces and diagnostic outcome
+
+- `python -m scribesim.handvalidate.bridge --output <new-directory>` runs synthetic direct/sampled/actual bridge comparisons. `--nominal-root` selects the real gate-enforced path; it requires live G1 evidence and model-bound development tolerances.
+- `--repertoire-mode` explicitly selects the new broad-nib major-width/nominal-pressure contract in the existing controller. The legacy mode remains the default. Its initial synthetic width mismatch and the later corrected neutral comparison are both retained.
+- `python -m scribesim.handflow.execution --output <new-directory>` runs unaccepted persistent-state diagnostics. `--bridge-root` requires a real G2 pass for the exact neutral repertoire execution mode before candidate trials.
+- `python -m scribesim.handvalidate.expressive build --output <new-directory>` freezes three proof lines, six control configurations and three seeds, then runs independent process replays. `evaluate` reproduces actual trajectories and verifies owner-review identity and live upstream gates.
+- State is owned by HandStateV2, with one distance-based ink-consumption point, explicit boundary/refill/pause/return events and bounded digest-seeded controls. The default legacy profile, main renderer CLI and folio integration remain unchanged.
+- The full synthetic G3 run finds pressure, angle and rhythm active-safe under engineering bounds; ink and combined configurations are active-unsafe on all three seeds due to excessive fading. This is a failed candidate setting, not owner-approved handwriting. Retain neutral execution and disable unsafe settings rather than relaxing thresholds.
+
+See [guided evidence, limitations and commands](../../shared/training/konrad_hand_recovery/expressive_specimen_v1/README.md).
 
 | Advance | Reviewable outcome | Depends on |
 |---|---|---|

@@ -1,0 +1,16 @@
+{
+  "gate": "G3",
+  "status": "fail",
+  "reasons": [
+    "G1_G2_real_candidate_not_accepted",
+    "combined:19:active-unsafe",
+    "combined:41:active-unsafe",
+    "combined:7:active-unsafe",
+    "expressive_owner_review_missing",
+    "ink:19:active-unsafe",
+    "ink:41:active-unsafe",
+    "ink:7:active-unsafe"
+  ],
+  "promoted": false,
+  "recommendation": "retain_neutral_disable_offending_controls"
+}

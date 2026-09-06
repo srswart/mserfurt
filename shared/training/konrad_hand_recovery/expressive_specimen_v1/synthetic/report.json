@@ -1,0 +1,1451 @@
+{
+  "schema_version": 1,
+  "freeze_sha256": "9fe64b98b26bbfb9c7fca0724b87dccb8d4474b951da2e1b6072df29c7d75efa",
+  "matrix": [
+    {
+      "seed": 7,
+      "control": "ink",
+      "classification": "active-unsafe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.25501432457057543,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5485530081598209,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 1.2307984084490515,
+        "dip_count": 1,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.019544759860826585,
+        0.0632260723798122,
+        0.0582234265794393
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.08272099811139447,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.28354942421085944,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.6463867019577895,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "neutral"
+    },
+    {
+      "seed": 7,
+      "control": "pressure",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.49685571373333914,
+        "pressure_max": 0.5749999996432309,
+        "width_mean_mm": 0.5993396998840012,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.013093898698229984,
+        0.014605132405777467,
+        0.011229481231981323
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.07445303413459202,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23363030051101777,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.19283411942071513,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 7,
+      "control": "angle",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.096723021537414,
+        "angle_excursion_deg": 2.999999964238576,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.0055654190919043126,
+        0.005029332346180757,
+        0.004035838072767963
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.07009097446685654,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.2300949828935252,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.1866695038731432,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 7,
+      "control": "rhythm",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000714,
+        "contact_mm": 603.7014597682921,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 75.95590863420719
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.0005064004595757596,
+        0.0003673992861521659,
+        0.00040259883111413525
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.06510476979525202,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.5199539898674477,
+            2.677225539700835
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23023092508088877,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197651222649956,
+            2.832581056927385,
+            2.690112990496946,
+            3.1243747875446175
+          ]
+        },
+        {
+          "nominal_image_loss": 0.18577248395389928,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.73168406090375,
+            2.8468440023594432,
+            2.8314584745562748,
+            2.7599294973311927,
+            2.4346586778322106,
+            3.1291535933242827,
+            2.7042492839158427,
+            2.7888103599680676,
+            3.090043398284834,
+            2.7512439589753654
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 7,
+      "control": "combined",
+      "classification": "active-unsafe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.2540427431458714,
+        "pressure_max": 0.48903798951768235,
+        "width_mean_mm": 0.5483489760606329,
+        "angle_mean": 42.14522361554715,
+        "angle_excursion_deg": 2.9999999596612668,
+        "corridor_mm": 0.20000000000000714,
+        "contact_mm": 603.7014597682921,
+        "consumed_ink": 1.2266322074725562,
+        "dip_count": 1,
+        "duration_s": 75.95590863420719
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.017356572258533043,
+        0.06431755858264843,
+        0.058958597320681684
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.09053823531562581,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.5199539898674477,
+            2.677225539700835
+          ]
+        },
+        {
+          "nominal_image_loss": 0.2849631094081201,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197651222649956,
+            2.832581056927385,
+            2.690112990496946,
+            3.1243747875446175
+          ]
+        },
+        {
+          "nominal_image_loss": 0.6513675588791559,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.73168406090375,
+            2.8468440023594432,
+            2.8314584745562748,
+            2.7599294973311927,
+            2.4346586778322106,
+            3.1291535933242827,
+            2.7042492839158427,
+            2.7888103599680676,
+            3.090043398284834,
+            2.7512439589753654
+          ]
+        }
+      ],
+      "rollback": "neutral"
+    },
+    {
+      "seed": 19,
+      "control": "ink",
+      "classification": "active-unsafe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.25501432457057543,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5485530081598209,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 1.2307984084490515,
+        "dip_count": 1,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.019544759860826585,
+        0.0632260723798122,
+        0.0582234265794393
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.08272099811139447,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.28354942421085944,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.6463867019577895,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "neutral"
+    },
+    {
+      "seed": 19,
+      "control": "pressure",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5039863966211158,
+        "pressure_max": 0.5749999999158,
+        "width_mean_mm": 0.6008371432904343,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.014457559696073012,
+        0.013578756266515444,
+        0.01079527769052395
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.06789128209980684,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.22955047592422134,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.1936812354187103,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 19,
+      "control": "angle",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 41.959738702099344,
+        "angle_excursion_deg": 2.9999999516640727,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.005508947636544944,
+        0.004583800983739549,
+        0.004236089424846166
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.06893745592717355,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23032653152922186,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.18553055668919355,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 19,
+      "control": "rhythm",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.2000000000000069,
+        "contact_mm": 603.4604986733817,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.24116414976197
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.0005407602510324196,
+        0.00037054977309930465,
+        0.0003476518137756039
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.06453375467727734,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.5199066615617323,
+            2.6771385404816677
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23062524803017548,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197889167846638,
+            2.832536426054773,
+            2.6894895687969296,
+            3.124174464413713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.1858031702995835,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.7318428492860454,
+            2.8507985384547005,
+            2.83142362002366,
+            2.7638434581473064,
+            2.43662092299342,
+            3.1261705302603957,
+            2.706824449897212,
+            2.7880592599220932,
+            3.0945036566530746,
+            2.751716875187185
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 19,
+      "control": "combined",
+      "classification": "active-unsafe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.2565007657138529,
+        "pressure_max": 0.5583150452951736,
+        "width_mean_mm": 0.5488651607999091,
+        "angle_mean": 41.999709362692265,
+        "angle_excursion_deg": 2.999999997964572,
+        "corridor_mm": 0.2000000000000069,
+        "contact_mm": 603.4604986733817,
+        "consumed_ink": 1.237039296811352,
+        "dip_count": 1,
+        "duration_s": 76.24116414976197
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.025129364072881778,
+        0.062208255063423236,
+        0.05941732351246977
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.08167120670569572,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.5199066615617323,
+            2.6771385404816677
+          ]
+        },
+        {
+          "nominal_image_loss": 0.2825692335143668,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197889167846638,
+            2.832536426054773,
+            2.6894895687969296,
+            3.124174464413713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.6297116563800166,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.7318428492860454,
+            2.8507985384547005,
+            2.83142362002366,
+            2.7638434581473064,
+            2.43662092299342,
+            3.1261705302603957,
+            2.706824449897212,
+            2.7880592599220932,
+            3.0945036566530746,
+            2.751716875187185
+          ]
+        }
+      ],
+      "rollback": "neutral"
+    },
+    {
+      "seed": 41,
+      "control": "ink",
+      "classification": "active-unsafe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.25501432457057543,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5485530081598209,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 1.2307984084490515,
+        "dip_count": 1,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.019544759860826585,
+        0.0632260723798122,
+        0.0582234265794393
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.08272099811139447,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.28354942421085944,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.6463867019577895,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "neutral"
+    },
+    {
+      "seed": 41,
+      "control": "pressure",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5018481210852705,
+        "pressure_max": 0.5749999999692788,
+        "width_mean_mm": 0.6003881054279068,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.012319231728069889,
+        0.014545745726823902,
+        0.011051005179366906
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.06859141012861134,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23247258745911867,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.1898551996133247,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 41,
+      "control": "angle",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 41.899623320965844,
+        "angle_excursion_deg": 2.999999999697991,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.004982061370706381,
+        0.005568905743994056,
+        0.004058203543899462
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.06541383925674082,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.22993309131849657,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.18528658202930295,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 41,
+      "control": "rhythm",
+      "classification": "active-safe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000717,
+        "contact_mm": 603.6279209490829,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 77.20363604351658
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.0007881073933166412,
+        0.0003672942699205946,
+        0.0003375985446773689
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.06423270926118206,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.5199409833064035,
+            2.6770285750553207
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23038638387259416,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.1976167456573625,
+            2.8325171859487988,
+            2.689762014013077,
+            3.1181573099711315
+          ]
+        },
+        {
+          "nominal_image_loss": 0.18568258167032722,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.73132548557854,
+            2.8505727158554848,
+            2.8314596348328074,
+            2.7535528582611946,
+            2.4374656878662293,
+            3.1283899612487147,
+            2.706987022495923,
+            2.7883124267763293,
+            3.085539839654629,
+            2.7515895847475633
+          ]
+        }
+      ],
+      "rollback": "not promoted pending gates/review"
+    },
+    {
+      "seed": 41,
+      "control": "combined",
+      "classification": "active-unsafe",
+      "replay": true,
+      "coverage": 1.0,
+      "errors": [],
+      "metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.25577765551054704,
+        "pressure_max": 0.5669574906402297,
+        "width_mean_mm": 0.5487133076572148,
+        "angle_mean": 41.96470069139005,
+        "angle_excursion_deg": 2.9999999958777224,
+        "corridor_mm": 0.20000000000000717,
+        "contact_mm": 603.6279209490829,
+        "consumed_ink": 1.2341731119592683,
+        "dip_count": 1,
+        "duration_s": 77.20363604351658
+      },
+      "neutral_metrics": {
+        "coverage": 1.0,
+        "pressure_mean": 0.5,
+        "pressure_max": 0.5,
+        "width_mean_mm": 0.5999999999999999,
+        "angle_mean": 42.0,
+        "angle_excursion_deg": 0.0,
+        "corridor_mm": 0.20000000000000706,
+        "contact_mm": 603.6434227682159,
+        "consumed_ink": 0.0,
+        "dip_count": 0,
+        "duration_s": 76.4410878910189
+      },
+      "image_deltas": [
+        0.024489534896324477,
+        0.0636295972496249,
+        0.05828228094023301
+      ],
+      "lines": [
+        {
+          "nominal_image_loss": 0.08481490178707025,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.5199409833064035,
+            2.6770285750553207
+          ]
+        },
+        {
+          "nominal_image_loss": 0.28667639208875384,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.1976167456573625,
+            2.8325171859487988,
+            2.689762014013077,
+            3.1181573099711315
+          ]
+        },
+        {
+          "nominal_image_loss": 0.6542050749754175,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.73132548557854,
+            2.8505727158554848,
+            2.8314596348328074,
+            2.7535528582611946,
+            2.4374656878662293,
+            3.1283899612487147,
+            2.706987022495923,
+            2.7883124267763293,
+            3.085539839654629,
+            2.7515895847475633
+          ]
+        }
+      ],
+      "rollback": "neutral"
+    }
+  ],
+  "neutral_cases": [
+    {
+      "seed": 7,
+      "neutral_safe": true,
+      "replay": true,
+      "lines": [
+        {
+          "nominal_image_loss": 0.06522082631240718,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23044945055085286,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.1858603457026355,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 19,
+      "neutral_safe": true,
+      "replay": true,
+      "lines": [
+        {
+          "nominal_image_loss": 0.06522082631240718,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23044945055085286,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.1858603457026355,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 41,
+      "neutral_safe": true,
+      "replay": true,
+      "lines": [
+        {
+          "nominal_image_loss": 0.06522082631240718,
+          "text": "alle das ist",
+          "word_gaps_mm": [
+            2.519940937403164,
+            2.677154595856713
+          ]
+        },
+        {
+          "nominal_image_loss": 0.23044945055085286,
+          "text": "dein lied deine hand rein",
+          "word_gaps_mm": [
+            3.197693617958584,
+            2.832542523520427,
+            2.689889672305565,
+            3.1238174735930073
+          ]
+        },
+        {
+          "nominal_image_loss": 0.1858603457026355,
+          "text": "Hie hebt sich an, das ein schreiber nit mag laßen zu",
+          "word_gaps_mm": [
+            2.731626665565667,
+            2.8494113970155013,
+            2.8314531726032612,
+            2.7595447919729494,
+            2.4360960798719162,
+            3.1282860820620257,
+            2.706003313388038,
+            2.788581425966271,
+            3.0887090581082077,
+            2.751510768485332
+          ]
+        }
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "/Users/shawn/Projects/041-mserfurt/.venv/bin/python",
+        "-m",
+        "scribesim.handvalidate.expressive",
+        "worker",
+        "--output",
+        "/Users/shawn/Projects/041-mserfurt/shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic",
+        "--suffix",
+        "first"
+      ],
+      "PYTHONHASHSEED": "7",
+      "fresh_process": true
+    },
+    {
+      "command": [
+        "/Users/shawn/Projects/041-mserfurt/.venv/bin/python",
+        "-m",
+        "scribesim.handvalidate.expressive",
+        "worker",
+        "--output",
+        "/Users/shawn/Projects/041-mserfurt/shared/training/konrad_hand_recovery/expressive_specimen_v1/synthetic",
+        "--suffix",
+        "replay"
+      ],
+      "PYTHONHASHSEED": "839",
+      "fresh_process": true
+    }
+  ],
+  "artifacts": {
+    "pressure-19-replay-2.png": "9daa780cb64f21bb122257974e1571d3ea4fdef10336d8e5977472c42838499e",
+    "combined-19-first-1.png": "47955d7f0ec9f0243b064aaa7da9909bdc982921f07cfa54a40fc23261924f06",
+    "rhythm-7-replay-0.png": "7bb00c71dc029f9ddb431eb8abaddb96206711911c305bf2a55e03c212659532",
+    "rhythm-41-first-0.png": "82f0c631e1dd0c69b05f1fd0cab20ad7b5ada347ee973013538a90447cad7cd0",
+    "ink-19-first-0.png": "0d86eb8d98ae272516a55471e62e2b1715c038bd1d605cbcaedca7b9698213dc",
+    "neutral-7-first-1.png": "f6fc7b0e867b0434b6107ef4e5b7129650cea1daad4f0d8a336a5dfcadc7b40e",
+    "neutral-7-first-0.png": "0a85b62f266f76118f8d0276352f5e60e4105ffc42a67e875e610436d0deccd9",
+    "ink-19-first-1.png": "d8f2a8c832e705bf766e41e0eef94147e874532d82376d58177f2d9e03909dd6",
+    "combined-7-first-2.png": "6351706a4b99e20fd8daca6724406ec39681ec423cd130ff505f90d27a26acb6",
+    "rhythm-41-first-1.png": "834d9087cf52ec3d1b1b19a1d50387c6fe1d81604caa84e2b8448564f491642e",
+    "rhythm-7-replay-1.png": "22e553e390812ce080365c84c68df4465c86a41d7ab7284ccd8e1c1a4b4857c9",
+    "model.json": "f7777406fe58271efbc4d98e70ff42d2158b2265ad8a5f9d8f6c7dd09decb80a",
+    "angle-7-replay.json.gz": "2d64d58d8d7640bb6dcc59ba83a11519342528d319bb5ef2728a9de43bd4457e",
+    "combined-19-first-0.png": "c744b8d4f29767a8b54632bd0adced0e9f0bd38fc5058f111f666759eaa0d57b",
+    "pressure-19-replay-1.png": "010e6836514bc69ca78744e61a1415074efbe8fc0198096c7ae254fba7c54956",
+    "combined-19-first-2.png": "ad4136bd701bae88dfaa42c9485c22a0a839e4784086f093453b7f2ba88e4983",
+    "combined-41-replay.json.gz": "eb0c7bba166e6d8e0c6bff17b5a9fb505c83ab8a77cce852aaaeb67bc013b376",
+    "combined-7-first-0.png": "b8f084e3b77e30038700d1ad8bc9373467d3bcb17a822d46a735112099d22d4d",
+    "pressure-41-first.json.gz": "7a96979f1ad92b7f3e1275a5c0c516b9fd273499d69a0931fd73820760476409",
+    "neutral-7-first-2.png": "f7621f24259b9e2a6022609704f1ed1d831c78295da46897e0fb8f1276d66287",
+    "ink-19-first-2.png": "bca97b110553facfa63c119e4c677f96ab5eae4447b806b67c776dbb664860e9",
+    "combined-7-first-1.png": "a2d7853521a9f5a018ea88632c1ef0bb3322611ed3375222ea9609ee352b51f3",
+    "neutral-41-replay.json.gz": "dfb125be642a66f28e2cf1ba8e65c0fb2e3d1dcf07043921d0cda4b4b9738a3c",
+    "rhythm-7-replay-2.png": "0a6a4cd4ce9f89c5821d54adb2546c758a61cb7de2df1b180933214ec738d4ba",
+    "rhythm-41-first-2.png": "9165aa21e1307763134e7e480372453224852b5b06a36760c531f8f5c270593f",
+    "pressure-19-replay-0.png": "e71c4703f62f323d9834b0570bf7c7cf7e706cdd0b1d5ae5c92ab514d9b63f31",
+    "pressure-19-first-1.png": "010e6836514bc69ca78744e61a1415074efbe8fc0198096c7ae254fba7c54956",
+    "pressure-19-first-0.png": "e71c4703f62f323d9834b0570bf7c7cf7e706cdd0b1d5ae5c92ab514d9b63f31",
+    "ink-19-first.json.gz": "c081a6c012a3e01065635572ced71455dbc76b03ee1c0a7120d40eee29f5b806",
+    "ink-41-replay.json.gz": "ab7b3c20d4bc4a26799ac27c9c8dc55f887ef3b048360db27369a891eff4a944",
+    "combined-7-replay.json.gz": "b0354ffa90564c56e44f1605b90f615a242b84c5ecc859bfe42b9b739c8e3506",
+    "pressure-19-first-2.png": "9daa780cb64f21bb122257974e1571d3ea4fdef10336d8e5977472c42838499e",
+    "angle-19-replay.json.gz": "c118c60d9c926df8380da796a489a84357459d3eeeec44e42eae0c99dcbe8b11",
+    "rhythm-41-first.json.gz": "8369fe2b34a667d3ad71dd371a6af5e5c6c6c561b5003df73e2da6506bdb68da",
+    "pressure-7-replay.json.gz": "a11a4052812fa167034f930157fe52a0ac760be3f729dc777bc1a2854e0286de",
+    "rhythm-19-first-1.png": "52aebee7e669001e916cfc8afa65d064219e621f7270299a5133c7c7bd7d9e88",
+    "neutral-19-first.json.gz": "ceb9c103fa067106aa5ea3290ce18c7099991bed06cc986a180a9a5eec1d6889",
+    "combined-7-replay-0.png": "b8f084e3b77e30038700d1ad8bc9373467d3bcb17a822d46a735112099d22d4d",
+    "combined-41-first-0.png": "ebe49cea42f77a6955e34a896de83cc89d460b3482f2d9986de98df7506bc981",
+    "ink-7-replay-1.png": "d8f2a8c832e705bf766e41e0eef94147e874532d82376d58177f2d9e03909dd6",
+    "ink-41-first-1.png": "d8f2a8c832e705bf766e41e0eef94147e874532d82376d58177f2d9e03909dd6",
+    "ink-41-first-0.png": "0d86eb8d98ae272516a55471e62e2b1715c038bd1d605cbcaedca7b9698213dc",
+    "ink-7-replay-0.png": "0d86eb8d98ae272516a55471e62e2b1715c038bd1d605cbcaedca7b9698213dc",
+    "combined-41-first-1.png": "39127680290ab0f90c80d111254d1bb325519f928fc501494a0eb31b1dc5a676",
+    "combined-7-replay-1.png": "a2d7853521a9f5a018ea88632c1ef0bb3322611ed3375222ea9609ee352b51f3",
+    "rhythm-19-first-0.png": "50b714144efc85e74cb9920cd2e9050bbcd7a6c7326d86d0068a8c9cfd4a67aa",
+    "rhythm-19-replay.json.gz": "14d36d5d373c482638767fdac98f7342b4e23aea239f750427aba123f06b96ad",
+    "rhythm-19-first-2.png": "b5c7191cc78da9b108f83cad00ac8181ff2c498ae9c3e36b33d12d099c1e6b3d",
+    "pressure-19-replay.json.gz": "3591a621e7a97c8fd351a5df1bbcaebe4a7ab272f24b3f2e1d6b2244cdffce21",
+    "ink-41-first-2.png": "bca97b110553facfa63c119e4c677f96ab5eae4447b806b67c776dbb664860e9",
+    "ink-7-replay-2.png": "bca97b110553facfa63c119e4c677f96ab5eae4447b806b67c776dbb664860e9",
+    "angle-41-first.json.gz": "358cf961f5eecf45fd880feee67de3bb19f3319a2cae65d48149bf7de43faf53",
+    "combined-7-replay-2.png": "6351706a4b99e20fd8daca6724406ec39681ec423cd130ff505f90d27a26acb6",
+    "combined-41-first-2.png": "df76de4e669ed0283869df6d03728439f845071c3e5c2e2d534125258a501dfc",
+    "pressure-41-first-0.png": "03a8192db306ee75db893b0e06ac4684bcf47aa78f472c6cb578c2ed4bf4f332",
+    "pressure-7-replay-0.png": "968cf117bbe2b5d06a8e7ec6b66dc658a37b37785d8c37c9002a95614ed22545",
+    "combined-41-first.json.gz": "eb0c7bba166e6d8e0c6bff17b5a9fb505c83ab8a77cce852aaaeb67bc013b376",
+    "pressure-7-first-0.png": "968cf117bbe2b5d06a8e7ec6b66dc658a37b37785d8c37c9002a95614ed22545",
+    "pressure-41-replay-0.png": "03a8192db306ee75db893b0e06ac4684bcf47aa78f472c6cb578c2ed4bf4f332",
+    "pressure-41-replay-1.png": "6a0ee00e9bdea029cee5cab3ff67988b6e17ba7fdbf698061048bd8ca2d2ab6e",
+    "pressure-7-first-1.png": "4c07f9f1f677d7d3796ac4029d47b267b1afe681c68dbe72e4866d596ec2d263",
+    "comparison.png": "150df1506de14acc4102540b242c305e904190a6090f06784403a3094e6969f5",
+    "pressure-7-replay-1.png": "4c07f9f1f677d7d3796ac4029d47b267b1afe681c68dbe72e4866d596ec2d263",
+    "pressure-41-first-1.png": "6a0ee00e9bdea029cee5cab3ff67988b6e17ba7fdbf698061048bd8ca2d2ab6e",
+    "rhythm-7-replay.json.gz": "6a0e78f7c6eefdfe9368de9231b21b8047e0ba94e9d9e34a333f583bcd753771",
+    "pressure-7-first-2.png": "a9d8be191cf44703ba92fc21c41db9045a7d33d4df256246e984ce31f4281b1b",
+    "pressure-41-replay-2.png": "a765e796e7c601cc0ac44751c6aa36d94a79dc88df2bd9bc1da2dad962fe1c60",
+    "pressure-7-first.json.gz": "a11a4052812fa167034f930157fe52a0ac760be3f729dc777bc1a2854e0286de",
+    "pressure-41-first-2.png": "a765e796e7c601cc0ac44751c6aa36d94a79dc88df2bd9bc1da2dad962fe1c60",
+    "pressure-7-replay-2.png": "a9d8be191cf44703ba92fc21c41db9045a7d33d4df256246e984ce31f4281b1b",
+    "neutral-41-first.json.gz": "dfb125be642a66f28e2cf1ba8e65c0fb2e3d1dcf07043921d0cda4b4b9738a3c",
+    "combined-7-first.json.gz": "b0354ffa90564c56e44f1605b90f615a242b84c5ecc859bfe42b9b739c8e3506",
+    "neutral-7-replay-2.png": "f7621f24259b9e2a6022609704f1ed1d831c78295da46897e0fb8f1276d66287",
+    "neutral-41-first-2.png": "f7621f24259b9e2a6022609704f1ed1d831c78295da46897e0fb8f1276d66287",
+    "neutral-19-replay-2.png": "f7621f24259b9e2a6022609704f1ed1d831c78295da46897e0fb8f1276d66287",
+    "angle-19-first-1.png": "3fcc13998b5e5acedb4bdda3bec658ca145817bce31cb62b48f619daf0e4a5b3",
+    "rhythm-19-replay-2.png": "b5c7191cc78da9b108f83cad00ac8181ff2c498ae9c3e36b33d12d099c1e6b3d",
+    "combined-41-replay-2.png": "df76de4e669ed0283869df6d03728439f845071c3e5c2e2d534125258a501dfc",
+    "angle-7-first-1.png": "197e30956ca1736aafd9de4e463fa8a44c5dd4e511a551a769c5ead8ba7d9a8b",
+    "angle-7-first-0.png": "68901e1a833903ad5060a2a19ca8afef6cb315c0539317e73c9cc41ade877dfa",
+    "angle-19-first-0.png": "cc3ac0de00a8f62da86bc941b81da6724b502fe6f4134c4245449f944e24b7b6",
+    "ink-7-first-2.png": "bca97b110553facfa63c119e4c677f96ab5eae4447b806b67c776dbb664860e9",
+    "neutral-41-first-1.png": "f6fc7b0e867b0434b6107ef4e5b7129650cea1daad4f0d8a336a5dfcadc7b40e",
+    "neutral-7-replay-1.png": "f6fc7b0e867b0434b6107ef4e5b7129650cea1daad4f0d8a336a5dfcadc7b40e",
+    "neutral-19-replay-1.png": "f6fc7b0e867b0434b6107ef4e5b7129650cea1daad4f0d8a336a5dfcadc7b40e",
+    "ink-7-first-0.png": "0d86eb8d98ae272516a55471e62e2b1715c038bd1d605cbcaedca7b9698213dc",
+    "angle-19-first-2.png": "2e64e586675859d1216a7c49975c277f927bff381dac2b24e5ec59ccf533da9c",
+    "rhythm-19-replay-1.png": "52aebee7e669001e916cfc8afa65d064219e621f7270299a5133c7c7bd7d9e88",
+    "combined-41-replay-1.png": "39127680290ab0f90c80d111254d1bb325519f928fc501494a0eb31b1dc5a676",
+    "angle-7-first-2.png": "7a5017030fd91288b1e26dc57e2ded3b69fb69fa12de871930bceda339e3c955",
+    "combined-41-replay-0.png": "ebe49cea42f77a6955e34a896de83cc89d460b3482f2d9986de98df7506bc981",
+    "rhythm-19-replay-0.png": "50b714144efc85e74cb9920cd2e9050bbcd7a6c7326d86d0068a8c9cfd4a67aa",
+    "angle-19-first.json.gz": "c118c60d9c926df8380da796a489a84357459d3eeeec44e42eae0c99dcbe8b11",
+    "ink-7-first-1.png": "d8f2a8c832e705bf766e41e0eef94147e874532d82376d58177f2d9e03909dd6",
+    "neutral-19-replay-0.png": "0a85b62f266f76118f8d0276352f5e60e4105ffc42a67e875e610436d0deccd9",
+    "neutral-7-replay-0.png": "0a85b62f266f76118f8d0276352f5e60e4105ffc42a67e875e610436d0deccd9",
+    "neutral-41-first-0.png": "0a85b62f266f76118f8d0276352f5e60e4105ffc42a67e875e610436d0deccd9",
+    "ink-19-replay-1.png": "d8f2a8c832e705bf766e41e0eef94147e874532d82376d58177f2d9e03909dd6",
+    "angle-19-replay-0.png": "cc3ac0de00a8f62da86bc941b81da6724b502fe6f4134c4245449f944e24b7b6",
+    "combined-19-first.json.gz": "315b5d02d543e122cb52fbca74f7dbbfdaf337842b81021a1a63879e8f7e3f01",
+    "pressure-41-replay.json.gz": "7a96979f1ad92b7f3e1275a5c0c516b9fd273499d69a0931fd73820760476409",
+    "angle-19-replay-1.png": "3fcc13998b5e5acedb4bdda3bec658ca145817bce31cb62b48f619daf0e4a5b3",
+    "ink-19-replay-0.png": "0d86eb8d98ae272516a55471e62e2b1715c038bd1d605cbcaedca7b9698213dc",
+    "ink-19-replay-2.png": "bca97b110553facfa63c119e4c677f96ab5eae4447b806b67c776dbb664860e9",
+    "rhythm-41-replay.json.gz": "8369fe2b34a667d3ad71dd371a6af5e5c6c6c561b5003df73e2da6506bdb68da",
+    "ink-7-replay.json.gz": "fc84d4a6289c4508a867cf5b0acf2a393994dbc7c65dd196b415d44692dfecb8",
+    "angle-19-replay-2.png": "2e64e586675859d1216a7c49975c277f927bff381dac2b24e5ec59ccf533da9c",
+    "angle-41-replay.json.gz": "358cf961f5eecf45fd880feee67de3bb19f3319a2cae65d48149bf7de43faf53",
+    "angle-41-replay-2.png": "a75e94846e12fb36a48f4f2da9fe69821ce3ef54f601a7b40a7ef70bc39c74f7",
+    "angle-7-first.json.gz": "2d64d58d8d7640bb6dcc59ba83a11519342528d319bb5ef2728a9de43bd4457e",
+    "rhythm-7-first-1.png": "22e553e390812ce080365c84c68df4465c86a41d7ab7284ccd8e1c1a4b4857c9",
+    "angle-7-replay-0.png": "68901e1a833903ad5060a2a19ca8afef6cb315c0539317e73c9cc41ade877dfa",
+    "angle-41-first-0.png": "635e2dbeee27dbf4dc38d59749242693d192f1963e7d3c4a99f9d0ed62349c85",
+    "angle-41-first-1.png": "a22b69bd87c0b382b741f4b91bbc661b203e5325e17f0533502d74ec76acd40d",
+    "angle-7-replay-1.png": "197e30956ca1736aafd9de4e463fa8a44c5dd4e511a551a769c5ead8ba7d9a8b",
+    "ink-19-replay.json.gz": "c081a6c012a3e01065635572ced71455dbc76b03ee1c0a7120d40eee29f5b806",
+    "rhythm-7-first-0.png": "7bb00c71dc029f9ddb431eb8abaddb96206711911c305bf2a55e03c212659532",
+    "ink-41-replay-2.png": "bca97b110553facfa63c119e4c677f96ab5eae4447b806b67c776dbb664860e9",
+    "neutral-19-first-2.png": "f7621f24259b9e2a6022609704f1ed1d831c78295da46897e0fb8f1276d66287",
+    "ink-7-first.json.gz": "fc84d4a6289c4508a867cf5b0acf2a393994dbc7c65dd196b415d44692dfecb8",
+    "angle-41-replay-1.png": "a22b69bd87c0b382b741f4b91bbc661b203e5325e17f0533502d74ec76acd40d",
+    "neutral-19-first-0.png": "0a85b62f266f76118f8d0276352f5e60e4105ffc42a67e875e610436d0deccd9",
+    "ink-41-replay-0.png": "0d86eb8d98ae272516a55471e62e2b1715c038bd1d605cbcaedca7b9698213dc",
+    "pressure-19-first.json.gz": "3591a621e7a97c8fd351a5df1bbcaebe4a7ab272f24b3f2e1d6b2244cdffce21",
+    "neutral-7-replay.json.gz": "a0db52ce450fef7d715173f461ddc0d0e44df6c7c046e391afb67afd157d29b2",
+    "rhythm-7-first-2.png": "0a6a4cd4ce9f89c5821d54adb2546c758a61cb7de2df1b180933214ec738d4ba",
+    "angle-7-replay-2.png": "7a5017030fd91288b1e26dc57e2ded3b69fb69fa12de871930bceda339e3c955",
+    "angle-41-first-2.png": "a75e94846e12fb36a48f4f2da9fe69821ce3ef54f601a7b40a7ef70bc39c74f7",
+    "ink-41-replay-1.png": "d8f2a8c832e705bf766e41e0eef94147e874532d82376d58177f2d9e03909dd6",
+    "neutral-19-first-1.png": "f6fc7b0e867b0434b6107ef4e5b7129650cea1daad4f0d8a336a5dfcadc7b40e",
+    "angle-41-replay-0.png": "635e2dbeee27dbf4dc38d59749242693d192f1963e7d3c4a99f9d0ed62349c85",
+    "rhythm-41-replay-0.png": "82f0c631e1dd0c69b05f1fd0cab20ad7b5ada347ee973013538a90447cad7cd0",
+    "combined-19-replay-0.png": "c744b8d4f29767a8b54632bd0adced0e9f0bd38fc5058f111f666759eaa0d57b",
+    "neutral-19-replay.json.gz": "ceb9c103fa067106aa5ea3290ce18c7099991bed06cc986a180a9a5eec1d6889",
+    "neutral-41-replay-0.png": "0a85b62f266f76118f8d0276352f5e60e4105ffc42a67e875e610436d0deccd9",
+    "neutral-41-replay-1.png": "f6fc7b0e867b0434b6107ef4e5b7129650cea1daad4f0d8a336a5dfcadc7b40e",
+    "combined-19-replay-1.png": "47955d7f0ec9f0243b064aaa7da9909bdc982921f07cfa54a40fc23261924f06",
+    "ink-41-first.json.gz": "ab7b3c20d4bc4a26799ac27c9c8dc55f887ef3b048360db27369a891eff4a944",
+    "rhythm-41-replay-1.png": "834d9087cf52ec3d1b1b19a1d50387c6fe1d81604caa84e2b8448564f491642e",
+    "combined-19-replay.json.gz": "315b5d02d543e122cb52fbca74f7dbbfdaf337842b81021a1a63879e8f7e3f01",
+    "freeze.json": "79c4db8b4d59cf0f36cd726e8c4560168eaea6a14514fb04a6dcf263862ee229",
+    "reference-sheet.png": "221c1a54e594ecf40849b2eb299e780180e88cffac88623f312e71cb262342b9",
+    "rhythm-7-first.json.gz": "6a0e78f7c6eefdfe9368de9231b21b8047e0ba94e9d9e34a333f583bcd753771",
+    "neutral-41-replay-2.png": "f7621f24259b9e2a6022609704f1ed1d831c78295da46897e0fb8f1276d66287",
+    "rhythm-19-first.json.gz": "14d36d5d373c482638767fdac98f7342b4e23aea239f750427aba123f06b96ad",
+    "neutral-7-first.json.gz": "a0db52ce450fef7d715173f461ddc0d0e44df6c7c046e391afb67afd157d29b2",
+    "combined-19-replay-2.png": "ad4136bd701bae88dfaa42c9485c22a0a839e4784086f093453b7f2ba88e4983",
+    "rhythm-41-replay-2.png": "9165aa21e1307763134e7e480372453224852b5b06a36760c531f8f5c270593f"
+  }
+}
