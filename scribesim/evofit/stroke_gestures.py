@@ -74,7 +74,7 @@ def _lower(model):
 def validate_gestures(model):
     try:
         if (set(model) != legacy.MODEL_FIELDS | EXTRA_FIELDS or model['schema_version'] != SCHEMA
-                or model['sampling'] not in {'legacy-v1', 'gesture-arc-v2'}
+                or model['sampling'] not in {'legacy-v1', 'gesture-arc-v2', 'gesture-arc-v3'}
                 or model['letter_rules'] or model['word_rules']):
             raise ValueError('Explicit gesture schema/sampling required; context overlays are not supported yet')
         if not isinstance(model['migration_source_sha256'], str) or len(model['migration_source_sha256']) != 64:
@@ -197,8 +197,9 @@ def compile_gestures(text, model):
     return plan
 
 
-def _arc_samples(rows, scale, step):
+def _arc_samples(rows, scale, step, *, preserve_boundaries=False):
     points, owners = [], []
+    boundaries = []
     parameters = np.linspace(0, 1, 257)[:, None]
     for row in rows:
         for cubic in row['cubics']:
@@ -208,11 +209,14 @@ def _arc_samples(rows, scale, step):
             selected = curve[1:] if points else curve
             points.extend(selected.tolist())
             owners.extend([row] * len(selected))
+            boundaries.append(len(points) - 1)
     points = np.asarray(points)
     distance = np.r_[0, np.cumsum(np.linalg.norm(np.diff(points, axis=0), axis=1))]
     if distance[-1] < .001:
         raise ValueError('Stationary contact action unsupported')
     targets = np.linspace(0, distance[-1], math.ceil(distance[-1] / step) + 1)
+    if preserve_boundaries:
+        targets = np.unique(np.r_[targets, distance[boundaries]])
     for target in targets:
         index = min(len(points) - 1, max(1, int(np.searchsorted(distance, target, side='right'))))
         ratio = (target - distance[index - 1]) / max(1e-12, distance[index] - distance[index - 1])
@@ -243,7 +247,8 @@ def gesture_guide(text, model, *, step_mm=.05):
             groups.setdefault(row['gesture_occurrence_id'], []).append(row)
         samples, owners = [], []
         for rows in groups.values():
-            contact = list(_arc_samples(rows, model['x_height_mm'], step_mm))
+            contact = list(_arc_samples(rows, model['x_height_mm'], step_mm,
+                                       preserve_boundaries=model['sampling'] == 'gesture-arc-v3'))
             if samples:
                 start, end = [samples[-1].x_mm, samples[-1].y_mm], list(contact[0][0][:2])
                 for point in _sample_cubic([start, start, end, end], step_mm):

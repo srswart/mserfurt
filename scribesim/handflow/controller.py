@@ -38,7 +38,7 @@ class GuidedHandFlowController:
         repertoire_controls: RepertoireControls | None = None,
         execution_version: str = "legacy-v1",
     ) -> None:
-        if execution_version not in {"legacy-v1", "event-time-v1"}:
+        if execution_version not in {"legacy-v1", "event-time-v1", "event-time-v2"}:
             raise ValueError("Unsupported handflow execution version")
         self.execution_version = execution_version
         self.profile = profile
@@ -109,7 +109,19 @@ class GuidedHandFlowController:
         previous_ink = state.ink_reservoir
         previous_time = state.time_s
         previous_velocity = state.vel_x_mm_s, state.vel_y_mm_s
-        acc_x, acc_y = self.desired_acceleration(state, desired)
+        if self.execution_version == "event-time-v2":
+            predicted_x = state.pos_x_mm + (state.vel_x_mm_s + desired.vx_mm_s) * dt / 2
+            predicted_y = state.pos_y_mm + (state.vel_y_mm_s + desired.vy_mm_s) * dt / 2
+            target_x = desired.vx_mm_s + self.dyn.position_gain * (desired.x_mm - predicted_x)
+            target_y = desired.vy_mm_s + self.dyn.position_gain * (desired.y_mm - predicted_y)
+            acc_x = (target_x - state.vel_x_mm_s) / dt if dt else 0.0
+            acc_y = (target_y - state.vel_y_mm_s) / dt if dt else 0.0
+            magnitude = math.hypot(acc_x, acc_y)
+            if magnitude > self.dyn.max_acceleration:
+                acc_x *= self.dyn.max_acceleration / magnitude
+                acc_y *= self.dyn.max_acceleration / magnitude
+        else:
+            acc_x, acc_y = self.desired_acceleration(state, desired)
         state.acc_x_mm_s2 = acc_x
         state.acc_y_mm_s2 = acc_y
         state.vel_x_mm_s += acc_x * dt
@@ -121,8 +133,12 @@ class GuidedHandFlowController:
             state.vel_x_mm_s *= scale
             state.vel_y_mm_s *= scale
 
-        state.pos_x_mm += state.vel_x_mm_s * dt
-        state.pos_y_mm += state.vel_y_mm_s * dt
+        if self.execution_version == "event-time-v2":
+            state.pos_x_mm += (previous_velocity[0] + state.vel_x_mm_s) * dt / 2
+            state.pos_y_mm += (previous_velocity[1] + state.vel_y_mm_s) * dt / 2
+        else:
+            state.pos_x_mm += state.vel_x_mm_s * dt
+            state.pos_y_mm += state.vel_y_mm_s * dt
         state.time_s += dt
 
         corridor_error = math.dist((state.pos_x_mm, state.pos_y_mm), (desired.x_mm, desired.y_mm))
@@ -219,7 +235,7 @@ class GuidedHandFlowController:
                 "pressure": state.nib_pressure, "width_mm": width_mm, "angle_deg": state.nib_angle_deg,
                 "nominal_angle_deg": desired.nib_angle_deg,
                 "fatigue": state.fatigue, "rhythm_phase": state.rhythm_phase, "habit_phase": state.habit_phase})
-            if self.execution_version == "event-time-v1":
+            if self.execution_version != "legacy-v1":
                 state.execution_trace[-1].update(velocity_before_mm_s=list(previous_velocity),
                     velocity_mm_s=[state.vel_x_mm_s, state.vel_y_mm_s],
                     execution_version=self.execution_version)
@@ -294,7 +310,7 @@ class GuidedHandFlowController:
         dt: float = 0.002,
         settle_time_s: float = 0.05,
     ) -> SimulationResult:
-        if self.execution_version == "event-time-v1":
+        if self.execution_version != "legacy-v1":
             return self._follow_timed_plan(plan, state=state, dt=dt, settle_time_s=settle_time_s)
         if not plan.samples:
             raise ValueError("cannot follow an empty TrackPlan")

@@ -1,0 +1,2105 @@
+{
+  "spec": {
+    "schema_version": "foundation-motion-v2",
+    "scope": "Single diagnosed synthetic motion revision and read-only old six-primitive baseline, not learned returns or action acceptance",
+    "saved_candidate": "gestures/run-002/candidate.json",
+    "saved_candidate_sha256": "84a311b2c17135bc6cd4bc0bd808e3eaa5dffd5109c86ea5172d3b2693db823e",
+    "fixture_families": [
+      "continuous",
+      "separated",
+      "coincident-overlap",
+      "word-space",
+      "saved-u",
+      "saved-i-u"
+    ],
+    "execution_versions": [
+      "legacy-v1",
+      "event-time-v2"
+    ],
+    "criteria": {
+      "endpoint_mm": 0.01,
+      "event_time_s": 0.0001,
+      "duration_s": 1e-10,
+      "convergence_loss": 0.03,
+      "actual_loss": 0.35,
+      "corridor_mm": 0.25,
+      "owner_errors": 0
+    },
+    "diagnosis": "Attempt 0 proved floor-induced time drift and measured legacy projection hiding low-bandwidth tracking failure. Remaining temporal error comes from chording across a corner; timestep position bias comes from endpoint-position feedback against a start-time state.",
+    "revision": "Same controller/integrator with opt-in event-time-v2. Global clock, exact contact events, no projection. Velocity target = desired velocity + original position_gain times error to a trapezoid-predicted endpoint. Acceleration limited to original 500mm/s2, speed limited to original 40mm/s. Trapezoidal position integration. Explicit gesture-arc-v3 retains primitive/cubic boundary vertices. No gain search, profile fitting, pose reset or threshold change.",
+    "timing_rationale": "Unchanged from attempt 0: exact supplied-plan duration within 1e-10s, arc event differences <=0.1ms, no zero-time pose/velocity change.",
+    "dt_s": [
+      0.002,
+      0.001
+    ],
+    "arc_step_mm": [
+      0.025,
+      0.0125
+    ],
+    "settle_time_s": 0,
+    "scope_difference_from_old_saved_run": "Zero settling isolates contact events. New sampling is an explicit geometry-equivalent view of the frozen model, not a fitted or rewritten historical checkpoint.",
+    "tool": {
+      "width_mm": 0.45,
+      "angle_deg": 40,
+      "pressure": 0.5,
+      "speed_mm_s": 12,
+      "footprint": "legacy-full-edge",
+      "session_effects": false
+    },
+    "physical_fixed_bridge": "Separate physical-edge-v1 fixed-profile i u replay; no inference of action acceptance from legacy footprint",
+    "frame_mm": [
+      -2,
+      16,
+      3,
+      13
+    ],
+    "dpi": 180,
+    "max_renders": 500,
+    "max_seconds": 1800,
+    "max_revisions": 1,
+    "optimization_evaluations": 0,
+    "baseline": "Pinned old provenance and original target/initial/three-seed losses, plus actual six-family metrics using current event-time-v2. Stop before primitive fitting if either motion or baseline fails."
+  },
+  "spec_sha256": "211c41e9fdbc85ab38e507c3b0bddfbd26c508ea7b17fd6a5db8f456aa962f80",
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "29f1acd735f7f7bc783c0daa649c4a5efcb037e13ed7fd21f65dd241b2ff18c5",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "30492bfc66ead4cdf96422177080fa56a9144e2b13394478ab225f47ee0e98d8",
+    "scribesim/evofit/stroke_language.py": "2355fdd4dc5ccd651df19bcadb3d1479697372dcbce3425122b6e903eb7e0886",
+    "scribesim/handflow/controller.py": "a275279ec51dbe066792b424d499b48df29bea9ddf05c523cdb61ce200193086",
+    "scribesim/handflow/planning.py": "57b335684eb04a3f83c7501daeb8831fedfbbd4c995a327815ab1451498e7aa3",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/handvalidate/foundation_motion.py": "d6af77fc851eb0e5494b657f0f398667abd44b2b540daa15f8d341aca590fcdb",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "7741734df7a16787d15c2d8609a3e061b1d5fc855f1168b42a2599f8ebc86469",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+  },
+  "fixtures": [
+    [
+      "continuous",
+      "i",
+      {
+        "schema_version": "shared-stroke-gestures-v2",
+        "units": "local-xheight-y-up",
+        "scope": "unaccepted-synthetic",
+        "primitives": {
+          "stem": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.22,
+                  0.78
+                ],
+                [
+                  -0.18,
+                  0.3
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.7071067811865475,
+              -0.7071067811865475
+            ],
+            "exit": [
+              0.5144957554275265,
+              -0.8574929257125441
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "rise": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.5
+                ],
+                [
+                  0.1,
+                  0.8
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.3713906763541038,
+              0.9284766908852594
+            ],
+            "exit": [
+              0.894427190999916,
+              0.44721359549995787
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "bowl": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1.2,
+                  0.9
+                ],
+                [
+                  1.1,
+                  0.1
+                ],
+                [
+                  0.65,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.9965457582448797,
+              -0.08304547985373996
+            ],
+            "exit": [
+              -0.9761870601839527,
+              -0.21693045781865616
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "turn": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.6
+                ],
+                [
+                  0.75,
+                  0.1
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.31622776601683794,
+              0.9486832980505138
+            ],
+            "exit": [
+              -0.2676438637860946,
+              0.9635179096299405
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "loop": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.3,
+                  1.6
+                ],
+                [
+                  1,
+                  1.6
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              -0.18428853505018533,
+              0.9828721869343219
+            ],
+            "exit": [
+              -0.5299989400031799,
+              -0.8479983040050879
+            ],
+            "closed": true,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "exit": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.1,
+                  -0.18
+                ],
+                [
+                  0.3,
+                  0.35
+                ],
+                [
+                  0.45,
+                  0.15
+                ]
+              ]
+            ],
+            "entry": [
+              0.4856429311786321,
+              -0.8741572761215378
+            ],
+            "exit": [
+              0.6000000000000001,
+              -0.7999999999999999
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          }
+        },
+        "recipes": {
+          "i": {
+            "logical": "i",
+            "visible": "i",
+            "advance": 0.65,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              }
+            ]
+          },
+          "u": {
+            "logical": "u",
+            "visible": "u",
+            "advance": 1.2,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              },
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0.55,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "lift",
+                "overlap_with": []
+              }
+            ]
+          }
+        },
+        "letter_rules": [],
+        "word_rules": [],
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.45,
+        "nib_angle_deg": 40.0,
+        "letter_gap": 0.15,
+        "word_gap": 0.8,
+        "line_pitch": 3.0,
+        "sampling": "gesture-arc-v2",
+        "migration_source_sha256": "28f2e02fa069e920ce0898e2afbeec76c17f431950aa9a41cc6d079aeb8f0c7d",
+        "gestures": {
+          "gesture-0": {
+            "strokes": [
+              {
+                "primitive": "stem",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start"
+              },
+              {
+                "primitive": "exit",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "corner"
+              }
+            ],
+            "action": "fixed"
+          }
+        },
+        "actions": {
+          "fixed": {
+            "frame": "physical-y-down",
+            "orientation": [
+              [
+                0,
+                40.0
+              ],
+              [
+                1,
+                40.0
+              ]
+            ],
+            "edge": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ],
+            "pressure": 0.5,
+            "speed_mm_s": 12
+          }
+        }
+      }
+    ],
+    [
+      "separated",
+      "u",
+      {
+        "schema_version": "shared-stroke-gestures-v2",
+        "units": "local-xheight-y-up",
+        "scope": "unaccepted-synthetic",
+        "primitives": {
+          "stem": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.22,
+                  0.78
+                ],
+                [
+                  -0.18,
+                  0.3
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.7071067811865475,
+              -0.7071067811865475
+            ],
+            "exit": [
+              0.5144957554275265,
+              -0.8574929257125441
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "rise": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.5
+                ],
+                [
+                  0.1,
+                  0.8
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.3713906763541038,
+              0.9284766908852594
+            ],
+            "exit": [
+              0.894427190999916,
+              0.44721359549995787
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "bowl": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1.2,
+                  0.9
+                ],
+                [
+                  1.1,
+                  0.1
+                ],
+                [
+                  0.65,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.9965457582448797,
+              -0.08304547985373996
+            ],
+            "exit": [
+              -0.9761870601839527,
+              -0.21693045781865616
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "turn": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.6
+                ],
+                [
+                  0.75,
+                  0.1
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.31622776601683794,
+              0.9486832980505138
+            ],
+            "exit": [
+              -0.2676438637860946,
+              0.9635179096299405
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "loop": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.3,
+                  1.6
+                ],
+                [
+                  1,
+                  1.6
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              -0.18428853505018533,
+              0.9828721869343219
+            ],
+            "exit": [
+              -0.5299989400031799,
+              -0.8479983040050879
+            ],
+            "closed": true,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "exit": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.1,
+                  -0.18
+                ],
+                [
+                  0.3,
+                  0.35
+                ],
+                [
+                  0.45,
+                  0.15
+                ]
+              ]
+            ],
+            "entry": [
+              0.4856429311786321,
+              -0.8741572761215378
+            ],
+            "exit": [
+              0.6000000000000001,
+              -0.7999999999999999
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          }
+        },
+        "recipes": {
+          "i": {
+            "logical": "i",
+            "visible": "i",
+            "advance": 0.65,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              }
+            ]
+          },
+          "u": {
+            "logical": "u",
+            "visible": "u",
+            "advance": 1.2,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              },
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0.55,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "lift",
+                "overlap_with": []
+              }
+            ]
+          }
+        },
+        "letter_rules": [],
+        "word_rules": [],
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.45,
+        "nib_angle_deg": 40.0,
+        "letter_gap": 0.15,
+        "word_gap": 0.8,
+        "line_pitch": 3.0,
+        "sampling": "gesture-arc-v2",
+        "migration_source_sha256": "28f2e02fa069e920ce0898e2afbeec76c17f431950aa9a41cc6d079aeb8f0c7d",
+        "gestures": {
+          "gesture-0": {
+            "strokes": [
+              {
+                "primitive": "stem",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start"
+              },
+              {
+                "primitive": "exit",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "corner"
+              }
+            ],
+            "action": "fixed"
+          }
+        },
+        "actions": {
+          "fixed": {
+            "frame": "physical-y-down",
+            "orientation": [
+              [
+                0,
+                40.0
+              ],
+              [
+                1,
+                40.0
+              ]
+            ],
+            "edge": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ],
+            "pressure": 0.5,
+            "speed_mm_s": 12
+          }
+        }
+      }
+    ],
+    [
+      "coincident-overlap",
+      "u",
+      {
+        "schema_version": "shared-stroke-gestures-v2",
+        "units": "local-xheight-y-up",
+        "scope": "unaccepted-synthetic",
+        "primitives": {
+          "stem": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.22,
+                  0.78
+                ],
+                [
+                  -0.18,
+                  0.3
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.7071067811865475,
+              -0.7071067811865475
+            ],
+            "exit": [
+              0.5144957554275265,
+              -0.8574929257125441
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "rise": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.5
+                ],
+                [
+                  0.1,
+                  0.8
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.3713906763541038,
+              0.9284766908852594
+            ],
+            "exit": [
+              0.894427190999916,
+              0.44721359549995787
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "bowl": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1.2,
+                  0.9
+                ],
+                [
+                  1.1,
+                  0.1
+                ],
+                [
+                  0.65,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.9965457582448797,
+              -0.08304547985373996
+            ],
+            "exit": [
+              -0.9761870601839527,
+              -0.21693045781865616
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "turn": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.6
+                ],
+                [
+                  0.75,
+                  0.1
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.31622776601683794,
+              0.9486832980505138
+            ],
+            "exit": [
+              -0.2676438637860946,
+              0.9635179096299405
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "loop": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.3,
+                  1.6
+                ],
+                [
+                  1,
+                  1.6
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              -0.18428853505018533,
+              0.9828721869343219
+            ],
+            "exit": [
+              -0.5299989400031799,
+              -0.8479983040050879
+            ],
+            "closed": true,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "exit": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.1,
+                  -0.18
+                ],
+                [
+                  0.3,
+                  0.35
+                ],
+                [
+                  0.45,
+                  0.15
+                ]
+              ]
+            ],
+            "entry": [
+              0.4856429311786321,
+              -0.8741572761215378
+            ],
+            "exit": [
+              0.6000000000000001,
+              -0.7999999999999999
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          }
+        },
+        "recipes": {
+          "i": {
+            "logical": "i",
+            "visible": "i",
+            "advance": 0.65,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              }
+            ]
+          },
+          "u": {
+            "logical": "u",
+            "visible": "u",
+            "advance": 1.2,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              },
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "lift",
+                "overlap_with": [
+                  0
+                ]
+              }
+            ]
+          }
+        },
+        "letter_rules": [],
+        "word_rules": [],
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.45,
+        "nib_angle_deg": 40.0,
+        "letter_gap": 0.15,
+        "word_gap": 0.8,
+        "line_pitch": 3.0,
+        "sampling": "gesture-arc-v2",
+        "migration_source_sha256": "28f2e02fa069e920ce0898e2afbeec76c17f431950aa9a41cc6d079aeb8f0c7d",
+        "gestures": {
+          "gesture-0": {
+            "strokes": [
+              {
+                "primitive": "stem",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start"
+              },
+              {
+                "primitive": "exit",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "corner"
+              }
+            ],
+            "action": "fixed"
+          }
+        },
+        "actions": {
+          "fixed": {
+            "frame": "physical-y-down",
+            "orientation": [
+              [
+                0,
+                40.0
+              ],
+              [
+                1,
+                40.0
+              ]
+            ],
+            "edge": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ],
+            "pressure": 0.5,
+            "speed_mm_s": 12
+          }
+        }
+      }
+    ],
+    [
+      "word-space",
+      "i u",
+      {
+        "schema_version": "shared-stroke-gestures-v2",
+        "units": "local-xheight-y-up",
+        "scope": "unaccepted-synthetic",
+        "primitives": {
+          "stem": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.22,
+                  0.78
+                ],
+                [
+                  -0.18,
+                  0.3
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.7071067811865475,
+              -0.7071067811865475
+            ],
+            "exit": [
+              0.5144957554275265,
+              -0.8574929257125441
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "rise": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.5
+                ],
+                [
+                  0.1,
+                  0.8
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.3713906763541038,
+              0.9284766908852594
+            ],
+            "exit": [
+              0.894427190999916,
+              0.44721359549995787
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "bowl": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  1.2,
+                  0.9
+                ],
+                [
+                  1.1,
+                  0.1
+                ],
+                [
+                  0.65,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.9965457582448797,
+              -0.08304547985373996
+            ],
+            "exit": [
+              -0.9761870601839527,
+              -0.21693045781865616
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "turn": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.2,
+                  0.6
+                ],
+                [
+                  0.75,
+                  0.1
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.31622776601683794,
+              0.9486832980505138
+            ],
+            "exit": [
+              -0.2676438637860946,
+              0.9635179096299405
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "loop": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.3,
+                  1.6
+                ],
+                [
+                  1,
+                  1.6
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              -0.18428853505018533,
+              0.9828721869343219
+            ],
+            "exit": [
+              -0.5299989400031799,
+              -0.8479983040050879
+            ],
+            "closed": true,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "exit": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.1,
+                  -0.18
+                ],
+                [
+                  0.3,
+                  0.35
+                ],
+                [
+                  0.45,
+                  0.15
+                ]
+              ]
+            ],
+            "entry": [
+              0.4856429311786321,
+              -0.8741572761215378
+            ],
+            "exit": [
+              0.6000000000000001,
+              -0.7999999999999999
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          }
+        },
+        "recipes": {
+          "i": {
+            "logical": "i",
+            "visible": "i",
+            "advance": 0.65,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              }
+            ]
+          },
+          "u": {
+            "logical": "u",
+            "visible": "u",
+            "advance": 1.2,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              },
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0.55,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "lift",
+                "overlap_with": []
+              }
+            ]
+          }
+        },
+        "letter_rules": [],
+        "word_rules": [],
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.45,
+        "nib_angle_deg": 40.0,
+        "letter_gap": 0.15,
+        "word_gap": 0.8,
+        "line_pitch": 3.0,
+        "sampling": "gesture-arc-v2",
+        "migration_source_sha256": "28f2e02fa069e920ce0898e2afbeec76c17f431950aa9a41cc6d079aeb8f0c7d",
+        "gestures": {
+          "gesture-0": {
+            "strokes": [
+              {
+                "primitive": "stem",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start"
+              },
+              {
+                "primitive": "exit",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "corner"
+              }
+            ],
+            "action": "fixed"
+          }
+        },
+        "actions": {
+          "fixed": {
+            "frame": "physical-y-down",
+            "orientation": [
+              [
+                0,
+                40.0
+              ],
+              [
+                1,
+                40.0
+              ]
+            ],
+            "edge": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ],
+            "pressure": 0.5,
+            "speed_mm_s": 12
+          }
+        }
+      }
+    ],
+    [
+      "saved-u",
+      "u",
+      {
+        "schema_version": "shared-stroke-gestures-v2",
+        "units": "local-xheight-y-up",
+        "scope": "unaccepted-synthetic",
+        "primitives": {
+          "stem": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.019999999999999997,
+                  0.7
+                ],
+                [
+                  -0.01999999999999999,
+                  0.5399999999999999
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.7071067811865475,
+              -0.7071067811865475
+            ],
+            "exit": [
+              0.5144957554275265,
+              -0.8574929257125441
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "rise": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.07999999999999999,
+                  0.24999999999999994
+                ],
+                [
+                  0.30000000000000004,
+                  0.6200000000000001
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.3713906763541038,
+              0.9284766908852594
+            ],
+            "exit": [
+              0.894427190999916,
+              0.44721359549995787
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "bowl": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.89,
+                  0.8
+                ],
+                [
+                  0.8,
+                  0.27
+                ],
+                [
+                  0.65,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.9965457582448797,
+              -0.08304547985373996
+            ],
+            "exit": [
+              -0.9761870601839527,
+              -0.21693045781865616
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "turn": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.10999999999999999,
+                  0.2899999999999999
+                ],
+                [
+                  0.44,
+                  0.09
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.31622776601683794,
+              0.9486832980505138
+            ],
+            "exit": [
+              -0.2676438637860946,
+              0.9635179096299405
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "loop": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.61,
+                  1.45
+                ],
+                [
+                  0.84,
+                  1.29
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              -0.18428853505018533,
+              0.9828721869343219
+            ],
+            "exit": [
+              -0.5299989400031799,
+              -0.8479983040050879
+            ],
+            "closed": true,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "exit": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.28,
+                  0.04000000000000001
+                ],
+                [
+                  0.42,
+                  0.16999999999999998
+                ],
+                [
+                  0.45,
+                  0.15
+                ]
+              ]
+            ],
+            "entry": [
+              0.4856429311786321,
+              -0.8741572761215378
+            ],
+            "exit": [
+              0.6000000000000001,
+              -0.7999999999999999
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          }
+        },
+        "recipes": {
+          "i": {
+            "logical": "i",
+            "visible": "i",
+            "advance": 0.65,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              }
+            ]
+          },
+          "u": {
+            "logical": "u",
+            "visible": "u",
+            "advance": 1.2,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              },
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0.55,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "lift",
+                "overlap_with": []
+              }
+            ]
+          }
+        },
+        "letter_rules": [],
+        "word_rules": [],
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.45,
+        "nib_angle_deg": 40.0,
+        "letter_gap": 0.15,
+        "word_gap": 0.8,
+        "line_pitch": 3.0,
+        "sampling": "gesture-arc-v2",
+        "migration_source_sha256": "0ee198a230bac50f91815d7605bf7baaf786c7e95da30f9075688810ce32ce54",
+        "gestures": {
+          "gesture-0": {
+            "strokes": [
+              {
+                "primitive": "stem",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start"
+              },
+              {
+                "primitive": "exit",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.2,
+                "rotation_deg": 12,
+                "transition": "corner"
+              }
+            ],
+            "action": "fixed"
+          }
+        },
+        "actions": {
+          "fixed": {
+            "frame": "physical-y-down",
+            "orientation": [
+              [
+                0,
+                40.0
+              ],
+              [
+                1,
+                40.0
+              ]
+            ],
+            "edge": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ],
+            "pressure": 0.5,
+            "speed_mm_s": 12
+          }
+        }
+      }
+    ],
+    [
+      "saved-i-u",
+      "i u",
+      {
+        "schema_version": "shared-stroke-gestures-v2",
+        "units": "local-xheight-y-up",
+        "scope": "unaccepted-synthetic",
+        "primitives": {
+          "stem": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.019999999999999997,
+                  0.7
+                ],
+                [
+                  -0.01999999999999999,
+                  0.5399999999999999
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.7071067811865475,
+              -0.7071067811865475
+            ],
+            "exit": [
+              0.5144957554275265,
+              -0.8574929257125441
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "rise": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.07999999999999999,
+                  0.24999999999999994
+                ],
+                [
+                  0.30000000000000004,
+                  0.6200000000000001
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.3713906763541038,
+              0.9284766908852594
+            ],
+            "exit": [
+              0.894427190999916,
+              0.44721359549995787
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "bowl": {
+            "cubics": [
+              [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0.89,
+                  0.8
+                ],
+                [
+                  0.8,
+                  0.27
+                ],
+                [
+                  0.65,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              0.9965457582448797,
+              -0.08304547985373996
+            ],
+            "exit": [
+              -0.9761870601839527,
+              -0.21693045781865616
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "turn": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.10999999999999999,
+                  0.2899999999999999
+                ],
+                [
+                  0.44,
+                  0.09
+                ],
+                [
+                  0.5,
+                  1
+                ]
+              ]
+            ],
+            "entry": [
+              -0.31622776601683794,
+              0.9486832980505138
+            ],
+            "exit": [
+              -0.2676438637860946,
+              0.9635179096299405
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "loop": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  -0.61,
+                  1.45
+                ],
+                [
+                  0.84,
+                  1.29
+                ],
+                [
+                  0,
+                  0
+                ]
+              ]
+            ],
+            "entry": [
+              -0.18428853505018533,
+              0.9828721869343219
+            ],
+            "exit": [
+              -0.5299989400031799,
+              -0.8479983040050879
+            ],
+            "closed": true,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          },
+          "exit": {
+            "cubics": [
+              [
+                [
+                  0,
+                  0
+                ],
+                [
+                  0.28,
+                  0.04000000000000001
+                ],
+                [
+                  0.42,
+                  0.16999999999999998
+                ],
+                [
+                  0.45,
+                  0.15
+                ]
+              ]
+            ],
+            "entry": [
+              0.4856429311786321,
+              -0.8741572761215378
+            ],
+            "exit": [
+              0.6000000000000001,
+              -0.7999999999999999
+            ],
+            "closed": false,
+            "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+          }
+        },
+        "recipes": {
+          "i": {
+            "logical": "i",
+            "visible": "i",
+            "advance": 0.65,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              }
+            ]
+          },
+          "u": {
+            "logical": "u",
+            "visible": "u",
+            "advance": 1.2,
+            "gestures": [
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start",
+                "overlap_with": []
+              },
+              {
+                "gesture": "gesture-0",
+                "offset": [
+                  0.55,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "lift",
+                "overlap_with": []
+              }
+            ]
+          }
+        },
+        "letter_rules": [],
+        "word_rules": [],
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.45,
+        "nib_angle_deg": 40.0,
+        "letter_gap": 0.15,
+        "word_gap": 0.8,
+        "line_pitch": 3.0,
+        "sampling": "gesture-arc-v2",
+        "migration_source_sha256": "0ee198a230bac50f91815d7605bf7baaf786c7e95da30f9075688810ce32ce54",
+        "gestures": {
+          "gesture-0": {
+            "strokes": [
+              {
+                "primitive": "stem",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.0,
+                "rotation_deg": 0.0,
+                "transition": "start"
+              },
+              {
+                "primitive": "exit",
+                "offset": [
+                  0,
+                  0
+                ],
+                "scale": 1.2,
+                "rotation_deg": 12,
+                "transition": "corner"
+              }
+            ],
+            "action": "fixed"
+          }
+        },
+        "actions": {
+          "fixed": {
+            "frame": "physical-y-down",
+            "orientation": [
+              [
+                0,
+                40.0
+              ],
+              [
+                1,
+                40.0
+              ]
+            ],
+            "edge": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ]
+            ],
+            "pressure": 0.5,
+            "speed_mm_s": 12
+          }
+        }
+      }
+    ]
+  ],
+  "profile": {
+    "folio": {
+      "page_rotation_deg": 0.0,
+      "ruling_slope_variance": 0.003,
+      "ruling_spacing_variance_mm": 0.5,
+      "margin_left_variance_mm": 0.3,
+      "base_pressure": 0.72,
+      "base_tempo": 3.0,
+      "tremor_amplitude": 0.0,
+      "lines_per_page": 30
+    },
+    "line": {
+      "start_x_variance_mm": 0.3,
+      "baseline_undulation_amplitude_mm": 0.2,
+      "baseline_undulation_period_ratio": 0.5,
+      "margin_compression_zone_ratio": 0.85,
+      "line_spacing_mean_mm": 8.0,
+      "line_spacing_variance_mm": 0.3
+    },
+    "word": {
+      "spacing_mean_ratio": 1.2,
+      "spacing_variance_ratio": 0.15,
+      "slant_drift_per_word_deg": 0.3,
+      "speed_variance": 0.1,
+      "post_punctuation_space_multiplier": 1.4,
+      "slant_reset_at_line_start": true
+    },
+    "glyph": {
+      "size_variance": 0.02,
+      "warp_amplitude_mm": 0.1,
+      "warp_correlation": 0.7,
+      "ascender_extra_variance": 1.5,
+      "descender_extra_variance": 1.5,
+      "baseline_jitter_mm": 0.05,
+      "connection_lift_height_mm": 1.5,
+      "entry_angle_adaptation": 0.7
+    },
+    "nib": {
+      "width_mm": 0.45,
+      "angle_deg": 40.0,
+      "flexibility": 0.15,
+      "cut_quality": 0.9,
+      "attack_pressure_multiplier": 1.15,
+      "release_taper_length": 0.3
+    },
+    "ink": {
+      "reservoir_capacity": 1.0,
+      "depletion_rate": 0,
+      "fresh_dip_darkness_boost": 0,
+      "dry_threshold": 0.15,
+      "raking_threshold": 0.08,
+      "base_color_r": 45,
+      "base_color_g": 35,
+      "base_color_b": 25
+    },
+    "material": {
+      "edge_feather_mm": 0.05,
+      "grain_spread_factor": 0.1,
+      "pooling_at_direction_change": 0.2,
+      "overlap_darkening_factor": 0.7,
+      "stroke_start_blob_size": 0.1
+    },
+    "dynamics": {
+      "attraction_strength": 18.0,
+      "damping_coefficient": 6.0,
+      "lookahead_strength": 0.5,
+      "max_speed": 40.0,
+      "rhythm_strength": 0,
+      "target_radius_mm": 0.15,
+      "contact_threshold": 0.08,
+      "word_lift_height_mm": 5.0,
+      "position_gain": 20.0,
+      "velocity_gain": 8.0,
+      "max_acceleration": 500.0,
+      "use_pd_controller": true
+    },
+    "letterform": {
+      "keypoint_flexibility_mm": 0.2,
+      "ascender_height_ratio": 1.6,
+      "descender_depth_ratio": 0.5,
+      "x_height_mm": 3.5
+    },
+    "stroke": {
+      "foot_width_boost": 0.2,
+      "foot_ink_boost": 0.25,
+      "foot_zone_start": 0.85,
+      "attack_width_boost": 0.1,
+      "attack_zone_end": 0.1,
+      "pressure_modulation_range": 0.4
+    },
+    "script": "bastarda",
+    "dialect_region": "thuringian",
+    "date_approx": 1457,
+    "pressure_upstroke": 0.28,
+    "pressure_variance": 0.08,
+    "ink_density": 0.85,
+    "ink_bleed_radius_px": 1.2,
+    "stroke_weight": 1.0,
+    "letter_spacing_norm": 1.0,
+    "word_spacing_norm": 2.4,
+    "line_height_norm": 2.5,
+    "x_height_px": 38,
+    "writing_speed": 1.0,
+    "fatigue_rate": 0,
+    "slant_deg": 3.5
+  }
+}

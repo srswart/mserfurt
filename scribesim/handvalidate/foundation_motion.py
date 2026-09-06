@@ -27,7 +27,7 @@ from scribesim.pathguide.gesture_actions import ActionController, action_bundle,
 from scribesim.evo.nib_contact import ContactSample, VERSION
 
 
-SPEC_PATH = BASE / 'foundation_repair/motion/spec-v1.json'
+SPEC_PATH = BASE / 'foundation_repair/motion/spec-v2.json'
 SPEC = json.loads(SPEC_PATH.read_text())
 
 
@@ -111,13 +111,15 @@ def fixtures():
 
 
 def execute(model, text, *, step, dt, version, budget, physical=False, subdivision=False):
+    if version == 'event-time-v2':
+        model = copy.deepcopy(model)
+        model['sampling'] = 'gesture-arc-v3'
     if subdivision:
         model = _subdivide(model)
     if physical:
         bundle = action_bundle(text, model, step_mm=step)
         plan, owners = bundle.plan, bundle.owners
-        engine = ActionController(model)
-        engine.execution_version = version
+        engine = ActionController(model, execution_version=version)
         playback = [ContactSample(sample.x_mm, sample.y_mm, sample.contact, .45, sample.pressure,
                                  sample.nib_angle_deg, sample.edge_start, sample.edge_end)
                     for sample in plan.samples]
@@ -140,7 +142,7 @@ def execute(model, text, *, step, dt, version, budget, physical=False, subdivisi
         speed = math.hypot(*velocity)
         if speed > engine.dyn.max_speed:
             velocity = [value * engine.dyn.max_speed / speed for value in velocity]
-        unconstrained = [value + rate * dt for value, rate in zip(position, velocity)]
+        unconstrained = [value + (prior + rate) * dt / 2 for value, prior, rate in zip(position, before, velocity)] if version == 'event-time-v2' else [value + rate * dt for value, rate in zip(position, velocity)]
         observations.append({'velocity_before_mm_s': before, 'velocity_mm_s': [state.vel_x_mm_s, state.vel_y_mm_s],
                              'unconstrained_mm': unconstrained,
                              'projection_mm': math.dist(unconstrained, [state.pos_x_mm, state.pos_y_mm])})
@@ -195,7 +197,7 @@ def compare(first, second):
                     and loss <= SPEC['criteria']['convergence_loss']}
 
 
-def revalidate_baseline(budget, *, root=LOWER, version='event-time-v1'):
+def revalidate_baseline(budget, *, root=LOWER, version='event-time-v2'):
     baseline = load_historical_baseline(root)
     freeze = baseline['freeze']
     initial, candidate, samples = freeze['initial'], baseline['candidate'], freeze['samples']
@@ -226,7 +228,6 @@ def revalidate_baseline(budget, *, root=LOWER, version='event-time-v1'):
         rows.append({'seed': record['seed'], 'metrics': metrics, 'per_family': families})
     actual = {}
     panels = []
-    from scribesim.handvalidate.model import TrajectorySample
     for name in initial['primitives']:
         sample = next(sample for sample in samples if sample['id'] == name + '-base')
         model, text = strokes.exercise_model(candidate, sample)
@@ -267,11 +268,13 @@ def decide_motion(checks, baseline):
 def panel(path, tiles):
     output = Image.new('RGB', (1200, 280 * math.ceil(len(tiles) / 4)), 'white')
     draw = ImageDraw.Draw(output)
+    scale = min(290 / max(pixels.shape[1] for _, pixels in tiles),
+                240 / max(pixels.shape[0] for _, pixels in tiles))
     for index, (label, pixels) in enumerate(tiles):
         left, top = index % 4 * 300, index // 4 * 280
         draw.text((left + 4, top + 4), label, fill='black')
         image = Image.fromarray(pixels)
-        image.thumbnail((290, 240), Image.Resampling.NEAREST)
+        image = image.resize((round(image.width * scale), round(image.height * scale)), Image.Resampling.NEAREST)
         output.paste(image, (left + 4, top + 30))
     output.save(path)
 
@@ -289,7 +292,7 @@ def build(output):
     try:
         for name, text, model in models:
             executions = {}
-            for version in ('legacy-v1', 'event-time-v1'):
+            for version in ('legacy-v1', 'event-time-v2'):
                 runs = {}
                 for label, step, dt, subdivision in [('base', .025, .002, False), ('arc', .0125, .002, False),
                                                       ('time', .025, .001, False), ('subdivision', .025, .002, True)]:
@@ -298,7 +301,7 @@ def build(output):
                 comparisons = {label: compare(runs['base'], runs[label]) for label in ('arc', 'time', 'subdivision')}
                 rows.append({'fixture': name, 'version': version, 'metrics': runs['base']['metrics'],
                              'comparisons': comparisons})
-                if version == 'event-time-v1':
+                if version == 'event-time-v2':
                     for label, result in runs.items():
                         metrics = result['metrics']
                         checks[f'{name}:{label}:time'] = metrics['time_error_s'] <= SPEC['criteria']['duration_s']
@@ -309,16 +312,16 @@ def build(output):
                     for label, comparison in comparisons.items():
                         checks[f'{name}:{label}:convergence'] = comparison['pass']
                 executions[version] = runs
-            tiles.extend([(name + ' desired', executions['event-time-v1']['base']['images']['desired']),
+            tiles.extend([(name + ' desired', executions['event-time-v2']['base']['images']['desired']),
                           (name + ' legacy actual', executions['legacy-v1']['base']['images']['actual']),
-                          (name + ' timed actual', executions['event-time-v1']['base']['images']['actual']),
-                          (name + ' refined actual', executions['event-time-v1']['time']['images']['actual'])])
+                          (name + ' timed actual', executions['event-time-v2']['base']['images']['actual']),
+                          (name + ' refined actual', executions['event-time-v2']['time']['images']['actual'])])
             traces[name] = {version: {label: {key: value for key, value in result.items() if key != 'images'}
                                      for label, result in runs.items()} for version, runs in executions.items()}
         physical = {}
         model = models[-1][2]
         for label, step, dt in (('base', .025, .002), ('arc', .0125, .002), ('time', .025, .001)):
-            physical[label] = execute(model, 'i u', step=step, dt=dt, version='event-time-v1', budget=budget, physical=True)
+            physical[label] = execute(model, 'i u', step=step, dt=dt, version='event-time-v2', budget=budget, physical=True)
         for label in ('arc', 'time'):
             checks['physical:' + label] = compare(physical['base'], physical[label])['pass']
         checks['physical:tracking'] = all(result['metrics']['corridor_mm'] <= .25 and result['metrics']['owner_errors'] == 0
@@ -336,7 +339,7 @@ def build(output):
     decision = decide_motion(checks, baseline)
     report = {'scope': SPEC['scope'], 'decision': decision, 'checks': checks, 'rows': rows,
               'renders': budget.used, 'max_renders': budget.maximum, 'optimization_evaluations': 0,
-              'attempt': 0, 'revision': 0, 'code_sha256': identities(), 'spec_sha256': digest(SPEC_PATH),
+              'attempt': 1, 'revision': 1, 'code_sha256': identities(), 'spec_sha256': digest(SPEC_PATH),
               'artifacts': {path.name: digest(path) for path in sorted(output.iterdir()) if path.is_file()}}
     write_json(output / 'report.json', report)
     write_json(output / 'execution.json', {'elapsed_seconds': time.monotonic() - budget.started, 'renders': budget.used})
