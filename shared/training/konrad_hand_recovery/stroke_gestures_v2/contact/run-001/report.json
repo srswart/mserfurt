@@ -1,0 +1,73 @@
+{
+  "scope": "analytic synthetic physical geometry only; not learned actions or historical calibration",
+  "contact_version": "physical-edge-v1",
+  "geometry_checks_pass": true,
+  "S1_action_accepted": false,
+  "promoted": false,
+  "measurements": [
+    {
+      "fixture": "fixed_vertical",
+      "oracle_disagreement": 0.004130098089829634,
+      "refinement_disagreement": 0.0,
+      "pass": true
+    },
+    {
+      "fixture": "fixed_diagonal",
+      "oracle_disagreement": 0.02138239681750373,
+      "refinement_disagreement": 0.006513026052104208,
+      "pass": true
+    },
+    {
+      "fixture": "arc_counter",
+      "oracle_disagreement": 0.00874224478285392,
+      "refinement_disagreement": 0.0029753471238311135,
+      "pass": true
+    },
+    {
+      "fixture": "rotation",
+      "oracle_disagreement": 0.003853861569292431,
+      "refinement_disagreement": 0.0,
+      "pass": true
+    },
+    {
+      "fixture": "wrap",
+      "oracle_disagreement": 0.00021240441801189465,
+      "refinement_disagreement": 0.0,
+      "pass": true
+    },
+    {
+      "fixture": "negative_edge_release",
+      "oracle_disagreement": 0.0037555479685899623,
+      "refinement_disagreement": 0.001027925304094569,
+      "pass": true
+    },
+    {
+      "fixture": "positive_edge_release",
+      "oracle_disagreement": 0.0037199864727764627,
+      "refinement_disagreement": 0.0013568521031207597,
+      "pass": true
+    },
+    {
+      "fixture": "terminal",
+      "oracle_disagreement": 0.010133646644147452,
+      "refinement_disagreement": 0.0008891523414344991,
+      "pass": true
+    }
+  ],
+  "renders": 25,
+  "max_renders": 100,
+  "max_seconds": 900,
+  "optimization_evaluations": 0,
+  "revision": 0,
+  "criteria_sha256": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+  "code_sha256": {
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/handvalidate/nib_contact.py": "bb4e630252ac620699fa1e2122422f9371b1bd56f256ac4850428ebbd6c0e84e"
+  },
+  "artifacts": {
+    "contact-comparison.png": "9c99a9ad73e93dfda8b14f33fe2ba9303383ece4c53e8619128b91232f9aa1db"
+  },
+  "legacy": "old call path and pixels unchanged; whole-file code-bound older gates are stale and must not authorize new fitting"
+}
