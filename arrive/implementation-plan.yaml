@@ -1476,12 +1476,12 @@ passes:
     - id: ADV-SS-EXEMPLAR-008
       advance_id: ADV-SS-EXEMPLAR-008
       title: "Konrad Admission Repair — Verified Mappings and Native Line Masks"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-EXEMPLAR-007
       - ADV-SS-HANDVALIDATE-009
-      notes: "Repair non-test mappings/masks and initial G0 calibration/review for layered training; immutable v3, preserved test reservations, no invented labels or threshold relaxation."
+      notes: "Implemented source-bound review/import and one strong-seed mask revision; 30 tests pass. Non-test no-target exclusions fall 32 to 10, but zero admitted observations remain. Real G0/calibration/review blocked; test artifacts unchanged."
     - id: ADV-SS-EVOFIT-007
       advance_id: ADV-SS-EVOFIT-007
       title: "Stroke Language — Shared Primitives and Layered Compilation"

@@ -1,0 +1,37 @@
+{
+  "status": "blocked",
+  "repeat_pair_count": 0,
+  "used_sample_ids": [],
+  "repeat_image_loss": null,
+  "controls": [
+    {
+      "name": "correct",
+      "image_loss": 0.0,
+      "passed": true
+    },
+    {
+      "name": "wrong_form",
+      "image_loss": 0.6609417446694363,
+      "passed": true
+    },
+    {
+      "name": "filled_counter",
+      "image_loss": 0.21073825503355706,
+      "passed": true
+    },
+    {
+      "name": "extra_stroke",
+      "image_loss": 0.5861614073753398,
+      "passed": true
+    },
+    {
+      "name": "distorted_aspect",
+      "image_loss": 0.6668931943398068,
+      "passed": true
+    }
+  ],
+  "controls_scope": "synthetic topology/ink controls, not transcription accuracy",
+  "readings": "same-label hypotheses; independent correctness remains a separate review",
+  "threshold_status": "descriptive development calibration; future recovery weights must be frozen separately",
+  "reason": "no admitted non-test independent repeats"
+}

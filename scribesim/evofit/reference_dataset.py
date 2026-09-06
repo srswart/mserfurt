@@ -80,7 +80,11 @@ def _components(binary: np.ndarray) -> list[np.ndarray]:
     return components
 
 
-def _assign_components(image: Image.Image, lines: list[dict]) -> tuple[np.ndarray, np.ndarray]:
+def _assign_components(image: Image.Image, lines: list[dict], *, version="line-components-v1") -> tuple[np.ndarray, np.ndarray]:
+    if version == "strong-seeds-v2":
+        return _assign_strong_seeds(image, lines)
+    if version != "line-components-v1":
+        raise ValueError("Unknown extraction version")
     gray = _gray(image)
     owners = np.full(gray.shape, -1, dtype=np.int32)
     uncertain = (gray > CONFIG["strong_ink_max"]) & (gray < CONFIG["weak_ink_max"])
@@ -98,6 +102,32 @@ def _assign_components(image: Image.Image, lines: list[dict]) -> tuple[np.ndarra
             owners[rows, columns] = owner
             uncertain[rows, columns] = False
     return owners, uncertain
+
+
+def _assign_strong_seeds(image, lines):
+    gray = _gray(image)
+    owners = np.full(gray.shape, -1, dtype=np.int32)
+    strong = gray <= CONFIG["strong_ink_max"]
+    weak = gray < CONFIG["weak_ink_max"]
+    for pixels in _components(strong):
+        rows, columns = pixels[:, 0], pixels[:, 1]
+        touched = [index for index, line in enumerate(lines)
+                   if np.count_nonzero((rows >= line["core_top"]) & (rows <= line["core_bottom"])) >= 2]
+        if len(touched) == 1:
+            owners[rows, columns] = touched[0]
+    for _ in range(3):
+        proposals = np.full(owners.shape, -1, dtype=np.int32)
+        collision = np.zeros(owners.shape, dtype=bool)
+        padded = np.pad(owners, 1, constant_values=-1)
+        for vertical in range(3):
+            for horizontal in range(3):
+                neighbor = padded[vertical:vertical + owners.shape[0], horizontal:horizontal + owners.shape[1]]
+                available = (neighbor >= 0) & weak & ~strong & (owners < 0)
+                collision |= available & (proposals >= 0) & (proposals != neighbor)
+                proposals[available] = neighbor[available]
+        accepted = (proposals >= 0) & ~collision
+        owners[accepted] = proposals[accepted]
+    return owners, weak & (owners < 0)
 
 
 def line_mask(image: Image.Image, lines: list[dict], line_index: int) -> np.ndarray:
@@ -256,9 +286,11 @@ def calibrate_observations(samples: list[dict], output: Path) -> dict:
 
 
 def validate_dataset(dataset: dict, output: Path) -> None:
-    if dataset.get("schema_version") != 2 or dataset.get("config") != CONFIG:
+    version = dataset.get("config", {}).get("version")
+    expected_config = {**CONFIG, "version": version}
+    if dataset.get("schema_version") != 2 or version not in {CONFIG["version"], "strong-seeds-v2"} or dataset.get("config") != expected_config:
         raise ValueError("Unsupported dataset/configuration")
-    if dataset.get("config_sha256") != object_digest(CONFIG) or dataset.get("contract_sha256") != object_digest(dataset["contract"]):
+    if dataset.get("config_sha256") != object_digest(expected_config) or dataset.get("contract_sha256") != object_digest(dataset["contract"]):
         raise ValueError("Dataset contract/configuration hash mismatch")
     source_hashes, source_contexts = {}, {}
     for source in dataset["sources"]:
@@ -268,7 +300,8 @@ def validate_dataset(dataset: dict, output: Path) -> None:
         source_hashes[source["id"]] = source["sha256"]
         with Image.open(path) as image:
             region = source["region"]
-            source_contexts[source["id"]] = (region, *_assign_components(image.crop(region), source["lines"]))
+            for extraction in {version, CONFIG["version"]}:
+                source_contexts[(source["id"], extraction)] = (region, *_assign_components(image.crop(region), source["lines"], version=extraction))
     _validate_splits(dataset["samples"], source_hashes)
     for sample in dataset["samples"]:
         for kind in ("raw", "mask", "cleaned"):
@@ -286,7 +319,8 @@ def validate_dataset(dataset: dict, output: Path) -> None:
         left, top, right, bottom = sample["bbox"]
         if sample["source_to_crop"] != [1, 0, -left, 0, 1, -top]:
             raise ValueError("Invalid source-to-crop transform")
-        region, owners, uncertain = source_contexts[sample["source_id"]]
+        extraction = CONFIG["version"] if sample["split"] == "test" else version
+        region, owners, uncertain = source_contexts[(sample["source_id"], extraction)]
         expected_mask = _mask_for_line(owners, uncertain, sample["line_index"])[
             top - region[1]:bottom - region[1], left - region[0]:right - region[0]]
         if not np.array_equal(mask, expected_mask):
@@ -299,6 +333,10 @@ def validate_dataset(dataset: dict, output: Path) -> None:
         raise ValueError("Inconsistent dataset readiness/support claim")
     if dataset["calibration"] != calibrate_observations(dataset["samples"], output):
         raise ValueError("Inconsistent calibration claim")
+    if version == "strong-seeds-v2":
+        from scribesim.evofit.reference_repair import verify_review_lineage
+
+        verify_review_lineage(dataset)
 
 
 def _write_contact_sheet(samples: list[dict], output: Path) -> None:
@@ -332,7 +370,7 @@ def _write_contact_sheet(samples: list[dict], output: Path) -> None:
         page.save(output / f"contact_sheet_{start // 10 + 1:02d}.png")
 
 
-def build_dataset(input_path: Path, output: Path, *, contract: dict) -> dict:
+def build_dataset(input_path: Path, output: Path, *, contract: dict, extraction_version="line-components-v1") -> dict:
     payload = json.loads(Path(input_path).read_text())
     if payload.get("schema_version") != 2 or not payload.get("sources") or not payload.get("samples"):
         raise ValueError("Nonempty v2 sources and samples required")
@@ -353,8 +391,9 @@ def build_dataset(input_path: Path, output: Path, *, contract: dict) -> dict:
         _bounds(region, image.width, image.height)
         crop = image.crop(region)
         lines = source.get("lines") or detect_lines(crop)
-        owners, uncertain = _assign_components(crop, lines)
-        contexts[source["id"]] = (region, lines, owners, uncertain)
+        for extraction in {extraction_version, CONFIG["version"]}:
+            owners, uncertain = _assign_components(crop, lines, version=extraction)
+            contexts[(source["id"], extraction)] = (region, lines, owners, uncertain)
         hashes[source["id"]] = source["sha256"]
         images[source["id"]] = image
         sources.append({**source, "original_path": source["path"], "region": region, "lines": lines,
@@ -375,7 +414,8 @@ def build_dataset(input_path: Path, output: Path, *, contract: dict) -> dict:
         sample = dict(incoming)
         image = images[sample["source_id"]]
         _bounds(sample["bbox"], image.width, image.height)
-        region, lines, owners, uncertain = contexts[sample["source_id"]]
+        extraction = CONFIG["version"] if sample["split"] == "test" else extraction_version
+        region, lines, owners, uncertain = contexts[(sample["source_id"], extraction)]
         if not isinstance(sample["line_index"], int) or not 0 <= sample["line_index"] < len(lines):
             raise ValueError("Invalid line index")
         left, top, right, bottom = sample["bbox"]
@@ -405,7 +445,7 @@ def build_dataset(input_path: Path, output: Path, *, contract: dict) -> dict:
         samples.append(sample)
     readiness = _readiness(samples, contract)
     dataset = {"schema_version": 2, "hand_id": payload["hand_id"], "sources": sources, "samples": samples,
-               "config": CONFIG, "config_sha256": object_digest(CONFIG), "input_sha256": digest(Path(input_path)),
+               "config": {**CONFIG, "version": extraction_version}, "config_sha256": object_digest({**CONFIG, "version": extraction_version}), "input_sha256": digest(Path(input_path)),
                "extraction_code_sha256": digest(Path(__file__)),
                "environment": {"python": platform.python_version(), "numpy": np.__version__, "pillow": Image.__version__},
                "mask_legend": {"0": "known_background", "128": "unknown", "255": "target_ink"},
@@ -415,6 +455,8 @@ def build_dataset(input_path: Path, output: Path, *, contract: dict) -> dict:
                "attribution": "apparent hand only; source identity is not historical scribe attribution",
                "admission_semantics": "automatic proposal admission is not verified reading or model promotion",
                "calibration": calibrate_observations(samples, output), **readiness}
+    if extraction_version == "strong-seeds-v2":
+        dataset["review_bundle"] = payload.get("review_bundle")
     validate_dataset(dataset, output)
     write_json(output / "input_manifest.json", payload)
     write_json(output / "manifest.json", dataset)
