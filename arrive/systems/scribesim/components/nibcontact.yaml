@@ -11,7 +11,9 @@ selectors:
     - "scribesim/evo/nib_contact.py"
     - "scribesim/evo/renderer.py"
     - "scribesim/handvalidate/bridge.py"
+    - "scribesim/handvalidate/tool_contract.py"
     - "tests/test_nib_contact.py"
+    - "tests/test_nib_contact_investigation.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/contact/**"
   build_modules: []

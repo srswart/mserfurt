@@ -226,12 +226,14 @@ See [the layered design and revised sequence](docs/tech-direction/TD-018-referen
 documents the next design refinement: geometric primitives → continuous stroke
 gestures → letters → words → lines, with intentional nib/contact actions distinct
 from later fatigue and ink depletion. It includes the supplied calligraphy
-resources, tool/ownership contracts and evaluation requirements. Nine new planned
+resources, tool/ownership contracts and evaluation requirements. Nine supporting
 Advances cover investigation, continuous-gesture learning, intentional contact
 and independent evaluation before letters, with new incubating `gesture` and
-`nibcontact` components. Start with **td018-gesture-investigation**; then
-**td018-gestures** and **td018-pen-actions**. Implementation and acceptance remain
-pending. See [the Advance map and evidence delivery contract](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
+`nibcontact` components. **td018-gesture-investigation** is complete: bounded
+coverage and tool-contract investigations, not learned gestures or real acceptance.
+Next is **td018-gestures**, then **td018-pen-actions**. See
+[investigation samples and findings](shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
+and [the Advance map](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
 
 Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)
 and [shared-stroke decomposition](shared/training/konrad_hand_recovery/stroke_language_v1/language/decomposition.png).

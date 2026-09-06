@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), twenty-eight Advances; eleven implementation outcomes complete, seventeen planned. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), twenty-eight Advances; thirteen outcomes complete, fifteen planned. Ink, fatigue and other expressive work are later.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket
@@ -615,7 +615,8 @@ real gate rather than advancing to expressive or folio work.
 The list below is the current implementation-plan sequence, not evidence that
 the new gesture layer is implemented. Addendum A Section 10 records nine new
 Advances, two incubating components and their bounded delivery/evaluation
-contract. All nine are planned; earlier completion states remain unchanged.
+contract. The two investigations are complete with synthetic fixtures and
+explicit real-source/actuation blockers; the other seven remain planned.
 
 1. **td018-strokes:** EXEMPLAR-008 reference readiness; EVOFIT-007 stroke
    language/compiler; CURRICULUM-004 actual shared-primitive learning.

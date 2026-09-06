@@ -1,0 +1,95 @@
+{
+  "schema_version": "intentional-broad-edge-investigation-v1",
+  "scope": "declared synthetic engineering contract; no physical or historical calibration; no acceptance yet",
+  "frame": "physical millimetres, x right, y down; directed nib edge from fraction 0 to 1",
+  "tool": {
+    "width_mm": 0.45,
+    "thickness_mm": 0.02,
+    "pressure": 0.5,
+    "speed_mm_s": 12,
+    "ink": "constant adequate supply; no reservoir or optical compensation"
+  },
+  "tracks": {
+    "progress": "normalized contact arc length [0,1]",
+    "interpolation": "piecewise linear; unwrapped orientation; no duplicate progress",
+    "orientation_deg": [
+      -180,
+      540
+    ],
+    "angular_rate_deg_s": 180,
+    "active_edge_endpoint_fraction": [
+      0,
+      1
+    ],
+    "minimum_contact_fraction": 0.1,
+    "edge_endpoint_rate_s": 3,
+    "max_knots": 4
+  },
+  "contact": {
+    "lift": "explicit event; no painted air connector",
+    "edge_labels": "0 = negative directed nib endpoint, 1 = positive endpoint; labels survive frame reflection",
+    "dabs": "unsupported",
+    "pressure_deformation": "unsupported",
+    "speed_or_pressure_learning": "unsupported"
+  },
+  "geometry": {
+    "endpoint_formula": "center + (fraction - 0.5) * width * (cos(angle), sin(angle))",
+    "corner_formula": "edge endpoints +/- thickness/2 * (-sin(angle), cos(angle))",
+    "reflection": "y_down = -y_up, angle_down = -angle_up; directed endpoint fractions unchanged; polygon winding reverses",
+    "legacy": "preserve legacy pixels in explicit legacy mode; finite-thickness new mode is a new contract, not silent reinterpretation"
+  },
+  "criteria": {
+    "endpoint_error_mm_max": 0.01,
+    "angle_tracking_error_deg_max": 2,
+    "edge_fraction_tracking_error_max": 0.02,
+    "position_tracking_error_mm_max": 0.25,
+    "image_symmetric_difference_over_union_max": 0.05,
+    "blank_region_ink_fraction_max": 0.01,
+    "negative_control_disagreement_min": 0.1,
+    "convergence_image_disagreement_max": 0.03,
+    "convergence_endpoint_error_mm_max": 0.01,
+    "dt_s": [
+      0.002,
+      0.001
+    ],
+    "arc_step_mm": [
+      0.025,
+      0.0125
+    ],
+    "policy": "predeclared engineering targets, not achieved performance; no posthoc relaxation; real gates require independent source calibration"
+  },
+  "comparisons": [
+    "fixed vs rotation-only with fixed paths",
+    "full vs partial directed edge with fixed angle/path",
+    "explicit two-pass finishing overlap as separate structural comparison"
+  ],
+  "required_negative_controls": [
+    "wrong orientation",
+    "swapped active edge",
+    "centered shrink instead of shifted edge",
+    "undeclared lift or painted air connector",
+    "overbuilt terminal",
+    "filled counter"
+  ],
+  "budget": {
+    "fixture_families": 3,
+    "max_renders": 100,
+    "max_seconds": 900,
+    "max_revisions": 1,
+    "optimization_evaluations": 0
+  },
+  "deferred": [
+    "historical quill force law",
+    "stationary dabs",
+    "nonconstant pressure/speed",
+    "fatigue",
+    "ink depletion/dips",
+    "combined action optimization"
+  ],
+  "next_dependencies": {
+    "geometry": "ADV-SS-NIBCONTACT-002",
+    "actual_state": "ADV-SS-PATHGUIDE-006",
+    "action_learning": "ADV-SS-CURRICULUM-009",
+    "acceptance": "ADV-SS-HANDVALIDATE-014"
+  }
+}

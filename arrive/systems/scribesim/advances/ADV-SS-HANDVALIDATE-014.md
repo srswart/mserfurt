@@ -55,6 +55,7 @@ downstream execution; synthetic demonstrations never authorize real fitting.
 - [ ] Validate live lower-layer hashes and S1-gesture decisions, then independently recompute the predeclared action metrics on frozen selected candidates. No tuning, new objectives or posthoc threshold relaxation.
 - [ ] Replay all three seed checkpoints in fresh processes; compare direct, sampled desired and realized footprints, edge endpoints, angular/contact-rate tracking, contact topology and counter preservation.
 - [ ] Use wrong-angle, swapped-edge, undeclared-lift, overbuilt-terminal, erased-counter and desired-only controls; verify each is detected by a named criterion.
+- [ ] Preserve NIBCONTACT-001's failed global controls (hidden connector 0.0102; overbuilt terminal 0.0966 versus frozen 0.1 minimum). Add predeclared local-region and exact contact/overlap ownership checks; do not lower the original threshold or treat these investigation failures as action acceptance.
 - [ ] Check fixed-geometry ablations, held-out combinations, finite bounds and action activation. A profile labeled active but insensitive fails; supported fixed/null profiles may pass only within their declared scope.
 - [ ] Apply timestep and arc-length refinement against the frozen convergence bounds and common replay budget. Record scope and spent renders/time even if the evaluation stops early.
 - [ ] Publish a side-by-side sample index covering the original primitive baseline, continuous gesture practice, action comparisons and shared supplied-letter probes. Label synthetic, reference-grounded and human-reviewed evidence separately.
@@ -106,4 +107,3 @@ diagnosis and bounded repair; unrelated changes and threshold relaxation are exc
 
 1. Which exact layer/tool/controller identities authorize the next letter experiment?
 2. What is permitted after synthetic readiness when real G0 or appearance review remains blocked?
-

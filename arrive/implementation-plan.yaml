@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T12:03:29Z
+  updated_at: 2026-09-06T12:55:46Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1515,11 +1515,11 @@ passes:
     - id: ADV-SS-NIBCONTACT-001
       advance_id: ADV-SS-NIBCONTACT-001
       title: "Pen-Contact Investigation — Tool Semantics, Calibration and Frozen Controls"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-004
-      notes: "INVESTIGATION: freeze units, numeric bounds, independent geometry/negative fixtures and controller feasibility. Synthetic assumptions are not historical tool calibration."
+      notes: "COMPLETE: pre-probe synthetic contract, 3 fixture families, 29 renders; instantaneous angle copying and absent edge state diagnosed. Two global-metric negative controls fail; local ownership checks required. 44 tests and clean-clone replay; no S1-action or historical calibration."
   - id: td018-gestures
     title: Compile and learn continuous gestures at fixed tool settings
     order: 6
