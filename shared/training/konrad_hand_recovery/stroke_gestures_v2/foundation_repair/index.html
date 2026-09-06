@@ -1,8 +1,36 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Foundation repair — motion and clock checks pass</title>
+<title>Foundation repair — return vocabulary and ports</title>
 <style>body{margin:0;background:#f5f1e7;color:#24342f;font:17px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:38px;line-height:1.15}h2{margin-top:38px}a{color:#235d77}aside{border-left:5px solid #b24932;padding:16px 24px;background:#fff7f0}figure{margin:24px 0;padding:20px;background:white;border:1px solid #d9ded8;border-radius:10px}svg,img{max-width:100%;height:auto}figcaption{font-size:15px;color:#52605a}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}.ok{color:#276946}.fail{color:#a43a28}code{font-size:.9em}li{margin:7px 0}summary{cursor:pointer;font-weight:650}</style></head>
-<body><main><p>TD-018 / FOUNDATION REPAIR / RUN 005</p>
+<body><main><p>TD-018 / FOUNDATION REPAIR / RETURN CONTRACT RUN 001</p>
+<h1>Two new return shapes. Explicit connections.</h1>
+<aside style="border-color:#276946;background:#f0f8f0"><strong>GESTURE-002 is complete as a contract audit—not training.</strong> Lower and upper returns now have separate untrained definitions and compatible ports. The old six primitives are unchanged. The next learning Advance must refresh motion/baseline validation under the changed compiler identities before fitting these returns.</aside>
+<h2>Six frozen primitives + two untrained returns</h2>
+<figure><a href="contract/run-001/primitive-ports.png"><img src="contract/run-001/primitive-ports.png" alt="Six existing primitives and new untrained lower-return and upper-return shapes"></a><figcaption>Native 900-DPI nominal geometry, not actual controller output. The two new curves are initial hypotheses; no fitting or target-image evaluation has occurred.</figcaption></figure>
+<figure><img src="contract/return-ports.svg" alt="New return geometry with fixed entry/exit direction arrows and bounded control handles"><figcaption>The lower return connects the actual stem exit to the rise entry; the upper return connects the rise exit to the stem entry. Only two handle lengths per family may be fitted. Old stored port declarations are preserved and their differences exposed in the audit.</figcaption></figure>
+<h2>Stroke combinations now have visible expansion</h2>
+<figure><a href="contract/run-001/gesture-expansions.png"><img src="contract/run-001/gesture-expansions.png" alt="Stem, rise, three-piece underturn and overturn, four-piece compound curve and existing upper loop"></a><figcaption>Underturn = stem + lower return + rise. Overturn = rise + upper return + stem. Compound = upper return + stem + lower return + rise. Smooth joins coincide and match tangent directions; no hidden connectors.</figcaption></figure>
+<h2>A bounded construction checklist—not an accepted alphabet</h2>
+<figure><a href="contract/run-001/construction-checklist.png"><img src="contract/run-001/construction-checklist.png" alt="Supplied i n u m h construction scaffolds, explicitly not learned letters"></a><figcaption>These are five supplied feasibility scaffolds. They are more varied than the old repeated L-like motion fixtures, but they are still not trained letters or historical forms.</figcaption></figure>
+<table><tr><th>Inventory</th><th>Audit result</th></tr>
+<tr><td>i / n / u / m / h</td><td>Supplied constructions: 2 / 4 / 4 / 6 / 4 expanded strokes</td></tr>
+<tr><td>r / l</td><td>Partial fragments only; no recipe admitted</td></tr>
+<tr><td>o / a / d / e / g</td><td>Unsupported; counter, bowl or descender attachments unresolved</td></tr>
+<tr><td>Opposite bowl / lower loop</td><td>Missing, not aliased or reflected from existing shapes</td></tr>
+<tr><td>Composition cap</td><td>New opt-in reader: six actual primitive occurrences; old reader remains four</td></tr></table>
+<p>The m scaffold uses two explicitly lifted three-piece arches. Six is the smallest cap for this frozen construction set—not a universal calligraphic lower bound. Four references per gesture, eight families/gestures, two recipe alternatives and existing transform limits remain intact.</p>
+<h2>Next: learn the two returns</h2>
+<p><strong>CURRICULUM-010:</strong> first regenerate matching motion/baseline evidence, then fit only the two new return families against independent analytic targets. Endpoints, port rays, old-six geometry and the tool remain fixed. Attachment topologies are reserved for held-out evaluation. HANDVALIDATE-015 independently decides whether the new primitives are accepted before larger gesture learning.</p>
+<p>The audit uses 22 nominal diagnostic renders in 1.168160 seconds, zero optimization and zero training/target renders. Clean replay is byte-identical. Sixteen new contract tests pass; expanded local and clean suites each have 138 passes and the same pre-existing constructor-test failure. No new actual-motion or historical-hand acceptance is claimed.</p>
+<ul><li><a href="contract/README.md">Audit result, scope and replay</a></li>
+<li><a href="contract/run-001/audit.md">Full direction, port, topology, counter and attachment tables</a></li>
+<li><a href="contract/run-001/initial-model.json">Untrained initial model</a></li>
+<li><a href="contract/run-001/target-specs.json">Independent target and held-out topology specifications</a></li>
+<li><a href="contract/verification.json">Clean-checkout verification</a></li>
+<li><a href="contract/ledger.json">Budget and status ledger</a></li></ul>
+<details><summary>Earlier motion acceptance — run 005; refresh required after compiler changes</summary>
+<p>This section records the pre-audit fixed-tool motion result. Its acceptance does not automatically transfer to the changed compiler or new untrained geometry.</p>
+<p>TD-018 / FOUNDATION REPAIR / RUN 005</p>
 <h1>Stable motion. A curve-derived clock.</h1>
 <aside style="border-color:#276946;background:#f0f8f0"><strong>All 239 motion checks and the six-primitive baseline pass.</strong> HANDFLOW-010 is complete. Sampling density no longer shifts the recorded contact-event clock. Clean-checkout replay reproduces all measurements and artifacts byte-for-byte. This accepts fixed-tool synthetic motion—not a learned alphabet, new stroke training or a recovered historical hand.</aside>
 <h2>What the clock fix changes</h2>
@@ -54,4 +82,4 @@
 <line x1="500" y1="392.5" x2="1000" y2="392.5" stroke="#b24932" stroke-dasharray="5 4"/><text x="1010" y="398">0.25 limit</text>
 <path d="M500.00,425.88 L501.71,427.41 L507.96,422.32 L514.21,414.47 L520.46,406.78 L526.71,399.37 L532.96,392.24 L539.21,385.41 L545.46,378.87 L551.71,372.63 L557.96,366.69 L564.21,361.04 L570.46,355.70 L576.71,350.65 L582.96,345.90 L589.21,341.45 L595.46,337.30 L601.71,333.45 L607.96,329.90 L614.21,326.65 L620.46,323.70 L626.71,321.05 L632.96,318.69 L639.21,316.64 L645.46,314.89 L651.71,313.43 L657.96,312.28 L664.21,311.42 L670.46,310.87 L676.71,310.61 L682.96,310.66 L689.21,311.00 L695.46,311.65 L701.71,312.59 L707.96,313.83 L714.21,315.38 L720.46,317.22 L726.71,319.36 L732.96,321.80 L739.21,324.55 L745.46,327.59 L751.71,330.93 L757.96,334.57 L764.21,338.33 L770.46,342.00 L776.71,345.52 L782.96,348.90 L789.21,352.14 L795.46,355.26 L801.71,358.25 L807.96,361.12 L814.21,363.87 L820.46,366.52 L826.71,369.06 L832.96,371.49 L839.21,373.83 L845.46,376.08 L851.71,378.24 L857.96,380.31 L864.21,382.30 L870.46,384.20 L876.71,386.04 L882.96,387.79 L889.21,389.48 L895.46,391.10 L901.71,392.66 L907.96,394.15 L914.21,395.59 L920.46,396.96 L926.71,398.28 L932.96,399.55 L939.21,400.77 L945.46,401.94 L951.71,403.06 L957.96,404.14 L964.21,405.17 L970.46,406.17 L976.71,407.12 L982.96,408.04 L989.21,408.91 L995.46,409.76" fill="none" stroke="#b24932" stroke-width="3"/>
 </svg><figcaption>Historical actual path, velocity and lag. Unequal horizontal/vertical plot scales improve readability; these are not ink-evaluation scales.</figcaption></figure></details>
-</main></body></html>
+</details></main></body></html>

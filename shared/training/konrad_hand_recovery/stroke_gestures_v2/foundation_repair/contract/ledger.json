@@ -1,0 +1,52 @@
+{
+  "advance": "ADV-SS-GESTURE-002",
+  "status": "complete",
+  "scope": "nominal synthetic construction audit, not actual motion or learned acceptance",
+  "implementation_commit": "633dabc8054c954be48f74e9efecc9fa901e7e2a",
+  "implementation_merged": false,
+  "limits": {
+    "diagnostic_renders_per_attempt": 100,
+    "seconds_per_attempt": 900,
+    "diagnosed_revisions": 1,
+    "optimization_evaluations": 0
+  },
+  "attempts": [
+    {
+      "id": "run-001",
+      "status": "pass",
+      "renders": 22,
+      "elapsed_seconds": 1.1681599579751492,
+      "report_sha256": "178c68dabcfd3a0a3cfb82cbafc6b091108ba65d0cf38f4bff6bd6d25cbaa799",
+      "optimization_evaluations": 0,
+      "training_renders": 0,
+      "target_renders": 0,
+      "diagnosed_revision": false
+    }
+  ],
+  "experiment_totals": {
+    "attempts": 1,
+    "renders": 22,
+    "elapsed_seconds": 1.1681599579751492,
+    "revisions": 0,
+    "optimization_evaluations": 0,
+    "training_renders": 0,
+    "target_renders": 0
+  },
+  "verification": {
+    "separate_from_candidate_search": true,
+    "clean_checkout_renders": 22,
+    "clean_checkout_elapsed_seconds": 1.244628084008582,
+    "receipt": "verification.json"
+  },
+  "presentation": {
+    "artifact": "return-ports.svg",
+    "source": "run-001/initial-model.json",
+    "additional_simulation_or_nib_renders": 0
+  },
+  "regression_accounting": "Unit and integration test fixtures are separate software verification, not candidate search or training; no extra experiment candidate was evaluated.",
+  "selected_cap": 6,
+  "legacy_cap": 4,
+  "training_permitted": false,
+  "learned_primitives_accepted": false,
+  "next_required": "CURRICULUM-010 must first rerun matching current-code motion/baseline validation within its new budget"
+}

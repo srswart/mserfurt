@@ -1,0 +1,1393 @@
+{
+  "spec": {
+    "schema_version": "foundation-return-audit-v1",
+    "authorization": "User requested implementing GESTURE-002 and prior update/merge-when-complete workflow",
+    "scope": "Synthetic vocabulary and bounded compiler contract only; no fitting, target pixel evaluation, action or real-hand admission",
+    "prerequisites": {
+      "motion_run": "motion/run-005",
+      "motion_report_sha256": "a403f767193dffb61828e78cced97f9d98c50e11c1872db5557a1c9fb152a623",
+      "motion_code_sha256": {
+        "scribesim/pathguide/gesture_actions.py": "e4e2d0ea834ffd91b1e8138b6124ea0f4505dce19a29d634ea016f2f05266a6b",
+        "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+        "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+        "scribesim/evofit/stroke_gestures.py": "b22c8588a9045b9862c654dec9d7baa6197421f8d0a630e25145ee9ae69478ce",
+        "scribesim/evofit/stroke_language.py": "e52075cef70ae569cec4be9690bb87a8727878f9bba5265efc2f633d4b22a3db",
+        "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+        "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+        "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+        "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+        "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+        "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+        "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+        "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+        "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+        "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+        "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+        "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+        "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+        "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+        "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+        "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+      },
+      "coverage_fixtures": "coverage/run-001/fixtures.json",
+      "coverage_sha256": "d92cc2536d4d6ad3f5970690223700d78a9e2659fbd89c4163939b6415e590dd"
+    },
+    "baseline": {
+      "schema_version": "shared-stroke-language-v1",
+      "units": "local-xheight-y-up",
+      "scope": "unaccepted-synthetic",
+      "primitives": {
+        "stem": {
+          "cubics": [
+            [
+              [
+                0,
+                1
+              ],
+              [
+                0.019999999999999997,
+                0.7
+              ],
+              [
+                -0.01999999999999999,
+                0.5399999999999999
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            0.7071067811865475,
+            -0.7071067811865475
+          ],
+          "exit": [
+            0.5144957554275265,
+            -0.8574929257125441
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "rise": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.07999999999999999,
+                0.24999999999999994
+              ],
+              [
+                0.30000000000000004,
+                0.6200000000000001
+              ],
+              [
+                0.5,
+                1
+              ]
+            ]
+          ],
+          "entry": [
+            -0.3713906763541038,
+            0.9284766908852594
+          ],
+          "exit": [
+            0.894427190999916,
+            0.44721359549995787
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "bowl": {
+          "cubics": [
+            [
+              [
+                0,
+                1
+              ],
+              [
+                0.89,
+                0.8
+              ],
+              [
+                0.8,
+                0.27
+              ],
+              [
+                0.65,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            0.9965457582448797,
+            -0.08304547985373996
+          ],
+          "exit": [
+            -0.9761870601839527,
+            -0.21693045781865616
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "turn": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.10999999999999999,
+                0.2899999999999999
+              ],
+              [
+                0.44,
+                0.09
+              ],
+              [
+                0.5,
+                1
+              ]
+            ]
+          ],
+          "entry": [
+            -0.31622776601683794,
+            0.9486832980505138
+          ],
+          "exit": [
+            -0.2676438637860946,
+            0.9635179096299405
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "loop": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                -0.61,
+                1.45
+              ],
+              [
+                0.84,
+                1.29
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            -0.18428853505018533,
+            0.9828721869343219
+          ],
+          "exit": [
+            -0.5299989400031799,
+            -0.8479983040050879
+          ],
+          "closed": true,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "exit": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.28,
+                0.04000000000000001
+              ],
+              [
+                0.42,
+                0.16999999999999998
+              ],
+              [
+                0.45,
+                0.15
+              ]
+            ]
+          ],
+          "entry": [
+            0.4856429311786321,
+            -0.8741572761215378
+          ],
+          "exit": [
+            0.6000000000000001,
+            -0.7999999999999999
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        }
+      },
+      "recipes": {
+        "i": {
+          "logical": "i",
+          "visible": "i",
+          "advance": 0.65,
+          "allow_crossings": false,
+          "strokes": [
+            {
+              "primitive": "stem",
+              "offset": [
+                0,
+                0
+              ],
+              "scale": 1,
+              "rotation_deg": 0,
+              "transition": "start"
+            },
+            {
+              "primitive": "exit",
+              "offset": [
+                0,
+                0
+              ],
+              "scale": 1,
+              "rotation_deg": 0,
+              "transition": "corner"
+            }
+          ]
+        },
+        "u": {
+          "logical": "u",
+          "visible": "u",
+          "advance": 1.2,
+          "allow_crossings": false,
+          "strokes": [
+            {
+              "primitive": "stem",
+              "offset": [
+                0,
+                0
+              ],
+              "scale": 1,
+              "rotation_deg": 0,
+              "transition": "start"
+            },
+            {
+              "primitive": "exit",
+              "offset": [
+                0,
+                0
+              ],
+              "scale": 1,
+              "rotation_deg": 0,
+              "transition": "corner"
+            },
+            {
+              "primitive": "stem",
+              "offset": [
+                0.55,
+                0
+              ],
+              "scale": 1,
+              "rotation_deg": 0,
+              "transition": "lift"
+            },
+            {
+              "primitive": "exit",
+              "offset": [
+                0.55,
+                0
+              ],
+              "scale": 1,
+              "rotation_deg": 0,
+              "transition": "corner"
+            }
+          ]
+        }
+      },
+      "letter_rules": [],
+      "word_rules": [],
+      "x_height_mm": 3.5,
+      "nib_width_mm": 0.45,
+      "nib_angle_deg": 40,
+      "letter_gap": 0.15,
+      "word_gap": 0.8,
+      "line_pitch": 3
+    },
+    "actual_ports": {
+      "stem": {
+        "entry": [
+          0.06651901052377392,
+          -0.997785157856609
+        ],
+        "exit": [
+          0.03701166050988025,
+          -0.9993148337667671
+        ]
+      },
+      "rise": {
+        "entry": [
+          0.30477572710378376,
+          0.9524241471993242
+        ],
+        "exit": [
+          0.46574643283262235,
+          0.8849182223819824
+        ]
+      },
+      "bowl": {
+        "entry": [
+          0.9756684143216707,
+          -0.21925132906104955
+        ],
+        "exit": [
+          -0.4856429311786321,
+          -0.8741572761215377
+        ]
+      },
+      "turn": {
+        "entry": [
+          0.3546542341205386,
+          0.9349975263177835
+        ],
+        "exit": [
+          0.06579121391419582,
+          0.9978334110319701
+        ]
+      },
+      "loop": {
+        "entry": [
+          -0.3877727894009453,
+          0.9217549911989683
+        ],
+        "exit": [
+          -0.5456731714374324,
+          -0.8379980847074856
+        ]
+      },
+      "exit": {
+        "entry": [
+          0.9899494936611665,
+          0.1414213562373095
+        ],
+        "exit": [
+          0.832050294337844,
+          -0.5547001962252286
+        ]
+      }
+    },
+    "limits": {
+      "old_expanded_per_letter": 4,
+      "expanded_per_letter": 6,
+      "gestures_per_recipe": 4,
+      "primitives_per_gesture": 4,
+      "primitive_families": 8,
+      "named_gestures": 8,
+      "recipes_per_character": 2,
+      "rotation_deg": [
+        -20,
+        20
+      ],
+      "scale": [
+        0.5,
+        1.5
+      ],
+      "offset": [
+        -2,
+        2
+      ],
+      "max_renders": 100,
+      "max_seconds": 900,
+      "max_revisions": 1,
+      "optimization_evaluations": 0
+    },
+    "cap_basis": "Minimum sufficient among these frozen supplied constructions, not a universal calligraphic lower bound: m uses two explicit lifted three-primitive overturns, total six. Caps 4 and 5 reject it; 6 suffices. No macro collapse, hidden returns or requirement to accept all twelve characters.",
+    "new_families": {
+      "lower-return": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          0.5,
+          0
+        ],
+        "entry": [
+          0.03701166050988025,
+          -0.9993148337667671
+        ],
+        "exit": [
+          0.30477572710378376,
+          0.9524241471993242
+        ],
+        "initial_handles": [
+          0.28,
+          0.28
+        ],
+        "handle_bounds": [
+          0.12,
+          0.4
+        ],
+        "signed_side": -1,
+        "provenance": "New untrained project-authored lower-return prior; old turn is not relabeled"
+      },
+      "upper-return": {
+        "start": [
+          0,
+          0
+        ],
+        "end": [
+          0.5,
+          0
+        ],
+        "entry": [
+          0.46574643283262235,
+          0.8849182223819824
+        ],
+        "exit": [
+          0.06651901052377392,
+          -0.997785157856609
+        ],
+        "initial_handles": [
+          0.28,
+          0.28
+        ],
+        "handle_bounds": [
+          0.12,
+          0.4
+        ],
+        "signed_side": 1,
+        "provenance": "New untrained project-authored upper-return prior; old loop is not relabeled"
+      }
+    },
+    "targets": {
+      "provenance": "Independent project-authored analytic target specification frozen before fitting, no historical-source pixels or candidate/control-grid access",
+      "method": "Cubic Hermite endpoint/tangent interpolation plus signed sin(pi*t)^2 vertical bulge; the target generator takes target specifications only, never a candidate model",
+      "endpoint_derivative_magnitudes": [
+        0.66,
+        0.87
+      ],
+      "signed_bulge_magnitude": 0.035,
+      "ports": "Same fixed interface directions as new_families; not candidate control handles",
+      "train": [
+        {
+          "id": "lower-single",
+          "family": "lower-return",
+          "scale": 1,
+          "topology": "single"
+        },
+        {
+          "id": "upper-single",
+          "family": "upper-return",
+          "scale": 1,
+          "topology": "single"
+        }
+      ],
+      "development": [
+        {
+          "id": "lower-scale",
+          "family": "lower-return",
+          "scale": 0.8,
+          "topology": "single"
+        },
+        {
+          "id": "upper-scale",
+          "family": "upper-return",
+          "scale": 1.2,
+          "topology": "single"
+        }
+      ],
+      "topology_held_out": [
+        {
+          "id": "underturn-attachment",
+          "topology": [
+            "stem",
+            "lower-return",
+            "rise"
+          ],
+          "scale": 1
+        },
+        {
+          "id": "overturn-attachment",
+          "topology": [
+            "rise",
+            "upper-return",
+            "stem"
+          ],
+          "scale": 1
+        },
+        {
+          "id": "compound-attachment",
+          "topology": [
+            "upper-return",
+            "stem",
+            "lower-return",
+            "rise"
+          ],
+          "scale": 0.9
+        }
+      ],
+      "split_policy": "Single returns train/development; attached and mixed-return topologies held out from optimization and development selection. Future consuming runs freeze full metrics/selection, regenerate independent targets without candidate access and rerun matching motion/baseline first."
+    },
+    "hypotheses": [
+      {
+        "id": "stem",
+        "status": "existing",
+        "gesture": "stem",
+        "curvature": "predominantly straight descending",
+        "counter": "none",
+        "debt": "Declared directions differ from actual frozen tangents; actual ports govern attachment"
+      },
+      {
+        "id": "rise",
+        "status": "existing",
+        "gesture": "rise",
+        "curvature": "rising diagonal",
+        "counter": "none",
+        "debt": "No claim of arbitrary vertical rise under existing rotations"
+      },
+      {
+        "id": "underturn",
+        "status": "untrained-extension",
+        "gesture": "underturn",
+        "curvature": "lower return",
+        "counter": "open channel",
+        "debt": "New lower return requires fitting and independent acceptance"
+      },
+      {
+        "id": "overturn",
+        "status": "untrained-extension",
+        "gesture": "overturn",
+        "curvature": "upper return",
+        "counter": "open arch",
+        "debt": "New upper return requires fitting and independent acceptance"
+      },
+      {
+        "id": "compound_curve",
+        "status": "untrained-extension",
+        "gesture": "compound_curve",
+        "curvature": "upper and lower reversal",
+        "counter": "open channels",
+        "debt": "Shared four-piece hypothesis, not an accepted m recipe"
+      },
+      {
+        "id": "left_bowl",
+        "status": "unsupported",
+        "gesture": null,
+        "curvature": "opposite bowl",
+        "counter": "open left-side bowl",
+        "debt": "Existing bowl bulges in the opposite direction; reflection/180-degree rotation forbidden"
+      },
+      {
+        "id": "upper_loop",
+        "status": "existing-primitive-only",
+        "gesture": "upper_loop",
+        "curvature": "closed upper loop",
+        "counter": "requires ink-level evaluation",
+        "debt": "Primitive topology exists; l attachment and counter preservation remain unaccepted"
+      },
+      {
+        "id": "lower_loop",
+        "status": "unsupported",
+        "gesture": null,
+        "curvature": "closed descending loop",
+        "counter": "closed lower counter",
+        "debt": "Existing upper loop cannot become a descender through allowed transforms"
+      }
+    ],
+    "characters": [
+      {
+        "character": "i",
+        "status": "construction",
+        "gestures": [
+          "stem",
+          "terminal"
+        ],
+        "expanded": 2,
+        "topology": "two explicit contacts; supplied stem-terminal scaffold",
+        "debt": "Not trained letter construction or historical reading"
+      },
+      {
+        "character": "n",
+        "status": "construction",
+        "gestures": [
+          "stem",
+          "overturn"
+        ],
+        "expanded": 4,
+        "topology": "stem plus lifted three-piece arch",
+        "debt": "Upper return untrained"
+      },
+      {
+        "character": "u",
+        "status": "construction",
+        "gestures": [
+          "underturn",
+          "stem"
+        ],
+        "expanded": 4,
+        "topology": "continuous three-piece lower return plus lifted downstroke",
+        "debt": "Lower return untrained"
+      },
+      {
+        "character": "m",
+        "status": "construction",
+        "gestures": [
+          "overturn",
+          "overturn"
+        ],
+        "expanded": 6,
+        "topology": "two explicit lifted arches",
+        "debt": "Not a continuous seven-piece alternative; no claim of learned m"
+      },
+      {
+        "character": "r",
+        "status": "partial",
+        "gestures": [
+          "stem",
+          "shoulder"
+        ],
+        "expanded": 2,
+        "topology": "stem/shoulder fragment only",
+        "debt": "Shoulder-to-terminal form and reading unresolved; no r recipe admitted"
+      },
+      {
+        "character": "o",
+        "status": "unsupported",
+        "gestures": [],
+        "expanded": null,
+        "topology": "closed counter required",
+        "debt": "Opposite-bowl/closure pairing missing; upper loop is not an o alias"
+      },
+      {
+        "character": "a",
+        "status": "unsupported",
+        "gestures": [],
+        "expanded": null,
+        "topology": "counter plus downstroke required",
+        "debt": "Counter construction/attachment missing"
+      },
+      {
+        "character": "d",
+        "status": "unsupported",
+        "gestures": [],
+        "expanded": null,
+        "topology": "counter plus ascender required",
+        "debt": "Counter construction/attachment missing"
+      },
+      {
+        "character": "e",
+        "status": "unsupported",
+        "gestures": [],
+        "expanded": null,
+        "topology": "eye and entry/crossing required",
+        "debt": "Eye/counter and ordered crossing unresolved"
+      },
+      {
+        "character": "l",
+        "status": "partial",
+        "gestures": [
+          "upper_loop",
+          "stem"
+        ],
+        "expanded": 2,
+        "topology": "loop/downstroke fragment",
+        "debt": "Loop attachment and preserved ink counter unproven; no l recipe admitted"
+      },
+      {
+        "character": "h",
+        "status": "construction",
+        "gestures": [
+          "stem",
+          "overturn"
+        ],
+        "expanded": 4,
+        "topology": "1.5-scale ascender plus lifted arch",
+        "debt": "Untrained upper return; existing scale bound retained"
+      },
+      {
+        "character": "g",
+        "status": "unsupported",
+        "gestures": [],
+        "expanded": null,
+        "topology": "body and descender loop required",
+        "debt": "Lower loop and counter inventory missing"
+      }
+    ]
+  },
+  "spec_sha256": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+  },
+  "initial_model": {
+    "schema_version": "shared-stroke-gestures-foundation-v1",
+    "units": "local-xheight-y-up",
+    "scope": "untrained-foundation-contract",
+    "primitives": {
+      "stem": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0.019999999999999997,
+              0.7
+            ],
+            [
+              -0.01999999999999999,
+              0.5399999999999999
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.7071067811865475,
+          -0.7071067811865475
+        ],
+        "exit": [
+          0.5144957554275265,
+          -0.8574929257125441
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "rise": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.07999999999999999,
+              0.24999999999999994
+            ],
+            [
+              0.30000000000000004,
+              0.6200000000000001
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.3713906763541038,
+          0.9284766908852594
+        ],
+        "exit": [
+          0.894427190999916,
+          0.44721359549995787
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "bowl": {
+        "cubics": [
+          [
+            [
+              0,
+              1
+            ],
+            [
+              0.89,
+              0.8
+            ],
+            [
+              0.8,
+              0.27
+            ],
+            [
+              0.65,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.9965457582448797,
+          -0.08304547985373996
+        ],
+        "exit": [
+          -0.9761870601839527,
+          -0.21693045781865616
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "turn": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.10999999999999999,
+              0.2899999999999999
+            ],
+            [
+              0.44,
+              0.09
+            ],
+            [
+              0.5,
+              1
+            ]
+          ]
+        ],
+        "entry": [
+          -0.31622776601683794,
+          0.9486832980505138
+        ],
+        "exit": [
+          -0.2676438637860946,
+          0.9635179096299405
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "loop": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              -0.61,
+              1.45
+            ],
+            [
+              0.84,
+              1.29
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          -0.18428853505018533,
+          0.9828721869343219
+        ],
+        "exit": [
+          -0.5299989400031799,
+          -0.8479983040050879
+        ],
+        "closed": true,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "exit": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.28,
+              0.04000000000000001
+            ],
+            [
+              0.42,
+              0.16999999999999998
+            ],
+            [
+              0.45,
+              0.15
+            ]
+          ]
+        ],
+        "entry": [
+          0.4856429311786321,
+          -0.8741572761215378
+        ],
+        "exit": [
+          0.6000000000000001,
+          -0.7999999999999999
+        ],
+        "closed": false,
+        "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+      },
+      "lower-return": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.010363264942766471,
+              -0.27980815345469484
+            ],
+            [
+              0.41466279641094056,
+              -0.2666787612158108
+            ],
+            [
+              0.5,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.03701166050988025,
+          -0.9993148337667671
+        ],
+        "exit": [
+          0.30477572710378376,
+          0.9524241471993242
+        ],
+        "closed": false,
+        "provenance": "New untrained project-authored lower-return prior; old turn is not relabeled"
+      },
+      "upper-return": {
+        "cubics": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0.13040900119313428,
+              0.2477771022669551
+            ],
+            [
+              0.4813746770533433,
+              0.27937984419985057
+            ],
+            [
+              0.5,
+              0
+            ]
+          ]
+        ],
+        "entry": [
+          0.46574643283262235,
+          0.8849182223819824
+        ],
+        "exit": [
+          0.06651901052377392,
+          -0.997785157856609
+        ],
+        "closed": false,
+        "provenance": "New untrained project-authored upper-return prior; old loop is not relabeled"
+      }
+    },
+    "recipes": {
+      "i": {
+        "logical": "i",
+        "visible": "i",
+        "advance": 0.65,
+        "gestures": [
+          {
+            "gesture": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "terminal",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "n": {
+        "logical": "n",
+        "visible": "n",
+        "advance": 1.3,
+        "gestures": [
+          {
+            "gesture": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "overturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "u": {
+        "logical": "u",
+        "visible": "u",
+        "advance": 1.3,
+        "gestures": [
+          {
+            "gesture": "underturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "stem",
+            "offset": [
+              1,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "m": {
+        "logical": "m",
+        "visible": "m",
+        "advance": 2.3,
+        "gestures": [
+          {
+            "gesture": "overturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "overturn",
+            "offset": [
+              1,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      },
+      "h": {
+        "logical": "h",
+        "visible": "h",
+        "advance": 1.3,
+        "gestures": [
+          {
+            "gesture": "stem",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1.5,
+            "rotation_deg": 0.0,
+            "transition": "start",
+            "overlap_with": []
+          },
+          {
+            "gesture": "overturn",
+            "offset": [
+              0,
+              0
+            ],
+            "scale": 1,
+            "rotation_deg": 0.0,
+            "transition": "lift",
+            "overlap_with": []
+          }
+        ]
+      }
+    },
+    "letter_rules": [],
+    "word_rules": [],
+    "x_height_mm": 3.5,
+    "nib_width_mm": 0.45,
+    "nib_angle_deg": 40,
+    "letter_gap": 0.15,
+    "word_gap": 0.8,
+    "line_pitch": 3,
+    "sampling": "gesture-arc-v3",
+    "migration_source_sha256": "3d3e310a1e8e394372fee1daca8c1aafc268239a67ffdaac7ce7b2bcd0f7ba55",
+    "gestures": {
+      "stem": {
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "rise": {
+        "strokes": [
+          {
+            "primitive": "rise",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "underturn": {
+        "strokes": [
+          {
+            "primitive": "stem",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "lower-return",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "rise",
+            "offset": [
+              0.5,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          }
+        ],
+        "action": "fixed"
+      },
+      "overturn": {
+        "strokes": [
+          {
+            "primitive": "rise",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "upper-return",
+            "offset": [
+              0.5,
+              1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "stem",
+            "offset": [
+              1.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          }
+        ],
+        "action": "fixed"
+      },
+      "compound_curve": {
+        "strokes": [
+          {
+            "primitive": "upper-return",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          },
+          {
+            "primitive": "stem",
+            "offset": [
+              0.5,
+              -1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "lower-return",
+            "offset": [
+              0.5,
+              -1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          },
+          {
+            "primitive": "rise",
+            "offset": [
+              1.0,
+              -1.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "smooth"
+          }
+        ],
+        "action": "fixed"
+      },
+      "upper_loop": {
+        "strokes": [
+          {
+            "primitive": "loop",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "terminal": {
+        "strokes": [
+          {
+            "primitive": "exit",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      },
+      "shoulder": {
+        "strokes": [
+          {
+            "primitive": "upper-return",
+            "offset": [
+              0.0,
+              0.0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0.0,
+            "transition": "start"
+          }
+        ],
+        "action": "fixed"
+      }
+    },
+    "actions": {
+      "fixed": {
+        "frame": "physical-y-down",
+        "orientation": [
+          [
+            0,
+            40
+          ],
+          [
+            1,
+            40
+          ]
+        ],
+        "edge": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "pressure": 0.5,
+        "speed_mm_s": 12
+      }
+    }
+  },
+  "prerequisites": {
+    "status": "pass",
+    "scope": "accepted pre-audit motion and original primitive lineage",
+    "fresh_post_compiler_baseline_required": true
+  }
+}

@@ -1,0 +1,995 @@
+{
+  "hypotheses": [
+    {
+      "id": "stem",
+      "status": "existing",
+      "gesture": "stem",
+      "curvature": "predominantly straight descending",
+      "counter": "none",
+      "debt": "Declared directions differ from actual frozen tangents; actual ports govern attachment",
+      "reference_entry_direction": [
+        0.0,
+        -1.0
+      ],
+      "reference_exit_direction": [
+        0.0,
+        -1.0
+      ],
+      "reference_closed": false,
+      "reference_match_claimed": false,
+      "expanded_count": 1,
+      "expansion": [
+        "stem"
+      ],
+      "entry": [
+        0.0,
+        1.0
+      ],
+      "exit": [
+        0.0,
+        0.0
+      ],
+      "entry_direction": [
+        0.06651901052377392,
+        -0.997785157856609
+      ],
+      "exit_direction": [
+        0.03701166050988025,
+        -0.9993148337667671
+      ],
+      "contact_topology": "one continuous gesture",
+      "port_errors": 0,
+      "joins": []
+    },
+    {
+      "id": "rise",
+      "status": "existing",
+      "gesture": "rise",
+      "curvature": "rising diagonal",
+      "counter": "none",
+      "debt": "No claim of arbitrary vertical rise under existing rotations",
+      "reference_entry_direction": [
+        0.48191874977215593,
+        0.876215908676647
+      ],
+      "reference_exit_direction": [
+        0.4819187497721558,
+        0.876215908676647
+      ],
+      "reference_closed": false,
+      "reference_match_claimed": false,
+      "expanded_count": 1,
+      "expansion": [
+        "rise"
+      ],
+      "entry": [
+        0.0,
+        0.0
+      ],
+      "exit": [
+        0.5,
+        1.0
+      ],
+      "entry_direction": [
+        0.30477572710378376,
+        0.9524241471993242
+      ],
+      "exit_direction": [
+        0.46574643283262235,
+        0.8849182223819824
+      ],
+      "contact_topology": "one continuous gesture",
+      "port_errors": 0,
+      "joins": []
+    },
+    {
+      "id": "underturn",
+      "status": "untrained-extension",
+      "gesture": "underturn",
+      "curvature": "lower return",
+      "counter": "open channel",
+      "debt": "New lower return requires fitting and independent acceptance",
+      "reference_entry_direction": [
+        0.0,
+        -1.0
+      ],
+      "reference_exit_direction": [
+        0.0,
+        1.0
+      ],
+      "reference_closed": false,
+      "reference_match_claimed": false,
+      "expanded_count": 3,
+      "expansion": [
+        "stem",
+        "lower-return",
+        "rise"
+      ],
+      "entry": [
+        0.0,
+        1.0
+      ],
+      "exit": [
+        1.0,
+        1.0
+      ],
+      "entry_direction": [
+        0.06651901052377392,
+        -0.997785157856609
+      ],
+      "exit_direction": [
+        0.46574643283262235,
+        0.8849182223819824
+      ],
+      "contact_topology": "one continuous gesture",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "stem",
+          "to": "lower-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0000000000000002,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "lower-return",
+          "to": "rise",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "overturn",
+      "status": "untrained-extension",
+      "gesture": "overturn",
+      "curvature": "upper return",
+      "counter": "open arch",
+      "debt": "New upper return requires fitting and independent acceptance",
+      "reference_entry_direction": [
+        0.0,
+        1.0
+      ],
+      "reference_exit_direction": [
+        0.0,
+        -1.0
+      ],
+      "reference_closed": false,
+      "reference_match_claimed": false,
+      "expanded_count": 3,
+      "expansion": [
+        "rise",
+        "upper-return",
+        "stem"
+      ],
+      "entry": [
+        0.0,
+        0.0
+      ],
+      "exit": [
+        1.0,
+        0.0
+      ],
+      "entry_direction": [
+        0.30477572710378376,
+        0.9524241471993242
+      ],
+      "exit_direction": [
+        0.0370116605098803,
+        -0.9993148337667671
+      ],
+      "contact_topology": "one continuous gesture",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "rise",
+          "to": "upper-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "upper-return",
+          "to": "stem",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "compound_curve",
+      "status": "untrained-extension",
+      "gesture": "compound_curve",
+      "curvature": "upper and lower reversal",
+      "counter": "open channels",
+      "debt": "Shared four-piece hypothesis, not an accepted m recipe",
+      "reference_entry_direction": [
+        0.0,
+        1.0
+      ],
+      "reference_exit_direction": [
+        0.0,
+        1.0
+      ],
+      "reference_closed": false,
+      "reference_match_claimed": false,
+      "expanded_count": 4,
+      "expansion": [
+        "upper-return",
+        "stem",
+        "lower-return",
+        "rise"
+      ],
+      "entry": [
+        0.0,
+        0.0
+      ],
+      "exit": [
+        1.5,
+        0.0
+      ],
+      "entry_direction": [
+        0.4657464328326224,
+        0.8849182223819824
+      ],
+      "exit_direction": [
+        0.46574643283262235,
+        0.8849182223819824
+      ],
+      "contact_topology": "one continuous gesture",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "upper-return",
+          "to": "stem",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "stem",
+          "to": "lower-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0000000000000002,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "lower-return",
+          "to": "rise",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "id": "left_bowl",
+      "status": "unsupported",
+      "gesture": null,
+      "curvature": "opposite bowl",
+      "counter": "open left-side bowl",
+      "debt": "Existing bowl bulges in the opposite direction; reflection/180-degree rotation forbidden",
+      "reference_entry_direction": [
+        -1.0,
+        0.0
+      ],
+      "reference_exit_direction": [
+        1.0,
+        0.0
+      ],
+      "reference_closed": false,
+      "reference_match_claimed": false,
+      "expanded_count": null,
+      "expansion": [],
+      "port_errors": null,
+      "contact_topology": "unsupported"
+    },
+    {
+      "id": "upper_loop",
+      "status": "existing-primitive-only",
+      "gesture": "upper_loop",
+      "curvature": "closed upper loop",
+      "counter": "requires ink-level evaluation",
+      "debt": "Primitive topology exists; l attachment and counter preservation remain unaccepted",
+      "reference_entry_direction": [
+        -0.27472112789737807,
+        0.961523947640823
+      ],
+      "reference_exit_direction": [
+        -0.3939192985791677,
+        -0.9191450300180579
+      ],
+      "reference_closed": true,
+      "reference_match_claimed": false,
+      "expanded_count": 1,
+      "expansion": [
+        "loop"
+      ],
+      "entry": [
+        0.0,
+        0.0
+      ],
+      "exit": [
+        0.0,
+        0.0
+      ],
+      "entry_direction": [
+        -0.3877727894009453,
+        0.9217549911989683
+      ],
+      "exit_direction": [
+        -0.5456731714374324,
+        -0.8379980847074856
+      ],
+      "contact_topology": "one continuous gesture",
+      "port_errors": 0,
+      "joins": []
+    },
+    {
+      "id": "lower_loop",
+      "status": "unsupported",
+      "gesture": null,
+      "curvature": "closed descending loop",
+      "counter": "closed lower counter",
+      "debt": "Existing upper loop cannot become a descender through allowed transforms",
+      "reference_entry_direction": [
+        0.3939192985791677,
+        -0.9191450300180579
+      ],
+      "reference_exit_direction": [
+        0.27472112789737807,
+        0.961523947640823
+      ],
+      "reference_closed": true,
+      "reference_match_claimed": false,
+      "expanded_count": null,
+      "expansion": [],
+      "port_errors": null,
+      "contact_topology": "unsupported"
+    }
+  ],
+  "characters": [
+    {
+      "character": "i",
+      "status": "construction",
+      "gestures": [
+        "stem",
+        "terminal"
+      ],
+      "expanded": 2,
+      "topology": "two explicit contacts; supplied stem-terminal scaffold",
+      "debt": "Not trained letter construction or historical reading",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "stem",
+          "to": "exit",
+          "transition": "lift",
+          "gap_xheight": 0.0,
+          "tangent_dot": -0.10468478451804275,
+          "contact_port_required": false,
+          "pass": true
+        }
+      ],
+      "expansion": [
+        "stem",
+        "exit"
+      ],
+      "occurrences": [
+        "0:0",
+        "0:1"
+      ]
+    },
+    {
+      "character": "n",
+      "status": "construction",
+      "gestures": [
+        "stem",
+        "overturn"
+      ],
+      "expanded": 4,
+      "topology": "stem plus lifted three-piece arch",
+      "debt": "Upper return untrained",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "stem",
+          "to": "rise",
+          "transition": "lift",
+          "gap_xheight": 0.0,
+          "tangent_dot": -0.9404913225907305,
+          "contact_port_required": false,
+          "pass": true
+        },
+        {
+          "from": "rise",
+          "to": "upper-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "upper-return",
+          "to": "stem",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        }
+      ],
+      "expansion": [
+        "stem",
+        "rise",
+        "upper-return",
+        "stem"
+      ],
+      "occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3"
+      ]
+    },
+    {
+      "character": "u",
+      "status": "construction",
+      "gestures": [
+        "underturn",
+        "stem"
+      ],
+      "expanded": 4,
+      "topology": "continuous three-piece lower return plus lifted downstroke",
+      "debt": "Lower return untrained",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "stem",
+          "to": "lower-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0000000000000002,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "lower-return",
+          "to": "rise",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "rise",
+          "to": "stem",
+          "transition": "lift",
+          "gap_xheight": 0.0,
+          "tangent_dot": -0.8519772763425927,
+          "contact_port_required": false,
+          "pass": true
+        }
+      ],
+      "expansion": [
+        "stem",
+        "lower-return",
+        "rise",
+        "stem"
+      ],
+      "occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3"
+      ]
+    },
+    {
+      "character": "m",
+      "status": "construction",
+      "gestures": [
+        "overturn",
+        "overturn"
+      ],
+      "expanded": 6,
+      "topology": "two explicit lifted arches",
+      "debt": "Not a continuous seven-piece alternative; no claim of learned m",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "rise",
+          "to": "upper-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "upper-return",
+          "to": "stem",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "stem",
+          "to": "rise",
+          "transition": "lift",
+          "gap_xheight": 0.0,
+          "tangent_dot": -0.9404913225907304,
+          "contact_port_required": false,
+          "pass": true
+        },
+        {
+          "from": "rise",
+          "to": "upper-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "upper-return",
+          "to": "stem",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        }
+      ],
+      "expansion": [
+        "rise",
+        "upper-return",
+        "stem",
+        "rise",
+        "upper-return",
+        "stem"
+      ],
+      "occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3",
+        "0:4",
+        "0:5"
+      ]
+    },
+    {
+      "character": "r",
+      "status": "partial",
+      "gestures": [
+        "stem",
+        "shoulder"
+      ],
+      "expanded": 2,
+      "topology": "stem/shoulder fragment only",
+      "debt": "Shoulder-to-terminal form and reading unresolved; no r recipe admitted",
+      "port_errors": null,
+      "joins": [],
+      "expansion": []
+    },
+    {
+      "character": "o",
+      "status": "unsupported",
+      "gestures": [],
+      "expanded": null,
+      "topology": "closed counter required",
+      "debt": "Opposite-bowl/closure pairing missing; upper loop is not an o alias",
+      "port_errors": null,
+      "joins": [],
+      "expansion": []
+    },
+    {
+      "character": "a",
+      "status": "unsupported",
+      "gestures": [],
+      "expanded": null,
+      "topology": "counter plus downstroke required",
+      "debt": "Counter construction/attachment missing",
+      "port_errors": null,
+      "joins": [],
+      "expansion": []
+    },
+    {
+      "character": "d",
+      "status": "unsupported",
+      "gestures": [],
+      "expanded": null,
+      "topology": "counter plus ascender required",
+      "debt": "Counter construction/attachment missing",
+      "port_errors": null,
+      "joins": [],
+      "expansion": []
+    },
+    {
+      "character": "e",
+      "status": "unsupported",
+      "gestures": [],
+      "expanded": null,
+      "topology": "eye and entry/crossing required",
+      "debt": "Eye/counter and ordered crossing unresolved",
+      "port_errors": null,
+      "joins": [],
+      "expansion": []
+    },
+    {
+      "character": "l",
+      "status": "partial",
+      "gestures": [
+        "upper_loop",
+        "stem"
+      ],
+      "expanded": 2,
+      "topology": "loop/downstroke fragment",
+      "debt": "Loop attachment and preserved ink counter unproven; no l recipe admitted",
+      "port_errors": null,
+      "joins": [],
+      "expansion": []
+    },
+    {
+      "character": "h",
+      "status": "construction",
+      "gestures": [
+        "stem",
+        "overturn"
+      ],
+      "expanded": 4,
+      "topology": "1.5-scale ascender plus lifted arch",
+      "debt": "Untrained upper return; existing scale bound retained",
+      "port_errors": 0,
+      "joins": [
+        {
+          "from": "stem",
+          "to": "rise",
+          "transition": "lift",
+          "gap_xheight": 0.0,
+          "tangent_dot": -0.9404913225907305,
+          "contact_port_required": false,
+          "pass": true
+        },
+        {
+          "from": "rise",
+          "to": "upper-return",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        },
+        {
+          "from": "upper-return",
+          "to": "stem",
+          "transition": "smooth",
+          "gap_xheight": 0.0,
+          "tangent_dot": 1.0,
+          "contact_port_required": true,
+          "pass": true
+        }
+      ],
+      "expansion": [
+        "stem",
+        "rise",
+        "upper-return",
+        "stem"
+      ],
+      "occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3"
+      ]
+    },
+    {
+      "character": "g",
+      "status": "unsupported",
+      "gestures": [],
+      "expanded": null,
+      "topology": "body and descender loop required",
+      "debt": "Lower loop and counter inventory missing",
+      "port_errors": null,
+      "joins": [],
+      "expansion": []
+    }
+  ],
+  "primitive_ports": {
+    "stem": {
+      "declared_entry": [
+        0.7071067811865475,
+        -0.7071067811865475
+      ],
+      "declared_exit": [
+        0.5144957554275265,
+        -0.8574929257125441
+      ],
+      "actual_entry": [
+        0.06651901052377392,
+        -0.997785157856609
+      ],
+      "actual_exit": [
+        0.03701166050988025,
+        -0.9993148337667671
+      ],
+      "start": [
+        0,
+        1
+      ],
+      "end": [
+        0,
+        0
+      ],
+      "closed": false
+    },
+    "rise": {
+      "declared_entry": [
+        -0.3713906763541038,
+        0.9284766908852594
+      ],
+      "declared_exit": [
+        0.894427190999916,
+        0.44721359549995787
+      ],
+      "actual_entry": [
+        0.30477572710378376,
+        0.9524241471993242
+      ],
+      "actual_exit": [
+        0.46574643283262235,
+        0.8849182223819824
+      ],
+      "start": [
+        0,
+        0
+      ],
+      "end": [
+        0.5,
+        1
+      ],
+      "closed": false
+    },
+    "bowl": {
+      "declared_entry": [
+        0.9965457582448797,
+        -0.08304547985373996
+      ],
+      "declared_exit": [
+        -0.9761870601839527,
+        -0.21693045781865616
+      ],
+      "actual_entry": [
+        0.9756684143216707,
+        -0.21925132906104955
+      ],
+      "actual_exit": [
+        -0.4856429311786321,
+        -0.8741572761215377
+      ],
+      "start": [
+        0,
+        1
+      ],
+      "end": [
+        0.65,
+        0
+      ],
+      "closed": false
+    },
+    "turn": {
+      "declared_entry": [
+        -0.31622776601683794,
+        0.9486832980505138
+      ],
+      "declared_exit": [
+        -0.2676438637860946,
+        0.9635179096299405
+      ],
+      "actual_entry": [
+        0.3546542341205386,
+        0.9349975263177835
+      ],
+      "actual_exit": [
+        0.06579121391419582,
+        0.9978334110319701
+      ],
+      "start": [
+        0,
+        0
+      ],
+      "end": [
+        0.5,
+        1
+      ],
+      "closed": false
+    },
+    "loop": {
+      "declared_entry": [
+        -0.18428853505018533,
+        0.9828721869343219
+      ],
+      "declared_exit": [
+        -0.5299989400031799,
+        -0.8479983040050879
+      ],
+      "actual_entry": [
+        -0.3877727894009453,
+        0.9217549911989683
+      ],
+      "actual_exit": [
+        -0.5456731714374324,
+        -0.8379980847074856
+      ],
+      "start": [
+        0,
+        0
+      ],
+      "end": [
+        0,
+        0
+      ],
+      "closed": true
+    },
+    "exit": {
+      "declared_entry": [
+        0.4856429311786321,
+        -0.8741572761215378
+      ],
+      "declared_exit": [
+        0.6000000000000001,
+        -0.7999999999999999
+      ],
+      "actual_entry": [
+        0.9899494936611665,
+        0.1414213562373095
+      ],
+      "actual_exit": [
+        0.832050294337844,
+        -0.5547001962252286
+      ],
+      "start": [
+        0,
+        0
+      ],
+      "end": [
+        0.45,
+        0.15
+      ],
+      "closed": false
+    },
+    "lower-return": {
+      "declared_entry": [
+        0.03701166050988025,
+        -0.9993148337667671
+      ],
+      "declared_exit": [
+        0.30477572710378376,
+        0.9524241471993242
+      ],
+      "actual_entry": [
+        0.03701166050988025,
+        -0.9993148337667672
+      ],
+      "actual_exit": [
+        0.3047757271037837,
+        0.9524241471993242
+      ],
+      "start": [
+        0,
+        0
+      ],
+      "end": [
+        0.5,
+        0
+      ],
+      "closed": false
+    },
+    "upper-return": {
+      "declared_entry": [
+        0.46574643283262235,
+        0.8849182223819824
+      ],
+      "declared_exit": [
+        0.06651901052377392,
+        -0.997785157856609
+      ],
+      "actual_entry": [
+        0.4657464328326224,
+        0.8849182223819824
+      ],
+      "actual_exit": [
+        0.0665190105237739,
+        -0.9977851578566089
+      ],
+      "start": [
+        0,
+        0
+      ],
+      "end": [
+        0.5,
+        0
+      ],
+      "closed": false
+    }
+  },
+  "selected_cap": 6,
+  "cap_checks": {
+    "4": false,
+    "5": false,
+    "6": true
+  },
+  "cap_basis": "Minimum sufficient among these frozen supplied constructions, not a universal calligraphic lower bound: m uses two explicit lifted three-primitive overturns, total six. Caps 4 and 5 reject it; 6 suffices. No macro collapse, hidden returns or requirement to accept all twelve characters.",
+  "training_permitted": false,
+  "learned_primitives_accepted": false,
+  "S1_action_accepted": false,
+  "real_hand_accepted": false,
+  "next_required": "CURRICULUM-010 must first rerun matching current-code motion/baseline validation within its new budget",
+  "status": "pass",
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+  },
+  "spec_sha256": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+  "prerequisites": {
+    "status": "pass",
+    "scope": "accepted pre-audit motion and original primitive lineage",
+    "fresh_post_compiler_baseline_required": true
+  },
+  "renders": 22,
+  "max_renders": 100,
+  "max_seconds": 900,
+  "optimization_evaluations": 0,
+  "training_renders": 0,
+  "target_renders": 0,
+  "scope": "nominal synthetic construction audit, not actual motion or learned acceptance",
+  "artifacts": {
+    "audit.md": "8243897e45dfe5d9b1cc30e3f4d734c0b8b85eb1bb874961027ec530f94ee298",
+    "construction-checklist.png": "eb1edccb5db38b285f34064e371ec071cc422b9afeb2440917fdf374e51faf5f",
+    "freeze.json": "de81a4587bc61a3e9be8310f0e53ea86c7be64f2a72480b059ebf0e0776e3efe",
+    "gesture-expansions.png": "f45b4d28ff01b12318ccfc206bd1a298f1de00fe2d548bcb7a26c3949bbb1555",
+    "initial-model.json": "db822bf5d38f3a8651df7c1b57ae670a0e4a8c5333fb1d55cd33413f8882957b",
+    "primitive-ports.png": "8de03f49dc5c848c3f852a1f8f61e6851715ae163ce8912354fe013972d3b11a",
+    "target-specs.json": "820e5ce78e9688398ca860184e67f2b31d4e76d972bd9884e6bbe836eaf448eb"
+  }
+}
