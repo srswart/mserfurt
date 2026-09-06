@@ -68,13 +68,14 @@ def test_wrap_is_unwrapped_and_constant_tool_required():
 
 
 def test_bridge_proofs_record_failures_without_granting_acceptance(tmp_path):
-    from scribesim.handvalidate.action_bridge import build
+    from scribesim.handvalidate.action_bridge import build, fixture_models
 
     report = build(tmp_path / 'proofs')
     assert report['scope'].startswith('analytic')
     assert not report['S1_action_accepted']
     assert report['renders'] <= 100
     assert report['forced_lag_detected']
+    assert load_actions(tmp_path / 'proofs/fixed-bundle.json', fixture_models()['fixed']).text == 'i u'
 
 
 def test_partition_and_edge_side_change_do_not_move_the_centerline():
