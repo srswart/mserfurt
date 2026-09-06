@@ -5,7 +5,7 @@ advance:
   system: "scribesim"
   primary_component: "curriculum"
   components: ["curriculum","gesture","evo","handflow","handvalidate","tests"]
-  started_at: "2026-09-06T16:02:10Z"
+  started_at: "2026-09-06T20:35:04Z"
   implementation_completed_at: ~
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,9 @@ advance:
 Actually fit the missing return primitives on independent synthetic targets while preserving the old six primitives, fixed tool and repaired execution.
 
 **Work kind:** Learning implementation and bounded experiment. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
-Timestamp records drafting only; implementation, experiments, CI and review are not claimed.
+Implementation started under the user's complete-and-merge workflow. Completion
+requires executed, admitted-input learning and all stated learning gates; no
+independent acceptance or human appearance approval is implied.
 
 ## Behavioral Change
 
@@ -114,4 +116,3 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
-
