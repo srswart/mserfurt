@@ -257,11 +257,20 @@ def revalidate_baseline(budget, *, root=LOWER, version='event-time-v2'):
 
 
 def decide_motion(checks, baseline):
-    passed = bool(checks) and all(value is True for value in checks.values())
-    return {'status': 'pass' if passed and baseline['status'] == 'pass' else 'fail',
+    required = {f'{name}:{label}:{metric}' for name in SPEC['fixture_families']
+                for label in ('base', 'arc', 'time', 'subdivision')
+                for metric in ('time', 'corridor', 'image', 'ownership', 'no_projection')}
+    required.update(f'{name}:{label}:convergence' for name in SPEC['fixture_families']
+                    for label in ('arc', 'time', 'subdivision'))
+    required.update(('physical:arc', 'physical:time', 'physical:tracking'))
+    passed = set(checks) == required and all(value is True for value in checks.values())
+    current_baseline = (baseline.get('status') == 'pass' and baseline.get('current_code_sha256') == identities()
+                        and baseline.get('historical_sha256') == LOWER_HASHES)
+    return {'status': 'pass' if passed and current_baseline else 'fail',
             'failed_checks': sorted(key for key, value in checks.items() if value is not True),
-            'baseline_admitted': passed and baseline['status'] == 'pass',
-            'primitive_training_permitted': passed and baseline['status'] == 'pass',
+            'complete_check_set': set(checks) == required,
+            'baseline_admitted': passed and current_baseline,
+            'primitive_training_permitted': passed and current_baseline,
             'S1_action_accepted': False, 'real_hand_accepted': False}
 
 

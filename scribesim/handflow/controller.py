@@ -247,6 +247,9 @@ class GuidedHandFlowController:
                 raise ValueError("Finite nonnegative execution times required")
         if dt <= 0 or not plan.samples or plan.samples[0].t_s != 0:
             raise ValueError("Positive dt and a nonempty zero-origin plan required")
+        required_steps = plan.total_time_s / dt + settle_time_s / dt
+        if not math.isfinite(required_steps) or required_steps + len(plan.samples) > 1000000:
+            raise ValueError("Execution step budget exceeded")
         for sample in plan.samples:
             if any(not math.isfinite(getattr(sample, field.name)) for field in fields(sample)):
                 raise ValueError("Nonfinite plan state")
