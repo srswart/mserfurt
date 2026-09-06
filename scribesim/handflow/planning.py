@@ -3,10 +3,135 @@
 from __future__ import annotations
 
 import math
+from dataclasses import dataclass, fields, replace
 
 from scribesim.pathguide import DensePathGuide
 
 from .model import TrackPlan, TrackPlanSample
+
+
+AIR_BRAKING_VERSION = "braked-air-v1"
+
+
+@dataclass(frozen=True)
+class BrakedPlan:
+    plan: TrackPlan
+    source_indices: tuple[int, ...]
+    arrivals: tuple[dict, ...]
+    version: str = AIR_BRAKING_VERSION
+
+
+def _contact_clock(distance, length, stop):
+    acceleration = 250.0
+    peak = min(12.0, math.sqrt(acceleration * length)) if stop else 12.0
+    ramp = peak ** 2 / (2 * acceleration)
+    if stop and distance >= length - ramp:
+        remaining = max(0.0, length - distance)
+        duration = 2 * peak / acceleration + (length - 2 * ramp) / peak if peak else 0
+        return duration - math.sqrt(2 * remaining / acceleration), math.sqrt(2 * acceleration * remaining)
+    if distance <= ramp:
+        return math.sqrt(2 * distance / acceleration), math.sqrt(2 * acceleration * distance)
+    return peak / acceleration + (distance - ramp) / peak, peak
+
+
+def retime_air_braking(plan: TrackPlan) -> BrakedPlan:
+    """Opt-in fixed-tool braking, rest-to-rest air travel and contact acceleration."""
+    if not plan.samples or not plan.samples[0].contact or not plan.samples[-1].contact:
+        raise ValueError("Braking requires complete contact-bounded input")
+    first = plan.samples[0]
+    for sample in plan.samples:
+        if any(not math.isfinite(getattr(sample, field.name)) for field in fields(sample)):
+            raise ValueError("Nonfinite braking input")
+        if sample.nib_angle_deg != first.nib_angle_deg or any(
+                getattr(sample, name, None) != getattr(first, name, None) for name in ('edge_start', 'edge_end')):
+            raise ValueError("Braking requires a fixed tool profile")
+        if sample.contact and sample.speed_mm_s not in (0, 12):
+            raise ValueError("Braking requires the frozen nominal contact speed")
+    if first.t_s != 0 or any(after.t_s < before.t_s for before, after in zip(plan.samples, plan.samples[1:])):
+        raise ValueError("Braking requires ordered zero-origin time")
+    acceleration, air_speed, sample_time = 250.0, 16.2, .001
+    samples, indices, arrivals = [], [], []
+    elapsed, arc, contact_distance = 0.0, 0.0, 0.0
+
+    def append(source, index, **changes):
+        nonlocal arc
+        if len(samples) >= 100000:
+            raise ValueError("Braking plan sample budget exceeded")
+        point = replace(source, **changes)
+        if samples:
+            arc += math.dist((samples[-1].x_mm, samples[-1].y_mm), (point.x_mm, point.y_mm))
+        samples.append(replace(point, arc_length_mm=arc))
+        indices.append(index)
+
+    cursor = 0
+    pending_arrival = None
+    while cursor < len(plan.samples):
+        source = plan.samples[cursor]
+        if source.contact:
+            beginning = cursor == 0 or not plan.samples[cursor - 1].contact
+            if beginning:
+                contact_distance, speed = 0.0, 0.0
+                contact_start = elapsed
+                contact_end = cursor
+                while contact_end + 1 < len(plan.samples) and plan.samples[contact_end + 1].contact:
+                    contact_end += 1
+                contact_length = sum(math.dist((before.x_mm, before.y_mm), (after.x_mm, after.y_mm))
+                                     for before, after in zip(plan.samples[cursor:contact_end], plan.samples[cursor + 1:contact_end + 1]))
+                stop = plan.samples[contact_end].speed_mm_s == 0
+            else:
+                previous = samples[-1]
+                distance = math.dist((previous.x_mm, previous.y_mm), (source.x_mm, source.y_mm))
+                contact_distance += distance
+                local_time, speed = _contact_clock(contact_distance, contact_length, stop)
+                elapsed = contact_start + local_time
+            ratio = speed / source.speed_mm_s if source.speed_mm_s else 0
+            append(source, cursor, t_s=elapsed, speed_mm_s=speed,
+                   vx_mm_s=source.vx_mm_s * ratio, vy_mm_s=source.vy_mm_s * ratio)
+            if pending_arrival is not None:
+                arrivals.append({**pending_arrival, 'entry_time_s': elapsed, 'plan_index': len(samples) - 1})
+                pending_arrival = None
+            cursor += 1
+            continue
+        end = cursor
+        while not plan.samples[end].contact:
+            end += 1
+        entry = plan.samples[end]
+        previous = samples[-1]
+        origin = previous.x_mm, previous.y_mm
+        velocity = previous.vx_mm_s, previous.vy_mm_s
+        duration = math.hypot(*velocity) / acceleration
+        lift_time = elapsed
+        append(source, cursor, t_s=elapsed, x_mm=origin[0], y_mm=origin[1],
+               vx_mm_s=velocity[0], vy_mm_s=velocity[1], speed_mm_s=math.hypot(*velocity), pressure=0)
+        steps = max(1, math.ceil(duration / sample_time))
+        for step in range(1, steps + 1):
+            fraction = step / steps
+            local_time = duration * fraction
+            append(source, cursor, t_s=elapsed + local_time,
+                   x_mm=origin[0] + velocity[0] * local_time * (1 - fraction / 2),
+                   y_mm=origin[1] + velocity[1] * local_time * (1 - fraction / 2),
+                   vx_mm_s=velocity[0] * (1 - fraction), vy_mm_s=velocity[1] * (1 - fraction),
+                   speed_mm_s=math.hypot(*velocity) * (1 - fraction), pressure=0)
+        elapsed += duration
+        stopped = samples[-1]
+        displacement = entry.x_mm - stopped.x_mm, entry.y_mm - stopped.y_mm
+        length = math.hypot(*displacement)
+        travel = max(1.875 * length / air_speed, math.sqrt(10 / math.sqrt(3) * length / acceleration), sample_time)
+        steps = math.ceil(travel / sample_time)
+        for step in range(1, steps + 1):
+            fraction = step / steps
+            position = fraction ** 3 * (10 - 15 * fraction + 6 * fraction ** 2)
+            rate = 30 * fraction ** 2 * (1 - fraction) ** 2 / travel
+            append(plan.samples[end - 1], end - 1, t_s=elapsed + travel * fraction,
+                   x_mm=entry.x_mm if step == steps else stopped.x_mm + displacement[0] * position,
+                   y_mm=entry.y_mm if step == steps else stopped.y_mm + displacement[1] * position,
+                   vx_mm_s=displacement[0] * rate, vy_mm_s=displacement[1] * rate,
+                   speed_mm_s=length * rate, pressure=0)
+        elapsed += travel
+        pending_arrival = {'lift_time_s': lift_time, 'brake_time_s': duration, 'travel_time_s': travel,
+                           'planned_air_acceleration_max_mm_s2': acceleration, 'source_entry_index': end}
+        cursor = end
+    return BrakedPlan(replace(plan, samples=tuple(samples)), tuple(indices), tuple(arrivals))
 
 
 def build_track_plan(

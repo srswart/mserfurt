@@ -1,9 +1,11 @@
 # Required additional scope — feasible air braking and contact re-entry
 
-**Proposal only; not authorized as an extra experiment, not implemented, and not
-a third permitted attempt under HANDFLOW-010.** The two allowed attempts are
-retained. HANDFLOW-010 remains in progress; GESTURE-002 and all later foundation
-Advances remain planned. No merge should represent this as a completed repair.
+**Authorized follow-up:** the user requested “Let's do the next required fix.”
+The additional allowance is now registered in [spec-v3.json](spec-v3.json): one
+fixed braking candidate, 500 renders or 1800 seconds, zero optimization and no
+automatic revision. This is a separate authorized scope, not a silent extension
+of the two retained attempts. Implementation/acceptance is recorded in the
+Advance and the new run; later foundation learning remains outside this follow-up.
 
 ## Established result
 
