@@ -1,6 +1,6 @@
 # TD-018 Addendum A — Stroke Gestures and Intentional Pen Actions
 
-**Status:** design and nine supporting Advances planned; gesture/action implementation and acceptance are pending.
+**Status:** both investigation Advances complete; seven supporting Advances remain planned. Gesture/action implementation and acceptance are pending.
 
 **Date:** 2026-09-06
 
@@ -28,7 +28,7 @@ synthetic S0/S1 results remain valid only for their frozen fixed-tool scope. No
 new gesture gate, real-source training or owner appearance approval is claimed.
 Existing Advance IDs and completion records remain unchanged. The planning
 follow-up adds nine prerequisites to Pass 15, now twenty-eight Advances:
-eleven implementation outcomes complete and seventeen planned. Section 10
+thirteen outcomes complete and fifteen planned. Section 10
 records the new phases and downstream dependency changes, not gate passes.
 
 ## 2. Resources and evidence boundaries
@@ -335,7 +335,8 @@ deletion of unsuccessful experiments is authorized by this design.
 
 ## 10. Planned Advances and delivery contract
 
-All nine new records are **planned**, not executed. The current repository
+Of the nine supporting records, the two investigations are **complete** and
+seven remain planned; investigation completion is not layer acceptance. The current repository
 template capability does not support typed investigation/evaluation profiles;
 each record states its work kind explicitly in its Objective without upgrading
 governance or inventing unsupported frontmatter. Existing completed records and
@@ -423,7 +424,7 @@ reservoir/optical-ink work after real layered acceptance and explicit go-ahead.
 ### Evidence delivery and decision rules
 
 New evidence uses `shared/training/konrad_hand_recovery/stroke_gestures_v2/`
-(a planned artifact namespace, not a claim that the schema is implemented).
+(an artifact namespace, not a claim that the gesture schema is implemented).
 Each stage publishes immutable run subdirectories and a README with exact
 replay commands and clickable equal-scale sample panels:
 
@@ -458,3 +459,36 @@ for its covered inventory. A needed but unsupported action, failed actual
 tracking, missing reference support or unreviewed appearance stays blocked.
 Neither a completed evaluation nor a synthetic pass authorizes real letters,
 fatigue, folios or a renderer-default change.
+
+### Investigation outcomes — 2026-09-06
+
+Both `td018-gesture-investigation` Advances are complete with local clean-clone
+replay, not real-hand acceptance. The [sample and evidence index](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
+separates analytic fixtures from trained strokes and executed actions.
+
+- **EXEMPLAR-009:** 52 non-test metadata/mask records audited, no new visual
+  reading or annotation; zero admitted real inventory. Eight synthetic gesture
+  hypotheses and composition/scale transfer specifications are frozen. They
+  do not establish v1 primitive compatibility. Two overturns for m exceed the
+  existing four-primitive letter cap; missing families/compatibility must be
+  resolved or separately scoped before CURRICULUM-008 fits anything.
+- **G0:** sufficient blockers were recomputed with the benchmark evaluator;
+  full dataset integrity is explicitly unverified because its current validator
+  decodes locked source/test pixels. This investigation does not open them.
+  Missing reviews, mappings and admitted repeat calibration remain blocked;
+  follow-up annotation/acquisition is proposed, not silently performed.
+- **NIBCONTACT-001:** a declared synthetic tool contract was committed before
+  trials. Three fixture families required 29 renders, 0.2034 seconds and no
+  optimization. The existing controller copies an angle step at 2000deg/s
+  rather than enforcing the frozen 180deg/s bound; active-edge state is absent
+  throughout the guide/plan/controller/trajectory chain. Renderer thickness
+  and pressure/optical coupling also need the already planned versioned work.
+- **Evaluation finding:** the frozen global image-sensitivity minimum is 0.1.
+  Hidden-connector and overbuilt-terminal controls score only 0.0102 and 0.0966.
+  Preserve those failures. Later evaluation must additionally reject undeclared
+  contacts/contributors and test local attachment/counter regions with criteria
+  frozen before new candidates, not lower this threshold after the result.
+- **Next:** `td018-gestures`, starting with versioned representation and explicit
+  compatibility. These investigations authorize neither action learning nor
+  reference-grounded fitting. Physical tool calibration and all session effects
+  remain outside the completed scope.

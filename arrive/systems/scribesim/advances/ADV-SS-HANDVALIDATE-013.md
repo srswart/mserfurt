@@ -55,6 +55,7 @@ downstream execution; synthetic demonstrations never authorize real fitting.
 - [ ] Replay all three selected seed checkpoints in fresh processes. Check continuous versus repartitioned execution, explicit lifts, overlap contributors, exact text and shared-primitive/gesture propagation.
 - [ ] Compare initial/fitted nominal, sampled desired and actual controller footprints at equal scale. Measure contact schedule, endpoints, corridor/counter preservation and frozen segmentation/timestep convergence tolerances.
 - [ ] Run undeclared-lift, detached per-letter geometry, overbuilt-terminal and erased-counter controls. A shape metric that cannot distinguish them blocks acceptance.
+- [ ] Consume the frozen NIBCONTACT-001 failed controls: hidden connector 0.0102 and overbuilt terminal 0.0966 are below the unchanged global 0.1 sensitivity minimum. Predeclare local attachment/counter and exact contact/contributor checks before new candidates; global similarity alone cannot pass them.
 - [ ] Score the frozen held-out construction fixtures without new optimization. Use the common evaluation replay/budget contract; record actual work and stop on the first unmet prerequisite.
 - [ ] Publish a browsable sample index, coverage debt, S1-gesture synthetic/real scopes and the readiness decision. Current blocked G0 must not be repaired by reusing test images or treating owner silence as approval.
 - [ ] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
@@ -103,4 +104,3 @@ diagnosis and bounded repair; unrelated changes and threshold relaxation are exc
 
 1. Which checks distinguish continuous gesture learning from primitive demos and renderer playback?
 2. Why can a completed evaluation still block the next training stage?
-

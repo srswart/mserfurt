@@ -6,16 +6,16 @@ advance:
   primary_component: "nibcontact"
   components: ["nibcontact","gesture","evo","pathguide","handflow","handvalidate","tests"]
   started_at: "2026-09-06T12:03:29Z"
-  implementation_completed_at: ~
+  implementation_completed_at: "2026-09-06T12:55:46Z"
   review_time_estimate_minutes: 30
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: []
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit", "tests:integration", "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/run-001/freeze.json"]
   model_usage: []
-  status: in_progress
+  status: complete
 ---
 
 ## Objective
@@ -23,8 +23,8 @@ advance:
 Freeze a testable broad-edge footprint/action contract and determine which intentional actions are identifiable, representable and worth testing, without attributing unobserved force laws to a historical quill.
 
 **Work kind:** Investigation. Follows [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md), including its [delivery and budget contract](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
-Investigation probes executed against the contract committed before trials;
-clean-checkout validation is pending. No gate pass or physical calibration is claimed.
+Investigation and clean-checkout replay complete against the contract committed
+before trials. No S1-action pass, physical calibration or human approval is claimed.
 
 ## Behavioral Change
 
@@ -52,23 +52,23 @@ downstream execution; synthetic demonstrations never authorize real fitting.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm authorization before creating branches or commits.
-- [ ] tidy: assess narrow preparation; record any required behavior-preserving refactor separately.
-- [ ] test: add failing tests before any new or changed tooling; record red/green evidence. For investigation-only runs, record why code changes and TDD are not applicable rather than fabricating test evidence.
-- [ ] Audit the canonical swept-nib, direct/sampled/actual bridges, pressure/darkness coupling and controller orientation/contact fields. Identify desired fields that currently lack a realized state; publish an explicit implementation gap table.
-- [ ] Specify a fixed adequate-ink, constant dimensionless-pressure/speed baseline; declare nib width/thickness, coordinate frame, unwrapped angles, active-edge endpoint fractions and angular/contact-rate bounds. Calibrated physical measurements and declared synthetic assumptions must be labeled separately.
-- [ ] Freeze analytic or independently constructed footprint expectations for fixed-angle lines/arcs, rotation, left/right edge release, wraps, y-axis conversion, explicit lifts and two-pass terminals. Do not validate a new renderer solely against images produced by that same renderer.
-- [ ] Freeze numeric image/edge endpoint, pose/contact, counter and timestep/arc-length convergence tolerances before implementation results are inspected; bind them to code/tool/fixture identities and describe any development-only calibration.
-- [ ] Define at most three controlled comparisons: fixed versus rotation, full versus partial edge, and declared finishing overlap. Paths are frozen for action comparisons; finishing topology is a separate structural comparison with a declared lift, not a hidden action knob.
-- [ ] Bound investigation to a code audit and at most three fixture families, 100 total diagnostic renders and 900 seconds of automated probes. No fitting or manuscript-test access. Allow one diagnosed revision; further exploration or physical tool acquisition needs a new scope/budget.
-- [ ] Classify stationary dabs and pressure-dependent deformation as supported by a separately versioned calibrated contract or explicitly deferred. The initial implementation excludes them unless this design and its Advances are revised.
-- [ ] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
+- [x] branch: confirm authorization before creating branches or commits.
+- [x] tidy: assess narrow preparation; record any required behavior-preserving refactor separately.
+- [x] test: add failing tests before any new or changed tooling; record red/green evidence. For investigation-only runs, record why code changes and TDD are not applicable rather than fabricating test evidence.
+- [x] Audit the canonical swept-nib, direct/sampled/actual bridges, pressure/darkness coupling and controller orientation/contact fields. Identify desired fields that currently lack a realized state; publish an explicit implementation gap table.
+- [x] Specify a fixed adequate-ink, constant dimensionless-pressure/speed baseline; declare nib width/thickness, coordinate frame, unwrapped angles, active-edge endpoint fractions and angular/contact-rate bounds. Calibrated physical measurements and declared synthetic assumptions must be labeled separately.
+- [x] Freeze analytic or independently constructed footprint expectations for fixed-angle lines/arcs, rotation, left/right edge release, wraps, y-axis conversion, explicit lifts and two-pass terminals. Do not validate a new renderer solely against images produced by that same renderer.
+- [x] Freeze numeric image/edge endpoint, pose/contact, counter and timestep/arc-length convergence tolerances before implementation results are inspected; bind them to code/tool/fixture identities and describe any development-only calibration.
+- [x] Define at most three controlled comparisons: fixed versus rotation, full versus partial edge, and declared finishing overlap. Paths are frozen for action comparisons; finishing topology is a separate structural comparison with a declared lift, not a hidden action knob.
+- [x] Bound investigation to a code audit and at most three fixture families, 100 total diagnostic renders and 900 seconds of automated probes. No fitting or manuscript-test access. Allow one diagnosed revision; further exploration or physical tool acquisition needs a new scope/budget.
+- [x] Classify stationary dabs and pressure-dependent deformation as supported by a separately versioned calibrated contract or explicitly deferred. The initial implementation excludes them unless this design and its Advances are revised.
+- [x] evidence: append actual commands, identities, budgets, sample paths and outcome before marking completion.
 
 ## Validation Gates
 
-- [ ] A versioned contract distinguishes mechanical pressure, shifted contact footprint and optical ink; orientation is independent of travel direction.
-- [ ] Every proposed action has explicit finite bounds, expected geometry and falsifying controls. Uncalibrated historical tool properties are marked unknown.
-- [ ] Record proceed with a declared synthetic tool model, revise, or stop; investigation completion cannot claim a physically calibrated historical pen or an action gate pass.
+- [x] A versioned contract distinguishes mechanical pressure, shifted contact footprint and optical ink; orientation is independent of travel direction.
+- [x] Every proposed action has explicit finite bounds, expected geometry and falsifying controls. Uncalibrated historical tool properties are marked unknown.
+- [x] Record proceed with a declared synthetic tool model, revise, or stop; investigation completion cannot claim a physically calibrated historical pen or an action gate pass.
 
 ## Invariant Impact
 
@@ -85,12 +85,12 @@ Review estimate: 30 minutes, not a measured reviewability score.
 
 ## Evidence
 
-- [ ] Frozen inputs, criteria and identities; complete render/time and revision ledger.
-- [ ] Readable equal-scale evidence and a reproducible command/sample index under the planned bundle.
-- [ ] Scope-qualified decision with negative/null/unresolved outcomes and genuine review only when performed.
-- [ ] Tidy assessment and TDD red/green evidence for code changes; focused tests and clean-checkout replay where applicable.
-- [ ] `arrive plan check`, changed-link checks and `git diff --check`.
-- [ ] Before authorized merge, run `arrive pr check --strict --json`; report installed-tool limitations separately from provider CI. Never claim unobserved CI or owner approval.
+- [x] Frozen inputs, criteria and identities; complete render/time and revision ledger.
+- [x] Readable equal-scale evidence and a reproducible command/sample index under the planned bundle.
+- [x] Scope-qualified decision with negative/null/unresolved outcomes and genuine review only when performed.
+- [x] Tidy assessment and TDD red/green evidence for code changes; focused tests and clean-checkout replay where applicable.
+- [x] `arrive plan check`, changed-link checks and `git diff --check`.
+- [x] Before authorized merge, run `arrive pr check --strict --json`; report installed-tool limitations separately from provider CI. Never claim unobserved CI or owner approval.
 
 ## Bug Fixes
 
@@ -103,6 +103,40 @@ diagnosis and bounded repair; unrelated changes and threshold relaxation are exc
 
 - Added to Pass 15 phase `td018-gesture-investigation`.
 - Implementation, experiments and acceptance remain pending.
+
+### 2026-09-06 — complete: Frozen tool contract and gap investigation
+
+- Red/contract freeze: `904373a`; assertion refinement: `9abd32b`;
+  green investigation tooling/evidence: `520fb5c`. No preparatory refactor
+  or canonical renderer/controller changes were needed.
+- Three fixture families, eight exercises, 29 renders in 0.2034s; no optimization,
+  revision or manuscript-image access. Fresh-process replay consumed the same
+  29 renders; test/replay runs are verification, not additional fitting trials.
+- Frozen synthetic assumptions: 0.45mm width, 0.02mm thickness, pressure 0.5,
+  speed 12mm/s, adequate ink, 180deg/s angle and 3/s edge-endpoint limits.
+  Endpoints, coordinates, finite bounds, image/tracking/convergence criteria
+  and six falsifying controls are recorded in the pre-probe spec, not tuned.
+- All four desired/actual records lack active-edge fields. A 20-degree controller
+  step over 0.01s is copied instantly (2000deg/s), failing the frozen rate bound.
+  Pressure still affects mechanical width and optical darkness. Full-edge
+  legacy replay is retained, not relabeled as the finite-thickness new mode.
+- Global mismatch distinguishes wrong orientation (0.736), swapped edges (0.479),
+  centered shrink (0.299) and filled counter (0.293). Hidden connector (0.0102)
+  and overbuilt terminal (0.0966) fail the frozen 0.1 sensitivity threshold.
+  Preserve these failures; later evaluators need local topology/ownership and
+  region checks, not threshold relaxation. No action gate was evaluated.
+- Decision: proceed with synthetic contract implementation only. Physical
+  calibration, historical behavior, dabs, pressure deformation, fatigue and
+  reservoir work remain unsupported/deferred.
+- Local focused/regression tests: 44 passed in 3.28s. Clean clone
+  `/tmp/td018-contact-clean.j9gREC` at `520fb5c`: 44 passed in 3.39s.
+  `PYTHONHASHSEED=839` replay in `/tmp/td018-contact-replay.3MExF3`
+  matches every semantic artifact byte-for-byte; only measured elapsed time
+  in `execution.json` differs.
+- Strict PR metadata check ran and failed with `ids: []` for
+  `ADV-SS-NIBCONTACT-001`, the same installed-parser limitation. No provider CI
+  or owner approval is claimed.
+- [Report, sample and replay index](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/run-001/README.md).
 
 ## Check for Understanding
 
