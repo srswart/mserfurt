@@ -51,6 +51,13 @@ def prerequisites(*, real=False):
                 reasons.append('bridge_convergence_not_passed')
         except (OSError, ValueError, KeyError, TypeError) as error:
             reasons.append('prerequisite_integrity_failed:' + relative + ':' + str(error))
+    try:
+        checkpoint = json.loads((BASE / 'gestures/run-002/candidate.json').read_text())
+        gesture = reports['gesture_evaluation/run-001/S1-gesture.json']
+        if not gesture['subset_results'] or any(row['model_sha256'] != object_digest(checkpoint) for row in gesture['subset_results']):
+            reasons.append('gesture_candidate_identity_mismatch')
+    except (OSError, ValueError, KeyError, TypeError):
+        reasons.append('gesture_candidate_identity_unverified')
     if real:
         reasons.append('live_real_G0_and_real_lower_layers_required')
     return {'status': 'blocked' if reasons else 'pass', 'reasons': sorted(set(reasons)),
