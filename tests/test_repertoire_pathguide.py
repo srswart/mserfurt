@@ -96,6 +96,7 @@ def test_sampling_convergence_and_nonfinite_tolerances():
     assert fine["metrics"]["sampled_image_loss"] <= coarse["metrics"]["sampled_image_loss"] + .02
     from scribesim.handvalidate.bridge import SYNTHETIC_BOUNDS
     limits = {**SYNTHETIC_BOUNDS, "actual_image_loss": float("nan")}
-    gate = decide_g2([{"text": "in", "metrics": fine["metrics"]}], prerequisite={"status": "pass"},
+    metrics = {**{name: 0.0 for name in SYNTHETIC_BOUNDS}, "coverage": 1, "contact_schedule_preserved": True}
+    gate = decide_g2([{"text": "in", "metrics": metrics}], prerequisite={"status": "pass"},
                      scope="real-candidate", tolerances=limits)
     assert gate["status"] != "pass"
