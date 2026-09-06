@@ -1,0 +1,80 @@
+{
+  "spec": {
+    "schema_version": "independent-fixed-tool-gesture-evaluation-v1",
+    "training": "gestures/run-002",
+    "training_identities": {
+      "freeze.json": "ff47b37caede5e62ccd9b06c28a3a6170ef8708a057fdf157ce8360fba42c263",
+      "report.json": "e843c0506920ca728afb566b646cda3cb3e6172a3bfeebe4ff5748545b3be6cf"
+    },
+    "upstream_identities": {
+      "tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+      "tool_contract/run-001/report.json": "5a4914e308a5e34b9b9c6fab14e15859ee733b09b055311291e686ee429c09ed"
+    },
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "criteria_source": "gestures/spec-v1.json criteria, inherited unchanged",
+    "dt_s": [
+      0.002,
+      0.001
+    ],
+    "arc_step_mm": [
+      0.025,
+      0.0125
+    ],
+    "dense_step_mm": 0.01,
+    "local_blank_ink_fraction_max": 0.01,
+    "attachment_roi": "expected blank pixels in fixed physical connector rectangle [1.1,1.65,1.8,2.3]mm and extra-terminal rectangle [1.7,2.6,1.65,2.6]mm; no tolerance dilation; diagnostic synthetic oracle only",
+    "connector_roi_mm": [
+      1.1,
+      1.65,
+      1.8,
+      2.3
+    ],
+    "terminal_roi_mm": [
+      1.7,
+      2.6,
+      1.65,
+      2.6
+    ],
+    "counter_roi": "circle centered at [1.5,1.5]mm with radius 0.45mm; synthetic arc-counter oracle only",
+    "topology": "zero contact/owner/contributor mismatches; expected text and full shared model identity bound before execution",
+    "negative_controls": [
+      "undeclared lift",
+      "detached geometry",
+      "overbuilt terminal",
+      "erased counter",
+      "painted air connector"
+    ],
+    "segmentation": "exact De Casteljau subdivision of the stem cubic; diagnostic equivalent path, not a new fitted primitive",
+    "max_renders_per_seed_including_replay": 5000,
+    "max_seconds_per_seed_including_replay": 1800,
+    "optimization_evaluations": 0,
+    "revision": 0,
+    "scope": "Recompute synthetic stem-terminal subset only. Broad S1-gesture remains blocked by absent returns/loops even if subset checks pass. No action fitting, real-source admission, or owner approval."
+  },
+  "spec_sha256": "5fbc75684f549535f5471e39e1090f23be58046b7898110ed1aef5c2253a9df2",
+  "code_sha256": {
+    "scribesim/evofit/stroke_gestures.py": "6cc3360e28bdf7c9792a94ea7a738cce509eaef309fb7b22ab3fb4f5d12e4560",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/evofit/stroke_language.py": "2355fdd4dc5ccd651df19bcadb3d1479697372dcbce3425122b6e903eb7e0886",
+    "scribesim/handflow/controller.py": "765a1dee89e04035e60e10bf28c8c278e03fd5def2c887f3659d8b462ad0899c",
+    "scribesim/handflow/planning.py": "57b335684eb04a3f83c7501daeb8831fedfbbd4c995a327815ab1451498e7aa3",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/bridge.py": "9366a453b1c130d95d52a796594bef42207483d830f78dca959b1f6e3e6207cb",
+    "scribesim/evo/renderer.py": "dfe4c6ac0917293e89b303ec0ed198676ad7d3e6c919133d98b73e86d5acb0e7",
+    "scribesim/pathguide/repertoire.py": "7741734df7a16787d15c2d8609a3e061b1d5fc855f1168b42a2599f8ebc86469",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2"
+  },
+  "training_identities": {
+    "freeze.json": "ff47b37caede5e62ccd9b06c28a3a6170ef8708a057fdf157ce8360fba42c263",
+    "report.json": "e843c0506920ca728afb566b646cda3cb3e6172a3bfeebe4ff5748545b3be6cf"
+  }
+}

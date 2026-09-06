@@ -1546,11 +1546,11 @@ passes:
     - id: ADV-SS-HANDVALIDATE-013
       advance_id: ADV-SS-HANDVALIDATE-013
       title: "Gesture Evaluation — Continuity, Shared Transfer and S1-Gesture Decision"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-008
-      notes: "EVALUATION: independent S1-gesture replay, negative controls and scoped decision. A failed gate blocks action fitting, even if the evaluation Advance is complete."
+      notes: "COMPLETE evaluation: 3 fresh-process seeds, 444 renders, no optimization; 51 tests and clean-clone replay. S1-gesture BLOCKED: lifted-pair contact entry shifts 0.399871mm under sampling refinement (limit 0.01mm), plus missing broad vocabulary. Scope fixed-tool repairs before action fitting."
   - id: td018-pen-actions
     title: Implement and evaluate bounded intentional pen actions
     order: 7

@@ -230,9 +230,12 @@ resources, tool/ownership contracts and evaluation requirements. Nine supporting
 Advances cover investigation, continuous-gesture learning, intentional contact
 and independent evaluation before letters, with new incubating `gesture` and
 `nibcontact` components. **td018-gesture-investigation** is complete: bounded
-coverage and tool-contract investigations, not learned gestures or real acceptance.
-Next is **td018-gestures**, then **td018-pen-actions**. See
-[investigation samples and findings](shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
+coverage and tool-contract investigations, not real acceptance.
+**td018-gestures** is also implemented: versioned composition, a bounded shared
+stem-terminal lesson and independent evaluation. **S1-gesture is blocked** by
+missing gesture-family coverage and a 0.40 mm lifted-pair endpoint-convergence
+failure. Repair those fixed-tool foundations before action fitting. See
+[samples, findings and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
 and [the Advance map](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
 
 Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)

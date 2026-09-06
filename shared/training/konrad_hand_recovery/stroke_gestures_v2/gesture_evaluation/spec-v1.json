@@ -1,0 +1,30 @@
+{
+  "schema_version": "independent-fixed-tool-gesture-evaluation-v1",
+  "training": "gestures/run-002",
+  "training_identities": {
+    "freeze.json": "ff47b37caede5e62ccd9b06c28a3a6170ef8708a057fdf157ce8360fba42c263",
+    "report.json": "e843c0506920ca728afb566b646cda3cb3e6172a3bfeebe4ff5748545b3be6cf"
+  },
+  "upstream_identities": {
+    "tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+    "tool_contract/run-001/report.json": "5a4914e308a5e34b9b9c6fab14e15859ee733b09b055311291e686ee429c09ed"
+  },
+  "seeds": [7, 19, 41],
+  "criteria_source": "gestures/spec-v1.json criteria, inherited unchanged",
+  "dt_s": [0.002, 0.001],
+  "arc_step_mm": [0.025, 0.0125],
+  "dense_step_mm": 0.01,
+  "local_blank_ink_fraction_max": 0.01,
+  "attachment_roi": "expected blank pixels in fixed physical connector rectangle [1.1,1.65,1.8,2.3]mm and extra-terminal rectangle [1.7,2.6,1.65,2.6]mm; no tolerance dilation; diagnostic synthetic oracle only",
+  "connector_roi_mm": [1.1, 1.65, 1.8, 2.3],
+  "terminal_roi_mm": [1.7, 2.6, 1.65, 2.6],
+  "counter_roi": "circle centered at [1.5,1.5]mm with radius 0.45mm; synthetic arc-counter oracle only",
+  "topology": "zero contact/owner/contributor mismatches; expected text and full shared model identity bound before execution",
+  "negative_controls": ["undeclared lift", "detached geometry", "overbuilt terminal", "erased counter", "painted air connector"],
+  "segmentation": "exact De Casteljau subdivision of the stem cubic; diagnostic equivalent path, not a new fitted primitive",
+  "max_renders_per_seed_including_replay": 5000,
+  "max_seconds_per_seed_including_replay": 1800,
+  "optimization_evaluations": 0,
+  "revision": 0,
+  "scope": "Recompute synthetic stem-terminal subset only. Broad S1-gesture remains blocked by absent returns/loops even if subset checks pass. No action fitting, real-source admission, or owner approval."
+}
