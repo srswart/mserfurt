@@ -15,7 +15,7 @@ advance:
   risk_flags: []
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,8 @@ advance:
 Freeze a testable broad-edge footprint/action contract and determine which intentional actions are identifiable, representable and worth testing, without attributing unobserved force laws to a historical quill.
 
 **Work kind:** Investigation. Follows [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md), including its [delivery and budget contract](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
-Drafting timestamp only: no implementation, investigation run, gate pass, CI or owner approval is claimed.
+Investigation probes executed against the contract committed before trials;
+clean-checkout validation is pending. No gate pass or physical calibration is claimed.
 
 ## Behavioral Change
 
@@ -34,6 +35,8 @@ After this Advance: An engineering calibration/feasibility report defines units,
 - `scribesim/evo/renderer.py (read-only canonical sweep audit)`
 - `scribesim/handvalidate/bridge.py and model.py (read-only actual-field audit)`
 - `scribesim/pathguide/ and scribesim/handflow/ (read-only execution audit)`
+- `scribesim/handvalidate/tool_contract.py (independent investigation oracle/probes only)`
+- `tests/test_nib_contact_investigation.py (probe contract tests)`
 - `shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/ (planned fixtures/report)`
 
 These are planned implementation/evidence locations, not existing APIs.
@@ -105,4 +108,3 @@ diagnosis and bounded repair; unrelated changes and threshold relaxation are exc
 
 1. How does releasing one side of the nib move its footprint, not merely change width or darkness?
 2. Which numeric expectations come from independent geometry, physical measurement, or declared assumptions?
-

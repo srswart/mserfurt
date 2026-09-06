@@ -1,0 +1,251 @@
+{
+  "schema_version": "pen-contact-investigation-report-v1",
+  "contract_sha256": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+  "decision": "proceed-synthetic-contract-implementation-only",
+  "historical_calibration": "unavailable",
+  "S1_action": "not_evaluated",
+  "promoted": false,
+  "code_sha256": {
+    "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2",
+    "scribesim/evo/renderer.py": "dfe4c6ac0917293e89b303ec0ed198676ad7d3e6c919133d98b73e86d5acb0e7",
+    "scribesim/handvalidate/bridge.py": "9366a453b1c130d95d52a796594bef42207483d830f78dca959b1f6e3e6207cb",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/planning.py": "57b335684eb04a3f83c7501daeb8831fedfbbd4c995a327815ab1451498e7aa3",
+    "scribesim/handflow/controller.py": "765a1dee89e04035e60e10bf28c8c278e03fd5def2c887f3659d8b462ad0899c",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a"
+  },
+  "active_edge_fields": {
+    "GuideSample": false,
+    "TrackPlanSample": false,
+    "HandStateV2": false,
+    "TrajectorySample": false
+  },
+  "controller_angle_probe": {
+    "desired_step_deg": 20,
+    "dt_s": 0.01,
+    "observed_rate_deg_s": 2000.0,
+    "meets_frozen_rate_bound": false,
+    "interpretation": "instantaneous desired-angle assignment is not bounded realized actuation",
+    "pressure_controls": [
+      {
+        "pressure": 0.25,
+        "width_mm": 0.410625,
+        "angle_deg": 60.0,
+        "ink_consumed": 0.0
+      },
+      {
+        "pressure": 0.5,
+        "width_mm": 0.45,
+        "angle_deg": 60.0,
+        "ink_consumed": 0.0
+      },
+      {
+        "pressure": 0.75,
+        "width_mm": 0.48937499999999995,
+        "angle_deg": 60.0,
+        "ink_consumed": 0.0
+      }
+    ],
+    "pressure_scope": "diagnostic coupling controls only; nonconstant pressure excluded from action fitting"
+  },
+  "fixtures": [
+    {
+      "fixture": "fixed_vertical",
+      "legacy_disagreement": 0.08485150985774893,
+      "oracle_midpoint_refinement_disagreement": 0.0,
+      "endpoints_mm": [
+        [
+          [
+            1.32764000029823,
+            2.455372787820529
+          ],
+          [
+            1.67235999970177,
+            2.7446272121794713
+          ]
+        ]
+      ]
+    },
+    {
+      "fixture": "fixed_diagonal",
+      "legacy_disagreement": 0.1791183294663573,
+      "oracle_midpoint_refinement_disagreement": 0.017830609212481426,
+      "endpoints_mm": [
+        [
+          [
+            2.02764000029823,
+            2.455372787820529
+          ],
+          [
+            2.37235999970177,
+            2.7446272121794713
+          ]
+        ]
+      ]
+    },
+    {
+      "fixture": "arc_counter",
+      "legacy_disagreement": 0.0475451467268623,
+      "oracle_midpoint_refinement_disagreement": 0.005340078695896571,
+      "endpoints_mm": [
+        [
+          [
+            2.12764000029823,
+            1.3553727878205284
+          ],
+          [
+            2.47235999970177,
+            1.6446272121794712
+          ]
+        ]
+      ]
+    },
+    {
+      "fixture": "rotation",
+      "legacy_disagreement": 0.08232158720758069,
+      "oracle_midpoint_refinement_disagreement": 0.0010780840905590637,
+      "endpoints_mm": [
+        [
+          [
+            1.3875,
+            2.4051442841485016
+          ],
+          [
+            1.6125,
+            2.7948557158514986
+          ]
+        ]
+      ]
+    },
+    {
+      "fixture": "wrap",
+      "legacy_disagreement": 0.018143899895724715,
+      "oracle_midpoint_refinement_disagreement": 0.0,
+      "endpoints_mm": [
+        [
+          [
+            1.724965731410188,
+            2.603926791448389
+          ],
+          [
+            1.275034268589812,
+            2.596073208551611
+          ]
+        ]
+      ]
+    },
+    {
+      "fixture": "negative_edge_release",
+      "legacy_disagreement": 0.2989114445425125,
+      "oracle_midpoint_refinement_disagreement": 0.0008528057308545113,
+      "endpoints_mm": [
+        [
+          [
+            1.32764000029823,
+            2.455372787820529
+          ],
+          [
+            1.5,
+            2.6
+          ]
+        ]
+      ]
+    },
+    {
+      "fixture": "positive_edge_release",
+      "legacy_disagreement": 0.29393627954779034,
+      "oracle_midpoint_refinement_disagreement": 0.0011822327309576085,
+      "endpoints_mm": [
+        [
+          [
+            1.5,
+            2.6
+          ],
+          [
+            1.67235999970177,
+            2.7446272121794713
+          ]
+        ]
+      ]
+    },
+    {
+      "fixture": "terminal",
+      "legacy_disagreement": 0.1276997840172786,
+      "oracle_midpoint_refinement_disagreement": 0.0008806693086745927,
+      "endpoints_mm": [
+        [
+          [
+            1.32764000029823,
+            2.055372787820529
+          ],
+          [
+            1.67235999970177,
+            2.3446272121794713
+          ]
+        ],
+        [
+          [
+            1.72764000029823,
+            2.205372787820529
+          ],
+          [
+            2.07235999970177,
+            2.4946272121794713
+          ]
+        ]
+      ]
+    }
+  ],
+  "negative_controls": {
+    "wrong_orientation": {
+      "disagreement": 0.7356438148241842,
+      "meets_frozen_minimum": true
+    },
+    "swapped_edge": {
+      "disagreement": 0.47926624467123113,
+      "meets_frozen_minimum": true
+    },
+    "centered_shrink": {
+      "disagreement": 0.2989114445425125,
+      "meets_frozen_minimum": true
+    },
+    "hidden_connector": {
+      "disagreement": 0.010178857059764432,
+      "meets_frozen_minimum": false
+    },
+    "overbuilt_terminal": {
+      "disagreement": 0.09661579296615792,
+      "meets_frozen_minimum": false
+    },
+    "filled_counter": {
+      "disagreement": 0.2933659461887885,
+      "meets_frozen_minimum": true
+    }
+  },
+  "criterion_scope": "geometry/control diagnostics only; failed controls require local ownership/contact criteria, not lowered thresholds",
+  "gaps": [
+    "No active-edge interval in desired guide, plan, controller state or actual samples.",
+    "Controller step copies desired contact/angle without bounded actuator state.",
+    "Canonical sweep accepts symmetric half-vectors; partial contact cannot shift from pen center.",
+    "Legacy caps have pixel-derived thickness; new physical thickness needs explicit new-mode semantics.",
+    "Neutral repertoire pressure still scales width; bridge pressure also changes darkness.",
+    "Planner progress spans an entire guide, including air; gesture-local arc progress is absent.",
+    "Unwrapped orientation, endpoint-side reflection, tracking and convergence need versioned tests."
+  ],
+  "deferred_validation": [
+    "new actuator dt refinement",
+    "new renderer/controller acceptance",
+    "physical tool calibration",
+    "source/letter appearance and real G0-G2"
+  ],
+  "budget": {
+    "fixture_families": 3,
+    "renders": 29,
+    "render_limit": 100,
+    "seconds_limit": 900,
+    "optimization_evaluations": 0,
+    "revision": 0
+  }
+}
