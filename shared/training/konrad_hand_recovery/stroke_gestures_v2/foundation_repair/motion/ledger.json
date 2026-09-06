@@ -85,7 +85,8 @@
   "unit_tests": "Separately labeled regression verification, not optimizer or candidate search; old diagnostic-runner tests execute their own bounded fixed-fixture renders outside the experiment allowance.",
   "primitive_training_permitted": true,
   "advance_status": "complete",
-  "implementation_merged": false,
+  "implementation_merged": true,
+  "merge_commit": "14872ba560a6dbfcf028595004fe5b46a90e2ca0",
   "braking_followup_allowance": {
     "authorized_by": "User requested the next required fix",
     "candidates": 1,

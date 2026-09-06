@@ -149,6 +149,7 @@ arc-density timing drift is zero, maximum contact lag is 0.007411 mm, and all
 
 ### 2026-09-06 — curve clock: Complete fixed-tool motion repair
 
+- Local merge `14872ba` integrates the completed Advance into master; no remote push or provider CI is claimed. The merge retains all prior failed evidence alongside accepted run-005.
 - Red test commit `e8b55fe` precedes implementation `c95a730`; no preparatory tidy needed. Existing sampler/planner paths are extended, not replaced by a second simulator.
 - Added opt-in curve-position metadata, bounded 16/32-point cubic speed integration and geometry/ownership/monotonicity validation. The original sample coordinates, fixed tools, corner slowing, air braking and legacy modes are unchanged.
 - Independent tests cover analytic and high-order reference lengths, exact cubic splitting, repeated saved constructions, integration exhaustion and malformed provenance. All 40 focused tests pass; local/clean expanded suites are 106 passed plus the same unrelated old failure.
