@@ -67,10 +67,12 @@ Next is **fixed-tool repair**, not action fitting: scope the
 
 That work now has one Advance in progress and five planned in **td018-foundation-repair**:
 [ordered records, concrete deliverables and gate criteria](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#3-ordered-advances-and-deliverables).
-The first two attempts and the authorized braking follow-up are implemented.
-Arrival, timing/convergence and old-six baseline checks pass; sharp stem-terminal
-corner tracking still fails, so there is no downstream training or full motion
-admission. [Sharper 900-DPI-derived samples, all six primitives and an explanation
+The two original attempts and authorized braking/corner follow-ups are implemented.
+Run-004 reduces saved-u contact lag from 0.371 to 0.0075 mm. Corner, arrival,
+endpoint/image, acceleration and old-six baseline checks pass. Arc-refinement
+event-time drift reaches 0.438 ms against the unchanged 0.1 ms bound, so there is
+no merge, downstream training or full motion admission. The one-candidate corner
+allowance is spent. [Sharper 900-DPI-derived samples, all six primitives and an explanation
 of the L-like motion fixtures](foundation_repair/index.html).
 New primitive geometry or expansion-limit needs require separately
 scoped work before fitting. Ink depletion, fatigue and other session effects

@@ -1,10 +1,20 @@
-# Proposed next scope — shared acceleration-aware contact timing
+# Authorized scope — shared acceleration-aware contact timing
 
 **Authorized by the user's corner-aware motion timing request.** One candidate
 is frozen in [spec-v4.json](spec-v4.json), with no automatic revision. The prior air-braking
 follow-up has executed and its arrival checks pass. Its complete motion gate
 fails at sharp continuous-contact corners; no automatic revision is permitted.
 HANDFLOW-010 stays in progress until all required fixtures pass, then may merge.
+
+## Executed outcome
+
+[Run-004](run-004/README.md) executes this one candidate. Saved-u contact lag
+falls from 0.370963 to 0.007516 mm; corner, arrival, geometry, acceleration,
+endpoint/image and old-six baseline checks pass. The complete gate still fails:
+arc-refinement event-time drift reaches 0.438 ms against the unchanged 0.1 ms
+bound. This is a sampled-chord contact-clock issue, not remaining corner lag.
+No automatic revision, completion or merge follows this result. The
+[next proposed scope](arc-clock-request.md) needs new authorization.
 
 ## Evidence boundary
 

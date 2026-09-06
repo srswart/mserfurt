@@ -2,11 +2,12 @@
 
 **Status:** implementation started; HANDFLOW-010 is in progress and the other five
 Advances remain planned. Two original attempts plus the user-authorized braking
-follow-up repair timing, convergence and re-entry, and revalidate the original six
-primitives. Sharp stem-to-terminal corner tracking still fails. The braking
-allowance is spent. No implementation merge, new learning,
+and corner follow-ups repair re-entry and sharp-corner tracking and revalidate the
+original six primitives. Run-004 passes 233/239 checks; six arc-refinement timing
+checks fail (up to 0.438 ms versus 0.1 ms). The corner allowance is spent.
+No implementation merge, new learning,
 motion admission or owner appearance approval is claimed. See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
-and the [proposed shared corner-timing scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/corner-timing-request.md).
+and the [next proposed geometry-derived clock scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/arc-clock-request.md).
 **Date:** 2026-09-06
 **Parent:** [TD-018](TD-018-reference-grounded-hand-recovery.md) and
 [Addendum A](TD-018-addendum-a-stroke-gestures.md).
@@ -161,9 +162,15 @@ before new results; do not relax a failed criterion after observing it.
   one candidate, 500 renders or 1800 s, zero optimization and no automatic revision.
   It explicitly permits prescribed air braking and acceleration/deceleration around
   contact rest targets, retaining the 12 mm/s nominal ceiling, fixed angle/pressure
-  and unchanged acceptance limits. It used 303 renders; sharp-corner failure still
-  blocks the phase. Presentation rerenders at 900 DPI are charged to this allowance
+  and unchanged acceptance limits. It used 303 renders and retained its sharp-corner
+  failure. Presentation rerenders at 900 DPI are charged to this allowance
   and do not replace 180-DPI evaluation or introduce fitted geometry.
+- Subsequent user-authorized corner-timing follow-up: separate spec-v4 allowance,
+  one candidate, 500 renders or 1800 s, zero optimization and no automatic revision.
+  Shared compiled corner/smooth ports, curvature-limited section speeds and planned
+  contact rest use unchanged geometry and physical limits. Run-004 used 303 renders
+  in 49.002829 s. Corner tracking passes; arc-refinement contact-time convergence
+  fails. Another candidate needs separate authorization, not a relaxed timing gate.
 - Vocabulary/contract audit: at most eight gesture hypotheses, twelve feasibility
   characters, two proposed families and 100 diagnostic renders or 900 s per
   attempt; zero optimization, one diagnosed revision.

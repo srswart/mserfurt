@@ -247,9 +247,10 @@ audit return primitives and composition limits, train new primitives, independen
 accept them, then train and evaluate shared gestures. No new learning Advance
 completes on scaffolding alone. [Implementation order, budgets and success criteria](docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
 
-Timing/convergence, air braking/re-entry and the six old primitive checks now pass.
-Sharp contact corners in the saved scaffold still fail, so no implementation merge
-or later training is claimed. Previews now rerender at 900 DPI rather than enlarge
+Corner-aware timing now reduces saved-scaffold contact lag from 0.371 to 0.0075 mm.
+Arrival, corner, image/endpoint, acceleration and six-old-primitive checks pass.
+Cross-sampling event-time drift still exceeds 0.1 ms, so the Advance stays open,
+unmerged and blocks later training. Previews rerender at 900 DPI rather than enlarge
 180-DPI pixels; a separate gallery shows all six primitives. [Clearer samples, explanation of the L-like test fixtures and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html).
 
 Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)

@@ -1,0 +1,73 @@
+{
+  "scope": "Clean-checkout corner-time-v1 regression only, not candidate exploration",
+  "implementation_commit": "1597ed1b38c47ddc5c20d711257257a5dabd663d",
+  "hash_seed": 839,
+  "measured_rows_checks_and_decision_identical": true,
+  "artifact_bytes_identical": true,
+  "verified_artifacts": {
+    "baseline.json": "54ca6eb0ffb99cdad568ba52ed059263797e12dd45f1ad856bc0a73914743517",
+    "baseline.png": "91444d0ddaeb9e44fdc2cbf035f4d68d293de63316f3e7ab6c9605cd40e178a9",
+    "comparison.png": "10a204db1c5802da75972f23d41e0108b8d04331262d3d4608c78921e823deb5",
+    "freeze.json": "749f221d27bfb12fd750cdb159e098c653e17c139a2e15598fc70699ab42bf70",
+    "primitive-gallery.png": "ae200c9e1f6ba711920a134cc38666e9558a8ccfa55098cee88f181c7da6339a",
+    "traces.json.gz": "64c2ac7f35c37425385a3a358397fff419c892a8dc4369b1c8bcd82ae4c1b0ef"
+  },
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "29f1acd735f7f7bc783c0daa649c4a5efcb037e13ed7fd21f65dd241b2ff18c5",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "30492bfc66ead4cdf96422177080fa56a9144e2b13394478ab225f47ee0e98d8",
+    "scribesim/evofit/stroke_language.py": "2355fdd4dc5ccd651df19bcadb3d1479697372dcbce3425122b6e903eb7e0886",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "794a74aaca4c94a41ae96e6fb77f1a84e48492ac36aee18e273ac554e61d568e",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/handvalidate/foundation_motion.py": "c7e86fc466e9d17c6c7a9e0a93add8f7290abd806d259190fad45b544c17d02a",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "7741734df7a16787d15c2d8609a3e061b1d5fc855f1168b42a2599f8ebc86469",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+  },
+  "execution": {
+    "elapsed_seconds": 29.342523791012354,
+    "renders": 303
+  },
+  "local_tests": {
+    "passed": 100,
+    "failed": 1,
+    "seconds": 102.25
+  },
+  "clean_checkout_tests": {
+    "passed": 100,
+    "failed": 1,
+    "seconds": 62.46
+  },
+  "focused_repair_tests": 34,
+  "pre_existing_failure": "tests/test_handflow.py::test_desired_velocity_affects_acceleration omits nib_angle_deg; pre-repair reproduction retained in prior verification",
+  "full_motion_status": "fail",
+  "failed_checks": [
+    "coincident-overlap:arc:convergence",
+    "physical:arc",
+    "saved-i-u:arc:convergence",
+    "saved-u:arc:convergence",
+    "separated:arc:convergence",
+    "word-space:arc:convergence"
+  ],
+  "optimization_evaluations": 0,
+  "governance": {
+    "plan": "valid",
+    "artifact_doctor_issues": 10,
+    "artifact_doctor_new_issues": 0,
+    "stale_agent_rules": 0,
+    "strict_pr_check": "Executed; installed parser does not recognize ADV-SS-HANDFLOW-010 (ids empty). No successful strict gate or provider CI claimed."
+  },
+  "implementation_merged": false,
+  "advance_completed": false
+}

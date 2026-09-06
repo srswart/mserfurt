@@ -1,36 +1,39 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Foundation repair — clearer strokes and braking results</title>
+<title>Foundation repair — corner timing results</title>
 <style>body{margin:0;background:#f5f1e7;color:#24342f;font:17px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:38px;line-height:1.15}h2{margin-top:38px}a{color:#235d77}aside{border-left:5px solid #b24932;padding:16px 24px;background:#fff7f0}figure{margin:24px 0;padding:20px;background:white;border:1px solid #d9ded8;border-radius:10px}svg,img{max-width:100%;height:auto}figcaption{font-size:15px;color:#52605a}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}.ok{color:#276946}.fail{color:#a43a28}code{font-size:.9em}li{margin:7px 0}summary{cursor:pointer;font-weight:650}</style></head>
-<body><main><p>TD-018 / FOUNDATION REPAIR / RUN 003</p>
-<h1>Clearer strokes. Controlled pen landing.</h1>
-<aside><strong>Braking and re-entry checks pass; full motion acceptance does not.</strong> The remaining failure is the sharp stem-to-terminal corner in the saved fitted scaffold. HANDFLOW-010 stays in progress and unmerged; the other five Advances remain planned. No new stroke, gesture or letter training is claimed.</aside>
-<h2>Why were the old previews pixelated?</h2>
-<p>The inexpensive evaluation images were rendered at 180 DPI. A 0.45 mm nib is only about 3 pixels wide at that resolution. Enlarging those pixels with nearest-neighbor scaling made them visibly blocky. That was a presentation mistake, not the intended quality of the scribe.</p>
-<p>These new presentation images are rerendered from geometric or actual trajectory samples at <strong>900 DPI</strong>, then smoothly downsampled when assembled. They are not enlarged or retouched evaluation bitmaps. Evaluation still uses the original 180-DPI criteria; prettier presentation cannot change a gate.</p>
+<body><main><p>TD-018 / FOUNDATION REPAIR / RUN 004</p>
+<h1>Controlled corners. One clock issue remains.</h1>
+<aside><strong>Corner tracking passes; full motion acceptance still fails.</strong> Saved-scaffold contact lag falls from 0.371 to 0.0075 mm without changing its shape. A small sampling-dependent time shift accumulates across repeated gestures. HANDFLOW-010 stays in progress and unmerged; the other five Advances remain planned. No new stroke, gesture or letter training is claimed.</aside>
 <h2>The six existing stroke primitives</h2>
-<p>Stem, rise, bowl, turn, loop and exit. These are the existing frozen, synthetic-trained families, revalidated under the braking planner—not new training or a complete historical stroke vocabulary.</p>
-<figure><a href="motion/run-003/primitive-gallery.png"><img src="motion/run-003/primitive-gallery.png" alt="High-resolution stem, rise, bowl, turn, loop and exit, each with nominal and actual rendering"></a><figcaption>Each family appears as frozen nominal / actual pen output. All panels share a physical frame and scale. Click to inspect.</figcaption></figure>
-<h2>Why do the comparison marks look like L?</h2>
-<p>That comparison deliberately repeats <strong>one downstroke plus its terminal</strong>. We test it alone, repeated with a lift, overlapped and separated by a gap so geometry stays controlled while motion changes. This L-like construction diagnoses pen landing; it is not evidence of an alphabet or a broad set of learned gestures. Old i/u labels were scaffold identifiers, not claims of successful letter learning.</p>
-<figure><a href="motion/run-003/comparison.png"><img src="motion/run-003/comparison.png" alt="Repeated stem-terminal fixtures, with desired, old actual, braked actual and refined actual columns"></a><figcaption>A motion fixture, not a specimen alphabet. New labels describe the construction. Geometry and tool settings stay fixed; no image cleanup is applied.</figcaption></figure>
-<h2>What the braking fix achieves</h2>
+<p>Stem, rise, bowl, turn, loop and exit. These are frozen, synthetic-trained families, revalidated under corner-aware timing—not new training or a complete historical vocabulary.</p>
+<figure><a href="motion/run-004/primitive-gallery.png"><img src="motion/run-004/primitive-gallery.png" alt="Six frozen primitives, each with nominal and corner-timed actual ink"></a><figcaption>Frozen nominal / actual pen output. Same physical frame and scale across all families. Click to inspect.</figcaption></figure>
+<h2>What changed at the corner?</h2>
+<p>The pen now decelerates to a planned zero-speed instant at each declared sharp join, stays down, then accelerates into the next stroke. Smooth joins do not get artificial stops. Curvature limits the section speed; the existing air-braking rule still handles lifted travel. No pose reset, hidden lift, shape edit or image cleanup is used.</p>
+<figure><img src="motion/corner-timing.svg" alt="Actual speed and contact lag around the saved scaffold corner before and after shared timing"><figcaption>Saved traces around the same geometric corner, aligned at 0 ms. Run 003 is before corner timing; run 004 is after. Dashed blue is planned speed. The new actual and planned speeds nearly coincide; contact lag is far below the 0.25 mm bound. This plot adds no simulation or ink renders.</figcaption></figure>
 <table><tr><th>Check</th><th>Measured result</th></tr>
-<tr><td>Saved u re-entry speed, base run</td><td class="ok">About 16.6 mm/s upward before → 0.001221 mm/s after</td></tr>
-<tr><td>Saved u re-entry position error, base run</td><td class="ok">0.0000603 mm, below the 0.05 mm arrival limit</td></tr>
-<tr><td>Measured arrivals and all refinements</td><td class="ok">Entry, time, endpoint and mechanics checks pass</td></tr>
-<tr><td>Original six-primitives baseline</td><td class="ok">Fresh read-only validation passes; no fitting</td></tr>
-<tr><td>Ordinary stem-terminal fixtures, base runs</td><td class="ok">Maximum contact lag 0.0913 mm, below 0.25 mm</td></tr>
-<tr><td>Saved fitted pair, base run</td><td class="fail">Sharp-corner lag 0.3710 mm, above 0.25 mm</td></tr>
-<tr><td>Downstream training admission</td><td class="fail">Still false</td></tr></table>
-<p>The pen brakes while lifted, follows a prescribed rest-to-rest air path, and accelerates into the next stroke without resetting position or velocity. Added time is explicitly planned. Speed, acceleration and tool limits are unchanged; no adaptive wait is chosen from rendered results.</p>
-<h2>Remaining work: plan the sharp corner</h2>
-<p>The remaining failure occurs during continuous contact at the saved scaffold’s sharp stem-to-exit corner. We should not keep adjusting air travel to hide that different problem. The next proposal is shared, acceleration-aware timing at declared stroke joins and along curved paths, preserving geometry and contact topology. It requires a separately authorized experiment: this follow-up allowed one candidate and no automatic revision.</p>
-<ul><li><a href="motion/run-003/README.md">Results, budgets and replay commands</a></li>
-<li><a href="motion/corner-timing-request.md">Proposed shared corner-timing scope</a></li>
-<li><a href="motion/run-003/report.json">Full gate and per-case results</a></li>
+<tr><td>Saved paired scaffold contact lag, base run</td><td class="ok">0.370963 → 0.007516 mm (limit 0.25 mm)</td></tr>
+<tr><td>Maximum actual speed at a corner</td><td class="ok">0.019188 mm/s (limit 0.5 mm/s)</td></tr>
+<tr><td>Corner position error</td><td class="ok">At most 0.000944 mm (limit 0.05 mm)</td></tr>
+<tr><td>Arrival, ink ownership, geometry and acceleration</td><td class="ok">All required checks pass; no air ink or resets</td></tr>
+<tr><td>Endpoint/image refinement and original six-primitives baseline</td><td class="ok">Pass; no refitting</td></tr>
+<tr><td>Sampling-dependent contact-event shift</td><td class="fail">Up to 0.437750 ms (limit 0.1 ms)</td></tr>
+<tr><td>Full motion decision</td><td class="fail">233/239 checks pass; six arc-time checks fail</td></tr></table>
+<p>Slowing is explicit, not free: the saved paired scaffold takes 3.571327 seconds versus 1.338408 seconds under the previous braking plan. This conservative first policy is not a claim of natural or optimized writing rhythm.</p>
+<h2>Why do the comparison marks look like L?</h2>
+<p>These controlled fixtures repeat <strong>a downstroke plus its terminal</strong>, alone, lifted, overlapped and separated by gaps. They test motion, not alphabet learning. The old i/u labels identify supplied scaffolds; they are not learned letter construction.</p>
+<figure><a href="motion/run-004/comparison.png"><img src="motion/run-004/comparison.png" alt="Six stem-terminal fixtures with desired, legacy actual, corner-timed actual and refined actual columns"></a><figcaption>The desired and new actual ink can look almost identical while a strict timing gate still fails. The legacy column is the old default controller, not run 003; use the speed/lag plot for the immediate before/after corner comparison.</figcaption></figure>
+<h2>Why are these previews less pixelated?</h2>
+<p>Old evaluation images were 180 DPI: a 0.45 mm nib was only about three pixels wide, then nearest-neighbor enlargement made it blocky. These presentation images rerender the saved geometry or actual trajectories at <strong>900 DPI</strong> and only downsample smoothly. Evaluation still uses its frozen 180-DPI criteria. Better presentation cannot change acceptance.</p>
+<h2>Next required fix: a geometry-derived clock</h2>
+<p>The current contact clock sums distances between sampled guide points. Finer sampling changes that chord length slightly; conservative slowing magnifies the difference, and repetition accumulates it. We need to derive the arc/time clock from the frozen curves rather than guide density, without changing the strokes or relaxing the 0.1 ms bound. No alternate clock has been tried.</p>
+<p>The authorized corner experiment allowed one candidate and no automatic revision. That candidate used 303 renders in 49.002829 seconds with zero optimization. The next bounded proposal requires authorization; no incomplete Advance is marked done or merged.</p>
+<ul><li><a href="motion/run-004/README.md">Current results, budgets and replay</a></li>
+<li><a href="motion/run-004/report.json">Full gate and per-case measurements</a></li>
+<li><a href="motion/arc-clock-request.md">Next proposed geometry-derived clock</a></li>
+<li><a href="motion/corner-timing-request.md">Authorized corner scope and outcome</a></li>
 <li><a href="motion/ledger.json">All attempts and verification</a></li>
-<li><a href="motion/run-002/README.md">Retained pre-braking failure</a></li></ul>
+<li><a href="motion/run-003/README.md">Retained pre-corner result</a></li></ul>
 <details><summary>Historical re-entry plot — run 002, before this fix</summary><p>This is retained evidence of the old landing problem, not the current result.</p><figure><svg viewBox="0 0 1100 500" role="img" aria-label="Actual and desired second-stroke motion, downward velocity and contact lag over 160 milliseconds">
 <rect width="1100" height="500" fill="white"/>
 <g font-family="system-ui" font-size="16" fill="#24342f">

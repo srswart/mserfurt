@@ -11,6 +11,7 @@ selectors:
     - "scribesim/handflow/**"
     - "tests/test_gesture_action_bridge.py"
     - "tests/test_handflow_reentry.py"
+    - "tests/test_handflow_corner_timing.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/**"
   build_modules: []
   tags: []
@@ -21,6 +22,7 @@ interfaces:
   - "HandState v2 API (continuous state carried across stroke, glyph, word, line)"
   - "Opt-in event-time-v1/v2 execution with exact contact times; v2 uses an acceleration-limited velocity servo without corridor projection. Legacy execution remains default."
   - "Opt-in braked-air-v1 plan retiming with source-owner mapping, prescribed pen-up braking/rest arrival and analytic contact clock; fixed-tool scope only."
+  - "Opt-in corner-time-v1 shared contact timing from compiled corner/smooth ports and cubic curvature; corner rest without lift, unchanged tool/geometry, bounded desired acceleration and retained air braking."
   - "Profile activation matrix for reviewed guided rendering (which HandProfile fields materially affect handflow output)"
   - "Planned realized orientation and active-edge state under bounded gesture action tracking"
 
@@ -28,5 +30,5 @@ invariants:
   - "The controller follows planned state, not raw keypoints, when plan tracking is enabled."
   - "Pen lifts are explicit state transitions; joins are modeled as planned contact or planned air motion."
   - "Out-of-corridor motion triggers correction or validation failure before page rendering."
-  - "Timing, image or arrival success cannot override a failed actual-contact corridor gate; full foundation motion remains blocked at sharp contact corners."
+  - "Every motion gate must pass. Corner tracking now passes, but arc-refinement contact-time drift still blocks foundation admission and downstream fitting."
   - "A profile field is not considered a tuning knob for TD-014 until the reviewed guided path measurably responds to it."

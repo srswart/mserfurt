@@ -1605,7 +1605,7 @@ passes:
       - ADV-SS-HANDVALIDATE-013
       - ADV-SS-PATHGUIDE-006
       - ADV-SS-HANDVALIDATE-014
-      notes: "IN PROGRESS, NOT MERGED: original two attempts plus authorized air-braking follow-up executed. Arrival, timing, endpoint, mechanics and old-six baseline checks pass. Remaining saved stem-to-exit corner lag is 0.370963mm against 0.25mm. Braking allowance spent; shared corner-aware contact timing needs new scope. No fitting or Advance completion."
+      notes: "IN PROGRESS, NOT MERGED: authorized corner-time-v1 run-004 reduces saved-u contact lag from 0.370963mm to 0.007516mm. Corner, arrival, endpoint/image, desired/actual acceleration and old-six baseline gates pass. Arc-refinement contact-time drift reaches 0.000437750s versus 0.0001s; six convergence checks fail. One corner candidate used, no automatic revision. Next scope: geometry-derived arc clock, not refitting or relaxed timing."
     - id: ADV-SS-GESTURE-002
       advance_id: ADV-SS-GESTURE-002
       title: "Foundation Vocabulary — Return Ports and Audited Composition Limits"
@@ -1615,7 +1615,7 @@ passes:
       - ADV-SS-HANDFLOW-010
       - ADV-SS-GESTURE-001
       - ADV-SS-EXEMPLAR-009
-      notes: "NOT STARTED: HANDFLOW-010 remains in progress with failed sharp-corner contact tracking; air re-entry now passes. After full motion acceptance, audit two return families/twelve feasibility characters; conditional smallest justified cap up to eight. No letter fitting or hidden cap bypass."
+      notes: "NOT STARTED: HANDFLOW-010 remains in progress with arc-refinement contact-time drift; corner tracking and air re-entry now pass. After full motion acceptance, audit two return families/twelve feasibility characters; conditional smallest justified cap up to eight. No letter fitting or hidden cap bypass."
     - id: ADV-SS-CURRICULUM-010
       advance_id: ADV-SS-CURRICULUM-010
       title: "Foundation Primitive Learning — Shared Lower and Upper Returns"

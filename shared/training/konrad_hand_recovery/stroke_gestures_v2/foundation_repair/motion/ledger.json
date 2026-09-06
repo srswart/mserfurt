@@ -37,10 +37,23 @@
       "max_seconds": 1800,
       "optimization_evaluations": 0,
       "outcome": "arrival, timing, endpoint, mechanics and baseline checks pass; sharp contact corner fails"
+    },
+    {
+      "attempt": 3,
+      "revision": 0,
+      "allowance": "authorized-corner-timing-followup-001",
+      "directory": "run-004",
+      "implementation_commit": "1597ed1",
+      "elapsed_seconds": 49.00282933295239,
+      "renders": 303,
+      "max_renders": 500,
+      "max_seconds": 1800,
+      "optimization_evaluations": 0,
+      "outcome": "Corner tracking, arrivals, endpoint/image, desired/actual acceleration and baseline pass; six arc-refinement contact-time checks fail"
     }
   ],
-  "cumulative_experiment_renders": 835,
-  "cumulative_experiment_seconds": 41.223933665896766,
+  "cumulative_experiment_renders": 1138,
+  "cumulative_experiment_seconds": 90.22676299884915,
   "optimization_evaluations": 0,
   "permitted_revisions": 1,
   "used_revisions": 1,
@@ -73,5 +86,23 @@
     "elapsed_seconds": 8.140424540964887,
     "renders": 303,
     "rows_traces_and_images_identical": true
+  },
+  "corner_followup_allowance": {
+    "authorized_by": "User requested continuing corner-aware motion timing",
+    "candidates": 1,
+    "used_candidates": 1,
+    "max_revisions": 0,
+    "additional_candidates_permitted": false
+  },
+  "corner_verification": {
+    "commit": "1597ed1",
+    "kind": "fresh-process clean-checkout regression, no new candidate or optimizer",
+    "elapsed_seconds": 29.342523791012354,
+    "renders": 303,
+    "rows_traces_and_images_identical": true
+  },
+  "corner_presentation": {
+    "kind": "Native 900-DPI diagnostic and primitive panels counted in run-004; static SVG computed from saved run-003/run-004 traces",
+    "additional_simulation_renders": 0
   }
 }
