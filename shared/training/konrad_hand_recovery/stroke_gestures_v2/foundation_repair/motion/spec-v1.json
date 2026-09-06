@@ -1,0 +1,23 @@
+{
+  "schema_version": "foundation-motion-v1",
+  "scope": "Synthetic actual motion and read-only old six-primitive baseline, not learned returns or action acceptance",
+  "saved_candidate": "gestures/run-002/candidate.json",
+  "saved_candidate_sha256": "84a311b2c17135bc6cd4bc0bd808e3eaa5dffd5109c86ea5172d3b2693db823e",
+  "fixture_families": ["continuous", "separated", "coincident-overlap", "word-space", "saved-u", "saved-i-u"],
+  "execution_versions": ["legacy-v1", "event-time-v1"],
+  "criteria": {"endpoint_mm": 0.01, "event_time_s": 0.0001, "duration_s": 1e-10, "convergence_loss": 0.03, "actual_loss": 0.35, "corridor_mm": 0.25, "owner_errors": 0},
+  "timing_rationale": "Exact execution of supplied plan to 1e-10s; arc-resampling event times within 0.1ms, one tenth of the refined timestep. No zero-time pose or velocity change. No corridor projection in event-time mode; report actual lag even when it fails.",
+  "dt_s": [0.002, 0.001],
+  "arc_step_mm": [0.025, 0.0125],
+  "settle_time_s": 0,
+  "scope_difference_from_old_saved_run": "Explicit zero settling isolates contact events and removes old unplanned final-contact tail. Saved failing model unchanged; older default-settling reports remain immutable.",
+  "tool": {"width_mm": 0.45, "angle_deg": 40, "pressure": 0.5, "speed_mm_s": 12, "footprint": "legacy-full-edge", "session_effects": false},
+  "physical_fixed_bridge": "Separate physical-edge-v1 fixed-profile i u replay; no inference of action acceptance from legacy footprint",
+  "frame_mm": [-2, 16, 3, 13],
+  "dpi": 180,
+  "max_renders": 500,
+  "max_seconds": 1800,
+  "max_revisions": 1,
+  "optimization_evaluations": 0,
+  "baseline": "Pinned historical artifacts, no refitting or overwritten hashes. Recompute original target/initial/three-seed losses and actual six-family metrics in explicit current execution. Separate old provenance from new admission."
+}

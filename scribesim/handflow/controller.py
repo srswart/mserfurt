@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import math
 import copy
+from dataclasses import fields, replace
+from bisect import bisect_left, bisect_right
 
 from scribesim.hand.profile import HandProfile
 from scribesim.handvalidate import TrajectorySample
@@ -34,7 +36,11 @@ class GuidedHandFlowController:
         arrival_gain: float = 10.0,
         activate_base_pressure: bool = False,
         repertoire_controls: RepertoireControls | None = None,
+        execution_version: str = "legacy-v1",
     ) -> None:
+        if execution_version not in {"legacy-v1", "event-time-v1", "event-time-v2"}:
+            raise ValueError("Unsupported handflow execution version")
+        self.execution_version = execution_version
         self.profile = profile
         self.dyn = profile.dynamics
         self.corridor_gain = corridor_gain
@@ -102,7 +108,20 @@ class GuidedHandFlowController:
         previous_contact = state.nib_contact
         previous_ink = state.ink_reservoir
         previous_time = state.time_s
-        acc_x, acc_y = self.desired_acceleration(state, desired)
+        previous_velocity = state.vel_x_mm_s, state.vel_y_mm_s
+        if self.execution_version == "event-time-v2":
+            predicted_x = state.pos_x_mm + (state.vel_x_mm_s + desired.vx_mm_s) * dt / 2
+            predicted_y = state.pos_y_mm + (state.vel_y_mm_s + desired.vy_mm_s) * dt / 2
+            target_x = desired.vx_mm_s + self.dyn.position_gain * (desired.x_mm - predicted_x)
+            target_y = desired.vy_mm_s + self.dyn.position_gain * (desired.y_mm - predicted_y)
+            acc_x = (target_x - state.vel_x_mm_s) / dt if dt else 0.0
+            acc_y = (target_y - state.vel_y_mm_s) / dt if dt else 0.0
+            magnitude = math.hypot(acc_x, acc_y)
+            if magnitude > self.dyn.max_acceleration:
+                acc_x *= self.dyn.max_acceleration / magnitude
+                acc_y *= self.dyn.max_acceleration / magnitude
+        else:
+            acc_x, acc_y = self.desired_acceleration(state, desired)
         state.acc_x_mm_s2 = acc_x
         state.acc_y_mm_s2 = acc_y
         state.vel_x_mm_s += acc_x * dt
@@ -114,12 +133,17 @@ class GuidedHandFlowController:
             state.vel_x_mm_s *= scale
             state.vel_y_mm_s *= scale
 
-        state.pos_x_mm += state.vel_x_mm_s * dt
-        state.pos_y_mm += state.vel_y_mm_s * dt
+        if self.execution_version == "event-time-v2":
+            state.pos_x_mm += (previous_velocity[0] + state.vel_x_mm_s) * dt / 2
+            state.pos_y_mm += (previous_velocity[1] + state.vel_y_mm_s) * dt / 2
+        else:
+            state.pos_x_mm += state.vel_x_mm_s * dt
+            state.pos_y_mm += state.vel_y_mm_s * dt
         state.time_s += dt
 
         corridor_error = math.dist((state.pos_x_mm, state.pos_y_mm), (desired.x_mm, desired.y_mm))
-        if desired.contact and corridor_error > desired.corridor_half_width_mm:
+        if (self.execution_version == "legacy-v1" and desired.contact
+                and corridor_error > desired.corridor_half_width_mm):
             nx = (state.pos_x_mm - desired.x_mm) / max(corridor_error, 1e-9)
             ny = (state.pos_y_mm - desired.y_mm) / max(corridor_error, 1e-9)
             state.pos_x_mm = desired.x_mm + nx * desired.corridor_half_width_mm
@@ -211,7 +235,76 @@ class GuidedHandFlowController:
                 "pressure": state.nib_pressure, "width_mm": width_mm, "angle_deg": state.nib_angle_deg,
                 "nominal_angle_deg": desired.nib_angle_deg,
                 "fatigue": state.fatigue, "rhythm_phase": state.rhythm_phase, "habit_phase": state.habit_phase})
+            if self.execution_version != "legacy-v1":
+                state.execution_trace[-1].update(velocity_before_mm_s=list(previous_velocity),
+                    velocity_mm_s=[state.vel_x_mm_s, state.vel_y_mm_s],
+                    execution_version=self.execution_version)
         return corridor_error
+
+    def _follow_timed_plan(self, plan, *, state, dt, settle_time_s):
+        for value in (dt, settle_time_s):
+            if type(value) not in (int, float) or not math.isfinite(value) or value < 0:
+                raise ValueError("Finite nonnegative execution times required")
+        if dt <= 0 or not plan.samples or plan.samples[0].t_s != 0:
+            raise ValueError("Positive dt and a nonempty zero-origin plan required")
+        required_steps = plan.total_time_s / dt + settle_time_s / dt
+        if not math.isfinite(required_steps) or required_steps + len(plan.samples) > 1000000:
+            raise ValueError("Execution step budget exceeded")
+        for sample in plan.samples:
+            if any(not math.isfinite(getattr(sample, field.name)) for field in fields(sample)):
+                raise ValueError("Nonfinite plan state")
+        for previous, desired in zip(plan.samples, plan.samples[1:]):
+            if desired.t_s < previous.t_s or (desired.t_s == previous.t_s and
+                    (desired.x_mm, desired.y_mm) != (previous.x_mm, previous.y_mm)):
+                raise ValueError("Reversed time or zero-time spatial teleport")
+        state = state or self.initial_state(plan)
+        start = len(state.trace)
+        indices, observed_times = [], []
+        errors, maximum = 0, 0.0
+
+        def advance(desired, duration, index):
+            nonlocal errors, maximum
+            error = self.step(state, desired, dt=duration)
+            indices.append(index)
+            observed_times.append(state.time_s - origin)
+            maximum = max(maximum, error)
+            errors += int(desired.contact and error > desired.corridor_half_width_mm)
+
+        origin = state.time_s
+        times = [sample.t_s for sample in plan.samples]
+        events = {}
+        for index, (previous, desired) in enumerate(zip(plan.samples, plan.samples[1:]), start=1):
+            if desired.t_s == previous.t_s or desired.contact != previous.contact:
+                events.setdefault(desired.t_s, []).append(index)
+        schedule = sorted(set([min(index * dt, plan.total_time_s)
+                               for index in range(1, math.ceil(plan.total_time_s / dt) + 1)]
+                              + list(events) + [sample.t_s for sample in plan.samples if sample.contact and sample.speed_mm_s == 0]
+                              + [plan.total_time_s]))
+        advance(plan.samples[0], 0, 0)
+        elapsed = 0.0
+        for instant in schedule:
+            if instant > elapsed:
+                index = bisect_left(times, instant)
+                previous, desired = plan.samples[index - 1], plan.samples[index]
+                fraction = (instant - previous.t_s) / (desired.t_s - previous.t_s)
+                values = {field.name: getattr(previous, field.name) * (1 - fraction)
+                          + getattr(desired, field.name) * fraction
+                          for field in fields(previous) if field.name != "contact"}
+                target = replace(previous, **values, contact=previous.contact)
+                owner = index if desired.contact == previous.contact else index - 1
+                advance(target, instant - elapsed, owner)
+            for index in events.get(instant, []):
+                advance(plan.samples[index], 0, index)
+            elapsed = instant
+        if settle_time_s:
+            steps = math.ceil(settle_time_s / dt)
+            for _ in range(steps):
+                advance(plan.samples[-1], settle_time_s / steps, len(plan.samples) - 1)
+        trajectory = tuple(state.trace[start:])
+        aligned = tuple(trajectory[max(0, bisect_right(observed_times, sample.t_s + 1e-12) - 1)]
+                        for sample in plan.samples)
+        return SimulationResult(plan, state, trajectory, aligned, errors, maximum,
+                                tuple(indices))
 
     def follow_plan(
         self,
@@ -221,6 +314,8 @@ class GuidedHandFlowController:
         dt: float = 0.002,
         settle_time_s: float = 0.05,
     ) -> SimulationResult:
+        if self.execution_version != "legacy-v1":
+            return self._follow_timed_plan(plan, state=state, dt=dt, settle_time_s=settle_time_s)
         if not plan.samples:
             raise ValueError("cannot follow an empty TrackPlan")
 

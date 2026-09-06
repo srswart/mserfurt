@@ -1,0 +1,57 @@
+{
+  "verification_commit": "f222169",
+  "experiment_commit": "eb10004",
+  "scope": "fresh-process clean-checkout regression, no new candidate or optimizer",
+  "hash_seed": 839,
+  "execution": {
+    "elapsed_seconds": 8.140424540964887,
+    "renders": 303
+  },
+  "experiment_report_sha256": "1d3ecc3288686dab1ccbf7d66b9e85d800fba34736758ba110574dedd228ff9f",
+  "verification_report_sha256": "d49d0e3c0c6e0391a57392885a47a634d6a09f2e66e0038487525069aa39c7da",
+  "rows_sha256": "7f847bb86f094badda0c9484f568bc634289a39539e12da6c617adc7a4d833d6",
+  "checks_sha256": "496d0c1ffe4602e24d9795acf13199de66d5b6b99f88f8239c639a816eb75dd2",
+  "actual_traces_sha256": "a0c7261adc32d9e5f5ef043ada03784277c546f67c68afb1839729510c360549",
+  "images_sha256": {
+    "comparison.png": "d3dd182cff6c97b6bc755ac1fda67f85bf317b1ac962844fde5be0b958aa1fc6",
+    "baseline.png": "e4fa5b1572f19ce6837b8efc6c91f75581b94de016bb25654868a0b06096200a",
+    "primitive-gallery.png": "df213ad5ed1f787fb029a94fad84e2fd635ef43fdcf944e0f1ef81ae2a1f175a"
+  },
+  "measured_rows_checks_decision_identical": true,
+  "actual_traces_and_images_byte_identical": true,
+  "baseline_actual_traces_identical": true,
+  "baseline_status": "pass",
+  "motion_status": "fail",
+  "primitive_training_permitted": false,
+  "handflow_tests_passed": 24,
+  "expanded_clean_tests": {
+    "passed": 90,
+    "failed": 1,
+    "preexisting_failure": "tests/test_handflow.py::test_desired_velocity_affects_acceleration, missing nib_angle_deg"
+  },
+  "provider_ci_observed": false,
+  "implementation_merged": false,
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "29f1acd735f7f7bc783c0daa649c4a5efcb037e13ed7fd21f65dd241b2ff18c5",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "30492bfc66ead4cdf96422177080fa56a9144e2b13394478ab225f47ee0e98d8",
+    "scribesim/evofit/stroke_language.py": "2355fdd4dc5ccd651df19bcadb3d1479697372dcbce3425122b6e903eb7e0886",
+    "scribesim/handflow/controller.py": "c844a7ddf572b146e239e7c3f31c0a1727d776360bfd03a899c844348999dce9",
+    "scribesim/handflow/planning.py": "bbc45c8db7c2d57f0efec6e05ac00a66815c1578b0eabb29051dc6d6a1c94308",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/handvalidate/foundation_motion.py": "d336ce624423de3b0f5fd5a7526043a0cd05f97f8507b7fb2b0ebfc8c42238f2",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "7741734df7a16787d15c2d8609a3e061b1d5fc855f1168b42a2599f8ebc86469",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+  }
+}

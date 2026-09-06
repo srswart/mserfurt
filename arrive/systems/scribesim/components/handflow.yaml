@@ -11,6 +11,8 @@ selectors:
     - "scribesim/handflow/**"
     - "tests/test_gesture_action_bridge.py"
     - "tests/test_handflow_reentry.py"
+    - "tests/test_handflow_corner_timing.py"
+    - "tests/test_handflow_curve_clock.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/**"
   build_modules: []
   tags: []
@@ -19,6 +21,10 @@ selectors:
 interfaces:
   - "TrackPlan API (desired position, desired velocity, desired contact, desired pressure)"
   - "HandState v2 API (continuous state carried across stroke, glyph, word, line)"
+  - "Opt-in event-time-v1/v2 execution with exact contact times; v2 uses an acceleration-limited velocity servo without corridor projection. Legacy execution remains default."
+  - "Opt-in braked-air-v1 plan retiming with source-owner mapping, prescribed pen-up braking/rest arrival and analytic contact clock; fixed-tool scope only."
+  - "Opt-in corner-time-v1 shared contact timing from compiled corner/smooth ports and cubic curvature; corner rest without lift, unchanged tool/geometry, bounded desired acceleration and retained air braking."
+  - "Opt-in curve-time-v1 uses bounded cubic arc integration and validated source-parameter provenance for sampling-independent contact timing; retains corner/air policies and every source geometry sample."
   - "Profile activation matrix for reviewed guided rendering (which HandProfile fields materially affect handflow output)"
   - "Planned realized orientation and active-edge state under bounded gesture action tracking"
 
@@ -26,4 +32,5 @@ invariants:
   - "The controller follows planned state, not raw keypoints, when plan tracking is enabled."
   - "Pen lifts are explicit state transitions; joins are modeled as planned contact or planned air motion."
   - "Out-of-corridor motion triggers correction or validation failure before page rendering."
+  - "Every motion gate and matching current-code primitive baseline must pass. Run-005 admits only fixed-tool synthetic motion; new geometry or compiler changes require fresh validation, not copied acceptance."
   - "A profile field is not considered a tuning knob for TD-014 until the reviewed guided path measurably responds to it."

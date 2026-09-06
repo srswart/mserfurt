@@ -32,7 +32,7 @@ def require_g1(nominal_root, *, dataset_root=None, benchmark_root=None, target_r
     return json.loads((root / "candidate.json").read_text()), json.loads((root / "freeze.json").read_text())
 
 
-def _sample_cubic(cubic, step_mm):
+def _sample_cubic(cubic, step_mm, *, include_parameters=False):
     segment = BezierSegment(*cubic)
     probe_count = max(128, math.ceil(sum(math.dist(left, right) for left, right in zip(cubic, cubic[1:])) / step_mm) * 8)
     if probe_count > 100000:
@@ -49,7 +49,8 @@ def _sample_cubic(cubic, step_mm):
             tangent = segment.tangent(min(.999, max(.001, float(parameter))))
         norm = math.hypot(*tangent)
         tangent = (tangent[0] / norm, tangent[1] / norm) if norm else (1.0, 0.0)
-        samples.append((*segment.evaluate(float(parameter)), *tangent))
+        point = (*segment.evaluate(float(parameter)), *tangent)
+        samples.append((*point, float(parameter)) if include_parameters else point)
     return samples
 
 
