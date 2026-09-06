@@ -197,16 +197,18 @@ def compile_gestures(text, model):
     return plan
 
 
-def _arc_samples(rows, scale, step, *, preserve_boundaries=False):
+def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_positions=False):
     points, owners = [], []
+    source_positions = []
     boundaries = []
     parameters = np.linspace(0, 1, 257)[:, None]
     for row in rows:
-        for cubic in row['cubics']:
+        for cubic_index, cubic in enumerate(row['cubics']):
             controls = np.asarray(cubic) * [scale, -scale] + [0, 10]
             curve = ((1 - parameters) ** 3 * controls[0] + 3 * (1 - parameters) ** 2 * parameters * controls[1]
                      + 3 * (1 - parameters) * parameters ** 2 * controls[2] + parameters ** 3 * controls[3])
             selected = curve[1:] if points else curve
+            source_positions.extend((cubic_index, index) for index in range(257 - len(selected), 257))
             points.extend(selected.tolist())
             owners.extend([row] * len(selected))
             boundaries.append(len(points) - 1)
@@ -223,10 +225,15 @@ def _arc_samples(rows, scale, step, *, preserve_boundaries=False):
         point = points[index - 1] + ratio * (points[index] - points[index - 1])
         tangent = points[index] - points[index - 1]
         tangent /= max(1e-12, np.linalg.norm(tangent))
-        yield (*point, *tangent), owners[index], float(target / distance[-1])
+        owner = owners[index]
+        if include_curve_positions:
+            cubic_index, vertex = source_positions[index]
+            owner = {**owner, 'curve_position': {'cubic_index': cubic_index,
+                     'parameter': min(1.0, max(0.0, float((vertex - 1 + ratio) / 256))), 'representation': 'chord-256'}}
+        yield (*point, *tangent), owner, float(target / distance[-1])
 
 
-def gesture_guide(text, model, *, step_mm=.05):
+def gesture_guide(text, model, *, step_mm=.05, include_curve_positions=False):
     if not legacy._number(step_mm, .005, .2):
         raise ValueError('Physical sampling bound')
     plan = compile_gestures(text, model)
@@ -235,7 +242,7 @@ def gesture_guide(text, model, *, step_mm=.05):
         raise ValueError('Dynamic/nonbaseline action execution unsupported until the realized action bridge')
     lowered, _ = _lower(model)
     if model['sampling'] == 'legacy-v1':
-        bundle = legacy.language_guide(text, lowered, step_mm=step_mm)
+        bundle = legacy.language_guide(text, lowered, step_mm=step_mm, include_curve_positions=include_curve_positions)
         indexed = {row['occurrence_id']: row for row in plan['strokes']}
         for owner in bundle.metadata['owners']:
             if owner['kind'] == 'stroke':
@@ -248,7 +255,8 @@ def gesture_guide(text, model, *, step_mm=.05):
         samples, owners = [], []
         for rows in groups.values():
             contact = list(_arc_samples(rows, model['x_height_mm'], step_mm,
-                                       preserve_boundaries=model['sampling'] == 'gesture-arc-v3'))
+                                       preserve_boundaries=model['sampling'] == 'gesture-arc-v3',
+                                       include_curve_positions=include_curve_positions))
             if samples:
                 start, end = [samples[-1].x_mm, samples[-1].y_mm], list(contact[0][0][:2])
                 for point in _sample_cubic([start, start, end, end], step_mm):

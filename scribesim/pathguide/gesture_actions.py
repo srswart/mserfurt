@@ -58,7 +58,7 @@ def code_identities():
     return {name: digest(ROOT / name) for name in names}
 
 
-def action_bundle(text, model, *, step_mm=.025):
+def action_bundle(text, model, *, step_mm=.025, include_curve_positions=False):
     validate_gestures(model)
     if model['sampling'] not in {'gesture-arc-v2', 'gesture-arc-v3'} or model['nib_width_mm'] != .45:
         raise ValueError('Explicit gesture-arc-v2/v3 and frozen 0.45mm tool required')
@@ -66,7 +66,7 @@ def action_bundle(text, model, *, step_mm=.025):
     for action in neutral['actions'].values():
         action['orientation'] = [[0, model['nib_angle_deg']], [1, model['nib_angle_deg']]]
         action['edge'] = [[0, 0, 1], [1, 0, 1]]
-    geometry = gesture_guide(text, neutral, step_mm=step_mm)
+    geometry = gesture_guide(text, neutral, step_mm=step_mm, include_curve_positions=include_curve_positions)
     source_plan = compile_gestures(text, model)
     indexed = {row['occurrence_id']: row for row in source_plan['strokes']}
     occurrences = {row['gesture_occurrence_id']: row for row in source_plan['strokes']}

@@ -14,6 +14,7 @@ from .model import TrackPlan, TrackPlanSample
 
 
 AIR_BRAKING_VERSION = "braked-air-v1"
+ARC_QUADRATURE = tuple(np.polynomial.legendre.leggauss(order) for order in (16, 32))
 
 
 @dataclass(frozen=True)
@@ -165,7 +166,93 @@ def cubic_curvature_max(cubic):
     return max(abs(cross(value)) / squared(value) ** 1.5 for value in candidates(stationary))
 
 
-def retime_corner_timing(plan: TrackPlan, owners, strokes) -> BrakedPlan:
+def cubic_arc_length(cubic, parameter=1.0, *, max_depth=12):
+    """Integrate a cubic's speed with bounded deterministic quadrature refinement."""
+    controls = np.asarray(cubic, dtype=float)
+    if (controls.shape != (4, 2) or not np.isfinite(controls).all()
+            or not math.isfinite(parameter) or not 0 <= parameter <= 1
+            or type(max_depth) is not int or not 0 <= max_depth <= 12):
+        raise ValueError('Finite cubic and bounded integration parameters required')
+    if parameter == 0:
+        return 0.0
+    derivatives = 3 * np.diff(controls, axis=0)
+    panels = 0
+
+    def integrate(start, end, tolerance, depth):
+        nonlocal panels
+        panels += 1
+        if panels > 4096:
+            raise ValueError('Arc integration panel budget exhausted')
+        estimates = []
+        for nodes, weights in ARC_QUADRATURE:
+            values = ((nodes + 1) * (end - start) / 2 + start)[:, None]
+            velocity = ((1 - values) ** 2 * derivatives[0] + 2 * (1 - values) * values * derivatives[1]
+                        + values ** 2 * derivatives[2])
+            estimates.append(float(weights @ np.linalg.norm(velocity, axis=1) * (end - start) / 2))
+        if not all(math.isfinite(value) for value in estimates):
+            raise ValueError('Nonfinite arc integral')
+        if abs(estimates[1] - estimates[0]) <= tolerance:
+            return estimates[1]
+        if depth == max_depth:
+            raise ValueError('Arc integration refinement budget exhausted')
+        middle = (start + end) / 2
+        return integrate(start, middle, tolerance / 2, depth + 1) + integrate(middle, end, tolerance / 2, depth + 1)
+
+    return integrate(0.0, parameter, 1e-10, 0)
+
+
+def _curve_progress(plan, owners, physical, keys, beginning, ending):
+    lengths, offsets = {}, {}
+    accumulated = []
+    for key in keys:
+        for cubic_index, cubic in enumerate(physical[key]):
+            identity = key, cubic_index
+            offsets[identity] = math.fsum(accumulated)
+            lengths[identity] = cubic_arc_length(cubic)
+            accumulated.append(lengths[identity])
+    progress = []
+    for index in range(beginning, ending + 1):
+        owner = owners[index]
+        position = owner.get('curve_position')
+        if (not isinstance(position, dict) or set(position) != {'cubic_index', 'parameter', 'representation'}
+                or type(position['cubic_index']) is not int or type(position['parameter']) not in (int, float)
+                or not math.isfinite(position['parameter']) or not 0 <= position['parameter'] <= 1
+                or position['representation'] not in ('cubic', 'chord-256')):
+            raise ValueError('Valid curve provenance required')
+        identity = owner['occurrence_id'], position['cubic_index']
+        if identity not in offsets:
+            raise ValueError('Curve provenance has unknown cubic')
+        cubic = np.asarray(physical[identity[0]][identity[1]])
+        parameter = position['parameter']
+
+        def evaluate(value):
+            return ((1 - value) ** 3 * cubic[0] + 3 * (1 - value) ** 2 * value * cubic[1]
+                    + 3 * (1 - value) * value ** 2 * cubic[2] + value ** 3 * cubic[3])
+
+        expected = evaluate(parameter)
+        if position['representation'] == 'chord-256':
+            lower = min(255, math.floor(parameter * 256))
+            fraction = parameter * 256 - lower
+            expected = evaluate(lower / 256) * (1 - fraction) + evaluate((lower + 1) / 256) * fraction
+        sample = plan.samples[index]
+        if math.dist(expected, (sample.x_mm, sample.y_mm)) > 1e-8:
+            raise ValueError('Curve provenance does not reconstruct source geometry')
+        partial = lengths[identity] if parameter == 1 else cubic_arc_length(cubic, parameter)
+        distance = offsets[identity] + partial
+        if progress and distance < progress[-1]:
+            raise ValueError('Curve provenance is not monotonic')
+        progress.append(distance)
+    if progress[0] != 0 or not math.isclose(progress[-1], math.fsum(accumulated), rel_tol=0, abs_tol=1e-10):
+        raise ValueError('Curve provenance must cover complete contact endpoints')
+    return progress
+
+
+def retime_curve_timing(plan: TrackPlan, owners, strokes) -> BrakedPlan:
+    """Opt-in geometry-derived clock, retaining the shared corner and air policy."""
+    return retime_corner_timing(plan, owners, strokes, _curve_clock=True)
+
+
+def retime_corner_timing(plan: TrackPlan, owners, strokes, *, _curve_clock=False) -> BrakedPlan:
     """Shared fixed-tool contact clock, driven by exact compiled ports and curves."""
     if len(owners) != len(plan.samples) or not strokes:
         raise ValueError('Complete contact ownership required')
@@ -186,6 +273,7 @@ def retime_corner_timing(plan: TrackPlan, owners, strokes) -> BrakedPlan:
         while end + 1 < len(plan.samples) and plan.samples[end + 1].contact:
             end += 1
         keys = list(dict.fromkeys(owner['occurrence_id'] for owner in owners[cursor:end + 1]))
+        curve_progress = _curve_progress(plan, owners, physical, keys, cursor, end) if _curve_clock else None
         sections = []
         beginning, curves = cursor, []
         previous = None
@@ -226,6 +314,9 @@ def retime_corner_timing(plan: TrackPlan, owners, strokes) -> BrakedPlan:
             distances = [0.0]
             for before, after in zip(plan.samples[beginning:ending], plan.samples[beginning + 1:ending + 1]):
                 distances.append(distances[-1] + math.dist((before.x_mm, before.y_mm), (after.x_mm, after.y_mm)))
+            if curve_progress is not None:
+                distances = [curve_progress[index - cursor] - curve_progress[beginning - cursor]
+                             for index in range(beginning, ending + 1)]
             if distances[-1] <= 0:
                 raise ValueError('Nonstationary contact section required')
             for index, distance in enumerate(distances, start=beginning):
@@ -235,7 +326,7 @@ def retime_corner_timing(plan: TrackPlan, owners, strokes) -> BrakedPlan:
         cursor = end + 1
     result = retime_air_braking(plan, _contact_timing=timing)
     mapped = {source: index for index, source in enumerate(result.source_indices) if result.plan.samples[index].contact}
-    return replace(result, version='corner-time-v1', corners=tuple(
+    return replace(result, version='curve-time-v1' if _curve_clock else 'corner-time-v1', corners=tuple(
         {**corner, 'plan_index': mapped[corner['source_index']],
          'time_s': result.plan.samples[mapped[corner['source_index']]].t_s} for corner in corners))
 

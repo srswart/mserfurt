@@ -19,7 +19,7 @@ from scribesim.evofit.stroke_language import compile_text, language_guide, seed_
 from scribesim.evofit.recovery import image_objective
 from scribesim.handflow.controller import GuidedHandFlowController
 from scribesim.handflow.controls import RepertoireControls
-from scribesim.handflow.planning import build_track_plan, retime_corner_timing
+from scribesim.handflow.planning import build_track_plan, retime_curve_timing
 from scribesim.handvalidate.bridge import neutral_profile, paint_trajectory
 from scribesim.handvalidate.gestures import _subdivide
 from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_json
@@ -27,9 +27,9 @@ from scribesim.pathguide.gesture_actions import ActionController, action_bundle,
 from scribesim.evo.nib_contact import ContactSample, VERSION
 
 
-SPEC_PATH = BASE / 'foundation_repair/motion/spec-v4.json'
+SPEC_PATH = BASE / 'foundation_repair/motion/spec-v5.json'
 SPEC = json.loads(SPEC_PATH.read_text())
-TARGET_VERSION = 'corner-time-v1'
+TARGET_VERSION = 'curve-time-v1'
 
 
 class Budget:
@@ -119,14 +119,14 @@ def execute(model, text, *, step, dt, version, budget, physical=False, subdivisi
     if subdivision:
         model = _subdivide(model)
     if physical:
-        bundle = action_bundle(text, model, step_mm=step)
+        bundle = action_bundle(text, model, step_mm=step, include_curve_positions=version == TARGET_VERSION)
         plan, owners = bundle.plan, bundle.owners
         engine = ActionController(model, execution_version=controller_version)
         playback = [ContactSample(sample.x_mm, sample.y_mm, sample.contact, .45, sample.pressure,
                                  sample.nib_angle_deg, sample.edge_start, sample.edge_end)
                     for sample in plan.samples]
     else:
-        bundle = gesture_guide(text, model, step_mm=step)
+        bundle = gesture_guide(text, model, step_mm=step, include_curve_positions=version == TARGET_VERSION)
         plan, owners = build_track_plan(bundle.guide, base_speed_mm_s=12), bundle.metadata['owners']
         engine = GuidedHandFlowController(neutral_profile(model), repertoire_controls=RepertoireControls(),
                                           execution_version=controller_version)
@@ -139,7 +139,7 @@ def execute(model, text, *, step, dt, version, budget, physical=False, subdivisi
     if version == TARGET_VERSION:
         compiled = compile_gestures(text, model)['strokes']
         expected_corners = [row for row in compiled if row['transition'] == 'corner']
-        retimed = retime_corner_timing(plan, owners, compiled)
+        retimed = retime_curve_timing(plan, owners, compiled)
         for point, index in zip(retimed.plan.samples, retimed.source_indices):
             if point.contact:
                 before = plan.samples[index]
@@ -275,13 +275,13 @@ def revalidate_baseline(budget, *, root=LOWER, version=TARGET_VERSION):
     for name in initial['primitives']:
         sample = next(sample for sample in samples if sample['id'] == name + '-base')
         model, text = strokes.exercise_model(candidate, sample)
-        bundle = language_guide(text, model, step_mm=.025)
+        bundle = language_guide(text, model, step_mm=.025, include_curve_positions=version == TARGET_VERSION)
         engine = GuidedHandFlowController(neutral_profile(model), repertoire_controls=RepertoireControls(),
                                           execution_version='event-time-v2' if version == TARGET_VERSION else version)
         plan = build_track_plan(bundle.guide, base_speed_mm_s=12)
         owners = bundle.metadata['owners']
         if version == TARGET_VERSION:
-            retimed = retime_corner_timing(plan, owners, compile_text(text, model)['strokes'])
+            retimed = retime_curve_timing(plan, owners, compile_text(text, model)['strokes'])
             plan, owners = retimed.plan, [owners[index] for index in retimed.source_indices]
         result = engine.follow_plan(plan, dt=.002, settle_time_s=0)
         frame = bundle.metadata['frame_mm']
@@ -423,7 +423,7 @@ def build(output):
             labels = SPEC['fixture_labels'][name]
             tiles.extend([(labels + ' | desired', presentation_image(executions[TARGET_VERSION]['base'], 'desired', budget)),
                           (labels + ' | old actual', presentation_image(executions['legacy-v1']['base'], 'actual', budget)),
-                          (labels + ' | corner-timed actual', presentation_image(executions[TARGET_VERSION]['base'], 'actual', budget)),
+                          (labels + ' | curve-clock actual', presentation_image(executions[TARGET_VERSION]['base'], 'actual', budget)),
                           (labels + ' | refined actual', presentation_image(executions[TARGET_VERSION]['time'], 'actual', budget))])
             traces[name] = {version: {label: {key: value for key, value in result.items() if key != 'images'}
                                      for label, result in runs.items()} for version, runs in executions.items()}
@@ -460,7 +460,7 @@ def build(output):
     decision = decide_motion(checks, baseline)
     report = {'scope': SPEC['scope'], 'decision': decision, 'checks': checks, 'rows': rows,
               'renders': budget.used, 'max_renders': budget.maximum, 'optimization_evaluations': 0,
-              'attempt': 3, 'revision': 0, 'allowance': SPEC['allowance'],
+              'attempt': 4, 'revision': 0, 'allowance': SPEC['allowance'],
               'code_sha256': identities(), 'spec_sha256': digest(SPEC_PATH),
               'artifacts': {path.name: digest(path) for path in sorted(output.iterdir()) if path.is_file()}}
     write_json(output / 'report.json', report)

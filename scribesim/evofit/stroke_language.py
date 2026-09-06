@@ -257,7 +257,7 @@ def compile_text(text, model):
             "strokes": strokes, "letters": letters, "words": words, "lines": lines}
 
 
-def language_guide(text, model, *, step_mm=.05):
+def language_guide(text, model, *, step_mm=.05, include_curve_positions=False):
     if not _number(step_mm, .005, .2):
         raise ValueError("Physical sampling bound")
     plan = compile_text(text, model)
@@ -274,11 +274,15 @@ def language_guide(text, model, *, step_mm=.05):
                 samples.append(GuideSample(horizontal, vertical, tangent_x, tangent_y, contact=False, pressure_nominal=0,
                                            nib_angle_deg=model["nib_angle_deg"], corridor_half_width_mm=.2))
                 owners.append({"kind": "air", "spans": [], "from": owners[-1].get("occurrence_id"), "to": row["occurrence_id"]})
-        for cubic in cubics:
-            for horizontal, vertical, tangent_x, tangent_y in _sample_cubic(cubic, step_mm):
+        for cubic_index, cubic in enumerate(cubics):
+            for point in _sample_cubic(cubic, step_mm, include_parameters=include_curve_positions):
+                horizontal, vertical, tangent_x, tangent_y = point[:4]
                 samples.append(GuideSample(horizontal, vertical, tangent_x, tangent_y, pressure_nominal=.5,
                                            nib_angle_deg=model["nib_angle_deg"], corridor_half_width_mm=.2))
-                owners.append(copy.deepcopy(owner))
+                marked = copy.deepcopy(owner)
+                if include_curve_positions:
+                    marked['curve_position'] = {'cubic_index': cubic_index, 'parameter': point[4], 'representation': 'cubic'}
+                owners.append(marked)
     if len(samples) > 100000:
         raise ValueError("Guide sample budget")
     margin = model["nib_width_mm"] + .5
