@@ -1,6 +1,7 @@
 # Proposed next scope — shared acceleration-aware contact timing
 
-**Not implemented or authorized as another candidate.** The authorized air-braking
+**Authorized by the user's corner-aware motion timing request.** One candidate
+is frozen in [spec-v4.json](spec-v4.json), with no automatic revision. The prior air-braking
 follow-up has executed and its arrival checks pass. Its complete motion gate
 fails at sharp continuous-contact corners; no automatic revision is permitted.
 HANDFLOW-010 stays in progress until all required fixtures pass, then may merge.
