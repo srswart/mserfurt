@@ -55,8 +55,28 @@ def _draw_nib_sweep(
     samples: list[tuple[float, float, float, float, float]],
     heat_draw: ImageDraw.ImageDraw | None = None,
     heat_values: list[int] | None = None,
+    *,
+    contact_samples=None,
+    pixels_per_mm=None,
+    origin_mm=(0, 0),
 ) -> None:
     """Sweep nib edge through samples, draw filled quadrilaterals."""
+    if contact_samples is not None:
+        from .nib_contact import contact_corners, swept_polygon
+
+        if samples or heat_draw is not None or heat_values is not None or not pixels_per_mm or pixels_per_mm <= 0:
+            raise ValueError('Physical contact sweep cannot mix legacy or optical inputs')
+        if len(contact_samples) < 2 or len({(sample.x_mm, sample.y_mm) for sample in contact_samples}) < 2:
+            raise ValueError('Unsupported stationary dab')
+        for sample in contact_samples:
+            contact_corners(sample)
+            if not sample.contact:
+                raise ValueError('A canonical contact run cannot contain air')
+        for first, second in zip(contact_samples, contact_samples[1:]):
+            polygon = [((point[0] - origin_mm[0]) * pixels_per_mm, (point[1] - origin_mm[1]) * pixels_per_mm)
+                       for point in swept_polygon(first, second)]
+            draw.polygon(polygon, fill=_ink_color(.84))
+        return
     for si in range(len(samples) - 1):
         x0, y0, d0, hx0, hy0 = samples[si]
         x1, y1, d1, hx1, hy1 = samples[si + 1]

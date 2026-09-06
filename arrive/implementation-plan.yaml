@@ -1558,12 +1558,12 @@ passes:
     - id: ADV-SS-NIBCONTACT-002
       advance_id: ADV-SS-NIBCONTACT-002
       title: "Intentional Nib Contact — Shifted Edge Footprints and Canonical Sweep"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-NIBCONTACT-001
       - ADV-SS-GESTURE-001
-      notes: "IMPLEMENTATION: shifted active-edge footprint through the existing canonical sweep; no independent renderer, ink depletion repair or default switch."
+      notes: "COMPLETE: opt-in physical-edge-v1 through canonical sweep; 8 analytic fixtures/25 renders, 49 tests and clean replay. Legacy pixels preserved; old whole-file acceptance hashes are stale. No S1-action or default switch."
     - id: ADV-SS-PATHGUIDE-006
       advance_id: ADV-SS-PATHGUIDE-006
       title: "Gesture Action Bridge — Desired Tracks, Realized Contact and Ownership"

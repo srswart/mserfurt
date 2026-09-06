@@ -38,7 +38,17 @@ def neutral_profile(hand):
     return profile
 
 
-def paint_trajectory(trajectory, frame, *, dpi=180):
+def paint_trajectory(trajectory, frame, *, dpi=180, contact_version=None):
+    from scribesim.evo.nib_contact import ContactSample, VERSION, contact_corners
+
+    trajectory = tuple(trajectory)
+    if contact_version not in (None, VERSION):
+        raise ValueError('Unsupported trajectory contact version')
+    if any(isinstance(sample, ContactSample) != (contact_version == VERSION) for sample in trajectory):
+        raise ValueError('Explicit matching trajectory contact version required')
+    if contact_version == VERSION:
+        for sample in trajectory:
+            contact_corners(sample)
     left, right, top, bottom = frame
     pixels = dpi * 3 / 25.4
     size = max(3, math.ceil((right - left) * pixels)), max(3, math.ceil((bottom - top) * pixels))
@@ -50,8 +60,14 @@ def paint_trajectory(trajectory, frame, *, dpi=180):
     for sample in (*trajectory, TrajectorySample(0, 0, False)):
         if not sample.contact:
             if run:
-                _draw_nib_sweep(draw, run)
+                if contact_version == VERSION:
+                    _draw_nib_sweep(draw, [], contact_samples=run, pixels_per_mm=pixels, origin_mm=(left, top))
+                else:
+                    _draw_nib_sweep(draw, run)
             run = []
+            continue
+        if contact_version == VERSION:
+            run.append(sample)
             continue
         half = (sample.width_mm or 0) * pixels / 2
         angle = math.radians(sample.nib_angle_deg or 0)
