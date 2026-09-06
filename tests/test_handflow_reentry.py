@@ -231,3 +231,15 @@ def test_braking_plan_rejects_incomplete_or_nonfinite_inputs():
                     [sample(0, 0), sample(.02, 1, False)]):
         with pytest.raises(ValueError):
             retime_air_braking(plan(samples))
+
+
+def test_presentation_rerenders_native_geometry_at_high_dpi():
+    from scribesim.handvalidate.foundation_motion import presentation_image, Budget
+
+    result = {'plan': {'samples': [vars(sample(0, 0)), vars(sample(.1, 1))]},
+              'trace': [{'to_mm': [0, 0], 'contact': True, 'pressure': .5, 'width_mm': .45, 'angle_deg': 40},
+                        {'to_mm': [1, 0], 'contact': True, 'pressure': .5, 'width_mm': .45, 'angle_deg': 40}]}
+    budget = Budget()
+    image = presentation_image(result, 'actual', budget, frame=[-1, 2, -1, 2])
+    assert image.shape[0] >= 100 and image.shape[1] >= 100
+    assert budget.used == 1
