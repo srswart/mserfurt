@@ -115,6 +115,19 @@ def test_actual_motion_gate_does_not_admit_a_good_image_with_bad_geometry():
     assert not decision['primitive_training_permitted']
 
 
+def test_motion_gate_rejects_partial_or_stale_check_sets():
+    from scribesim.handvalidate.foundation_motion import decide_motion
+
+    for checks in ({}, {'time': True}, {'time': True, 'images': True, 'endpoints': True, 'corridor': True}):
+        decision = decide_motion(checks, {'status': 'pass'})
+        assert not decision['primitive_training_permitted']
+
+
+def test_new_time_modes_reject_impractically_large_step_schedules():
+    with pytest.raises(ValueError, match='budget'):
+        controller('event-time-v2').follow_plan(plan([sample(0, 0), sample(1, 12)]), dt=1e-12)
+
+
 def test_revision_servo_remains_acceleration_limited_without_projection():
     desired = plan([sample(0, 0), sample(.1, 1.2), sample(.2, 2.4)])
     result = controller('event-time-v2').follow_plan(desired, dt=.002, settle_time_s=0)
