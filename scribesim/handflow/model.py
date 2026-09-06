@@ -82,6 +82,7 @@ class SimulationResult:
     guide_aligned_trajectory: tuple[TrajectorySample, ...]
     out_of_corridor_steps: int
     max_corridor_error_mm: float
+    trajectory_plan_indices: tuple[int, ...] = ()
 
 
 @dataclass(frozen=True)

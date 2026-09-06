@@ -24,7 +24,6 @@ from scribesim.pathguide.catalog import (
 from scribesim.pathguide.io import write_pathguides_toml
 from scribesim.pathguide.model import DensePathGuide, GuideSample, GuideSource
 from scribesim.pathguide.validate import validate_dense_path_guide
-from scribesim.refextract.exemplar import extract_exemplar
 
 
 DEFAULT_EVOFIT_CORPUS_MANIFEST_PATH = Path("shared/training/handsim/active_review_exemplars_v1/promoted_manifest.toml")
@@ -498,6 +497,8 @@ def _copy_image(source: Path, destination: Path) -> None:
 
 
 def _write_comparison_panel(fit_source: np.ndarray, prior: np.ndarray | None, evolved: np.ndarray, output_path: Path) -> None:
+    from scribesim.refextract.exemplar import extract_exemplar
+
     fit_source_img = PILImage.fromarray(extract_exemplar(_normalize_image(fit_source), target_size=_TARGET_SIZE))
     prior_img = PILImage.fromarray(extract_exemplar(_normalize_image(prior), target_size=_TARGET_SIZE)) if prior is not None else PILImage.new("L", _TARGET_SIZE[::-1], 255)
     evolved_img = PILImage.fromarray(extract_exemplar(_normalize_image(evolved), target_size=_TARGET_SIZE))

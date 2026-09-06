@@ -194,6 +194,7 @@ class GuidedHandFlowController:
         final_sample = plan.samples[-1]
         out_of_corridor_steps = 0
         max_corridor_error = 0.0
+        trajectory_plan_indices = []
         aligned_trace = [
             TrajectorySample(
                 x_mm=state.pos_x_mm,
@@ -205,12 +206,13 @@ class GuidedHandFlowController:
             )
         ]
 
-        for prev, desired in zip(plan.samples, plan.samples[1:], strict=False):
+        for plan_index, (prev, desired) in enumerate(zip(plan.samples, plan.samples[1:], strict=False), start=1):
             segment_dt = max(dt, desired.t_s - prev.t_s)
             substeps = max(1, round(segment_dt / dt))
             actual_dt = segment_dt / substeps
             for _ in range(substeps):
                 corridor_error = self.step(state, desired, dt=actual_dt)
+                trajectory_plan_indices.append(plan_index)
                 max_corridor_error = max(max_corridor_error, corridor_error)
                 if corridor_error > desired.corridor_half_width_mm:
                     out_of_corridor_steps += 1
@@ -228,6 +230,7 @@ class GuidedHandFlowController:
         settle_steps = max(1, round(settle_time_s / dt))
         for _ in range(settle_steps):
             corridor_error = self.step(state, final_sample, dt=dt)
+            trajectory_plan_indices.append(len(plan.samples) - 1)
             max_corridor_error = max(max_corridor_error, corridor_error)
             if corridor_error > final_sample.corridor_half_width_mm:
                 out_of_corridor_steps += 1
@@ -245,6 +248,7 @@ class GuidedHandFlowController:
             guide_aligned_trajectory=tuple(aligned_trace),
             out_of_corridor_steps=out_of_corridor_steps,
             max_corridor_error_mm=max_corridor_error,
+            trajectory_plan_indices=tuple(trajectory_plan_indices),
         )
 
     def simulate_guide(

@@ -1448,11 +1448,11 @@ passes:
     - id: ADV-SS-PATHGUIDE-005
       advance_id: ADV-SS-PATHGUIDE-005
       title: "Konrad Guided Bridge — Preserve Forms, Contact and Text Ownership"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-008
-      notes: "Runtime prerequisite: G1 pass for the selected model, beyond plan dependency completion. Establish G2 with actual trajectory and ownership preservation."
+      notes: "Implemented exact physical bridge and actual-trajectory attribution. Synthetic G2 exposes a width mismatch; real integration is blocked by G1. Implementation completion is not G2 acceptance."
     - id: ADV-SS-HANDFLOW-008
       advance_id: ADV-SS-HANDFLOW-008
       title: "Konrad Persistent Execution — Ink, Rhythm and Stable Session State"
