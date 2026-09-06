@@ -66,6 +66,13 @@ class HandStateV2:
     rhythm_phase: float = 0.0
     time_s: float = 0.0
     trace: list[TrajectorySample] = field(default_factory=list)
+    contact_length_mm: float = 0.0
+    consumed_ink: float = 0.0
+    refilled_ink: float = 0.0
+    habit_phase: float = 0.0
+    session_identity: str = ""
+    events: list[dict] = field(default_factory=list)
+    execution_trace: list[dict] = field(default_factory=list)
 
     @property
     def speed_mm_s(self) -> float:

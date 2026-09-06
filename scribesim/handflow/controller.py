@@ -20,6 +20,7 @@ from .model import (
     TrackPlanSample,
 )
 from .planning import build_track_plan
+from .controls import RepertoireControls
 
 
 class GuidedHandFlowController:
@@ -32,12 +33,14 @@ class GuidedHandFlowController:
         corridor_gain: float = 42.0,
         arrival_gain: float = 10.0,
         activate_base_pressure: bool = False,
+        repertoire_controls: RepertoireControls | None = None,
     ) -> None:
         self.profile = profile
         self.dyn = profile.dynamics
         self.corridor_gain = corridor_gain
         self.arrival_gain = arrival_gain
         self.activate_base_pressure = activate_base_pressure
+        self.repertoire_controls = repertoire_controls
         self.nib = PhysicsNib(
             width_mm=profile.nib.width_mm,
             angle_deg=profile.nib.angle_deg,
@@ -95,6 +98,10 @@ class GuidedHandFlowController:
     def step(self, state: HandStateV2, desired: TrackPlanSample, *, dt: float) -> float:
         """Advance state one timestep and append a trajectory sample."""
 
+        previous_position = state.pos_x_mm, state.pos_y_mm
+        previous_contact = state.nib_contact
+        previous_ink = state.ink_reservoir
+        previous_time = state.time_s
         acc_x, acc_y = self.desired_acceleration(state, desired)
         state.acc_x_mm_s2 = acc_x
         state.acc_y_mm_s2 = acc_y
@@ -125,10 +132,12 @@ class GuidedHandFlowController:
         state.fatigue = min(1.0, state.fatigue + self.profile.fatigue_rate * dt)
         state.nib_contact = desired.contact
         state.nib_angle_deg = desired.nib_angle_deg
+        if self.repertoire_controls is not None:
+            state.nib_angle_deg += self.repertoire_controls.angle_deg * math.sin(state.time_s * .4 + state.habit_phase)
         direction_rad = math.atan2(state.vel_y_mm_s, state.vel_x_mm_s)
         local_nib = PhysicsNib(
             width_mm=self.nib.width_mm,
-            angle_deg=desired.nib_angle_deg,
+            angle_deg=state.nib_angle_deg,
             flexibility=self.nib.flexibility,
             cut_quality=self.nib.cut_quality,
             attack_pressure_multiplier=self.nib.attack_pressure_multiplier,
@@ -150,9 +159,26 @@ class GuidedHandFlowController:
         pressure *= 1.0 + self.profile.ink.fresh_dip_darkness_boost * max(0.0, state.ink_reservoir - 0.5)
         pressure *= 1.0 - 0.12 * state.fatigue
         state.nib_pressure = max(0.0, min(1.15, pressure))
+        if self.repertoire_controls is not None:
+            pressure = desired.pressure * (1 + self.repertoire_controls.pressure * math.sin(state.time_s * .5 + state.habit_phase))
+            if self.repertoire_controls.ink:
+                pressure *= min(1, max(0, state.ink_reservoir / self.profile.ink.reservoir_capacity))
+            state.nib_pressure = max(0.0, min(1.15, pressure)) if state.nib_contact else 0.0
 
         width_mm = None
-        if state.nib_contact and state.ink_reservoir > 0.0:
+        consumed = 0.0
+        contact_mm = math.dist(previous_position, (state.pos_x_mm, state.pos_y_mm)) if previous_contact and state.nib_contact else 0.0
+        if self.repertoire_controls is not None:
+            state.contact_length_mm += contact_mm
+            if state.nib_contact and (state.ink_reservoir > 0 or not self.repertoire_controls.ink):
+                width_mm = self.nib.width_mm * (1 + .35 * (state.nib_pressure - .5))
+                if self.repertoire_controls.ink:
+                    consumed = min(state.ink_reservoir, contact_mm * self.repertoire_controls.ink_per_mm * state.nib_pressure / .5)
+                    state.ink_reservoir -= consumed
+                    state.consumed_ink += consumed
+            else:
+                width_mm = 0.0
+        elif state.nib_contact and state.ink_reservoir > 0.0:
             direction_deg = math.degrees(direction_rad)
             width_pressure = max(0.0, min(1.0, state.nib_pressure))
             width_mm = mark_width(
@@ -176,6 +202,15 @@ class GuidedHandFlowController:
                 nib_angle_deg=state.nib_angle_deg,
             )
         )
+        if self.repertoire_controls is not None:
+            state.execution_trace.append({"time_before": previous_time, "time_s": state.time_s,
+                "from_mm": list(previous_position), "to_mm": [state.pos_x_mm, state.pos_y_mm],
+                "desired_mm": [desired.x_mm, desired.y_mm], "corridor_mm": desired.corridor_half_width_mm,
+                "previous_contact": previous_contact, "contact": state.nib_contact, "contact_mm": contact_mm,
+                "consumed": consumed, "ink_before": previous_ink, "ink_after": state.ink_reservoir,
+                "pressure": state.nib_pressure, "width_mm": width_mm, "angle_deg": state.nib_angle_deg,
+                "nominal_angle_deg": desired.nib_angle_deg,
+                "fatigue": state.fatigue, "rhythm_phase": state.rhythm_phase, "habit_phase": state.habit_phase})
         return corridor_error
 
     def follow_plan(
@@ -228,6 +263,8 @@ class GuidedHandFlowController:
             )
 
         settle_steps = max(1, round(settle_time_s / dt))
+        if self.repertoire_controls is not None and settle_time_s == 0:
+            settle_steps = 0
         for _ in range(settle_steps):
             corridor_error = self.step(state, final_sample, dt=dt)
             trajectory_plan_indices.append(len(plan.samples) - 1)

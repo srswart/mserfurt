@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "scope": "synthetic-diagnostic",
+  "texts": [
+    "sins",
+    "in rein",
+    "deine hand"
+  ],
+  "model_sha256": "50230b3cb1593d73ec5cd8eb8e0e1399eaf7686f127c4df5b6e0ad582078e1cb",
+  "prerequisite": {
+    "status": "blocked",
+    "reason": "no accepted nominal hand"
+  },
+  "tolerances": {
+    "sampled_image_loss": 0.15,
+    "actual_image_loss": 0.35,
+    "actual_corridor_error_mm": 0.25,
+    "width_delta_mm": 0.5
+  },
+  "profile": {
+    "folio": {
+      "page_rotation_deg": 0.0,
+      "ruling_slope_variance": 0.003,
+      "ruling_spacing_variance_mm": 0.5,
+      "margin_left_variance_mm": 0.3,
+      "base_pressure": 0.72,
+      "base_tempo": 3.0,
+      "tremor_amplitude": 0.0,
+      "lines_per_page": 30
+    },
+    "line": {
+      "start_x_variance_mm": 0.3,
+      "baseline_undulation_amplitude_mm": 0.2,
+      "baseline_undulation_period_ratio": 0.5,
+      "margin_compression_zone_ratio": 0.85,
+      "line_spacing_mean_mm": 8.0,
+      "line_spacing_variance_mm": 0.3
+    },
+    "word": {
+      "spacing_mean_ratio": 1.2,
+      "spacing_variance_ratio": 0.15,
+      "slant_drift_per_word_deg": 0.3,
+      "speed_variance": 0.1,
+      "post_punctuation_space_multiplier": 1.4,
+      "slant_reset_at_line_start": true
+    },
+    "glyph": {
+      "size_variance": 0.02,
+      "warp_amplitude_mm": 0.1,
+      "warp_correlation": 0.7,
+      "ascender_extra_variance": 1.5,
+      "descender_extra_variance": 1.5,
+      "baseline_jitter_mm": 0.05,
+      "connection_lift_height_mm": 1.5,
+      "entry_angle_adaptation": 0.7
+    },
+    "nib": {
+      "width_mm": 0.6,
+      "angle_deg": 42.0,
+      "flexibility": 0.15,
+      "cut_quality": 0.9,
+      "attack_pressure_multiplier": 1.15,
+      "release_taper_length": 0.3
+    },
+    "ink": {
+      "reservoir_capacity": 1.0,
+      "depletion_rate": 0,
+      "fresh_dip_darkness_boost": 0,
+      "dry_threshold": 0.15,
+      "raking_threshold": 0.08,
+      "base_color_r": 45,
+      "base_color_g": 35,
+      "base_color_b": 25
+    },
+    "material": {
+      "edge_feather_mm": 0.05,
+      "grain_spread_factor": 0.1,
+      "pooling_at_direction_change": 0.2,
+      "overlap_darkening_factor": 0.7,
+      "stroke_start_blob_size": 0.1
+    },
+    "dynamics": {
+      "attraction_strength": 18.0,
+      "damping_coefficient": 6.0,
+      "lookahead_strength": 0.5,
+      "max_speed": 40.0,
+      "rhythm_strength": 0,
+      "target_radius_mm": 0.15,
+      "contact_threshold": 0.08,
+      "word_lift_height_mm": 5.0,
+      "position_gain": 20.0,
+      "velocity_gain": 8.0,
+      "max_acceleration": 500.0,
+      "use_pd_controller": true
+    },
+    "letterform": {
+      "keypoint_flexibility_mm": 0.2,
+      "ascender_height_ratio": 1.6,
+      "descender_depth_ratio": 0.5,
+      "x_height_mm": 3.8
+    },
+    "stroke": {
+      "foot_width_boost": 0.2,
+      "foot_ink_boost": 0.25,
+      "foot_zone_start": 0.85,
+      "attack_width_boost": 0.1,
+      "attack_zone_end": 0.1,
+      "pressure_modulation_range": 0.4
+    },
+    "script": "bastarda",
+    "dialect_region": "thuringian",
+    "date_approx": 1457,
+    "pressure_upstroke": 0.28,
+    "pressure_variance": 0.08,
+    "ink_density": 0.85,
+    "ink_bleed_radius_px": 1.2,
+    "stroke_weight": 1.0,
+    "letter_spacing_norm": 1.0,
+    "word_spacing_norm": 2.4,
+    "line_height_norm": 2.5,
+    "x_height_px": 38,
+    "writing_speed": 1.0,
+    "fatigue_rate": 0,
+    "slant_deg": 3.5
+  },
+  "controller_controls": {
+    "ink": false,
+    "ink_per_mm": 0.004,
+    "pressure": 0.0,
+    "angle_deg": 0.0,
+    "rhythm": 0.0
+  },
+  "sampling_mm": 0.05,
+  "dpi": 180,
+  "base_speed_mm_s": 12
+}

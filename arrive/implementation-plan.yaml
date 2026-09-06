@@ -1456,11 +1456,11 @@ passes:
     - id: ADV-SS-HANDFLOW-008
       advance_id: ADV-SS-HANDFLOW-008
       title: "Konrad Persistent Execution — Ink, Rhythm and Stable Session State"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-PATHGUIDE-005
-      notes: "Runtime prerequisite: G2 pass. Reuse existing guided state; defer the broader HANDFLOW-007 tremor/warp track until this specimen succeeds."
+      notes: "Implemented opt-in persistent HandStateV2, distance-owned ink, explicit events and bounded digest-seeded controls. Synthetic neutral bridge now meets numeric bounds; real G2 remains blocked. Broader tremor/warp work stays deferred."
     - id: ADV-SS-HANDVALIDATE-009
       advance_id: ADV-SS-HANDVALIDATE-009
       title: "Konrad Expressive Specimen — Controlled Variation and G3 Evaluation"
