@@ -1,9 +1,17 @@
-# Proposed next scope — geometry-derived contact arc clock
+# Executed scope — geometry-derived contact arc clock
 
 **Authorized by the user's request to incorporate the fix and rerun.**
 [Spec-v5](spec-v5.json) freezes one additional candidate, without an automatic
 revision. Run-004 remains immutable. HANDFLOW-010 stays in progress until the
 full new evaluation and verification pass; only then may it complete and merge.
+
+## Executed outcome
+
+[Run-005](run-005/README.md) implements the one authorized candidate and passes
+all 239 motion gates plus the current six-primitive baseline. Arc-density event
+drift is zero; exact-subdivision shift is below 9e-16 seconds. Clean replay is
+byte-identical. HANDFLOW-010 is complete for fixed-tool synthetic motion; the
+next Advance is the return vocabulary/port audit, not another clock candidate.
 
 ## Evidence and diagnosis
 

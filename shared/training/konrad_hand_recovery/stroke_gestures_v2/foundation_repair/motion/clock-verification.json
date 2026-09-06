@@ -1,0 +1,68 @@
+{
+  "scope": "Clean-checkout curve-time-v1 regression only, not candidate exploration",
+  "implementation_commit": "c95a730c8b859eb0b937aeb6b48fd01d9e810b19",
+  "hash_seed": 839,
+  "measured_rows_checks_and_decision_identical": true,
+  "artifact_bytes_identical": true,
+  "verified_artifacts": {
+    "baseline.json": "8ebeeec60f3686949d1924bff1e2f0176e4b50e16f9aa66536c4cf20154c783d",
+    "baseline.png": "d7a8edb4eb4470cbf6da8ee3f10a99a241f7e41c87c6991f288f74854fb85142",
+    "comparison.png": "6aa9026d3b54a7b2e6693a953c3158eb951b6dcc062452def212da5b969c0772",
+    "freeze.json": "f1942b5e945151dab742576a74785d7b405a28d0ad6f9f52d019cbb2cda8097e",
+    "primitive-gallery.png": "4dfc2c820ec57ed33f6d8e8324318d65ca50c59d3e2b2f4d36cb7b063ae50c4f",
+    "traces.json.gz": "bc1b8e200edc7b37f4144e7eed286e82b9dc79d96d1ff9ed9142009a963b6ef9"
+  },
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "e4e2d0ea834ffd91b1e8138b6124ea0f4505dce19a29d634ea016f2f05266a6b",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "b22c8588a9045b9862c654dec9d7baa6197421f8d0a630e25145ee9ae69478ce",
+    "scribesim/evofit/stroke_language.py": "e52075cef70ae569cec4be9690bb87a8727878f9bba5265efc2f633d4b22a3db",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1"
+  },
+  "execution": {
+    "elapsed_seconds": 19.22746891702991,
+    "renders": 303
+  },
+  "local_tests": {
+    "passed": 106,
+    "failed": 1,
+    "seconds": 45.92
+  },
+  "clean_checkout_tests": {
+    "passed": 106,
+    "failed": 1,
+    "seconds": 43.52
+  },
+  "focused_repair_tests": 40,
+  "pre_existing_failure": "tests/test_handflow.py::test_desired_velocity_affects_acceleration omits nib_angle_deg; pre-repair reproduction retained in prior verification",
+  "full_motion_status": "pass",
+  "passed_motion_checks": 239,
+  "failed_checks": [],
+  "baseline_status": "pass",
+  "optimization_evaluations": 0,
+  "governance": {
+    "plan": "valid",
+    "artifact_doctor_issues": 10,
+    "artifact_doctor_new_issues": 0,
+    "stale_agent_rules": 0,
+    "strict_pr_check": "Executed; installed parser does not recognize ADV-SS-HANDFLOW-010 (ids empty). No successful strict gate or provider CI claimed."
+  },
+  "advance_completed": true,
+  "admission_scope": "Fixed-tool synthetic motion; no S1-action, real-hand or new learned geometry acceptance"
+}

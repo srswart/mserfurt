@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty outcomes complete, one in progress, thirteen planned. Foundation motion repair and the authorized braking/corner follow-ups now pass re-entry and corner checks, but arc-refinement contact-time drift still fails. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty-one outcomes complete and thirteen planned. Foundation motion repair passes all 239 frozen gates and the current six-primitive baseline after the authorized curve-clock fix. Return vocabulary/ports are next; no new fitting has run. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket
@@ -632,8 +632,8 @@ executable as six foundation-repair Advances. Fix motion first, audit
 vocabulary/caps, actually train new primitives, independently accept them, then
 train and independently evaluate shared gestures. Runner-only delivery does not
 complete either new learning Advance. HANDFLOW-010 has two original attempts
-and the authorized braking/corner follow-ups: arrival, corner tracking, endpoint/
-image and baseline checks pass, but arc-refinement contact-time drift fails. No
+and the authorized braking/corner/curve-clock follow-ups: all motion and current
+baseline gates pass in run-005, including arc-refinement event timing. No
 new training has run; the remaining five foundation Advances stay planned.
 
 1. **td018-strokes:** EXEMPLAR-008 reference readiness; EVOFIT-007 stroke

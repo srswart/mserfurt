@@ -32,7 +32,7 @@ synthetic S0/S1 results remain valid only for their frozen fixed-tool scope. No
 new gesture gate, real-source training or owner appearance approval is claimed.
 Existing Advance IDs and completion records remain unchanged. The planning
 follow-up added nine prerequisites; Addendum B adds six foundation repairs to
-Pass 15, now thirty-four Advances: twenty outcomes complete, one in progress and thirteen planned.
+Pass 15, now thirty-four Advances: twenty-one outcomes complete and thirteen planned.
 Blocked action experiments remain unexecuted. Section 10
 records the new phases and downstream dependency changes, not gate passes.
 

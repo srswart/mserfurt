@@ -1,13 +1,13 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** implementation started; HANDFLOW-010 is in progress and the other five
-Advances remain planned. Two original attempts plus the user-authorized braking
-and corner follow-ups repair re-entry and sharp-corner tracking and revalidate the
-original six primitives. Run-004 passes 233/239 checks; six arc-refinement timing
-checks fail (up to 0.438 ms versus 0.1 ms). The corner allowance is spent.
-No implementation merge, new learning,
-motion admission or owner appearance approval is claimed. See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
-and the [next proposed geometry-derived clock scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/arc-clock-request.md).
+**Status:** HANDFLOW-010 motion repair is complete; the other five Advances remain
+planned. Run-005's authorized curve-derived clock passes all 239 motion gates
+and the current six-primitive baseline, with byte-identical clean replay.
+Arc-density event drift is zero; exact-subdivision drift is below 9e-16 seconds.
+Earlier failures remain immutable. Admission covers fixed-tool synthetic motion
+only; no new learning, S1-action, real-hand or owner appearance approval is claimed.
+Next is GESTURE-002's return vocabulary/port audit. See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
+and the [executed clock scope](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/arc-clock-request.md).
 **Date:** 2026-09-06
 **Parent:** [TD-018](TD-018-reference-grounded-hand-recovery.md) and
 [Addendum A](TD-018-addendum-a-stroke-gestures.md).
@@ -92,6 +92,20 @@ before CURRICULUM-010. Charge that work to the new run's budget. This avoids the
 circular dependency of requiring a new-primitive acceptance gate before those
 new primitives can be trained, without treating stale lower-layer evidence as valid.
 
+### 4.1 Accepted curve-clock implementation
+
+Motion admission is now supplied by run-005, not by retroactively changing the
+prior failures. Its `curve-time-v1` planner integrates the frozen cubic derivative
+magnitude with deterministic adaptive 16/32-point quadrature (estimated absolute
+error 1e-10 mm per integral, depth <= 12 and <= 4096 panels; exhaustion rejects).
+Opt-in source metadata retains cubic identity, parameter and representation so
+each unchanged guide point maps into geometric arc progress without nearest-point
+search. Reconstruction, complete endpoints and monotonicity are checked. The
+existing corner/curvature/air rules and controller limits remain unchanged.
+Numerical integration estimates are not a proof of arbitrary-curve accuracy;
+analytic, independent high-order, subdivision and full actual-motion checks
+establish this bounded fixture scope. New shapes still require fresh validation.
+
 ## 5. Vocabulary and composition audit
 
 Audit the six existing primitives against the eight existing gesture hypotheses.
@@ -171,6 +185,11 @@ before new results; do not relax a failed criterion after observing it.
   contact rest use unchanged geometry and physical limits. Run-004 used 303 renders
   in 49.002829 s. Corner tracking passes; arc-refinement contact-time convergence
   fails. Another candidate needs separate authorization, not a relaxed timing gate.
+- Subsequent user-authorized curve-clock follow-up: separate spec-v5 allowance,
+  one candidate, 500 renders or 1800 s, zero optimization and no automatic revision.
+  Run-005 uses 303 renders in 22.987616 s and passes. Clean-checkout regression
+  separately uses 303 verification renders in 19.227469 s; it is not another
+  candidate or allowance for extra search. Existing timing/geometry gates remain unchanged.
 - Vocabulary/contract audit: at most eight gesture hypotheses, twelve feasibility
   characters, two proposed families and 100 diagnostic renders or 900 s per
   attempt; zero optimization, one diagnosed revision.

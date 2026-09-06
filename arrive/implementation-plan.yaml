@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T17:18:50Z
+  updated_at: 2026-09-06T18:25:34Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1599,13 +1599,13 @@ passes:
     - id: ADV-SS-HANDFLOW-010
       advance_id: ADV-SS-HANDFLOW-010
       title: "Foundation Motion Repair — Stable Time and Lift/Re-entry"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-013
       - ADV-SS-PATHGUIDE-006
       - ADV-SS-HANDVALIDATE-014
-      notes: "IN PROGRESS, NOT MERGED: authorized corner-time-v1 run-004 reduces saved-u contact lag from 0.370963mm to 0.007516mm. Corner, arrival, endpoint/image, desired/actual acceleration and old-six baseline gates pass. Arc-refinement contact-time drift reaches 0.000437750s versus 0.0001s; six convergence checks fail. One corner candidate used, no automatic revision. Next scope: geometry-derived arc clock, not refitting or relaxed timing."
+      notes: "COMPLETE: curve-time-v1 run-005 passes all 239 motion gates and fresh six-primitive baseline. Arc-density event drift is zero; subdivision drift <=8.9e-16s. Source geometry/tool/owners unchanged; maximum contact lag 0.007411mm. 40 focused tests; expanded local/clean suites 106 pass plus one pre-existing constructor failure. Clean replay byte-identical. Fixed-tool synthetic motion only; no new fitting, S1-action or real-hand acceptance."
     - id: ADV-SS-GESTURE-002
       advance_id: ADV-SS-GESTURE-002
       title: "Foundation Vocabulary — Return Ports and Audited Composition Limits"
@@ -1615,7 +1615,7 @@ passes:
       - ADV-SS-HANDFLOW-010
       - ADV-SS-GESTURE-001
       - ADV-SS-EXEMPLAR-009
-      notes: "NOT STARTED: HANDFLOW-010 remains in progress with arc-refinement contact-time drift; corner tracking and air re-entry now pass. After full motion acceptance, audit two return families/twelve feasibility characters; conditional smallest justified cap up to eight. No letter fitting or hidden cap bypass."
+      notes: "NEXT, NOT STARTED: HANDFLOW-010 motion/baseline acceptance passes. Audit two return families/twelve feasibility characters; conditional smallest justified cap up to eight. Consume verified current identities, not a copied pass label. No letter fitting or hidden cap bypass."
     - id: ADV-SS-CURRICULUM-010
       advance_id: ADV-SS-CURRICULUM-010
       title: "Foundation Primitive Learning — Shared Lower and Upper Returns"

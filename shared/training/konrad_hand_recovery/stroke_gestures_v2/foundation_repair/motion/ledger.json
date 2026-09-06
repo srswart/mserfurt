@@ -50,10 +50,23 @@
       "max_seconds": 1800,
       "optimization_evaluations": 0,
       "outcome": "Corner tracking, arrivals, endpoint/image, desired/actual acceleration and baseline pass; six arc-refinement contact-time checks fail"
+    },
+    {
+      "attempt": 4,
+      "revision": 0,
+      "allowance": "authorized-arc-clock-followup-001",
+      "directory": "run-005",
+      "implementation_commit": "c95a730",
+      "elapsed_seconds": 22.987615708028898,
+      "renders": 303,
+      "max_renders": 500,
+      "max_seconds": 1800,
+      "optimization_evaluations": 0,
+      "outcome": "PASS: all 239 motion gates and fresh six-primitive baseline; arc-density event drift zero, exact-subdivision drift below 9e-16 seconds"
     }
   ],
-  "cumulative_experiment_renders": 1138,
-  "cumulative_experiment_seconds": 90.22676299884915,
+  "cumulative_experiment_renders": 1441,
+  "cumulative_experiment_seconds": 113.21437870687805,
   "optimization_evaluations": 0,
   "permitted_revisions": 1,
   "used_revisions": 1,
@@ -70,8 +83,8 @@
     "additional_simulation_renders": 0
   },
   "unit_tests": "Separately labeled regression verification, not optimizer or candidate search; old diagnostic-runner tests execute their own bounded fixed-fixture renders outside the experiment allowance.",
-  "primitive_training_permitted": false,
-  "advance_status": "in_progress",
+  "primitive_training_permitted": true,
+  "advance_status": "complete",
   "implementation_merged": false,
   "braking_followup_allowance": {
     "authorized_by": "User requested the next required fix",
@@ -104,5 +117,20 @@
   "corner_presentation": {
     "kind": "Native 900-DPI diagnostic and primitive panels counted in run-004; static SVG computed from saved run-003/run-004 traces",
     "additional_simulation_renders": 0
-  }
+  },
+  "arc_clock_followup_allowance": {
+    "authorized_by": "User requested incorporating the suggested clock fix and rerunning",
+    "candidates": 1,
+    "used_candidates": 1,
+    "max_revisions": 0,
+    "additional_candidates_permitted": false
+  },
+  "clock_verification": {
+    "commit": "c95a730",
+    "kind": "fresh-process clean-checkout regression, no new candidate or optimizer",
+    "elapsed_seconds": 19.22746891702991,
+    "renders": 303,
+    "rows_traces_and_images_identical": true
+  },
+  "admission_scope": "Fixed-tool synthetic motion and revalidated old-six baseline only; next is the return vocabulary audit. New layers require their own current evidence and authorization."
 }
