@@ -69,3 +69,28 @@ def test_changed_tool_contract_invalidates_admission(monkeypatch):
     monkeypatch.setattr(pen_actions, 'digest', lambda path: 'changed' if path.name == 'spec-v1.json'
                         and path.parent.name == 'tool_contract' else original(path))
     assert 'tool_identity_stale' in pen_actions.prerequisites()['reasons']
+
+
+def test_bound_checkpoint_cannot_be_swapped(monkeypatch):
+    from scribesim.curriculum import pen_actions
+
+    original = pen_actions.object_digest
+    monkeypatch.setattr(pen_actions, 'object_digest', lambda value: 'wrong-model' if 'primitives' in value else original(value))
+    assert 'gesture_candidate_identity_mismatch' in pen_actions.prerequisites()['reasons']
+
+
+def test_search_core_keeps_null_on_ties_without_real_rendering(monkeypatch):
+    import numpy as np
+    from scribesim.curriculum import pen_actions
+
+    pixels = np.full((4, 4, 3), 255, dtype=np.uint8)
+    monkeypatch.setattr(pen_actions, 'execute_actions', lambda *args, **kwargs:
+                        {'tracking_pass': True, 'images': {'actual': pixels, 'desired': pixels}})
+    model = migrate_v1(seed_language())
+    model['sampling'] = 'gesture-arc-v2'
+    samples = [{'id': split, 'split': split, 'text': 'i', 'scale': 1, 'offset': [0, 0], 'raw': pixels}
+               for split in ('train', 'development', 'test')]
+    result = pen_actions._fit_lesson(model, samples, 'rotation', 7)
+    assert result['selected']['candidate'] == 0
+    assert result['status'] == 'null'
+    assert result['heldout']['sensitivity'] == 0
