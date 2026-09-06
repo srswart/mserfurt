@@ -1,0 +1,27 @@
+{
+  "schema_version": "isolated-pen-action-experiment-v1",
+  "scope": "synthetic-only runner contract; current matching prerequisites fail, so no fitting is authorized",
+  "upstream": {
+    "gesture_evaluation/run-001/S1-gesture.json": "7b5b854e8d7196674418e340baf7c5dc809a431e485bff17f3f44bb81012f3a1",
+    "action_bridge/run-002/report.json": "d6e712a0e00b2a84a84905888769894da1e49f7c59d8f428b6f67fb0fa0cc0db"
+  },
+  "seeds": [7, 19, 41],
+  "ablations": ["rotation", "edge", "finishing"],
+  "rotation_endpoint_deltas_deg": [-10, 10, 20],
+  "edge_release_fractions": [0.25, 0.5],
+  "finishing": {"recipe": "i", "gesture": "gesture-0", "offsets": [[0, 0], [0.1, 0]]},
+  "max_knots": 4,
+  "max_renders_per_ablation_seed": 5000,
+  "max_seconds_per_ablation_seed": 1800,
+  "max_revisions": 1,
+  "selection": "training proposes, development selects; fixed candidate wins ties; held-out scoring occurs after selection and never selects a replacement",
+  "activation": {"heldout_ratio_max": 0.95, "actual_sensitivity_min": 0.01, "null_actual_loss_max": 0.05},
+  "negative_control_policy": "original global control minimum 0.1 and local blank limit 0.01 remain unchanged; activation benefit does not replace them",
+  "lesson_policy": "no approved lesson exists yet; a new scope-matching accepted gate and frozen named-failure train/dev/test manifest must be registered before opening target pixels",
+  "pressure": 0.5,
+  "speed_mm_s": 12,
+  "ink": "constant adequate",
+  "geometry": "frozen primitives and gestures; only the separate finishing ablation may add a declared lifted existing gesture",
+  "frame_mm": [-2, 14, 2, 14],
+  "dpi": 150
+}
