@@ -112,3 +112,37 @@ def test_motion_gate_requires_independent_desired_and_corner_checks():
     checks.update({'physical:arc': True, 'physical:time': True, 'physical:tracking': True})
     baseline = {'status': 'pass', 'current_code_sha256': identities(), 'historical_sha256': LOWER_HASHES}
     assert not decide_motion(checks, baseline)['primitive_training_permitted']
+
+
+def test_missing_corner_records_cannot_silently_pass(monkeypatch):
+    from dataclasses import replace
+    from scribesim.handvalidate import foundation_motion as motion
+
+    original = motion.retime_corner_timing
+    monkeypatch.setattr(motion, 'retime_corner_timing', lambda *args: replace(original(*args), corners=()))
+    result = motion.execute(migrate_v1(seed_language()), 'i', step=.025, dt=.002,
+                            version=motion.TARGET_VERSION, budget=motion.Budget())
+    assert not motion.corners_pass(result['metrics'])
+
+
+def test_smooth_collinear_join_keeps_nonzero_speed():
+    from scribesim.handflow.model import TrackPlan, TrackPlanSample
+    from scribesim.handflow.planning import retime_corner_timing
+
+    points = tuple(TrackPlanSample(index / 120, index / 10, index / 10, 10, 12 if index < 20 else 0,
+                   0, 12 if index < 20 else 0, .5, 40, True, .25) for index in range(21))
+    owners = [{'kind': 'stroke', 'occurrence_id': 'left' if index < 10 else 'right'} for index in range(21)]
+    rows = [{'occurrence_id': 'left', 'transition': 'start', 'cubics': [[[0, 0], [1 / 3, 0], [2 / 3, 0], [1, 0]]]},
+            {'occurrence_id': 'right', 'transition': 'smooth', 'cubics': [[[1, 0], [4 / 3, 0], [5 / 3, 0], [2, 0]]]}]
+    timed = retime_corner_timing(TrackPlan('not-a-letter', points, 1, 2), owners, rows)
+    assert not timed.corners
+    assert timed.plan.samples[10].speed_mm_s > 0
+
+
+def test_motion_checks_fail_closed_on_acceleration_and_ink_errors():
+    from scribesim.handvalidate.foundation_motion import desired_pass, corners_pass, mechanics_pass
+
+    assert not desired_pass({'desired_acceleration_mm_s2': 250.001, 'desired_discontinuities': 0,
+                             'desired_contact_speed_mm_s': 12})
+    assert not corners_pass({'corner_errors': 1, 'corner_speed_mm_s': 0, 'corner_position_error_mm': 0})
+    assert not mechanics_pass({'actual_acceleration_mm_s2': 400, 'zero_time_discontinuities': 0, 'air_ink_errors': 1})
