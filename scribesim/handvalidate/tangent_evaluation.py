@@ -12,14 +12,14 @@ import time
 import numpy as np
 from PIL import Image
 
-from scribesim.evofit.stroke_gestures import migrate_v1
+from scribesim.evofit.stroke_gestures import compile_gestures
 from scribesim.handflow import curve_tangents
 from scribesim.handvalidate import foundation_primitives as evaluation, tangent_motion as runtime
 from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_json
 
 
 BASE = evaluation.BASE.parent / 'tangent_evaluation'
-SPEC_PATH = BASE / 'spec-v1.json'
+SPEC_PATH = BASE / 'spec-v2.json'
 SPEC = json.loads(SPEC_PATH.read_text())
 STAGE = 'S1-foundation-primitives-tangent-v1'
 
@@ -47,6 +47,37 @@ def load_inputs():
 
 def stripped(run):
     return {key: value for key, value in run.items() if key != 'images'}
+
+
+def baseline_probe(family, language, sample):
+    if sample['primitives'] != [family] or sample['offset'] != [0, 0]:
+        raise ValueError('Exactly one origin-aligned baseline family required')
+    model = evaluation.probe(evaluation.contract.initial_model(), {'topology': [family], 'scale': sample['scale']})
+    for name, primitive in language['primitives'].items():
+        if model['primitives'].get(name) != primitive:
+            raise ValueError('Original baseline primitive table differs')
+    for key in ('x_height_mm', 'nib_width_mm', 'nib_angle_deg'):
+        if language[key] != model[key]:
+            raise ValueError('Original baseline tool differs')
+    original = evaluation.motion.compile_text('i', language)['strokes']
+    compiled = compile_gestures('i', model)['strokes']
+    if len(original) != 1 or len(compiled) != 1 or any(original[0][key] != compiled[0][key] for key in
+            ('primitive', 'cubics', 'span', 'transition', 'scale', 'rotation_deg', 'offset')):
+        raise ValueError('Diagnostic probe must preserve exact original compiled geometry and ownership')
+    return model
+
+
+def prior_usage():
+    prior = BASE / 'run-001'
+    if (digest(prior / 'S1-primitives.json') != SPEC['prior_attempt_report_sha256']
+            or digest(prior / 'execution.json') != SPEC['prior_attempt_execution_sha256']):
+        raise ValueError('Changed retained attempt accounting')
+    report = json.loads((prior / 'S1-primitives.json').read_text())
+    execution = json.loads((prior / 'execution.json').read_text())
+    evaluation.verify_artifacts(prior, report['artifacts'])
+    return {seed: {'renders': sum(row['renders'] for row in execution['ledger'] if row['seed'] == seed),
+                   'seconds': max(row['cumulative_seed_seconds'] for row in execution['ledger'] if row['seed'] == seed)}
+            for seed in SPEC['seeds']}
 
 
 def refinements(model, text, budget, *, physical=False):
@@ -83,7 +114,7 @@ def recheck_baseline(baseline):
             return False
         if not all(run['version'] == runtime.VERSION and runtime.passes(run) for run in row['runs'].values()):
             return False
-        if name.startswith('old-six:') and not 0 <= row['nominal_actual_loss'] <= .35:
+        if name.startswith('old-six:') and (not 0 <= row['nominal_actual_loss'] <= .35 or not row['compiled_geometry_equal']):
             return False
     return True
 
@@ -103,10 +134,10 @@ def refresh_baseline(directory, budget):
     for name in frozen['candidate']['primitives']:
         sample = next(row for row in frozen['freeze']['samples'] if row['id'] == name + '-base')
         language, text = motion.strokes.exercise_model(frozen['candidate'], sample)
-        model = migrate_v1(language)
-        model['sampling'] = 'gesture-arc-v3'
+        model = baseline_probe(name, language, sample)
         runs = refinements(model, text, budget)
         row = summarize_runs(runs)
+        row.update(compiled_geometry_equal=True, original_exercise_sha256=object_digest(language), probe_sha256=object_digest(model))
         nominal = budget.render(motion.strokes.render_exercise, frozen['candidate'], {**sample, 'frame': motion.SPEC['frame_mm'], 'dpi': 180})
         mask = np.where(np.asarray(Image.fromarray(nominal).convert('L')) < 180, 255, 0).astype(np.uint8)
         row['nominal_actual_loss'] = motion.image_objective(nominal, mask, runs['base']['images']['actual'])['total']
@@ -196,21 +227,23 @@ def build(output):
         raise ValueError('Use a new immutable tangent evaluation directory')
     report = {'stage': STAGE, 'execution_version': runtime.VERSION, 'status': 'blocked', 'S1_accepted': False,
               'gesture_training_permitted': False, 'actions_accepted': False, 'letters_accepted': False, 'real_hand_accepted': False,
-              'code_sha256': identities(), 'renders': 0, 'optimization_evaluations': 0, 'seeds': [], 'revision': 0,
+              'code_sha256': identities(), 'renders': 0, 'optimization_evaluations': 0, 'seeds': [], 'revision': SPEC['revision'],
               'missing_inventory': evaluation.SPEC['missing_inventory']}
     write_json(output / 'freeze.json', {'spec': SPEC, 'primitive_criteria': evaluation.SPEC, 'motion_criteria': evaluation.motion.SPEC,
                                         'code_sha256': identities(), 'prior_report_sha256': SPEC['prior_report_sha256']})
     ledger = []
     try:
         source = load_inputs()
+        prior = prior_usage()
+        report['prior_renders'] = sum(row['renders'] for row in prior.values())
         report['supported_families'] = sorted(source['initial']['primitives'])
         report['compatibility'] = source['compatibility']
         for seed in SPEC['seeds']:
             if seed != SPEC['seeds'][0]:
                 started = time.monotonic()
-            used, records = 0, []
+            used, records = prior[seed]['renders'], []
             for label, hashseed in (('first', '0'), ('replay', '839')):
-                remaining = SPEC['max_seconds_per_seed_including_replay'] - (time.monotonic() - started)
+                remaining = SPEC['max_seconds_per_seed_including_replay'] - prior[seed]['seconds'] - (time.monotonic() - started)
                 if remaining <= 0 or used >= SPEC['max_renders_per_seed_including_replay']:
                     raise RuntimeError('Shared first/replay allowance exhausted')
                 directory = output / f'seed-{seed}' / label
@@ -224,19 +257,22 @@ def build(output):
                 report['renders'] += record['renders']
                 records.append(record)
                 ledger.append({'seed': seed, 'process': label, 'renders': record['renders'], 'cumulative_seed_renders': used,
-                               'cumulative_seed_seconds': time.monotonic() - started})
+                               'cumulative_seed_seconds': prior[seed]['seconds'] + time.monotonic() - started})
             matching = evaluation.manifest(output / f'seed-{seed}/first') == evaluation.manifest(output / f'seed-{seed}/replay')
-            within = used <= SPEC['max_renders_per_seed_including_replay'] and time.monotonic() - started <= SPEC['max_seconds_per_seed_including_replay']
+            within = used <= SPEC['max_renders_per_seed_including_replay'] and prior[seed]['seconds'] + time.monotonic() - started <= SPEC['max_seconds_per_seed_including_replay']
             report['seeds'].append({'seed': seed, 'replay_match': matching, 'budget_pass': within, 'renders': used,
+                                    'attempt_renders': used - prior[seed]['renders'],
                                     'candidate_sha256': records[0].get('candidate_sha256'),
                                     'passed': matching and within and all(row['status'] == 'pass' for row in records)})
         accepted = len(report['seeds']) == 3 and all(row['passed'] for row in report['seeds'])
         report.update(status='pass' if accepted else 'fail', S1_accepted=accepted, gesture_training_permitted=accepted)
     except (ValueError, RuntimeError, OSError, KeyError, subprocess.TimeoutExpired) as error:
         report['reason'] = str(error)
+    report['cumulative_renders'] = report.get('prior_renders', 0) + report['renders']
     report['artifacts'] = evaluation.manifest(output)
     write_json(output / 'S1-primitives.json', report)
-    write_json(output / 'execution.json', {'ledger': ledger, 'renders': report['renders'], 'optimization_evaluations': 0})
+    write_json(output / 'execution.json', {'ledger': ledger, 'renders': report['renders'], 'prior_renders': report.get('prior_renders', 0),
+                                          'cumulative_renders': report['cumulative_renders'], 'optimization_evaluations': 0})
     return report
 
 

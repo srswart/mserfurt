@@ -171,3 +171,27 @@ def test_diagnosed_retry_charges_the_retained_first_attempt():
     usage = prior_usage()
     assert set(usage) == {7, 19, 41}
     assert all(row['renders'] == 324 and row['seconds'] > 0 for row in usage.values())
+
+
+def test_worker_allowance_includes_prior_attempt_and_cannot_create_a_pass(tmp_path, monkeypatch):
+    from pathlib import Path
+    from types import SimpleNamespace
+    from scribesim.handvalidate import tangent_evaluation
+
+    calls = []
+
+    def fake_worker(command, **kwargs):
+        directory = Path(command[command.index('--output') + 1])
+        seed = int(command[command.index('--worker-seed') + 1])
+        maximum = int(command[command.index('--maximum') + 1])
+        seconds = float(command[command.index('--seconds') + 1])
+        assert maximum == 4676 and 0 < seconds < 1800
+        calls.append(seed)
+        evaluation.write_json(directory / 'report.json', {'status': 'blocked', 'renders': 0, 'seed': seed})
+        return SimpleNamespace(returncode=0)
+
+    monkeypatch.setattr(tangent_evaluation.subprocess, 'run', fake_worker)
+    report = tangent_evaluation.build(tmp_path / 'mocked')
+    assert calls == [7, 7, 19, 19, 41, 41]
+    assert report['renders'] == 0 and report['cumulative_renders'] == 972
+    assert report['status'] == 'fail' and not report['gesture_training_permitted']
