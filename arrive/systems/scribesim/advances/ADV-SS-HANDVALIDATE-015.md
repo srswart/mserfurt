@@ -114,6 +114,11 @@ repaired**. Existing source geometry, compiler, controller and clock remain unch
 
 ## Changes Made
 
+### 2026-09-07 — 0742ff8: Verified local merge receipt
+
+- Merged `advance/ss-handvalidate-015` into `master` with `--no-ff`; full merge `0742ff8ecd7f50c3db065ee21747b1285ab5bd7c`. No remote push.
+- Evaluation code and immutable report identities remain matched. This merge completes the evaluation Advance, not primitive acceptance: S1 and gesture permission remain false. Existing test and installed-parser limitations are not provider CI or human approval.
+
 ### 2026-09-07 — 7114491: Independent evaluation complete, acceptance fails closed
 
 - `2ac8df1` freezes criteria and seven red tests; `7114491` implements the independent evaluator/readiness reader. Eleven final tests pass; no preparatory refactor was needed.
