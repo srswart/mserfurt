@@ -130,3 +130,48 @@ def test_worker_command_uses_importable_module_not_main(monkeypatch, tmp_path):
     monkeypatch.setattr(learning, '__name__', '__main__')
     with pytest.raises(RuntimeError, match='verified command'):
         learning.build(tmp_path / 'run')
+
+
+def test_subdivision_adapter_preserves_six_occurrences_and_source_identity():
+    from scribesim.curriculum import gesture_refinements as refinement
+    initial = learning.initial_model(learning.load_source()[0])
+    fixture = next(row for row in learning.SPEC['fixtures'] if row['id'] == 'underturn-overturn-pair')
+    model = learning.probe(initial, fixture)
+    original = copy.deepcopy(model)
+    bundle, rows = refinement.bundle(model, step=.025, subdivision=True)
+    assert model == original
+    assert len(rows) == 6
+    assert all(len(row['cubics']) == 2 for row in rows)
+    compiled = compile_gestures('i', model)['strokes']
+    assert [row['primitive_sha256'] for row in rows] == [row['primitive_sha256'] for row in compiled]
+    for prior, divided in zip(compiled, rows):
+        assert np.allclose(prior['cubics'][0][0], divided['cubics'][0][0])
+        assert np.allclose(prior['cubics'][0][-1], divided['cubics'][-1][-1])
+        assert np.allclose(learning.primitives._curve(prior['cubics'][0])[128], divided['cubics'][0][-1])
+    assert any(not point.contact for point in bundle.guide.samples)
+
+
+def test_new_diagnostic_bridge_matches_existing_runtime_without_subdivision():
+    from scribesim.curriculum import gesture_refinements as refinement
+    initial = learning.initial_model(learning.load_source()[0])
+    fixture = next(row for row in learning.SPEC['fixtures'] if row['id'] == 'underturn-overturn-pair')
+    model = learning.probe(initial, fixture)
+    budget = learning.primitives.Budget()
+    prior = learning.runtime.execute(model, 'i', step=.025, dt=.002, budget=budget, frame=learning.SPEC['frame_mm'])
+    changed = refinement.execute(model, step=.025, dt=.002, budget=budget, frame=learning.SPEC['frame_mm'], subdivision=False)
+    for key in ('plan', 'metrics', 'trace', 'groups'):
+        assert changed[key] == prior[key]
+    assert refinement.audit_trace(model, changed, subdivision=False)['errors'] == 0
+
+
+def test_subdivided_full_pair_uses_original_grammar_and_realized_owner_audit():
+    from scribesim.curriculum import gesture_refinements as refinement
+    initial = learning.initial_model(learning.load_source()[0])
+    fixture = next(row for row in learning.SPEC['fixtures'] if row['id'] == 'underturn-overturn-pair')
+    model = learning.probe(initial, fixture)
+    result = refinement.execute(model, step=.025, dt=.002, budget=learning.primitives.Budget(), frame=learning.SPEC['frame_mm'])
+    assert learning.runtime.passes(result)
+    assert refinement.audit_trace(model, result)['errors'] == 0
+    changed = copy.deepcopy(result)
+    next(row for row in changed['trace'] if row['contact'])['owner']['primitive_sha256'] = 'changed'
+    assert refinement.audit_trace(model, changed)['errors'] > 0
