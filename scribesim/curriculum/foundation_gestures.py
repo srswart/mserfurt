@@ -17,7 +17,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 from scribesim.curriculum import foundation_primitives as primitives, foundation_measurement as measurement
-from scribesim.curriculum import gesture_targets
+from scribesim.curriculum import gesture_targets, gesture_refinements
 from scribesim.curriculum.stroke_learning import stroke_loss
 from scribesim.evofit import foundation_contract as contract
 from scribesim.evofit.stroke_gestures import compile_gestures, validate_gestures
@@ -28,13 +28,13 @@ from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_j
 
 
 BASE = contract.BASE / 'foundation_repair/gestures'
-SPEC_PATH = BASE / 'spec-v1.json'
+SPEC_PATH = BASE / 'spec-v2.json'
 SPEC = json.loads(SPEC_PATH.read_text())
 ROLES = {'stem': 0, 'rise': 1, 'lower-return': 2, 'upper-return': 2}
 
 
 def identities():
-    paths = (Path(__file__), Path(gesture_targets.__file__), SPEC_PATH)
+    paths = (Path(__file__), Path(gesture_targets.__file__), Path(gesture_refinements.__file__), SPEC_PATH)
     return {**admission.identities(), **{str(path.relative_to(ROOT)): digest(path) for path in paths}}
 
 
@@ -234,11 +234,14 @@ def evaluate(candidate, initial, fixture, budget, directory, *, heldout):
     runs, audits = {}, {}
     for refinement in SPEC['refinements']:
         label = refinement['id']
-        executed = audit.subdivide(model) if label == 'subdivision' else model
-        result = runtime.execute(executed, 'i', step=refinement['step'], dt=refinement['dt'], budget=budget, frame=SPEC['frame_mm'])
+        if label == 'subdivision':
+            result = gesture_refinements.execute(model, step=refinement['step'], dt=refinement['dt'], budget=budget, frame=SPEC['frame_mm'])
+            audits[label] = gesture_refinements.audit_trace(model, result)
+        else:
+            result = runtime.execute(model, 'i', step=refinement['step'], dt=refinement['dt'], budget=budget, frame=SPEC['frame_mm'])
+            audits[label] = audit.audit_trace(model, result)
         for kind in ('desired', 'actual'):
             measurement.require_containment(primitives._trajectory(result, kind), frame=SPEC['frame_mm'])
-        audits[label] = audit.audit_trace(executed, result)
         result['passed'] = runtime.passes(result) and audits[label]['errors'] == 0
         runs[label] = result
     comparisons = {label: motion.compare(runs['base'], runs[label]) for label in ('arc', 'time', 'subdivision')}
@@ -396,6 +399,16 @@ def worker(directory, freeze, seed, ablation, maximum, seconds):
 
 def build(output):
     source, admitted = load_source()
+    prior = BASE / 'run-001'
+    if digest(prior / 'report.json') != SPEC['prior_attempt_report_sha256']:
+        raise ValueError('Changed retained attempt')
+    prior_report = json.loads((prior / 'report.json').read_text())
+    audit.verify_artifacts(prior, prior_report['artifacts'])
+    previous_spec = json.loads((prior / 'freeze.json').read_text())['spec']
+    unchanged = set(previous_spec) - {'version'}
+    if any(SPEC[key] != previous_spec[key] for key in unchanged):
+        raise ValueError('Revision cannot change targets, fixtures, selection or criteria')
+    previous_ledger = json.loads((prior / 'ledger.json').read_text())
     output.mkdir(parents=True, exist_ok=False)
     freeze = {'spec': SPEC, 'code_sha256': identities(), 'initial': initial_model(source), 'admission': admitted,
               'target_pixels_accessed': False, 'selection_split': 'development', 'held_out_accessed': False}
@@ -404,7 +417,10 @@ def build(output):
     status = 'pass'
     for seed in SPEC['seeds']:
         for ablation in SPEC['ablations']:
-            used, elapsed, manifests = 0, 0, []
+            prior_rows = [row for row in previous_ledger if row['seed'] == seed and row['ablation'] == ablation]
+            used = sum(row['renders'] for row in prior_rows)
+            elapsed = sum(row['seconds'] for row in prior_rows)
+            manifests = []
             for attempt in ('first', 'replay'):
                 directory = output / f'seed-{seed}' / ablation / attempt
                 environment = {**os.environ, 'PYTHONHASHSEED': '0' if attempt == 'first' else '839'}
