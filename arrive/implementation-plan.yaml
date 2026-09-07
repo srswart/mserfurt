@@ -1650,7 +1650,7 @@ passes:
       - ADV-SS-HANDVALIDATE-015
       - ADV-SS-GESTURE-002
       - ADV-SS-HANDFLOW-011
-      notes: "NEXT LEARNING: HANDFLOW-011 tangent_evaluation/run-002 passes new-mode S1. Freeze its exact report SHA and required inventory through tangent_evaluation.require_readiness and execute curve-tangent-v1, not legacy fallback. Keep primitives/tool fixed and learn shared underturn/overturn/compound constructions with topology-disjoint transfer. Actual learning remains unexecuted; supplied-recipe playback is not learning."
+      notes: "IN PROGRESS, STOPPED: seed-7 shared attachment fitting selects [0.85,1.15,0.85] on frozen primitives/tool and replays 54 artifacts exactly. Run-001 used the allowed revision to fix a legacy-cap subdivision adapter. Visual review of run-002 then finds false connectors in paired target/nominal diagnostics; automatic worker pass is quarantined, not accepted. Actual lifts remain correct. 3121 renders including interruption; seed-19 learning and seed-41 unexecuted. Eight red reproductions. Additional diagnostic repair/no-refit remeasurement needs explicit approval before finishing the unchanged remaining seeds. No merge or S1-gesture."
     - id: ADV-SS-HANDVALIDATE-016
       advance_id: ADV-SS-HANDVALIDATE-016
       title: "Foundation Readiness — Independent Gesture Transfer and Next-Stage Eligibility"
