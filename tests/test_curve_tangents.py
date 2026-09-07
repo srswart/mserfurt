@@ -116,3 +116,26 @@ def test_tangent_reader_rejects_old_or_fabricated_pass(tmp_path):
     (tmp_path / 'S1-primitives.json').write_text(json.dumps({'status': 'pass', 'gesture_training_permitted': True}))
     with pytest.raises(ValueError):
         require_readiness(tmp_path, expected_report_sha256='0' * 64, required_families=['lower-return'])
+
+
+def test_new_execution_and_controls_use_existing_controller_without_fitting(tmp_path, monkeypatch):
+    from scribesim.handvalidate import tangent_motion
+
+    forbidden = lambda *args, **kwargs: pytest.fail('Training helper called')
+    for name in ('execute_fixture', 'search_handles', 'build'):
+        monkeypatch.setattr(evaluation.learning, name, forbidden)
+    model = evaluation.contract.initial_model()
+    budget = evaluation.learning.Budget()
+    record, runs, tiles = evaluation.evaluate_fixture(model, evaluation.FIXTURES[-1], budget, tmp_path, version=tangent_motion.VERSION)
+    assert record['full']['ratio'] == 1 and not record['passed']
+    assert all(run['passed'] and run['version'] == tangent_motion.VERSION for run in runs.values())
+    controls = evaluation.controls(model, budget, tmp_path, version=tangent_motion.VERSION)
+    assert all(row['detected'] for row in controls.values())
+    assert not controls['extra-contributor']['global_meets_minimum']
+    assert len(tiles) == 5
+
+
+def test_unknown_execution_mode_cannot_fall_back_to_legacy():
+    model = evaluation.probe(evaluation.contract.initial_model(), evaluation.FIXTURES[0])
+    with pytest.raises(ValueError, match='Unsupported'):
+        evaluation.execute(model, step=.025, dt=.002, budget=evaluation.learning.Budget(), version='unknown')

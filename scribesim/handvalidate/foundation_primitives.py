@@ -130,8 +130,14 @@ def subdivide(model):
     return result
 
 
-def execute(model, *, step, dt, budget):
-    result = motion.execute(model, 'i', step=step, dt=dt, version=motion.TARGET_VERSION, budget=budget)
+def execute(model, *, step, dt, budget, version=motion.TARGET_VERSION):
+    if version == motion.TARGET_VERSION:
+        result = motion.execute(model, 'i', step=step, dt=dt, version=version, budget=budget)
+    elif version == 'curve-tangent-v1':
+        from scribesim.handvalidate.tangent_motion import execute as execute_tangents
+        result = execute_tangents(model, 'i', step=step, dt=dt, budget=budget)
+    else:
+        raise ValueError('Unsupported independent execution version')
     result['images'] = {kind: budget.render(measurement.paint, learning._trajectory(result, kind)) for kind in ('desired', 'actual')}
     result['metrics']['image_loss'] = stroke_loss(result['images']['desired'], result['images']['actual'])
     return result
@@ -140,7 +146,13 @@ def execute(model, *, step, dt, budget):
 def audit_trace(model, result):
     bundle = gesture_guide('i', model, step_mm=result['step_mm'], include_curve_positions=True)
     plan = build_track_plan(bundle.guide, base_speed_mm_s=12)
-    retimed = retime_curve_timing(plan, bundle.metadata['owners'], compile_gestures('i', model)['strokes'])
+    if result['version'] == 'curve-tangent-v1':
+        from scribesim.handflow.curve_tangents import retime_curve_tangents
+        retimed = retime_curve_tangents(plan, bundle.metadata['owners'], compile_gestures('i', model)['strokes'])
+    elif result['version'] == motion.TARGET_VERSION:
+        retimed = retime_curve_timing(plan, bundle.metadata['owners'], compile_gestures('i', model)['strokes'])
+    else:
+        raise ValueError('Unsupported audited execution version')
     plan = retimed.plan
     owners = [bundle.metadata['owners'][index] for index in retimed.source_indices]
     errors = int(asdict(plan) != result['plan']) + int(result['text'] != 'i')
@@ -205,7 +217,7 @@ def benefit(before, after):
             'passed': ratio is not None and math.isfinite(ratio) and ratio < SPEC['criteria']['heldout_ratio'] - 1e-12}
 
 
-def evaluate_fixture(candidate, fixture, budget, directory):
+def evaluate_fixture(candidate, fixture, budget, directory, *, version=motion.TARGET_VERSION):
     model = probe(candidate, fixture)
     initial = probe(contract.initial_model(), fixture)
     nominal = lambda source: measurement.segment_trajectory([curve(cubic) for row in compile_gestures('i', source)['strokes'] for cubic in row['cubics']])
@@ -215,7 +227,7 @@ def evaluate_fixture(candidate, fixture, budget, directory):
     for refinement in SPEC['refinements']:
         label = refinement['id']
         executed = subdivide(model) if label == 'subdivision' else model
-        result = execute(executed, step=refinement['step'], dt=refinement['dt'], budget=budget)
+        result = execute(executed, step=refinement['step'], dt=refinement['dt'], budget=budget, version=version)
         audits[label] = audit_trace(executed, result)
         metrics = result['metrics']
         result['passed'] = (audits[label]['errors'] == 0 and metrics['image_loss'] <= SPEC['criteria']['actual_desired_loss']
@@ -255,7 +267,7 @@ def rejected(model):
     return False
 
 
-def controls(candidate, budget, directory):
+def controls(candidate, budget, directory, *, version=motion.TARGET_VERSION):
     result, evidence = {}, {}
     for name in ('wrong-port', 'wrong-direction'):
         detected = {}
@@ -269,7 +281,7 @@ def controls(candidate, budget, directory):
     model = probe(candidate, fixture)
     detached = copy.deepcopy(model)
     detached['gestures']['probe']['strokes'][1]['offset'][0] += .1
-    base = execute(model, step=.025, dt=.002, budget=budget)
+    base = execute(model, step=.025, dt=.002, budget=budget, version=version)
     valid = audit_trace(model, base)['errors'] == 0
     for name in ('detached-geometry', 'hidden-lift', 'extra-contributor'):
         changed = copy.deepcopy(base)
@@ -294,7 +306,7 @@ def controls(candidate, budget, directory):
     second = copy.deepcopy(lifted['recipes']['i']['gestures'][0])
     second.update(offset=[1.2, 0], transition='lift')
     lifted['recipes']['i']['gestures'].append(second)
-    base = execute(lifted, step=.025, dt=.002, budget=budget)
+    base = execute(lifted, step=.025, dt=.002, budget=budget, version=version)
     changed = copy.deepcopy(base)
     air_count = 0
     for row in changed['trace']:
