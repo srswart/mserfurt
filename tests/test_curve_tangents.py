@@ -195,3 +195,47 @@ def test_worker_allowance_includes_prior_attempt_and_cannot_create_a_pass(tmp_pa
     assert calls == [7, 7, 19, 19, 41, 41]
     assert report['renders'] == 0 and report['cumulative_renders'] == 972
     assert report['status'] == 'fail' and not report['gesture_training_permitted']
+
+
+def test_frozen_repaired_evidence_admits_only_its_explicit_execution_mode():
+    from scribesim.handvalidate import tangent_evaluation
+
+    root = tangent_evaluation.BASE / 'run-002'
+    checksum = evaluation.digest(root / 'S1-primitives.json')
+    result = tangent_evaluation.require_readiness(root, expected_report_sha256=checksum, required_families=['lower-return', 'upper-return'])
+    assert result['gesture_training_permitted'] and result['execution_version'] == 'curve-tangent-v1'
+    with pytest.raises(ValueError):
+        evaluation.require_primitive_readiness(root, expected_report_sha256=checksum, required_families=['lower-return'])
+    with pytest.raises(ValueError, match='Unsupported'):
+        tangent_evaluation.require_readiness(root, expected_report_sha256=checksum, required_families=['lower-loop'])
+
+
+def test_repaired_readiness_rejects_changed_code_and_artifact(monkeypatch):
+    from scribesim.handvalidate import tangent_evaluation
+
+    root = tangent_evaluation.BASE / 'run-002'
+    checksum = evaluation.digest(root / 'S1-primitives.json')
+    with monkeypatch.context() as context:
+        context.setattr(tangent_evaluation, 'identities', lambda: {})
+        with pytest.raises(ValueError, match='Stale'):
+            tangent_evaluation.require_readiness(root, expected_report_sha256=checksum, required_families=['lower-return'])
+    original = evaluation.digest
+
+    def altered(path):
+        if str(path).endswith('run-002/seed-7/first/candidate.json'):
+            return '0' * 64
+        return original(path)
+
+    with monkeypatch.context() as context:
+        context.setattr(evaluation, 'digest', altered)
+        with pytest.raises(ValueError, match='mismatch'):
+            tangent_evaluation.require_readiness(root, expected_report_sha256=checksum, required_families=['lower-return'])
+
+
+def test_repaired_baseline_cannot_hide_bad_metrics_behind_passed_flags():
+    from scribesim.handvalidate import tangent_evaluation
+
+    baseline = json.loads((tangent_evaluation.BASE / 'run-002/seed-7/first/motion-baseline.json').read_text())
+    assert tangent_evaluation.recheck_baseline(baseline)
+    baseline['proofs']['old-six:stem']['runs']['subdivision']['metrics']['desired_acceleration_mm_s2'] = 999
+    assert baseline['passed'] and not tangent_evaluation.recheck_baseline(baseline)
