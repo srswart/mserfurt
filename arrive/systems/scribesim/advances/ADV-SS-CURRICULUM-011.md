@@ -5,7 +5,7 @@ advance:
   system: "scribesim"
   primary_component: "curriculum"
   components: ["curriculum","gesture","evo","handflow","handvalidate","tests"]
-  started_at: "2026-09-06T16:02:10Z"
+  started_at: "2026-09-07T15:53:11Z"
   implementation_completed_at: ~
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,7 @@ advance:
 Actually learn reusable fixed-tool continuous return constructions, then demonstrate unseen combinations without fitting letters or copying independent curves.
 
 **Work kind:** Learning implementation and bounded experiment. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
-Timestamp records drafting only; implementation, experiments, CI and review are not claimed.
+Implementation started after live matching primitive admission. Experiments and review are not yet claimed.
 
 ## Behavioral Change
 
@@ -52,8 +52,8 @@ test isolation are not repaired by this synthetic phase.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm implementation/commit/merge authorization and preserve unrelated work.
-- [ ] tidy: assess narrow preparation; commit any required behavior-preserving refactor separately.
+- [x] branch: continuing the authorized update-and-merge workflow on `advance/ss-curriculum-011`; initial worktree clean.
+- [x] tidy: no preparatory refactor needed; isolated new modules preserve every pinned lower-layer identity.
 - [ ] test: commit failing behavioral tests before implementation when commits are authorized; planning-only edits do not claim TDD execution.
 - [ ] Require the live matching HANDFLOW-011 no-refit reevaluation pass, repaired execution and audited grammar. Freeze report SHA `e17be78e54d91b73076f17ece07cb6c530f0088ac32bc0e2db76a32ac12ebb89` through `scribesim.handvalidate.tangent_evaluation.require_readiness`, explicitly declare required families and execute `curve-tangent-v1`. The retained HANDVALIDATE-015/legacy reader cannot admit this mode. Freeze every primitive curve and fixed action/tool parameter before gesture optimization.
 - [ ] Predeclare required underturn, overturn and compound constructions with independent synthetic targets and train/development/held-out topology or attachment pairings. Do not treat the old supplied i/u recipes as learned letters.
