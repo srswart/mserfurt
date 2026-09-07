@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-06T21:04:21Z
+  updated_at: 2026-09-07T11:35:51Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1619,12 +1619,12 @@ passes:
     - id: ADV-SS-CURRICULUM-010
       advance_id: ADV-SS-CURRICULUM-010
       title: "Foundation Primitive Learning — Shared Lower and Upper Returns"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDFLOW-010
       - ADV-SS-GESTURE-002
-      notes: "IN PROGRESS, NOT MERGED: run-002 fits both returns for seeds 7/19/41 after 239/239 fresh admission; old six/tool/ports/scaffolds fixed. Four held-out fixtures pass with loss ratios 0.232..0.410; compound lower-return measurement is cropped and undefined, so every seed correctly fails completion. 5796 renders across three per-seed budgets; first attempt 1158 renders retained. One numeric revision used; additional no-refit full-frame measurement needs user approval. Clean replay matches 111 non-wall-clock artifacts; 150 tests pass plus one old failure."
+      notes: "COMPLETE LEARNING: run-002 fits both returns after fresh 239-gate admission. User-approved full-frame measurement passes all five fixtures and each family at seeds 7/19/41; compound upper/lower ratios 0.303233/0.327130. Same frozen candidates, zero refitting/new execution; 258 measurement renders. Old stopped/cropped attempts retained; clean measurement replay matches 104 artifacts. No new S1 or gesture-learning permission; independent HANDVALIDATE-015 is next."
     - id: ADV-SS-HANDVALIDATE-015
       advance_id: ADV-SS-HANDVALIDATE-015
       title: "Foundation Primitive Acceptance — Independent Current-Code S1 Extension"
@@ -1632,7 +1632,7 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-010
-      notes: "EVALUATION: independent current-code primitive-extension S1, three seed replays and negative controls. Matching pass is a runtime prerequisite for gesture fitting."
+      notes: "NEXT EVALUATION: consume unchanged primitives/run-002 candidates plus approved primitives/measurement/run-001 full-frame evidence and pinned source identities. Independently replay all seeds and adversarial port/contact/ownership/counter controls before S1; no optimizer or acceptance inferred from CURRICULUM-010 completion. Matching pass is a runtime prerequisite for gesture fitting."
     - id: ADV-SS-CURRICULUM-011
       advance_id: ADV-SS-CURRICULUM-011
       title: "Foundation Gesture Learning — Underturn, Overturn and Compound Transfer"

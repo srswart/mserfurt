@@ -5,7 +5,54 @@ handle lengths: two for each shared return. Old-six geometry, endpoints, tangent
 rays, fixed tool, controller and supplied construction scaffolds cannot change.
 This is synthetic primitive learning, not historical handwriting or letter learning.
 
-## Result: fitted, but completion blocked by the comparison frame
+## Current result: learning proof complete
+
+The user-approved measurement-only follow-up widens the common frame to
+**[-2,9,3,16] mm** and reuses the exact run-002 candidates and saved traces.
+All five held-out fixtures and every participating return family now pass for
+seeds **7/19/41**. No refitting, new controller execution, candidate selection,
+target alteration or threshold relaxation occurred.
+
+| Full-frame fixture | Learned / initial image loss | Result, every seed |
+|---|---:|---|
+| Lower return, unseen scale | 0.333380 | Pass |
+| Upper return, unseen scale | 0.302809 | Pass |
+| Underturn attachment | 0.428036 | Pass |
+| Overturn attachment | 0.218426 | Pass |
+| Compound attachment | 0.316542 | Pass |
+
+The compound's previously invisible family-local checks now have defined losses
+and pass: **upper 0.303233, lower 0.327130**. Across all fixtures, the worst
+family-local ratio is 0.428468, below the unchanged 0.75 limit. Actual/desired loss
+is at most 0.014465; maximum contact lag is 0.005517 mm. All retained motion and
+new full-frame refinement checks pass; all blank probes remain blank.
+Changing the raster frame changes pixel alignment slightly, so use these complete
+frame results rather than mixing them with the historical cropped scores.
+
+- [Seed 7 complete practice sheet](measurement/run-001/seed-7/practice-sheet.png)
+- [Seed 19 complete practice sheet](measurement/run-001/seed-19/practice-sheet.png)
+- [Seed 41 complete practice sheet](measurement/run-001/seed-41/practice-sheet.png)
+- [Full-size compound actual ink](measurement/run-001/seed-7/compound-attachment-actual-900dpi.png)
+- [All measurement checks](measurement/run-001/report.json), [approved specification](measurement-spec-v1.json), [verification](measurement-verification.json), [cumulative ledger](ledger.json)
+
+The measurement uses **258 renders in 24.564378 seconds**, within its separate
+500-render/900-second authorized cap. Clean replay matches **104 non-wall-clock
+artifacts byte-for-byte** and separately uses 258 verification renders. Copied
+candidates are byte-identical to run-002. Original stopped/cropped bundles are
+unchanged; the full-frame runner rejects clipped contact footprints or local regions.
+
+**CURRICULUM-010 is complete as a learning Advance.** Next is HANDVALIDATE-015:
+independently reconstruct all three candidates and their lineage, replay complete
+frame transfer/refinement, and run the required adversarial port/contact/ownership/
+counter controls. Only that evaluation may grant new S1 or gesture-fitting
+permission. No learned alphabet, historical accuracy or human appearance approval
+is claimed here.
+
+```sh
+PYTHONHASHSEED=839 /absolute/path/to/.venv/bin/python -m scribesim.curriculum.foundation_measurement --output /tmp/return-measurement-new
+```
+
+## Historical run-002: fitted, but cropped measurement
 
 Run-002 executes all three seeds after fresh 239/239 motion/baseline admission.
 Each seed selects identical shared handles: lower return **0.23/0.37**, upper
@@ -36,7 +83,7 @@ Original geometry, actions, ports and scaffolds are unchanged in all candidates.
 - [Seed 19 practice sheet](run-002/seed-19/practice-sheet.png), [candidate](run-002/seed-19/candidate.json), [metrics](run-002/seed-19/report.json)
 - [Seed 41 practice sheet](run-002/seed-41/practice-sheet.png), [candidate](run-002/seed-41/candidate.json), [metrics](run-002/seed-41/report.json)
 - [Failed experiment report](run-002/report.json), [budget ledger](ledger.json), [clean verification](verification.json)
-- [Measurement-only follow-up proposal — approval pending](measurement-request.md)
+- [Measurement-only follow-up — subsequently approved and executed](measurement-request.md)
 
 Run-002 uses 2134/1831/1831 renders and 208.406950/193.208989/193.558916 seconds
 for seeds 7/19/41; seed 7 includes all 303 fresh baseline renders. Total: 5796
@@ -48,10 +95,9 @@ have **150 passes and one pre-existing missing-nib-angle constructor failure**.
 Twelve new tests pass. ARRIVE retains ten old artifact issues and the installed
 strict PR-ID parser limitation; no provider CI or human review is claimed.
 
-**CURRICULUM-010 stays in progress and unmerged.** One automatic revision is used.
-Do not repeat fitting: the proposed next work remeasures the same frozen candidates
-in a complete frame, with unchanged criteria and zero optimization, only after
-explicit authorization. HANDVALIDATE-015 remains a separate acceptance decision.
+At the end of run-002, **CURRICULUM-010 remained in progress and unmerged**.
+The subsequent explicitly authorized measurement completes its learning evidence
+without repeating fitting. HANDVALIDATE-015 remains a separate acceptance decision.
 
 ## Frozen experiment
 
@@ -101,7 +147,7 @@ Run-001 is retained as a stopped attempt: 1158 renders including 303 baseline,
 boundary handle rounded outside the unchanged strict interval during construction.
 No held-out target access occurred. Revision 1 nudges only an unrepresentable
 boundary value inward by bounded floating-point steps; it does not relax the
-contract or alter the search. Run-002 must rerun admission and all three seeds.
+contract or alter the search. Run-002 reran admission and all three seeds.
 
 ```sh
 PYTHONHASHSEED=839 /absolute/path/to/.venv/bin/python -m scribesim.curriculum.foundation_primitives --output /tmp/return-learning-new

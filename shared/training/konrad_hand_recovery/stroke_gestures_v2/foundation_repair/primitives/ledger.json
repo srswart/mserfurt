@@ -1,6 +1,6 @@
 {
   "advance": "ADV-SS-CURRICULUM-010",
-  "status": "in_progress",
+  "status": "complete",
   "implementation_merged": false,
   "branch": "advance/ss-curriculum-010",
   "attempts": [
@@ -44,8 +44,8 @@
     }
   ],
   "experiment_totals": {
-    "renders": 6954,
-    "elapsed_seconds": 702.5578499988187,
+    "renders": 7212,
+    "elapsed_seconds": 727.122228414868,
     "optimization_evaluations": 5888,
     "revisions_used": 1,
     "max_automatic_revisions": 1
@@ -67,12 +67,27 @@
     "elapsed_seconds": 596.9882249159273
   },
   "measurement_followup": {
-    "status": "approval_pending",
-    "proposal": "measurement-request.md",
-    "new_optimization_permitted": false,
-    "proposed_max_renders": 500,
-    "proposed_max_seconds": 900,
-    "additional_automatic_revision": false
+    "status": "pass",
+    "authorization": "2026-09-07 explicit user approval",
+    "implementation_commit": "a7ccabb6a8eaa2b9446c4b488a14c98b6c8dcc6d",
+    "path": "measurement/run-001",
+    "report_sha256": "2ac6acc9b0e0767b020d5f7cca34851c47f431ffab454655ebd10b4a638853a0",
+    "renders": 258,
+    "elapsed_seconds": 24.564378416049294,
+    "max_renders": 500,
+    "max_seconds": 900,
+    "optimization_evaluations": 0,
+    "execution_calls": 0,
+    "additional_automatic_revision": false,
+    "all_seed_fixtures_pass": 15,
+    "source_candidates_unchanged": true,
+    "verification": {
+      "renders": 258,
+      "elapsed_seconds": 40.16322562494315,
+      "receipt": "measurement-verification.json",
+      "separate_from_experiment": true,
+      "byte_identical_non_wall_artifacts": 104
+    }
   },
   "S1_accepted": false,
   "gesture_training_permitted": false,

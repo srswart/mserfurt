@@ -35,3 +35,11 @@ Allow at most 500 measurement/presentation renders and 900 seconds across all
 three seeds, zero optimization and no further automatic revision. Report every
 failure. Reusing a frozen candidate for this measurement repair is not permission
 to self-certify S1 or begin gesture fitting; HANDVALIDATE-015 remains independent.
+
+## Executed outcome
+
+Implementation `a7ccabb` completes this exact measurement scope: 258 renders,
+24.564378 seconds, zero optimizer calls and zero controller executions. All five
+fixtures and each required family pass for all three seeds. The source candidates
+and prior failed bundles are unchanged. See [current results](README.md#current-result-learning-proof-complete)
+and [the immutable report](measurement/run-001/report.json).

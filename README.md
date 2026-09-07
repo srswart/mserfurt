@@ -242,19 +242,18 @@ action pictures are not learned results. See
 [samples, findings and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/README.md)
 and [the Advance map](docs/tech-direction/TD-018-addendum-a-stroke-gestures.md#10-planned-advances-and-delivery-contract).
 
-**Current: `td018-foundation-repair`**, motion repair and return-contract audit complete;
-return learning in progress, three Advances planned:
-refresh the motion/baseline proof, train new return primitives, independently
-accept them, then train and evaluate shared gestures. No new learning Advance
+**Current: `td018-foundation-repair`**, motion repair, return-contract audit and
+return learning complete; three Advances planned:
+independently accept the new primitives, then train and evaluate shared gestures. No new learning Advance
 completes on scaffolding alone. [Implementation order, budgets and success criteria](docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
 
 The return audit adds untrained lower/upper-return families and an explicit six-stroke
 composition cap, preserving old readers and the six original shapes. Five supplied
 starter constructions are feasible; unresolved bowls/loops and other checklist forms
-remain debt. CURRICULUM-010 now fits the two returns with fresh baseline admission,
-but the frozen comparison frame crops the compound's lower return. Completion and
-merge wait for an authorized full-frame measurement of the same candidates, not
-more fitting. See the [learning evidence](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/README.md).
+remain debt. CURRICULUM-010 fits the two returns with fresh baseline admission.
+An authorized full-frame measurement now passes all five held-out fixtures and
+both family-local checks across all three seeds, with no refitting. Independent
+S1 acceptance remains the next gate. See the [learning evidence](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/README.md).
 [New return shapes, constructions and next work](shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html).
 
 Start with the new [stroke practice sheet](shared/training/konrad_hand_recovery/stroke_language_v1/strokes/synthetic/practice-sheet.png)

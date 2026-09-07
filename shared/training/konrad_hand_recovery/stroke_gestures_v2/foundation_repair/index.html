@@ -2,19 +2,31 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Foundation repair — return learning and measurement status</title>
 <style>body{margin:0;background:#f5f1e7;color:#24342f;font:17px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:38px;line-height:1.15}h2{margin-top:38px}a{color:#235d77}aside{border-left:5px solid #b24932;padding:16px 24px;background:#fff7f0}figure{margin:24px 0;padding:20px;background:white;border:1px solid #d9ded8;border-radius:10px}svg,img{max-width:100%;height:auto}figcaption{font-size:15px;color:#52605a}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}.ok{color:#276946}.fail{color:#a43a28}code{font-size:.9em}li{margin:7px 0}summary{cursor:pointer;font-weight:650}</style></head>
-<body><main><p>TD-018 / FOUNDATION REPAIR / RETURN LEARNING RUN 002</p>
-<h1>Return strokes are fitted. One measurement needs repair.</h1>
-<aside><strong>CURRICULUM-010 remains in progress—not merged or independently accepted.</strong> Fresh motion/baseline admission passes all 239 gates. The runner now fits only the two return families, preserving the old six primitives and their connection ports. Its fixed comparison frame crops the compound's lower return, so that required family check fails rather than disappearing into an average.</aside>
+<body><main><p>TD-018 / FOUNDATION REPAIR / FULL-FRAME RETURN MEASUREMENT</p>
+<h1>Two fitted returns. Complete stroke combinations.</h1>
+<aside style="border-color:#276946;background:#f0f8f0"><strong>CURRICULUM-010 learning evidence is complete.</strong> All five held-out fixtures and every required family pass across seeds 7/19/41. The approved wider frame now includes the compound's lower return. The candidates and saved actual traces are unchanged: no refitting, new controller execution or relaxed thresholds. Independent S1 acceptance is still the next step.</aside>
 <h2>Actual learning, not a new letter grammar</h2>
-<p>Two bounded handle lengths per return are fitted against independent analytic targets. Training ranks candidates, development selects, and unseen scales plus underturn/overturn/compound attachments are evaluated only afterward. Single returns, underturn and overturn show substantially lower loss; the compound needs a complete measurement frame. This is not historical handwriting, learned letters or new S1 acceptance.</p>
-<figure><a href="primitives/run-002/seed-7/practice-sheet.png"><img src="primitives/run-002/seed-7/practice-sheet.png" alt="Initial, independent target, learned nominal, sampled and actual return strokes; compound row explicitly fails because its lower return is cropped"></a><figcaption>Seed 7, native 900-DPI panels with smooth downsampling. The bottom row deliberately retains the failed cropped measurement. Do not interpret it as a missing stroke in the saved candidate or full actual trajectory.</figcaption></figure>
+<p>Two bounded handle lengths per return are fitted against independent analytic targets. Training ranks candidates, development selects, and unseen scales plus underturn/overturn/compound attachments are evaluated only afterward. All now show substantially lower loss in a complete frame. This is not historical handwriting, learned letters or new S1 acceptance.</p>
+<figure><a href="primitives/measurement/run-001/seed-7/practice-sheet.png"><img src="primitives/measurement/run-001/seed-7/practice-sheet.png" alt="Complete initial, target, learned, sampled and actual return strokes; all five fixtures pass including the compound lower return"></a><figcaption>Seed 7, native 900-DPI panels with smooth downsampling. All columns use the same [-2,9,3,16] mm frame. The bottom row contains the full compound; no ink is retouched.</figcaption></figure>
+<table><tr><th>Held-out fixture</th><th>Learned / initial loss</th><th>Every seed</th></tr>
+<tr><td>Lower return, unseen scale</td><td>0.333380</td><td class="ok">Pass</td></tr>
+<tr><td>Upper return, unseen scale</td><td>0.302809</td><td class="ok">Pass</td></tr>
+<tr><td>Underturn attachment</td><td>0.428036</td><td class="ok">Pass</td></tr>
+<tr><td>Overturn attachment</td><td>0.218426</td><td class="ok">Pass</td></tr>
+<tr><td>Compound attachment</td><td>0.316542</td><td class="ok">Pass: upper/local 0.303233, lower/local 0.327130</td></tr></table>
+<p>These are measured synthetic losses, not artistic-quality ratings. The worst family-local ratio is 0.428468, below the unchanged 0.75 limit. The measurement uses 258 renders, zero optimizer calls and zero new controller executions. Clean replay matches 104 artifacts; candidate files are byte-identical to the original selection.</p>
 <figure><img src="primitives/run-002/seed-7/ports.svg" alt="Frozen initial, independent target and fitted returns with fixed entry and exit direction arrows"><figcaption>Saved control geometry: endpoints and direction rays are fixed; only the two handle lengths change. No image retouching or new tool behavior.</figcaption></figure>
-<h2>Next: measure the same candidates in a complete frame</h2>
-<p>The allowed automatic revision repaired a floating-point handle-boundary issue. An additional <strong>measurement-only follow-up needs user approval</strong>: widen the common frame, reuse the frozen candidates and traces, rerun unchanged metrics with zero refitting. The compound reaches beyond y=13 mm, the current frame edge. All original failures remain immutable. HANDVALIDATE-015 must still independently evaluate any resulting primitive candidate before gesture fitting.</p>
+<h2>Next: independent primitive acceptance</h2>
+<p><strong>HANDVALIDATE-015</strong> must independently reconstruct all three candidates and their lineage, replay full-frame transfer and refinements, and run the required wrong-port, detached-geometry, hidden-lift/connector, extra-contributor and counter controls. Only a matching independent pass may grant S1 and allow shared-gesture learning. No alphabet, dynamic-action, fatigue or historical-hand acceptance is implied.</p>
 <ul><li><a href="primitives/README.md">Learning protocol, result and replay</a></li>
-<li><a href="primitives/measurement-request.md">Bounded no-refit measurement proposal</a></li>
+<li><a href="primitives/measurement-request.md">Approved and executed no-refit measurement</a></li>
+<li><a href="primitives/measurement/run-001/report.json">Full-frame report</a></li>
+<li><a href="primitives/measurement-verification.json">Clean-checkout verification</a></li>
+<li><a href="primitives/measurement/run-001/seed-19/practice-sheet.png">Seed 19 complete sheet</a></li>
+<li><a href="primitives/measurement/run-001/seed-41/practice-sheet.png">Seed 41 complete sheet</a></li>
 <li><a href="primitives/run-002/seed-7/candidate.json">Frozen fitted candidate</a></li>
 <li><a href="primitives/run-002/seed-7/compound-attachment-metrics.json">Required compound failure, not an averaged pass</a></li></ul>
+<details><summary>Retained cropped measurement — run-002, before the approved correction</summary><figure><img src="primitives/run-002/seed-7/practice-sheet.png" alt="Historical cropped compound failure"><figcaption>This old frame ended at y=13 mm, before the lower-return endpoint at y=13.15 mm. Its undefined family-local loss correctly blocked completion. The old report is unchanged; the new report remeasures the same candidate in a complete frame.</figcaption></figure></details>
 <details><summary>Earlier return contract audit — untrained initialization and inventory debt</summary>
 <p>TD-018 / FOUNDATION REPAIR / RETURN CONTRACT RUN 001</p>
 <h1>Two new return shapes. Explicit connections.</h1>

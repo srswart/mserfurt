@@ -1,13 +1,13 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** HANDFLOW-010 motion repair and GESTURE-002 return-contract audit are
-complete; CURRICULUM-010 is in progress and three Advances remain planned. The audit freezes two untrained returns,
-actual-tangent ports, a six-expanded-occurrence opt-in cap and explicit inventory
-debt. Run-005 retains its accepted pre-audit motion result; compiler identities
-changed; CURRICULUM-010 has refreshed admission and fitted return candidates.
-Its frozen frame crops the compound's lower return, so learning completion and
-merge remain blocked pending an authorized measurement-only follow-up. No new
-S1, S1-action, real-hand or owner appearance approval is claimed.
+**Status:** HANDFLOW-010 motion repair, GESTURE-002 return-contract audit and
+CURRICULUM-010 return learning are complete; three Advances remain planned.
+The original six primitives, actual-tangent ports and six-occurrence opt-in cap
+remain unchanged. All five held-out fixtures and both family-local checks pass
+for seeds 7/19/41 after the authorized complete-frame measurement. This reused
+the fitted candidates and saved traces with zero refitting or new execution;
+the stopped and cropped attempts remain immutable. HANDVALIDATE-015 is next.
+No new S1, S1-action, real-hand or owner appearance approval is claimed.
 See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
 and the [executed vocabulary audit](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/README.md).
 **Date:** 2026-09-06
@@ -196,6 +196,25 @@ geometry, extra terminal/overlap contributor and erased counter using predeclare
 local regions and exact ownership. A required control not detected blocks that
 scope. If inherited metrics are inapplicable, predeclare a justified replacement
 before new results; do not relax a failed criterion after observing it.
+
+### 6.1 Executed full-frame learning proof
+
+CURRICULUM-010 run-002 actually fits lower/upper return handles at all three
+required seeds, after a fresh 239-gate motion/baseline pass. A cropped comparison
+frame initially prevented measurement of the compound's lower return. The user
+authorized a separate measurement-only allowance on 2026-09-07: a common frame
+of [-2,9,3,16] mm, at most 500 renders or 900 seconds, no optimization, no new
+controller execution and no automatic revision. The original targets, fixtures,
+candidate choices, local regions and numeric thresholds remain unchanged.
+
+The existing renderer and loss function remeasure pinned candidates and saved
+traces. Contact footprints include a conservative nib/filter margin; out-of-frame
+local regions fail rather than being clamped. All fifteen seed/fixture outcomes
+pass, including compound local ratios 0.303233 (upper) and 0.327130 (lower).
+The measurement uses 258 renders in 24.564378 seconds. No cropped score is edited
+or treated as a pass, and no candidate is refitted or selected from held-out data.
+Independent HANDVALIDATE-015 must still reconstruct and adversarially evaluate
+these frozen candidates before new S1 or gesture-fitting permission.
 
 ## 7. Budgets and stop rules
 
