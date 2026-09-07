@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-07T13:30:58Z
+  updated_at: 2026-09-07T15:29:11Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1636,11 +1636,11 @@ passes:
     - id: ADV-SS-HANDFLOW-011
       advance_id: ADV-SS-HANDFLOW-011
       title: "Source-Tangent Continuity — Frozen Primitive Reevaluation"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-015
-      notes: "AUTHORIZED FOLLOW-UP: repair source-tangent continuity using an opt-in version, preserve legacy defaults and frozen candidates, refresh baseline and full motion proofs, then independently reevaluate with zero fitting. No gesture training until matching acceptance."
+      notes: "COMPLETE, PASS: curve-tangent-v1 fixes compound desired acceleration 402.432 -> 126.422 mm/s2 without refitting. Fresh original baseline, 51 new-mode motion executions, all five held-out fixtures and seven controls pass for every seed. 40 artifacts per seed replay exactly. Retained adapter stop plus one diagnosed retry total 1178 renders per seed; old geometry/tool/controller/defaults unchanged. Matching new-mode S1 reader now admits bounded shared-gesture learning."
     - id: ADV-SS-CURRICULUM-011
       advance_id: ADV-SS-CURRICULUM-011
       title: "Foundation Gesture Learning — Underturn, Overturn and Compound Transfer"
@@ -1650,7 +1650,7 @@ passes:
       - ADV-SS-HANDVALIDATE-015
       - ADV-SS-GESTURE-002
       - ADV-SS-HANDFLOW-011
-      notes: "LEARNING, RUNTIME BLOCKED: HANDVALIDATE-015 completed with failed compound subdivision acceleration. Repair source tangents and obtain matching current-code independent primitive acceptance first. Then keep accepted primitives fixed and learn underturn/overturn/compound constructions with topology-disjoint transfer; supplied-recipe playback is not learning."
+      notes: "NEXT LEARNING: HANDFLOW-011 tangent_evaluation/run-002 passes new-mode S1. Freeze its exact report SHA and required inventory through tangent_evaluation.require_readiness and execute curve-tangent-v1, not legacy fallback. Keep primitives/tool fixed and learn shared underturn/overturn/compound constructions with topology-disjoint transfer. Actual learning remains unexecuted; supplied-recipe playback is not learning."
     - id: ADV-SS-HANDVALIDATE-016
       advance_id: ADV-SS-HANDVALIDATE-016
       title: "Foundation Readiness — Independent Gesture Transfer and Next-Stage Eligibility"

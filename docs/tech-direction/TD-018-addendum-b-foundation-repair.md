@@ -1,17 +1,16 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** Motion repair, return-contract audit, return learning and independent
-HANDVALIDATE-015 evaluation are complete; two Advances remain planned.
-The original six primitives, actual-tangent ports and six-occurrence opt-in cap
-remain unchanged. All five held-out fixtures and both family-local checks pass
-for seeds 7/19/41 after the authorized complete-frame measurement. This reused
-the fitted candidates and saved traces with zero refitting or new execution;
-the stopped and cropped attempts remain immutable. Independent HANDVALIDATE-015
-now reproduces those benefits and all seven adversarial detections, but fails
-compound desired acceleration after subdividing the returns themselves:
-402.432 > 250 mm/s² at an artificial upper-return seam. All seeds replay exactly.
-Next is [source-tangent continuity repair and refreshed no-refit admission](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/diagnosis.md), not gesture fitting.
-No new S1, S1-action, real-hand or owner appearance approval is claimed.
+**Status:** Five foundation outcomes are complete, including HANDFLOW-011's
+source-tangent repair and independent frozen-candidate reevaluation; two Advances
+remain planned. All original curves, ports, tool, controller and compiler remain
+unchanged. Opt-in `curve-tangent-v1` reduces compound subdivision desired
+acceleration from 402.432 to 126.422 mm/s². Fresh baseline, full motion, all five
+held-out fixtures and seven controls pass for every seed with exact replay.
+Scoped current-code primitive S1 now permits bounded fixed-tool shared-gesture
+learning; **CURRICULUM-011 is next, not yet executed**. Its consumer must pin the
+new report and use the admitted execution mode, not legacy fallback.
+All stopped/cropped/failed attempts remain immutable. No S1-action, learned
+letters, real-hand, default-mode or owner appearance approval is claimed.
 See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
 and the [executed vocabulary audit](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/README.md).
 **Date:** 2026-09-06
@@ -57,6 +56,7 @@ experiment or permit later training.
 | 2 | [GESTURE-002](../../arrive/systems/scribesim/advances/ADV-SS-GESTURE-002.md) | Stroke/port and letter-expansion audit; explicit bounded return-primitive/composition contract; compiler support only for the justified versioned change |
 | 3 | [CURRICULUM-010](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-010.md) | Actually fitted lower/upper return primitives with old six primitives fixed; enlarged practice and unseen attachment proofs |
 | 4 | [HANDVALIDATE-015](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-015.md) | Independent current-code S1 primitive-extension decision; no gesture fitting until the required inventory passes |
+| 4a | [HANDFLOW-011](../../arrive/systems/scribesim/advances/ADV-SS-HANDFLOW-011.md) | Source-tangent repair plus independent no-refit reevaluation; matching new-mode S1 now passes, legacy failure retained |
 | 5 | [CURRICULUM-011](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-011.md) | Actually learned fixed-tool underturn, overturn and compound constructions using accepted shared primitives |
 | 6 | [HANDVALIDATE-016](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-016.md) | Independent S1-gesture transfer/continuity decision and precise next-experiment eligibility |
 
@@ -225,6 +225,36 @@ does not invalidate the measured image benefit, but blocks S1 and gesture fittin
 until a separately scoped tangent repair and refreshed independent admission pass.
 
 ## 7. Budgets and stop rules
+
+### Completed source-tangent follow-up
+
+HANDVALIDATE-015's all-cubic subdivision proof exposed an artificial chord-direction
+jump at the upper return's midpoint. HANDFLOW-011 adds a versioned adapter that
+validates source cubic identity, parameter, ownership and position before using
+the analytic derivative for physical velocity direction. Stationary derivatives
+fail closed. The existing curve clock and corner/rest/air policy remain intact;
+braked air travel is recomputed from the corrected departure direction. No source
+contact position, stored primitive curve, tool or controller changes.
+
+Fresh original-six checks and 51 new-mode baseline executions precede every
+candidate evaluation. The same three frozen models then pass all five held-out
+fixtures, every required family-local benefit, actual/refinement gates and seven
+adversarial controls. Forty non-wall artifacts per seed replay byte-for-byte.
+The prior migration adapter stop is retained; one diagnosed revision proves a
+single-occurrence compiled probe equivalent to the original generic exercise,
+without stripping its crossing declaration or weakening migration.
+
+Across both attempts and all first/replay work, each seed uses 1178 renders and
+at most 61.020 recorded seconds, within the same 5000/1800 limits. Zero fitting;
+the one diagnosed retry is used. See [results, exact admission and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/README.md).
+
+The `S1-foundation-primitives-tangent-v1` reader verifies a consumer-pinned report
+identity, complete fresh baseline and numeric proofs, current source/code/spec
+identities and replay. It requires `curve-tangent-v1` execution. Existing legacy
+S1 readers and failed artifacts do not acquire acceptance. CURRICULUM-011 must
+freeze this gate before optimizing only its permitted shared gesture parameters.
+
+### Frozen allowances
 
 - Motion repair: at most six fixture families, 500 diagnostic renders or 1800 s
   per attempt; zero optimization, one diagnosed revision. Baseline revalidation

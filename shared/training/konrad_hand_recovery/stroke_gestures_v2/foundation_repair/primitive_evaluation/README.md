@@ -1,8 +1,10 @@
 # Independent return-primitive evaluation
 
-**HANDVALIDATE-015 is complete as an evaluation. Its result is FAIL, not GO.**
-The required compound subdivision check fails for every seed. S1 acceptance and
-gesture-training permission remain false; CURRICULUM-011 must not start fitting.
+**HANDVALIDATE-015's original evaluation result is FAIL, not GO.** Its compound
+subdivision failure and false S1 flags remain unchanged. The subsequently authorized
+[HANDFLOW-011 repair and reevaluation](../tangent_evaluation/README.md) now pass for
+the same candidates under `curve-tangent-v1`. Only that new scoped reader admits
+fixed-tool shared-gesture learning; the original legacy reader does not.
 
 ## What ran
 
@@ -91,7 +93,9 @@ This report's SHA is
 `e779c923379db352b43fa9dc3aa8edc5c967170116404fa2c4e79b2bba2f31b9`;
 the reader rejects it because it failed. A completed Advance is not admission.
 
-Next: separately repair source-tangent continuity at equivalent subdivision seams,
+The separately authorized follow-up now implements the following repair and
+passes reevaluation; see the [current result](../tangent_evaluation/README.md).
+The original required next step was to repair source-tangent continuity at equivalent subdivision seams,
 then refresh current-code baseline/lineage and repeat the no-refit independent
 evaluation. Do not change the model, drop boundary samples, relax acceleration,
 edit old hashes or treat the hypothetical derivative check as an implemented fix.

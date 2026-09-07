@@ -1,5 +1,9 @@
 # Required next fix: subdivision-invariant source tangents
 
+**Follow-up completed:** [HANDFLOW-011](../tangent_evaluation/README.md) implements
+the opt-in repair and passes independent reevaluation of the same candidates.
+This document retains the original failure and pre-repair proposal for provenance.
+
 ## Observed failure, not a threshold change
 
 All seeds and clean fresh-process replays reproduce the same compound failure.
@@ -61,5 +65,6 @@ coverage gap rather than relabeling them.
    an explicitly frozen no-refit protocol/current-code admission. Keep run-001 and
    its false S1 flags intact. Stop if any required family/refinement/control fails.
 
-No repair, new execution version or additional evaluation attempt is implemented
-by this diagnosis. CURRICULUM-011 remains planned and runtime-blocked.
+This diagnosis itself did not implement a repair or additional attempt. The
+subsequent linked follow-up now provides matching new-mode admission; CURRICULUM-011
+remains planned, but can freeze that admission before its separate experiment.

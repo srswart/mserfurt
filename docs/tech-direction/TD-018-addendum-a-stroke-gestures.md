@@ -7,10 +7,11 @@
 **Parent:** [TD-018 — Reference-Grounded Recovery of Konrad's Hand](TD-018-reference-grounded-hand-recovery.md)
 
 **Current next work:** [Addendum B — foundation repair](TD-018-addendum-b-foundation-repair.md)
-contains six Advances: four outcomes complete and two planned. Independent
-HANDVALIDATE-015 now fails compound subdivision desired acceleration; source-tangent
-repair and refreshed no-refit acceptance must precede gesture learning. Later
-letters, actions and real-hand promotion remain blocked.
+contains seven Advances: five outcomes complete and two planned. HANDFLOW-011
+repairs the subdivision direction failure and obtains scoped new-mode primitive
+acceptance without refitting. CURRICULUM-011 can now freeze that admission for
+fixed-tool shared-gesture learning. Later letters, actions and real-hand promotion
+remain unaccepted.
 
 ## 1. Decision and scope
 

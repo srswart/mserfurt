@@ -24,8 +24,13 @@ Independently accept or reject the repaired baseline and newly learned return pr
 
 **Work kind:** Independent evaluation. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
 Executed under the user's implement/update/merge workflow. The independent
-evaluation is complete with a **FAIL** decision. S1 and gesture-fitting permission
-remain false; the next task is source-tangent continuity repair, not new learning.
+original evaluation is complete with a **FAIL** decision. Its legacy S1 and
+gesture-fitting flags remain false; the subsequent repair uses a new scoped reader.
+
+**Subsequent authorized follow-up:** [HANDFLOW-011](ADV-SS-HANDFLOW-011.md) now
+repairs that failure and independently accepts the unchanged candidates for
+`curve-tangent-v1` fixed-tool shared gestures. This Advance's original failed
+report and legacy admission remain unchanged; use the follow-up's explicit reader.
 
 ## Behavioral Change
 
