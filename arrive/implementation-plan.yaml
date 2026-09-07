@@ -1633,6 +1633,14 @@ passes:
       dependencies:
       - ADV-SS-CURRICULUM-010
       notes: "COMPLETE EVALUATION, FAIL: all seeds replay byte-identically from a clean checkout; original baseline, image/local benefit and seven adversarial controls pass. Subdividing the returns themselves exposes compound desired acceleration 402.432 > 250 mm/s2 at an artificial upper-return seam. 612 renders per seed including replay, zero optimization. S1 and gesture permission remain false. Next: source-tangent continuity repair and refreshed no-refit admission; do not start CURRICULUM-011."
+    - id: ADV-SS-HANDFLOW-011
+      advance_id: ADV-SS-HANDFLOW-011
+      title: "Source-Tangent Continuity — Frozen Primitive Reevaluation"
+      status: in_progress
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-015
+      notes: "AUTHORIZED FOLLOW-UP: repair source-tangent continuity using an opt-in version, preserve legacy defaults and frozen candidates, refresh baseline and full motion proofs, then independently reevaluate with zero fitting. No gesture training until matching acceptance."
     - id: ADV-SS-CURRICULUM-011
       advance_id: ADV-SS-CURRICULUM-011
       title: "Foundation Gesture Learning — Underturn, Overturn and Compound Transfer"
@@ -1641,6 +1649,7 @@ passes:
       dependencies:
       - ADV-SS-HANDVALIDATE-015
       - ADV-SS-GESTURE-002
+      - ADV-SS-HANDFLOW-011
       notes: "LEARNING, RUNTIME BLOCKED: HANDVALIDATE-015 completed with failed compound subdivision acceleration. Repair source tangents and obtain matching current-code independent primitive acceptance first. Then keep accepted primitives fixed and learn underturn/overturn/compound constructions with topology-disjoint transfer; supplied-recipe playback is not learning."
     - id: ADV-SS-HANDVALIDATE-016
       advance_id: ADV-SS-HANDVALIDATE-016
