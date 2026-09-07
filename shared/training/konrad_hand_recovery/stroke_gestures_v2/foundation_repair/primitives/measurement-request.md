@@ -1,4 +1,8 @@
-# Proposed measurement-only follow-up — approval pending
+# Measurement-only follow-up — approved 2026-09-07
+
+User authorization: “Yes please widen the measurement frame. You have approval.”
+Execution is bounded by [measurement-spec-v1](measurement-spec-v1.json). Approval
+does not alter any historical result or grant independent primitive acceptance.
 
 The frozen comparison frame in spec-v1/v2 is `[-2, 9, 3, 13]` mm. Static
 compilation of the unchanged compound scaffold at scale 0.9 exposes a framing
