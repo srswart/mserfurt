@@ -1,0 +1,31 @@
+{
+  "schema_version": "foundation-tangent-evaluation-v2",
+  "advance": "ADV-SS-HANDFLOW-011",
+  "authorization": "User requested repairing curve-tangent continuity, then reevaluating frozen candidates; established update and merge workflow applies.",
+  "execution_version": "curve-tangent-v1",
+  "scope": "Opt-in physical source-derivative velocity directions with existing curve-time-v1 clock, event-time-v2 controller and fixed tool. No renderer/controller fork, fitting, candidate selection, default promotion, letters, actions or real-hand acceptance.",
+  "prior_report_sha256": "e779c923379db352b43fa9dc3aa8edc5c967170116404fa2c4e79b2bba2f31b9",
+  "allowed_changed_historical_code": [
+    "scribesim/handvalidate/foundation_primitives.py"
+  ],
+  "compatibility": "All frozen learning/measurement/model/compiler/controller/tool/target identities must still match the original reader. The prior independent evaluator may add explicit opt-in execution dispatch only; its legacy defaults and failed run stay unchanged. New planner, execution adapter and evaluator are separately identified. Fresh baseline and full motion proofs under the new mode are required, not inferred from old admission.",
+  "repair": "Validate complete source provenance with the unchanged curve clock before deriving physical cubic directions. Preserve every source contact position, owner, pressure, angle and speed schedule. Reuse the existing corner/rest and lifted braking policy with corrected departure direction. Stationary derivative/cusp or nonfinite/unknown/mismatched provenance fails closed, never guessed or snapped. Legacy functions unchanged.",
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "max_renders_per_seed_including_replay": 5000,
+  "max_seconds_per_seed_including_replay": 1800,
+  "max_diagnosed_reruns": 1,
+  "optimization_evaluations": 0,
+  "criteria": "Retain every primitive_evaluation/spec-v1 criterion and all existing foundation-motion-v5 gates: desired acceleration <=250mm/s2, actual <=500mm/s2, zero contact/owner/text/projection errors, <=0.1ms event-time drift, <=0.01mm endpoint drift, <=0.03 refinement loss. No post-result threshold changes.",
+  "proofs": "Each first/replay worker reruns original-six nominal/actual baseline, then fresh new-mode six-family actual subdivision/density/time proofs and all six existing motion fixtures plus fixed physical bridge. Independently reevaluate all five held-out return fixtures, every required family and seven adversarial controls. Split every cubic, not just stem. Full frame and targets unchanged. Include all setup/proof/control/presentation renders in shared seed allowance.",
+  "replay": "Fresh first/replay processes use hash seeds 0 and 839; compare every non-wall artifact byte-for-byte. Preserve stopped attempts. No optimizer calls or hidden refitting. Report cumulative first/replay render/time use per seed.",
+  "readiness": "Explicit S1-foundation-primitives-tangent-v1 reader requires consumer-pinned report SHA, matching current identities and complete replay/artifact/numeric gates plus fresh new-mode motion baseline. Legacy S1 cannot admit this mode. Only matched original-six and lower/upper returns can feed bounded fixed-tool shared-gesture learning. Consumer must execute curve-tangent-v1, not silently fall back to legacy timing.",
+  "revision": 1,
+  "prior_attempt_report_sha256": "654e301f9458696465c85d2c2e6a4bf735b5a4aa9240f3a20f2eaf1f8cea734f",
+  "prior_attempt_execution_sha256": "ae365ab18d18171d7e3a73cb78a03fcd94a60f45ffe069dc4576e445d4730a18",
+  "diagnosed_revision": "First attempt stopped after fresh original baseline because its isolated exercise carries allow_crossings=True and strict generic migration correctly refuses it. Replace only that diagnostic adapter: construct one existing shared primitive probe from the identical frozen table and prove one occurrence, exact compiled cubics/span/primitive/transition and fixed tool equality against the original language exercise. Never strip crossing declarations, relax migration or change source curves. Original target/threshold/timing/controller code unchanged.",
+  "cumulative_budget": "Subtract retained run-001 first/replay usage (324 renders per seed and recorded elapsed time) from the same 5000/1800 allowances before this one diagnosed retry. No further automatic reruns."
+}

@@ -139,3 +139,35 @@ def test_unknown_execution_mode_cannot_fall_back_to_legacy():
     model = evaluation.probe(evaluation.contract.initial_model(), evaluation.FIXTURES[0])
     with pytest.raises(ValueError, match='Unsupported'):
         evaluation.execute(model, step=.025, dt=.002, budget=evaluation.learning.Budget(), version='unknown')
+
+
+@pytest.mark.parametrize('family', ['stem', 'rise', 'bowl', 'turn', 'loop', 'exit'])
+def test_baseline_probe_proves_single_occurrence_geometry_without_relaxing_migration(family):
+    from scribesim.handvalidate.tangent_evaluation import baseline_probe
+    from scribesim.evofit.stroke_gestures import migrate_v1
+
+    original = evaluation.motion.load_historical_baseline()
+    sample = next(row for row in original['freeze']['samples'] if row['id'] == family + '-base')
+    language, text = evaluation.motion.strokes.exercise_model(original['candidate'], sample)
+    before = copy.deepcopy(language)
+    with pytest.raises(ValueError, match='crossings'):
+        migrate_v1(language)
+    model = baseline_probe(family, language, sample)
+    assert language == before and language['recipes']['exercise']['allow_crossings']
+    prior = evaluation.motion.compile_text(text, language)['strokes']
+    current = compile_gestures(text, model)['strokes']
+    assert len(prior) == len(current) == 1
+    assert prior[0]['cubics'] == current[0]['cubics'] and prior[0]['span'] == current[0]['span']
+    assert model['primitives'][family] == language['primitives'][family]
+    changed = copy.deepcopy(language)
+    changed['recipes']['exercise']['strokes'][0]['offset'][0] += .1
+    with pytest.raises(ValueError):
+        baseline_probe(family, changed, sample)
+
+
+def test_diagnosed_retry_charges_the_retained_first_attempt():
+    from scribesim.handvalidate.tangent_evaluation import prior_usage
+
+    usage = prior_usage()
+    assert set(usage) == {7, 19, 41}
+    assert all(row['renders'] == 324 and row['seconds'] > 0 for row in usage.values())
