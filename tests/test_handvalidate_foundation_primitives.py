@@ -85,3 +85,23 @@ def test_invalid_source_stops_without_optimizer_or_evaluation(tmp_path, monkeypa
     report = evaluation.build(tmp_path / 'run')
     assert report['status'] == 'blocked' and report['renders'] == 0
     assert report['optimization_evaluations'] == 0 and not report['gesture_training_permitted']
+
+
+def test_fresh_fixture_and_controls_do_not_call_training_execution(tmp_path, monkeypatch):
+    from scribesim.handvalidate import foundation_primitives as evaluation
+
+    forbidden = lambda *args, **kwargs: pytest.fail('Training execution or measurement called')
+    for name in ('execute_fixture', 'target_segments', 'search_handles', 'build'):
+        monkeypatch.setattr(evaluation.learning, name, forbidden)
+    monkeypatch.setattr(evaluation.measurement, 'measure_fixture', forbidden)
+    budget = evaluation.learning.Budget()
+    model = evaluation.contract.initial_model()
+    record, runs, tiles = evaluation.evaluate_fixture(model, evaluation.FIXTURES[-1], budget, tmp_path)
+    assert set(runs) == {'base', 'arc', 'time', 'subdivision'}
+    assert record['shared_parameter_propagation']
+    assert all(row['errors'] == 0 for row in record['audits'].values())
+    assert record['full']['ratio'] == 1 and not record['passed']
+    controls = evaluation.controls(model, budget, tmp_path)
+    assert all(row['detected'] for row in controls.values())
+    assert not controls['extra-contributor']['global_meets_minimum']
+    assert len(tiles) == 5
