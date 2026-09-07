@@ -163,5 +163,14 @@ was explicitly approved by the user rather than inferred from the original allow
 
 ## Check for Understanding
 
+### Local merge receipt — 2026-09-07
+
+Completion commit `fc544a1` merged into `master` as
+`e422dd8a7b4d5deabd0055fbb1e95d6e9b941b9d` using the authorized no-fast-forward
+workflow. Post-merge plan, current identities, all-seed numeric proofs and all
+992 current / 398 historical artifact hashes verify. Clean-checkout temporary
+files are removed after byte comparison. No push or provider CI was performed;
+the installed strict PR ID-parser limitation remains explicitly documented.
+
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
