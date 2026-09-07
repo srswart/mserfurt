@@ -110,3 +110,23 @@ def test_reject_unknown_ablation_seed_and_nonfinite_score():
             learning.select(lambda *_: 0, seed=seed, ablation=ablation)
     with pytest.raises(ValueError, match='finite'):
         learning.select(lambda *_: float('nan'), seed=7, ablation='fixed')
+
+
+def test_complete_rejects_forged_summary_flags_without_numeric_proofs():
+    rows = [{'seed': seed, 'ablation': 'attachment', 'passed': True,
+             'fixtures': [{'fixture': fixture, 'passed': True} for fixture in learning.SPEC['fixtures']
+                          if fixture['split'] != 'development'],
+             'controls': {name: {'detected': True} for name in learning.SPEC['controls']}}
+            for seed in learning.SPEC['seeds']]
+    assert not learning.complete(rows)
+
+
+def test_worker_command_uses_importable_module_not_main(monkeypatch, tmp_path):
+    def launch(command, **kwargs):
+        assert command[2] == 'scribesim.curriculum.foundation_gestures'
+        raise RuntimeError('verified command before any target rendering')
+
+    monkeypatch.setattr(learning.subprocess, 'run', launch)
+    monkeypatch.setattr(learning, '__name__', '__main__')
+    with pytest.raises(RuntimeError, match='verified command'):
+        learning.build(tmp_path / 'run')
