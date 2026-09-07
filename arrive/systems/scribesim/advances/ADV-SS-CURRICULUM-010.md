@@ -119,6 +119,11 @@ targets or fitted parameters change during this follow-up.
 
 ## Changes Made
 
+### 2026-09-07 — df0cbd2: Verified local merge receipt
+
+- Merged `advance/ss-curriculum-010` into `master` using `--no-ff` after the approved full-frame measurement, clean replay and documented checks. Full merge: `df0cbd249089d901aa514fa3913129898bf2d9bd`; no remote push.
+- Current implementation identities still match the verified measurement; source candidates and historical reports remain unchanged. The existing constructor-test and strict-parser limitations are not represented as passing provider CI. HANDVALIDATE-015 remains planned and independent.
+
 ### 2026-09-07 — a7ccabb: Authorized full-frame measurement completes learning evidence
 
 - `3ce2a30` freezes authorization, source-report identity, unchanged metrics and five observed red tests before implementation. The isolated measurement module consumes saved candidates/traces and calls neither the optimizer nor controller.
