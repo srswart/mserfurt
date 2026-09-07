@@ -194,12 +194,14 @@ def test_paired_diagnostic_paths_preserve_explicit_lifts(identifier, kind):
 
 def test_seed7_continuation_never_calls_optimizer_or_training_renderer(monkeypatch):
     initial = learning.initial_model(learning.load_source()[0])
+    verified = learning.load_continuation()
 
     def forbidden(*args, **kwargs):
         pytest.fail('Frozen seed 7 must not fit or score training targets')
 
     monkeypatch.setattr(learning, 'select', forbidden)
     monkeypatch.setattr(learning, 'paint', forbidden)
+    monkeypatch.setattr(learning, 'load_continuation', lambda: verified)
     for ablation in learning.SPEC['ablations']:
         budget = learning.primitives.Budget()
         candidate, selection, provenance = learning.acquire_candidate(initial, 7, ablation, budget)
@@ -234,3 +236,21 @@ def test_contact_schedule_guard_rejects_flattened_paired_diagnostics():
     broken = learning.measurement.segment_trajectory(learning.gesture_targets.segments(learning.SPEC['targets'], fixture))
     with pytest.raises(ValueError, match='contact'):
         learning.require_contact_runs(broken, fixture)
+
+
+def test_continuation_rejects_changed_selection_logic(monkeypatch):
+    monkeypatch.setattr(learning, 'select', lambda *args, **kwargs: None)
+    with pytest.raises(ValueError, match='search or criteria'):
+        learning.load_continuation()
+
+
+def test_lift_repair_retains_every_paired_contact_point():
+    initial = learning.initial_model(learning.load_source()[0])
+    for fixture in learning.SPEC['fixtures']:
+        if fixture['split'] != 'held_out':
+            continue
+        original_target = learning.measurement.segment_trajectory(learning.gesture_targets.segments(learning.SPEC['targets'], fixture))
+        rows = compile_gestures('i', learning.probe(initial, fixture))['strokes']
+        original_nominal = learning.measurement.segment_trajectory([learning.primitives._curve(cubic) for row in rows for cubic in row['cubics']])
+        assert [point for point in learning.target(fixture) if point.contact] == original_target
+        assert [point for point in learning.nominal(initial, fixture) if point.contact] == original_nominal

@@ -3,6 +3,8 @@
 import argparse
 import copy
 import gzip
+import hashlib
+import inspect
 import itertools
 import json
 import math
@@ -12,6 +14,7 @@ import random
 import subprocess
 import sys
 import time
+from dataclasses import replace
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -30,11 +33,12 @@ from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_j
 BASE = contract.BASE / 'foundation_repair/gestures'
 SPEC_PATH = BASE / 'spec-v2.json'
 SPEC = json.loads(SPEC_PATH.read_text())
+CONTINUATION_PATH = BASE / 'continuation-v1.json'
 ROLES = {'stem': 0, 'rise': 1, 'lower-return': 2, 'upper-return': 2}
 
 
 def identities():
-    paths = (Path(__file__), Path(gesture_targets.__file__), Path(gesture_refinements.__file__), SPEC_PATH)
+    paths = (Path(__file__), Path(gesture_targets.__file__), Path(gesture_refinements.__file__), SPEC_PATH, CONTINUATION_PATH)
     return {**admission.identities(), **{str(path.relative_to(ROOT)): digest(path) for path in paths}}
 
 
@@ -142,13 +146,32 @@ def crop(pixels, bounds):
                   math.floor((xmin - left) / (right - left) * width):math.ceil((xmax - left) / (right - left) * width)]
 
 
+def contact_trajectory(parts):
+    trajectory, previous = [], None
+    for owner, points in parts:
+        samples = measurement.segment_trajectory([points])
+        if trajectory and owner != previous:
+            trajectory.append(replace(samples[0], contact=False, pressure=0))
+        trajectory.extend(samples)
+        previous = owner
+    return trajectory
+
+
+def require_contact_runs(trajectory, fixture):
+    runs = sum(point.contact and (index == 0 or not trajectory[index - 1].contact)
+               for index, point in enumerate(trajectory))
+    if runs != len(fixture['instances']) or any(point.pressure != 0 for point in trajectory if not point.contact):
+        raise ValueError('Diagnostic contact runs must preserve every explicit gesture lift')
+    return runs
+
+
 def nominal(candidate, fixture):
     rows = compile_gestures('i', probe(candidate, fixture))['strokes']
-    return measurement.segment_trajectory([primitives._curve(cubic) for row in rows for cubic in row['cubics']])
+    return contact_trajectory((row['gesture_occurrence_id'], primitives._curve(cubic)) for row in rows for cubic in row['cubics'])
 
 
 def target(fixture):
-    return measurement.segment_trajectory(gesture_targets.segments(SPEC['targets'], fixture))
+    return contact_trajectory((part['occurrence'], part['points']) for part in gesture_targets.parts(SPEC['targets'], fixture))
 
 
 def regions(fixture):
@@ -229,6 +252,7 @@ def controls(candidate, fixture, result, budget):
 
 def evaluate(candidate, initial, fixture, budget, directory, *, heldout):
     paths = [nominal(initial, fixture), target(fixture), nominal(candidate, fixture)]
+    contact_runs = {label: require_contact_runs(path, fixture) for label, path in zip(('initial', 'target', 'fitted'), paths)}
     before, desired_target, after = [budget.render(paint, path) for path in paths]
     model = probe(candidate, fixture)
     runs, audits = {}, {}
@@ -257,6 +281,7 @@ def evaluate(candidate, initial, fixture, budget, directory, *, heldout):
               'local': local, 'audits': audits, 'comparisons': comparisons,
               'motion': {label: {'metrics': run['metrics'], 'passed': run['passed']} for label, run in runs.items()},
               'candidate_sha256': object_digest(candidate), 'probe_sha256': object_digest(model), 'footprint_contained': True,
+              'diagnostic_contact_runs': contact_runs,
               'compiled_owners': [{key: row[key] for key in ('primitive', 'primitive_sha256', 'gesture', 'gesture_sha256',
                                                             'action_sha256', 'gesture_occurrence_id', 'transition', 'span')}
                                   for row in compile_gestures('i', model)['strokes']]}
@@ -327,6 +352,8 @@ def complete(rows):
 def fixture_passes(record):
     try:
         expected = regions(record['fixture'])
+        if record['diagnostic_contact_runs'] != {label: len(record['fixture']['instances']) for label in ('initial', 'target', 'fitted')}:
+            return False
         if set(record['local']) != set(expected) or set(record['motion']) != {row['id'] for row in SPEC['refinements']}:
             return False
         if record['fixture']['split'] == 'held_out':
@@ -350,6 +377,56 @@ def fixture_passes(record):
         return False
 
 
+def load_continuation():
+    approval = json.loads(CONTINUATION_PATH.read_text())
+    stop_path = BASE / 'validation-stop.json'
+    if digest(stop_path) != approval['stop_sha256'] or approval['seed7_mode'] != 'frozen-no-refit' or approval['remaining_learning_seeds'] != [19, 41]:
+        raise ValueError('Matching explicit continuation approval required')
+    stop = json.loads(stop_path.read_text())
+    audit.verify_artifacts(BASE, stop['artifacts'])
+    prior_freeze = json.loads((BASE / 'run-002/freeze.json').read_text())
+    if SPEC != prior_freeze['spec']:
+        raise ValueError('Approved continuation cannot change the frozen protocol')
+    current = identities()
+    for name, checksum in stop['code_sha256'].items():
+        if name != 'scribesim/curriculum/foundation_gestures.py' and current.get(name) != checksum:
+            raise ValueError('Approved continuation cannot change lower layers or targets')
+    for name, checksum in approval['unchanged_functions_sha256'].items():
+        if hashlib.sha256(inspect.getsource(globals()[name]).encode()).hexdigest() != checksum:
+            raise ValueError('Approved continuation cannot change search or criteria')
+    for frozen in approval['frozen_candidates'].values():
+        directory = BASE / frozen['directory']
+        if digest(directory / 'candidate.json') != frozen['candidate_sha256'] or digest(directory / 'selection.json') != frozen['selection_sha256']:
+            raise ValueError('Frozen seed-7 candidate or selection changed')
+    return approval, stop['ledger']
+
+
+def acquire_candidate(initial, seed, ablation, budget):
+    if seed not in SPEC['seeds'] or ablation not in SPEC['ablations']:
+        raise ValueError('Unfrozen seed or ablation')
+    if seed == 7:
+        approval, _ = load_continuation()
+        frozen = approval['frozen_candidates'][ablation]
+        directory = BASE / frozen['directory']
+        candidate = json.loads((directory / 'candidate.json').read_text())
+        selection = json.loads((directory / 'selection.json').read_text())
+        require_lineage(candidate, initial)
+        if selection['held_out_accessed'] or selection['selection_split'] != 'development' or selection['candidate_sha256'] != object_digest(candidate):
+            raise ValueError('Invalid frozen seed-7 selection')
+        return candidate, selection, {'refitted': False, 'source': frozen}
+    targets = {row['id']: budget.render(paint, target(row)) for row in SPEC['fixtures'] if row['split'] != 'held_out'}
+
+    def score(parameters, split):
+        candidate = with_parameters(initial, parameters)
+        return float(np.mean([stroke_loss(targets[row['id']], budget.render(paint, nominal(candidate, row)))
+                              for row in SPEC['fixtures'] if row['split'] == split]))
+
+    selection = select(score, seed=seed, ablation=ablation)
+    candidate = with_parameters(initial, selection['parameters'])
+    selection['candidate_sha256'] = object_digest(candidate)
+    return candidate, selection, {'refitted': ablation != 'fixed', 'source': 'Original untouched seed search protocol'}
+
+
 def worker(directory, freeze, seed, ablation, maximum, seconds):
     budget = primitives.Budget(maximum, seconds)
     directory.mkdir(parents=True, exist_ok=False)
@@ -361,18 +438,12 @@ def worker(directory, freeze, seed, ablation, maximum, seconds):
         initial = initial_model(source)
         if initial != freeze['initial'] or admitted != freeze['admission']:
             raise ValueError('Changed pre-render initialization or admission')
-        targets = {row['id']: budget.render(paint, target(row)) for row in SPEC['fixtures'] if row['split'] != 'held_out'}
-
-        def score(parameters, split):
-            candidate = with_parameters(initial, parameters)
-            return float(np.mean([stroke_loss(targets[row['id']], budget.render(paint, nominal(candidate, row)))
-                                  for row in SPEC['fixtures'] if row['split'] == split]))
-
-        selection = select(score, seed=seed, ablation=ablation)
-        candidate = with_parameters(initial, selection['parameters'])
+        approval, _ = load_continuation()
+        if freeze['continuation'] != approval:
+            raise ValueError('Changed continuation approval')
+        candidate, selection, provenance = acquire_candidate(initial, seed, ablation, budget)
         require_lineage(candidate, initial)
         write_json(directory / 'candidate.json', candidate)
-        selection['candidate_sha256'] = object_digest(candidate)
         write_json(directory / 'selection.json', selection)
         records, sheets, adversarial = [], [], {}
         for fixture in SPEC['fixtures']:
@@ -384,11 +455,12 @@ def worker(directory, freeze, seed, ablation, maximum, seconds):
             if fixture['id'] == 'underturn-overturn-pair':
                 adversarial = controls(candidate, fixture, result, budget)
         presentation(directory, sheets, candidate, budget)
-        passed = all(row['passed'] for row in records) and all(row['detected'] for row in adversarial.values())
+        passed = all(fixture_passes(row) for row in records) and all(row['detected'] for row in adversarial.values())
         status = 'pass' if passed else 'fail'
         write_json(directory / 'report.json', {'seed': seed, 'ablation': ablation, 'status': status, 'passed': passed,
                    'parameters': selection['parameters'], 'candidate_sha256': object_digest(candidate), 'fixtures': records,
-                   'controls': adversarial, 'renders': budget.used, 'S1_gesture_accepted': False, 'scope': SPEC['promotion']})
+                   'controls': adversarial, 'renders': budget.used, 'acquisition': provenance,
+                   'S1_gesture_accepted': False, 'scope': SPEC['promotion']})
     except (ValueError, RuntimeError, OSError) as failure:
         error = str(failure)
         write_json(directory / 'failure.json', {'seed': seed, 'ablation': ablation, 'status': status, 'error': error})
@@ -399,19 +471,11 @@ def worker(directory, freeze, seed, ablation, maximum, seconds):
 
 def build(output):
     source, admitted = load_source()
-    prior = BASE / 'run-001'
-    if digest(prior / 'report.json') != SPEC['prior_attempt_report_sha256']:
-        raise ValueError('Changed retained attempt')
-    prior_report = json.loads((prior / 'report.json').read_text())
-    audit.verify_artifacts(prior, prior_report['artifacts'])
-    previous_spec = json.loads((prior / 'freeze.json').read_text())['spec']
-    unchanged = set(previous_spec) - {'version'}
-    if any(SPEC[key] != previous_spec[key] for key in unchanged):
-        raise ValueError('Revision cannot change targets, fixtures, selection or criteria')
-    previous_ledger = json.loads((prior / 'ledger.json').read_text())
+    approval, previous_ledger = load_continuation()
     output.mkdir(parents=True, exist_ok=False)
     freeze = {'spec': SPEC, 'code_sha256': identities(), 'initial': initial_model(source), 'admission': admitted,
-              'target_pixels_accessed': False, 'selection_split': 'development', 'held_out_accessed': False}
+              'target_pixels_accessed': False, 'selection_split': 'development', 'held_out_accessed': False,
+              'continuation': approval, 'retained_ledger': previous_ledger}
     write_json(output / 'freeze.json', freeze)
     ledger, primary, results = [], [], []
     status = 'pass'
@@ -452,6 +516,8 @@ def build(output):
         if status != 'pass':
             break
     passed = status == 'pass' and complete(primary)
+    if status == 'pass' and not passed:
+        status = 'fail'
     artifacts = {str(path.relative_to(output)): digest(path) for path in output.rglob('*') if path.is_file()}
     write_json(output / 'report.json', {'status': 'pass' if passed else status, 'learning_complete': passed,
                'S1_gesture_accepted': False, 'next': 'HANDVALIDATE-016' if passed else 'Diagnose retained failure; no automatic extra fitting',

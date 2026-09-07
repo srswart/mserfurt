@@ -25,7 +25,10 @@ Actually learn reusable fixed-tool continuous return constructions, then demonst
 **Work kind:** Learning implementation and bounded experiment. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
 Implementation started after live matching primitive admission. Seed-7 fitting ran,
 but visual review invalidated paired nominal/target diagnostics. This Advance stays
-**in_progress, unmerged**; completing all seeds and accepting transfer are not claimed.
+**in_progress, unmerged**. The user explicitly approved diagnostic lift repair,
+no-refit seed-7 remeasurement and finishing untouched seeds 19/41 on 2026-09-07.
+The continuation is running under unchanged targets, splits, search and criteria;
+completion and acceptance are not yet claimed.
 
 ## Behavioral Change
 
