@@ -190,3 +190,47 @@ def test_paired_diagnostic_paths_preserve_explicit_lifts(identifier, kind):
     groups = sum(point.contact and (index == 0 or not trajectory[index - 1].contact)
                  for index, point in enumerate(trajectory))
     assert groups == len(fixture['instances']), 'Diagnostic ink must never connect explicitly lifted instances'
+
+
+def test_seed7_continuation_never_calls_optimizer_or_training_renderer(monkeypatch):
+    initial = learning.initial_model(learning.load_source()[0])
+
+    def forbidden(*args, **kwargs):
+        pytest.fail('Frozen seed 7 must not fit or score training targets')
+
+    monkeypatch.setattr(learning, 'select', forbidden)
+    monkeypatch.setattr(learning, 'paint', forbidden)
+    for ablation in learning.SPEC['ablations']:
+        budget = learning.primitives.Budget()
+        candidate, selection, provenance = learning.acquire_candidate(initial, 7, ablation, budget)
+        prior = learning.BASE / f'run-002/seed-7/{ablation}/first'
+        assert candidate == learning.json.loads((prior / 'candidate.json').read_text())
+        assert selection == learning.json.loads((prior / 'selection.json').read_text())
+        assert provenance['refitted'] is False
+        assert budget.used == 0
+
+
+def test_continuation_binds_prior_artifacts_and_interrupted_budget():
+    approval, previous = learning.load_continuation()
+    assert approval['seed7_mode'] == 'frozen-no-refit'
+    assert sum(row['renders'] for row in previous) == 3121
+    assert sum(row['renders'] for row in previous if row['seed'] == 19) == 106
+
+
+def test_isolated_geometry_and_contact_samples_do_not_change():
+    initial = learning.initial_model(learning.load_source()[0])
+    for fixture in learning.SPEC['fixtures']:
+        if fixture['split'] == 'held_out':
+            continue
+        old_target = learning.measurement.segment_trajectory(learning.gesture_targets.segments(learning.SPEC['targets'], fixture))
+        rows = compile_gestures('i', learning.probe(initial, fixture))['strokes']
+        old_nominal = learning.measurement.segment_trajectory([learning.primitives._curve(cubic) for row in rows for cubic in row['cubics']])
+        assert learning.target(fixture) == old_target
+        assert learning.nominal(initial, fixture) == old_nominal
+
+
+def test_contact_schedule_guard_rejects_flattened_paired_diagnostics():
+    fixture = next(row for row in learning.SPEC['fixtures'] if row['split'] == 'held_out')
+    broken = learning.measurement.segment_trajectory(learning.gesture_targets.segments(learning.SPEC['targets'], fixture))
+    with pytest.raises(ValueError, match='contact'):
+        learning.require_contact_runs(broken, fixture)
