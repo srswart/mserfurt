@@ -1,0 +1,23 @@
+{
+  "schema_version": "foundation-return-measurement-v1",
+  "advance": "ADV-SS-CURRICULUM-010",
+  "authorization": "2026-09-07 user: Yes please widen the measurement frame. You have approval.",
+  "source": "run-002",
+  "source_report_sha256": "c9f75615e8cd77d64e463091b658e5940f3e9473fd5c2f4572c6453b8c7f392b",
+  "seeds": [7, 19, 41],
+  "frame_mm": [-2, 9, 3, 16],
+  "previous_frame_mm": [-2, 9, 3, 13],
+  "dpi": 180,
+  "presentation_dpi": 900,
+  "max_renders": 500,
+  "max_seconds": 900,
+  "max_revisions": 0,
+  "optimization_evaluations": 0,
+  "execution_calls": 0,
+  "scope": "Authorized measurement repair of frozen learning candidates; not independent S1 acceptance",
+  "inputs": "Pin the full run-002 report and all artifact digests, verify unchanged learning/tool/controller/target identities and original motion admission, and consume all three frozen candidates and their saved desired/actual/refinement trajectories. No optimizer, target-driven selection, new trajectories, fitting, parameter update or altered historical report.",
+  "metrics": "Preserve learning spec-v2 fixtures, family-local and blank regions, 0.75 strict benefit, 0.35 actual/desired, 0.25mm corridor, 0.03 refinement loss, 0.01mm endpoint, 0.1ms time, exact ownership and mechanical limits. Recompute all image losses and blank/null checks at the new common frame; recheck the unchanged source motion metrics and comparisons. No undefined-family average can pass.",
+  "containment": "Before each render, reject any nonfinite trajectory or contact footprint outside the frame. Use conservative half-width plus two pixels at evaluation DPI as the footprint/filter margin. Reject a local region extending outside the image frame instead of clamping it. Verify initial, target, learned, desired and all actual/refinement paths, including presentation. The guard describes the rendered polylines and nib footprint, not a new shape hypothesis.",
+  "presentation": "Rerender initial/independent-target/learned nominal/sampled/actual at native 900 DPI in the same complete frame; downsample only using the existing sheet helper. Copy unchanged saved port overlays, not retouched ink.",
+  "completion": "Require five fixtures and each participating family for every seed to pass. Keep prior failures immutable. A pass completes CURRICULUM-010 learning evidence only; HANDVALIDATE-015 still independently decides S1 and downstream training permission. One fresh-checkout replay is separately labeled software verification, not an additional candidate or measurement revision."
+}

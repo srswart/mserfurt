@@ -1,0 +1,95 @@
+{
+  "advance": "ADV-SS-CURRICULUM-010",
+  "implementation_commit": "e74d85d5e845debfc177fd9208620fae8e1b0bf4",
+  "status": "reproduced_failure_not_acceptance",
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+    "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a"
+  },
+  "report_sha256": "c9f75615e8cd77d64e463091b658e5940f3e9473fd5c2f4572c6453b8c7f392b",
+  "clean_checkout": {
+    "python_hash_seed": 839,
+    "byte_identical_non_wall_artifacts": 111,
+    "wall_clock_files_excluded": "execution.json",
+    "seeds": {
+      "7": {
+        "renders": 2134,
+        "elapsed_seconds": 208.5630011250032
+      },
+      "19": {
+        "renders": 1831,
+        "elapsed_seconds": 194.03863633295987
+      },
+      "41": {
+        "renders": 1831,
+        "elapsed_seconds": 194.3865874579642
+      }
+    }
+  },
+  "tests": {
+    "new_tests": 12,
+    "initial_red": "785af31",
+    "overlay_red": "dbe04ca",
+    "numeric_boundary_red": "2c2fd27",
+    "unit_passed": 12,
+    "unit_seconds": 3.32,
+    "focused_passed": 77,
+    "focused_seconds": 20.0,
+    "expanded_local": {
+      "passed": 150,
+      "failed": 1,
+      "seconds": 34.52
+    },
+    "expanded_clean": {
+      "passed": 150,
+      "failed": 1,
+      "seconds": 35.04
+    },
+    "known_failure": "tests/test_handflow.py::test_desired_velocity_affects_acceleration missing nib_angle_deg; pre-existing, unchanged"
+  },
+  "checks": {
+    "current_code_identities": "match",
+    "all_attempt_artifact_manifests": "verified",
+    "old_six_and_nonpermitted_parameters": "unchanged in all three candidates",
+    "fresh_motion_admission": 239,
+    "required_compound_benefit": "undefined lower-return loss because frame crops stroke; rejected for every seed"
+  },
+  "scope": "Contact traces and candidate fitting exist, but cropped image evidence is not full-frame acceptance. Independent HANDVALIDATE-015 remains planned.",
+  "governance": {
+    "plan_check": "pass",
+    "changed_local_links_checked": 167,
+    "missing_local_links": 0,
+    "port_overlay_svg_xml": "pass for all seeds",
+    "stale_generated_rules": 0,
+    "git_diff_check": "pass",
+    "preexisting_artifact_doctor_issues": 10,
+    "strict_pr_id_parser": "executed; installed parser does not recognize ADV-SS-CURRICULUM-010",
+    "provider_ci_claimed": false
+  },
+  "replay_command": "PYTHONHASHSEED=839 /absolute/path/to/.venv/bin/python -m scribesim.curriculum.foundation_primitives --output /tmp/return-learning-new"
+}

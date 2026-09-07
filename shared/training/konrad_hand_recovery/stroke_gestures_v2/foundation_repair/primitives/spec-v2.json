@@ -1,0 +1,197 @@
+{
+  "schema_version": "foundation-return-learning-v2",
+  "advance": "ADV-SS-CURRICULUM-010",
+  "scope": "Synthetic return primitive fitting only; independent acceptance belongs to HANDVALIDATE-015",
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "ablations": [
+    "fit-handles",
+    "fixed-null"
+  ],
+  "placement_only": "Inapplicable: endpoints, port directions and supplied placements are fixed; placement-only is exactly the fixed-null control",
+  "max_renders": 5000,
+  "max_seconds": 1800,
+  "max_revisions": 1,
+  "budget_policy": "Count all target, baseline, optimizer, development, held-out, direct/sampled/actual/refinement and presentation renders. Shared current-code motion build is charged to seed 7 fit-handles, not a separate free allowance. Fixed-null is evaluated alongside each seed, charged conservatively to its fitted run. Unit/clean replay is separately labeled verification, never extra candidate search.",
+  "prerequisites": "Verify GESTURE-002 frozen contract and original lineage, then rerun the full HANDFLOW-010 motion build with current identities. Check exact required gate set, artifact digests, current baseline identities and original provenance before any new target rendering or scoring. Retain failure and stop on non-admission.",
+  "initialization": "GESTURE-002 initial-model unchanged: both handles 0.28, not degraded for this experiment",
+  "families": [
+    "lower-return",
+    "upper-return"
+  ],
+  "freedoms": "Only two handle lengths on frozen rays for each new family; original six, endpoints, ports, tool, actions, recipes and scaffolds fixed",
+  "search": {
+    "method": "Per-family exhaustive finite handle grid in seeded shuffled order; no target-derived proposals or refinement",
+    "handle_values": [
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4
+    ],
+    "train_shortlist": 8,
+    "selection": "Train ranks proposals by (loss, entry handle, exit handle). Development selects from the top eight plus unchanged initial by (development loss, entry handle, exit handle). Held-out targets are generated only after both family checkpoints are fixed; no fallback or seed selection from held-out outcomes. Hand all three seeds to evaluator."
+  },
+  "target": "Consume independent GESTURE-002 analytic target_points; target assembly uses frozen original primitives and endpoint translations only, never candidate grammar, handles or recipes. No source or locked real-test pixels.",
+  "splits": {
+    "train": [
+      {
+        "id": "lower-train",
+        "topology": [
+          "lower-return"
+        ],
+        "scale": 1
+      },
+      {
+        "id": "upper-train",
+        "topology": [
+          "upper-return"
+        ],
+        "scale": 1
+      }
+    ],
+    "development": [
+      {
+        "id": "lower-dev",
+        "topology": [
+          "lower-return"
+        ],
+        "scale": 0.8
+      },
+      {
+        "id": "upper-dev",
+        "topology": [
+          "upper-return"
+        ],
+        "scale": 1.2
+      }
+    ],
+    "held_out": [
+      {
+        "id": "lower-unseen-scale",
+        "topology": [
+          "lower-return"
+        ],
+        "scale": 0.65
+      },
+      {
+        "id": "upper-unseen-scale",
+        "topology": [
+          "upper-return"
+        ],
+        "scale": 0.9
+      },
+      {
+        "id": "underturn-attachment",
+        "topology": [
+          "stem",
+          "lower-return",
+          "rise"
+        ],
+        "scale": 1
+      },
+      {
+        "id": "overturn-attachment",
+        "topology": [
+          "rise",
+          "upper-return",
+          "stem"
+        ],
+        "scale": 1
+      },
+      {
+        "id": "compound-attachment",
+        "topology": [
+          "upper-return",
+          "stem",
+          "lower-return",
+          "rise"
+        ],
+        "scale": 0.9
+      }
+    ]
+  },
+  "frame_mm": [
+    -2,
+    9,
+    3,
+    13
+  ],
+  "dpi": 180,
+  "presentation_dpi": 900,
+  "sampling": "Independent target and direct nominal: 257 uniform parameter points per segment; sampled guide: gesture-arc-v3; actual: curve-time-v1/event-time-v2, legacy full-edge footprint, angle40 pressure0.5 width0.45 speed ceiling12",
+  "execution_probe": "Read-only single supplied gesture <=4 primitives, translated using fixed anchors and scaled via instance transform. Validate foundation first. For exact subdivision only, lower an isolated proof copy to existing v2 reader (same geometry/tool/owners, never a saved fitted model) so subdivided representation can be replayed without weakening the one-cubic fitted contract.",
+  "refinements": [
+    {
+      "id": "base",
+      "step": 0.025,
+      "dt": 0.002,
+      "subdivision": false
+    },
+    {
+      "id": "arc",
+      "step": 0.0125,
+      "dt": 0.002,
+      "subdivision": false
+    },
+    {
+      "id": "time",
+      "step": 0.025,
+      "dt": 0.001,
+      "subdivision": false
+    },
+    {
+      "id": "subdivision",
+      "step": 0.025,
+      "dt": 0.002,
+      "subdivision": true
+    }
+  ],
+  "metrics": {
+    "image_loss": "Existing stroke_loss: normalized absolute ink difference, identical physical frame and DPI",
+    "held_out": "Every fixture and each participating family per seed must have nominal learned/initial image loss ratio <0.75. Family-local crop is frozen to the return endpoint neighborhood x[-0.25,0.80], y[-0.50,0.50], scaled and translated with that occurrence, including its attachment ink. Zero initial loss is undefined and fails rather than giving free improvement. Full construction loss is also required.",
+    "heldout_ratio": 0.75,
+    "actual_desired_loss": 0.35,
+    "corridor_mm": 0.25,
+    "convergence_image": 0.03,
+    "endpoint_mm": 0.01,
+    "event_time_s": 0.0001,
+    "contact_text_owner_errors": 0,
+    "blank_ink_fraction": 0.01,
+    "blank_regions": "Per return local x[0.20,0.30]; lower y[0.18,0.28], upper y[-0.28,-0.18]. Open interior probes, not closed-counter acceptance; report target occupancy too and fail if region is not actually blank. Use grayscale<180 ink fraction.",
+    "motion": "Also require unchanged motion mechanical, desired acceleration, entry, corner, time and no-projection checks; report every refinement, not just base.",
+    "fixed_null": "Unchanged initializer loss ratio1 (not required to pass improvement). Empty-image global control loss >=0.1 per fixture. No placement freedom exists."
+  },
+  "negative_control_handoff": "HANDVALIDATE-015 must independently run wrong-port/direction, detached geometry, hidden lift/air connector, extra terminal/overlap and erased-counter controls with exact ownership and predeclared local regions. Retain old global0.1 sensitivity failures. This learning run reports fixed/blank nulls and does not self-certify the independent adversarial gate.",
+  "completion": "All seeds execute with per-family unseen benefit and contact/refinement evidence; any failure leaves learning in progress. No new S1, gesture-fitting permission, historical or human appearance acceptance.",
+  "revision": 1,
+  "diagnosis": "Run-001 stopped before held-out access: projecting a valid boundary handle through floating-point unit rays rounded beyond the unchanged closed bound. 1158 renders including 303 baseline, 842 completed optimization evaluations, 107.38299595797434 seconds; preserve all evidence.",
+  "numeric_representation": "Reject requested handles outside exact 0.12..0.40 first. If their constructed cubic projection falls outside that unchanged interval solely through arithmetic, move the requested length one representable float toward the interval midpoint, at most 16 times. Never relax the contract validator, search grid, targets, metric limits or development rule; persist actual cubic controls. This is the one permitted diagnosed revision, not new search freedom."
+}

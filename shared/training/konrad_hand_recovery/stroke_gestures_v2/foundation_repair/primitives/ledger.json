@@ -1,0 +1,95 @@
+{
+  "advance": "ADV-SS-CURRICULUM-010",
+  "status": "complete",
+  "implementation_merged": false,
+  "branch": "advance/ss-curriculum-010",
+  "attempts": [
+    {
+      "id": "run-001",
+      "implementation_commit": "53e2f46",
+      "status": "blocked",
+      "reason": "Floating-point handle boundary construction failed before held-out access",
+      "renders": 1158,
+      "elapsed_seconds": 107.38299595797434,
+      "optimization_evaluations": 842,
+      "baseline_renders_included": 303,
+      "report_sha256": "ba5a90e9f082b34d4803cdac6dcfbab839bbf8143a25d3857ca125e4c28fba06",
+      "revision": 0
+    },
+    {
+      "id": "run-002",
+      "implementation_commit": "e74d85d5e845debfc177fd9208620fae8e1b0bf4",
+      "status": "fail",
+      "reason": "All seeds fit successfully; required compound lower-return measurement is undefined because the frozen frame crops it. No accepted learning completion.",
+      "revision": 1,
+      "seeds": {
+        "7": {
+          "renders": 2134,
+          "elapsed_seconds": 208.40694979089312
+        },
+        "19": {
+          "renders": 1831,
+          "elapsed_seconds": 193.20898866595235
+        },
+        "41": {
+          "renders": 1831,
+          "elapsed_seconds": 193.5589155839989
+        }
+      },
+      "renders": 5796,
+      "elapsed_seconds": 595.1748540408444,
+      "optimization_evaluations": 5046,
+      "baseline_renders_included": 303,
+      "report_sha256": "c9f75615e8cd77d64e463091b658e5940f3e9473fd5c2f4572c6453b8c7f392b"
+    }
+  ],
+  "experiment_totals": {
+    "renders": 7212,
+    "elapsed_seconds": 727.122228414868,
+    "optimization_evaluations": 5888,
+    "revisions_used": 1,
+    "max_automatic_revisions": 1
+  },
+  "limits": {
+    "renders_per_seed_per_attempt": 5000,
+    "seconds_per_seed_per_attempt": 1800,
+    "ablations": [
+      "fit-handles",
+      "fixed-null"
+    ],
+    "fixed_null_charged_with_fitting": true,
+    "baseline_charged_to_seed_7": true
+  },
+  "verification": {
+    "separate_from_candidate_search": true,
+    "receipt": "verification.json",
+    "renders": 5796,
+    "elapsed_seconds": 596.9882249159273
+  },
+  "measurement_followup": {
+    "status": "pass",
+    "authorization": "2026-09-07 explicit user approval",
+    "implementation_commit": "a7ccabb6a8eaa2b9446c4b488a14c98b6c8dcc6d",
+    "path": "measurement/run-001",
+    "report_sha256": "2ac6acc9b0e0767b020d5f7cca34851c47f431ffab454655ebd10b4a638853a0",
+    "renders": 258,
+    "elapsed_seconds": 24.564378416049294,
+    "max_renders": 500,
+    "max_seconds": 900,
+    "optimization_evaluations": 0,
+    "execution_calls": 0,
+    "additional_automatic_revision": false,
+    "all_seed_fixtures_pass": 15,
+    "source_candidates_unchanged": true,
+    "verification": {
+      "renders": 258,
+      "elapsed_seconds": 40.16322562494315,
+      "receipt": "measurement-verification.json",
+      "separate_from_experiment": true,
+      "byte_identical_non_wall_artifacts": 104
+    }
+  },
+  "S1_accepted": false,
+  "gesture_training_permitted": false,
+  "owner_appearance_approval": false
+}

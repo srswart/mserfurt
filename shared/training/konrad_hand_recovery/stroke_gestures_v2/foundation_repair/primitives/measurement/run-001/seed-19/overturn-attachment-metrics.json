@@ -1,0 +1,187 @@
+{
+  "fixture": {
+    "id": "overturn-attachment",
+    "topology": [
+      "rise",
+      "upper-return",
+      "stem"
+    ],
+    "scale": 1
+  },
+  "frame_mm": [
+    -2,
+    9,
+    3,
+    16
+  ],
+  "footprint_contained": true,
+  "before": 0.015139141905898611,
+  "after": 0.003306778896738313,
+  "ratio": 0.2184257811501129,
+  "benefit_pass": true,
+  "families": {
+    "upper-return": {
+      "before": 0.025200242591546938,
+      "after": 0.005493362187356943,
+      "ratio": 0.2179884644919892,
+      "benefit_pass": true,
+      "regions_mm": {
+        "loss": [
+          0.875,
+          4.55,
+          4.75,
+          8.25
+        ],
+        "blank": [
+          2.4499999999999997,
+          2.8000000000000003,
+          7.13,
+          7.48
+        ]
+      },
+      "blank_fractions": {
+        "target": 0.0,
+        "nominal": 0.0,
+        "arc": 0.0,
+        "base": 0.0,
+        "subdivision": 0.0,
+        "time": 0.0
+      },
+      "blank_pass": true,
+      "motion": {
+        "arc": {
+          "actual_acceleration_mm_s2": 140.16930320846208,
+          "air_ink_errors": 0,
+          "corner_errors": 0,
+          "corner_position_error_mm": 0,
+          "corner_speed_mm_s": 0,
+          "corridor_mm": 0.002833387259144028,
+          "desired_acceleration_mm_s2": 125.36610095855542,
+          "desired_contact_speed_mm_s": 5.9066522410875715,
+          "desired_discontinuities": 0,
+          "entry_position_error_mm": 0,
+          "entry_speed_mm_s": 0,
+          "executed_time_s": 1.7276540778251186,
+          "floor_excess_s": 0.0037688992765556525,
+          "geometry_errors": 0,
+          "image_loss": 0.0015758667266996844,
+          "max_projection_mm": 0.0,
+          "original_plan_time_s": 0.8271251507628976,
+          "owner_errors": 0,
+          "planned_time_s": 1.7276540778251186,
+          "retiming_delta_s": 0.900528927062221,
+          "rounded_largest_step_s": 0.0027744680134472594,
+          "time_error_s": 0.0,
+          "zero_time_discontinuities": 0
+        },
+        "base": {
+          "actual_acceleration_mm_s2": 147.4717008939041,
+          "air_ink_errors": 0,
+          "corner_errors": 0,
+          "corner_position_error_mm": 0,
+          "corner_speed_mm_s": 0,
+          "corridor_mm": 0.0054570342810713445,
+          "desired_acceleration_mm_s2": 125.1797910798674,
+          "desired_contact_speed_mm_s": 5.9066522410875715,
+          "desired_discontinuities": 0,
+          "entry_position_error_mm": 0,
+          "entry_speed_mm_s": 0,
+          "executed_time_s": 1.7276540778251186,
+          "floor_excess_s": 0.002004529466286483,
+          "geometry_errors": 0,
+          "image_loss": 0.0035850381066987558,
+          "max_projection_mm": 0.0,
+          "original_plan_time_s": 0.8271203169727884,
+          "owner_errors": 0,
+          "planned_time_s": 1.7276540778251186,
+          "retiming_delta_s": 0.9005337608523302,
+          "rounded_largest_step_s": 0.002554050338613001,
+          "time_error_s": 0.0,
+          "zero_time_discontinuities": 0
+        },
+        "subdivision": {
+          "actual_acceleration_mm_s2": 147.47170097101522,
+          "air_ink_errors": 0,
+          "corner_errors": 0,
+          "corner_position_error_mm": 0,
+          "corner_speed_mm_s": 0,
+          "corridor_mm": 0.005457034315954257,
+          "desired_acceleration_mm_s2": 125.17979107989346,
+          "desired_contact_speed_mm_s": 5.9066522410875715,
+          "desired_discontinuities": 0,
+          "entry_position_error_mm": 0,
+          "entry_speed_mm_s": 0,
+          "executed_time_s": 1.7276540778251186,
+          "floor_excess_s": 0.0032622447872701025,
+          "geometry_errors": 0,
+          "image_loss": 0.0035850381066987558,
+          "max_projection_mm": 0.0,
+          "original_plan_time_s": 0.8271203265216833,
+          "owner_errors": 0,
+          "planned_time_s": 1.7276540778251186,
+          "retiming_delta_s": 0.9005337513034353,
+          "rounded_largest_step_s": 0.0025540436240363285,
+          "time_error_s": 0.0,
+          "zero_time_discontinuities": 0
+        },
+        "time": {
+          "actual_acceleration_mm_s2": 148.72170065616442,
+          "air_ink_errors": 0,
+          "corner_errors": 0,
+          "corner_position_error_mm": 0,
+          "corner_speed_mm_s": 0,
+          "corridor_mm": 0.005507772681864425,
+          "desired_acceleration_mm_s2": 125.1797910798674,
+          "desired_contact_speed_mm_s": 5.9066522410875715,
+          "desired_discontinuities": 0,
+          "entry_position_error_mm": 0,
+          "entry_speed_mm_s": 0,
+          "executed_time_s": 1.7276540778251186,
+          "floor_excess_s": 0.0006745867548140208,
+          "geometry_errors": 0,
+          "image_loss": 0.004155506045510301,
+          "max_projection_mm": 0.0,
+          "original_plan_time_s": 0.8271203169727884,
+          "owner_errors": 0,
+          "planned_time_s": 1.7276540778251186,
+          "retiming_delta_s": 0.9005337608523302,
+          "rounded_largest_step_s": 0.0010731964320012926,
+          "time_error_s": 0.0,
+          "zero_time_discontinuities": 0
+        }
+      }
+    }
+  },
+  "fixed_null": {
+    "loss": 0.015139141905898611,
+    "ratio": 1.0
+  },
+  "empty_control_loss": 1.0,
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "endpoint_mm": 0.001023858426123577,
+      "event_time_s": 0.0,
+      "image_loss": 0.000300240192153723,
+      "pass": true
+    },
+    "time": {
+      "owner_match": true,
+      "endpoint_mm": 2.524649194649399e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.0017492128542156032,
+      "pass": true
+    },
+    "subdivision": {
+      "owner_match": true,
+      "endpoint_mm": 8.248939714693656e-06,
+      "event_time_s": 0.0,
+      "image_loss": 0.0,
+      "pass": true
+    }
+  },
+  "motion_pass": true,
+  "candidate_sha256": "c05c834af2708208e62032b69ab4ce7291126ad7b128a10a8d703aa7017ad546",
+  "mechanics_source": "Pinned unchanged run-002 traces and scalar metrics; image losses and corridor remeasured",
+  "passed": true
+}

@@ -14,6 +14,7 @@ selectors:
     - "tests/test_gesture_learning.py"
     - "tests/test_pen_action_learning.py"
     - "tests/test_foundation_primitives.py"
+    - "tests/test_foundation_measurement.py"
     - "tests/test_foundation_gestures.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/coverage/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/**"
@@ -28,8 +29,11 @@ interfaces:
   - "Curriculum stages for primitive, glyph, word, line, and folio training"
   - "Training-set manifests with acceptance gates and evidence outputs"
   - "Planned fixed-tool gesture learning and isolated intentional-action ablations"
+  - "Versioned admitted-input lower/upper-return handle fitting, development selection, held-out attachment proofs and immutable budgeted attempts"
+  - "Pinned no-refit full-frame measurement of saved candidates and trajectories, with fail-closed footprint and region containment"
 
 invariants:
   - "A stage cannot advance until its validation gate passes."
   - "Every training run writes structured metrics and snapshots for regression."
   - "Later stages must consume frozen checkpoints from the previous stage."
+  - "Return learning preserves old-six geometry, ports, tool and supplied scaffolds; incomplete or cropped evidence cannot grant S1 or gesture-fitting permission."

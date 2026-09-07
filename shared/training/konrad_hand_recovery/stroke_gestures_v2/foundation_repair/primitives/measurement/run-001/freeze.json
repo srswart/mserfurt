@@ -1,0 +1,71 @@
+{
+  "spec": {
+    "schema_version": "foundation-return-measurement-v1",
+    "advance": "ADV-SS-CURRICULUM-010",
+    "authorization": "2026-09-07 user: Yes please widen the measurement frame. You have approval.",
+    "source": "run-002",
+    "source_report_sha256": "c9f75615e8cd77d64e463091b658e5940f3e9473fd5c2f4572c6453b8c7f392b",
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "frame_mm": [
+      -2,
+      9,
+      3,
+      16
+    ],
+    "previous_frame_mm": [
+      -2,
+      9,
+      3,
+      13
+    ],
+    "dpi": 180,
+    "presentation_dpi": 900,
+    "max_renders": 500,
+    "max_seconds": 900,
+    "max_revisions": 0,
+    "optimization_evaluations": 0,
+    "execution_calls": 0,
+    "scope": "Authorized measurement repair of frozen learning candidates; not independent S1 acceptance",
+    "inputs": "Pin the full run-002 report and all artifact digests, verify unchanged learning/tool/controller/target identities and original motion admission, and consume all three frozen candidates and their saved desired/actual/refinement trajectories. No optimizer, target-driven selection, new trajectories, fitting, parameter update or altered historical report.",
+    "metrics": "Preserve learning spec-v2 fixtures, family-local and blank regions, 0.75 strict benefit, 0.35 actual/desired, 0.25mm corridor, 0.03 refinement loss, 0.01mm endpoint, 0.1ms time, exact ownership and mechanical limits. Recompute all image losses and blank/null checks at the new common frame; recheck the unchanged source motion metrics and comparisons. No undefined-family average can pass.",
+    "containment": "Before each render, reject any nonfinite trajectory or contact footprint outside the frame. Use conservative half-width plus two pixels at evaluation DPI as the footprint/filter margin. Reject a local region extending outside the image frame instead of clamping it. Verify initial, target, learned, desired and all actual/refinement paths, including presentation. The guard describes the rendered polylines and nib footprint, not a new shape hypothesis.",
+    "presentation": "Rerender initial/independent-target/learned nominal/sampled/actual at native 900 DPI in the same complete frame; downsample only using the existing sheet helper. Copy unchanged saved port overlays, not retouched ink.",
+    "completion": "Require five fixtures and each participating family for every seed to pass. Keep prior failures immutable. A pass completes CURRICULUM-010 learning evidence only; HANDVALIDATE-015 still independently decides S1 and downstream training permission. One fresh-checkout replay is separately labeled software verification, not an additional candidate or measurement revision."
+  },
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+    "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+    "scribesim/curriculum/foundation_measurement.py": "9845b93615fda56aa9539a9c378f3cb645aa6e150b19993c0e5908c7e3d1249a",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/measurement-spec-v1.json": "5fc3ef310fe6fa8c65d94d8000ce6ac19ca342989cf67c5d6c20e1b0cb14d25c"
+  },
+  "spec_sha256": "5fc3ef310fe6fa8c65d94d8000ce6ac19ca342989cf67c5d6c20e1b0cb14d25c"
+}
