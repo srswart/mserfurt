@@ -1,0 +1,145 @@
+{
+  "advance": "ADV-SS-HANDVALIDATE-015",
+  "implementation_commit": "7114491b6abe43b4aa21ed4debd5e9e36267ce33",
+  "evidence_and_regression_commit": "480ed5002856e48b33f38159e03d71c601d22cf9",
+  "scope": "Independent fixed-tool synthetic return evaluation; failed S1, no repaired motion or new fitting",
+  "report_sha256": "e779c923379db352b43fa9dc3aa8edc5c967170116404fa2c4e79b2bba2f31b9",
+  "spec_sha256": "e92dd81238e0a0ffcf473c2999e7e59d7881f15a04000d17db65558f64466af5",
+  "status": "fail",
+  "S1_accepted": false,
+  "gesture_training_permitted": false,
+  "optimization_evaluations": 0,
+  "diagnosed_reruns": 0,
+  "renders_including_first_replay": 1836,
+  "execution": {
+    "ledger": [
+      {
+        "seed": 7,
+        "process": "first",
+        "renders": 306,
+        "cumulative_seed_renders": 306,
+        "cumulative_seed_seconds": 9.136337082949467
+      },
+      {
+        "seed": 7,
+        "process": "replay",
+        "renders": 306,
+        "cumulative_seed_renders": 612,
+        "cumulative_seed_seconds": 18.51265120797325
+      },
+      {
+        "seed": 19,
+        "process": "first",
+        "renders": 306,
+        "cumulative_seed_renders": 306,
+        "cumulative_seed_seconds": 9.101572166080587
+      },
+      {
+        "seed": 19,
+        "process": "replay",
+        "renders": 306,
+        "cumulative_seed_renders": 612,
+        "cumulative_seed_seconds": 18.218299625092186
+      },
+      {
+        "seed": 41,
+        "process": "first",
+        "renders": 306,
+        "cumulative_seed_renders": 306,
+        "cumulative_seed_seconds": 10.32916349999141
+      },
+      {
+        "seed": 41,
+        "process": "replay",
+        "renders": 306,
+        "cumulative_seed_renders": 612,
+        "cumulative_seed_seconds": 19.792349209077656
+      }
+    ],
+    "renders": 1836,
+    "optimization_evaluations": 0
+  },
+  "clean_checkout": {
+    "first_replay_code_commit": "7114491b6abe43b4aa21ed4debd5e9e36267ce33",
+    "hash_seeds": [
+      0,
+      839
+    ],
+    "processes": 6,
+    "byte_identical_artifacts_per_seed": 37,
+    "wall_clock_excluded": "execution.json",
+    "report_manifest_entries_verified": 223,
+    "current_code_identities_match": true,
+    "candidate_files_identical_to_run002": true
+  },
+  "tests": {
+    "red_commit": "2ac8df1",
+    "observed_red_tests": 7,
+    "final_new_tests_passed": 11,
+    "final_new_test_seconds": 5.32,
+    "initial_expanded_local": {
+      "passed": 187,
+      "failed": 12,
+      "seconds": 41.75,
+      "new_tests_at_that_point": 8
+    },
+    "prechange_baseline": {
+      "commit": "87d5faf",
+      "passed": 179,
+      "failed": 12,
+      "seconds": 34.81
+    },
+    "final_expanded_clean": {
+      "commit": "480ed50",
+      "hash_seed": 839,
+      "passed": 190,
+      "failed": 12,
+      "seconds": 39.56
+    },
+    "identical_preexisting_failure_ids": [
+      "tests/test_handflow.py::test_desired_velocity_affects_acceleration",
+      "tests/test_gesture_learning.py::test_shared_composition_is_fitted_without_mutating_primitives_profiles_or_letters",
+      "tests/test_gesture_learning.py::test_test_images_cannot_select_the_checkpoint",
+      "tests/test_gesture_learning.py::test_budget_exhaustion_does_not_create_an_accepted_candidate",
+      "tests/test_gesture_learning.py::test_fixed_ablation_is_a_baseline_not_learning_and_output_is_immutable",
+      "tests/test_handvalidate_gestures.py::test_training_reconstructs_and_rejects_stale_artifacts",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[detached]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[recipe]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[profile]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[out-of-grid]",
+      "tests/test_handvalidate_gestures.py::test_trace_audit_checks_actual_contact_and_contributors_not_summary",
+      "tests/test_handvalidate_gestures.py::test_independent_replay_does_not_optimize_or_hide_endpoint_failure"
+    ]
+  },
+  "governance": {
+    "plan_check": "pass",
+    "changed_local_links_checked": 168,
+    "missing_local_links": 0,
+    "artifact_doctor_issues_before": 10,
+    "artifact_doctor_issues_after": 10,
+    "new_artifact_doctor_issues": 0,
+    "stale_generated_rules": 0,
+    "strict_pr_check": {
+      "ids": [],
+      "title_ids": [],
+      "body_ids": [],
+      "label_ids": [],
+      "warnings": [
+        "no advance id found in title, body, or labels"
+      ],
+      "provider_status": null,
+      "ci_evidence_recorded_for": null
+    },
+    "strict_pr_limitation": "Executed before merge; installed parser does not recognize ADV-SS-HANDVALIDATE-015, ids=[]; not a successful strict gate",
+    "provider_ci_claimed": false,
+    "human_appearance_approval": false,
+    "git_diff_check": "pass"
+  },
+  "visual_check": {
+    "practice_sheet": "Inspected full first-seed PNG: five full-frame rows, compound labelled FAIL",
+    "browser_check": "Unavailable: Playwright CLI wrapper could not resolve playwright-cli; CUA reported no browser. No responsive-browser verification claimed."
+  },
+  "replay_command": ".venv/bin/python -m scribesim.handvalidate.foundation_primitives --output /tmp/independent-return-evaluation-new",
+  "focused_test_command": ".venv/bin/python -m pytest tests/test_handvalidate_foundation_primitives.py -q",
+  "required_next_fix": "See diagnosis.md: source-tangent continuity at equivalent cubic subdivision seams, then explicit current-code baseline/no-refit revalidation; do not edit frozen hashes or thresholds."
+}

@@ -1,12 +1,16 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** HANDFLOW-010 motion repair, GESTURE-002 return-contract audit and
-CURRICULUM-010 return learning are complete; three Advances remain planned.
+**Status:** Motion repair, return-contract audit, return learning and independent
+HANDVALIDATE-015 evaluation are complete; two Advances remain planned.
 The original six primitives, actual-tangent ports and six-occurrence opt-in cap
 remain unchanged. All five held-out fixtures and both family-local checks pass
 for seeds 7/19/41 after the authorized complete-frame measurement. This reused
 the fitted candidates and saved traces with zero refitting or new execution;
-the stopped and cropped attempts remain immutable. HANDVALIDATE-015 is next.
+the stopped and cropped attempts remain immutable. Independent HANDVALIDATE-015
+now reproduces those benefits and all seven adversarial detections, but fails
+compound desired acceleration after subdividing the returns themselves:
+402.432 > 250 mm/s² at an artificial upper-return seam. All seeds replay exactly.
+Next is [source-tangent continuity repair and refreshed no-refit admission](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/diagnosis.md), not gesture fitting.
 No new S1, S1-action, real-hand or owner appearance approval is claimed.
 See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
 and the [executed vocabulary audit](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/README.md).
@@ -213,8 +217,12 @@ local regions fail rather than being clamped. All fifteen seed/fixture outcomes
 pass, including compound local ratios 0.303233 (upper) and 0.327130 (lower).
 The measurement uses 258 renders in 24.564378 seconds. No cropped score is edited
 or treated as a pass, and no candidate is refitted or selected from held-out data.
-Independent HANDVALIDATE-015 must still reconstruct and adversarially evaluate
-these frozen candidates before new S1 or gesture-fitting permission.
+Independent HANDVALIDATE-015 subsequently reconstructed and adversarially evaluated
+these frozen candidates. It found a separate mandatory desired-acceleration failure
+when subdividing the upper return in the compound; the previous helper subdivided
+only the stem. Its [complete failed evaluation](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/README.md)
+does not invalidate the measured image benefit, but blocks S1 and gesture fitting
+until a separately scoped tangent repair and refreshed independent admission pass.
 
 ## 7. Budgets and stop rules
 
