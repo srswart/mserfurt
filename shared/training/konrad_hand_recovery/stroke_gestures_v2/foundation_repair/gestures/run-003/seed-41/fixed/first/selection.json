@@ -1,0 +1,32 @@
+{
+  "parameters": [
+    1,
+    1,
+    1
+  ],
+  "selection_split": "development",
+  "held_out_accessed": false,
+  "training": [
+    {
+      "parameters": [
+        1,
+        1,
+        1
+      ],
+      "loss": 0.5522279607695756
+    }
+  ],
+  "development": [
+    {
+      "parameters": [
+        1,
+        1,
+        1
+      ],
+      "loss": 0.5261324168232341
+    }
+  ],
+  "seed": 41,
+  "ablation": "fixed",
+  "candidate_sha256": "74266556a1e94f222696c59500c9e7366818716b8e19ab178ad1a8a0cbd9c10b"
+}

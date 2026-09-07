@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-five Advances; twenty-five outcomes complete and ten planned. HANDFLOW-011 repairs source-tangent continuity and independently reevaluates the unchanged candidates: compound subdivision desired acceleration falls from 402.432 to 126.422 mm/s², and all baseline/transfer/control/replay proofs pass. Scoped new-mode S1 now admits bounded fixed-tool shared-gesture learning with `curve-tangent-v1`; CURRICULUM-011 is next and remains unexecuted. Old failed reports stay immutable. No learned letters, dynamic actions, historical hand, fatigue or default-mode promotion is implied.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-five Advances; twenty-six outcomes complete and nine planned. CURRICULUM-011 completes the approved diagnostic lift repair, frozen seed-7 remeasurement and unchanged seed-19/41 search. All seeds learn shared gesture proportions [0.85,1.15,0.85] on unchanged primitives/tool; held-out pairings, local benefit, actual/refinement and adversarial checks pass with exact replay. HANDVALIDATE-016 independent S1-gesture acceptance is next. Old failed reports stay immutable. No learned letters, dynamic actions, historical hand, fatigue or default-mode promotion is implied.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket

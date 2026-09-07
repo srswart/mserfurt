@@ -1,0 +1,41 @@
+{
+  "version": "approved-gesture-lift-continuation-v1",
+  "approved_at_utc": "2026-09-07T19:06:25Z",
+  "authorization": "User explicitly approved repairing diagnostic lift handling, remeasuring frozen seed 7 without refitting, then finishing seeds 19 and 41.",
+  "stop_sha256": "b8e61197ffab63959fc84ecf415d2b9bc15436bd2d1a139b2854b07577b5a905",
+  "seed7_mode": "frozen-no-refit",
+  "remaining_learning_seeds": [
+    19,
+    41
+  ],
+  "diagnostic_change": "Insert pen-up boundaries only between separately owned gesture instances; retain every existing contact point and continuous primitive join. No geometric, target-definition, split, search, criterion, action, tool or lower-runtime change.",
+  "unchanged_functions_sha256": {
+    "select": "e261b3658edcd60fbc10e48f2ada52b5530585ef29dc0e28eed52c4ded8c665f",
+    "with_parameters": "a180754312dfaa7c97ad76edcab9fbb39073f4824def67b318da18440193118f",
+    "initial_model": "97bfa2139fb8daf1db1a8472feb7a35a559e8389ce069980a448948549eee032",
+    "regions": "49db72bfe32df9d7449c3bd0d3344aa9fd7771aea062910e04af3f6be5bb9b54",
+    "benefit": "784b2d9de29342cddd667d0b0ce1acf53d1be6ce74d098794440ded70c1e8f03",
+    "fraction": "8a1b41191d5e4e5a4153a98e4bf004faf4ac1ae4bba4b0816ffdf1fc1b434cd7",
+    "controls": "fbbd394e5da4b941bc7d5185b40296d494545029d000a93309c1271d9cf7c492",
+    "probe": "5b2503c79f26bc6b34a51d251b5816e90428a9a5af934806b4cc57e3c7b172cb",
+    "load_source": "fe410b79522843e4d0db601c0f1ca580b8ebd6214eae449fb348915535971494"
+  },
+  "frozen_candidates": {
+    "fixed": {
+      "directory": "run-002/seed-7/fixed/first",
+      "candidate_sha256": "622da775e1e24df11e705881b796ce636d3197381590fc75977008482a903f9b",
+      "selection_sha256": "0d2cfdc5be62317446dd7f94b2f38faa1bd969517423ba4763c0d61586a49c2f"
+    },
+    "placement-only": {
+      "directory": "run-002/seed-7/placement-only/first",
+      "candidate_sha256": "3aeb1070124a28e3e787f8384f6942a9a64275191417ccab76b61b368e6887bf",
+      "selection_sha256": "30e964e93ec2aad02559fe42b959fb171d255826eb5cad5c6536dbd4313fd733"
+    },
+    "attachment": {
+      "directory": "run-002/seed-7/attachment/first",
+      "candidate_sha256": "d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a",
+      "selection_sha256": "83d262854699b57f42522bb24bfc753226ce57b00b7586e168e3845e70748035"
+    }
+  },
+  "budget": "Carry all 3121 retained renders, including the interrupted seed-19 fixed worker, into the unchanged per-ablation/seed 5000-render and 1800-second cumulative limits. First/replay both charged. Stop on invalid primary proof; no unapproved extra search/revision."
+}

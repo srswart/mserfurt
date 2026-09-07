@@ -7,11 +7,12 @@
 **Parent:** [TD-018 — Reference-Grounded Recovery of Konrad's Hand](TD-018-reference-grounded-hand-recovery.md)
 
 **Current next work:** [Addendum B — foundation repair](TD-018-addendum-b-foundation-repair.md)
-contains seven Advances: five outcomes complete and two planned. HANDFLOW-011
-repairs the subdivision direction failure and obtains scoped new-mode primitive
-acceptance without refitting. CURRICULUM-011 can now freeze that admission for
-fixed-tool shared-gesture learning. Later letters, actions and real-hand promotion
-remain unaccepted.
+contains seven Advances: six outcomes complete and one planned. HANDFLOW-011
+admits fixed-tool primitive execution. CURRICULUM-011 completes shared gesture
+learning after the approved lift-diagnostic repair: seed 7 stays frozen, seeds
+19/41 finish, and all held-out/local/motion/control/replay proofs pass. Independent
+HANDVALIDATE-016 is next; S1-gesture, later letters, actions and real-hand promotion
+remain unaccepted. Earlier failed artifacts remain immutable.
 
 ## 1. Decision and scope
 
