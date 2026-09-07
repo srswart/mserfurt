@@ -92,6 +92,11 @@ requested. Review estimate is not measured review or acceptance.
 
 ## Changes Made
 
+### 2026-09-07 — 735076d: Verified local merge receipt
+
+- Merged `advance/ss-handflow-011` into `master` with `--no-ff`; full merge `735076dfa7835044d42f9e7f55abd736861da731`. No remote push.
+- Current code and accepted report identities remain matched. Admission is for `curve-tangent-v1` fixed-tool shared-gesture learning only; CURRICULUM-011 fitting remains unexecuted. Historical failures, default execution and nonaccepted action/letter/real-hand scopes are unchanged.
+
 ### 2026-09-07 — 571a70d: Repair and independent no-refit reevaluation pass
 
 - `291bf01` adds the planner/execution/evaluation adapters after red `715711c`; old compiler/controller/tool/clock and training/measurement identities remain unchanged.
