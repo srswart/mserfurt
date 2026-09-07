@@ -1,23 +1,30 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Foundation repair — partial gesture learning and diagnostic stop</title>
+<title>Foundation repair — shared gesture learning complete</title>
 <style>body{margin:0;background:#f5f1e7;color:#24342f;font:17px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:38px;line-height:1.15}h2{margin-top:38px}a{color:#235d77}aside{border-left:5px solid #b24932;padding:16px 24px;background:#fff7f0}figure{margin:24px 0;padding:20px;background:white;border:1px solid #d9ded8;border-radius:10px}svg,img{max-width:100%;height:auto}figcaption{font-size:15px;color:#52605a}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}.ok{color:#276946}.fail{color:#a43a28}code{font-size:.9em}li{margin:7px 0}summary{cursor:pointer;font-weight:650}</style></head>
-<body><main><p>TD-018 / FOUNDATION REPAIR / CURRICULUM-011</p>
-<h1>Shared gestures learned in one seed. Evaluation stopped.</h1>
-<aside><strong>In progress — not merged or accepted.</strong> Seed 7 learns shared stem/rise/return proportions of <strong>0.85 / 1.15 / 0.85</strong>, keeping every primitive curve and the tool unchanged. Visual review catches false connectors in paired target/nominal diagnostics. The actual controller correctly lifts. Those comparison scores are quarantined; seeds 19/41 learning remains unexecuted.</aside>
-<p>This is a synthetic gesture exercise, not an alphabet or historical hand. The prior permitted revision fixed a subdivision-checker cap mismatch. An additional diagnostic pen-lift repair and <strong>no-refit remeasurement of frozen candidates</strong> now needs approval before the remaining seeds can finish. No thresholds will be loosened.</p>
-<h2>Actual controller output — no retouched ink</h2>
-<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
-<figure style="margin:0;padding:8px"><a href="gestures/run-002/seed-7/attachment/first/underturn-isolated-actual.png"><img src="gestures/run-002/seed-7/attachment/first/underturn-isolated-actual.png" alt="Actual underturn with frozen primitives and learned attachment proportions"></a><figcaption>Underturn: stem + lower return + rise.</figcaption></figure>
-<figure style="margin:0;padding:8px"><a href="gestures/run-002/seed-7/attachment/first/overturn-isolated-actual.png"><img src="gestures/run-002/seed-7/attachment/first/overturn-isolated-actual.png" alt="Actual overturn with frozen primitives and learned attachment proportions"></a><figcaption>Overturn: rise + upper return + stem.</figcaption></figure>
-<figure style="margin:0;padding:8px"><a href="gestures/run-002/seed-7/attachment/first/compound-isolated-actual.png"><img src="gestures/run-002/seed-7/attachment/first/compound-isolated-actual.png" alt="Actual compound gesture using both shared returns"></a><figcaption>Compound: upper return + stem + lower return + rise.</figcaption></figure>
-</div>
-<p>All panels are native 900 DPI in the same complete physical frame; click to inspect at full resolution. Isolated fitting is real, but valid unseen-pair image evaluation and independent S1-gesture acceptance are still missing.</p>
-<ul><li><a href="gestures/README.md">Results, diagnosis, budget and proposed bounded continuation</a></li>
-<li><a href="gestures/validation-stop.json">Explicit stop decision, artifact hashes and interrupted-worker accounting</a></li>
-<li><a href="gestures/run-002/seed-7/attachment/first/underturn-overturn-pair-actual.png">Actual lifted pair — gestures remain separate</a></li>
-<li><a href="gestures/run-002/seed-7/attachment/first/ports.svg">Shared constituents, direction arrows and contact ports</a></li>
-<li><a href="gestures/run-002/seed-7/attachment/first/practice-sheet.png">Quarantined comparison sheet — paired first three columns contain false connectors</a></li></ul>
+<body><main><p>TD-018 / FOUNDATION REPAIR / CURRICULUM-011 COMPLETE</p>
+<h1>Shared gestures. Correct lifts. All three seeds pass.</h1>
+<aside style="border-color:#276946;background:#f0f8f0"><strong>Learning complete — independent S1-gesture acceptance is next.</strong> Seed 7 is remeasured without refitting; seeds 19 and 41 finish the original search. Every seed selects shared stem/rise/return proportions <strong>0.85 / 1.15 / 0.85</strong>, with all primitive curves and tool settings unchanged.</aside>
+<p>The diagnostic exporter now inserts pen-up boundaries between gesture instances, preserving every contact point and continuous join within a gesture. The false comparison connectors are gone; the actual controller output never needed changing. This is synthetic shared-gesture learning, not an alphabet, learned word spacing or historical handwriting.</p>
+<h2>Corrected comparison — same physical scale, native 900 DPI</h2>
+<figure><a href="gestures/run-003/seed-7/attachment/first/practice-sheet.png"><img src="gestures/run-003/seed-7/attachment/first/practice-sheet.png" alt="Corrected five-column comparison of isolated underturn, overturn, compound and four held-out lifted pairings; all primary checks pass"></a><figcaption>Initial / independent target / fitted nominal / sampled desired / actual controller. Click to inspect the full-resolution sheet. Every panel uses the complete [-2,10,0,22] mm frame. No retouched ink.</figcaption></figure>
+<table><tr><th>Held-out lifted pairing</th><th>Learned / initial loss</th><th>Seeds 7 / 19 / 41</th></tr>
+<tr><td>Underturn → overturn</td><td>0.157574</td><td class="ok">Pass / Pass / Pass</td></tr>
+<tr><td>Overturn → underturn</td><td>0.157807</td><td class="ok">Pass / Pass / Pass</td></tr>
+<tr><td>Compound → terminal</td><td>0.132465</td><td class="ok">Pass / Pass / Pass</td></tr>
+<tr><td>Repeated underturn, unseen scale</td><td>0.066255</td><td class="ok">Pass / Pass / Pass</td></tr></table>
+<p>Every occurrence-local ratio also passes (largest 0.408835, limit &lt;0.75). Actual/desired loss stays at or below 0.010016, corridor error 0.007936 mm and refinement endpoint difference 0.005718 mm. Exact ownership, open-return blank pockets and all eight adversarial controls pass. Fixed and placement-only controls do not satisfy all learning gates; whole-image averages do not override local failures.</p>
+<h2>Unchanged seed 7, completed remaining seeds</h2>
+<p>All six seed-7 candidate/selection files remain byte-identical to their original selection, with <strong>zero optimization</strong>. All 42 sampled/actual panels and 21 trace archives are unchanged. Each of the nine seed/ablation pairs replays 54 artifacts exactly in fresh processes. The continuation uses 6594 renders; retained failures add 3121, for 9715 across nine separate budgets. Each stays below 5000 renders / 1800 seconds.</p>
+<ul><li><a href="gestures/run-003/seed-19/attachment/first/practice-sheet.png">Seed 19 corrected sheet</a></li>
+<li><a href="gestures/run-003/seed-41/attachment/first/practice-sheet.png">Seed 41 corrected sheet</a></li>
+<li><a href="gestures/run-003/seed-7/attachment/first/ports.svg">Shared constituents, direction arrows and contact ports</a></li>
+<li><a href="gestures/run-003/report.json">Complete learning report and artifact identities</a></li>
+<li><a href="gestures/continuation-verification.json">No-refit, unchanged-output, test and replay verification</a></li>
+<li><a href="gestures/README.md">Protocol, results, samples and bounded scope</a></li></ul>
+<h2>Next: independent gesture acceptance</h2>
+<p><strong>HANDVALIDATE-016</strong> must independently evaluate the frozen candidates before S1-gesture or later-stage eligibility. No dynamic action, letter, word, fatigue, historical-hand or default-renderer promotion is implied.</p>
+<details><summary>Retained diagnostic failure — superseded only by the approved continuation</summary><p><a href="gestures/validation-stop.json">The original stop decision</a> preserves invalid run-002 paired image evidence and the interrupted-worker budget. Its <a href="gestures/run-002/seed-7/attachment/first/practice-sheet.png">old comparison sheet</a> contains false connectors in the first three paired columns, while sampled/actual columns correctly lift. The approved repair changes diagnostic contact encoding only; old files and flags are not rewritten.</p></details>
 <details><summary>Previous completed work: accepted source-tangent repair and primitive evidence</summary>
 <p>TD-018 / FOUNDATION REPAIR / SOURCE-TANGENT REPAIR — HISTORICAL STATUS</p>
 <h1>The same strokes. The motion gate now passes.</h1>

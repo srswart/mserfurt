@@ -1644,13 +1644,13 @@ passes:
     - id: ADV-SS-CURRICULUM-011
       advance_id: ADV-SS-CURRICULUM-011
       title: "Foundation Gesture Learning — Underturn, Overturn and Compound Transfer"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-015
       - ADV-SS-GESTURE-002
       - ADV-SS-HANDFLOW-011
-      notes: "IN PROGRESS, STOPPED: seed-7 shared attachment fitting selects [0.85,1.15,0.85] on frozen primitives/tool and replays 54 artifacts exactly. Run-001 used the allowed revision to fix a legacy-cap subdivision adapter. Visual review of run-002 then finds false connectors in paired target/nominal diagnostics; automatic worker pass is quarantined, not accepted. Actual lifts remain correct. 3121 renders including interruption; seed-19 learning and seed-41 unexecuted. Eight red reproductions. Additional diagnostic repair/no-refit remeasurement needs explicit approval before finishing the unchanged remaining seeds. No merge or S1-gesture."
+      notes: "COMPLETE, LEARNING PASS: approved lift-diagnostic repair remeasures frozen seed 7 without refitting and finishes unchanged seeds 19/41. All select shared [0.85,1.15,0.85]; all held-out occurrence/local/motion/refinement/8-control gates pass. Every seed/ablation replays 54 artifacts exactly. 6594 new + 3121 retained renders; every individual cumulative budget within 5000/1800. All primitive/tool/runtime identities unchanged; 32 focused tests pass, expanded 249 pass plus 12 identical inherited failures. Frozen run-003 candidates go to independent HANDVALIDATE-016; no automatic S1-gesture or later-layer promotion."
     - id: ADV-SS-HANDVALIDATE-016
       advance_id: ADV-SS-HANDVALIDATE-016
       title: "Foundation Readiness — Independent Gesture Transfer and Next-Stage Eligibility"

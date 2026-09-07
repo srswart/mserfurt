@@ -1,55 +1,93 @@
 # CURRICULUM-011: shared gesture attachment learning
 
-> **STOPPED — not complete or accepted; do not launch another attempt yet.**
-> Seed-7 fitting ran, but paired target/nominal trajectories draw false connector
-> ink. The actual controller correctly lifts. Automatic per-worker `pass` flags
-> and paired image ratios are quarantined by [validation-stop.json](validation-stop.json).
-> The permitted revision was already used. Further diagnostic repair and
-> no-refit remeasurement require approval; no merge or S1-gesture is claimed.
+**COMPLETE — learning pass, not independent S1-gesture acceptance.**
+The approved diagnostic lift repair and continuation finish all three seeds.
+Seed 7 is remeasured **without refitting**; seeds 19 and 41 finish the unchanged
+bounded search. All select shared stem/rise/return scales **0.85 / 1.15 / 0.85**.
+Every primitive curve, fixed action and tool parameter remains unchanged.
 
-## Results you can inspect
+## Current results and samples
 
-- [Seed-7 actual underturn](run-002/seed-7/attachment/first/underturn-isolated-actual.png)
-- [Seed-7 actual overturn](run-002/seed-7/attachment/first/overturn-isolated-actual.png)
-- [Seed-7 actual compound](run-002/seed-7/attachment/first/compound-isolated-actual.png)
-- [Actual lifted pair, without false connector](run-002/seed-7/attachment/first/underturn-overturn-pair-actual.png)
-- [Full quarantined comparison sheet](run-002/seed-7/attachment/first/practice-sheet.png): isolated rows are usable diagnostics; in paired rows **initial, target and fitted nominal contain false connector ink**. Sampled and actual columns correctly separate the gestures.
-- [Constituents, entry directions and ports](run-002/seed-7/attachment/first/ports.svg)
-- [Frozen selected candidate](run-002/seed-7/attachment/first/candidate.json) and [pre-held-out selection](run-002/seed-7/attachment/first/selection.json)
+- [Corrected seed-7 comparison sheet](run-003/seed-7/attachment/first/practice-sheet.png)
+- [Seed-19 comparison sheet](run-003/seed-19/attachment/first/practice-sheet.png)
+- [Seed-41 comparison sheet](run-003/seed-41/attachment/first/practice-sheet.png)
+- [Shared constituents, entry directions and ports](run-003/seed-7/attachment/first/ports.svg)
+- [Actual lifted pair](run-003/seed-7/attachment/first/underturn-overturn-pair-actual.png)
+- [Frozen selected candidate](run-003/seed-7/attachment/first/candidate.json)
+- [Complete learning report and artifact manifest](run-003/report.json)
+- [Continuation verification](continuation-verification.json)
 
-Seed 7 selects shared stem/rise/return reference scales **0.85 / 1.15 / 0.85**.
-All primitive curves, actions and tool settings stay fixed. This is real fitting
-on isolated train/development constructions, not learned letters. Its primary
-54 non-wall-clock artifacts replay exactly, but reproducibility does not make
-the flawed paired measurement valid. Seeds 19/41 learning is not executed.
+The native 900-DPI sheets now preserve lifted separation in **all five columns**:
+unchanged initial, independent target, fitted nominal, sampled desired and actual
+controller output. Continuous primitive joins within each gesture are unchanged.
+The repair adds pen-up boundaries between gesture owners; it changes no existing
+contact point or curve.
 
-The visual discrepancy identifies the cause without a new render: both
-`nominal()` and `target()` call the old single-contact `segment_trajectory()`
-helper across multiple gesture instances. Eight no-render regression tests now
-fail because each two-instance target/nominal trajectory has **one** contact run
-instead of two. The painter sweeps between consecutive contact points, so this
-omission creates the unwanted lines. Training/development contain one instance,
-so the next step can reuse the selected candidate without refitting.
+| Held-out lifted pairing | Learned / initial loss, every seed |
+|---|---:|
+| Underturn → overturn | 0.157574 |
+| Overturn → underturn | 0.157807 |
+| Compound → terminal | 0.132465 |
+| Repeated underturn, unseen scale | 0.066255 |
 
-**Requested next step:** add explicit pen-up boundaries between gesture
-instances in diagnostic trajectories, while preserving continuous primitive
-joins within each gesture. Remeasure the frozen seed-7 candidates with unchanged
-targets/splits/metrics; retain all old results; then finish untouched seeds
-19/41 under the original bounded search. No test-driven parameter reselection,
-threshold change or new ablation. This requires approval beyond the original
-one-diagnosed-revision allowance.
+All required occurrence-local ratios also pass (largest **0.408835**, limit
+<0.75). All base, half-step, half-dt and all-cubic-subdivision motion proofs pass:
+maximum actual/desired loss **0.010016**, contact corridor **0.007936 mm** and
+refinement endpoint difference **0.005718 mm**. Exact text/contact/owner checks
+and every open-return blank pocket pass. All eight adversarial controls are
+detected; small defects that miss the old global 0.1 threshold remain explicitly
+reported as global misses and are caught by the frozen ownership/local guards.
 
-Total retained usage: **3121 renders / 229.715709 worker-seconds**. This includes
-the 69-render first stop, first/replay work and the interrupted seed-19 fixed
-worker's final 106-render counter. `run-002/ledger.json` is retained as originally
-written; `validation-stop.json` adds that final interrupted counter rather than
-silently editing the old ledger. Seed-7 primary used 2358/5000 renders, so the
-stop concerns invalid evidence/revision authorization, not render exhaustion.
+The **fixed** ablation correctly has no learning benefit. **Placement-only**
+does not satisfy all occurrence-local/pocket gates, even when a whole-image
+average looks better. Primary attachment learning was preselected by protocol,
+not chosen after inspecting these held-out control results.
 
-At implementation commit `a56908a`, 18 new tests pass; local and clean expanded
-suites both have 235 passes and the same 12 inherited failures. The eight
-subsequent red diagnostic-lift tests remain deliberately unresolved. They are
-not hidden among those pre-existing failures.
+## No-refit and replay evidence
+
+The [explicit approval](continuation-v1.json) pins the historical stop, frozen
+seed-7 candidates and selections, unchanged functions and original protocol.
+All six seed-7 candidate/selection files are byte-identical to run-002.
+The seed-7 worker does **zero selection or training scoring** and charges only
+117 evaluation/presentation renders per ablation/pass. Its 42 sampled/actual PNGs,
+21 trace archives and 27 isolated diagnostic PNGs also remain byte-identical.
+Only paired diagnostic ink separation and its measured comparisons change.
+
+Every ablation at every seed replays **54 non-wall-clock artifacts** identically
+in separate processes. All three primary candidate files have SHA-256
+`d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a`.
+The report SHA-256 is
+`7dbec24cd0bf82e9f45d55c5417cf2c36551ee7dfe6294bd7b0c409219066911`.
+
+Run-003 uses **6594 new renders**; the retained failures/interruption add 3121,
+for **9715 cumulative renders across nine seed/ablation budgets**. Every individual
+budget remains below 5000 renders / 1800 seconds, including replay and old costs.
+The largest render use is seed-7 attachment at **2592**. Failed attempts and the
+interrupted worker's final counter remain immutable.
+
+Implementation commit `ba2c16c`: **32 focused tests pass**, including all eight
+previously red lift reproductions and no-refit/source-integrity checks. Local and
+clean-checkout expanded suites both have **249 passes and the same 12 inherited
+failures**, with no new failures. Provider CI and human review are not claimed.
+
+## Next acceptance boundary
+
+**HANDVALIDATE-016** must independently reconstruct and evaluate these frozen
+candidates before S1-gesture or any next-stage eligibility. This demonstrates
+shared proportions and previously unseen **lifted pairings**, not learned pair
+spacing, new continuous topologies, an alphabet, words, dynamic actions,
+historical handwriting, fatigue or default-renderer promotion.
+
+## Retained failures
+
+[Run-001](run-001/report.json) stopped at the legacy four-occurrence subdivision
+adapter. One diagnosed revision introduced cap-preserving compiled-source
+subdivision. [Run-002's stop decision](validation-stop.json) then quarantined
+false connectors in paired diagnostic trajectories; actual execution had
+correct lifts. Its [old comparison sheet](run-002/seed-7/attachment/first/practice-sheet.png)
+and automatic worker flags are retained as **invalid paired image evidence**.
+The user explicitly approved the additional diagnostic repair/no-refit measurement
+and untouched-seed continuation; run-003 supplies the corrected evidence.
 
 ## Frozen protocol, before target pixels
 
@@ -113,10 +151,10 @@ the predeclared small-defect guards.
 
 ## Reproduction and budgets
 
-Recorded reproduction command from the clean implementation checkout follows.
-**Do not rerun now:** the contact encoding defect and exhausted revision
-allowance must be resolved first. A rerun with this code reproduces invalid
-paired diagnostics, not acceptance.
+Recorded command from the clean implementation checkout follows. The approved
+worker automatically reuses seed 7 and trains only seeds 19/41. Use a new output
+directory for deliberate reproduction; this command is not an authorization for
+additional tuning or a new unbudgeted experiment.
 
 ```sh
 .venv/bin/python -m pytest tests/test_foundation_gestures.py -q

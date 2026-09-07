@@ -51,6 +51,18 @@ independently validated layer/tool/code identities. Real fitting additionally
 requires live G0 and accepted real lower layers; source uncertainty and locked
 test isolation are not repaired by this synthetic phase.
 
+### Available frozen learning input (2026-09-07)
+
+CURRICULUM-011 run-003 completes the approved no-refit seed-7 measurement and
+unchanged seed-19/41 search. Freeze its report SHA
+`7dbec24cd0bf82e9f45d55c5417cf2c36551ee7dfe6294bd7b0c409219066911` and use
+`shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/run-003/seed-{7,19,41}/attachment/first/candidate.json`.
+All primary files have SHA `d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a`.
+The repaired diagnostics retain explicit inter-gesture lifts; run-002's paired
+image evidence remains invalid. Reconstruct matching primitive admission and
+independent gesture proofs instead of copying the learning report's pass label.
+This input note does not start or complete HANDVALIDATE-016.
+
 ## Planned Implementation Tasks
 
 - [ ] branch: confirm implementation/commit/merge authorization and preserve unrelated work.
@@ -115,4 +127,3 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
-

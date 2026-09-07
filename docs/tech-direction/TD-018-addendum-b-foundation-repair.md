@@ -1,18 +1,15 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** Five foundation outcomes are complete, including HANDFLOW-011's
-source-tangent repair and independent frozen-candidate reevaluation; CURRICULUM-011
-is in progress and HANDVALIDATE-016 remains planned. All original curves, ports, tool, controller and compiler remain
-unchanged. Opt-in `curve-tangent-v1` reduces compound subdivision desired
-acceleration from 402.432 to 126.422 mm/s². Fresh baseline, full motion, all five
-held-out fixtures and seven controls pass for every seed with exact replay.
-Scoped current-code primitive S1 now permits bounded fixed-tool shared-gesture
-learning. **CURRICULUM-011 ran partial seed-7 learning, then stopped:** paired
-nominal/target trajectories omit lifts and draw false connectors, although actual
-execution lifts correctly. Automatic worker passes are quarantined. The one
-permitted revision was already used for a subdivision-adapter repair; another
-diagnostic correction/no-refit measurement needs approval before finishing the
-unchanged remaining seeds. See the [stop and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/README.md).
+**Status:** Six foundation outcomes are complete; HANDVALIDATE-016 remains planned.
+After explicit approval, CURRICULUM-011 repairs diagnostic lift handling,
+remeasures frozen seed 7 without refitting and finishes seeds 19/41. All three
+select shared stem/rise/return scales [0.85,1.15,0.85]; all held-out pairings,
+occurrence-local benefits, motion/refinement and eight adversarial controls pass.
+Every primitive curve, action and tool parameter stays fixed; lower-layer code
+and scoped `curve-tangent-v1` primitive admission are unchanged. All nine
+seed/ablation first/replay pairs match 54 artifacts exactly. This completes
+learning, **not S1-gesture**: independent HANDVALIDATE-016 is next.
+See [corrected evidence and retained failures](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/README.md).
 All stopped/cropped/failed attempts remain immutable. No S1-action, learned
 letters, real-hand, default-mode or owner appearance approval is claimed.
 See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
