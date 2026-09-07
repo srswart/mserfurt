@@ -1,0 +1,298 @@
+{
+  "fixture": {
+    "id": "underturn-isolated",
+    "split": "train",
+    "instances": [
+      {
+        "gesture": "underturn",
+        "offset": [
+          0,
+          0
+        ],
+        "scale": 1
+      }
+    ]
+  },
+  "benefit": {
+    "before": 0.66277958325368,
+    "after": 0.66277958325368,
+    "ratio": 1.0,
+    "passed": false
+  },
+  "local": {
+    "0": {
+      "before": 0.6627795832536799,
+      "after": 0.6627795832536799,
+      "ratio": 1.0,
+      "passed": false,
+      "regions_mm": {
+        "gesture": "underturn",
+        "loss": [
+          -0.8126870568166842,
+          4.37,
+          4.510000000000001,
+          10.879249425896663
+        ],
+        "blank": [
+          [
+            0.63,
+            0.875,
+            8.705,
+            8.915
+          ]
+        ]
+      },
+      "blank_fractions": {
+        "target": [
+          0.0
+        ],
+        "nominal": [
+          0.0
+        ],
+        "base": [
+          0.0
+        ],
+        "arc": [
+          0.0
+        ],
+        "time": [
+          0.0
+        ],
+        "subdivision": [
+          0.0
+        ]
+      }
+    }
+  },
+  "audits": {
+    "base": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "arc": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "time": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "subdivision": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    }
+  },
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "endpoint_mm": 0.0009426159747802261,
+      "event_time_s": 0.0,
+      "image_loss": 0.0,
+      "pass": true
+    },
+    "time": {
+      "owner_match": true,
+      "endpoint_mm": 1.738052129208186e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.0035812252362084707,
+      "pass": true
+    },
+    "subdivision": {
+      "owner_match": true,
+      "endpoint_mm": 3.714543476842722e-07,
+      "event_time_s": 1.5543122344752192e-15,
+      "image_loss": 0.0,
+      "pass": true
+    }
+  },
+  "motion": {
+    "base": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279477,
+        "executed_time_s": 1.5640262162279477,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298605754121009,
+        "retiming_delta_s": 0.7341656408158468,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005460144849152616,
+        "image_loss": 0.005675572031190079,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.47885320866726,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.05743729045675,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980499,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "arc": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279477,
+        "executed_time_s": 1.5640262162279477,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298658930498535,
+        "retiming_delta_s": 0.7341603231780942,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.0028346370960969872,
+        "image_loss": 0.0029902403644275896,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 140.1738097961052,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.07521770873699,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980499,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "time": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279477,
+        "executed_time_s": 1.5640262162279477,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298605754121009,
+        "retiming_delta_s": 0.7341656408158468,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.0055106144471712476,
+        "image_loss": 0.0077499617600571055,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 148.72885317733403,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.05743729045675,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980499,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "subdivision": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279461,
+        "executed_time_s": 1.5640262162279461,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298622636433074,
+        "retiming_delta_s": 0.7341639525846387,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005460229430629552,
+        "image_loss": 0.005675572031190079,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.47903987828602,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.05743445515294,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980506,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    }
+  },
+  "candidate_sha256": "74266556a1e94f222696c59500c9e7366818716b8e19ab178ad1a8a0cbd9c10b",
+  "probe_sha256": "74266556a1e94f222696c59500c9e7366818716b8e19ab178ad1a8a0cbd9c10b",
+  "footprint_contained": true,
+  "compiled_owners": [
+    {
+      "primitive": "stem",
+      "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+      "gesture": "underturn",
+      "gesture_sha256": "a41fc7e1c8588eb25a41e11c2fea3d19150f95664bbe6eea9a35af0159da6605",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+      "gesture_occurrence_id": "0:0",
+      "transition": "start",
+      "span": [
+        0,
+        1
+      ]
+    },
+    {
+      "primitive": "lower-return",
+      "primitive_sha256": "eeb23f069f260c02c6efceb210697afce0aee83851a9928817a133f9ee4cad7f",
+      "gesture": "underturn",
+      "gesture_sha256": "a41fc7e1c8588eb25a41e11c2fea3d19150f95664bbe6eea9a35af0159da6605",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+      "gesture_occurrence_id": "0:0",
+      "transition": "smooth",
+      "span": [
+        0,
+        1
+      ]
+    },
+    {
+      "primitive": "rise",
+      "primitive_sha256": "d6aae8b285ce55da3d02898fd6e1006afe128854f6900d01e87b5e3297a95129",
+      "gesture": "underturn",
+      "gesture_sha256": "a41fc7e1c8588eb25a41e11c2fea3d19150f95664bbe6eea9a35af0159da6605",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+      "gesture_occurrence_id": "0:0",
+      "transition": "smooth",
+      "span": [
+        0,
+        1
+      ]
+    }
+  ],
+  "motion_pass": true,
+  "blank_pass": true,
+  "learning_pass": false,
+  "passed": true
+}

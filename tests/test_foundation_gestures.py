@@ -175,3 +175,18 @@ def test_subdivided_full_pair_uses_original_grammar_and_realized_owner_audit():
     changed = copy.deepcopy(result)
     next(row for row in changed['trace'] if row['contact'])['owner']['primitive_sha256'] = 'changed'
     assert refinement.audit_trace(model, changed)['errors'] > 0
+
+
+@pytest.mark.parametrize('identifier', ['underturn-overturn-pair', 'overturn-underturn-pair',
+                                       'compound-terminal-pair', 'underturn-repeat-pair'])
+@pytest.mark.parametrize('kind', ['target', 'nominal'])
+def test_paired_diagnostic_paths_preserve_explicit_lifts(identifier, kind):
+    fixture = next(row for row in learning.SPEC['fixtures'] if row['id'] == identifier)
+    if kind == 'target':
+        trajectory = learning.target(fixture)
+    else:
+        initial = learning.initial_model(learning.load_source()[0])
+        trajectory = learning.nominal(initial, fixture)
+    groups = sum(point.contact and (index == 0 or not trajectory[index - 1].contact)
+                 for index, point in enumerate(trajectory))
+    assert groups == len(fixture['instances']), 'Diagnostic ink must never connect explicitly lifted instances'

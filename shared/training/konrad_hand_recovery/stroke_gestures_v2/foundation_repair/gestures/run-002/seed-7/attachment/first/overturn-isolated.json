@@ -1,0 +1,298 @@
+{
+  "fixture": {
+    "id": "overturn-isolated",
+    "split": "train",
+    "instances": [
+      {
+        "gesture": "overturn",
+        "offset": [
+          0,
+          0
+        ],
+        "scale": 1
+      }
+    ]
+  },
+  "benefit": {
+    "before": 0.24688739045887312,
+    "after": 0.09945424546262215,
+    "ratio": 0.40283242201140035,
+    "passed": true
+  },
+  "local": {
+    "0": {
+      "before": 0.2468873904588731,
+      "after": 0.09945424546262215,
+      "ratio": 0.40283242201140035,
+      "passed": true,
+      "regions_mm": {
+        "gesture": "overturn",
+        "loss": [
+          -0.8,
+          4.393816369759726,
+          4.4421647570964975,
+          10.8
+        ],
+        "blank": [
+          [
+            2.6774999999999998,
+            2.9225,
+            6.3950000000000005,
+            6.605
+          ]
+        ]
+      },
+      "blank_fractions": {
+        "target": [
+          0.0
+        ],
+        "nominal": [
+          0.0
+        ],
+        "base": [
+          0.0
+        ],
+        "arc": [
+          0.0
+        ],
+        "time": [
+          0.0
+        ],
+        "subdivision": [
+          0.0
+        ]
+      }
+    }
+  },
+  "audits": {
+    "base": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "arc": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "time": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "subdivision": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    }
+  },
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "endpoint_mm": 0.0010048978297651512,
+      "event_time_s": 0.0,
+      "image_loss": 0.0,
+      "pass": true
+    },
+    "time": {
+      "owner_match": true,
+      "endpoint_mm": 1.0490035665871004e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.0020958537447603657,
+      "pass": true
+    },
+    "subdivision": {
+      "owner_match": true,
+      "endpoint_mm": 4.7624297085843715e-06,
+      "event_time_s": 1.7763568394002505e-15,
+      "image_loss": 0.0,
+      "pass": true
+    }
+  },
+  "motion": {
+    "base": {
+      "metrics": {
+        "planned_time_s": 1.8086196068514282,
+        "executed_time_s": 1.8086196068514282,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8009818912147771,
+        "retiming_delta_s": 1.0076377156366512,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005462063924215475,
+        "image_loss": 0.0055195340751925505,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.48294799068648,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.07854922085271,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.445664293047558,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "arc": {
+      "metrics": {
+        "planned_time_s": 1.8086196068514282,
+        "executed_time_s": 1.8086196068514282,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.800987592054825,
+        "retiming_delta_s": 1.0076320147966031,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.002835609092158911,
+        "image_loss": 0.00345364150442142,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 140.17722864712658,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.11142287723423,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.445664293047558,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "time": {
+      "metrics": {
+        "planned_time_s": 1.8086196068514282,
+        "executed_time_s": 1.8086196068514282,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8009818912147771,
+        "retiming_delta_s": 1.0076377156366512,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005512353626431088,
+        "image_loss": 0.006447853460179122,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 148.73294784853735,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.07854922085271,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.445664293047558,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "subdivision": {
+      "metrics": {
+        "planned_time_s": 1.80861960685143,
+        "executed_time_s": 1.80861960685143,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8009830198447897,
+        "retiming_delta_s": 1.0076365870066404,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005462043898722111,
+        "image_loss": 0.0055195340751925505,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.48290338567622,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.07855051825118,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.4456642930475505,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    }
+  },
+  "candidate_sha256": "3e4edf22894a6bff740d45e926c1bb76b2bb74b978cf512d84405d5af0b00318",
+  "probe_sha256": "eb6f18c77063f26c40eac93e556889f1ec0bc4ba91be668de49cc82c4c7ae693",
+  "footprint_contained": true,
+  "compiled_owners": [
+    {
+      "primitive": "rise",
+      "primitive_sha256": "d6aae8b285ce55da3d02898fd6e1006afe128854f6900d01e87b5e3297a95129",
+      "gesture": "overturn",
+      "gesture_sha256": "68df5a86268700930596116f8f603c02b7fbdb7fc453318ac37af53551d0e7a0",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+      "gesture_occurrence_id": "0:0",
+      "transition": "start",
+      "span": [
+        0,
+        1
+      ]
+    },
+    {
+      "primitive": "upper-return",
+      "primitive_sha256": "57cb43ce4cf0add5977b32884d516856b4723f78b67d483129cd4135c85447b6",
+      "gesture": "overturn",
+      "gesture_sha256": "68df5a86268700930596116f8f603c02b7fbdb7fc453318ac37af53551d0e7a0",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+      "gesture_occurrence_id": "0:0",
+      "transition": "smooth",
+      "span": [
+        0,
+        1
+      ]
+    },
+    {
+      "primitive": "stem",
+      "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+      "gesture": "overturn",
+      "gesture_sha256": "68df5a86268700930596116f8f603c02b7fbdb7fc453318ac37af53551d0e7a0",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+      "gesture_occurrence_id": "0:0",
+      "transition": "smooth",
+      "span": [
+        0,
+        1
+      ]
+    }
+  ],
+  "motion_pass": true,
+  "blank_pass": true,
+  "learning_pass": true,
+  "passed": true
+}

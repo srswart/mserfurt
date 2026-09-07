@@ -1,0 +1,80 @@
+[
+  {
+    "seed": 7,
+    "ablation": "fixed",
+    "status": "fail",
+    "error": null,
+    "renders": 129,
+    "seconds": 20.58410508290399,
+    "maximum": 4931,
+    "seconds_cap": 1790.4556524999207,
+    "attempt": "first",
+    "cumulative_renders": 198,
+    "cumulative_seconds": 30.1284525829833
+  },
+  {
+    "seed": 7,
+    "ablation": "fixed",
+    "status": "fail",
+    "error": null,
+    "renders": 129,
+    "seconds": 20.549919083947316,
+    "maximum": 4802,
+    "seconds_cap": 1769.8715474170167,
+    "attempt": "replay",
+    "cumulative_renders": 327,
+    "cumulative_seconds": 50.678371666930616
+  },
+  {
+    "seed": 7,
+    "ablation": "placement-only",
+    "status": "fail",
+    "error": null,
+    "renders": 165,
+    "seconds": 20.661927542067133,
+    "maximum": 5000,
+    "seconds_cap": 1800.0,
+    "attempt": "first",
+    "cumulative_renders": 165,
+    "cumulative_seconds": 20.661927542067133
+  },
+  {
+    "seed": 7,
+    "ablation": "placement-only",
+    "status": "fail",
+    "error": null,
+    "renders": 165,
+    "seconds": 20.608611459028907,
+    "maximum": 4835,
+    "seconds_cap": 1779.3380724579329,
+    "attempt": "replay",
+    "cumulative_renders": 330,
+    "cumulative_seconds": 41.27053900109604
+  },
+  {
+    "seed": 7,
+    "ablation": "attachment",
+    "status": "pass",
+    "error": null,
+    "renders": 1179,
+    "seconds": 60.32761758402921,
+    "maximum": 5000,
+    "seconds_cap": 1800.0,
+    "attempt": "first",
+    "cumulative_renders": 1179,
+    "cumulative_seconds": 60.32761758402921
+  },
+  {
+    "seed": 7,
+    "ablation": "attachment",
+    "status": "pass",
+    "error": null,
+    "renders": 1179,
+    "seconds": 61.56751979095861,
+    "maximum": 3821,
+    "seconds_cap": 1739.6723824159708,
+    "attempt": "replay",
+    "cumulative_renders": 2358,
+    "cumulative_seconds": 121.89513737498783
+  }
+]
