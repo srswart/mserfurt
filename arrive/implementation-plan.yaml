@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-07T11:35:51Z
+  updated_at: 2026-09-07T13:30:58Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1628,11 +1628,11 @@ passes:
     - id: ADV-SS-HANDVALIDATE-015
       advance_id: ADV-SS-HANDVALIDATE-015
       title: "Foundation Primitive Acceptance — Independent Current-Code S1 Extension"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-010
-      notes: "NEXT EVALUATION: consume unchanged primitives/run-002 candidates plus approved primitives/measurement/run-001 full-frame evidence and pinned source identities. Independently replay all seeds and adversarial port/contact/ownership/counter controls before S1; no optimizer or acceptance inferred from CURRICULUM-010 completion. Matching pass is a runtime prerequisite for gesture fitting."
+      notes: "COMPLETE EVALUATION, FAIL: all seeds replay byte-identically from a clean checkout; original baseline, image/local benefit and seven adversarial controls pass. Subdividing the returns themselves exposes compound desired acceleration 402.432 > 250 mm/s2 at an artificial upper-return seam. 612 renders per seed including replay, zero optimization. S1 and gesture permission remain false. Next: source-tangent continuity repair and refreshed no-refit admission; do not start CURRICULUM-011."
     - id: ADV-SS-CURRICULUM-011
       advance_id: ADV-SS-CURRICULUM-011
       title: "Foundation Gesture Learning — Underturn, Overturn and Compound Transfer"
@@ -1641,7 +1641,7 @@ passes:
       dependencies:
       - ADV-SS-HANDVALIDATE-015
       - ADV-SS-GESTURE-002
-      notes: "LEARNING: accepted primitives fixed; learn underturn/overturn/compound constructions with topology-disjoint transfer. Require executed learning, not supplied-recipe playback."
+      notes: "LEARNING, RUNTIME BLOCKED: HANDVALIDATE-015 completed with failed compound subdivision acceleration. Repair source tangents and obtain matching current-code independent primitive acceptance first. Then keep accepted primitives fixed and learn underturn/overturn/compound constructions with topology-disjoint transfer; supplied-recipe playback is not learning."
     - id: ADV-SS-HANDVALIDATE-016
       advance_id: ADV-SS-HANDVALIDATE-016
       title: "Foundation Readiness — Independent Gesture Transfer and Next-Stage Eligibility"

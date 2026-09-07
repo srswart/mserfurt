@@ -5,7 +5,7 @@
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.
 
 **First milestone:** visibly learned basic strokes, with practice sheets and demonstrated shared-primitive transfer.
-**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty-three outcomes complete and eleven planned. CURRICULUM-010 fits both returns after fresh 239-gate admission; its authorized full-frame measurement passes all five held-out fixtures and both family-local checks for all three seeds, without refitting. HANDVALIDATE-015 independently decides S1 next; no gesture-learning permission is granted yet. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
+**Plan:** [Pass 15](../../arrive/implementation-plan.yaml), thirty-four Advances; twenty-four outcomes complete and ten planned. HANDVALIDATE-015 independently replays all frozen return candidates and detects all seven adversarial controls, but compound subdivision desired acceleration fails (402.432 > 250 mm/s²). Its evaluation is complete; S1 and gesture-learning permission remain false. Next is source-tangent continuity repair and refreshed no-refit admission, not CURRICULUM-011 fitting. Blocked action experiments remain unexecuted despite runner/evaluation completion. Ink, fatigue and other expressive work are later.
 
 Section 12 and [Addendum A — Stroke Gestures and Intentional Pen Actions](TD-018-addendum-a-stroke-gestures.md)
 are the authoritative direction for new work; the addendum supersedes blanket

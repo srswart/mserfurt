@@ -66,7 +66,8 @@ Next is **fixed-tool repair**, not action fitting: scope the
 [lift/re-entry convergence failure](gesture_evaluation/README.md#required-next-work).
 
 That work now has motion repair, return-contract audit and return learning
-complete, with three Advances planned in **td018-foundation-repair**:
+complete, plus independent evaluation finished with a failed acceptance decision.
+Two Advances remain planned in **td018-foundation-repair**:
 [ordered records, concrete deliverables and gate criteria](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#3-ordered-advances-and-deliverables).
 Run-005's authorized curve-derived clock passes all 239 motion gates and the
 fresh six-primitive baseline. Arc-density event-time drift is zero; subdivision
@@ -79,7 +80,11 @@ coverage debt. [Audit, return diagrams and supplied constructions](foundation_re
 Its compiler changes mean run-005 is pre-audit provenance, not fresh current admission:
 CURRICULUM-010 has refreshed admission and fitted only the new returns. Its approved
 full-frame measurement now passes all five held-out fixtures and both family-local
-checks across all seeds, with no refitting. Independent HANDVALIDATE-015 is next.
+checks across all seeds, with no refitting. HANDVALIDATE-015 now independently
+replays those benefits and detects all seven adversarial controls. Its stronger
+all-cubic subdivision test exposes compound desired acceleration 402.432 > 250 mm/s².
+S1 and gesture permission stay false. Next is source-tangent continuity repair,
+not gesture fitting. [Independent results, samples and diagnosis](foundation_repair/primitive_evaluation/README.md).
 See [learning evidence and the retained framing diagnosis](foundation_repair/primitives/README.md).
 [Sharper 900-DPI-derived samples, all six primitives and an explanation
 of the L-like motion fixtures](foundation_repair/index.html).

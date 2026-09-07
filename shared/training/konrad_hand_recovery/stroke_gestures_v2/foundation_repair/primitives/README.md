@@ -41,11 +41,13 @@ artifacts byte-for-byte** and separately uses 258 verification renders. Copied
 candidates are byte-identical to run-002. Original stopped/cropped bundles are
 unchanged; the full-frame runner rejects clipped contact footprints or local regions.
 
-**CURRICULUM-010 is complete as a learning Advance.** Next is HANDVALIDATE-015:
-independently reconstruct all three candidates and their lineage, replay complete
-frame transfer/refinement, and run the required adversarial port/contact/ownership/
-counter controls. Only that evaluation may grant new S1 or gesture-fitting
-permission. No learned alphabet, historical accuracy or human appearance approval
+**CURRICULUM-010 is complete as a learning Advance.** HANDVALIDATE-015 has now
+[independently evaluated all three candidates](../primitive_evaluation/README.md).
+It reproduces the image benefits and detects the required adversarial controls,
+but all-cubic subdivision exposes a compound desired-acceleration failure.
+The older helper split only the stem, not the new returns. S1 and gesture-fitting
+permission remain false pending source-tangent repair and refreshed independent
+admission. No learned alphabet, historical accuracy or human appearance approval
 is claimed here.
 
 ```sh
