@@ -1,0 +1,51 @@
+{
+  "schema_version": "independent-foundation-primitives-v1",
+  "advance": "ADV-SS-HANDVALIDATE-015",
+  "seeds": [7, 19, 41],
+  "measurement_report_sha256": "2ac6acc9b0e0767b020d5f7cca34851c47f431ffab454655ebd10b4a638853a0",
+  "historical_tool_report_sha256": "5a4914e308a5e34b9b9c6fab14e15859ee733b09b055311291e686ee429c09ed",
+  "frame_mm": [-2, 9, 3, 16],
+  "dpi": 180,
+  "presentation_dpi": 900,
+  "max_renders_per_seed_including_replay": 5000,
+  "max_seconds_per_seed_including_replay": 1800,
+  "max_diagnosed_reruns": 1,
+  "optimization_evaluations": 0,
+  "independence": "Fresh first/replay worker processes reconstruct the frozen candidate, original baseline, analytic target, supplied probes, controller trajectory, retimed plan and exact owner map. Never call learning search, fit_seed, build, execute_fixture, measure_fixture or reuse saved training motion metrics as evaluation results. Reuse existing compiler/controller, renderer, pure crop/containment and stroke_loss only.",
+  "targets": "Read contract spec-v1 endpoint/ray and analytic target parameters. Independently evaluate expanded cubic Hermite basis plus signed sine-squared vertical bulge and attach frozen old-six curves by endpoint translation. No candidate controls or grammar feed the target generator. Keep all five learning held-out fixture definitions and scales unchanged.",
+  "baseline": "Before extension proofs in each first/replay worker, verify pinned lineage and current motion admission; rerender/recompute original independent synthetic baseline through foundation_motion.revalidate_baseline with the shared seed budget. No old hash edits or model fitting.",
+  "refinements": [
+    {"id": "base", "step": 0.025, "dt": 0.002},
+    {"id": "arc", "step": 0.0125, "dt": 0.002},
+    {"id": "time", "step": 0.025, "dt": 0.001},
+    {"id": "subdivision", "step": 0.025, "dt": 0.002}
+  ],
+  "subdivision": "Independently De Casteljau split every cubic of every used primitive, including lower/upper returns, in an isolated v2 execution copy. Do not use the prior stem-only subdivision helper or change the saved fitted model. Check equivalence and preserve occurrence ownership.",
+  "criteria": {
+    "heldout_ratio": 0.75,
+    "actual_desired_loss": 0.35,
+    "corridor_mm": 0.25,
+    "refinement_loss": 0.03,
+    "endpoint_mm": 0.01,
+    "event_time_s": 0.0001,
+    "local_blank_fraction": 0.01,
+    "global_negative_minimum": 0.1,
+    "owner_contact_text_errors": 0,
+    "duration_error_s": 1e-10
+  },
+  "regions": "Keep the predeclared learning physical family-local loss and blank boxes, reconstructing their origins independently from target endpoints. Reject clipped contact footprints and out-of-frame regions. Report before/after and blank occupancy per family, fixture and seed; full-image averages cannot conceal an absent family.",
+  "control_ids": ["wrong-port", "wrong-direction", "detached-geometry", "hidden-lift", "painted-air-connector", "extra-contributor", "erased-counter"],
+  "controls": {
+    "wrong-port": "Move each return entry handle horizontally by 0.10 x-height; require foundation model validation rejection before admission.",
+    "wrong-direction": "Reverse each return entry handle through its fixed endpoint; require model rejection.",
+    "detached-geometry": "Offset the supplied underturn return attachment by 0.10 x-height; require continuous-port rejection. Also shift a realized trace point by 0.5mm; independent corridor/trajectory audit must reject.",
+    "hidden-lift": "Set a middle contact trace sample to air without changing the recomputed plan; exact owner/contact audit must reject, regardless of global image difference.",
+    "painted-air-connector": "Use a declared lifted lower-return pair at offsets [0,0] and [1.2,0]. Flip air samples to contact with pressure0.5; recomputed owner/contact audit must reject. The unmodified guard must pass.",
+    "extra-contributor": "Append an exactly overlapping trace contributor with an undeclared occurrence ID; exact owner/order/trace audit must reject even if pixels are identical.",
+    "erased-counter": "Rerun the independent analytic tool oracle's fixed terminal/connector/circle fixtures with its predeclared blank/counter regions. Fill the radius0.45 counter; local ink fraction >0.01 must detect it. This is a guard test, not learned closed-counter or letter acceptance."
+  },
+  "global_control_scope": "Preserve the original 0.1 global minimum and historical hidden-connector/extra-terminal failures verbatim. Global scores remain diagnostic for localized topology changes: predeclared exact contact/owner/port rejection and independent local blank/counter probes are the required replacement, because aggregate disagreement cannot detect an exactly overlapping extra owner. Never relabel a below-0.1 global score as passing or lower its threshold.",
+  "presentation": "Save target/initial/candidate/sampled/actual full-frame 900-DPI sheets and local-control sheet; charge all renders, setup, control, refinement and presentation work to the shared first-plus-replay per-seed allowance. No image retouching or new renderer.",
+  "readiness": "Explicit S1-foundation-primitives-v1 reader requires the consumer to freeze an expected report SHA, checks current code/spec/source/artifact identities, matching first/replay content and recomputed complete decision. Only matched original-six plus lower/upper returns may feed bounded fixed-tool shared-gesture learning. No dynamic-action, letters, real-source, fatigue or historical approval.",
+  "missing_inventory": ["opposite bowl", "lower loop", "closed-counter letter attachment", "learned letters and words", "real historical hand"]
+}

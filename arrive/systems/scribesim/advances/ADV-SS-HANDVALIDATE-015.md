@@ -5,7 +5,7 @@ advance:
   system: "scribesim"
   primary_component: "handvalidate"
   components: ["handvalidate","curriculum","gesture","handflow","tests"]
-  started_at: "2026-09-06T16:02:10Z"
+  started_at: "2026-09-07T13:05:58Z"
   implementation_completed_at: ~
   review_time_estimate_minutes: 35
   review_time_actual_minutes: ~
@@ -15,7 +15,7 @@ advance:
   risk_flags: []
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,8 @@ advance:
 Independently accept or reject the repaired baseline and newly learned return primitives before continuous gesture fitting.
 
 **Work kind:** Independent evaluation. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
-Timestamp records drafting only; implementation, experiments, CI and review are not claimed.
+Implementation is underway under the user's implement/update/merge workflow.
+Independent proofs and controls must execute before any acceptance decision.
 
 ## Behavioral Change
 
@@ -112,4 +113,3 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
-
