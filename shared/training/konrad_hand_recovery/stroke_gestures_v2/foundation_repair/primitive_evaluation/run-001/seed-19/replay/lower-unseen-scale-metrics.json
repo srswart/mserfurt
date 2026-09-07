@@ -1,0 +1,226 @@
+{
+  "id": "lower-unseen-scale",
+  "fixture": {
+    "id": "lower-unseen-scale",
+    "topology": [
+      "lower-return"
+    ],
+    "scale": 0.65
+  },
+  "full": {
+    "before": 0.04844677738576715,
+    "after": 0.016151202749140895,
+    "ratio": 0.3333803324116631,
+    "passed": true
+  },
+  "families": {
+    "lower-return": {
+      "before": 0.048446777385767144,
+      "after": 0.016151202749140895,
+      "ratio": 0.33338033241166315,
+      "passed": true,
+      "regions_mm": {
+        "loss": [
+          -0.56875,
+          1.82,
+          8.8625,
+          11.1375
+        ],
+        "blank": [
+          0.455,
+          0.6825,
+          9.363,
+          9.5905
+        ]
+      },
+      "blank_fractions": {
+        "target": 0.0,
+        "nominal": 0.0,
+        "base": 0.0,
+        "arc": 0.0,
+        "time": 0.0,
+        "subdivision": 0.0
+      },
+      "blank_pass": true
+    }
+  },
+  "audits": {
+    "base": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0"
+      ],
+      "seen_occurrences": [
+        "0:0"
+      ]
+    },
+    "arc": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0"
+      ],
+      "seen_occurrences": [
+        "0:0"
+      ]
+    },
+    "time": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0"
+      ],
+      "seen_occurrences": [
+        "0:0"
+      ]
+    },
+    "subdivision": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0"
+      ],
+      "seen_occurrences": [
+        "0:0"
+      ]
+    }
+  },
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "endpoint_mm": 0.0010189321396464176,
+      "event_time_s": 0.0,
+      "image_loss": 0.0,
+      "pass": true
+    },
+    "time": {
+      "owner_match": true,
+      "endpoint_mm": 2.947430933657186e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.0,
+      "pass": true
+    },
+    "subdivision": {
+      "owner_match": true,
+      "endpoint_mm": 0.00013385363874952392,
+      "event_time_s": 5.551115123125783e-17,
+      "image_loss": 0.0,
+      "pass": true
+    }
+  },
+  "motion": {
+    "base": {
+      "metrics": {
+        "planned_time_s": 0.35326886793039575,
+        "executed_time_s": 0.35326886793039575,
+        "floor_excess_s": 0.0,
+        "rounded_largest_step_s": 0.002364859741107086,
+        "time_error_s": 0.0,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005392867710350109,
+        "image_loss": 0.008806769124503538,
+        "owner_errors": 0,
+        "original_plan_time_s": 0.1375668203356429,
+        "retiming_delta_s": 0.21570204759475284,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.30670528707194,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 132.28618518112546,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.3124352946805935,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "arc": {
+      "metrics": {
+        "planned_time_s": 0.35326886793039575,
+        "executed_time_s": 0.35326886793039575,
+        "floor_excess_s": 0.0,
+        "rounded_largest_step_s": 0.0027658664133633423,
+        "time_error_s": 0.0,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.002818817528620941,
+        "image_loss": 0.003676156279387879,
+        "owner_errors": 0,
+        "original_plan_time_s": 0.13757448586046153,
+        "retiming_delta_s": 0.21569438206993422,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 140.11271323231225,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 135.58946247659455,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.3124352946805935,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "time": {
+      "metrics": {
+        "planned_time_s": 0.35326886793039575,
+        "executed_time_s": 0.35326886793039575,
+        "floor_excess_s": 0.0,
+        "rounded_largest_step_s": 0.0010640716505902037,
+        "time_error_s": 0.0,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005448368887080835,
+        "image_loss": 0.008806769124503538,
+        "owner_errors": 0,
+        "original_plan_time_s": 0.1375668203356429,
+        "retiming_delta_s": 0.21570204759475284,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 148.55668792572004,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 132.28618518112546,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.3124352946805935,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "subdivision": {
+      "metrics": {
+        "planned_time_s": 0.3532688679303958,
+        "executed_time_s": 0.3532688679303958,
+        "floor_excess_s": 0.0001829479342927414,
+        "rounded_largest_step_s": 0.0028213029126689104,
+        "time_error_s": 0.0,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.0053917766655501445,
+        "image_loss": 0.008806769124503538,
+        "owner_errors": 0,
+        "original_plan_time_s": 0.1375679606006462,
+        "retiming_delta_s": 0.2157009073297496,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.30873515269613,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 132.2942277964504,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.312435294680588,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    }
+  },
+  "empty_control_loss": 1.0,
+  "footprint_contained": true,
+  "shared_parameter_propagation": true,
+  "passed": true
+}

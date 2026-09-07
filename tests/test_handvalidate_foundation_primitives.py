@@ -105,3 +105,39 @@ def test_fresh_fixture_and_controls_do_not_call_training_execution(tmp_path, mon
     assert all(row['detected'] for row in controls.values())
     assert not controls['extra-contributor']['global_meets_minimum']
     assert len(tiles) == 5
+
+
+def test_retained_subdivision_failure_never_grants_readiness():
+    from scribesim.handvalidate import foundation_primitives as evaluation
+
+    directory = evaluation.BASE / 'run-001'
+    report = json.loads((directory / 'S1-primitives.json').read_text())
+    assert report['status'] == 'fail' and not report['gesture_training_permitted']
+    assert all(row['replay_match'] for row in report['seeds'])
+    with pytest.raises(ValueError, match='unaccepted'):
+        evaluation.require_primitive_readiness(directory, expected_report_sha256=evaluation.digest(directory / 'S1-primitives.json'),
+                                               required_families=['lower-return', 'upper-return'])
+
+
+def test_metric_reader_does_not_trust_fabricated_fixture_pass():
+    from scribesim.handvalidate import foundation_primitives as evaluation
+
+    path = evaluation.BASE / 'run-001/seed-7/first/compound-attachment-metrics.json'
+    record = json.loads(path.read_text())
+    record['passed'] = True
+    record['motion']['subdivision']['passed'] = True
+    assert record['motion']['subdivision']['metrics']['desired_acceleration_mm_s2'] > 250
+    assert not evaluation.recheck_fixture(record)
+
+
+def test_metric_reader_rejects_missing_families_and_nonfinite_metrics():
+    from scribesim.handvalidate import foundation_primitives as evaluation
+
+    path = evaluation.BASE / 'run-001/seed-7/first/lower-unseen-scale-metrics.json'
+    record = json.loads(path.read_text())
+    assert evaluation.recheck_fixture(record)
+    changed = copy.deepcopy(record)
+    changed['families'] = {}
+    assert not evaluation.recheck_fixture(changed)
+    record['motion']['base']['metrics']['image_loss'] = float('nan')
+    assert not evaluation.recheck_fixture(record)
