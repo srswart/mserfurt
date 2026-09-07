@@ -1,29 +1,36 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Foundation repair — independent return evaluation and tangent failure</title>
+<title>Foundation repair — source-tangent repair and accepted frozen primitives</title>
 <style>body{margin:0;background:#f5f1e7;color:#24342f;font:17px/1.55 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:40px 24px}h1{font-size:38px;line-height:1.15}h2{margin-top:38px}a{color:#235d77}aside{border-left:5px solid #b24932;padding:16px 24px;background:#fff7f0}figure{margin:24px 0;padding:20px;background:white;border:1px solid #d9ded8;border-radius:10px}svg,img{max-width:100%;height:auto}figcaption{font-size:15px;color:#52605a}table{border-collapse:collapse;width:100%;background:white}th,td{padding:12px;text-align:left;border-bottom:1px solid #ddd}.ok{color:#276946}.fail{color:#a43a28}code{font-size:.9em}li{margin:7px 0}summary{cursor:pointer;font-weight:650}</style></head>
-<body><main><p>TD-018 / FOUNDATION REPAIR / INDEPENDENT RETURN EVALUATION</p>
-<h1>The strokes improve. One motion gate still fails.</h1>
-<aside><strong>HANDVALIDATE-015 evaluation is complete — FAIL, not GO.</strong> All three seeds reproduce the learning benefits and detect all seven adversarial controls. Subdividing the returns themselves exposes a compound desired-acceleration spike: <strong>402.432 &gt; 250 mm/s²</strong>. S1 and gesture-learning permission remain false. Next: repair source-tangent continuity, then refresh independent no-refit admission.</aside>
+<body><main><p>TD-018 / FOUNDATION REPAIR / SOURCE-TANGENT REPAIR</p>
+<h1>The same strokes. The motion gate now passes.</h1>
+<aside style="border-color:#276946;background:#f0f8f0"><strong>HANDFLOW-011 is complete — scoped new-mode S1 PASS.</strong> Compound subdivision desired acceleration falls from <strong>402.432 to 126.422 mm/s²</strong>, below the unchanged 250 limit. All three frozen candidates, fresh baseline/motion proofs and seven adversarial controls pass with exact replay. CURRICULUM-011 shared-gesture learning is next; it has not run.</aside>
 <h2>Actual learning, not a new letter grammar</h2>
-<p>These are the same frozen fitted candidates, so their ink should look almost like the last samples. The independent evaluator reconstructs targets, original baseline and fresh controller runs without fitting. The new check subdivides every cubic, including both returns; the older helper split only the stem. Image benefit alone cannot override a failed desired-motion gate. This is not historical handwriting or learned letters.</p>
-<figure><a href="primitive_evaluation/run-001/seed-7/first/practice-sheet.png"><img src="primitive_evaluation/run-001/seed-7/first/practice-sheet.png" alt="Independent initial, target, frozen candidate, sampled and actual strokes: four fixtures pass; compound fails a subdivision motion gate"></a><figcaption>Fresh seed-7 evaluation, native 900-DPI panels. All columns use [-2,9,3,16] mm. The compound is fully visible, but its subdivision desired acceleration fails. No ink is retouched.</figcaption></figure>
+<p>The candidates and stored curves are unchanged, so the ink should look almost like the last samples. The opt-in repair derives velocity direction from validated source curves instead of separate straight-chord approximations at a subdivision seam. It keeps input contact positions, owners and the existing curve clock/controller/tool. No refitting, hidden lift, sample removal or relaxed acceleration gate. This is not historical handwriting or learned letters.</p>
+<figure><a href="tangent_evaluation/run-002/seed-7/first/practice-sheet.png"><img src="tangent_evaluation/run-002/seed-7/first/practice-sheet.png" alt="Repaired independent initial, target, frozen candidate, sampled and actual strokes: all five fixtures pass"></a><figcaption>Fresh seed-7 evaluation in curve-tangent-v1, native 900-DPI panels. Every row passes, including compound subdivision. All columns use [-2,9,3,16] mm; no ink is retouched.</figcaption></figure>
 <table><tr><th>Held-out fixture</th><th>Learned / initial loss</th><th>Every seed</th></tr>
 <tr><td>Lower return, unseen scale</td><td>0.333380</td><td class="ok">Pass</td></tr>
 <tr><td>Upper return, unseen scale</td><td>0.302809</td><td class="ok">Pass</td></tr>
 <tr><td>Underturn attachment</td><td>0.428036</td><td class="ok">Pass</td></tr>
 <tr><td>Overturn attachment</td><td>0.218426</td><td class="ok">Pass</td></tr>
-<tr><td>Compound attachment</td><td>0.316542</td><td class="fail">Image benefit passes; subdivision motion FAIL</td></tr></table>
-<p>These are measured synthetic losses, not artistic-quality ratings. Both compound family-local ratios still pass: upper 0.303233, lower 0.327130. Independent evaluation uses 1836 renders, including all first/replay work, and zero optimization. All 37 non-wall artifacts per seed replay byte-for-byte from a clean checkout. Candidate files remain byte-identical to the original selection.</p>
+<tr><td>Compound attachment</td><td>0.316542</td><td class="ok">Image and subdivision motion pass</td></tr></table>
+<p>These are measured synthetic losses, not artistic-quality ratings. Compound family-local ratios remain upper 0.303233 and lower 0.327130. The successful evaluation uses 2562 renders, including replay; the retained adapter stop adds 972. Cumulative per-seed use is 1178 renders, within the original 5000 cap. Zero optimization. All 40 non-wall artifacts per seed replay byte-for-byte; candidate files are byte-identical to the original selection.</p>
+<h2>The original six remain shared and unchanged</h2>
+<figure><a href="tangent_evaluation/run-002/seed-7/first/original-six-gallery.png"><img src="tangent_evaluation/run-002/seed-7/first/original-six-gallery.png" alt="Unchanged stem, rise, bowl, turn, loop and exit: sampled and actual under repaired timing"></a><figcaption>Fresh original baseline plus 51 new-mode motion executions pass before return evaluation. These are existing synthetic primitives, not a complete historical inventory.</figcaption></figure>
 <figure><img src="primitives/run-002/seed-7/ports.svg" alt="Frozen initial, independent target and fitted returns with fixed entry and exit direction arrows"><figcaption>Saved control geometry: endpoints and direction rays are fixed; only the two handle lengths change. No image retouching or new tool behavior.</figcaption></figure>
-<h2>Next: fix the direction at subdivision seams</h2>
-<p>The elapsed curve-derived clock is stable. The remaining spike comes from desired direction derived from separate chord approximations on either side of an equivalent cubic seam. The proposed repair uses validated source-curve derivatives without moving geometry, dropping samples, weakening acceleration limits or refitting candidates. It requires fresh current-code baseline and independent acceptance before CURRICULUM-011 may fit gestures.</p>
-<ul><li><a href="primitive_evaluation/README.md">Independent evaluation, budgets, samples and replay</a></li>
+<h2>Next: learn shared gesture constructions</h2>
+<p><strong>CURRICULUM-011</strong> can now freeze the new independent report and required primitive inventory, then learn shared underturn, overturn and compound constructions with the primitives and tool fixed. Its runner must use <strong>curve-tangent-v1</strong>; the legacy reader/timing is not covered by this pass. Gesture fitting, learned letters/words, dynamic pen actions, historical handwriting and fatigue remain separate, unexecuted work.</p>
+<ul><li><a href="tangent_evaluation/README.md">Current repair, evaluation, budgets and samples</a></li>
+<li><a href="tangent_evaluation/run-002/S1-primitives.json">Passing new-mode S1 decision and artifact identities</a></li>
+<li><a href="tangent_evaluation/run-002/seed-7/first/local-controls.png">Independent adversarial guard sheet</a></li>
+<li><a href="tangent_evaluation/run-002/seed-19/first/practice-sheet.png">Current seed 19 sheet</a></li>
+<li><a href="tangent_evaluation/run-002/seed-41/first/practice-sheet.png">Current seed 41 sheet</a></li>
+<li><a href="primitive_evaluation/README.md">Retained earlier independent failure and diagnosis</a></li>
 <li><a href="primitive_evaluation/diagnosis.md">Exact failing samples and bounded repair proposal</a></li>
 <li><a href="primitive_evaluation/run-001/S1-primitives.json">Failed S1 decision and complete artifact identities</a></li>
 <li><a href="primitive_evaluation/run-001/seed-7/first/local-controls.png">Independent connector, terminal and counter guards</a></li>
-<li><a href="primitive_evaluation/run-001/seed-19/first/practice-sheet.png">Fresh seed 19 sheet</a></li>
-<li><a href="primitive_evaluation/run-001/seed-41/first/practice-sheet.png">Fresh seed 41 sheet</a></li>
+<li><a href="primitive_evaluation/run-001/seed-19/first/practice-sheet.png">Earlier failed seed 19 sheet</a></li>
+<li><a href="primitive_evaluation/run-001/seed-41/first/practice-sheet.png">Earlier failed seed 41 sheet</a></li>
 <li><a href="primitives/README.md">Prior learning protocol, result and replay</a></li>
 <li><a href="primitives/measurement-request.md">Approved and executed no-refit measurement</a></li>
 <li><a href="primitives/measurement/run-001/report.json">Full-frame report</a></li>

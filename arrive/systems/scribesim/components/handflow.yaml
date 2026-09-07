@@ -13,6 +13,8 @@ selectors:
     - "tests/test_handflow_reentry.py"
     - "tests/test_handflow_corner_timing.py"
     - "tests/test_handflow_curve_clock.py"
+    - "tests/test_curve_tangents.py"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/**"
   build_modules: []
   tags: []
@@ -25,6 +27,7 @@ interfaces:
   - "Opt-in braked-air-v1 plan retiming with source-owner mapping, prescribed pen-up braking/rest arrival and analytic contact clock; fixed-tool scope only."
   - "Opt-in corner-time-v1 shared contact timing from compiled corner/smooth ports and cubic curvature; corner rest without lift, unchanged tool/geometry, bounded desired acceleration and retained air braking."
   - "Opt-in curve-time-v1 uses bounded cubic arc integration and validated source-parameter provenance for sampling-independent contact timing; retains corner/air policies and every source geometry sample."
+  - "Opt-in curve-tangent-v1 derives physical velocity direction from validated source cubic derivatives, preserving input contact geometry and reusing the curve clock/corner/air policy; stationary derivatives and owner mismatches fail closed."
   - "Profile activation matrix for reviewed guided rendering (which HandProfile fields materially affect handflow output)"
   - "Planned realized orientation and active-edge state under bounded gesture action tracking"
 

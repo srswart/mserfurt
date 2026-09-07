@@ -1,0 +1,186 @@
+{
+  "advance": "ADV-SS-HANDFLOW-011",
+  "implementation_commit": "571a70da15db2edc75e92c9fd4c69e3d6d476b0c",
+  "evidence_commit": "01e6c1e676011e304761907a8855e12aa9abc6c9",
+  "scope": "Fixed-tool synthetic primitive S1 for curve-tangent-v1 only; no gesture fitting, letters, dynamic actions or real-hand approval",
+  "status": "pass",
+  "S1_accepted": true,
+  "gesture_training_permitted": true,
+  "report_sha256": "e17be78e54d91b73076f17ece07cb6c530f0088ac32bc0e2db76a32ac12ebb89",
+  "spec_sha256": "a31cb39abddda710611b55097725ccbd4f75ebd5bb10648964c38a91a6e11ff1",
+  "execution_version": "curve-tangent-v1",
+  "readiness": {
+    "stage": "S1-foundation-primitives-tangent-v1",
+    "report_sha256": "e17be78e54d91b73076f17ece07cb6c530f0088ac32bc0e2db76a32ac12ebb89",
+    "execution_version": "curve-tangent-v1",
+    "required_families": [
+      "lower-return",
+      "upper-return"
+    ],
+    "gesture_training_permitted": true,
+    "scope": "synthetic fixed-tool shared gestures using curve-tangent-v1 only"
+  },
+  "clean_replay": {
+    "checkout": "571a70da15db2edc75e92c9fd4c69e3d6d476b0c",
+    "hash_seeds": [
+      0,
+      839
+    ],
+    "processes": 6,
+    "byte_identical_non_wall_artifacts_per_seed": 40,
+    "wall_clock_excluded": "execution.json",
+    "successful_manifest_entries_verified": 241,
+    "candidate_files_identical_to_original_selection": true,
+    "prior_handvalidate_failure_unchanged": true,
+    "new_current_code_identities_match": true
+  },
+  "execution": {
+    "ledger": [
+      {
+        "seed": 7,
+        "process": "first",
+        "renders": 427,
+        "cumulative_seed_renders": 751,
+        "cumulative_seed_seconds": 36.98162587499246
+      },
+      {
+        "seed": 7,
+        "process": "replay",
+        "renders": 427,
+        "cumulative_seed_renders": 1178,
+        "cumulative_seed_seconds": 61.01965549995657
+      },
+      {
+        "seed": 19,
+        "process": "first",
+        "renders": 427,
+        "cumulative_seed_renders": 751,
+        "cumulative_seed_seconds": 32.56098012498114
+      },
+      {
+        "seed": 19,
+        "process": "replay",
+        "renders": 427,
+        "cumulative_seed_renders": 1178,
+        "cumulative_seed_seconds": 55.98221816692967
+      },
+      {
+        "seed": 41,
+        "process": "first",
+        "renders": 427,
+        "cumulative_seed_renders": 751,
+        "cumulative_seed_seconds": 31.982277707895264
+      },
+      {
+        "seed": 41,
+        "process": "replay",
+        "renders": 427,
+        "cumulative_seed_renders": 1178,
+        "cumulative_seed_seconds": 55.80858124990482
+      }
+    ],
+    "renders": 2562,
+    "prior_renders": 972,
+    "cumulative_renders": 3534,
+    "optimization_evaluations": 0
+  },
+  "prior_attempt": {
+    "status": "stopped before candidate evaluation",
+    "reason": "Strict generic migration refused crossing-enabled baseline exercise; no admission gate relaxed",
+    "report_sha256": "654e301f9458696465c85d2c2e6a4bf735b5a4aa9240f3a20f2eaf1f8cea734f",
+    "renders_including_replay": 972,
+    "spec": "spec-v1.json"
+  },
+  "revision": {
+    "count": 1,
+    "remaining_automatic_retries": 0,
+    "scope": "Prove exact single-occurrence compiled baseline equivalence and debit retained budget; no tangent/controller/geometry/threshold change"
+  },
+  "tests": {
+    "initial_red_commit": "715711c",
+    "initial_observed_red": 14,
+    "revision_red_commit": "ea3f1f8",
+    "revision_observed_red": 7,
+    "new_tests_passed": 27,
+    "new_test_seconds": 15.43,
+    "focused_before_adapter_revision": {
+      "passed": 67,
+      "seconds": 16.53
+    },
+    "initial_expanded_local": {
+      "passed": 206,
+      "failed": 12,
+      "seconds": 46.52
+    },
+    "prechange_clean_baseline": {
+      "commit": "ee46c8a",
+      "passed": 190,
+      "failed": 12,
+      "seconds": 40.42
+    },
+    "final_expanded_clean": {
+      "commit": "01e6c1e676011e304761907a8855e12aa9abc6c9",
+      "passed": 217,
+      "failed": 12,
+      "seconds": 56.32,
+      "hash_seed": 839
+    },
+    "identical_preexisting_failure_ids": [
+      "tests/test_handflow.py::test_desired_velocity_affects_acceleration",
+      "tests/test_gesture_learning.py::test_shared_composition_is_fitted_without_mutating_primitives_profiles_or_letters",
+      "tests/test_gesture_learning.py::test_test_images_cannot_select_the_checkpoint",
+      "tests/test_gesture_learning.py::test_budget_exhaustion_does_not_create_an_accepted_candidate",
+      "tests/test_gesture_learning.py::test_fixed_ablation_is_a_baseline_not_learning_and_output_is_immutable",
+      "tests/test_handvalidate_gestures.py::test_training_reconstructs_and_rejects_stale_artifacts",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[detached]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[recipe]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[profile]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[out-of-grid]",
+      "tests/test_handvalidate_gestures.py::test_trace_audit_checks_actual_contact_and_contributors_not_summary",
+      "tests/test_handvalidate_gestures.py::test_independent_replay_does_not_optimize_or_hide_endpoint_failure"
+    ]
+  },
+  "governance": {
+    "plan_check": "pass",
+    "changed_local_links_checked": 207,
+    "missing_local_links": 0,
+    "artifact_doctor_before": {
+      "scanned": 205,
+      "issues": 10,
+      "fixable": 0,
+      "fixed": 0,
+      "remaining_errors": 10
+    },
+    "artifact_doctor_after": {
+      "scanned": 206,
+      "issues": 10,
+      "fixable": 0,
+      "fixed": 0,
+      "remaining_errors": 10
+    },
+    "doctor_issues_unchanged": true,
+    "stale_generated_rules": 0,
+    "git_diff_check": "pass",
+    "strict_pr_check": {
+      "ids": [],
+      "title_ids": [],
+      "body_ids": [],
+      "label_ids": [],
+      "warnings": [
+        "no advance id found in title, body, or labels"
+      ],
+      "provider_status": null,
+      "ci_evidence_recorded_for": null
+    },
+    "strict_pr_limitation": "Installed parser returns ids=[] for ADV-SS-HANDFLOW-011; not a successful strict gate or provider CI",
+    "provider_ci_claimed": false,
+    "human_appearance_approval": false
+  },
+  "visual_validation": {
+    "practice_sheet": "Inspected native PNG: all five full-frame fixture rows PASS",
+    "original_six_gallery": "Inspected native PNG: all six distinct sampled/actual families, no retouching",
+    "browser_verification_performed": false
+  },
+  "replay_command": ".venv/bin/python -m scribesim.handvalidate.tangent_evaluation --output /tmp/tangent-replay-new",
+  "next": "CURRICULUM-011 remains planned/unexecuted; freeze exact admitted report/inventory and use curve-tangent-v1 for bounded shared-gesture learning"
+}

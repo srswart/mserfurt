@@ -43,6 +43,7 @@ Existing components remain incubating. No separate renderer/controller or new co
 
 - [ADV-SS-HANDVALIDATE-015](ADV-SS-HANDVALIDATE-015.md)
 - [ADV-SS-GESTURE-002](ADV-SS-GESTURE-002.md)
+- [ADV-SS-HANDFLOW-011](ADV-SS-HANDFLOW-011.md)
 
 Plan dependencies order work, not runtime admission. Consume only matching,
 independently validated layer/tool/code identities. Real fitting additionally
@@ -54,7 +55,7 @@ test isolation are not repaired by this synthetic phase.
 - [ ] branch: confirm implementation/commit/merge authorization and preserve unrelated work.
 - [ ] tidy: assess narrow preparation; commit any required behavior-preserving refactor separately.
 - [ ] test: commit failing behavioral tests before implementation when commits are authorized; planning-only edits do not claim TDD execution.
-- [ ] Require a live matching HANDVALIDATE-015 primitive pass, repaired execution and the audited grammar. Freeze every primitive curve and fixed action/tool parameter before gesture optimization.
+- [ ] Require the live matching HANDFLOW-011 no-refit reevaluation pass, repaired execution and audited grammar. Freeze report SHA `e17be78e54d91b73076f17ece07cb6c530f0088ac32bc0e2db76a32ac12ebb89` through `scribesim.handvalidate.tangent_evaluation.require_readiness`, explicitly declare required families and execute `curve-tangent-v1`. The retained HANDVALIDATE-015/legacy reader cannot admit this mode. Freeze every primitive curve and fixed action/tool parameter before gesture optimization.
 - [ ] Predeclare required underturn, overturn and compound constructions with independent synthetic targets and train/development/held-out topology or attachment pairings. Do not treat the old supplied i/u recipes as learned letters.
 - [ ] Fit only shared gesture reference choices and audited attachment/placement transforms. No primitive refitting, per-letter residuals, profile activation, hidden finishing pass, context learning or expanded-cap bypass.
 - [ ] Run seeds 7/19/41 and at most three ablations within fixed budgets. Include fixed and placement-only controls; development selects before held-out scoring. A representable exact-grid target or scale-only transfer is insufficient evidence.
@@ -113,4 +114,3 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
-

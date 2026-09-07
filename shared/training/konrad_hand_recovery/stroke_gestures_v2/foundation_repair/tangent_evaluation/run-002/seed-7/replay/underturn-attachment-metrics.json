@@ -1,0 +1,237 @@
+{
+  "id": "underturn-attachment",
+  "fixture": {
+    "id": "underturn-attachment",
+    "topology": [
+      "stem",
+      "lower-return",
+      "rise"
+    ],
+    "scale": 1
+  },
+  "full": {
+    "before": 0.015538656527249685,
+    "after": 0.006651096669374494,
+    "ratio": 0.4280355034369066,
+    "passed": true
+  },
+  "families": {
+    "lower-return": {
+      "before": 0.026185390858607428,
+      "after": 0.01121959575196985,
+      "ratio": 0.42846775946755994,
+      "passed": true,
+      "regions_mm": {
+        "loss": [
+          -0.875,
+          2.8000000000000003,
+          8.25,
+          11.75
+        ],
+        "blank": [
+          0.7000000000000001,
+          1.05,
+          9.02,
+          9.37
+        ]
+      },
+      "blank_fractions": {
+        "target": 0.0,
+        "nominal": 0.0,
+        "base": 0.0,
+        "arc": 0.0,
+        "time": 0.0,
+        "subdivision": 0.0
+      },
+      "blank_pass": true
+    }
+  },
+  "audits": {
+    "base": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "arc": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "time": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    },
+    "subdivision": {
+      "errors": 0,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2"
+      ]
+    }
+  },
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "endpoint_mm": 0.0009426159747802261,
+      "event_time_s": 0.0,
+      "image_loss": 0.0,
+      "pass": true
+    },
+    "time": {
+      "owner_match": true,
+      "endpoint_mm": 1.738052129208186e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.002514030320729322,
+      "pass": true
+    },
+    "subdivision": {
+      "owner_match": true,
+      "endpoint_mm": 3.7145434796093056e-07,
+      "event_time_s": 1.5543122344752192e-15,
+      "image_loss": 0.0,
+      "pass": true
+    }
+  },
+  "motion": {
+    "base": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279477,
+        "executed_time_s": 1.5640262162279477,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298605754121009,
+        "retiming_delta_s": 0.7341656408158468,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005460144849152616,
+        "image_loss": 0.005203285211447229,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.47885320866726,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.05743729045675,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980499,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "arc": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279477,
+        "executed_time_s": 1.5640262162279477,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298658930498535,
+        "retiming_delta_s": 0.7341603231780942,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.0028346370960969872,
+        "image_loss": 0.004688869969630354,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 140.1738097961052,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.07521770873699,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980499,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "time": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279477,
+        "executed_time_s": 1.5640262162279477,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298605754121009,
+        "retiming_delta_s": 0.7341656408158468,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.0055106144471712476,
+        "image_loss": 0.005191764436413611,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 148.72885317733403,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.05743729045675,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980499,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    },
+    "subdivision": {
+      "metrics": {
+        "planned_time_s": 1.5640262162279461,
+        "executed_time_s": 1.5640262162279461,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 0.8298622636433075,
+        "retiming_delta_s": 0.7341639525846386,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005460229430628666,
+        "image_loss": 0.005203285211447229,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.47903987828602,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 125.05743445515233,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 6.589265017980506,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "passed": true
+    }
+  },
+  "empty_control_loss": 1.0,
+  "footprint_contained": true,
+  "shared_parameter_propagation": true,
+  "passed": true,
+  "execution_version": "curve-tangent-v1"
+}

@@ -1,0 +1,247 @@
+{
+  "spec": {
+    "schema_version": "foundation-tangent-evaluation-v1",
+    "advance": "ADV-SS-HANDFLOW-011",
+    "authorization": "User requested repairing curve-tangent continuity, then reevaluating frozen candidates; established update and merge workflow applies.",
+    "execution_version": "curve-tangent-v1",
+    "scope": "Opt-in physical source-derivative velocity directions with existing curve-time-v1 clock, event-time-v2 controller and fixed tool. No renderer/controller fork, fitting, candidate selection, default promotion, letters, actions or real-hand acceptance.",
+    "prior_report_sha256": "e779c923379db352b43fa9dc3aa8edc5c967170116404fa2c4e79b2bba2f31b9",
+    "allowed_changed_historical_code": [
+      "scribesim/handvalidate/foundation_primitives.py"
+    ],
+    "compatibility": "All frozen learning/measurement/model/compiler/controller/tool/target identities must still match the original reader. The prior independent evaluator may add explicit opt-in execution dispatch only; its legacy defaults and failed run stay unchanged. New planner, execution adapter and evaluator are separately identified. Fresh baseline and full motion proofs under the new mode are required, not inferred from old admission.",
+    "repair": "Validate complete source provenance with the unchanged curve clock before deriving physical cubic directions. Preserve every source contact position, owner, pressure, angle and speed schedule. Reuse the existing corner/rest and lifted braking policy with corrected departure direction. Stationary derivative/cusp or nonfinite/unknown/mismatched provenance fails closed, never guessed or snapped. Legacy functions unchanged.",
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "max_renders_per_seed_including_replay": 5000,
+    "max_seconds_per_seed_including_replay": 1800,
+    "max_diagnosed_reruns": 1,
+    "optimization_evaluations": 0,
+    "criteria": "Retain every primitive_evaluation/spec-v1 criterion and all existing foundation-motion-v5 gates: desired acceleration <=250mm/s2, actual <=500mm/s2, zero contact/owner/text/projection errors, <=0.1ms event-time drift, <=0.01mm endpoint drift, <=0.03 refinement loss. No post-result threshold changes.",
+    "proofs": "Each first/replay worker reruns original-six nominal/actual baseline, then fresh new-mode six-family actual subdivision/density/time proofs and all six existing motion fixtures plus fixed physical bridge. Independently reevaluate all five held-out return fixtures, every required family and seven adversarial controls. Split every cubic, not just stem. Full frame and targets unchanged. Include all setup/proof/control/presentation renders in shared seed allowance.",
+    "replay": "Fresh first/replay processes use hash seeds 0 and 839; compare every non-wall artifact byte-for-byte. Preserve stopped attempts. No optimizer calls or hidden refitting. Report cumulative first/replay render/time use per seed.",
+    "readiness": "Explicit S1-foundation-primitives-tangent-v1 reader requires consumer-pinned report SHA, matching current identities and complete replay/artifact/numeric gates plus fresh new-mode motion baseline. Legacy S1 cannot admit this mode. Only matched original-six and lower/upper returns can feed bounded fixed-tool shared-gesture learning. Consumer must execute curve-tangent-v1, not silently fall back to legacy timing."
+  },
+  "primitive_criteria": {
+    "schema_version": "independent-foundation-primitives-v1",
+    "advance": "ADV-SS-HANDVALIDATE-015",
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "measurement_report_sha256": "2ac6acc9b0e0767b020d5f7cca34851c47f431ffab454655ebd10b4a638853a0",
+    "historical_tool_report_sha256": "5a4914e308a5e34b9b9c6fab14e15859ee733b09b055311291e686ee429c09ed",
+    "frame_mm": [
+      -2,
+      9,
+      3,
+      16
+    ],
+    "dpi": 180,
+    "presentation_dpi": 900,
+    "max_renders_per_seed_including_replay": 5000,
+    "max_seconds_per_seed_including_replay": 1800,
+    "max_diagnosed_reruns": 1,
+    "optimization_evaluations": 0,
+    "independence": "Fresh first/replay worker processes reconstruct the frozen candidate, original baseline, analytic target, supplied probes, controller trajectory, retimed plan and exact owner map. Never call learning search, fit_seed, build, execute_fixture, measure_fixture or reuse saved training motion metrics as evaluation results. Reuse existing compiler/controller, renderer, pure crop/containment and stroke_loss only.",
+    "targets": "Read contract spec-v1 endpoint/ray and analytic target parameters. Independently evaluate expanded cubic Hermite basis plus signed sine-squared vertical bulge and attach frozen old-six curves by endpoint translation. No candidate controls or grammar feed the target generator. Keep all five learning held-out fixture definitions and scales unchanged.",
+    "baseline": "Before extension proofs in each first/replay worker, verify pinned lineage and current motion admission; rerender/recompute original independent synthetic baseline through foundation_motion.revalidate_baseline with the shared seed budget. No old hash edits or model fitting.",
+    "refinements": [
+      {
+        "id": "base",
+        "step": 0.025,
+        "dt": 0.002
+      },
+      {
+        "id": "arc",
+        "step": 0.0125,
+        "dt": 0.002
+      },
+      {
+        "id": "time",
+        "step": 0.025,
+        "dt": 0.001
+      },
+      {
+        "id": "subdivision",
+        "step": 0.025,
+        "dt": 0.002
+      }
+    ],
+    "subdivision": "Independently De Casteljau split every cubic of every used primitive, including lower/upper returns, in an isolated v2 execution copy. Do not use the prior stem-only subdivision helper or change the saved fitted model. Check equivalence and preserve occurrence ownership.",
+    "criteria": {
+      "heldout_ratio": 0.75,
+      "actual_desired_loss": 0.35,
+      "corridor_mm": 0.25,
+      "refinement_loss": 0.03,
+      "endpoint_mm": 0.01,
+      "event_time_s": 0.0001,
+      "local_blank_fraction": 0.01,
+      "global_negative_minimum": 0.1,
+      "owner_contact_text_errors": 0,
+      "duration_error_s": 1e-10
+    },
+    "regions": "Keep the predeclared learning physical family-local loss and blank boxes, reconstructing their origins independently from target endpoints. Reject clipped contact footprints and out-of-frame regions. Report before/after and blank occupancy per family, fixture and seed; full-image averages cannot conceal an absent family.",
+    "control_ids": [
+      "wrong-port",
+      "wrong-direction",
+      "detached-geometry",
+      "hidden-lift",
+      "painted-air-connector",
+      "extra-contributor",
+      "erased-counter"
+    ],
+    "controls": {
+      "wrong-port": "Move each return entry handle horizontally by 0.10 x-height; require foundation model validation rejection before admission.",
+      "wrong-direction": "Reverse each return entry handle through its fixed endpoint; require model rejection.",
+      "detached-geometry": "Offset the supplied underturn return attachment by 0.10 x-height; require continuous-port rejection. Also shift a realized trace point by 0.5mm; independent corridor/trajectory audit must reject.",
+      "hidden-lift": "Set a middle contact trace sample to air without changing the recomputed plan; exact owner/contact audit must reject, regardless of global image difference.",
+      "painted-air-connector": "Use a declared lifted lower-return pair at offsets [0,0] and [1.2,0]. Flip air samples to contact with pressure0.5; recomputed owner/contact audit must reject. The unmodified guard must pass.",
+      "extra-contributor": "Append an exactly overlapping trace contributor with an undeclared occurrence ID; exact owner/order/trace audit must reject even if pixels are identical.",
+      "erased-counter": "Rerun the independent analytic tool oracle's fixed terminal/connector/circle fixtures with its predeclared blank/counter regions. Fill the radius0.45 counter; local ink fraction >0.01 must detect it. This is a guard test, not learned closed-counter or letter acceptance."
+    },
+    "global_control_scope": "Preserve the original 0.1 global minimum and historical hidden-connector/extra-terminal failures verbatim. Global scores remain diagnostic for localized topology changes: predeclared exact contact/owner/port rejection and independent local blank/counter probes are the required replacement, because aggregate disagreement cannot detect an exactly overlapping extra owner. Never relabel a below-0.1 global score as passing or lower its threshold.",
+    "presentation": "Save target/initial/candidate/sampled/actual full-frame 900-DPI sheets and local-control sheet; charge all renders, setup, control, refinement and presentation work to the shared first-plus-replay per-seed allowance. No image retouching or new renderer.",
+    "readiness": "Explicit S1-foundation-primitives-v1 reader requires the consumer to freeze an expected report SHA, checks current code/spec/source/artifact identities, matching first/replay content and recomputed complete decision. Only matched original-six plus lower/upper returns may feed bounded fixed-tool shared-gesture learning. No dynamic-action, letters, real-source, fatigue or historical approval.",
+    "missing_inventory": [
+      "opposite bowl",
+      "lower loop",
+      "closed-counter letter attachment",
+      "learned letters and words",
+      "real historical hand"
+    ]
+  },
+  "motion_criteria": {
+    "schema_version": "foundation-motion-v5",
+    "scope": "User-authorized geometry-derived arc clock: one shared candidate, no fitting or automatic revision",
+    "authorization": "User: incorporate the suggested clock fix and rerun to make sure it worked; prior complete-and-merge instruction applies to HANDFLOW-010 only on full acceptance.",
+    "allowance": "authorized-arc-clock-followup-001",
+    "saved_candidate": "gestures/run-002/candidate.json",
+    "saved_candidate_sha256": "84a311b2c17135bc6cd4bc0bd808e3eaa5dffd5109c86ea5172d3b2693db823e",
+    "fixture_families": [
+      "continuous",
+      "separated",
+      "coincident-overlap",
+      "word-space",
+      "saved-u",
+      "saved-i-u"
+    ],
+    "fixture_labels": {
+      "continuous": "One stem + terminal",
+      "separated": "Two lifted repeats",
+      "coincident-overlap": "Overlaid repeats",
+      "word-space": "One + two, with gap",
+      "saved-u": "Frozen paired scaffold",
+      "saved-i-u": "Frozen gapped scaffold"
+    },
+    "execution_versions": [
+      "legacy-v1",
+      "curve-time-v1"
+    ],
+    "criteria": {
+      "endpoint_mm": 0.01,
+      "event_time_s": 0.0001,
+      "duration_s": 1e-10,
+      "convergence_loss": 0.03,
+      "actual_loss": 0.35,
+      "corridor_mm": 0.25,
+      "owner_errors": 0,
+      "arrival_speed_mm_s": 0.5,
+      "arrival_position_error_mm": 0.05,
+      "desired_acceleration_mm_s2": 250,
+      "corner_speed_mm_s": 0.5,
+      "corner_position_error_mm": 0.05
+    },
+    "candidate": "Existing event-time-v2 controller and gesture-arc-v3 boundary geometry. Shared planner divides each contact run only at declared corner ports; smooth joins retain continuous motion. Each section has an analytic arc-distance acceleration clock at 125mm/s2, with rest at entry, exact corners and the existing final stop. Its speed ceiling is min(12,sqrt(62.5/(1.05*maximum cubic curvature))). Maximum curvature uses cubic derivative polynomial stationary roots, independent of guide sampling and exact cubic subdivision. Reserve normal/tangential acceleration headroom under the independently checked 250mm/s2 desired and unchanged 500mm/s2 actual limits. Preserve all contact source samples and owners; retain braked-air-v1 lifted braking/quintic travel. Contact rest instants enter the existing global clock without dwell, lift or pose reset. No per-letter tuning. Replace sampled chord sums used by the contact clock with integrals of cubic derivative magnitude. Preserve source sample positions and tangents exactly; opt-in metadata records the originating cubic and parameter, including the existing 256-chord interpolation representation for gesture-arc-v3. Validate reconstruction, owner continuity, monotonic progress and complete endpoints before timing. No nearest-point matching across loops/overlaps. Keep the previous speed/acceleration policy and air braking without tuning.",
+    "timing_contract_change": "Explicit curve-time-v1 timing; corner-time-v1 and legacy defaults remain available unchanged. Cubic arc length uses deterministic adaptive 16/32-point Gauss-Legendre quadrature, 1e-10 mm absolute estimated error per partial/complete integral, maximum depth 12 and 4096 panels per integral, fail closed on exhaustion. Source curve parameters eliminate a separate inverse search. Analytic contact events use complete curve integrals rather than sampled chords; guide geometry and the path-distance diagnostic field remain unchanged. Predeclared unit checks use analytic lines, independently high-order quadrature, exact subdivisions, partial-length additivity, malformed provenance and repeated saved-fixture timing. Frozen 0.1ms event-time and all existing motion gates unchanged.",
+    "dt_s": [
+      0.002,
+      0.001
+    ],
+    "arc_step_mm": [
+      0.025,
+      0.0125
+    ],
+    "settle_time_s": 0,
+    "tool": {
+      "width_mm": 0.45,
+      "angle_deg": 40,
+      "pressure": 0.5,
+      "speed_mm_s": 12,
+      "footprint": "legacy-full-edge",
+      "session_effects": false
+    },
+    "physical_fixed_bridge": "Separate physical-edge-v1 fixed-profile i u replay, including air arrival and realized acceleration checks; no S1-action acceptance",
+    "frame_mm": [
+      -2,
+      16,
+      3,
+      13
+    ],
+    "dpi": 180,
+    "presentation_dpi": 900,
+    "presentation_frame_mm": [
+      -0.8,
+      11,
+      5.5,
+      10.9
+    ],
+    "primitive_frame_mm": [
+      -2,
+      5,
+      4,
+      11
+    ],
+    "presentation": "Rerender the saved geometric/actual samples at native 900 DPI, then downsample with Lanczos only. Do not enlarge 180 DPI evaluation pixels. Presentation images do not replace evaluation or manufacture new geometry. Show all six existing primitives separately from repeated stem-terminal motion fixtures.",
+    "max_renders": 500,
+    "max_seconds": 1800,
+    "max_revisions": 0,
+    "optimization_evaluations": 0,
+    "baseline": "Read-only original-target/three-seed nominal checks unchanged; actual six-family checks use opt-in source-parameter metadata and curve-time-v1. No historical freeze/hash edits or fitting."
+  },
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+    "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+    "scribesim/curriculum/foundation_measurement.py": "9845b93615fda56aa9539a9c378f3cb645aa6e150b19993c0e5908c7e3d1249a",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/measurement-spec-v1.json": "5fc3ef310fe6fa8c65d94d8000ce6ac19ca342989cf67c5d6c20e1b0cb14d25c",
+    "scribesim/handvalidate/foundation_primitives.py": "c6bd9526d8f75b7b8c7975e51674ad5c38f227244e00fca6280e820573aa4411",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/spec-v1.json": "e92dd81238e0a0ffcf473c2999e7e59d7881f15a04000d17db65558f64466af5",
+    "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/spec-v1.json": "5fbc75684f549535f5471e39e1090f23be58046b7898110ed1aef5c2253a9df2",
+    "scribesim/handvalidate/tangent_evaluation.py": "c8c49a6f39e261ca4636b3290a1de8ad45e83aca9558b1b871027893cdb9588a",
+    "scribesim/handvalidate/tangent_motion.py": "87a05731b62d58dad8821d4802b2804dae0cc427185b2034b3ea47ba16920b3a",
+    "scribesim/handflow/curve_tangents.py": "7595a900f29e93ab8b558fe640b305eb34d1cd441a21dbe4b7680f13b00d75ee",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v1.json": "4f49543a4ccc17925585208cb8d6c4f0bdfed9ccee14436c21d6eaa222093d71"
+  },
+  "prior_report_sha256": "e779c923379db352b43fa9dc3aa8edc5c967170116404fa2c4e79b2bba2f31b9"
+}

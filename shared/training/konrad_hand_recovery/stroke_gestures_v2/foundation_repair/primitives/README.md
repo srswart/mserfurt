@@ -45,10 +45,12 @@ unchanged; the full-frame runner rejects clipped contact footprints or local reg
 [independently evaluated all three candidates](../primitive_evaluation/README.md).
 It reproduces the image benefits and detects the required adversarial controls,
 but all-cubic subdivision exposes a compound desired-acceleration failure.
-The older helper split only the stem, not the new returns. S1 and gesture-fitting
-permission remain false pending source-tangent repair and refreshed independent
-admission. No learned alphabet, historical accuracy or human appearance approval
-is claimed here.
+The older helper split only the stem, not the new returns. The subsequently
+authorized [HANDFLOW-011 repair and no-refit reevaluation](../tangent_evaluation/README.md)
+now pass with the same candidates and explicit `curve-tangent-v1` admission.
+CURRICULUM-011 can freeze that gate for shared-gesture learning; old failed S1
+artifacts stay unchanged. No learned alphabet, historical accuracy or human
+appearance approval is claimed here.
 
 ```sh
 PYTHONHASHSEED=839 /absolute/path/to/.venv/bin/python -m scribesim.curriculum.foundation_measurement --output /tmp/return-measurement-new
