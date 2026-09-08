@@ -1,0 +1,116 @@
+{
+  "changed_letters": [
+    "n",
+    "u",
+    "m"
+  ],
+  "all_changed_rows_share_identity": true,
+  "substitution_admitted": false,
+  "bindings": {
+    "n": [
+      {
+        "gesture": "stem",
+        "gesture_index": 0,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": []
+      }
+    ],
+    "u": [
+      {
+        "gesture": "underturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "underturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "underturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "stem",
+        "gesture_index": 1,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": []
+      }
+    ],
+    "m": [
+      {
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": []
+      },
+      {
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": []
+      }
+    ]
+  },
+  "scope": "Negative structural expansion probe only; mutated primitive is never rendered or admitted"
+}

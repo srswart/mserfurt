@@ -83,6 +83,10 @@ refinements and five controls pass. Each seed replays 22 non-clock artifacts.
 The published report hash is
 `14a8ded4d6e29be259ff1dcb4c04607c44f5e7a5a9eb61727e0869150eb7dee0`.
 The reader returns accepted stem/fixed-null scope, with S2 and real false.
+Completion `ab703f8` merged locally into `master` as `99b58c4`. The next assembly
+runner consumes the literal published stem-report hash, not a completed-status
+shortcut. Strict local PR metadata check retains the installed `ids=[]` parser
+limitation; plan/rules/whitespace checks pass. No push or provider CI claim.
 Reviewability Red 110 is dominated by the inseparable replay manifest; tests,
 runtime and evidence are separate commits. No pinned old runtime changes.
 

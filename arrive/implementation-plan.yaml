@@ -1725,12 +1725,12 @@ passes:
     - id: ADV-SS-CURRICULUM-014
       advance_id: ADV-SS-CURRICULUM-014
       title: "Letter Assembly — Baseline and X-height Compatible Gesture Transforms"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-005
       - ADV-SS-HANDVALIDATE-019
-      notes: "Whole-gesture chord rotation and exact-extrema uniform normalization; new independently normalized target version, unchanged old artifacts/limits. Keep S2/real/context approval false pending independent new-transform evaluation."
+      notes: "COMPLETE: level shared whole-gesture assembly, no fitting/context/fatigue. All numeric/physical gates pass via explicit read-only adjudication of preserved NumPy/JSON worker/root discrepancy. Worst local loss 0.026245, actual landmark 0.00010830 mm. 768 renders, 256 per seed incl replay, maximum 243.501 seconds; 422 artifacts verified. 112 tests pass, 31 clean-checkout. S2/real/context false pending independent rotated-return evaluation and appearance review."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 10
@@ -1742,7 +1742,7 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-005
-      notes: "CURRICULUM-005 synthetic assembly is not S2 admission; context_training_allowed=false until letter proportions/reading and standalone-stem readiness are resolved. Preserve frozen primitive/gesture/action/letter identities; bounded geometric context does not mutate shared action profiles. No ink depletion, fatigue or session effects."
+      notes: "Context remains unimplemented and context_training_allowed=false. HANDVALIDATE-019 resolves scoped standalone-stem admission; CURRICULUM-014 level assembly still requires independent rotated-return evaluation and human appearance/reading review before S2. Preserve frozen primitive/gesture/action/letter identities. No ink depletion, fatigue or session effects."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
     order: 11

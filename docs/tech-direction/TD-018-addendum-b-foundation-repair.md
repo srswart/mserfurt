@@ -506,3 +506,11 @@ each new actual occurrence needs motion/ownership/tool/shape evidence, not an
 inherited unrotated-action assertion. Synthetic compatibility can pass while
 independent new-transform S2 and human reading remain unresolved. No context,
 fatigue, active nib manipulation, historical fitting or default switch is enabled.
+
+Implemented evidence is published in the [level-assembly results](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/README.md).
+HANDVALIDATE-019 passes its standalone-stem scope. CURRICULUM-014 satisfies the
+declared level/image/physical gates after explicit read-only numeric adjudication
+of a NumPy-versus-JSON decision-type defect; original mixed worker/root receipts
+are preserved. No target, threshold, primitive or candidate is changed by that
+adjudication. Independent rotated-occurrence evaluation and human appearance/
+reading review remain prerequisites to S2; completion does not release context.
