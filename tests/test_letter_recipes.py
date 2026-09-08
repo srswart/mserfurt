@@ -29,8 +29,8 @@ def test_only_second_instance_placement_is_learned():
     fitted = experiment.with_parameters(source(), parameters)
     experiment.require_lineage(fitted, source())
     assert all(fitted[key] == initial[key] for key in initial if key != 'recipes')
-    assert fitted['recipes']['u']['gestures'][1]['offset'] == [1.02, .34]
-    assert initial['recipes']['u']['gestures'][1]['offset'] == [1, 0]
+    assert fitted['recipes']['u']['gestures'][1]['offset'] == [.82, .34]
+    assert initial['recipes']['u']['gestures'][1]['offset'] == [.8, 0]
     assert experiment.compile_recipe('num', fitted, source())['coverage'] == 1
 
 

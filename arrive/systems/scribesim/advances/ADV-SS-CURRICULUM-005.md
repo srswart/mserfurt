@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -77,9 +77,9 @@ an older curriculum's pass summary as evidence of shared-stroke learning.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm authorization before branches or commits.
-- [ ] tidy: assess narrowly required preparation; preserve unrelated work.
-- [ ] test: commit failing behavioral tests before feature implementation when commits are authorized.
+- [x] branch: `advance/ss-curriculum-005` under the standing implement/update/merge authorization.
+- [x] tidy: no preparatory refactor needed; preserve pinned lower-layer source and reports.
+- [x] test: `d7bbf58` records missing-module failure before implementation; 27 behavioral tests now pass.
 - [ ] feat/evaluate: Freeze up to 12 starter lowercase characters from admitted coverage before training; unsupported requested characters fail explicitly. Fit at most two recipes per character from the accepted shared gesture inventory, retaining the matching contract's audited expansion limit. The legacy cap remains four; only an accepted explicit GESTURE-002 contract can introduce a justified cap up to eight. Macros cannot bypass either version's limit.
 - [ ] feat/evaluate: Represent sequence, attachment ports, bounded translation/scale/rotation, lifts, permitted crossings and baseline/x-height/counter constraints explicitly. Do not add independent cubic geometry as a fallback.
 - [ ] feat/evaluate: Keep accepted primitive, gesture and action-profile checkpoints plus tool/controller identities frozen while fitting bounded recipe choices and placements. Optimize from admitted training word/letter evidence with uncertain allocations recorded; development selects the recipe checkpoint. Do not learn new action tracks, hidden finishing passes or session controls at this layer.
@@ -123,6 +123,41 @@ None implemented. This planned Advance addresses the missing layered-learning
 contract, not the later ink or fatigue defects.
 
 ## Changes Made
+
+### 2026-09-08 — feat: freeze bounded synthetic letter scaffolding
+
+Implementation began at 11:48:16 UTC from `51061a1`. The initial opt-in runner,
+tests and specification use existing incubating components, without editing
+the pinned compiler, primitives, gesture/action checkpoint or renderer.
+
+Freeze `n`, `u`, `m` from GESTURE-002's audited construction vocabulary: four,
+four and six expanded references, respectively. One topology per character,
+two explicit lifted gestures; only the second gesture's bounded x/y placement
+may fit. Rotation, scale, advances, crossings, context and all lower layers stay
+fixed. A uniform -0.2 local-x origin is applied to every arm and analytic target
+before rendering so `m` stays within the existing +/-2 reference-offset bound;
+no cap or compiler bound is increased.
+
+HANDVALIDATE-018's live reader verifies the exact underturn/overturn checkpoint.
+Its coverage does not independently admit the standalone stem needed by `n/u`.
+Therefore this is explicitly permitted **synthetic scaffolding with unresolved
+inputs**, not accepted-inventory letter fitting. `m` also needs letter-level
+evaluation even though its two overturn references have scoped null evidence.
+Real-reference mode fails before source pixels: reviewed live G0, real lower
+layers and native letter allocations are not provided.
+
+The frozen experiment has seeds 7/19/41; shared-placement fitting, frozen prior
+recipes, and frozen exact-Unicode catalog independent-form diagnostics. Each
+arm gets the same 5000-render/1800-second ceiling including separate-process
+replay, not padded equal expenditure. The legacy arm is geometry-only, with
+matched tool/frame/layout and no fabricated shared-ownership/controller proof.
+Training/development use isolated observations; transformed repeats and exact
+unseen `nu`, `um`, `mn` strings open only after checkpoint freeze. These are
+transfer probes, not word/context training. Three actual timing/arc refinements
+are measured; no new source-subdivision or counter acceptance is claimed.
+Targets reuse unchanged independent analytic families; 0.05 absolute loss and
+0.75 held-out ratio remain fixed. One separately diagnosed revision is allowed,
+with zero automatic retry. Publish failures and keep S2/real/context flags false.
 
 ### 2026-09-06 — plan: Adopt shared-stroke layered learning
 
