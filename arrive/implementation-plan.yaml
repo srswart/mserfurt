@@ -1731,6 +1731,15 @@ passes:
       - ADV-SS-CURRICULUM-005
       - ADV-SS-HANDVALIDATE-019
       notes: "COMPLETE: level shared whole-gesture assembly, no fitting/context/fatigue. All numeric/physical gates pass via explicit read-only adjudication of preserved NumPy/JSON worker/root discrepancy. Worst local loss 0.026245, actual landmark 0.00010830 mm. 768 renders, 256 per seed incl replay, maximum 243.501 seconds; 422 artifacts verified. 112 tests pass, 31 clean-checkout. S2/real/context false pending independent rotated-return evaluation and appearance review."
+    - id: ADV-SS-HANDVALIDATE-020
+      advance_id: ADV-SS-HANDVALIDATE-020
+      title: "Independent Level-Assembly Validation and Appearance Review"
+      status: in_progress
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-014
+      - ADV-SS-HANDVALIDATE-019
+      notes: "No-refit independent checks of exact rotated returns and level n/u/m recipes; unchanged targets/thresholds, full-frame/local measurements, four refinements, negative controls and bounded replay. Publish guided appearance sheet; owner review and S2/context approval remain separate. No fatigue."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 10
