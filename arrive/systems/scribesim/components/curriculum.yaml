@@ -16,11 +16,13 @@ selectors:
     - "tests/test_foundation_primitives.py"
     - "tests/test_foundation_measurement.py"
     - "tests/test_foundation_gestures.py"
+    - "tests/test_foundation_actions.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/coverage/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/**"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/**"
   build_modules: []
   tags: []
   contracts: []
@@ -33,6 +35,7 @@ interfaces:
   - "Pinned no-refit full-frame measurement of saved candidates and trajectories, with fail-closed footprint and region containment"
   - "Admitted fixed-tool shared gesture attachment learning with independent analytic targets, lifted-pair holdouts, immutable attempts and cap-preserving source-subdivision proofs"
   - "Approved no-refit gesture remeasurement and remaining-seed continuation, preserving diagnostic pen lifts and cumulative interrupted-run budgets"
+  - "Bounded predeclared fixed-tool null experiments with independent absolute target/local quality, preserved candidate bytes, exact contact/tool controls, fresh-process replay and selected-evidence handoff without S1-action admission"
 
 invariants:
   - "A stage cannot advance until its validation gate passes."

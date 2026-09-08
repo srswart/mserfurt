@@ -1,0 +1,16 @@
+
+==================================== ERRORS ====================================
+______________ ERROR collecting tests/test_foundation_actions.py _______________
+ImportError while importing test module '/Users/shawn/Projects/041-mserfurt/tests/test_foundation_actions.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_foundation_actions.py:7: in <module>
+    from scribesim.curriculum import foundation_actions as experiment
+E   ImportError: cannot import name 'foundation_actions' from 'scribesim.curriculum' (/Users/shawn/Projects/041-mserfurt/scribesim/curriculum/__init__.py)
+=========================== short test summary info ============================
+ERROR tests/test_foundation_actions.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 1.06s

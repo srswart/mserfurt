@@ -1,0 +1,42 @@
+{
+  "kind": "predeclared-fixed-null-hypothesis",
+  "model_sha256": "3e4edf22894a6bff740d45e926c1bb76b2bb74b978cf512d84405d5af0b00318",
+  "model_file_sha256": "d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a",
+  "spec_sha256": "d20fb9071edc19757456719db28f7fb7db7da11915215022e6502f7f66e04af3",
+  "action_profile": {
+    "frame": "physical-y-down",
+    "orientation": [
+      [
+        0,
+        40
+      ],
+      [
+        1,
+        40
+      ]
+    ],
+    "edge": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "pressure": 0.5,
+    "speed_mm_s": 12
+  },
+  "required_gestures": [
+    "underturn",
+    "overturn",
+    "compound_curve"
+  ],
+  "selection_method": "One predeclared null hypothesis, frozen before any target access; no ranking, optimization, development selection or held-out substitution. Train/development are diagnostic strata only.",
+  "target_pixels_accessed_at_selection": false,
+  "optimization_evaluations": 0,
+  "S1_action_accepted": false
+}

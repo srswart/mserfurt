@@ -1,5 +1,19 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
+**Latest experiment — CURRICULUM-012 complete, mixed null support:** The three
+frozen seeds execute the predeclared fixed-tool hypothesis without refitting.
+Underturn's worst local actual/target loss is 0.045681; overturn's is 0.100653
+and compound's 0.097080, against the unchanged absolute null limit 0.05.
+The whole-model null remains unsupported, despite valid motion and the earlier
+relative foundation pass. Overturn/compound mismatch is already present in
+nominal geometry; adding dynamic actions is not justified by this result.
+All 88 non-clock worker artifacts replay exactly per seed; 1140 total renders,
+380/5000 per seed, zero optimization or retries. All six declared controls pass,
+without claiming active partial-edge or closed-letter-counter coverage.
+See [null experiment and frozen handoff](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/README.md).
+HANDVALIDATE-017 remains planned: independently confirm scope/diagnosis before
+claiming S1-action/null or proposing further shared-geometry work. Letters remain blocked.
+
 **Status:** All seven original foundation outcomes are complete. HANDVALIDATE-016
 independently accepts the three frozen shared constructions for synthetic
 fixed-tool `curve-tangent-v1` use only. All three seeds pass fresh lower-layer,
@@ -10,8 +24,9 @@ The one diagnosed rerun fixes the illegal-air diagnostic's missing-ID reporting;
 targets, candidate geometry, tool, controller and criteria remain unchanged.
 See [independent results, scope and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/README.md).
 
-This is **eligibility to scope CURRICULUM-012**, not accepted action/null behavior
-or letter readiness. The newly registered HANDVALIDATE-017 must independently
+That foundation pass provided **eligibility to scope CURRICULUM-012**, whose
+results are now recorded above, not accepted action/null behavior or letter
+readiness. HANDVALIDATE-017 must independently
 evaluate selected action/null candidates before CURRICULUM-005 can proceed with
 matching inventory and its other prerequisites. Historical HANDVALIDATE-014
 early-stop completion still does not discharge that work. Prefer a scoped fixed
@@ -78,7 +93,7 @@ experiment or permit later training.
 | 4a | [HANDFLOW-011](../../arrive/systems/scribesim/advances/ADV-SS-HANDFLOW-011.md) | Source-tangent repair plus independent no-refit reevaluation; matching new-mode S1 now passes, legacy failure retained |
 | 5 | [CURRICULUM-011](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-011.md) | Actually learned fixed-tool underturn, overturn and compound constructions using accepted shared primitives |
 | 6 | [HANDVALIDATE-016](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-016.md) | Independent S1-gesture transfer/continuity decision and precise next-experiment eligibility |
-| 7 (planned) | [CURRICULUM-012](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-012.md) | New bounded action/null scope and actual selected-candidate evidence; no legacy action-fitter bypass |
+| 7 (complete) | [CURRICULUM-012](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-012.md) | Measured fixed-tool null: underturn supported, overturn/compound unresolved; no legacy fitter or promotion |
 | 8 (planned) | [HANDVALIDATE-017](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-017.md) | Independent selected-action/null acceptance; newly matching S1-action required before letters |
 
 The two independent evaluation records prevent primitive and gesture fitting
