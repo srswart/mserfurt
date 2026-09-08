@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Level letters — owner appearance review</title>
+<style>
+  :root { color-scheme: light; font-family: system-ui, sans-serif; color: #24313b; background: #faf9f4; }
+  body { max-width: 1120px; margin: 32px auto; padding: 0 22px 48px; line-height: 1.55; }
+  h1, h2, h3 { line-height: 1.2; } h1 { font-size: clamp(28px, 4vw, 42px); }
+  a { color: #245b92; } p { max-width: 95ch; }
+  .notice { padding: 16px 20px; border-left: 5px solid #ac7134; background: #fff0d9; }
+  .controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 12px 0; }
+  button { font: inherit; padding: 9px 16px; color: #fff; background: #264e66; border: 0; border-radius: 6px; cursor: pointer; }
+  button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #bc741a; outline-offset: 3px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  figure { margin: 0; background: #fff; border: 1px solid #ddd8ca; padding: 12px; border-radius: 8px; }
+  figure svg { display: block; width: 100%; height: auto; background: #f5efdc; }
+  figcaption { margin-top: 8px; font-size: 15px; }
+  .guides path { stroke: #377c98; stroke-width: 1; stroke-dasharray: 4 3; }
+  .guides text { fill: #23566e; font: 9px system-ui, sans-serif; paint-order: stroke; stroke: #f5efdc; stroke-width: 2px; }
+  .hide-guides .guides { display: none; }
+  .questions { background: #fff; border: 1px solid #ddd8ca; padding: 16px 22px; }
+  table { width: 100%; border-collapse: collapse; } th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd8ca; }
+  .diagram { width: 100%; height: auto; background: white; }
+  .muted { color: #5b655e; font-size: 15px; }
+  @media (max-width: 650px) { .pair { grid-template-columns: 1fr; } body { padding: 0 14px 30px; } }
+</style>
+</head>
+<body>
+<header>
+<p class="muted">HANDVALIDATE-020 · frozen synthetic n / u / m · no context or fatigue</p>
+<h1>Do these look like the letters we want?</h1>
+<p>The alignment repair levels the construction. This review asks a different question: whether its shapes, slant, proportions and joins match your intended style.</p>
+<p class="notice"><strong>Owner appearance verdict: pending.</strong> A mechanical pass is not approval of these letterforms. The analytic targets on the right are comparison constructions—not historical references or an authoritative style. No S2, context-training or real-hand acceptance is granted here.</p>
+<p><a href="README.md">Protocol and results</a> · <a href="owner-review.json">Pending review record</a> · <a href="run-001/report.json">Mechanical report</a> · <a href="../alignment/run-001/seed-7/first/workbook.png">Earlier before/after workbook</a></p>
+</header>
+<section aria-labelledby="review-heading">
+<h2 id="review-heading">Actual ink beside the unchanged target</h2>
+<p>Blue guides mark <strong>centerline</strong> baseline and x-height, not the edges of the broad nib. All letters use the same physical display scale. Native 900-DPI evidence is linked below each panel.</p>
+<div class="controls">
+  <button id="frame-toggle" type="button" aria-pressed="false">Show whole comparison frame</button>
+  <label><input id="guide-toggle" type="checkbox" checked> Show level guides</label>
+  <span id="view-status" class="muted" aria-live="polite">Detail view for appearance only; measurements use the full frame.</span>
+</div>
+<h3>n — stem → lift → overturn</h3>
+<div class="pair">
+<figure>
+<svg role="img" aria-label="Actual n with baseline and x-height guides" viewBox="20 120 400 210">
+<image href="run-001/seed-7/first/letter-n-actual.png" width="815" height="390"/>
+<g class="guides"><path d="M 0 159.545 H 815 M 0 283.636 H 815"/><text x="275" y="153">x-height 1</text><text x="275" y="298">baseline 0</text></g>
+</svg>
+<figcaption><strong>Actual controller ink.</strong> Four primitive references. <a href="run-001/seed-7/first/letter-n-actual.png">Open full-resolution original</a>.</figcaption>
+</figure>
+<figure>
+<svg role="img" aria-label="Independent synthetic n target with the same level guides" viewBox="20 120 400 210">
+<image href="run-001/seed-7/first/letter-n-target.png" width="815" height="390"/>
+<g class="guides"><path d="M 0 159.545 H 815 M 0 283.636 H 815"/><text x="275" y="153">x-height 1</text><text x="275" y="298">baseline 0</text></g>
+</svg>
+<figcaption><strong>Independent analytic target.</strong> Matching it is not a style verdict. <a href="run-001/seed-7/first/letter-n-target.png">Open original</a>.</figcaption>
+</figure>
+</div>
+<h3>u — underturn → lift → stem</h3>
+<div class="pair">
+<figure>
+<svg role="img" aria-label="Actual u with baseline and x-height guides" viewBox="20 120 400 210">
+<image href="run-001/seed-7/first/letter-u-actual.png" width="815" height="390"/>
+<g class="guides"><path d="M 0 159.545 H 815 M 0 283.636 H 815"/><text x="275" y="153">x-height 1</text><text x="275" y="298">baseline 0</text></g>
+</svg>
+<figcaption><strong>Actual controller ink.</strong> Four primitive references; the left overhang is visible. <a href="run-001/seed-7/first/letter-u-actual.png">Open original</a>.</figcaption>
+</figure>
+<figure>
+<svg role="img" aria-label="Independent synthetic u target with the same level guides" viewBox="20 120 400 210">
+<image href="run-001/seed-7/first/letter-u-target.png" width="815" height="390"/>
+<g class="guides"><path d="M 0 159.545 H 815 M 0 283.636 H 815"/><text x="275" y="153">x-height 1</text><text x="275" y="298">baseline 0</text></g>
+</svg>
+<figcaption><strong>Independent analytic target.</strong> Same target family and version as the alignment run. <a href="run-001/seed-7/first/letter-u-target.png">Open original</a>.</figcaption>
+</figure>
+</div>
+<h3>m — overturn → lift → the same overturn</h3>
+<div class="pair">
+<figure>
+<svg role="img" aria-label="Actual m showing two level arches" viewBox="20 120 400 210">
+<image href="run-001/seed-7/first/letter-m-actual.png" width="815" height="390"/>
+<g class="guides"><path d="M 0 159.545 H 815 M 0 283.636 H 815"/><text x="275" y="153">x-height 1</text><text x="275" y="298">baseline 0</text></g>
+</svg>
+<figcaption><strong>Actual controller ink.</strong> Six primitive references, no hidden seventh stroke. <a href="run-001/seed-7/first/letter-m-actual.png">Open original</a>.</figcaption>
+</figure>
+<figure>
+<svg role="img" aria-label="Independent synthetic m target with level arches" viewBox="20 120 400 210">
+<image href="run-001/seed-7/first/letter-m-target.png" width="815" height="390"/>
+<g class="guides"><path d="M 0 159.545 H 815 M 0 283.636 H 815"/><text x="275" y="153">x-height 1</text><text x="275" y="298">baseline 0</text></g>
+</svg>
+<figcaption><strong>Independent analytic target.</strong> Level arches can still have an unwanted slant or shape. <a href="run-001/seed-7/first/letter-m-target.png">Open original</a>.</figcaption>
+</figure>
+</div>
+</section>
+<section aria-labelledby="questions-heading">
+<h2 id="questions-heading">Your review—not an automatic score</h2>
+<div class="questions">
+<p>For each letter, say <strong>keep</strong> or <strong>repair</strong>, and name the feature that matters:</p>
+<ol>
+<li><strong>Identity:</strong> does it read naturally as the intended n, u or m?</li>
+<li><strong>Slant and proportions:</strong> are the diagonal rises, descending stems and overall width appropriate?</li>
+<li><strong>Turns and joins:</strong> are the arch/return shapes and lifted attachment points intentional-looking?</li>
+<li><strong>Consistency:</strong> do all three look like constructions from the same stroke vocabulary?</li>
+</ol>
+<p>Example feedback: “n: repair the slant; u: keep the turn but narrow it; m: keep the level arches.” This is an example, not a recommended verdict.</p>
+<p>No reference style has been approved in this sheet. If your verdict depends on matching a particular hand, identify that reference before any new geometry or target experiment.</p>
+</div>
+</section>
+<section aria-labelledby="construction-heading">
+<h2 id="construction-heading">Which shared strokes would change?</h2>
+<a href="../alignment/construction-full-frame.svg"><img class="diagram" src="../alignment/construction-full-frame.svg" alt="Numbered n/u/m primitive construction with baseline and x-height guides"></a>
+<p>These are the unchanged frozen candidate's paths. A repair should target a shared stroke or assembly rule, not redraw separate letters or tune the metric to make an unwanted style pass.</p>
+</section>
+<section aria-labelledby="scope-heading">
+<h2 id="scope-heading">What this validation does—and does not cover</h2>
+<table>
+<thead><tr><th>Coverage</th><th>Boundary</th></tr></thead>
+<tbody>
+<tr><td>Exact isolated rotated underturn / overturn</td><td>Base, finer arc, finer time and source-subdivision checks.</td></tr>
+<tr><td>Exact n/u/m plus a placed mu regression</td><td>Base, finer arc and finer time. Whole-letter subdivision exceeds the unchanged reference cap and is not claimed.</td></tr>
+<tr><td>Numerical and physical checks</td><td>Unchanged target version and thresholds; preserved source and replay evidence. See the machine report for the actual outcome.</td></tr>
+<tr><td>Human appearance, historical reading, S2 and context</td><td>Not approved. Fatigue and contextual adaptation remain untouched.</td></tr>
+</tbody>
+</table>
+<p><a href="run-001/seed-7/first/rotated-underturn-actual.png">Isolated rotated underturn</a> · <a href="run-001/seed-7/first/rotated-overturn-actual.png">Isolated rotated overturn</a> · <a href="run-001/seed-7/first/placed-mu-actual.png">Full-frame mu placement regression</a> · <a href="run-001/seed-7/first/controls.json">Negative-control detections</a></p>
+</section>
+<script>
+const frameButton = document.querySelector('#frame-toggle');
+const guideToggle = document.querySelector('#guide-toggle');
+frameButton.addEventListener('click', () => {
+  const whole = frameButton.getAttribute('aria-pressed') !== 'true';
+  frameButton.setAttribute('aria-pressed', String(whole));
+  frameButton.textContent = whole ? 'Show appearance detail' : 'Show whole comparison frame';
+  document.querySelectorAll('figure svg').forEach(panel => panel.setAttribute('viewBox', whole ? '0 0 815 390' : '20 120 400 210'));
+  document.querySelector('#view-status').textContent = whole ? 'Full comparison frame; original evidence pixels are unchanged.' : 'Detail view for appearance only; measurements use the full frame.';
+});
+guideToggle.addEventListener('change', () => document.body.classList.toggle('hide-guides', !guideToggle.checked));
+</script>
+</body>
+</html>
