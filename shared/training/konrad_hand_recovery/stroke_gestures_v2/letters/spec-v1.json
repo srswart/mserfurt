@@ -16,6 +16,7 @@
   "target_second_offsets": {"n": [0.08, 0], "u": [1.02, 0.34], "m": [1.02, 0.34]},
   "constraints": {"scale": 1, "rotation_deg": 0, "crossings": false, "contacts_per_letter": 2, "local_y_bounds": [-0.2, 1.8], "local_x_bounds": [-0.3, 2.8], "counters_required": false},
   "criteria": {"absolute_loss_max": 0.05, "heldout_ratio_max": 0.75},
+  "attachment_gap_max_xheight": 0.13,
   "budget": {"renders_per_ablation_seed_including_replay": 5000, "seconds_per_ablation_seed_including_replay": 1800, "automatic_retries": 0},
   "split_policy": "Isolated train and development observations; transformed isolated repeats and exact unseen two-letter strings opened only after checkpoint freeze. Synthetic targets, not independent handwriting sources.",
   "target_provenance": "Unchanged analytic foundation target families, assembled with predeclared synthetic letter placements. No learned model geometry supplied to target generator. Stem remains diagnostic-only.",

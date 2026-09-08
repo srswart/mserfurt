@@ -97,6 +97,38 @@ def compile_recipe(text, model, source):
     return stroke_gestures.compile_gestures(text, model)
 
 
+def ports(model):
+    result = {}
+    for char in INVENTORY:
+        rows = stroke_gestures.compile_gestures(char, model)['strokes']
+        before = [row for row in rows if row['gesture_index'] == 0][-1]
+        after = next(row for row in rows if row['gesture_index'] == 1)
+        exit_point, entry_point = before['cubics'][-1][-1], after['cubics'][0][0]
+        gap = math.dist(exit_point, entry_point)
+        result[char] = {'exit': exit_point, 'entry': entry_point, 'gap_xheight': gap,
+            'exit_tangent': stroke_language._direction(before['cubics'][-1][-2], exit_point),
+            'entry_tangent': stroke_language._direction(entry_point, after['cubics'][0][1]),
+            'transition': 'lift', 'tangent_matching_required': False,
+            'passed': gap <= SPEC['attachment_gap_max_xheight']}
+    return result
+
+
+def letter_crops(pixels, fixture):
+    left, right, top, bottom = SPEC['frame_mm']
+    height, width = pixels.shape[:2]
+    templates = contract.initial_model()['recipes']
+    result, horizontal = {}, 0.0
+    for index, char in enumerate(fixture['text']):
+        origin = horizontal + SPEC['letter_origin_x'] + fixture['shift'][0]
+        bounds = [(origin - .15) * 3.5, (origin + templates[char]['advance'] + .05) * 3.5]
+        if not left <= bounds[0] < bounds[1] <= right:
+            raise ValueError('Letter-local window falls outside full measurement frame')
+        result[str(index)] = pixels[:, math.floor((bounds[0] - left) / (right - left) * width):
+                                   math.ceil((bounds[1] - left) / (right - left) * width)]
+        horizontal += templates[char]['advance'] + contract.SPEC['baseline']['letter_gap']
+    return result
+
+
 def fixtures():
     rows = []
     for split, shift in [('train', [0, 0]), ('development', [.03, .02]), ('repeat', [-.02, .04])]:
@@ -226,7 +258,11 @@ def measure(model, initial, fixture, budget, directory, *, legacy=None):
     pixels = [budget.render(paint, path) for path in paths]
     before, after = [foundation.stroke_loss(pixels[0], image) for image in pixels[1:]]
     row = {'fixture': fixture, 'before': before, 'after': after, 'ratio': after / before if before else None,
-           'motion': {}, 'actual_target': {}, 'contained': True, 'physical_evaluated': legacy is None}
+           'motion': {}, 'actual_target': {}, 'contained': True, 'physical_evaluated': legacy is None,
+           'ports': ports(model) if legacy is None else None, 'local_actual_target': {}}
+    local_targets = letter_crops(pixels[0], fixture)
+    local_nominal = letter_crops(pixels[2], fixture)
+    row['local_nominal_target'] = {key: foundation.stroke_loss(value, local_nominal[key]) for key, value in local_targets.items()}
     runs = {}
     if legacy is None:
         variant = placed(model, fixture)
@@ -241,6 +277,9 @@ def measure(model, initial, fixture, budget, directory, *, legacy=None):
             row['motion'][label] = {'metrics': run['metrics'], 'audit': audit, 'boundaries': boundaries,
                 'pass': foundation.runtime.passes(run) and audit['errors'] == 0 and foundation.boundaries_pass(boundaries, contacts)}
             row['actual_target'][label] = foundation.stroke_loss(pixels[0], run['images']['actual'])
+            local_actual = letter_crops(run['images']['actual'], fixture)
+            for key, value in local_targets.items():
+                row['local_actual_target'].setdefault(key, {})[label] = foundation.stroke_loss(value, local_actual[key])
             runs[label] = run
         row['comparisons'] = {label: foundation.primitives.motion.compare(runs['base'], runs[label]) for label in ('arc', 'time')}
         row['mechanical_pass'] = all(item['pass'] for item in row['motion'].values()) and all(item['pass'] for item in row['comparisons'].values())
@@ -261,6 +300,13 @@ def evaluation_pass(rows):
     try:
         return ([row['fixture'] for row in rows] == fixtures() and all(
             row['contained'] is True and row['physical_evaluated'] is True and row['mechanical_pass'] is True
+            and all(row['ports'][char]['passed'] is True for char in row['fixture']['text'])
+            and set(row['local_actual_target']) == {str(index) for index in range(len(row['fixture']['text']))}
+            and set(row['local_nominal_target']) == set(row['local_actual_target'])
+            and all(set(values) == {'base', 'arc', 'time'} and all(type(value) in (int, float)
+                and math.isfinite(value) and 0 <= value <= SPEC['criteria']['absolute_loss_max']
+                for value in [row['local_nominal_target'][key], *values.values()])
+                for key, values in row['local_actual_target'].items())
             and set(row['actual_target']) == {'base', 'arc', 'time'}
             and all(type(value) in (int, float) and math.isfinite(value) and 0 <= value <= SPEC['criteria']['absolute_loss_max']
                 for value in [row['after'], *row['actual_target'].values()])
