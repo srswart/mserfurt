@@ -1,0 +1,360 @@
+........................................................................ [ 24%]
+...................................................................F.... [ 48%]
+........................................................................ [ 72%]
+..................FFF.FFFFFFF.F......................................... [ 97%]
+........                                                                 [100%]
+=================================== FAILURES ===================================
+__________________ test_desired_velocity_affects_acceleration __________________
+
+    def test_desired_velocity_affects_acceleration():
+        profile = _profile()
+        controller = GuidedHandFlowController(profile)
+        guide = build_primitive_proof_guides()["downstroke"]
+        plan = build_track_plan(guide, base_speed_mm_s=20.0)
+        state = controller.initial_state(plan)
+        desired = plan.samples[1]
+        fast = desired
+>       slow = type(desired)(
+            t_s=desired.t_s,
+            arc_length_mm=desired.arc_length_mm,
+            x_mm=desired.x_mm,
+            y_mm=desired.y_mm,
+            vx_mm_s=0.0,
+            vy_mm_s=0.0,
+            speed_mm_s=1.0,
+            pressure=desired.pressure,
+            contact=desired.contact,
+            corridor_half_width_mm=desired.corridor_half_width_mm,
+        )
+E       TypeError: TrackPlanSample.__init__() missing 1 required positional argument: 'nib_angle_deg'
+
+tests/test_handflow.py:105: TypeError
+_ test_shared_composition_is_fitted_without_mutating_primitives_profiles_or_letters _
+
+    def test_shared_composition_is_fitted_without_mutating_primitives_profiles_or_letters():
+>       initial, target, samples = experiment()
+                                   ^^^^^^^^^^^^
+
+tests/test_gesture_learning.py:11:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+________________ test_test_images_cannot_select_the_checkpoint _________________
+
+    def test_test_images_cannot_select_the_checkpoint():
+>       initial, _, samples = experiment()
+                              ^^^^^^^^^^^^
+
+tests/test_gesture_learning.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+_________ test_budget_exhaustion_does_not_create_an_accepted_candidate _________
+
+    def test_budget_exhaustion_does_not_create_an_accepted_candidate():
+>       initial, _, samples = experiment()
+                              ^^^^^^^^^^^^
+
+tests/test_gesture_learning.py:34:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+____ test_fixed_ablation_is_a_baseline_not_learning_and_output_is_immutable ____
+
+tmp_path = PosixPath('/private/var/folders/k7/7bqgt45n5fb91bv4kgrz5tbc0000gn/T/pytest-of-shawn/pytest-373/test_fixed_ablation_is_a_basel0')
+
+    def test_fixed_ablation_is_a_baseline_not_learning_and_output_is_immutable(tmp_path):
+>       initial, _, samples = experiment()
+                              ^^^^^^^^^^^^
+
+tests/test_gesture_learning.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+____________ test_training_reconstructs_and_rejects_stale_artifacts ____________
+
+tmp_path = PosixPath('/private/var/folders/k7/7bqgt45n5fb91bv4kgrz5tbc0000gn/T/pytest-of-shawn/pytest-373/test_training_reconstructs_and0')
+
+    def test_training_reconstructs_and_rejects_stale_artifacts(tmp_path):
+        root = BASE / 'gestures/run-002'
+>       assert load_training(root)[1]['replay']
+               ^^^^^^^^^^^^^^^^^^^
+
+tests/test_handvalidate_gestures.py:13:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('/Users/shawn/Projects/041-mserfurt/shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/run-002')
+
+    def load_training(root):
+        root = Path(root)
+        for name, checksum in SPEC['training_identities'].items():
+            if digest(root / name) != checksum:
+                raise ValueError('Training identity changed')
+        for name, checksum in SPEC['upstream_identities'].items():
+            if digest(learning.BASE / name) != checksum:
+                raise ValueError('Upstream identity changed')
+        freeze = json.loads((root / 'freeze.json').read_text())
+        report = json.loads((root / 'report.json').read_text())
+        if (freeze['code_sha256'] != learning.code_identities()
+                or freeze['spec_sha256'] != digest(learning.SPEC_PATH)
+                or freeze['spec'] != learning.SPEC
+                or freeze['coverage_sha256'] != digest(learning.BASE / 'coverage/run-001/report.json')
+                or report['freeze_sha256'] != object_digest(freeze)):
+>           raise ValueError('Stale code, criteria or coverage identity')
+E           ValueError: Stale code, criteria or coverage identity
+
+scribesim/handvalidate/gestures.py:44: ValueError
+______________ test_candidate_rejects_unfrozen_freedom[detached] _______________
+
+fault = 'detached'
+
+    @pytest.mark.parametrize('fault', ['detached', 'recipe', 'profile', 'out-of-grid'])
+    def test_candidate_rejects_unfrozen_freedom(fault):
+>       initial, target, _ = experiment()
+                             ^^^^^^^^^^^^
+
+tests/test_handvalidate_gestures.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+_______________ test_candidate_rejects_unfrozen_freedom[recipe] ________________
+
+fault = 'recipe'
+
+    @pytest.mark.parametrize('fault', ['detached', 'recipe', 'profile', 'out-of-grid'])
+    def test_candidate_rejects_unfrozen_freedom(fault):
+>       initial, target, _ = experiment()
+                             ^^^^^^^^^^^^
+
+tests/test_handvalidate_gestures.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+_______________ test_candidate_rejects_unfrozen_freedom[profile] _______________
+
+fault = 'profile'
+
+    @pytest.mark.parametrize('fault', ['detached', 'recipe', 'profile', 'out-of-grid'])
+    def test_candidate_rejects_unfrozen_freedom(fault):
+>       initial, target, _ = experiment()
+                             ^^^^^^^^^^^^
+
+tests/test_handvalidate_gestures.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+_____________ test_candidate_rejects_unfrozen_freedom[out-of-grid] _____________
+
+fault = 'out-of-grid'
+
+    @pytest.mark.parametrize('fault', ['detached', 'recipe', 'profile', 'out-of-grid'])
+    def test_candidate_rejects_unfrozen_freedom(fault):
+>       initial, target, _ = experiment()
+                             ^^^^^^^^^^^^
+
+tests/test_handvalidate_gestures.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+_____ test_trace_audit_checks_actual_contact_and_contributors_not_summary ______
+
+    def test_trace_audit_checks_actual_contact_and_contributors_not_summary():
+>       _, target, samples = experiment()
+                             ^^^^^^^^^^^^
+
+tests/test_handvalidate_gestures.py:38:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/curriculum/gesture_learning.py:65: in experiment
+    initial = migrate_v1(verify_lower())
+                         ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def verify_lower():
+        for name, checksum in LOWER_HASHES.items():
+            if digest(LOWER / name) != checksum:
+                raise ValueError('Frozen accepted primitive checkpoint identity changed')
+        freeze = json.loads((LOWER / 'freeze.json').read_text())
+        report = json.loads((LOWER / 'report.json').read_text())
+        for name, checksum in freeze['code_sha256'].items():
+            if digest(ROOT / name) != checksum:
+>               raise ValueError('Primitive acceptance code identity changed')
+E               ValueError: Primitive acceptance code identity changed
+
+scribesim/curriculum/gesture_learning.py:40: ValueError
+______ test_independent_replay_does_not_optimize_or_hide_endpoint_failure ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10e4a9710>
+
+    def test_independent_replay_does_not_optimize_or_hide_endpoint_failure(monkeypatch):
+        from scribesim.curriculum import gesture_learning
+        from scribesim.handvalidate.gestures import evaluate_seed
+
+        def forbidden(*args, **kwargs):
+            raise AssertionError('Evaluation must never optimize')
+
+        monkeypatch.setattr(gesture_learning, 'fit_gestures', forbidden)
+>       result = evaluate_seed(BASE / 'gestures/run-002', 7)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_handvalidate_gestures.py:72:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handvalidate/gestures.py:174: in evaluate_seed
+    freeze, report = load_training(root)
+                     ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+root = PosixPath('/Users/shawn/Projects/041-mserfurt/shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/run-002')
+
+    def load_training(root):
+        root = Path(root)
+        for name, checksum in SPEC['training_identities'].items():
+            if digest(root / name) != checksum:
+                raise ValueError('Training identity changed')
+        for name, checksum in SPEC['upstream_identities'].items():
+            if digest(learning.BASE / name) != checksum:
+                raise ValueError('Upstream identity changed')
+        freeze = json.loads((root / 'freeze.json').read_text())
+        report = json.loads((root / 'report.json').read_text())
+        if (freeze['code_sha256'] != learning.code_identities()
+                or freeze['spec_sha256'] != digest(learning.SPEC_PATH)
+                or freeze['spec'] != learning.SPEC
+                or freeze['coverage_sha256'] != digest(learning.BASE / 'coverage/run-001/report.json')
+                or report['freeze_sha256'] != object_digest(freeze)):
+>           raise ValueError('Stale code, criteria or coverage identity')
+E           ValueError: Stale code, criteria or coverage identity
+
+scribesim/handvalidate/gestures.py:44: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_handflow.py::test_desired_velocity_affects_acceleration - T...
+FAILED tests/test_gesture_learning.py::test_shared_composition_is_fitted_without_mutating_primitives_profiles_or_letters
+FAILED tests/test_gesture_learning.py::test_test_images_cannot_select_the_checkpoint
+FAILED tests/test_gesture_learning.py::test_budget_exhaustion_does_not_create_an_accepted_candidate
+FAILED tests/test_gesture_learning.py::test_fixed_ablation_is_a_baseline_not_learning_and_output_is_immutable
+FAILED tests/test_handvalidate_gestures.py::test_training_reconstructs_and_rejects_stale_artifacts
+FAILED tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[detached]
+FAILED tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[recipe]
+FAILED tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[profile]
+FAILED tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[out-of-grid]
+FAILED tests/test_handvalidate_gestures.py::test_trace_audit_checks_actual_contact_and_contributors_not_summary
+FAILED tests/test_handvalidate_gestures.py::test_independent_replay_does_not_optimize_or_hide_endpoint_failure
+12 failed, 284 passed in 188.38s (0:03:08)

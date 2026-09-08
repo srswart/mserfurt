@@ -88,3 +88,28 @@ def test_reader_cannot_turn_flag_only_report_into_selected_candidate_evidence(tm
 def test_outputs_are_immutable(tmp_path):
     with pytest.raises(ValueError, match='immutable'):
         experiment.build(tmp_path)
+
+
+def test_completed_negative_hypothesis_is_reviewable_but_not_admitted():
+    root = experiment.BASE / 'run-001'
+    evidence = experiment.require_candidates(root, expected_report_sha256=experiment.digest(root / 'report.json'))
+    assert evidence['candidate_evaluation_permitted']
+    assert not evidence['null_hypothesis_supported']
+    assert not evidence['S1_action_accepted']
+    assert not evidence['letter_training_allowed']
+
+
+def test_observed_motion_pass_does_not_override_overturn_target_failure():
+    root = experiment.BASE / 'run-001/seed-7/first'
+    row = json.loads((root / 'held_out-overturn.json').read_text())
+    assert experiment.mechanics_pass(row)
+    row['null_supported'] = True
+    assert not experiment.quality_pass(row)
+    assert row['nominal_target'] > .05
+
+
+def test_missing_actual_refinement_invalidates_completed_evidence():
+    record = json.loads((experiment.BASE / 'run-001/seed-7/first/report.json').read_text())
+    assert experiment.measurement_complete(record)
+    del record['fixtures'][0]['actual_target']['subdivision']
+    assert not experiment.measurement_complete(record)

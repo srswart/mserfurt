@@ -42,6 +42,24 @@ Existing components remain incubating; no separate controller or renderer.
 
 ## Planned Implementation Tasks
 
+### Frozen CURRICULUM-012 input — 2026-09-08
+
+The bounded null experiment is measured for every seed with exact replay, but
+the whole-candidate null is **unsupported**, not S1-action. Pin report SHA
+`ba2d46377b59787065486738e861aaea00c042cf0be2704072821aed3ac0fa3a` at
+`shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/run-001/report.json`.
+Candidate files under `seed-{7,19,41}/first/candidate.json` retain SHA
+`d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a`.
+The new `foundation_actions.require_candidates` reader permits independent
+review of this completed negative experiment, never action/letter admission.
+
+Underturn has scoped null support; overturn/compound exceed absolute target
+loss 0.05 already in nominal geometry. Preserve those findings and evaluate
+scope/diagnosis independently before contemplating new shared-geometry work.
+Do not fit actions to conceal geometry error or run letter fitting. Existing
+full-edge rejection controls are not asymmetric physical-edge or closed-letter
+counter evidence. This input note does not start or complete HANDVALIDATE-017.
+
 - [ ] branch: confirm implementation/update/merge authorization and preserve unrelated work.
 - [ ] tidy: assess minimal behavior-preserving preparation separately.
 - [ ] test: commit observed failing behavioral tests before implementation.
