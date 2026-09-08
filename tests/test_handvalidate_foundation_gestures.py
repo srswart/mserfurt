@@ -133,3 +133,15 @@ def test_serialized_frozen_trace_preserves_plan_types_and_moving_lift_exit(sourc
         else:
             row['to_mm'][0] += .3
         assert evaluation.audit_trace(model, 'i', changed)['errors'] > 0
+
+
+def test_illegal_painted_air_is_reported_not_crashed(source):
+    fixture = next(row for row in evaluation.SPEC['fixtures'] if row['id'] == 'underturn-overturn-pair')
+    model = evaluation.probe(source['candidates'][7], fixture)
+    path = source['source'] / 'seed-7/attachment/first/underturn-overturn-pair-traces.json.gz'
+    run = json.loads(gzip.decompress(path.read_bytes()))['base']
+    row = next(row for row in run['trace'] if not row['contact'])
+    row['contact'], row['pressure'] = True, .5
+    result = evaluation.audit_trace(model, 'i', run)
+    assert result['errors'] > 0
+    assert 'undeclared' in result['seen_occurrences']
