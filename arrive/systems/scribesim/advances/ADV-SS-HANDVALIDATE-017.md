@@ -5,7 +5,7 @@ advance:
   system: "scribesim"
   primary_component: "handvalidate"
   components: ["handvalidate","curriculum","gesture","handflow","pathguide","nibcontact","tests"]
-  started_at: "2026-09-08T03:50:00Z"
+  started_at: "2026-09-08T06:01:40Z"
   implementation_completed_at: ~
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
@@ -15,14 +15,15 @@ advance:
   risk_flags: ["public_api","migration"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
 
 Independently evaluate the newly frozen action or null candidates that the historical action phase never executed. Issue a matching scoped S1-action decision rather than promoting a fixed profile or copying learning pass flags.
 
-Drafting only. This record registers gated follow-up work, not execution or approval.
+Implementation authorized 2026-09-08, with standing update/merge instruction.
+No preparatory refactor: isolate the evaluator and preserve all pinned modules.
 Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
 
 ## Behavioral Change
@@ -98,6 +99,20 @@ keep historical evidence, controllers and defaults unchanged. Review time is an 
 - [ ] No unexecuted learning, owner review or provider CI counted as complete.
 
 ## Changes Made
+
+### 2026-09-08 — scope: Independent frozen-null evaluation
+
+- TDD observed import failure committed at `6787023` before implementation.
+- Freeze nine new same-family heldouts, unchanged absolute 0.05 and mechanical
+  gates, plus three overlap/space contexts. No candidate fitting or selection.
+- Execute six historical adversarial classes and three additional guards.
+  Swapped-edge uses an explicit asymmetric physical-render diagnostic on the
+  selected actual path, not a learned action or a candidate tool-mode change.
+- A predeclared underturn/overturn enclosure tests actual closed blank topology;
+  no open pocket substitution and no learned-letter claim. Any failed control,
+  enclosure or refinement prevents affected acceptance, without revising limits.
+- A new opt-in reader will reconstruct scoped null evidence. Existing readers,
+  current foundation identities and letter/default behavior stay unchanged.
 
 ### 2026-09-08 — plan: Register the previously unexecuted action/null work
 
