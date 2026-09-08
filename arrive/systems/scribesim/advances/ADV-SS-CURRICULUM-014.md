@@ -92,6 +92,15 @@ Run local ARRIVE/PR metadata checks; do not claim provider CI from local tests.
 
 ## Changes Made
 
+### 2026-09-08 — merge: local completion receipt
+
+Completion `756f0ee` merged into `master` as `8a49a71`, following the separate
+HANDVALIDATE-019 merge `99b58c4`. Post-merge verification confirms both report
+pins, current frozen code identities, exact manifests (140 stem / 422 assembly
+artifacts), and byte identity of the live-audited adjudication and reader.
+Plan, generated rules and whitespace checks pass; the worktree is clean before
+this documentation-only receipt. No push, provider CI or acceptance promotion.
+
 ### 2026-09-08 — feat: complete bounded compatibility repair
 
 The worst nominal baseline/x-height/attachment residual is 2.483e-16 x-height;
