@@ -134,3 +134,39 @@ def test_existing_run_is_never_overwritten(tmp_path):
     output.mkdir()
     with pytest.raises(ValueError):
         experiment.build(output)
+
+
+def test_letter_ports_distinguish_initial_from_aligned_composition():
+    initial = experiment.initial_model(source())
+    fitted = experiment.with_parameters(source(), {'n': [.08, 0], 'u': [.02, .34], 'm': [.02, .34]})
+    assert experiment.ports(initial)['u']['passed'] is False
+    assert all(row['passed'] for row in experiment.ports(fitted).values())
+    assert experiment.ports(fitted)['u']['gap_xheight'] < 1e-12
+
+
+def test_local_letter_quality_cannot_be_hidden_by_global_score():
+    row = {'fixture': experiment.fixtures()[0], 'before': .2, 'after': .01,
+           'contained': True, 'physical_evaluated': True, 'mechanical_pass': True,
+           'actual_target': dict.fromkeys(('base', 'arc', 'time'), .01)}
+    rows = [{**copy.deepcopy(row), 'fixture': fixture, 'ratio': .05} for fixture in experiment.fixtures()]
+    assert experiment.evaluation_pass(rows) is False
+
+
+def test_live_physical_letter_preserves_lifts_ownership_and_frame(tmp_path):
+    initial = experiment.initial_model(source())
+    budget = experiment.foundation.JournalBudget(tmp_path, 100, 60)
+    row = experiment.measure(initial, initial, experiment.fixtures()[0], budget, tmp_path)
+    assert row['physical_evaluated'] is True
+    assert all(value['audit']['errors'] == 0 for value in row['motion'].values())
+    assert set(row['local_actual_target']) == {'0'}
+    assert all(len(value['boundaries']) == 2 for value in row['motion'].values())
+
+
+def test_target_generator_is_independent_of_candidate_geometry(monkeypatch):
+    def forbidden(*args, **kwargs):
+        pytest.fail('Target generation cannot access candidate compilation')
+    monkeypatch.setattr(experiment.stroke_gestures, 'compile_gestures', forbidden)
+    for fixture in experiment.fixtures():
+        trajectory = experiment.target(fixture)
+        experiment.foundation.measurement.require_containment(trajectory, frame=experiment.SPEC['frame_mm'])
+        assert experiment.foundation.contact_runs(trajectory) == 2 * len(fixture['text'])
