@@ -13,9 +13,9 @@ advance:
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit"]
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -40,10 +40,10 @@ not new stroke learning or evidence of historical legibility.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm feature branch under standing authorization.
-- [ ] tidy: preserve pinned lower layers; reuse immutable replay protocol unchanged.
-- [ ] test: commit failing landmark, bound, lineage and target-isolation tests first.
-- [ ] feat/fix: exact extrema, chord-level transforms, endpoint-compatible lifted attachment; no detached curves or macro cap bypass.
+- [x] branch: `advance/ss-curriculum-014` after the standalone-stem merge.
+- [x] tidy: preserve pinned lower layers; reuse immutable replay protocol unchanged.
+- [x] test: missing-module red commit `6f2c8cb`; 15 landmark/bound/lineage/target-isolation tests pass.
+- [x] feat/fix: exact extrema, chord-level transforms, endpoint-compatible lifted attachment; no detached curves or macro cap bypass.
 - [ ] evaluate: frozen n/u/m and unseen-pair fixtures, unchanged 0.05 absolute and 0.75 relative criteria, new explicit baseline/x-height residual gate, three seeds/replays, 5000 renders/1800 seconds per seed.
 - [ ] evidence: old-vs-new ink and decompositions, no-fit receipts, live stem consumption; update and merge.
 
@@ -73,6 +73,22 @@ and remove only the new opt-in experiment to roll back.
 Run local ARRIVE/PR metadata checks; do not claim provider CI from local tests.
 
 ## Changes Made
+
+### 2026-09-08 — feat: freeze exact level assembly before rendering
+
+No optimizer or candidate search is required. Endpoint chords give approximately
+-18.435 degrees, with uniform source-derived scales 0.9546734 (underturn) and
+0.9710506 (overturn). Each transform is shared across every occurrence of that
+gesture; all underlying primitives/actions remain identical. Nominal baseline,
+x-height and attachment residual limit is 1e-8 x-height; actual extrema use the
+existing 0.05 mm physical endpoint tolerance, separately from 0.05 image loss.
+
+Pre-render containment tests caught the rotated underturn's left overhang.
+The NEW common frame is [-3,20,2,13] mm, with explicit 0.5/0.25 x-height local
+window padding. Old frames, images, specifications and thresholds are unchanged.
+All initial/target/nominal/actual panels use the new full frame; no cropped pass.
+Nine fixtures distinguish isolated repeats, old-pair regressions and genuinely
+new `un/mu/nm` juxtaposition probes. None learns letter context or word spacing.
 
 ### 2026-09-08 — plan: register bounded alignment repair
 
