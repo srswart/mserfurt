@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api","migration"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -23,7 +23,7 @@ advance:
 Decide whether stable execution and a genuinely learned return vocabulary now justify a new bounded action/null-validation experiment, without granting premature letter or real-hand readiness.
 
 **Work kind:** Independent evaluation and admission integration. Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
-Timestamp records drafting only; implementation, experiments, CI and review are not claimed.
+Implementation started 2026-09-08. No preparatory refactor is required: the independent evaluator is a new module and historical pinned helpers remain unchanged. Provider CI and human review are not claimed.
 
 ## Behavioral Change
 
