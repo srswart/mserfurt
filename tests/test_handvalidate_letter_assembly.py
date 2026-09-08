@@ -50,8 +50,13 @@ def test_level_checker_is_independent_of_curriculum_decisions(monkeypatch):
 def test_climbing_second_arch_is_rejected_by_levels():
     fixture = validation.SPEC['fixtures'][4]
     model = candidate()
-    model['recipes']['m']['gestures'][1]['offset'][1] += .08
-    assert max(validation.levels(model, fixture).values()) > .079
+    rows = validation.compile_gestures('m', model)['strokes']
+    for row in rows:
+        if row['gesture_index'] == 1:
+            for curve in row['cubics']:
+                for point in curve:
+                    point[1] += .08
+    assert max(validation.level_rows(rows, fixture).values()) > .079
 
 
 def test_targets_are_candidate_free_and_every_full_frame_is_contained(monkeypatch):
@@ -96,3 +101,24 @@ def test_wrong_report_hash_fails_before_source_or_trace_access(tmp_path, monkeyp
     monkeypatch.setattr(validation, 'load_inputs', forbidden)
     with pytest.raises(ValueError):
         validation.inspect_run(tmp_path, expected_report_sha256='wrong')
+
+
+@pytest.mark.parametrize('fixture_index', [0, 5])
+def test_live_measurement_covers_rotated_subdivision_and_full_assemblies(tmp_path, fixture_index):
+    fixture = validation.SPEC['fixtures'][fixture_index]
+    prior = json.loads((validation.alignment.prior.BASE / 'run-001/seed-7/shared/first/candidate.json').read_text())
+    budget = validation.foundation.JournalBudget(tmp_path, 100, 120)
+    row, runs = validation.measure(candidate(), prior, fixture, budget, tmp_path)
+    assert validation.fixture_pass(row)
+    assert validation.fixture_pass(json.loads(json.dumps(row)))
+    if fixture_index == 5:
+        controls = validation.controls(candidate(), fixture, runs['base'], budget, tmp_path)
+        assert all(value['detected'] is True for value in controls.values())
+        assert controls['visible-shift']['loss'] > .05
+
+
+def test_run_cannot_overwrite_frozen_evidence(tmp_path, monkeypatch):
+    monkeypatch.setattr(validation, 'BASE', tmp_path)
+    (tmp_path / 'run-001').mkdir()
+    with pytest.raises(ValueError):
+        validation.protocol.build(validation)

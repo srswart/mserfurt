@@ -29,7 +29,8 @@ No context, fatigue, fitting, target revision or relaxed threshold is authorized
 
 New opt-in validation measures exact isolated rotated occurrences and complete
 frozen recipes against the unchanged target version, with independent level and
-decision logic, full-frame/local image checks, four physical refinements,
+decision logic, full-frame/local image checks, base/arc/time physical refinements
+plus isolated-gesture subdivision,
 negative controls and three first/replay seeds. A numeric pass is explicitly
 separate from pending human appearance/reading approval; it cannot release S2.
 
@@ -42,9 +43,9 @@ separate from pending human appearance/reading approval; it cannot release S2.
 
 - [x] branch: `advance/ss-handvalidate-020`, standing update/merge workflow.
 - [x] tidy: no refactor of pinned modules; reuse immutable replay infrastructure unchanged.
-- [ ] test: commit failing independent geometry, target, numeric and scope tests.
-- [ ] feat/fix: freeze protocol and candidate/source hashes before measurement.
-- [ ] evaluate: unchanged candidates and thresholds, six fixtures, four refinements, negative controls, seeds 7/19/41 with replay; 5000 renders/1800 seconds per seed, zero retries.
+- [x] test: `f2a86b0` records missing-module red; 21 tests now pass, including live rotated and complete-assembly measurements, control detection and serialization stability.
+- [x] feat/fix: freeze protocol and candidate/source hashes before measurement.
+- [ ] evaluate: unchanged candidates and thresholds, six fixtures, base/arc/time plus isolated-gesture subdivision, negative controls, seeds 7/19/41 with replay; 5000 renders/1800 seconds per seed, zero retries.
 - [ ] review: enlarged guided actual-ink sheet and numbered stroke construction; leave owner verdict pending.
 - [ ] evidence: report actual outcome, preserve failures, update and merge locally.
 
@@ -76,6 +77,17 @@ Run local plan/rules/whitespace and strict PR metadata checks before merge.
 Record installed parser/schema limitations separately; no provider CI claim.
 
 ## Changes Made
+
+### 2026-09-08 — test: establish pre-run subdivision boundary
+
+Live pre-run tests pass isolated rotated-return subdivision but reject complete
+letter subdivision at the unchanged recipe-reference cap (`Recipe bounds`).
+No experiment has started and no candidate or threshold changes. Freeze explicit
+per-kind coverage: four refinements for isolated returns, the prior three for
+whole letters. Do not widen the compiler cap or claim whole-letter subdivision.
+The climbing control perturbs compiled second-arch coordinates diagnostically,
+not a newly admissible recipe; independent level logic catches it without using
+the grammar's crossing rejection as a substitute for a level measurement.
 
 ### 2026-09-08 — plan: register bounded independent validation
 
