@@ -117,7 +117,7 @@ not historical snapshots or production defaults. Review estimate: 40 minutes.
 - [x] Replay and neutral direct/sampled/actual comparisons; no real review claimed.
 - [x] `arrive plan check`, `git diff --check`, focused tests and clean-checkout validation.
 - [x] Strict PR check executed with explicit title/body/label; installed parser returns `ids=[]` and exit 1. No provider CI claim.
-- [ ] Local merge and post-merge evidence receipt.
+- [x] Local merge and post-merge evidence receipt.
 
 See [results and commands](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/README.md),
 [samples](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/index.html)
@@ -132,6 +132,12 @@ clock, fatigue, historical compiler or primitive code changed.
 ## Changes Made
 
 ### 2026-09-08 — feat: complete synthetic assembly experiment
+
+Completion commit `3c26f5d` merged locally into `master` as `47db8b1`.
+Post-merge read-only reconstruction verifies all 968 artifacts and the published
+report hash, with synthetic pass and S2/real/context flags still false. Plan,
+generated-agent-rule freshness and whitespace checks pass. No push, provider CI
+or human appearance/reading approval is claimed.
 
 All three seeds select the same bounded placement deltas: `n=[0.08,0]`,
 `u=[0.02,0.34]`, `m=[0.02,0.34]`. Worst letter-local actual/target losses are

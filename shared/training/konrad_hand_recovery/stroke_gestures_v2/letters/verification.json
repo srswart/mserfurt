@@ -3,6 +3,9 @@
   "baseline_commit": "51061a1",
   "execution_commit": "e00ed7c",
   "reader_commit": "58fc4ed",
+  "completion_commit": "3c26f5d",
+  "local_merge_commit": "47db8b1",
+  "post_merge_read_only_reconstruction_passes": true,
   "red_test_commits": ["d7bbf58", "b4ba8a5", "08f18e8"],
   "source_report_sha256": "49e72a04df648ef1295b94e8436c34cdb385a992d7b173c0316899a05f6f837b",
   "report_sha256": "a587f212aa62c2a4742e4d7601a814d3932a5a903e5e993947c9116c4ebe0c12",
@@ -35,9 +38,11 @@
   "invalid_shared_proposals_per_worker": 13,
   "tests": {
     "initial_focused": {"passed": 127, "failed": 0, "seconds": 47.10},
-    "new_modules": {"passed": 40, "failed": 0, "seconds": 13.88},
+    "new_modules": {"passed": 40, "failed": 0, "seconds": 13.88,
+      "command": ".venv/bin/python -m pytest tests/test_letter_recipes.py tests/test_letter_recipe_evidence.py -q --tb=short"},
     "clean_committed_new_modules": {"commit": "58fc4ed", "passed": 40, "failed": 0, "seconds": 12.66},
-    "broader": {"passed": 287, "failed": 0, "seconds": 340.77}
+    "broader": {"passed": 287, "failed": 0, "seconds": 340.77,
+      "command": ".venv/bin/python -m pytest tests/test_letter_recipes.py tests/test_foundation*.py tests/test_handvalidate_foundation*.py tests/test_handvalidate_finer_scales.py tests/test_finer_scales.py tests/test_stroke_gestures.py tests/test_stroke_language.py tests/test_curve_tangents.py tests/test_pen_action_learning.py tests/test_handvalidate_pen_actions.py -q --tb=short"}
   },
   "visual_review": "Native seed-7 workbook inspected; diagonal rises and stair-stepped m retained as explicit shape debt. No human reading acceptance or browser QA claimed.",
   "governance": {
