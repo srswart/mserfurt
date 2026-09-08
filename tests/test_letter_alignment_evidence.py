@@ -60,12 +60,10 @@ def test_numeric_correction_does_not_bypass_other_gates(mutation):
 
 
 def test_inspection_requires_pinned_source_before_numeric_correction(monkeypatch, tmp_path):
-    def reject(adapter, directory, expected_report_sha256):
+    def reject(directory, expected_report_sha256):
         assert expected_report_sha256 == 'pinned'
-        assert adapter.identities() == evidence.experiment.identities()
-        assert adapter.passed(json.loads(json.dumps(record()))) is False
         raise ValueError('Changed manifest')
-    monkeypatch.setattr(evidence.experiment.protocol, 'inspect', reject)
+    monkeypatch.setattr(evidence, 'verify_source', reject)
     with pytest.raises(ValueError, match='Changed manifest'):
         evidence.inspect_run(tmp_path, expected_report_sha256='pinned')
 
@@ -86,15 +84,19 @@ def test_adjudication_preserves_receipts_and_never_renders(monkeypatch, tmp_path
             directory.mkdir(parents=True)
             (directory / 'report.json').write_text(json.dumps(saved))
     before = {path: path.read_bytes() for path in tmp_path.rglob('*.json')}
-    monkeypatch.setattr(evidence.experiment.protocol, 'inspect', lambda *args: {
-        'status': 'fail', 'artifacts_verified': 428, 'renders': 768})
+    expected_status = 'fail' if bad_loss else 'pass'
+    monkeypatch.setattr(evidence, 'verify_source', lambda *args: {
+        'status': expected_status, 'artifacts_verified': 422, 'renders': 768,
+        'seeds': [{'seed': seed, 'replay_match': True, 'passed': not bad_loss}
+                  for seed in evidence.experiment.SPEC['seeds']]})
     def forbidden(*args, **kwargs):
         pytest.fail('Read-only adjudication must not render or evaluate a candidate')
     monkeypatch.setattr(evidence.experiment, 'evaluate', forbidden)
     monkeypatch.setattr(evidence.experiment, 'paint', forbidden)
     result = evidence.inspect_run(tmp_path, expected_report_sha256='pinned')
     assert result['status'] == ('fail' if bad_loss else 'pass')
-    assert result['source_status'] == 'fail'
+    assert result['source_status'] == expected_status
+    assert result['source_worker_decisions'] == 'false before JSON serialization'
     assert result['additional_renders'] == result['optimization_evaluations'] == 0
     assert result['S2_accepted'] is result['real_accepted'] is result['context_training_allowed'] is False
     assert {path: path.read_bytes() for path in before} == before
