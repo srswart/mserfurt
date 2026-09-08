@@ -120,6 +120,20 @@ def test_incomplete_measurement_cannot_be_accepted():
     assert not evaluation.complete({'status': 'complete', 'fixtures': [], 'optimization_evaluations': 0})
 
 
+def test_missing_seed_decision_cannot_accept_an_empty_inventory_by_vacuous_truth():
+    assert evaluation.decisions([]) == ([], False)
+
+
+def test_scoped_reader_never_turns_all_local_passes_into_a_failed_global_pass(tmp_path, monkeypatch):
+    monkeypatch.setattr(evaluation, 'inspect_evidence', lambda *args, **kwargs: {
+        'accepted_gestures': evaluation.SPEC['required_gestures'], 'full_inventory_accepted': False})
+    with pytest.raises(ValueError, match='Unresolved'):
+        evaluation.require_readiness(tmp_path, expected_report_sha256='test', required_gestures=evaluation.SPEC['required_gestures'])
+    admitted = evaluation.require_readiness(tmp_path, expected_report_sha256='test', required_gestures=['underturn'])
+    assert admitted['S1_action_accepted']
+    assert admitted['letter_training_allowed'] is False and admitted['real_accepted'] is False
+
+
 def test_missing_source_blocks_before_any_render(tmp_path, monkeypatch):
     def missing():
         raise ValueError('Source not admitted')
