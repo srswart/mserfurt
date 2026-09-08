@@ -110,6 +110,18 @@ CI or merge is claimed; remaining acceptance work and repair approval are open.
 
 ## Changes Made
 
+### 2026-09-08 — merge: Local completion and clean-checkout receipt
+
+- Completion `a5b42a7` passes all 73 focused tests in a clean detached checkout
+  (107.81 seconds), including numeric scoped admission and forged-flag rejection.
+- Merge into `master` with `--no-ff`: `c7ad113`, under the standing update/merge
+  instruction. Plan passes after merge; 149 changed-document links verify.
+- All 531 run-003 files match their clean-code execution output before the
+  temporary worktree is removed. No push, provider CI or owner review claimed.
+- Post-merge consumer-pinned current admission reconstructs successfully for
+  underturn-only fixed-null scope; letter and real permissions remain false.
+- [Approved verification and clean-test receipt](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/approved-verification.json).
+
 ### 2026-09-08 — complete: Approved measurement repair, mixed scoped acceptance
 
 - Final local focused tests: 73 pass in 110.49 seconds, including scoped-reader,

@@ -60,6 +60,12 @@ The expanded selection passes 310 tests with the same 18 inherited failures
 [approved verification](approved-verification.json). Local merge and governance
 receipts are recorded in the Advance; no provider CI or owner review is claimed.
 
+Local completion: merged into `master` as `c7ad113` on 2026-09-08. All 73 focused
+tests also pass in a clean detached checkout of `a5b42a7` (107.81 seconds);
+see `approved-tests-clean.txt`. Plan validation passes after merge. No push or
+provider CI is implied by the local merge; existing strict PR parser limitation
+remains documented. Temporary validation worktree removed after cache cleanup.
+
 ## Historical run-002 stop — retained, superseded only by approved measurement
 
 The following records the stop before the user's additional repair approval;
