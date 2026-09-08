@@ -1,0 +1,288 @@
+{
+  "seed": 19,
+  "ablation": "legacy",
+  "status": "blocked",
+  "fixtures": [
+    {
+      "fixture": {
+        "id": "train-n",
+        "split": "train",
+        "text": "n",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      "before": 0.4160316444651272,
+      "after": 0.7813277497228724,
+      "ratio": 1.8780488458453435,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.7813277497228723
+      }
+    },
+    {
+      "fixture": {
+        "id": "train-u",
+        "split": "train",
+        "text": "u",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      "before": 0.1052936406811074,
+      "after": 0.7600894632206762,
+      "ratio": 7.218759445527058,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.7600894632206759
+      }
+    },
+    {
+      "fixture": {
+        "id": "train-m",
+        "split": "train",
+        "text": "m",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      "before": 0.400285174765887,
+      "after": 0.8397011067665187,
+      "ratio": 2.0977571983714633,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.8397011067665187
+      }
+    },
+    {
+      "fixture": {
+        "id": "development-n",
+        "split": "development",
+        "text": "n",
+        "shift": [
+          0.03,
+          0.02
+        ]
+      },
+      "before": 0.41368172675228226,
+      "after": 0.7860175488253609,
+      "ratio": 1.900053828812308,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.7860175488253609
+      }
+    },
+    {
+      "fixture": {
+        "id": "development-u",
+        "split": "development",
+        "text": "u",
+        "shift": [
+          0.03,
+          0.02
+        ]
+      },
+      "before": 0.10680754571332077,
+      "after": 0.7827913296022535,
+      "ratio": 7.3289890182789375,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.7827913296022535
+      }
+    },
+    {
+      "fixture": {
+        "id": "development-m",
+        "split": "development",
+        "text": "m",
+        "shift": [
+          0.03,
+          0.02
+        ]
+      },
+      "before": 0.39714922564026806,
+      "after": 0.8338223349412369,
+      "ratio": 2.0995189745038076,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.8338223349412369
+      }
+    },
+    {
+      "fixture": {
+        "id": "repeat-n",
+        "split": "repeat",
+        "text": "n",
+        "shift": [
+          -0.02,
+          0.04
+        ]
+      },
+      "before": 0.41897643215154773,
+      "after": 0.7959639056446471,
+      "ratio": 1.8997820511220056,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.7959639056446471
+      }
+    },
+    {
+      "fixture": {
+        "id": "repeat-u",
+        "split": "repeat",
+        "text": "u",
+        "shift": [
+          -0.02,
+          0.04
+        ]
+      },
+      "before": 0.10793771068302586,
+      "after": 0.7952973039517419,
+      "ratio": 7.368113506569019,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.7952973039517418
+      }
+    },
+    {
+      "fixture": {
+        "id": "repeat-m",
+        "split": "repeat",
+        "text": "m",
+        "shift": [
+          -0.02,
+          0.04
+        ]
+      },
+      "before": 0.40100355291139567,
+      "after": 0.834586342067258,
+      "ratio": 2.0812442583312105,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.834586342067258
+      }
+    },
+    {
+      "fixture": {
+        "id": "unseen-nu",
+        "split": "unseen",
+        "text": "nu",
+        "shift": [
+          0.04,
+          -0.02
+        ]
+      },
+      "before": 0.264064806900303,
+      "after": 0.773582088623738,
+      "ratio": 2.9295160445814425,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.782310222829123,
+        "1": 0.7648144453312051
+      }
+    },
+    {
+      "fixture": {
+        "id": "unseen-um",
+        "split": "unseen",
+        "text": "um",
+        "shift": [
+          0.04,
+          -0.02
+        ]
+      },
+      "before": 0.28351952072508857,
+      "after": 0.8079508813547496,
+      "ratio": 2.8497187046890144,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.7598874628091972,
+        "1": 0.84003723156705
+      }
+    },
+    {
+      "fixture": {
+        "id": "unseen-mn",
+        "split": "unseen",
+        "text": "mn",
+        "shift": [
+          0.04,
+          -0.02
+        ]
+      },
+      "before": 0.4046975856952928,
+      "after": 0.8168841660760396,
+      "ratio": 2.018505162744145,
+      "motion": {},
+      "actual_target": {},
+      "contained": true,
+      "physical_evaluated": false,
+      "ports": null,
+      "local_actual_target": {},
+      "local_nominal_target": {
+        "0": 0.8399381756840976,
+        "1": 0.7828105426051927
+      }
+    }
+  ],
+  "S2_accepted": false,
+  "real_accepted": false
+}

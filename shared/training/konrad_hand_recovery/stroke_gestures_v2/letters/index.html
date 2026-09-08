@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CURRICULUM-005 — stroke-built letter assembly</title>
+<style>
+  body { max-width: 1380px; margin: 36px auto; padding: 0 22px; color: #24313b; background: #faf9f4; font: 17px/1.55 system-ui, sans-serif; }
+  h1, h2 { line-height: 1.2; } a { color: #24599b; } code { font-size: .95em; }
+  .notice { padding: 16px 20px; border-left: 5px solid #ac7134; background: #fff0d9; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  figure { margin: 0; background: white; border: 1px solid #ddd9ce; padding: 12px; }
+  img { display: block; max-width: 100%; height: auto; } figcaption { margin-top: 8px; }
+  table { border-collapse: collapse; width: 100%; } th, td { text-align: left; padding: 10px; border-bottom: 1px solid #ddd9ce; }
+  .scroll { overflow: auto; } .diagram { width: 100%; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } body { padding: 0 14px; } }
+</style>
+<h1>From shared strokes to letter assembly</h1>
+<p><strong>CURRICULUM-005:</strong> bounded synthetic <code>n</code>, <code>u</code>, <code>m</code> recipes. Every stroke is frozen; only the second gesture's placement is fitted.</p>
+<p class="notice"><strong>Not an accepted alphabet.</strong> These are supplied construction hypotheses, not validated historical readings. The shapes retain slanted rises and unequal heights; fitting their synthetic targets does not settle letterform quality. The standalone stem in <code>n/u</code> still lacks matching independent admission. S2, real-hand and context-training approval remain false.</p>
+<p><a href="README.md">Protocol and results</a> · <a href="spec-v1.json">Frozen specification</a> · <a href="run-001/report.json">Machine-readable experiment report</a> · <a href="../foundation_repair/index.html">Earlier stroke work</a></p>
+<h2>Actual neutral ink</h2>
+<p>Seed 7, transformed repeat observations. Equal physical scale, original 900-DPI panels; select an image to inspect its native pixels. These are actual controller trajectories, not just ideal centerlines.</p>
+<div class="grid">
+  <figure><a href="run-001/seed-7/shared/first/repeat-n-actual.png"><img src="run-001/seed-7/shared/first/repeat-n-actual.png" alt="Actual synthetic n construction"></a><figcaption><strong>n:</strong> stem → lift → overturn. Four primitive references.</figcaption></figure>
+  <figure><a href="run-001/seed-7/shared/first/repeat-u-actual.png"><img src="run-001/seed-7/shared/first/repeat-u-actual.png" alt="Actual synthetic u construction"></a><figcaption><strong>u:</strong> underturn → lift → stem. Four primitive references.</figcaption></figure>
+  <figure><a href="run-001/seed-7/shared/first/repeat-m-actual.png"><img src="run-001/seed-7/shared/first/repeat-m-actual.png" alt="Actual synthetic m construction"></a><figcaption><strong>m:</strong> overturn → lift → overturn. Six primitive references; no hidden seventh stroke.</figcaption></figure>
+</div>
+<h2>See how the letters are assembled</h2>
+<p>Left: first gesture. Middle: both gestures. Right: numbered primitive contributions. This vector diagram shows path structure, not ink appearance. The checkpoint references the same shared stem inside all three letters.</p>
+<a href="run-001/seed-7/shared/first/construction.svg"><img class="diagram" src="run-001/seed-7/shared/first/construction.svg" alt="Three-stage vector decomposition of n, u and m into shared primitive references"></a>
+<p><a href="run-001/seed-7/shared/first/candidate.json">Selected recipe listing and frozen lower layers</a> · <a href="run-001/seed-7/shared/first/reuse.json">Shared-primitive propagation proof</a> · <a href="run-001/seed-7/shared/first/selection.json">Training/development selection record</a></p>
+<h2>Before, target, assembled, sampled, actual</h2>
+<p>Top three rows are repeat observations of isolated letters; bottom three are unseen exact pairs. They are transfer probes, not learned words or joining rules.</p>
+<a href="run-001/seed-7/shared/first/workbook.png"><img src="run-001/seed-7/shared/first/workbook.png" alt="Native five-column workbook comparing prior, target, fitted nominal, desired and actual across isolated letters and unseen pairs"></a>
+<p>Full workbooks: <a href="run-001/seed-7/shared/first/workbook.png">seed 7</a> · <a href="run-001/seed-19/shared/first/workbook.png">seed 19</a> · <a href="run-001/seed-41/shared/first/workbook.png">seed 41</a>.</p>
+<h2>Independent-form diagnostic</h2>
+<p>The older catalog uses independent per-character curves. These panels use the same fixed nib, frame and layout for comparison only; they are not candidates for shared-stroke acceptance and have no actual-controller proof in this experiment.</p>
+<div class="grid">
+  <figure><a href="run-001/seed-7/legacy/first/repeat-n-nominal.png"><img src="run-001/seed-7/legacy/first/repeat-n-nominal.png" alt="Legacy independent-form n diagnostic"></a><figcaption>Catalog n — geometry-only diagnostic.</figcaption></figure>
+  <figure><a href="run-001/seed-7/legacy/first/repeat-u-nominal.png"><img src="run-001/seed-7/legacy/first/repeat-u-nominal.png" alt="Legacy independent-form u diagnostic"></a><figcaption>Catalog u — geometry-only diagnostic.</figcaption></figure>
+  <figure><a href="run-001/seed-7/legacy/first/repeat-m-nominal.png"><img src="run-001/seed-7/legacy/first/repeat-m-nominal.png" alt="Legacy independent-form m diagnostic"></a><figcaption>Catalog m — geometry-only diagnostic.</figcaption></figure>
+</div>
+<h2>Next decision</h2>
+<p>Review baseline/x-height compatibility and the visible letter hypotheses, then resolve the standalone-stem prerequisite before independent S2 evaluation. Do not advance to context deformation, words, fatigue or expressive ink on a synthetic target score alone.</p>
+</html>

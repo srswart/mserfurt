@@ -18,6 +18,9 @@ selectors:
     - "tests/test_foundation_gestures.py"
     - "tests/test_foundation_actions.py"
     - "tests/test_finer_scales.py"
+    - "tests/test_letter_recipes.py"
+    - "tests/test_letter_recipe_evidence.py"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/coverage/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/**"
@@ -30,6 +33,7 @@ selectors:
   contracts: []
 
 interfaces:
+  - "Bounded opt-in n/u/m letter recipes over pinned finer-scale strokes, with live scoped admission, explicit unresolved stem debt, development-only placement selection, local/physical/attachment proofs and synthetic-only replay evidence"
   - "Curriculum stages for primitive, glyph, word, line, and folio training"
   - "Training-set manifests with acceptance gates and evidence outputs"
   - "Planned fixed-tool gesture learning and isolated intentional-action ablations"
