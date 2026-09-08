@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -51,8 +51,8 @@ another checkpoint. The learning measurements do not transfer acceptance.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create a dedicated implementation branch when requested.
-- [ ] tidy: assess without modifying pinned historical modules unnecessarily.
+- [x] branch: `advance/ss-handvalidate-018` under implementation/update/merge authorization.
+- [x] tidy: no refactor required; preserve all pinned historical modules.
 - [ ] test: commit observed failing admission, lineage, scope and metric tests first.
 - [ ] feat/fix: consumer-pin the completed CURRICULUM-013 manifest and reconstruct all source identities, candidate selections, artifacts and replay evidence.
 - [ ] Verify exactly three shared scale changes and derived endpoint-coincident attachments; reject altered primitives, ports, actions, recipes and per-occurrence overrides.
@@ -88,6 +88,14 @@ Run local checks and strict PR metadata validation before merge. Do not claim
 provider CI or human review without actual evidence.
 
 ## Changes Made
+
+### 2026-09-08 — test: start independent acceptance implementation
+
+Implementation starts at 11:03:16 UTC. Freeze nine fresh same-family holdouts,
+21 learning-fixture regressions, three fresh plus three regression mechanical
+contexts, unchanged counter/control diagnostics and a single no-refit attempt.
+New evaluator and tests use existing incubating components; no new runtime or
+primitive code is required. Observe and commit tests before implementation.
 
 ### 2026-09-08 — docs: register independent follow-up
 
