@@ -1,0 +1,244 @@
+{
+  "version": "foundation-fixed-null-experiment-v1",
+  "source": "../evaluation/run-002",
+  "source_report_sha256": "b564aa11e5752b5d0af0a6cb6ced5671b38b78d1cee62bcca0e07bf29de66f75",
+  "candidate_file_sha256": "d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a",
+  "candidate_object_sha256": "3e4edf22894a6bff740d45e926c1bb76b2bb74b978cf512d84405d5af0b00318",
+  "required_gestures": [
+    "underturn",
+    "overturn",
+    "compound_curve"
+  ],
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "hypothesis": "The admitted fixed full-edge 40-degree tool, pressure 0.5 and speed 12, with no rotation, partial edge or extra finishing pass, suffices for the three named synthetic constructions. No dynamic action is proposed without a named defect attributable to that action.",
+  "selection": "One predeclared null hypothesis, frozen before any target access; no ranking, optimization, development selection or held-out substitution. Train/development are diagnostic strata only.",
+  "target_provenance": "Reuse independently authored endpoint/derivative Hermite-plus-sine targets and complete local regions from the live frozen HANDVALIDATE-016 specification. New scale/offset and lifted-pair fixtures below are declared before rendering. Targets do not read candidate geometry. This is synthetic same-target-family generalization, not new handwriting evidence.",
+  "frame_mm": [
+    -2,
+    10,
+    0,
+    22
+  ],
+  "context_frame_mm": [
+    -2,
+    20,
+    0,
+    22
+  ],
+  "dpi": 180,
+  "presentation_dpi": 900,
+  "tool": {
+    "execution_version": "curve-tangent-v1",
+    "contact_version": "legacy-full-edge",
+    "angle_deg": 40,
+    "width_mm": 0.45,
+    "pressure": 0.5,
+    "speed_mm_s": 12,
+    "edge": [
+      0,
+      1
+    ],
+    "extra_finishing_passes": 0
+  },
+  "criteria": {
+    "null_actual_target_loss_max": 0.05,
+    "local_actual_target_loss_max": 0.05,
+    "blank_fraction_max": 0.01,
+    "global_control_minimum": 0.1,
+    "track_contract": "Unchanged HANDVALIDATE-016 per-contact, exact-owner and four-refinement limits"
+  },
+  "threshold_provenance": "Retain actions/spec-v1.json activation.null_actual_loss_max=0.05 for absolute actual-to-independent-target loss, not actual-to-desired tracking loss. Apply the same cap locally to avoid dilution. Foundation relative benefit is not absolute null sufficiency. No relaxation if the nominal geometry already misses this cap.",
+  "fixtures": [
+    {
+      "id": "train-underturn",
+      "split": "train",
+      "instances": [
+        {
+          "gesture": "underturn",
+          "offset": [
+            0,
+            0
+          ],
+          "scale": 1
+        }
+      ]
+    },
+    {
+      "id": "train-overturn",
+      "split": "train",
+      "instances": [
+        {
+          "gesture": "overturn",
+          "offset": [
+            0,
+            0
+          ],
+          "scale": 1
+        }
+      ]
+    },
+    {
+      "id": "train-compound_curve",
+      "split": "train",
+      "instances": [
+        {
+          "gesture": "compound_curve",
+          "offset": [
+            0,
+            0
+          ],
+          "scale": 1
+        }
+      ]
+    },
+    {
+      "id": "development-underturn",
+      "split": "development",
+      "instances": [
+        {
+          "gesture": "underturn",
+          "offset": [
+            0.06,
+            0.04
+          ],
+          "scale": 0.9
+        }
+      ]
+    },
+    {
+      "id": "development-overturn",
+      "split": "development",
+      "instances": [
+        {
+          "gesture": "overturn",
+          "offset": [
+            0.06,
+            0.04
+          ],
+          "scale": 0.9
+        }
+      ]
+    },
+    {
+      "id": "development-compound_curve",
+      "split": "development",
+      "instances": [
+        {
+          "gesture": "compound_curve",
+          "offset": [
+            0.06,
+            0.04
+          ],
+          "scale": 0.9
+        }
+      ]
+    },
+    {
+      "id": "held_out-underturn",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "underturn",
+          "offset": [
+            0.12,
+            -0.08
+          ],
+          "scale": 0.94
+        }
+      ]
+    },
+    {
+      "id": "held_out-overturn",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "overturn",
+          "offset": [
+            0.12,
+            -0.08
+          ],
+          "scale": 0.94
+        }
+      ]
+    },
+    {
+      "id": "held_out-compound_curve",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "compound_curve",
+          "offset": [
+            0.12,
+            -0.08
+          ],
+          "scale": 0.94
+        }
+      ]
+    },
+    {
+      "id": "held_out-forward-pair",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "underturn",
+          "offset": [
+            0.1,
+            0.05
+          ],
+          "scale": 0.92
+        },
+        {
+          "gesture": "overturn",
+          "offset": [
+            0.1,
+            -1.55
+          ],
+          "scale": 0.92
+        }
+      ]
+    },
+    {
+      "id": "held_out-reverse-pair",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "overturn",
+          "offset": [
+            0.1,
+            0.05
+          ],
+          "scale": 0.92
+        },
+        {
+          "gesture": "underturn",
+          "offset": [
+            0.1,
+            -1.55
+          ],
+          "scale": 0.92
+        }
+      ]
+    }
+  ],
+  "context_policy": "Reuse the three frozen HANDVALIDATE-016 overlap/adjacent/space mechanical probes as controls, not additional accepted action inventory or learned words.",
+  "controls": [
+    "wrong-angle",
+    "partial-edge-request",
+    "undeclared-lift",
+    "overbuilt-contributor",
+    "filled-open-pocket",
+    "desired-only-actual"
+  ],
+  "negative_policy": "Wrong angle and partial-edge requests are rejected as out-of-contract model proposals; this is not active physical edge sensitivity. Remaining controls mutate realized traces or a predeclared open pocket. Preserve global 0.1 misses; exact/local rejection is mandatory. Closed-letter counters and six independently executed selected-action controls remain HANDVALIDATE-017 work.",
+  "budget": {
+    "max_renders_per_seed_including_replay": 5000,
+    "max_seconds_per_seed_including_replay": 1800,
+    "max_diagnosed_revisions": 1,
+    "optimization_evaluations": 0
+  },
+  "promotion": "Experiment completion only, including an explicit unresolved null result. Never S1-action/null admission, letters, real G0/G1/G2, fatigue or default promotion."
+}
