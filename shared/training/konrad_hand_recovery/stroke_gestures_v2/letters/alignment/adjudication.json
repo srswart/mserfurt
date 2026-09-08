@@ -1,0 +1,48 @@
+{
+  "source_report_sha256": "bd9cf281cb28fbc5bb31dcdaf0646c3cf4b9d7a7d58edad19aa303d4ea11a34c",
+  "source_status": "pass",
+  "source_worker_decisions": "false before JSON serialization",
+  "status": "pass",
+  "reason": "Normalize finite NumPy float64 ratios to JSON scalar floats; all numerical criteria unchanged",
+  "reader_sha256": "d33033095b9711ec3453e26f0a340709af72392e809a145876bc732ab26912d2",
+  "artifacts_verified": 422,
+  "original_renders": 768,
+  "additional_renders": 0,
+  "optimization_evaluations": 0,
+  "decisions": [
+    {
+      "seed": 7,
+      "process": "first",
+      "numeric_pass": true
+    },
+    {
+      "seed": 7,
+      "process": "replay",
+      "numeric_pass": true
+    },
+    {
+      "seed": 19,
+      "process": "first",
+      "numeric_pass": true
+    },
+    {
+      "seed": 19,
+      "process": "replay",
+      "numeric_pass": true
+    },
+    {
+      "seed": 41,
+      "process": "first",
+      "numeric_pass": true
+    },
+    {
+      "seed": 41,
+      "process": "replay",
+      "numeric_pass": true
+    }
+  ],
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "scope": "Synthetic assembly numeric adjudication only; original failed receipts remain immutable. Independent rotated-gesture evaluation and appearance review are still required."
+}

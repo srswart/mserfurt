@@ -1,5 +1,9 @@
 # CURRICULUM-005 — bounded letter assembly
 
+**Newer work:** [CURRICULUM-014 level assembly and samples](alignment/README.md)
+removes the staircase and consumes the separately admitted standalone stem.
+The historical protocol and findings below remain specific to this older run.
+
 This opt-in experiment fits **where frozen gestures are assembled**, not new
 curves. It starts with the audited synthetic `n`, `u`, `m` constructions.
 Supplied letter labels are hypotheses, not verified historical readings.
