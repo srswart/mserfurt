@@ -17,6 +17,8 @@ selectors:
     - "tests/test_foundation_measurement.py"
     - "tests/test_foundation_gestures.py"
     - "tests/test_foundation_actions.py"
+    - "tests/test_finer_scales.py"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/coverage/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/**"

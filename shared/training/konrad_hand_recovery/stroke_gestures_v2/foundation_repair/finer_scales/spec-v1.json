@@ -1,0 +1,28 @@
+{
+  "stage": "foundation-finer-shared-scales-v1",
+  "authorization": "2026-09-08 user: bounded finer shared-scale experiment; repair shared return handles only if residual errors remain. Keep targets and thresholds unchanged.",
+  "source_report_sha256": "90f26d501d8860717bf8c40d394c7a25df679c8e63d4b58995ecba3e61fba2ef",
+  "candidate_file_sha256": "d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a",
+  "seeds": [7, 19, 41],
+  "search": {
+    "initial": [0.85, 1.15, 0.85],
+    "offsets": [-0.03, -0.02, -0.01, 0, 0.01, 0.02, 0.03],
+    "shortlist": 8,
+    "selection": "Exhaustive 343 shared-scale triples, shuffled by seed. Rank train by worst construction then mean then parameters. Development selects among top eight plus baseline by the same lexicographic rule. No test/regression target access before selection. No target-derived proposal, per-occurrence scale or handle change."
+  },
+  "criteria": {"absolute_loss_max": 0.05, "blank_fraction_max": 0.01},
+  "budget": {"renders_per_seed_including_replay": 5000, "seconds_per_seed_including_replay": 1800, "automatic_revisions": 0},
+  "targets": "Unchanged foundation_gestures evaluation/spec-v1.json target dictionary and candidate-independent generator; all upstream identities pinned by freeze.",
+  "fixtures": "Original CURRICULUM-011 three train and three development fixtures; all HANDVALIDATE-017 nine fixtures as regression only; fresh same-family transfer fixtures below, used only after candidate selection.",
+  "fresh_fixtures": [
+    {"id": "fresh-underturn", "split": "held_out", "instances": [{"gesture": "underturn", "scale": 1.03, "offset": [0.04, -0.01]}]},
+    {"id": "fresh-overturn", "split": "held_out", "instances": [{"gesture": "overturn", "scale": 1.03, "offset": [0.04, -0.01]}]},
+    {"id": "fresh-compound", "split": "held_out", "instances": [{"gesture": "compound_curve", "scale": 1.03, "offset": [0.04, -0.01]}]},
+    {"id": "fresh-forward", "split": "held_out", "instances": [{"gesture": "underturn", "scale": 0.89, "offset": [0.09, 0.02]}, {"gesture": "overturn", "scale": 0.89, "offset": [0.09, -1.62]}]},
+    {"id": "fresh-reverse", "split": "held_out", "instances": [{"gesture": "overturn", "scale": 0.89, "offset": [0.09, 0.02]}, {"gesture": "underturn", "scale": 0.89, "offset": [0.09, -1.62]}]},
+    {"id": "fresh-compound-terminal", "split": "held_out", "instances": [{"gesture": "compound_curve", "scale": 0.89, "offset": [0.09, 0.02]}, {"gesture": "terminal", "scale": 0.89, "offset": [0.09, -1.62]}]}
+  ],
+  "evaluation": "All 21 fixtures: native target/nominal and actual at four unchanged refinements; local losses, motion, exact owners, full-frame containment and blank pockets. Three existing mechanical contexts, unchanged closed-counter diagnostic and nine adversarial controls. Native 900-DPI samples. First/replay in separate processes, all costs charged together.",
+  "stop_policy": "One immutable run; stop on runtime prerequisites, budget or mechanical/control failure. Complete negative target results remain negative. No automatic retries. Handle repair requires a separate frozen primitive-layer protocol after scale-only residual diagnosis, never inline target adaptation or held-out optimization.",
+  "promotion": "Learning experiment only. No new S1-action, letter, real-hand or default-renderer admission. Frozen selected candidate requires independent follow-up."
+}

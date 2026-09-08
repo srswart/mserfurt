@@ -370,3 +370,37 @@ use new records/evidence for the unexecuted candidate work, rather than reopenin
 or treating HANDVALIDATE-014's early-stop record as a pass. Real fitting additionally
 requires live G0 and accepted real layers; G1 reading/appearance and G2 actual
 fidelity remain mandatory. Fatigue, depletion and folios stay deferred.
+
+## 9. Authorized absolute-accuracy follow-up
+
+The shared-geometry investigation distinguishes scale-grid resolution from
+immutable return-shape residuals. The user authorized the scale-only experiment
+first on 2026-09-08, with return-handle repair conditional on remaining error.
+See [CURRICULUM-013](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-013.md)
+and its [frozen protocol](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/spec-v1.json).
+
+- Preserve candidate-independent target definitions, physical settings and all
+  thresholds. Search only three shared scales in a uniform seven-point
+  neighborhood around each admitted scale; derive attachment translations exactly.
+  Primitive handles, port directions and per-occurrence overrides stay locked.
+- Rank complete construction-local nominal losses by worst case, then mean,
+  then parameters. Development chooses from the training top eight plus baseline.
+  A selected minimum can still fail: require unchanged absolute actual/target
+  loss at most 0.05 globally and for each occurrence at every refinement.
+- Previously inspected independent fixtures are regression evidence, not fresh
+  holdouts. Freeze six new same-target-family transfer fixtures before scoring;
+  generate their target pixels only after the candidate is selected. Reuse
+  complete physical/contact/ownership/pocket/counter and adversarial measurements.
+- One immutable attempt, seeds 7/19/41, at most 5000 renders or 1800 seconds per
+  seed including first/replay, search, targets, controls and native presentation.
+  No automatic revision. All unchanged-input admission is reconstructed before
+  scoring. Preserve partial results and receipts on an unmet prerequisite.
+- If the scale-only candidate satisfies the measured scope, do not repair handles
+  merely to force exact analytic coincidence. If geometric errors still exceed
+  the unchanged criterion, freeze a separate bounded shared-primitive repair and
+  independently readmit that lower layer before relearning gestures. A controller,
+  blank-region or incomplete-measurement failure is not permission to fit handles.
+- Learning success does not transfer old acceptance to new candidate bytes.
+  Independent evaluation must explicitly admit the changed shared scales and
+  verify the complete lower-layer lineage; letters and historical-hand promotion
+  remain blocked until their separate requirements are met.

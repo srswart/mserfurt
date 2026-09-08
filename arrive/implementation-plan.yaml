@@ -1680,6 +1680,23 @@ passes:
       - ADV-SS-HANDVALIDATE-016
       - ADV-SS-HANDVALIDATE-014
       notes: "COMPLETE, MIXED SCOPED ACCEPTANCE: approved scalar/constant-angle measurement repair and control journaling succeed; all seeds/replays complete nine holdouts, contexts, closed counter, refinements and nine controls. Underturn-only fixed-null accepted (0.044704); overturn 0.099430 and compound 0.093600 exceed unchanged 0.05. 1086 new +1650 retained renders, 912 per seed; no fit, prior paths/pixels unchanged. 73 focused tests pass; expanded 310 pass plus same 18 inherited failures before three evidence regressions. Full inventory and letters remain blocked; investigate nominal geometry/target mismatch before dynamic actions."
+    - id: ADV-SS-CURRICULUM-013
+      advance_id: ADV-SS-CURRICULUM-013
+      title: "Foundation Geometry Accuracy — Bounded Finer Shared Scales"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-017
+      notes: "COMPLETE, SCALE-ONLY PASS: all seeds select [0.83,1.17,0.87]; worst local losses 0.019606/0.019777/0.020162 at unchanged 0.05. All 21 fixtures, 4 refinements, contexts, counter and 9 controls pass. 8484 renders, 2828 per seed incl replay; 165 artifacts match per seed. Primitive handles unchanged; no handle repair needed for measured scope. 89 focused tests pass; broader 329 pass plus 18 baseline-reproduced inherited failures. Independent HANDVALIDATE-018 remains required; no letters."
+    - id: ADV-SS-HANDVALIDATE-018
+      advance_id: ADV-SS-HANDVALIDATE-018
+      title: "Foundation Geometry Accuracy — Independent Finer-Scale Acceptance"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-013
+      - ADV-SS-HANDVALIDATE-017
+      notes: "Independent no-refit follow-up for frozen finer-scale candidates. Reconstruct unchanged primitives and changed shared-scale lineage; fresh withheld transforms, unchanged absolute 0.05 and all physical/local/control checks. Old acceptance does not transfer to new bytes. Not executed."
   - id: td018-letters
     title: Combine learned strokes into letter recipes
     order: 9
@@ -1694,7 +1711,8 @@ passes:
       - ADV-SS-HANDVALIDATE-014
       - ADV-SS-HANDVALIDATE-016
       - ADV-SS-HANDVALIDATE-017
-      notes: "Require repaired foundation acceptance and a newly registered accepted action/null candidate evaluation; HANDVALIDATE-014 early-stop completion is not S1-action. Real fitting also needs live G0 and accepted real layers. No session effects."
+      - ADV-SS-HANDVALIDATE-018
+      notes: "Require repaired foundation acceptance and independent acceptance for the finer-scale replacement; HANDVALIDATE-014 early-stop completion and CURRICULUM-013 learning success are not S1-action. Real fitting also needs live G0 and accepted real layers. No session effects."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 10
