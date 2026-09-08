@@ -61,7 +61,7 @@ another checkpoint. The learning measurements do not transfer acceptance.
 - [x] Require absolute 0.05 global and occurrence-local actual/target bounds at all four refinements; retain full-frame, motion, exact ownership/contact, blank-pocket, closed-counter and nine adversarial checks.
 - [x] Reevaluate underturn too: its old scoped acceptance cannot transfer to different candidate bytes. Report accepted/missing inventory explicitly.
 - [x] Publish native comparison sheets and manifest-backed scoped admission; no letters, real hand, fatigue or default-renderer promotion.
-- [ ] Update the Advance and plan, validate and merge under the user's usual workflow.
+- [x] Update the Advance and plan, validate and merge under the user's usual workflow.
 
 ## Bug Fixes
 
@@ -128,6 +128,15 @@ issues. No provider CI, push or human appearance acceptance is claimed.
   `49e72a04df648ef1295b94e8436c34cdb385a992d7b173c0316899a05f6f837b`
   and native examples. Letter/real approval remains false; CURRICULUM-005 must
   explicitly scope and verify its next bounded recipe experiment.
+
+### 2026-09-08 — docs: local merge receipt
+
+Completion commit `3eb365d` merged locally into `master` as `a8795fa`.
+Post-merge full-inventory admission verifies the literal published report hash
+and accepts all three declared gestures in the scoped fixed-tool null only.
+Letter training and real acceptance remain false. Post-merge plan validation,
+generated-agent-rule freshness and whitespace checks pass. No push, provider CI
+or human appearance approval is claimed.
 
 ### 2026-09-08 — test: start independent acceptance implementation
 
