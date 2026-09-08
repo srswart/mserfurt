@@ -1,4 +1,3 @@
-import copy
 import json
 
 import numpy as np
@@ -74,3 +73,28 @@ def test_inspection_requires_pinned_source_before_numeric_correction(monkeypatch
 def test_incomplete_evidence_fails_closed():
     assert evidence.numeric_decision({}) is False
     assert evidence.numeric_decision({'fixtures': []}) is False
+
+
+@pytest.mark.parametrize('bad_loss', [False, True])
+def test_adjudication_preserves_receipts_and_never_renders(monkeypatch, tmp_path, bad_loss):
+    saved = json.loads(json.dumps(record()))
+    if bad_loss:
+        saved['fixtures'][0]['actual_target']['time'] = .051
+    for seed in evidence.experiment.SPEC['seeds']:
+        for label in ('first', 'replay'):
+            directory = tmp_path / f'seed-{seed}/{label}'
+            directory.mkdir(parents=True)
+            (directory / 'report.json').write_text(json.dumps(saved))
+    before = {path: path.read_bytes() for path in tmp_path.rglob('*.json')}
+    monkeypatch.setattr(evidence.experiment.protocol, 'inspect', lambda *args: {
+        'status': 'fail', 'artifacts_verified': 428, 'renders': 768})
+    def forbidden(*args, **kwargs):
+        pytest.fail('Read-only adjudication must not render or evaluate a candidate')
+    monkeypatch.setattr(evidence.experiment, 'evaluate', forbidden)
+    monkeypatch.setattr(evidence.experiment, 'paint', forbidden)
+    result = evidence.inspect_run(tmp_path, expected_report_sha256='pinned')
+    assert result['status'] == ('fail' if bad_loss else 'pass')
+    assert result['source_status'] == 'fail'
+    assert result['additional_renders'] == result['optimization_evaluations'] == 0
+    assert result['S2_accepted'] is result['real_accepted'] is result['context_training_allowed'] is False
+    assert {path: path.read_bytes() for path in before} == before
