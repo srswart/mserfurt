@@ -15,14 +15,16 @@ advance:
   risk_flags: ["public_api","migration"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
 
 Scope and execute the previously unexecuted selected-action/null experiment only after matching independent foundation admission. Prefer an explicit fixed-tool null hypothesis for the three accepted constructions unless a named local defect justifies one bounded physical pen action.
 
-Drafting only. This record registers gated follow-up work, not execution or approval.
+Implementation starts 2026-09-08 under the user's implementation and standing
+update/merge instruction. Tidy assessment: no refactor is needed; new isolated
+code preserves every pinned foundation and legacy module.
 Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
 
 ## Behavioral Change
@@ -79,6 +81,23 @@ keep historical evidence, controllers and defaults unchanged. Review time is an 
 - [ ] No unexecuted learning, owner review or provider CI counted as complete.
 
 ## Changes Made
+
+### 2026-09-08 — scope: Predeclared fixed-tool null, no geometry or action fitting
+
+- Live HANDVALIDATE-016 admission verifies before new target access. Prior
+  nominal target losses around 0.099 for overturn/compound exceed the existing
+  absolute null cap 0.05 despite passing relative foundation improvement.
+- Freeze the same independent target family with eleven train/development/
+  held-out cases, including new transforms and pairings. Keep the absolute 0.05
+  cap and apply it locally as well; do not substitute actual/desired tracking
+  loss or relative improvement. New target pixels are not used to choose a
+  candidate, actions or revised thresholds.
+- One fixed null candidate per seed is selected before any target render.
+  A negative result is a completed experiment, not evidence for a particular
+  dynamic pen action. Diagnose target/nominal and nominal/actual separately.
+- Partial-edge requests are outside this full-edge mode and rejected by the
+  unchanged grammar. Active edge sensitivity, closed-letter counters and
+  independent S1-action remain unexecuted; no physical renderer extension.
 
 ### 2026-09-08 — plan: Register the previously unexecuted action/null work
 
