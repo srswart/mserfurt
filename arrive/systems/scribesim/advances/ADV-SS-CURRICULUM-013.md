@@ -6,16 +6,16 @@ advance:
   primary_component: "curriculum"
   components: ["curriculum", "gesture", "handvalidate", "tests"]
   started_at: "2026-09-08T10:13:26Z"
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 35
+  implementation_completed_at: "2026-09-08T10:37:13Z"
+  review_time_estimate_minutes: 45
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
-  reviewability_score: 0
+  reviewability_score: 110
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit", "local:bounded-scale-experiment", "local:fresh-process-replay"]
   model_usage: []
-  status: in_progress
+  status: complete
 ---
 
 ## Objective
@@ -44,14 +44,16 @@ old protocol or target-generator edits. Tidy assessment: no refactor needed.
 - [x] tidy: assessed; preserve pinned modules rather than refactor.
 - [x] test: observe and commit failing tests before implementation.
 - [x] feat/fix: bounded selector, strict shared lineage, admission and immutable journaled execution.
-- [ ] Freeze code/spec before any target render; execute seeds 7/19/41 and separate-process replays within 5000 renders/1800 seconds per seed.
-- [ ] Evaluate 21 fixtures, three contexts, closed counter, four refinements and nine adversarial controls; preserve negative evidence and stop conditions.
-- [ ] Publish native examples, selected bytes, provenance and a conditional handle-repair decision.
+- [x] Freeze code/spec before any target render; execute seeds 7/19/41 and separate-process replays within 5000 renders/1800 seconds per seed.
+- [x] Evaluate 21 fixtures, three contexts, closed counter, four refinements and nine adversarial controls; preserve negative evidence and stop conditions.
+- [x] Publish native examples, selected bytes, provenance and a conditional handle-repair decision.
 - [ ] Validate, update this Advance and plan, then merge locally; do not claim provider CI or human review.
 
 ## Bug Fixes
 
-None yet. This is new learning scope, not a repair to historical evidence.
+No runtime defects or retries. This is new learning scope, not a repair to
+historical evidence. The old grid's resolution limitation is addressed only by
+the newly frozen uniform neighborhood; no old grid or target is edited.
 
 ## Risk + Rollback
 
@@ -61,17 +63,33 @@ pen actions. Preserve all attempts. Roll back only the new opt-in experiment;
 old reports, candidates and defaults remain unchanged. Handle repair is a
 separately frozen conditional primitive-layer experiment, not an inline retry.
 
+Reviewability checkpoint: `arrive score --base 4fe4cf7 --json` reports red 110
+after staging (93 before completion metadata), dominated by the 998 generated
+manifest artifacts, with a mechanical 577.8-minute estimate. Retain this
+inseparable evidence rather than omit failures, workers or
+replay. Review the small isolated code change separately from generated evidence:
+tests, implementation and evidence have separate commits. Independent acceptance
+is split into HANDVALIDATE-018; handle work is omitted because it is unnecessary.
+The 45-minute human review estimate is not a record of review performed.
+
 ## Evidence
 
 - [x] tdd:red-green
 - [x] tests:unit
-- [ ] Bounded first/replay receipts, candidate identities, local metrics and native examples.
-- [ ] Unchanged targets, thresholds and source acceptance identities.
+- [x] Bounded first/replay receipts, candidate identities, local metrics and native examples.
+- [x] Unchanged targets, thresholds and source acceptance identities.
+
+[Results and native samples](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/README.md),
+[complete experiment](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/run-001/report.json),
+and [verification receipt](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/verification.json).
 
 ## CI Evidence Notes
 
 Run local focused checks, `arrive plan check` and `arrive pr check --strict --json`
 before merge. Record provider CI and human review only if actually supplied.
+The strict parser again returns `ids=[]` despite the explicit Advance ID in all
+three metadata fields. Ten inherited artifact-doctor issues remain. Plan/rule
+checks pass; no provider CI or human review is claimed.
 
 ## Changes Made
 
@@ -89,6 +107,26 @@ All 16 focused tests now pass. Live source reconstruction verifies matching
 foundation admission and the complete prior underturn-only scoped-null report.
 The new module reuses unchanged physical measurement, controls and journaled
 budgets; current targets and criteria are checked before any scoring.
+
+### 2026-09-08 — complete: scale-only accuracy pass
+
+- Execution `dff8a31`: all seeds choose `[0.83,1.17,0.87]`; local actual/target
+  maxima are underturn 0.019606, overturn 0.019777 and compound 0.020162, all
+  below unchanged 0.05. All global quality, mechanical, context, counter and
+  nine-control checks pass. **No shared return-handle repair is necessary here.**
+- 8484 renders, 2828 per seed including replay; 2112 train/development scoring
+  calls. Maximum cumulative seed time 437.912 seconds, within 1800. Zero retries.
+  Every seed matches 165 non-clock artifacts exactly; all 998 manifest artifacts
+  and current code identities verify after execution.
+- All primitive, action and recipe dictionaries remain unchanged. Source
+  admission reconstructs after the run; changed candidate file SHA is
+  `6ff3e478799ab1a63d970d1e99fd5d5c454c12557047e5506fec911a65baf4ba`.
+- 89 focused tests pass; all 16 new tests pass in a clean committed checkout.
+  Broader selection: 329 pass and 18 inherited failures. The same 18 reproduce
+  on pre-change `4fe4cf7` (17 other tests pass in that baseline subset).
+- Native examples and the browsable foundation index are updated. Register
+  HANDVALIDATE-018 as planned independent no-refit evaluation and align the
+  future letter dependency. No S1-action, letter, word, fatigue or real promotion.
 
 ## Check for Understanding
 

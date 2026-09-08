@@ -1,0 +1,215 @@
+{
+  "spec": {
+    "stage": "foundation-finer-shared-scales-v1",
+    "authorization": "2026-09-08 user: bounded finer shared-scale experiment; repair shared return handles only if residual errors remain. Keep targets and thresholds unchanged.",
+    "source_report_sha256": "90f26d501d8860717bf8c40d394c7a25df679c8e63d4b58995ecba3e61fba2ef",
+    "candidate_file_sha256": "d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a",
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "search": {
+      "initial": [
+        0.85,
+        1.15,
+        0.85
+      ],
+      "offsets": [
+        -0.03,
+        -0.02,
+        -0.01,
+        0,
+        0.01,
+        0.02,
+        0.03
+      ],
+      "shortlist": 8,
+      "selection": "Exhaustive 343 shared-scale triples, shuffled by seed. Rank train by worst construction then mean then parameters. Development selects among top eight plus baseline by the same lexicographic rule. No test/regression target access before selection. No target-derived proposal, per-occurrence scale or handle change."
+    },
+    "criteria": {
+      "absolute_loss_max": 0.05,
+      "blank_fraction_max": 0.01
+    },
+    "budget": {
+      "renders_per_seed_including_replay": 5000,
+      "seconds_per_seed_including_replay": 1800,
+      "automatic_revisions": 0
+    },
+    "targets": "Unchanged foundation_gestures evaluation/spec-v1.json target dictionary and candidate-independent generator; all upstream identities pinned by freeze.",
+    "fixtures": "Original CURRICULUM-011 three train and three development fixtures; all HANDVALIDATE-017 nine fixtures as regression only; fresh same-family transfer fixtures below, used only after candidate selection.",
+    "fresh_fixtures": [
+      {
+        "id": "fresh-underturn",
+        "split": "held_out",
+        "instances": [
+          {
+            "gesture": "underturn",
+            "scale": 1.03,
+            "offset": [
+              0.04,
+              -0.01
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fresh-overturn",
+        "split": "held_out",
+        "instances": [
+          {
+            "gesture": "overturn",
+            "scale": 1.03,
+            "offset": [
+              0.04,
+              -0.01
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fresh-compound",
+        "split": "held_out",
+        "instances": [
+          {
+            "gesture": "compound_curve",
+            "scale": 1.03,
+            "offset": [
+              0.04,
+              -0.01
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fresh-forward",
+        "split": "held_out",
+        "instances": [
+          {
+            "gesture": "underturn",
+            "scale": 0.89,
+            "offset": [
+              0.09,
+              0.02
+            ]
+          },
+          {
+            "gesture": "overturn",
+            "scale": 0.89,
+            "offset": [
+              0.09,
+              -1.62
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fresh-reverse",
+        "split": "held_out",
+        "instances": [
+          {
+            "gesture": "overturn",
+            "scale": 0.89,
+            "offset": [
+              0.09,
+              0.02
+            ]
+          },
+          {
+            "gesture": "underturn",
+            "scale": 0.89,
+            "offset": [
+              0.09,
+              -1.62
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fresh-compound-terminal",
+        "split": "held_out",
+        "instances": [
+          {
+            "gesture": "compound_curve",
+            "scale": 0.89,
+            "offset": [
+              0.09,
+              0.02
+            ]
+          },
+          {
+            "gesture": "terminal",
+            "scale": 0.89,
+            "offset": [
+              0.09,
+              -1.62
+            ]
+          }
+        ]
+      }
+    ],
+    "evaluation": "All 21 fixtures: native target/nominal and actual at four unchanged refinements; local losses, motion, exact owners, full-frame containment and blank pockets. Three existing mechanical contexts, unchanged closed-counter diagnostic and nine adversarial controls. Native 900-DPI samples. First/replay in separate processes, all costs charged together.",
+    "stop_policy": "One immutable run; stop on runtime prerequisites, budget or mechanical/control failure. Complete negative target results remain negative. No automatic retries. Handle repair requires a separate frozen primitive-layer protocol after scale-only residual diagnosis, never inline target adaptation or held-out optimization.",
+    "promotion": "Learning experiment only. No new S1-action, letter, real-hand or default-renderer admission. Frozen selected candidate requires independent follow-up."
+  },
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+    "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+    "scribesim/curriculum/foundation_measurement.py": "9845b93615fda56aa9539a9c378f3cb645aa6e150b19993c0e5908c7e3d1249a",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/measurement-spec-v1.json": "5fc3ef310fe6fa8c65d94d8000ce6ac19ca342989cf67c5d6c20e1b0cb14d25c",
+    "scribesim/handvalidate/foundation_primitives.py": "c6bd9526d8f75b7b8c7975e51674ad5c38f227244e00fca6280e820573aa4411",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/spec-v1.json": "e92dd81238e0a0ffcf473c2999e7e59d7881f15a04000d17db65558f64466af5",
+    "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/spec-v1.json": "5fbc75684f549535f5471e39e1090f23be58046b7898110ed1aef5c2253a9df2",
+    "scribesim/handvalidate/tangent_evaluation.py": "e58743c881c9ab8231ca3dc5a76df91117e8fa4eb1f5fd9f3d86ac9591051a0a",
+    "scribesim/handvalidate/tangent_motion.py": "87a05731b62d58dad8821d4802b2804dae0cc427185b2034b3ea47ba16920b3a",
+    "scribesim/handflow/curve_tangents.py": "7595a900f29e93ab8b558fe640b305eb34d1cd441a21dbe4b7680f13b00d75ee",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v2.json": "a31cb39abddda710611b55097725ccbd4f75ebd5bb10648964c38a91a6e11ff1",
+    "scribesim/curriculum/foundation_gestures.py": "9e89542b7369b1e5f47b9b57b928dd6666bb00535aafdd51e5a71bb1afede320",
+    "scribesim/curriculum/gesture_targets.py": "8a62b41e9246ec948dd178551fe731b4b37cae0933de97d40a370c1fc88dc91a",
+    "scribesim/curriculum/gesture_refinements.py": "64bf34282a00e9d96145dae4c6e81525f2edba161fb5083ebbd26d251b4c1c0d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v2.json": "030bc8c36399d153b0917cecab6af1e610f3a97e3d84d9691261230ae3db6c8f",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/continuation-v1.json": "3399087a7bd63b188dbd9439a4eba1ad06e70f625fe8be8267dc24d481d7b22d",
+    "scribesim/handvalidate/foundation_gestures.py": "b72bbf01b168d083d579e4ac5338f01ccd097ad80677545765ff47906caaf25d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/spec-v1.json": "71a857879bafe4e3c6f2c84ea13f6d57c0f6d6fe67a69c080e5ad836917cf35d",
+    "scribesim/curriculum/pen_actions.py": "a26036cc304ef499ae4f31ac1023fc3e405b79e3998240ebf5dc4cc7c8eaf5e4",
+    "scribesim/handvalidate/pen_actions.py": "103de6792cc5829dfc79ce4e4ecb36ff112fef5ddaa1d537adb856d6106d59cc",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/continuation-v1.json": "f415083bbbef0d83131851a206f28e2709ac97e32d91ce68378f11315b1493c4",
+    "scribesim/curriculum/foundation_actions.py": "8d34c65574f4f0833953235908b9f683ef2164e5d5fd86284c45c82891ac7aee",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/spec-v1.json": "d20fb9071edc19757456719db28f7fb7db7da11915215022e6502f7f66e04af3",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/spec-v1.json": "41a3f98ff7b9739d7df6999e9b8130954e2a4458b6ab0670f4a98b085e5ab344",
+    "scribesim/handvalidate/foundation_actions.py": "c22fa4921bc0a830d1d5b2d88eb707da6cee710e08d7f53efb6a43bf54fd6c37",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v2.json": "d068a03bbe1aaf9bb3a967f44e7c7b20120961533b91212ce786fab91e389266",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/continuation-v2.json": "f283b9ecb23f4c1167abb07aadcd2f0b57a3fc12b35ea481fd8bb2f461588cc9",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/continuation-v1.json": "7b3f1c332d91e98b8d4cea92235e14d0a2c03dee49580807294f3b4564684c96",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v1.json": "0f2576801903a1290cccf0c92269c699bb50bf396b2143553e2b88575428b34c",
+    "scribesim/curriculum/finer_scales.py": "d6a24451c497250897cc4378aba5d8d0ab111c2af760c71451dcb54641ae913d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/spec-v1.json": "db79b5c01789af8df85c77b64e75ac50ac4edcf06ae2c1ac446fb328f26db347"
+  }
+}
