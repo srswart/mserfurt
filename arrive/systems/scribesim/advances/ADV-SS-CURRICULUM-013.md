@@ -47,7 +47,7 @@ old protocol or target-generator edits. Tidy assessment: no refactor needed.
 - [x] Freeze code/spec before any target render; execute seeds 7/19/41 and separate-process replays within 5000 renders/1800 seconds per seed.
 - [x] Evaluate 21 fixtures, three contexts, closed counter, four refinements and nine adversarial controls; preserve negative evidence and stop conditions.
 - [x] Publish native examples, selected bytes, provenance and a conditional handle-repair decision.
-- [ ] Validate, update this Advance and plan, then merge locally; do not claim provider CI or human review.
+- [x] Validate, update this Advance and plan, then merge locally; do not claim provider CI or human review.
 
 ## Bug Fixes
 
@@ -129,6 +129,12 @@ budgets; current targets and criteria are checked before any scoring.
   future letter dependency. No S1-action, letter, word, fatigue or real promotion.
 
 ## Check for Understanding
+
+Local merge receipt: completion `b5a81b1` merged into `master` with `--no-ff`
+as `42b002b`. Post-merge plan/rule checks pass, all 16 new tests pass (1.08 s),
+and the experiment manifest hash plus all pinned source identities match.
+All 180 changed-document links resolve; temporary validation worktrees are
+removed. No push, provider CI or human review is implied.
 
 1. Why does a relative learning pass not imply absolute target accuracy?
 2. Which three parameters may change, and why must offsets be derived?
