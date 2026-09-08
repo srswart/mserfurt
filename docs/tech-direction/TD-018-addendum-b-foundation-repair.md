@@ -549,3 +549,114 @@ account for continuous contact and any resulting overlap; pressure and exact
 retracing are not specified. No angle tolerance, target revision or fitting experiment is
 approved merely by recording this qualitative feedback. The old mechanical pass
 and source evidence remain intact, with S2/context still false.
+
+## 13. Upright pen-down construction repair
+
+### Requirement and evidence boundary
+
+The owner requests nearly upright, pen-down upstrokes close to the stems in
+n/u/m, less-slanted descending legs and initial u underturn, and preservation of
+the acceptable n overturn shape where compatible. This is a shared construction
+repair, not whole-letter rotation, independent glyph drawing, context learning
+or fatigue. Pressure reduction and exact retracing were not requested. Keep the
+fixed tool/action settings; do not silently make an upstroke light or thin.
+
+HANDVALIDATE-020's mechanical pass remains valid only for its archived candidate
+and lifted construction. Its owner appearance verdict remains `repair_required`.
+Preserve the old candidate, targets, reports, verification receipt and samples.
+The new work has separate versioned artifacts and cannot inherit acceptance for
+changed geometry, contact topology or compiler identities.
+
+### Why geometry alone is insufficient
+
+`stroke_gestures._lower` requires every subsequent gesture instance to use
+`lift`. Internal primitive joins already support `smooth` and `corner`, but this
+does not enable pen-down connections between gesture occurrences. Replacing a
+label in the gallery, deleting diagnostic lift samples, or joining rendered
+pixels would conceal the problem rather than repair execution.
+
+The existing foundation contract also freezes the original six primitives and
+return port rays. The desired shared rise/return changes therefore require an
+explicit new contract version, not an exception in the old validator. Keep the
+existing legacy and foundation reference caps; in particular, do not flatten m
+into an oversized single gesture or add a seventh expanded reference.
+
+### A. Explicit continuous-connection contract
+
+[GESTURE-003](../../arrive/systems/scribesim/advances/ADV-SS-GESTURE-003.md)
+introduces an opt-in version with explicit inter-gesture `smooth` and `corner`
+connections alongside genuine `lift`. Coincident ports are mandatory for both
+pen-down modes; smooth joins additionally require matching tangent directions.
+A down-to-up reversal is an intentional corner with corner-aware timing, not a
+fake smooth join. Contact continuity does not imply nonzero speed at a reversal.
+
+Carry contact-run identity separately from gesture, primitive and action
+occurrence identities. The actual controller trace must remain in contact across
+a connected join while preserving each contributor's ownership. Define action
+progress at the boundary even though this phase uses only the unchanged constant
+profile. Keep inter-letter lifts unless separately declared; word context is not
+introduced. Retain explicit overlap contributors and detect retraced or
+finite-nib overlaps, not just proper centerline crossings.
+
+Version changes must not reinterpret old models. Preserve old evidence and
+source snapshots; if shared compiler identities change, old live admission must
+fail closed until separately refreshed, rather than updating historical hashes.
+Test legacy output compatibility separately from new-version admission.
+
+### B. Shared geometry and owner-review checkpoint
+
+[CURRICULUM-015](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-015.md)
+defines one shared upright rise and compatible upper/lower-return construction.
+Prefer the existing standalone stem without whole-gesture rotation. Any required
+stem change must be explicitly declared as a new shared version with new
+admission debt, never hidden in a per-letter copy. Derive endpoint tangents from
+the actual cubic handles and keep metadata consistent with them.
+
+Construct n/u/m through shared references with their existing 4/4/6 expanded
+occurrences. Maintain baseline 0 and x-height 1. Treat stem proximity, local
+tangent inclination, endpoint-chord inclination and turn curvature as separate
+measurements. Do not invent an owner-approved angle or clearance tolerance from
+the words “nearly upright.” Declare proposed values and any n-turn tradeoff in
+the review sheet before using them as gates.
+
+Start with a deterministic no-fit construction preview. Show isolated shared
+strokes and their n/u/m assemblies, archived-versus-proposed nominal ink at the
+same physical scale, full-frame views, enlarged detail, colored ownership and
+direction arrows. Label proposed nominal ink as nominal, not actual simulated
+motion; include a pen-contact timeline. Obtain owner review bound to candidate
+hashes before target-based fitting or a scored physical experiment. An unreviewed
+preview is a useful deliverable, not an accepted candidate.
+
+Before scored evaluation, freeze a separately versioned analytic target family
+from the reviewed construction requirements, not sampled candidate cubics or
+rendered candidate pixels. Record provenance and the old-to-new comparison;
+old targets stay immutable. Freeze candidate/code hashes, exact fixtures, frame,
+local windows, seeds, controls, render/time budgets and zero automatic retries.
+No optimizer is needed for the initial repair; any later fitting needs its own
+explicit bounded scope.
+
+### C. Independent evaluation and stop rules
+
+[HANDVALIDATE-021](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-021.md)
+independently checks the frozen reviewed construction. Separate structural,
+actual-motion, image-quality and owner-appearance verdicts. Retain the existing
+0.05 absolute/local image limits, 0.75 relative-loss limit, 1e-8 nominal level
+residual and 0.05 mm actual landmark limit. Compare old and new candidates against
+the same new target for the relative metric; an undefined denominator cannot
+grant a pass. These numbers are not slant or readability thresholds.
+
+Measure isolated returns, stem/upstroke reversals, n/u/m and predeclared translated
+or repeated occurrences at seeds 7, 19 and 41 with fresh-process replay. Prove
+continuous actual contact, corner timing, ownership through overlap, fixed tool,
+baseline/x-height, full finite-ink containment and local quality. Include controls
+for an inserted lift, detached ports, falsely smooth reversal, missing overlap
+owner, primitive/action drift, climbing assembly, desired-as-actual and visible
+render shift. A geometry-only preview cannot satisfy these physical gates.
+
+Retain base/finer-arc/finer-time checks for complete letters and source subdivision
+only where it fits the unchanged expansion cap. Never claim whole-letter
+subdivision from isolated-gesture evidence. Archive failures without retrying or
+relaxing limits. Publish full-frame actual ink alongside nominal ink for renewed
+owner review; do not infer it from a low image loss. S2, real-hand and context
+permissions stay false until their separately explicit acceptance requirements
+are satisfied. Context and fatigue remain deferred.

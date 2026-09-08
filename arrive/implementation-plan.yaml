@@ -1740,9 +1740,39 @@ passes:
       - ADV-SS-CURRICULUM-014
       - ADV-SS-HANDVALIDATE-019
       notes: "COMPLETE implementation/evaluation, NOT appearance acceptance. Independent mechanics pass: 474 renders, 452 artifacts verified, 127 tests and 24 clean-checkout tests pass. Owner requests repair for n/u/m: nearly upright pen-down upstrokes close to stems and less-slanted returns; retain acceptable n overturn shape. Owner confirms no pen lift during upward movements. Shared-geometry/target revision remains separately scoped. Old evidence unchanged; S2/real/context false, no fatigue."
+  - id: td018-upright-repair
+    title: Repair shared upright pen-down construction before context
+    order: 10
+    items:
+    - id: ADV-SS-GESTURE-003
+      advance_id: ADV-SS-GESTURE-003
+      title: "Upright Construction — Explicit Pen-down Gesture Connections"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-020
+      notes: "New opt-in contact/geometry contract; explicit smooth/corner connections, contact-run versus gesture ownership and overlap/reversal guards. Preserve legacy semantics, frozen evidence, fixed actions and caps. Contract completion is not geometry admission. No code changed at registration."
+    - id: ADV-SS-CURRICULUM-015
+      advance_id: ADV-SS-CURRICULUM-015
+      title: "Upright Construction — Shared Rise and Return Repair Preview"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-GESTURE-003
+      - ADV-SS-HANDVALIDATE-020
+      notes: "Deterministic no-fit shared rise/return repair for n/u/m; pen-down near-upright upstrokes, less-slanted descents, acceptable n turn retained where compatible. Publish isolated strokes and same-scale old/new nominal ink with arrows/contact timeline. Owner preview review required before scored evaluation; no per-letter curves, context or fatigue."
+    - id: ADV-SS-HANDVALIDATE-021
+      advance_id: ADV-SS-HANDVALIDATE-021
+      title: "Upright Construction — Independent Continuous-Contact Evaluation"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-GESTURE-003
+      - ADV-SS-CURRICULUM-015
+      notes: "Execution requires candidate-bound owner preview review and a frozen independent target/fixture/criterion/budget protocol. Independently measure actual contact, overlap ownership, corner timing, levels and full-frame images at seeds 7/19/41 with replay and adversarial controls. Existing image/level gates and caps unchanged; no fitting or automatic retries. Actual-ink owner review remains separate; S2/real/context false absent explicit acceptance."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
-    order: 10
+    order: 11
     items:
     - id: ADV-SS-CURRICULUM-006
       advance_id: ADV-SS-CURRICULUM-006
@@ -1751,10 +1781,11 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-005
+      - ADV-SS-HANDVALIDATE-021
       notes: "Context remains unimplemented and context_training_allowed=false. HANDVALIDATE-020 passes bounded mechanics but the owner requires less-slanted n/u/m with nearly upright pen-down upstrokes close to stems. Shared-construction repair with continuous contact and appropriate S2 clearance are prerequisites. Whole-letter subdivision is not claimed. Preserve frozen evidence; no ink depletion, fatigue or session effects."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
-    order: 11
+    order: 12
     items:
     - id: ADV-SS-CURRICULUM-007
       advance_id: ADV-SS-CURRICULUM-007
@@ -1778,7 +1809,7 @@ passes:
       notes: "Audit S0–S4 plus S1-gesture/S1-action, matching tool/controller identities and current G0/G1/G2 with session effects disabled. Missing inventory/review stops real acceptance."
   - id: td018-expressive-later
     title: Deferred ink and expressive evaluation after layered acceptance
-    order: 12
+    order: 13
     items:
     - id: ADV-SS-HANDFLOW-009
       advance_id: ADV-SS-HANDFLOW-009
@@ -1801,7 +1832,7 @@ passes:
       notes: "DEFERRED expressive G3 evaluation of the learned layered candidate; requires matching live G0–G2 and genuine review. Synthetic catalog replay cannot authorize folios; fatigue and broader state effects remain separately scoped."
   - id: td018-folio
     title: Integrate opt-in folios and evaluate the release candidate
-    order: 13
+    order: 14
     items:
     - id: ADV-SS-RENDER-006
       advance_id: ADV-SS-RENDER-006

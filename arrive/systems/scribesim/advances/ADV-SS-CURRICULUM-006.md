@@ -61,7 +61,9 @@ level assembly, and HANDVALIDATE-020 independently passes its declared rotated-
 return and whole-assembly mechanical scope. The owner now requires appearance
 repair of all three letters: near-upright upward movement close to stems and
 less-slanted returns. The owner confirmed that upward movements must remain
-pen-down; repair the shared construction before S2 clearance. Whole-letter source subdivision is not
+pen-down; GESTURE-003, CURRICULUM-015 and HANDVALIDATE-021 now scope this repair,
+its nominal owner-review checkpoint and independent actual-contact evaluation.
+HANDVALIDATE-021 completion alone is not S2 clearance. Whole-letter source subdivision is not
 claimed. None releases context fitting; this Advance remains planned and unimplemented.
 
 Completion is not acceptance. Synthetic scaffolding may execute with explicitly
