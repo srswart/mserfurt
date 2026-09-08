@@ -6,16 +6,16 @@ advance:
   primary_component: "handvalidate"
   components: ["handvalidate","curriculum","gesture","handflow","pathguide","nibcontact","tests"]
   started_at: "2026-09-08T06:01:40Z"
-  implementation_completed_at: ~
+  implementation_completed_at: "2026-09-08T06:44:10Z"
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api","migration"]
-  evidence: []
+  evidence: ["tdd:red-green","tests:unit","local:independent-evaluation","local:fresh-process-replay"]
   model_usage: []
-  status: in_progress
+  status: complete
 ---
 
 ## Objective
@@ -32,7 +32,7 @@ Independent current-code numeric proofs and complete scoped action/null evidence
 
 ## Component Impact
 
-`scribesim/handvalidate/foundation_actions.py` (planned), explicit action/letter admission integration, focused tests and `shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/` (planned).
+`scribesim/handvalidate/foundation_actions.py`, explicit opt-in scoped-null admission with separate letter prerequisites, focused tests and `shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/`.
 Existing components remain incubating; no separate controller or renderer.
 
 ## Dependencies
@@ -66,24 +66,25 @@ counter evidence. This input note does not start or complete HANDVALIDATE-017.
 - [x] test: commit observed failing behavioral tests before implementation.
 - [x] Pin CURRICULUM-012 selected candidate reports and current lower-layer/code/tool/split identities before fresh proofs. Reconstruct live HANDVALIDATE-016 admission for the exact requested inventory; reject unsupported gestures or real scope.
 - [x] Freeze independent held-out geometry/action targets and numerical gates before rendering. No refit, optimizer invocation, test leakage, changed reference geometry or post-hoc local regions.
-- [ ] Evaluate every selected action/null candidate on actual versus desired traces and target benefit, including every contact entry/exit, local blank/counter guards, exact contributors, physical footprint, spaces, overlaps and dt/arc/all-cubic subdivision convergence.
-- [ ] Execute all six previously unexecuted selected-action adversarial classes required by the old action evaluation, plus relevant frozen local guards. Preserve global 0.1 misses and independent local detection; missing controls block acceptance.
-- [ ] Require first/replay agreement for seeds 7, 19 and 41, with 5000 renders or 1800 seconds per seed including controls/refinement/replay and at most one diagnosed revision. Preserve failures and cumulative ledgers.
-- [ ] Implement a new explicit S1-action/null manifest reader with consumer-pinned report SHA and current evidence reconstruction. Preserve historical blocked reports and default legacy readers. Reject status-only, stale, incomplete or cross-tool admission.
-- [ ] Publish action-by-action active/null/unresolved dispositions, native-resolution examples and missing inventory. A null pass covers only the frozen experiment and requested constructions; it is not universal evidence that pen manipulation is unnecessary.
-- [ ] Keep CURRICULUM-005 blocked unless matching S1-action/null and every required primitive/gesture/reference prerequisite pass. No letter fitting, historical appearance approval, fatigue or default-mode promotion in this evaluation.
+- [x] Evaluate every selected action/null candidate on actual versus desired traces and target benefit, including every contact entry/exit, local blank/counter guards, exact contributors, physical footprint, spaces, overlaps and dt/arc/all-cubic subdivision convergence.
+- [x] Execute all six previously unexecuted selected-action adversarial classes required by the old action evaluation, plus relevant frozen local guards. Preserve global 0.1 misses and independent local detection; missing controls block acceptance.
+- [x] Require first/replay agreement for seeds 7, 19 and 41, with 5000 renders or 1800 seconds per seed including controls/refinement/replay and at most one diagnosed revision. Preserve failures and cumulative ledgers.
+- [x] Implement a new explicit S1-action/null manifest reader with consumer-pinned report SHA and current evidence reconstruction. Preserve historical blocked reports and default legacy readers. Reject status-only, stale, incomplete or cross-tool admission.
+- [x] Publish action-by-action active/null/unresolved dispositions, native-resolution examples and missing inventory. A null pass covers only the frozen experiment and requested constructions; it is not universal evidence that pen manipulation is unnecessary.
+- [x] Keep CURRICULUM-005 blocked unless matching S1-action/null and every required primitive/gesture/reference prerequisite pass. No letter fitting, historical appearance approval, fatigue or default-mode promotion in this evaluation.
 
 ## Validation Gates
 
-- [ ] Independent current-code numeric proofs and complete scoped action/null evidence are required. Any required unresolved action blocks affected letter inventory. Real G0/G1/G2 and owner appearance review remain separate.
-- [ ] Fresh-process results match current pinned source, target, compiler, tool, controller and metric identities.
-- [ ] Missing or failed evidence blocks the affected scope; completion is not promotion.
+- [x] Independent current-code numeric proofs and complete scoped action/null evidence are required. Any required unresolved action blocks affected letter inventory. Real G0/G1/G2 and owner appearance review remain separate.
+- [x] Fresh-process results match current pinned source, target, compiler, tool, controller and metric identities.
+- [x] Missing or failed evidence blocks the affected scope; completion is not promotion.
 
 ## Bug Fixes
 
-One diagnosed fixture-schema repair is implemented, with all first-attempt
-evidence retained. Further scalar-type and constant-angle diagnostic repairs
-are identified but not implemented pending approval beyond the allowed revision.
+One diagnosed fixture-schema repair and a subsequent explicitly user-approved
+scalar-type/constant-angle diagnostic repair are implemented. Each completed
+control is journaled. All failed evidence is retained; no candidate, target,
+compiler, controller, renderer or physical threshold changes.
 
 ## Risk + Rollback
 
@@ -93,14 +94,14 @@ keep historical evidence, controllers and defaults unchanged. Review time is an 
 
 ## Evidence
 
-- [ ] tdd:red-green and actual focused/expanded test results.
-- [ ] Frozen candidate/target/metric manifests, visible samples and cumulative budgets.
-- [ ] Clean-checkout fresh-process replay and current strict admission reconstruction.
-- [ ] `arrive plan check`, changed local-link checks and `git diff --check`.
-- [ ] `arrive pr check --strict --json` before an authorized merge; report local parser limitations separately from provider CI.
-- [ ] No unexecuted learning, owner review or provider CI counted as complete.
+- [x] tdd:red-green and actual focused/expanded test results.
+- [x] Frozen candidate/target/metric manifests, visible samples and cumulative budgets.
+- [x] Clean-checkout fresh-process replay and current strict admission reconstruction.
+- [x] `arrive plan check`, changed local-link checks and `git diff --check`.
+- [x] `arrive pr check --strict --json` before an authorized merge; report local parser limitations separately from provider CI.
+- [x] No unexecuted learning, owner review or provider CI counted as complete.
 
-Current validation: 65 focused tests pass in 64.19 seconds. Expanded selection:
+Pre-approval validation: 65 focused tests pass in 64.19 seconds. Expanded selection:
 305 pass, 18 existing failures (12 previously recorded plus six folio-resolution
 failures reproduced in clean pre-task `ac08daf`). Plan, 132 local links and diff
 checks pass. Artifact doctor retains ten identical issues; no stale agent rules.
@@ -108,6 +109,35 @@ Both experiment attempts ran from clean committed-code worktrees. No provider
 CI or merge is claimed; remaining acceptance work and repair approval are open.
 
 ## Changes Made
+
+### 2026-09-08 — complete: Approved measurement repair, mixed scoped acceptance
+
+- Final local focused tests: 73 pass in 110.49 seconds, including scoped-reader,
+  forged-flag and exact prior-output regressions. Expanded selection: 310 pass,
+  same 18 inherited failures in 162.07 seconds before three added evidence tests.
+- Plan/diff/link checks pass; artifact doctor retains ten identical issues and
+  agent rules have no stale outputs. Strict PR check executes but the installed
+  parser returns `ids=[]` despite the ID in title/body/label; no provider CI or
+  human review is claimed. Merge and clean-checkout receipts follow separately.
+- Run-003 at frozen code `9100977` completes all nine heldouts, three contexts,
+  closed-counter checks, four refinements and nine controls for seeds 7/19/41
+  with exact fresh-process replay. No further repair or candidate search.
+- Independent scoped null acceptance: underturn local maximum 0.044704.
+  Overturn 0.099430 and compound 0.093600 exceed unchanged 0.05; their nominal
+  geometry already misses targets. No dynamic action is inferred as necessary.
+- The explicit reader admits underturn-only synthetic fixed-null scope, rejects
+  required full inventory and keeps letter/real permissions false. Completion
+  is not whole-inventory acceptance: `evaluation_complete=true`, `status=fail`.
+- Swapped physical edge is now detected (endpoint displacement 0.2475 mm).
+  All eight other controls evade global 0.1 but fail exact/local guards. The
+  erased-counter control operates on an actual closed diagnostic enclosure;
+  none of this admits active physical actions or learned letters.
+- New 1086 + retained 1650 =2736 renders, 912/5000 per seed, cumulative time
+  <260/1800 seconds each. Zero fitting; all frozen candidates unchanged.
+- Manifest SHA `90f26d501d8860717bf8c40d394c7a25df679c8e63d4b58995ecba3e61fba2ef`;
+  530 manifest artifacts. Prior actual images/traces and target/motion metrics
+  remain byte/numerically identical; only measurement diagnostics change.
+- [Completed results, samples and exact scope](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/README.md).
 
 ### 2026-09-08 — authorized: Additional measurement-only repair and replay
 

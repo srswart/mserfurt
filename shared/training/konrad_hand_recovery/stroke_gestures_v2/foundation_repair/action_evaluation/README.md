@@ -1,10 +1,69 @@
 # HANDVALIDATE-017 — Independent fixed-null evaluation
 
-**In progress — stopped pending approval for one additional measurement-only
-repair.** Evaluator and opt-in admission reader are implemented, but independent
-acceptance is incomplete and this Advance is not merged or marked complete.
+## Completed approved measurement — scoped result
 
-## Current measured evidence, not acceptance
+The approved diagnostic repair works. **All three frozen seeds complete with
+exact replay and all nine adversarial controls detected.** Underturn receives
+independent fixed-tool null acceptance for the declared synthetic scope.
+Overturn and compound remain unresolved at the unchanged absolute 0.05 limit.
+The whole-inventory report correctly says `status=fail`, while
+`evaluation_complete=true` and `accepted_gestures=[underturn]`.
+
+| Construction | Worst local actual/target loss | Independent disposition |
+|---|---:|---|
+| Underturn | 0.044704 | Accepted scoped fixed-tool null |
+| Overturn | 0.099430 | Unresolved; exceeds 0.05 |
+| Compound curve | 0.093600 | Unresolved; exceeds 0.05 |
+
+Actual paths, prior rendered pixels, targets, local regions and motion metrics
+are unchanged from run-002. Only diagnostic representation/classification and
+control evidence completion change. No candidate fitting, reference change or
+threshold relaxation occurs. Nominal geometry already misses the independent
+overturn/compound targets; this is not evidence for adding dynamic pen actions.
+
+The physical-edge test now detects the swapped side: endpoint error changes
+from approximately 8.9e-16 mm to 0.2475 mm, with global loss 0.788730. It remains
+an asymmetric physical-render diagnostic on the selected actual path, not an
+accepted active physical action. The diagnostic counter is enclosed and blank
+for target, nominal and all four actual refinements; filling its frozen region
+changes local ink fraction from 0 to 1. This is not a learned letter.
+
+All eight other control images still evade the unchanged global 0.1 detector.
+Wrong angle scores 0.082283; overbuilt terminal 0.007314; erased counter 0.007294;
+filled open pocket 0.007951; air connector 0.001112; the remaining three score 0.
+Exact tool/contact/contributor audits and local blank guards reject them.
+Historical failed controls remain preserved, not reclassified as global passes.
+
+New renders: 1086; prior failed renders: 1650; cumulative total: **2736**, or
+**912/5000 per seed**, including every first/replay, control and presentation.
+Per-seed cumulative time stays below 260/1800 seconds. One original revision
+plus one explicitly user-approved measurement-only continuation; zero fitting.
+No further automatic attempt is authorized.
+
+- [Native four-column seed-7 workbook](run-003/seed-7/first/practice-sheet.png)
+- [Seed 19 workbook](run-003/seed-19/first/practice-sheet.png) / [seed 41 workbook](run-003/seed-41/first/practice-sheet.png)
+- [Actual diagnostic closed counter](run-003/seed-7/first/closed-counter-carrier-actual.png)
+- [Independent manifest](run-003/S1-actions.json) / [complete control checkpoints](run-003/seed-7/first/controls.json)
+
+Frozen execution code: `9100977`; approved repair RED: `2e79204`. Manifest SHA:
+`90f26d501d8860717bf8c40d394c7a25df679c8e63d4b58995ecba3e61fba2ef`.
+The opt-in reader accepts an explicitly requested underturn-only fixed-null
+scope and rejects the full three-construction inventory. It never grants
+letter or real-hand approval. CURRICULUM-005 remains blocked pending matching
+complete gesture/action/reference prerequisites. Next: investigate shared
+geometry/target fidelity before proposing new fitting or pen actions.
+
+Verification: **73 focused tests pass**, including current scoped admission,
+rejection of forged whole-inventory flags, and unchanged prior paths/pixels.
+The expanded selection passes 310 tests with the same 18 inherited failures
+(before three additional saved-evidence regressions). See
+[approved verification](approved-verification.json). Local merge and governance
+receipts are recorded in the Advance; no provider CI or owner review is claimed.
+
+## Historical run-002 stop — retained, superseded only by approved measurement
+
+The following records the stop before the user's additional repair approval;
+it is not the current completion or acceptance decision.
 
 All three seeds execute nine fresh heldouts, three mechanical contexts and the
 closed-counter carrier, then reproduce the same diagnostic adapter failure.
@@ -147,13 +206,14 @@ and local-region containment checked analytically before the first render.
 
 ## Command and samples
 
-Run only from the frozen clean revised code checkout into its immutable continuation:
+Run only from the frozen clean approved code checkout into its immutable continuation:
 
 ```sh
 .venv/bin/python -m scribesim.handvalidate.foundation_actions \
-  --output shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/run-002
+  --output shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/run-003
 ```
 
-Native target/nominal/desired/actual panels and completed mutation images are
-stored under `run-002/seed-{7,19,41}/first/`. The final workbook was not reached.
-Do not rerun this immutable destination; another run requires the approval above.
+Native target/nominal/desired/actual panels, the complete workbook and all
+control images are stored under `run-003/seed-{7,19,41}/first/`. Prior attempts
+remain untouched. Do not rerun an immutable destination or treat this command
+as authorization for another attempt.

@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-08T06:27:54Z
+  updated_at: 2026-09-08T06:44:10Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1673,13 +1673,13 @@ passes:
     - id: ADV-SS-HANDVALIDATE-017
       advance_id: ADV-SS-HANDVALIDATE-017
       title: "Foundation Action or Null — Independent Selected-Candidate Acceptance"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-012
       - ADV-SS-HANDVALIDATE-016
       - ADV-SS-HANDVALIDATE-014
-      notes: "IN PROGRESS, AWAITING ADDITIONAL REPAIR APPROVAL: independent evaluator and reader implemented; all seeds measure nine holdouts, contexts and closed counter, but NumPy-scalar physical adapter and exact-zero angular-rate diagnostic block acceptance. One carrier-schema revision used. 1062 new +588 retained renders, 550 per seed; exact replay, no refit. Candidate/targets/thresholds unchanged. Additional measurement-only scalar/constant-angle repair and control journaling need approval; six-class proof incomplete, no S1-action or letters, not merged."
+      notes: "COMPLETE, MIXED SCOPED ACCEPTANCE: approved scalar/constant-angle measurement repair and control journaling succeed; all seeds/replays complete nine holdouts, contexts, closed counter, refinements and nine controls. Underturn-only fixed-null accepted (0.044704); overturn 0.099430 and compound 0.093600 exceed unchanged 0.05. 1086 new +1650 retained renders, 912 per seed; no fit, prior paths/pixels unchanged. 73 focused tests pass; expanded 310 pass plus same 18 inherited failures before three evidence regressions. Full inventory and letters remain blocked; investigate nominal geometry/target mismatch before dynamic actions."
   - id: td018-letters
     title: Combine learned strokes into letter recipes
     order: 9

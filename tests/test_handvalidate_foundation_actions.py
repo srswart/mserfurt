@@ -170,3 +170,35 @@ def test_partial_control_evidence_is_saved_before_next_control(tmp_path):
 def test_approved_rerun_keeps_fixture_target_and_limit_spec_identical():
     old_freeze = json.loads((evaluation.BASE / 'run-002/freeze.json').read_text())
     assert evaluation.SPEC == old_freeze['spec']
+
+
+def test_completed_independent_reader_admits_only_measured_underturn_scope():
+    root = evaluation.BASE / 'run-003'
+    pinned = evaluation.digest(root / 'S1-actions.json')
+    result = evaluation.require_readiness(root, expected_report_sha256=pinned, required_gestures=['underturn'])
+    assert result['S1_action_accepted'] and result['kind'] == 'scoped-fixed-null'
+    assert not result['letter_training_allowed'] and not result['real_accepted']
+    with pytest.raises(ValueError, match='Unresolved'):
+        evaluation.require_readiness(root, expected_report_sha256=pinned, required_gestures=evaluation.SPEC['required_gestures'])
+
+
+def test_whole_inventory_pass_flag_cannot_override_actual_target_failures(tmp_path):
+    import shutil
+
+    root = tmp_path / 'forged'
+    shutil.copytree(evaluation.BASE / 'run-003', root)
+    report = json.loads((root / 'S1-actions.json').read_text())
+    report.update(status='pass', S1_action_accepted=True, accepted_gestures=evaluation.SPEC['required_gestures'])
+    evaluation.write_json(root / 'S1-actions.json', report)
+    with pytest.raises(ValueError, match='flags disagree'):
+        evaluation.require_readiness(root, expected_report_sha256=evaluation.digest(root / 'S1-actions.json'),
+                                     required_gestures=evaluation.SPEC['required_gestures'])
+
+
+def test_repaired_measurement_keeps_saved_actual_paths_and_pixels_identical():
+    for seed in evaluation.SPEC['seeds']:
+        old = evaluation.BASE / f'run-002/seed-{seed}/first'
+        new = evaluation.BASE / f'run-003/seed-{seed}/first'
+        for path in old.iterdir():
+            if path.suffix in ('.png', '.gz') or path.name == 'candidate.json':
+                assert path.read_bytes() == (new / path.name).read_bytes()
