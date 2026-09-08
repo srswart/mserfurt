@@ -1691,12 +1691,12 @@ passes:
     - id: ADV-SS-HANDVALIDATE-018
       advance_id: ADV-SS-HANDVALIDATE-018
       title: "Foundation Geometry Accuracy — Independent Finer-Scale Acceptance"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-013
       - ADV-SS-HANDVALIDATE-017
-      notes: "Independent no-refit follow-up for frozen finer-scale candidates. Reconstruct unchanged primitives and changed shared-scale lineage; fresh withheld transforms, unchanged absolute 0.05 and all physical/local/control checks. Old acceptance does not transfer to new bytes. Not executed."
+      notes: "COMPLETE, FULL DECLARED SCOPED-NULL PASS: all three finer-scale constructions independently accepted at unchanged 0.05; maxima 0.022382/0.022258/0.022128. Nine fresh +21 regression fixtures, six contexts, counter and nine controls pass. 3036 renders, 1012 per seed incl replay; zero fitting/retries. 227 artifacts replay per seed and 145 old artifacts remeasure identically per worker. 116 focused tests pass; broader 356 pass plus 18 baseline-reproduced inherited failures. No letter or real approval."
   - id: td018-letters
     title: Combine learned strokes into letter recipes
     order: 9

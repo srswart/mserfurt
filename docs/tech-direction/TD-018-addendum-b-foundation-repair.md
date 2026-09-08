@@ -404,3 +404,18 @@ and its [frozen protocol](../../shared/training/konrad_hand_recovery/stroke_gest
   Independent evaluation must explicitly admit the changed shared scales and
   verify the complete lower-layer lineage; letters and historical-hand promotion
   remain blocked until their separate requirements are met.
+
+The independent replacement consumer is
+`scribesim.handvalidate.finer_scales.require_readiness`, implemented under
+[HANDVALIDATE-018](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-018.md).
+It requires the exact independent report hash, an explicit supported gesture
+inventory and `legacy-full-edge` synthetic scope. It reconstructs the historical
+343-proposal selection from saved losses without rerunning a selector, verifies
+the unchanged admitted primitives plus the three selected reference scales, and
+checks fresh physical measurements and first/replay accounting. Old admission
+APIs remain candidate-specific rather than being relaxed to admit new bytes.
+
+Its new evaluation freezes nine same-family holdouts and three new mechanical
+contexts. All 21 learning fixtures and the prior contexts are regressions;
+counter bounds, targets and numerical limits do not change. Completion and
+scoped admission are distinct from learned-letter or historical-hand approval.

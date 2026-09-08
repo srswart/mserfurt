@@ -103,9 +103,10 @@ silently restart this experiment. Focused code verification is available with
 ## Next boundary
 
 [HANDVALIDATE-018](../../../../../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-018.md)
-is registered as the **planned independent no-refit evaluation** of these exact
-replacement bytes, with newly withheld fixtures and unchanged quality/physical
-limits. This learning report does not grant S1-action/null admission; the old
+subsequently completed the **independent no-refit evaluation** of these exact
+replacement bytes; see its [separate acceptance results](../scale_evaluation/README.md).
+It uses newly withheld fixtures and unchanged quality/physical limits.
+This learning report itself does not grant S1-action/null admission; the old
 underturn-only independent acceptance remains specific to the old candidate.
 Do not transfer it automatically to the changed scales.
 

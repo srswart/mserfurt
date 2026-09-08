@@ -1,0 +1,82 @@
+{
+  "wrong-angle": {
+    "unmodified_errors": 0,
+    "errors": 1627,
+    "detected": true,
+    "global_loss": 0.08040130623557944,
+    "global_detected_at_0_1": false
+  },
+  "undeclared-lift": {
+    "unmodified_errors": 0,
+    "errors": 1,
+    "detected": true,
+    "global_loss": 0.0,
+    "global_detected_at_0_1": false
+  },
+  "overbuilt-terminal": {
+    "unmodified_errors": 0,
+    "errors": 305,
+    "detected": true,
+    "global_loss": 0.0075722217191102805,
+    "global_detected_at_0_1": false
+  },
+  "desired-only-actual": {
+    "unmodified_errors": 0,
+    "errors": 2255,
+    "detected": true,
+    "global_loss": 0.0,
+    "global_detected_at_0_1": false
+  },
+  "missing-overlap": {
+    "unmodified_errors": 0,
+    "errors": 1,
+    "detected": true,
+    "global_loss": 0.0,
+    "global_detected_at_0_1": false
+  },
+  "air-connector": {
+    "unmodified_errors": 0,
+    "errors": 4,
+    "detected": true,
+    "global_loss": 0.0007741827489764744,
+    "global_detected_at_0_1": false
+  },
+  "swapped-edge": {
+    "expected_endpoint_error_mm": 8.881784197001252e-16,
+    "swapped_endpoint_error_mm": 0.2475000000000008,
+    "detected": true,
+    "global_loss": 0.7890533117932149,
+    "global_detected_at_0_1": true,
+    "candidate_action_activation": false,
+    "mode": "physical-edge-v1",
+    "scope": "asymmetric physical diagnostic on selected actual path only"
+  },
+  "erased-counter": {
+    "before": 0.0,
+    "after": 1.0,
+    "bounds_mm": [
+      1.6,
+      1.8,
+      6.3,
+      6.6
+    ],
+    "enclosed_before": true,
+    "detected": true,
+    "global_loss": 0.007242785804139824,
+    "global_detected_at_0_1": false
+  },
+  "filled-open-pocket": {
+    "before": 0.0,
+    "after": 1.0,
+    "bounds_mm": [
+      0.7483,
+      0.9712500000000001,
+      8.78655,
+      8.97765
+    ],
+    "enclosed_before": null,
+    "detected": true,
+    "global_loss": 0.007883381279044034,
+    "global_detected_at_0_1": false
+  }
+}
