@@ -1,0 +1,26 @@
+{
+  "stage": "independent-level-assembly-mechanics-v1",
+  "source_report_sha256": "bd9cf281cb28fbc5bb31dcdaf0646c3cf4b9d7a7d58edad19aa303d4ea11a34c",
+  "source_adjudication_sha256": "0ae0713ef2298d87727489de69e9a38a971bd12fdd57f1cd2f7817de47504027",
+  "candidate_file_sha256": "e3c6e0a41374ada0ac15085df7100a8fbbc2ee855cddc71c9c2df93a84a74ff9",
+  "candidate_object_sha256": "73c17320af9b418bb148abe22a105fa030c35d36a605da12504bb20e441cd863",
+  "frame_mm": [-3, 20, 2, 13],
+  "target_version": "independently-chord-levelled-analytic-families-v1",
+  "criteria": {"absolute_loss_max": 0.05, "relative_loss_max": 0.75, "nominal_landmark_max": 1e-8, "actual_landmark_mm_max": 0.05},
+  "local_target_padding_mm": 0.8,
+  "seeds": [7, 19, 41],
+  "fixtures": [
+    {"id": "rotated-underturn", "kind": "gesture", "text": "i", "from_letter": "u", "shift": [0, 0]},
+    {"id": "rotated-overturn", "kind": "gesture", "text": "i", "from_letter": "m", "shift": [0, 0]},
+    {"id": "letter-n", "kind": "letter", "text": "n", "shift": [0, 0]},
+    {"id": "letter-u", "kind": "letter", "text": "u", "shift": [0, 0]},
+    {"id": "letter-m", "kind": "letter", "text": "m", "shift": [0, 0]},
+    {"id": "placed-mu", "kind": "letter", "text": "mu", "shift": [0.013, -0.009]}
+  ],
+  "refinements": {"gesture": ["base", "arc", "time", "subdivision"], "letter": ["base", "arc", "time"]},
+  "subdivision_scope": "Rotated isolated gestures only. Whole-letter source subdivision exceeds the unchanged expanded-reference cap and is not claimed; full letters retain the existing base/arc/time contract.",
+  "controls": ["primitive-drift", "action-drift", "climbing-assembly", "owner", "painted-air", "desired-as-actual", "visible-shift"],
+  "visible_shift_mm": 1.0,
+  "budget": {"renders_per_seed_including_replay": 5000, "seconds_per_seed_including_replay": 1800, "retries": 0},
+  "scope": "Exact frozen rotated underturn/overturn occurrences and n/u/m synthetic fixed-tool assemblies only. Existing mu text is a new placement regression, not a new word or context-learning result. No refitting, altered targets/thresholds, transform envelope, alphabet, real-hand, S2, context or fatigue admission. Owner appearance review remains pending."
+}

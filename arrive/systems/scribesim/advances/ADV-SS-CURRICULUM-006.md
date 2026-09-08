@@ -56,10 +56,11 @@ baseline/x-height/reading remain unresolved. Exact unseen two-letter strings in
 that workbook are juxtaposition transfer probes, not learned context. Do not
 start accepted-layer context fitting from completion status or low target loss.
 
-HANDVALIDATE-019 now resolves scoped standalone-stem admission. CURRICULUM-014
-adds level assembly, but its rotated returns still require independent matching
-evaluation and human appearance/reading review. Neither Advance releases S2 or
-context fitting; this Advance remains planned and unimplemented.
+HANDVALIDATE-019 resolves scoped standalone-stem admission. CURRICULUM-014 adds
+level assembly, and HANDVALIDATE-020 independently passes its declared rotated-
+return and whole-assembly mechanical scope. Human appearance/reading review and
+appropriate S2 clearance remain pending; whole-letter source subdivision is not
+claimed. None releases context fitting; this Advance remains planned and unimplemented.
 
 Completion is not acceptance. Synthetic scaffolding may execute with explicitly
 unaccepted inputs. Reference-derived fitting requires live G0, and real layer

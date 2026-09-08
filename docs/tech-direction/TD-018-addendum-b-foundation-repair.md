@@ -514,3 +514,27 @@ of a NumPy-versus-JSON decision-type defect; original mixed worker/root receipts
 are preserved. No target, threshold, primitive or candidate is changed by that
 adjudication. Independent rotated-occurrence evaluation and human appearance/
 reading review remain prerequisites to S2; completion does not release context.
+
+## 12. Independent level-assembly mechanics and owner appearance review
+
+[HANDVALIDATE-020](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-020.md)
+measures the exact frozen rotated underturn/overturn occurrences, n/u/m and a
+placed mu regression. The unchanged synthetic target definition is shared, but
+the validator does not invoke the assembly solver or its level/decision logic.
+Actual trace, global/local image, level, contact, ownership, fixed-tool and
+negative-control proofs are separate from appearance. All three seeds replay;
+there is no refitting or changed numerical threshold.
+
+Source subdivision covers isolated rotated returns only. Complete-letter source
+subdivision exceeds the unchanged recipe-reference cap; no cap bypass or broader
+claim is allowed. Complete letters retain base, finer-arc and finer-time checks.
+The archive reader reconstructs convergence from saved metric PNGs, not new
+rendering or presentation-detail crops.
+
+The [review sheet](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/index.html)
+asks the owner to keep or repair each letter's identity, slant/proportions,
+turns/joins and shared-vocabulary consistency. The pending record is bound to
+the candidate and mechanical report; an agent cannot supply owner approval.
+Mechanical pass still keeps S2, real and context false. If appearance is wrong,
+register the specific shared-stroke or assembly repair before a new experiment;
+do not tune target pixels or redraw independent letters to manufacture a pass.

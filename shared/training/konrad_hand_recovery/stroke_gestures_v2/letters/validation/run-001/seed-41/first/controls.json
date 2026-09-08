@@ -1,0 +1,118 @@
+{
+  "primitive-drift": {
+    "detected": true,
+    "mutant_sha256": "f58ca157ac2aca82c68d1ccc9e4cd3b456c404b140936e9304dbaf01e442d3a5",
+    "gate": "exact-lineage"
+  },
+  "action-drift": {
+    "detected": true,
+    "mutant_sha256": "0089a391c2895092c8c5e86ccfb66ebfbaee39cfe3e271eebc0586ef36b7df54",
+    "gate": "exact-lineage"
+  },
+  "climbing-assembly": {
+    "detected": true,
+    "residuals": {
+      "0": 0.0800000000000001,
+      "1": 3.3306690738754696e-16
+    },
+    "gate": "independent-levels"
+  },
+  "owner": {
+    "detected": true,
+    "audit": {
+      "errors": 1,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3",
+        "0:4",
+        "0:5",
+        "1:0",
+        "1:1",
+        "1:2",
+        "1:3"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3",
+        "0:4",
+        "0:5",
+        "1:0",
+        "1:1",
+        "1:2",
+        "1:3"
+      ]
+    },
+    "gate": "actual-trace"
+  },
+  "painted-air": {
+    "detected": true,
+    "audit": {
+      "errors": 1,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3",
+        "0:4",
+        "0:5",
+        "1:0",
+        "1:1",
+        "1:2",
+        "1:3"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3",
+        "0:4",
+        "0:5",
+        "1:0",
+        "1:1",
+        "1:2",
+        "1:3"
+      ]
+    },
+    "gate": "actual-trace"
+  },
+  "desired-as-actual": {
+    "detected": true,
+    "audit": {
+      "errors": 3031,
+      "required_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3",
+        "0:4",
+        "0:5",
+        "1:0",
+        "1:1",
+        "1:2",
+        "1:3"
+      ],
+      "seen_occurrences": [
+        "0:0",
+        "0:1",
+        "0:2",
+        "0:3",
+        "0:4",
+        "0:5",
+        "1:0",
+        "1:1",
+        "1:2",
+        "1:3"
+      ]
+    },
+    "gate": "actual-trace"
+  },
+  "visible-shift": {
+    "detected": true,
+    "loss": 0.8919541080376705,
+    "gate": "rendered-image"
+  }
+}
