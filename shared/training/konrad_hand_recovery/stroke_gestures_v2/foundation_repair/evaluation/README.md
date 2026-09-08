@@ -44,8 +44,8 @@ scores 0.001109 and a filled pocket scores 0.010768. Exact/local guards catch th
 - [Original-six fresh gallery](run-002/seed-7/first/primitives/original-six-gallery.png)
 - [Current report](run-002/S1-gestures.json), [retained failed report](run-001/S1-gestures.json), [verification](verification.json)
 
-**Validation:** 33 focused tests pass; committed-code clean-checkout focused
-tests pass (27 before the six additional evidence-regression checks). Expanded
+**Validation:** 33 focused tests pass locally and in the final clean committed
+checkout (the earlier clean check passed 27 before six evidence regressions). Expanded
 tests: 269 pass, with the same 12 pre-existing failures recorded by CURRICULUM-011.
 Plan/link/diff checks pass; artifact doctor retains its same 10 inherited issues.
 The installed strict PR parser still returns `ids=[]` despite the Advance ID in
@@ -54,6 +54,11 @@ title, body and label. No provider CI, push or human appearance review is claime
 Initial code: `6fbff6a`. Diagnosed continuation code: `5799ebf`. Both experiments
 run from clean committed worktrees with the existing environment's interpreter.
 Native PNGs were visually inspected; no browser validation is claimed.
+
+Completion commit `ffd3ef4` is merged locally into `master` as
+`9af3a7b238353891dd11b9b57eb61972bcc3eaec`. Post-merge plan and strict live
+foundation admission verify. Final clean-checkout focused tests: 33 passed.
+No push or provider CI was performed; the installed PR parser limitation remains.
 
 ## Acceptance boundary
 

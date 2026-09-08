@@ -405,7 +405,8 @@
   },
   "tests": {
     "focused": "33 passed",
-    "clean_committed_code_focused": "27 passed",
+    "clean_committed_code_focused": "27 passed before six additional evidence regressions",
+    "final_clean_committed_code_focused": "33 passed at ffd3ef4",
     "expanded": "269 passed, 12 pre-existing failures",
     "same_preexisting_failure_ids": true,
     "preexisting_failures": [
@@ -435,7 +436,8 @@
     "push": "not performed"
   },
   "consumer_cli": {"curriculum":"consumers/curriculum/foundation-eligibility.json","handvalidate":"consumers/handvalidate.json","outcome":"both verified foundation and returned blocked action status, zero renders"},
-  "test_logs": ["tests-expanded.txt","tests-focused.txt","tests-clean.txt"],
+  "test_logs": ["tests-expanded.txt","tests-focused.txt","tests-clean.txt","tests-clean-final.txt"],
+  "local_merge": {"completion_commit":"ffd3ef4","merge_commit":"9af3a7b238353891dd11b9b57eb61972bcc3eaec","post_merge_plan":"pass","post_merge_strict_live_admission":"pass","push":false,"provider_ci":false},
   "visual_review": "Native 900-DPI seed-7 practice sheet and spaced actual PNG inspected; no browser automation claim",
   "layer_disposition": {
     "motion": "fresh pass",

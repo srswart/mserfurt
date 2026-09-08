@@ -139,5 +139,14 @@ The illegal painted-air adversary exposed an evaluator reporting defect: absent 
 
 ## Check for Understanding
 
+### Local merge receipt — 2026-09-08
+
+Completion commit `ffd3ef4` merges into `master` as
+`9af3a7b238353891dd11b9b57eb61972bcc3eaec` using the authorized no-fast-forward
+workflow. Post-merge plan and strict live foundation admission pass. The final
+clean committed checkout passes all 33 focused tests, including the six added
+evidence-regression checks. Both attempt manifests, all frozen source identities
+and retained budgets remain valid. No push, provider CI or human review is claimed.
+
 1. Which exact evidence and identities permit this Advance's experiment to run?
 2. What visible learned or independently evaluated result distinguishes completion from scaffolding?
