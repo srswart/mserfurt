@@ -1,4 +1,5 @@
 import copy
+import gzip
 import inspect
 import json
 
@@ -108,3 +109,27 @@ def test_budget_and_final_acceptance_require_complete_numeric_proofs():
     assert {fixture['id'] for fixture in evaluation.SPEC['fixtures'] if fixture['split'] == 'held_out'} >= {
         'underturn-overturn-pair', 'overturn-underturn-pair', 'compound-terminal-pair',
         'underturn-repeat-pair', 'independent-scaled-attachment'}
+
+
+def test_serialized_frozen_trace_preserves_plan_types_and_moving_lift_exit(source):
+    fixture = next(row for row in evaluation.SPEC['fixtures'] if row['id'] == 'underturn-overturn-pair')
+    model = evaluation.probe(source['candidates'][7], fixture)
+    path = source['source'] / 'seed-7/attachment/first/underturn-overturn-pair-traces.json.gz'
+    run = json.loads(gzip.decompress(path.read_bytes()))['base']
+    assert evaluation.audit_trace(model, 'i', run)['errors'] == 0
+    endpoints = evaluation.boundaries(run)
+    assert endpoints[0]['exit']['speed_mm_s'] > 6
+    assert endpoints[0]['exit']['velocity_error_mm_s'] < .5
+    assert evaluation.boundaries_pass(endpoints, ['0:0', '0:1'])
+    for mutation in ('owner', 'contact', 'contributor', 'position'):
+        changed = copy.deepcopy(run)
+        row = next(row for row in changed['trace'] if row['contact'])
+        if mutation == 'owner':
+            row['owner']['occurrence_id'] = 'undeclared'
+        elif mutation == 'contact':
+            row['contact'], row['pressure'] = False, 0
+        elif mutation == 'contributor':
+            row['owner']['overlap_contributors'].append('undeclared')
+        else:
+            row['to_mm'][0] += .3
+        assert evaluation.audit_trace(model, 'i', changed)['errors'] > 0
