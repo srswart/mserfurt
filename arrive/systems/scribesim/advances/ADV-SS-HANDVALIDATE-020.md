@@ -91,6 +91,15 @@ in title/body/label. Existing component-schema warnings remain unrelated.
 
 ## Changes Made
 
+### 2026-09-08 — merge: local completion receipt
+
+Completion `04c4a2b` merged into `master` as `1c5d66a`. Post-merge checks verify
+the pinned report, complete 452-artifact inventory, all six unchanged candidate
+files, source pins, frozen execution identities and the live-audited reader/
+verification receipt. Owner review remains pending; S2/context flags remain false.
+Plan, generated rules and whitespace checks pass. Worktree is clean before this
+documentation-only receipt; no push or provider CI claim.
+
 ### 2026-09-08 — feat: complete independent mechanics, retain appearance gate
 
 All declared local/global absolute losses pass the unchanged 0.05 limit; worst
