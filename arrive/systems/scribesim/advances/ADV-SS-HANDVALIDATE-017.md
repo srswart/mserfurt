@@ -61,11 +61,11 @@ Do not fit actions to conceal geometry error or run letter fitting. Existing
 full-edge rejection controls are not asymmetric physical-edge or closed-letter
 counter evidence. This input note does not start or complete HANDVALIDATE-017.
 
-- [ ] branch: confirm implementation/update/merge authorization and preserve unrelated work.
-- [ ] tidy: assess minimal behavior-preserving preparation separately.
-- [ ] test: commit observed failing behavioral tests before implementation.
-- [ ] Pin CURRICULUM-012 selected candidate reports and current lower-layer/code/tool/split identities before fresh proofs. Reconstruct live HANDVALIDATE-016 admission for the exact requested inventory; reject unsupported gestures or real scope.
-- [ ] Freeze independent held-out geometry/action targets and numerical gates before rendering. No refit, optimizer invocation, test leakage, changed reference geometry or post-hoc local regions.
+- [x] branch: confirm implementation/update/merge authorization and preserve unrelated work.
+- [x] tidy: assess minimal behavior-preserving preparation separately.
+- [x] test: commit observed failing behavioral tests before implementation.
+- [x] Pin CURRICULUM-012 selected candidate reports and current lower-layer/code/tool/split identities before fresh proofs. Reconstruct live HANDVALIDATE-016 admission for the exact requested inventory; reject unsupported gestures or real scope.
+- [x] Freeze independent held-out geometry/action targets and numerical gates before rendering. No refit, optimizer invocation, test leakage, changed reference geometry or post-hoc local regions.
 - [ ] Evaluate every selected action/null candidate on actual versus desired traces and target benefit, including every contact entry/exit, local blank/counter guards, exact contributors, physical footprint, spaces, overlaps and dt/arc/all-cubic subdivision convergence.
 - [ ] Execute all six previously unexecuted selected-action adversarial classes required by the old action evaluation, plus relevant frozen local guards. Preserve global 0.1 misses and independent local detection; missing controls block acceptance.
 - [ ] Require first/replay agreement for seeds 7, 19 and 41, with 5000 renders or 1800 seconds per seed including controls/refinement/replay and at most one diagnosed revision. Preserve failures and cumulative ledgers.
@@ -81,7 +81,9 @@ counter evidence. This input note does not start or complete HANDVALIDATE-017.
 
 ## Bug Fixes
 
-None implemented; future scoped work only.
+One diagnosed fixture-schema repair is implemented, with all first-attempt
+evidence retained. Further scalar-type and constant-angle diagnostic repairs
+are identified but not implemented pending approval beyond the allowed revision.
 
 ## Risk + Rollback
 
@@ -98,7 +100,43 @@ keep historical evidence, controllers and defaults unchanged. Review time is an 
 - [ ] `arrive pr check --strict --json` before an authorized merge; report local parser limitations separately from provider CI.
 - [ ] No unexecuted learning, owner review or provider CI counted as complete.
 
+Current validation: 65 focused tests pass in 64.19 seconds. Expanded selection:
+305 pass, 18 existing failures (12 previously recorded plus six folio-resolution
+failures reproduced in clean pre-task `ac08daf`). Plan, 132 local links and diff
+checks pass. Artifact doctor retains ten identical issues; no stale agent rules.
+Both experiment attempts ran from clean committed-code worktrees. No provider
+CI or merge is claimed; remaining acceptance work and repair approval are open.
+
 ## Changes Made
+
+### 2026-09-08 — stop: Additional measurement-only repair requires approval
+
+- Run-002 at `8e578f8` measures nine heldouts, three contexts and a closed
+  diagnostic counter for every seed, then fails at the physical-edge adapter.
+  Actual NumPy scalar coordinates violate the strict physical sample type
+  contract; no-render controller replay reproduces the type difference hidden
+  by JSON serialization. Candidate/tool/renderer changes are not indicated.
+- Review also finds exact-zero comparison of derived angular rate, while all
+  actual angles pass the frozen 1e-12-degree check. Raw rounding-rate maxima
+  reach 2.50748e-10 deg/s. Fix diagnostic classification, not physical limits.
+- All existing motion/refinement/individual-contact and context checks pass;
+  the target, nominal and every actual counter refinement are enclosed and
+  blank. The new composite guard still fails, and missing controls prevent
+  any independent null acceptance. No optimistic underturn approval.
+- Fresh local loss maxima: underturn 0.044704, overturn 0.099430, compound
+  0.093600. These partial target findings do not complete S1-action.
+- Each seed replays 80 non-clock artifacts exactly; 488 run-002 artifacts
+  verify. New 1062 + retained 588 = 1650 renders, 550 per seed, cumulative
+  time <=148.318 seconds each. Zero optimization. All six candidate files
+  remain byte-identical. The one automatic revision is exhausted.
+- Stop report SHA `f7a6d96dccb418e058f7a5daf96bde8af754e76f3868e2d0a609f8b7afb51933`.
+  Swapped-edge rendering, erased-counter/open-pocket negatives and persisted
+  complete control numeric evidence remain missing; no final workbook.
+- Request one additional scalar/constant-angle diagnostic repair, incremental
+  control journaling and measurement-only replay within the same cumulative
+  budgets. Do not execute another attempt without approval. Advance remains
+  in progress, not merged; letters, real scope and default promotion are blocked.
+- [Preserved evidence, diagnosis and samples](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/README.md).
 
 ### 2026-09-08 — fix: Preflight diagnostic grammar and retain cumulative costs
 

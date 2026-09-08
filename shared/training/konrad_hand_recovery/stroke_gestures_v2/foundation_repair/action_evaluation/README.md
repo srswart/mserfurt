@@ -1,6 +1,72 @@
 # HANDVALIDATE-017 — Independent fixed-null evaluation
 
-Implementation in progress; no evaluation or acceptance result is claimed yet.
+**In progress — stopped pending approval for one additional measurement-only
+repair.** Evaluator and opt-in admission reader are implemented, but independent
+acceptance is incomplete and this Advance is not merged or marked complete.
+
+## Current measured evidence, not acceptance
+
+All three seeds execute nine fresh heldouts, three mechanical contexts and the
+closed-counter carrier, then reproduce the same diagnostic adapter failure.
+Each first/replay pair matches 80 non-clock artifacts. All candidate bytes are
+unchanged. New renders: 1062; retained failed renders: 588; total: 1650, or
+550/5000 per seed. Cumulative per-seed time is at most 148.318/1800 seconds.
+Zero fitting; the one allowed automatic revision is used.
+
+| Construction | Worst fresh local actual/target loss | Absolute 0.05 check only |
+|---|---:|---|
+| Underturn | 0.044704 | Meets target limit; NOT independently admitted |
+| Overturn | 0.099430 | Exceeds target limit |
+| Compound curve | 0.093600 | Exceeds target limit |
+
+Existing motion/contact/refinement checks pass. The closed blank is enclosed
+and unpainted for target, nominal and all four actual refinements. These partial
+proofs do not override missing adversarial controls or the new diagnostic guard.
+
+Two evaluator defects need a measurement-only repair:
+
+1. `physical_samples` forwards live NumPy scalar coordinates into the strict
+   physical `ContactSample` contract, which requires built-in scalar types.
+   A no-render controller replay confirms actual `float64` coordinates;
+   serialization converts them to Python floats and hides the mismatch.
+   Normalize scalar representation at this diagnostic boundary, preserving
+   values, physical constraints and the unchanged selected candidate.
+2. The new constant-tool guard compares a computed angular rate with exact zero.
+   Floating interpolation of 40 degrees produces rates up to 2.50748e-10 deg/s,
+   although every angle passes the existing 1e-12-degree fixed-angle check.
+   Preserve raw rate diagnostics and classify the constant tool using its
+   already-frozen sample tolerance; do not relax angle or physical limits.
+
+The first six mutation images are preserved, but the interrupted controls
+function did not save its completed numeric record. Swapped-edge rendering,
+erased-counter/open-pocket negatives and complete control proof remain missing.
+No new control pass or S1-action/null acceptance is claimed, including underturn.
+The reader rejects this incomplete report. CURRICULUM-005 remains blocked.
+
+**Approval requested:** one additional diagnosed measurement-only repair and
+fresh replay, keeping candidates, independent targets, limits and all failed
+artifacts unchanged and charging the same cumulative per-seed budgets. Also
+journal each completed control immediately so a later stop preserves its proof.
+No additional run or implementation of that repair has been performed.
+
+- [Recorded stop and all artifact hashes](run-002/S1-actions.json)
+- [Verification and budget summary](verification.json)
+- [Actual closed-counter carrier](run-002/seed-7/first/closed-counter-carrier-actual.png)
+- [Fresh underturn](run-002/seed-7/first/independent-underturn-1-actual.png),
+  [overturn](run-002/seed-7/first/independent-overturn-1-actual.png),
+  [compound](run-002/seed-7/first/independent-compound_curve-1-actual.png)
+- [Counter proof across refinements](run-002/seed-7/first/closed-counter-carrier.json)
+
+Native actual counter image inspected; no browser or human appearance review
+claimed. Code is preserved at `8e578f8`, with stop report SHA
+`f7a6d96dccb418e058f7a5daf96bde8af754e76f3868e2d0a609f8b7afb51933`.
+
+Validation: **65 focused tests pass** (64.19 seconds). The expanded selection
+passes 305 tests and has 18 existing failures: the prior 12 unchanged failures,
+plus six folio-resolution failures reproduced in a clean pre-task `ac08daf`
+checkout. Logs are retained with trailing whitespace normalized. Plan, 132
+local links and diff checks pass; artifact doctor retains the same ten issues,
+and agent rules are current. No provider CI, push, merge or owner review claimed.
 
 ## Preserved stop and one diagnosed revision
 
@@ -88,5 +154,6 @@ Run only from the frozen clean revised code checkout into its immutable continua
   --output shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/run-002
 ```
 
-Native target/nominal/desired/actual workbooks and control images will be stored
-under `run-002/seed-{7,19,41}/first/`. No continuation result is claimed before execution.
+Native target/nominal/desired/actual panels and completed mutation images are
+stored under `run-002/seed-{7,19,41}/first/`. The final workbook was not reached.
+Do not rerun this immutable destination; another run requires the approval above.

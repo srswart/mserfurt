@@ -1,5 +1,20 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
+**Current work — HANDVALIDATE-017 in progress, repair approval pending:** The
+independent evaluator measures nine fresh heldouts, three contexts and a closed
+diagnostic counter across all frozen seeds with exact replay. Existing motion
+and enclosure checks pass; incomplete physical-edge controls and two diagnostic
+defects prevent acceptance. The new adapter must normalize NumPy scalar types,
+and constant-angle classification must avoid exact equality of a noisy numerical
+derivative while preserving the existing angle tolerance. The one carrier-schema
+revision is used; another measurement-only repair needs approval. All candidates,
+targets, physical limits and failed evidence remain unchanged. Total cost is
+1650 renders, 550 per seed, including both attempts/replay; no fitting.
+Underturn's partial local loss is 0.044704, overturn's 0.099430 and compound's
+0.093600 against 0.05, but **no independent null/S1-action is accepted yet**.
+See [stop, proposed repair and visible samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/README.md).
+This Advance is not complete or merged; CURRICULUM-005 remains blocked.
+
 **Latest experiment — CURRICULUM-012 complete, mixed null support:** The three
 frozen seeds execute the predeclared fixed-tool hypothesis without refitting.
 Underturn's worst local actual/target loss is 0.045681; overturn's is 0.100653
@@ -11,7 +26,7 @@ All 88 non-clock worker artifacts replay exactly per seed; 1140 total renders,
 380/5000 per seed, zero optimization or retries. All six declared controls pass,
 without claiming active partial-edge or closed-letter-counter coverage.
 See [null experiment and frozen handoff](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/README.md).
-HANDVALIDATE-017 remains planned: independently confirm scope/diagnosis before
+HANDVALIDATE-017 is now in progress as recorded above: independently confirm scope/diagnosis before
 claiming S1-action/null or proposing further shared-geometry work. Letters remain blocked.
 
 **Status:** All seven original foundation outcomes are complete. HANDVALIDATE-016
@@ -94,7 +109,7 @@ experiment or permit later training.
 | 5 | [CURRICULUM-011](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-011.md) | Actually learned fixed-tool underturn, overturn and compound constructions using accepted shared primitives |
 | 6 | [HANDVALIDATE-016](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-016.md) | Independent S1-gesture transfer/continuity decision and precise next-experiment eligibility |
 | 7 (complete) | [CURRICULUM-012](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-012.md) | Measured fixed-tool null: underturn supported, overturn/compound unresolved; no legacy fitter or promotion |
-| 8 (planned) | [HANDVALIDATE-017](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-017.md) | Independent selected-action/null acceptance; newly matching S1-action required before letters |
+| 8 (in progress) | [HANDVALIDATE-017](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-017.md) | Partial fresh proofs retained; additional diagnostic repair approval needed, no S1-action or letters |
 
 The two independent evaluation records prevent primitive and gesture fitting
 from being collapsed into one self-certified experiment. No new component or

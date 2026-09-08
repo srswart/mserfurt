@@ -1,0 +1,98 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____ test_every_frozen_probe_respects_unchanged_grammar_before_rendering ______
+
+    def test_every_frozen_probe_respects_unchanged_grammar_before_rendering():
+        candidate = json.loads((evaluation.learning.BASE / 'run-001/seed-7/first/candidate.json').read_text())
+        for fixture in [*evaluation.SPEC['fixtures'], evaluation.SPEC['counter_fixture']]:
+>           model = evaluation.foundation.probe(candidate, fixture)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_handvalidate_foundation_actions.py:107:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handvalidate/foundation_gestures.py:108: in probe
+    validate_gestures(result)
+scribesim/evofit/stroke_gestures.py:126: in validate_gestures
+    legacy.validate_language(lowered)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+model = {'letter_gap': 0.15, 'letter_rules': [], 'line_pitch': 3, 'nib_angle_deg': 40, ...}
+
+    def validate_language(model):
+        try:
+            foundation = model['schema_version'] == 'shared-stroke-language-foundation-v1'
+            if set(model) != MODEL_FIELDS or model["schema_version"] not in {SCHEMA, 'shared-stroke-language-foundation-v1'} or model["units"] != "local-xheight-y-up":
+                raise ValueError("Explicit stroke-language schema required")
+            if foundation:
+                from scribesim.evofit.foundation_contract import validate_extensions
+                validate_extensions(model)
+            for key, lower, upper in (("x_height_mm", .5, 10), ("nib_width_mm", .05, 2), ("nib_angle_deg", -180, 180),
+                                       ("letter_gap", 0, .5), ("word_gap", .1, 2), ("line_pitch", 2, 6)):
+                if not _number(model[key], lower, upper):
+                    raise ValueError(f"Invalid model bound: {key}")
+            if not isinstance(model["scope"], str) or not model["scope"] or not 1 <= len(model["primitives"]) <= 8:
+                raise ValueError("Invalid scope or primitive budget")
+            for name, primitive in model["primitives"].items():
+                if not isinstance(name, str) or not name or set(primitive) != PRIMITIVE_FIELDS or not primitive["provenance"]:
+                    raise ValueError("Primitive must own geometry; references/cycles are forbidden")
+                cubics = primitive["cubics"]
+                if not isinstance(primitive["closed"], bool) or not 1 <= len(cubics) <= 4:
+                    raise ValueError("Primitive topology budget")
+                for index, cubic in enumerate(cubics):
+                    if len(cubic) != 4 or any(len(point) != 2 or not all(_number(value, -2, 2) for value in point) for point in cubic):
+                        raise ValueError("Invalid primitive coordinate")
+                    if sum(math.dist(first, second) for first, second in zip(cubic, cubic[1:])) > 6:
+                        raise ValueError("Primitive control-polygon length guardrail")
+                    if index and cubics[index - 1][-1] != cubic[0]:
+                        raise ValueError("Primitive chain must be continuous")
+                if primitive["closed"] and cubics[0][0] != cubics[-1][-1]:
+                    raise ValueError("Closed primitive endpoints differ")
+                for port, actual in (("entry", _direction(cubics[0][0], cubics[0][1])),
+                                     ("exit", _direction(cubics[-1][2], cubics[-1][3]))):
+                    declared = primitive[port]
+                    if len(declared) != 2 or not all(_number(value, -1, 1) for value in declared) or abs(math.hypot(*declared) - 1) > .001:
+                        raise ValueError("Invalid declared port direction")
+                    if sum(first * second for first, second in zip(declared, actual)) < 0:
+                        raise ValueError("Primitive tangent outside declared port half-plane")
+            counts = Counter(recipe["logical"] for recipe in model["recipes"].values())
+            inventory = set("".join(counts))
+            if not counts or max(counts.values()) > 2 or len(inventory) > 12:
+                raise ValueError("Letter inventory/recipe budget")
+            for name, recipe in model["recipes"].items():
+                if not isinstance(name, str) or not name or set(recipe) != RECIPE_FIELDS:
+                    raise ValueError("Letter recipes reference strokes; no residual curves")
+                logical = recipe["logical"]
+                if not 1 <= len(logical) <= 3 or not all(character.isalpha() and character.islower() for character in logical):
+                    raise ValueError("Exact lowercase logical span required")
+                if recipe["visible"] != logical and (logical, recipe["visible"]) != ("s", "ſ"):
+                    raise ValueError("Undeclared visible mapping")
+                if not _number(recipe["advance"], .1, 4) or not isinstance(recipe["allow_crossings"], bool) or not 1 <= len(recipe["strokes"]) <= (6 if foundation else 4):
+>                   raise ValueError("Recipe bounds")
+E                   ValueError: Recipe bounds
+
+scribesim/evofit/stroke_language.py:160: ValueError
+_______________ test_continuation_preserves_failed_attempt_costs _______________
+
+    def test_continuation_preserves_failed_attempt_costs():
+>       usage = evaluation.prior_usage()
+                ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'scribesim.handvalidate.foundation_actions' has no attribute 'prior_usage'
+
+tests/test_handvalidate_foundation_actions.py:112: AttributeError
+_________ test_support_terminal_is_not_missing_required_null_inventory _________
+
+    def test_support_terminal_is_not_missing_required_null_inventory():
+        fixture = {'instances': [{'gesture': 'compound_curve'}, {'gesture': 'terminal'}]}
+        row = {'fixture': fixture, 'actual_target': {label: .04 for label in evaluation.REFINEMENTS},
+               'local_actual_target': {'0': {label: .04 for label in evaluation.REFINEMENTS}}}
+>       assert evaluation.quality(row)
+E       AssertionError: assert False
+E        +  where False = <function quality at 0x10c1d8900>({'actual_target': {'arc': 0.04, 'base': 0.04, 'subdivision': 0.04, 'time': 0.04}, 'fixture': {'instances': [{'gesture'...'gesture': 'terminal'}]}, 'local_actual_target': {'0': {'arc': 0.04, 'base': 0.04, 'subdivision': 0.04, 'time': 0.04}}})
+E        +    where <function quality at 0x10c1d8900> = evaluation.quality
+
+tests/test_handvalidate_foundation_actions.py:121: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_handvalidate_foundation_actions.py::test_every_frozen_probe_respects_unchanged_grammar_before_rendering
+FAILED tests/test_handvalidate_foundation_actions.py::test_continuation_preserves_failed_attempt_costs
+FAILED tests/test_handvalidate_foundation_actions.py::test_support_terminal_is_not_missing_required_null_inventory
+3 failed, 14 deselected in 1.31s
