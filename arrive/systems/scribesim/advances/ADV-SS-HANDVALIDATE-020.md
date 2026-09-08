@@ -91,6 +91,17 @@ in title/body/label. Existing component-schema warnings remain unrelated.
 
 ## Changes Made
 
+### 2026-09-08 — clarification: upward movements must remain pen-down
+
+The owner clarified that “lift” was borrowed from the example wording, not a
+request to lift the pen. The requested near-upright upward movements must remain
+in contact with the paper. Pressure and exact retracing are not specified.
+The owner record, review labels and repair prerequisites now reflect this
+requirement; archived pen-up programs are explicitly labeled as unrepaired.
+No candidate, image, target, threshold or mechanical evidence changes. Appearance
+remains `repair_required`; S2 and context remain false. This resolves the contact
+question below without starting the separately scoped shared-construction repair.
+
 ### 2026-09-08 — review: owner requires shared upright-stroke repair
 
 The owner rejects the excessive slant of n/u/m and requests nearly upright
@@ -105,8 +116,8 @@ standalone stems. This supports a shared rise/return-construction repair, not
 another whole-letter rotation. Preserve baseline/x-height and the acceptable n
 overturn shape where compatible. Exact upright angle/clearance tolerances and a
 new target version require a separately scoped repair; no fitting is performed.
-The owner's word “lift” does not settle pen-up versus inked/light retracing
-contact. That distinction must be clarified before altering the stroke program.
+At this review, the owner's word “lift” left contact ambiguous. The subsequent
+clarification above resolves this as pen-down upward movement.
 
 Advance implementation/evaluation remains complete, and the archived numerical
 pass/verification snapshot remains unchanged. Current appearance status is

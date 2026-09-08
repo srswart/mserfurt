@@ -152,5 +152,8 @@ not rotate entire letters again or introduce independent per-letter curves.
 Preserve level baseline/x-height and the acceptable n overturn curvature where
 compatible. Define and review a new upright construction/target version before
 fitting; keep this candidate, targets, thresholds and mechanical evidence intact.
-First clarify whether the owner's “lift” is an actual pen-up transfer or a light/
-inked retracing upstroke. No contact-state decision or new experiment is made here.
+The owner clarified that “lift” came from the example wording: the pen should
+remain on the paper. The requested upward movements are pen-down upstrokes;
+pressure and exact retracing remain unspecified. This resolves the contact
+requirement, not its implementation. Archived programs and images are unchanged;
+no new experiment is performed here.

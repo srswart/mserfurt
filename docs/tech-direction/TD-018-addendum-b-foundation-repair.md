@@ -543,8 +543,9 @@ Owner feedback subsequently requires appearance repair for n/u/m: substantially
 less slant, nearly upright upward movement close to stems, and less-slanted
 descents, retaining the acceptable n overturn shape where compatible. The next
 bounded design must address shared rise/return geometry and attachment rather
-than another whole-letter rotation. First resolve whether “lift” means pen-up
-transfer or inked/light retracing; this determines contact topology and overlap
-requirements. No angle tolerance, target revision or fitting experiment is
+than another whole-letter rotation. The owner clarified that “lift” came from
+the example wording: upward movements must remain pen-down. The repair must
+account for continuous contact and any resulting overlap; pressure and exact
+retracing are not specified. No angle tolerance, target revision or fitting experiment is
 approved merely by recording this qualitative feedback. The old mechanical pass
 and source evidence remain intact, with S2/context still false.
