@@ -1716,12 +1716,12 @@ passes:
     - id: ADV-SS-HANDVALIDATE-019
       advance_id: ADV-SS-HANDVALIDATE-019
       title: "Standalone Stem — Independent Synthetic Fixed-Null Admission"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-005
       - ADV-SS-HANDVALIDATE-018
-      notes: "Independent unchanged stem admission, unit scale/zero rotation, translated probes and lifted pair. No fitting, letters, context or fatigue. Preserve old evidence and limits."
+      notes: "COMPLETE: unchanged standalone stem independently accepted in synthetic fixed-null scope; worst local loss 0.0022966 below 0.05. Four fixtures/refinements and five controls pass, 312 renders, 104 per seed incl replay, maximum 123.789 seconds. 140 artifacts verified; 72 focused tests pass, 14 clean-checkout tests. No fitting, S2, real, context or fatigue."
     - id: ADV-SS-CURRICULUM-014
       advance_id: ADV-SS-CURRICULUM-014
       title: "Letter Assembly — Baseline and X-height Compatible Gesture Transforms"

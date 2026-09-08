@@ -471,3 +471,38 @@ the standalone-stem prerequisite before independent S2 or context work.
 
 See the [protocol](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/README.md)
 and [construction workbook](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/index.html).
+
+## 11. Level assembly and standalone-stem admission
+
+The owner authorizes the next bounded repair, not context or fatigue.
+[HANDVALIDATE-019](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-019.md)
+independently evaluates the unchanged standalone stem at unit scale/zero rotation,
+including translated probes, a lifted pair, absolute/local loss, blank space,
+four execution refinements and adversarial lineage/tool/contact controls.
+An accepted record is restricted to that synthetic fixed-null scope; it does not
+make every placement or rotated internal stem independently accepted.
+
+[CURRICULUM-014](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-014.md)
+then consumes the exact record and solves assembly rather than refitting strokes.
+For a return gesture with endpoint chord (dx, dy), rotate by
+`-atan2(dy, dx)`, find extrema using the roots of each cubic derivative, uniformly
+scale the complete gesture by `1 / (ymax - ymin)`, and translate its minimum to
+baseline 0. Underturn's endpoints then lie on x-height 1; overturn's endpoints
+lie on baseline 0. Level endpoint attachment of two overturns removes the m
+staircase. Stem instances retain unit scale/zero rotation and extend from 1 to 0.
+
+Reject transforms outside the existing +/-20-degree and 0.5..1.5 instance
+bounds, any combined primitive-reference violation, anisotropic scaling,
+per-letter primitive copies, altered actions, hidden lifts or expanded cap
+changes. Preserve all old evidence. New analytic targets are normalized from
+their OWN independently generated point families, not the candidate's cubics or
+fitted image pixels. Register that target version before measuring new fixtures;
+retain the old 0.05 absolute and 0.75 relative image gates and add explicit
+baseline/x-height and attachment residuals. Centerline landmarks and finite-width
+ink footprints are different: full physical-frame containment still applies.
+
+Rotation changes the stroke's orientation relative to the fixed nib. Therefore
+each new actual occurrence needs motion/ownership/tool/shape evidence, not an
+inherited unrotated-action assertion. Synthetic compatibility can pass while
+independent new-transform S2 and human reading remain unresolved. No context,
+fatigue, active nib manipulation, historical fitting or default switch is enabled.
