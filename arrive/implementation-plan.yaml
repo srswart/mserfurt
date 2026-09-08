@@ -1739,7 +1739,7 @@ passes:
       dependencies:
       - ADV-SS-CURRICULUM-014
       - ADV-SS-HANDVALIDATE-019
-      notes: "COMPLETE implementation/evaluation: independent mechanics pass; 474 renders, 158 per seed incl replay, maximum 267.165 seconds, seven controls detected, 452 artifacts verified. 127 tests pass, 24 clean-checkout. Worst local loss 0.0260771; actual level residual 0.00010830 mm. Base/arc/time plus isolated-return subdivision; no whole-letter cap bypass. Owner review sheet published and verdict pending. S2/real/context false, no fatigue."
+      notes: "COMPLETE implementation/evaluation, NOT appearance acceptance. Independent mechanics pass: 474 renders, 452 artifacts verified, 127 tests and 24 clean-checkout tests pass. Owner requests repair for n/u/m: nearly upright upward movement close to stems and less-slanted returns; retain acceptable n overturn shape. Clarify pen-up versus inked retracing meaning of lift before a separately scoped shared-geometry/target revision. Old evidence unchanged; S2/real/context false, no fatigue."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 10
@@ -1751,7 +1751,7 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-005
-      notes: "Context remains unimplemented and context_training_allowed=false. HANDVALIDATE-019 admits scoped standalone stems; HANDVALIDATE-020 independently passes bounded rotated-return and level-assembly mechanics. Human appearance/reading review and appropriate S2 clearance remain pending; whole-letter subdivision is not claimed. Preserve frozen primitive/gesture/action/letter identities. No ink depletion, fatigue or session effects."
+      notes: "Context remains unimplemented and context_training_allowed=false. HANDVALIDATE-020 passes bounded mechanics but the owner requires less-slanted n/u/m with nearly upright movement close to stems. Shared-construction repair, clarified lift contact and appropriate S2 clearance are prerequisites. Whole-letter subdivision is not claimed. Preserve frozen evidence; no ink depletion, fatigue or session effects."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
     order: 11

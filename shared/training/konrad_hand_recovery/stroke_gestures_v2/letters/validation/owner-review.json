@@ -1,15 +1,38 @@
 {
   "advance": "ADV-SS-HANDVALIDATE-020",
-  "status": "pending",
-  "reviewer": null,
+  "status": "repair_required",
+  "reviewer": "project owner, conversation feedback",
   "reviewed_at": null,
+  "recorded_at": "2026-09-08T18:35:16Z",
   "candidate_file_sha256": "e3c6e0a41374ada0ac15085df7100a8fbbc2ee855cddc71c9c2df93a84a74ff9",
   "mechanical_report_sha256": "bd3def56ffb24c9541815d3234cceddb31d21453331f2a6764f95c009026b28e",
   "approved_reference_style": null,
   "questions": ["letter identity", "slant and proportions", "turns and joins", "shared-vocabulary consistency"],
-  "letters": {"n": null, "u": null, "m": null},
+  "letters": {
+    "n": {
+      "verdict": "repair",
+      "requested_changes": ["Substantially reduce slant", "Upward movement should nearly follow the stem's angle", "Return to baseline should be less slanted"],
+      "retain": ["The owner considers the overturn shape okay"]
+    },
+    "u": {
+      "verdict": "repair",
+      "requested_changes": ["Reduce the initial underturn's slant", "Upward movement should be almost straight up and close to the stem"],
+      "retain": []
+    },
+    "m": {
+      "verdict": "repair",
+      "requested_changes": ["Substantially reduce overall slant", "Overturn and upward movement should be much less slanted"],
+      "retain": []
+    }
+  },
+  "terminology": {
+    "owner_term": "lift",
+    "working_interpretation": "The rising or upward-return movement should be nearly upright and close to the stem",
+    "contact_state": "Unspecified: confirm pen-up transfer versus inked/light retracing upstroke before changing the stroke program"
+  },
+  "feedback_verbatim": "For the feedback on HANDVALIDATE-020 -- the slant for the n is way too much.  The lift should nearly follow up the same angle as the stem and the overturn is okay but the return to the baseline should be less slanted too.  The U the initial underturn is too slanted also and the lift should be almost straight up and close to the stem.  The m also is way to slanted overturn and lift should not be nearly as slanted as they are.",
   "approved_scope": null,
   "S2_accepted": false,
   "context_training_allowed": false,
-  "note": "An agent-generated pending checklist, not owner approval. Record an explicit owner response separately; do not infer acceptance from mechanical pass or implementation completion."
+  "note": "Owner feedback requires appearance repair for all three lowercase constructions in this sheet; it does not approve an uppercase U or a historical reference style. The mechanical pass and original verification snapshot remain unchanged. No new geometry, contact-state choice, target version, threshold, refitting, S2 or context approval is inferred. reviewed_at is unknown; recorded_at timestamps this transcription."
 }

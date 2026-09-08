@@ -2,8 +2,8 @@
 
 **Start with the [owner appearance-review sheet](index.html).** It gives enlarged
 actual/target panels, toggleable baseline/x-height guides, full-frame originals,
-numbered shared strokes and a letter-by-letter checklist. Human review remains
-[pending](owner-review.json); implementation completion is not owner approval.
+numbered shared strokes and a letter-by-letter checklist. The owner requests
+[appearance repair for all three letters](owner-review.json); implementation completion is not owner approval.
 
 ## Frozen contract
 
@@ -84,7 +84,7 @@ trajectory, mutate the archive or rerender. The execution code remains frozen at
 
 ## Results
 
-**Independent bounded mechanical validation: PASS. Owner appearance review: PENDING.**
+**Independent bounded mechanical validation: PASS. Owner appearance review: REPAIR REQUIRED.**
 All three seeds and six first/replay workers pass every declared numeric gate.
 No corrected decision or experiment retry is needed.
 
@@ -130,5 +130,27 @@ These are local checks, not provider CI or human appearance approval.
 The [live read-only verification receipt](verification.json) confirms all 452
 artifacts and the canonical reader identity. Strict local PR metadata checking
 retains the installed `ADV-SS-*` parser limitation; plan/rules/whitespace checks
-pass. No provider CI is claimed. Appearance remains pending even though this
-implementation/evaluation Advance is complete.
+pass. No provider CI is claimed. That verification receipt records the pending
+appearance state at evaluation time; the subsequent owner feedback requires
+repair. The implementation/evaluation Advance remains complete, not accepted.
+
+## Owner feedback — recorded 2026-09-08
+
+- **n:** far too slanted; upward movement should nearly follow the stem angle;
+  preserve the acceptable overturn shape and make the descent less slanted.
+- **u:** initial underturn too slanted; upward movement almost straight up and
+  close to the stem.
+- **m:** overturn/upward movements much less slanted overall.
+
+The current compiled rise's endpoint chord is **45 degrees from vertical** in
+all three constructions. Rotated internal stem chords lean **18.435 degrees**;
+standalone stems are vertical. These are descriptive endpoint-chord measurements,
+not new tangent tolerances or approved angle limits.
+
+The next repair should address shared rise/return construction and attachment,
+not rotate entire letters again or introduce independent per-letter curves.
+Preserve level baseline/x-height and the acceptable n overturn curvature where
+compatible. Define and review a new upright construction/target version before
+fitting; keep this candidate, targets, thresholds and mechanical evidence intact.
+First clarify whether the owner's “lift” is an actual pen-up transfer or a light/
+inked retracing upstroke. No contact-state decision or new experiment is made here.

@@ -91,6 +91,27 @@ in title/body/label. Existing component-schema warnings remain unrelated.
 
 ## Changes Made
 
+### 2026-09-08 — review: owner requires shared upright-stroke repair
+
+The owner rejects the excessive slant of n/u/m and requests nearly upright
+upward movements close to the stem and less-slanted descents. The n overturn
+shape itself is acceptable. Verbatim feedback and per-letter repair decisions
+are recorded in `letters/validation/owner-review.json`, bound to the original
+candidate/report. No S2 or context approval follows from the mechanical pass.
+
+Inspection of unchanged compiled geometry finds 45-degree rise chords and
+18.435-degree internal stem chords relative to vertical, versus vertical
+standalone stems. This supports a shared rise/return-construction repair, not
+another whole-letter rotation. Preserve baseline/x-height and the acceptable n
+overturn shape where compatible. Exact upright angle/clearance tolerances and a
+new target version require a separately scoped repair; no fitting is performed.
+The owner's word “lift” does not settle pen-up versus inked/light retracing
+contact. That distinction must be clarified before altering the stroke program.
+
+Advance implementation/evaluation remains complete, and the archived numerical
+pass/verification snapshot remains unchanged. Current appearance status is
+`repair_required`, superseding the earlier pending review request.
+
 ### 2026-09-08 — merge: local completion receipt
 
 Completion `04c4a2b` merged into `master` as `1c5d66a`. Post-merge checks verify

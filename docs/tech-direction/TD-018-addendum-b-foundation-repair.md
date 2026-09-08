@@ -533,8 +533,18 @@ rendering or presentation-detail crops.
 
 The [review sheet](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/index.html)
 asks the owner to keep or repair each letter's identity, slant/proportions,
-turns/joins and shared-vocabulary consistency. The pending record is bound to
+turns/joins and shared-vocabulary consistency. The owner-review record is bound to
 the candidate and mechanical report; an agent cannot supply owner approval.
 Mechanical pass still keeps S2, real and context false. If appearance is wrong,
 register the specific shared-stroke or assembly repair before a new experiment;
 do not tune target pixels or redraw independent letters to manufacture a pass.
+
+Owner feedback subsequently requires appearance repair for n/u/m: substantially
+less slant, nearly upright upward movement close to stems, and less-slanted
+descents, retaining the acceptable n overturn shape where compatible. The next
+bounded design must address shared rise/return geometry and attachment rather
+than another whole-letter rotation. First resolve whether “lift” means pen-up
+transfer or inked/light retracing; this determines contact topology and overlap
+requirements. No angle tolerance, target revision or fitting experiment is
+approved merely by recording this qualitative feedback. The old mechanical pass
+and source evidence remain intact, with S2/context still false.

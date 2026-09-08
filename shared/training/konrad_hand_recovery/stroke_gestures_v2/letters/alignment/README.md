@@ -1,7 +1,8 @@
 # CURRICULUM-014 — baseline/x-height-compatible assembly
 
 **Next-stage evidence:** [HANDVALIDATE-020 independent validation and owner review](../validation/index.html).
-Its bounded mechanical checks pass; human appearance approval remains pending.
+Its bounded mechanical checks pass, but owner feedback requires less-slanted
+shared rises/returns for all three letters. Appearance is not accepted.
 
 This opt-in construction removes the earlier `m` staircase. It does **not**
 learn context, words, fatigue or a historical hand. The strokes retain their
