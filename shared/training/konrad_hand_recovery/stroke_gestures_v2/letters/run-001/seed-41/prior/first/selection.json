@@ -1,0 +1,83 @@
+{
+  "parameters": {
+    "n": [
+      0,
+      0
+    ],
+    "u": [
+      0,
+      0
+    ],
+    "m": [
+      0,
+      0
+    ]
+  },
+  "records": {
+    "n": {
+      "training": [
+        {
+          "parameters": [
+            0,
+            0
+          ],
+          "loss": 0.4160316444651272
+        }
+      ],
+      "development": [
+        {
+          "parameters": [
+            0,
+            0
+          ],
+          "loss": 0.41368172675228226
+        }
+      ]
+    },
+    "u": {
+      "training": [
+        {
+          "parameters": [
+            0,
+            0
+          ],
+          "loss": 0.1052936406811074
+        }
+      ],
+      "development": [
+        {
+          "parameters": [
+            0,
+            0
+          ],
+          "loss": 0.10680754571332077
+        }
+      ]
+    },
+    "m": {
+      "training": [
+        {
+          "parameters": [
+            0,
+            0
+          ],
+          "loss": 0.400285174765887
+        }
+      ],
+      "development": [
+        {
+          "parameters": [
+            0,
+            0
+          ],
+          "loss": 0.39714922564026806
+        }
+      ]
+    }
+  },
+  "seed": 41,
+  "ablation": "prior",
+  "selection_split": "development",
+  "held_out_accessed": false,
+  "candidate_sha256": "c1222b0e9dc249fcb2fdf854431e3a9fb1acc3982cd04700391e107fabc26d30"
+}

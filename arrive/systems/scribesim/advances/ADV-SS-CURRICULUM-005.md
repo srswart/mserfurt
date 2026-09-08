@@ -6,16 +6,16 @@ advance:
   primary_component: "curriculum"
   components: ["curriculum","evo","gesture","handvalidate","tests"]
   started_at: "2026-09-06T04:10:57Z"
-  implementation_completed_at: ~
+  implementation_completed_at: "2026-09-08T16:41:10Z"
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
-  reviewability_score: 0
+  reviewability_score: 110
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit", "tests:integration", "local:synthetic-letter-assembly", "local:fresh-process-replay"]
   model_usage: []
-  status: in_progress
+  status: complete
 ---
 
 ## Objective
@@ -23,7 +23,8 @@ advance:
 Construct and fit letters as constrained compositions of frozen learned gestures and their shared primitives/action profiles, proving each lower layer is used rather than replaced.
 
 Follows [TD-018 section 12](../../../../docs/tech-direction/TD-018-reference-grounded-hand-recovery.md#12-stroke-language-and-layered-learning-revised-direction).
-Drafting timestamp only: no implementation, training, CI or owner approval is claimed.
+Implementation and the bounded synthetic experiment are complete. This does not
+grant S2, historical reading, context-training or provider CI approval.
 
 ## Behavioral Change
 
@@ -33,8 +34,8 @@ learning and transfer evidence before downstream acceptance.
 ## Component Impact
 
 - `scribesim/curriculum/letter_recipes.py (new)`
-- `scribesim/evofit/stroke_language.py (recipe constraints)`
-- `scribesim/evofit/stroke_gestures.py (versioned gesture recipe compilation)`
+- `scribesim/curriculum/letter_recipe_evidence.py (read-only receipts)`
+- Existing `stroke_language.py` and `stroke_gestures.py` are reused unchanged.
 - `tests/test_letter_recipes.py (new)`
 - `shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/ (new evidence)`
 
@@ -80,20 +81,20 @@ an older curriculum's pass summary as evidence of shared-stroke learning.
 - [x] branch: `advance/ss-curriculum-005` under the standing implement/update/merge authorization.
 - [x] tidy: no preparatory refactor needed; preserve pinned lower-layer source and reports.
 - [x] test: `d7bbf58` records missing-module failure before implementation; 27 behavioral tests now pass.
-- [ ] feat/evaluate: Freeze up to 12 starter lowercase characters from admitted coverage before training; unsupported requested characters fail explicitly. Fit at most two recipes per character from the accepted shared gesture inventory, retaining the matching contract's audited expansion limit. The legacy cap remains four; only an accepted explicit GESTURE-002 contract can introduce a justified cap up to eight. Macros cannot bypass either version's limit.
-- [ ] feat/evaluate: Represent sequence, attachment ports, bounded translation/scale/rotation, lifts, permitted crossings and baseline/x-height/counter constraints explicitly. Do not add independent cubic geometry as a fallback.
-- [ ] feat/evaluate: Keep accepted primitive, gesture and action-profile checkpoints plus tool/controller identities frozen while fitting bounded recipe choices and placements. Optimize from admitted training word/letter evidence with uncertain allocations recorded; development selects the recipe checkpoint. Do not learn new action tracks, hidden finishing passes or session controls at this layer.
-- [ ] feat/evaluate: Compare shared-stroke recipes against frozen prior recipes and the legacy independent-form diagnostic under matched render/time budgets. Cap each ablation/seed at 5000 target renders or 1800 seconds, seeds 7/19/41; one diagnosed revision.
-- [ ] feat/evaluate: Emit each letter as a recipe listing, numbered/color-coded constituent strokes, assembly stages and clean nominal/actual-neutral outputs. Include multiple letters sharing the same primitive and traceable parameter identity.
-- [ ] feat/evaluate: Freeze recipe evaluation before opening held-out examples; repeat observations and genuinely unseen combinations are reported separately. Obtain real appearance/reading review when available rather than equating a template score with legibility.
-- [ ] evidence: record red/green commands, actual budget use, hashes, scope and outcome before marking completion.
+- [x] feat/evaluate: Freeze audited synthetic `n/u/m` scaffolds, one topology each, before training; unsupported text fails. Retain the admitted contract's six-reference cap. Underturn/overturn are admitted in scope; standalone stem remains explicitly unresolved. Accepted-inventory/real letter training is not claimed.
+- [x] feat/evaluate: Represent sequence, lifted ports, bounded translation, fixed scale/rotation, forbidden crossings and proportion envelopes. Counter-bearing letters are unsupported. No independent cubic fallback. Level baseline/x-height compatibility remains a diagnosed letter-shape issue, not a passed reading criterion.
+- [x] feat/evaluate: Freeze lower-layer and tool/controller identities; development selects bounded placements against explicitly synthetic training observations. Live real G0/native allocations are not supplied and real mode fails closed. No new action tracks, finishing passes or session controls.
+- [x] feat/evaluate: Compare shared placement, frozen prior and geometry-only legacy diagnostics with matched physical frame/tool/layout and equal 5000-render/1800-second ceilings including replay. Seeds 7/19/41 complete; zero revisions. Actual expenditure differs explicitly; legacy has no fabricated controller proof.
+- [x] feat/evaluate: Emit recipe listings, numbered/color-coded strokes, assembly stages, native 900-DPI nominal/actual-neutral panels and shared-primitive propagation proofs.
+- [x] feat/evaluate: Freeze selected checkpoints before opening transformed repeat and unseen-pair pixels; report those groups separately. No human reading/appearance acceptance is inferred from template loss.
+- [x] evidence: Record red/green tests, budgets, identities, scope and outcomes in the linked report and verification receipt.
 
 ## Validation Gates
 
 - [ ] S2: letters compile entirely from frozen learned gestures over shared primitives and accepted action profiles, respecting contacts, ports, overlaps, proportions, counters and exact visible/logical mappings.
-- [ ] A shared-primitive substitution/change propagates predictably across multiple letters; detached per-letter curve copies cannot pass the reuse check.
-- [ ] Recipe fitting improves predeclared held-out quality over initialization without unbounded residual geometry, distorted aspect or unauthorized text aliases.
-- [ ] Publish a letter construction workbook and checkpoint with synthetic versus reference-grounded status; missing support produces unresolved characters, not guessed promotions.
+- [x] A shared-primitive substitution/change propagates predictably across multiple letters; detached per-letter curve copies cannot pass the reuse check.
+- [x] Recipe fitting improves predeclared synthetic held-out image quality over initialization without changing scale/aspect, adding residual geometry or introducing text aliases. This does not resolve the target's pre-existing unequal letter heights.
+- [x] Publish a letter construction workbook and checkpoint with synthetic versus reference-grounded status; missing support produces unresolved characters, not guessed promotions.
 
 ## Invariant Impact
 
@@ -111,18 +112,67 @@ not historical snapshots or production defaults. Review estimate: 40 minutes.
 
 ## Evidence
 
-- [ ] Frozen fixtures, splits, constraints, objective/limits and model/code identities.
-- [ ] Before/after practice sheets, decomposition proofs and transfer results.
-- [ ] Replay and neutral direct/sampled/actual comparisons; real review only when performed.
-- [ ] `arrive plan check`, `git diff --check`, focused tests and clean-checkout validation.
-- [ ] Before authorized merge, run `arrive pr check --strict --json`; record installed-tool limitations separately from provider CI.
+- [x] Frozen fixtures, splits, constraints, objective/limits and model/code identities.
+- [x] Before/after practice sheets, decomposition proofs and transfer results.
+- [x] Replay and neutral direct/sampled/actual comparisons; no real review claimed.
+- [x] `arrive plan check`, `git diff --check`, focused tests and clean-checkout validation.
+- [x] Strict PR check executed with explicit title/body/label; installed parser returns `ids=[]` and exit 1. No provider CI claim.
+- [ ] Local merge and post-merge evidence receipt.
+
+See [results and commands](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/README.md),
+[samples](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/index.html)
+and [immutable report](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/run-001/report.json).
 
 ## Bug Fixes
 
-None implemented. This planned Advance addresses the missing layered-learning
-contract, not the later ink or fatigue defects.
+Pre-render tests exposed an omitted letter-local gate and missing attachment
+proofs; `b4ba8a5` records those failures before `e00ed7c` repairs them. No ink,
+clock, fatigue, historical compiler or primitive code changed.
 
 ## Changes Made
+
+### 2026-09-08 — feat: complete synthetic assembly experiment
+
+All three seeds select the same bounded placement deltas: `n=[0.08,0]`,
+`u=[0.02,0.34]`, `m=[0.02,0.34]`. Worst letter-local actual/target losses are
+0.013008 / 0.016607 / 0.019452, below unchanged 0.05. Repeat nominal/prior ratios
+are 0.02908 / 0.11206 / 0.04633, below unchanged 0.75; unseen pairs also pass.
+All measured physical, lifted-port, frame and ownership checks pass.
+
+2652 renders total, including separate first/replay processes for every arm and
+seed: shared 476, prior 300, legacy 108 per seed. Maximum cumulative arm/seed
+time is 582.531 seconds. All nine arm/seed pairs replay exactly, with 63 / 61 /
+34 non-clock artifacts per shared/prior/legacy worker. No lower-layer fitting,
+attempt revision or retry occurred. All 968 artifacts verify through the new
+read-only inspector, which reconstructs saved selection and compiled provenance
+without calling the fitter, selector or renderer.
+
+Execution code is frozen at `e00ed7c`; the later read-only inspector is
+`58fc4ed`, following missing-module red tests in `08f18e8`. Initial runner red
+tests are `d7bbf58`, with implementation `7701028`; guard red/fix is
+`b4ba8a5` / `e00ed7c`. Validation: 127 initial focused tests pass; the expanded
+new-module selection has 40 passing tests (13.88 seconds, and 12.66 seconds in a
+clean committed checkout). The broader physical/foundation selection has 287
+passing tests in 340.77 seconds. These are local tests, not provider CI.
+
+The experiment report SHA is
+`a587f212aa62c2a4742e4d7601a814d3932a5a903e5e993947c9116c4ebe0c12`;
+all three selected candidate files have SHA
+`d522b14f3470101603d957332016c257d2c8a1a1d7f41d0d66d542acf5644734`.
+The native seed-7 workbook was visually inspected. It exposes diagonal rises
+and a stair-stepped `m`: both return gestures have endpoint displacement
+`[1.02,0.34]`, which translation cannot level. Approximate -18.435-degree
+rotation is a geometric investigation only, not a rendered or accepted fix.
+Retain these targets; next scope baseline/x-height-compatible assembly and
+standalone-stem admission before independent S2 or context work.
+
+Reviewability is Red 110, dominated by 968 inseparable manifest-backed generated
+artifacts (mechanical review estimate 566.6 minutes, not human review performed).
+Test, implementation, guard and reader changes are already separated
+into reviewable commits. Only two new opt-in runtime modules are added; no
+pinned historical runtime changes. Future shape/rotation and acceptance work
+remain separate, rather than hiding a protocol revision in this evidence commit.
+Artifact doctor retains ten inherited issues; generated rules remain current.
 
 ### 2026-09-08 — feat: freeze bounded synthetic letter scaffolding
 
@@ -173,3 +223,4 @@ namespace and preserves v1 snapshots. No implementation or gate result changed.
 
 1. What changes are learned at this layer, and which lower-layer parameters stay frozen?
 2. Which visible transfer test prevents this layer from merely reproducing supplied shapes?
+3. Why do the low synthetic losses not resolve the climbing `m` or grant S2?

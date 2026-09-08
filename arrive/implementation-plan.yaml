@@ -1704,7 +1704,7 @@ passes:
     - id: ADV-SS-CURRICULUM-005
       advance_id: ADV-SS-CURRICULUM-005
       title: "Letter Construction — Recipes Built from Learned Strokes"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-004
@@ -1712,7 +1712,7 @@ passes:
       - ADV-SS-HANDVALIDATE-016
       - ADV-SS-HANDVALIDATE-017
       - ADV-SS-HANDVALIDATE-018
-      notes: "IN PROGRESS: bounded synthetic n/u/m recipe placement from frozen finer-scale strokes, 4/4/6 expanded references. Exact live HANDVALIDATE-018 underturn/overturn admission; standalone stem unresolved, so scaffolding only. Real G0/native allocations absent; S2/real/context acceptance remains false. Frozen shared/prior/legacy arms, seeds 7/19/41 and same cumulative budget ceilings; no session effects."
+      notes: "COMPLETE, SYNTHETIC ASSEMBLY PASS ONLY: n/u/m placement with frozen strokes, 4/4/6 references. All seeds and three arms replay exactly; 2652 renders, maximum 582.531 seconds per arm/seed incl replay. Worst local actual losses 0.013008/0.016607/0.019452; targets and thresholds unchanged. 287 broader tests and 40 new-module tests pass. Standalone stem and letter-level baseline/x-height/reading unresolved; S2/real/context_training_allowed=false. No session effects or default switch."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 10
@@ -1724,7 +1724,7 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-005
-      notes: "Preserve frozen primitive/gesture/action/letter identities; bounded geometric context does not mutate shared action profiles. No ink depletion, fatigue or session effects."
+      notes: "CURRICULUM-005 synthetic assembly is not S2 admission; context_training_allowed=false until letter proportions/reading and standalone-stem readiness are resolved. Preserve frozen primitive/gesture/action/letter identities; bounded geometric context does not mutate shared action profiles. No ink depletion, fatigue or session effects."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
     order: 11

@@ -49,6 +49,13 @@ consume matching primitive/gesture/action/letter identities and S1-gesture/
 S1-action readiness inherited through CURRICULUM-005. Neutral execution retains
 accepted deliberate actions while disabling fatigue and other session effects.
 
+CURRICULUM-005's new `letters/run-001` is bounded synthetic assembly evidence,
+not an accepted S2 checkpoint. Its report explicitly keeps
+`context_training_allowed=false`: standalone-stem admission and letter-level
+baseline/x-height/reading remain unresolved. Exact unseen two-letter strings in
+that workbook are juxtaposition transfer probes, not learned context. Do not
+start accepted-layer context fitting from completion status or low target loss.
+
 Completion is not acceptance. Synthetic scaffolding may execute with explicitly
 unaccepted inputs. Reference-derived fitting requires live G0, and real layer
 acceptance requires the matching accepted lower-layer checkpoint. Do not import

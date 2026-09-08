@@ -1,6 +1,15 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Latest evaluation — HANDVALIDATE-017 complete, scoped underturn null accepted:**
+**Current layer — CURRICULUM-005 complete, synthetic assembly pass only:**
+The new n/u/m workbook demonstrates bounded recipe placement over frozen
+finer-scale strokes, with exact replay across all three seeds and arms. The
+standalone stem and level baseline/x-height/reading remain unresolved; S2 and
+context training are not accepted. See [section 10](#10-bounded-synthetic-letter-assembly--curriculum-005)
+and the [current letter samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/index.html).
+HANDVALIDATE-018's three-construction scoped null acceptance remains valid;
+the earlier records below are historical, not the current gate decision.
+
+**Historical evaluation — HANDVALIDATE-017 complete, scoped underturn null accepted:**
 The approved measurement repair normalizes diagnostic scalar types and uses
 the unchanged fixed-angle sample tolerance while retaining raw angular rates.
 All seeds complete nine independent holdouts, three contexts, a closed counter,
@@ -419,3 +428,46 @@ Its new evaluation freezes nine same-family holdouts and three new mechanical
 contexts. All 21 learning fixtures and the prior contexts are regressions;
 counter bounds, targets and numerical limits do not change. Completion and
 scoped admission are distinct from learned-letter or historical-hand approval.
+
+## 10. Bounded synthetic letter assembly — CURRICULUM-005
+
+The new opt-in letter runner consumes HANDVALIDATE-018's exact report and
+candidate bytes without modifying pinned lower-layer readers. The starter
+inventory is the audited `n/u/m` subset, with 4/4/6 expanded primitive references
+and two explicitly lifted gestures per letter. One topology per character and
+only bounded second-gesture translation are learned; scale, rotation, advances,
+crossings, internal controls, tool/action profiles and session effects are fixed.
+
+This distinction matters: the standalone stem used by `n/u` is not among the
+independently accepted null constructions. Consequently the present runner is
+synthetic scaffolding with a named unresolved input, not accepted-inventory S2
+training. No real-reference mode is released without live reviewed G0, accepted
+real lower layers and native letter allocations. Unsupported letters fail exact
+text coverage rather than borrowing a visually convenient construction.
+
+Freeze independent analytic target families with explicit synthetic letter
+placements, isolated train/development observations, transformed repeats and
+unseen exact pairs. Development chooses placements before any holdout pixels
+are opened. The frozen-prior arm does not fit; the catalog independent-form arm
+is a geometry-only diagnostic with matched physical frame/tool/layout, not an
+ownership or physical-execution baseline. Every arm/seed uses the same cumulative
+5000-render/1800-second ceiling including replay; no padding disguises unequal
+search work as equal expenditure.
+
+Measure both global and letter-local absolute image loss (unchanged 0.05),
+held-out benefit (ratio below 0.75), declared lifted attachment ports, exact
+compiled ownership, full-frame containment and actual neutral timing/arc
+refinements. These open constructions do not establish counter or subdivision
+coverage. Read-only receipt reconstruction verifies current source lineage,
+the recorded grid/selection, compiled references, complete artifact inventory,
+replay and cumulative budgets; it is not an independent S2 admission API.
+
+The initial workbook visibly retains diagonal rises and unequal baseline/
+x-height alignment, particularly the two-arch `m`. A fit can reproduce those
+predeclared synthetic targets without validating their letter identity. Do not
+retroactively alter the targets or equate low loss with historical legibility.
+Review letter-level proportions jointly with attachment requirements and resolve
+the standalone-stem prerequisite before independent S2 or context work.
+
+See the [protocol](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/README.md)
+and [construction workbook](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/index.html).
