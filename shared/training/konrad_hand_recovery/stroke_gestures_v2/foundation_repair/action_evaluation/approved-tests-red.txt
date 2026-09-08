@@ -1,0 +1,83 @@
+FFFFF.                                                                   [100%]
+=================================== FAILURES ===================================
+_______________ test_continuation_preserves_failed_attempt_costs _______________
+
+    def test_continuation_preserves_failed_attempt_costs():
+        usage = evaluation.prior_usage()
+        assert set(usage) == {7, 19, 41}
+>       assert all(row['renders'] == 550 and row['seconds'] > 140 for row in usage.values())
+E       assert False
+E        +  where False = all(<generator object test_continuation_preserves_failed_attempt_costs.<locals>.<genexpr> at 0x10c249b10>)
+
+tests/test_handvalidate_foundation_actions.py:114: AssertionError
+___ test_live_numpy_scalars_are_normalized_without_changing_physical_values ____
+
+    def test_live_numpy_scalars_are_normalized_without_changing_physical_values():
+        import numpy as np
+        from scribesim.evo.nib_contact import contact_corners
+
+        row = {'to_mm': [np.float64(1.25), np.float64(3.5)], 'contact': True,
+               'pressure': np.float64(.5), 'angle_deg': np.float64(40)}
+        sample = evaluation.physical_samples({'trace': [row]}, [0, .45])[0]
+>       contact_corners(sample)
+
+tests/test_handvalidate_foundation_actions.py:132:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+sample = ContactSample(x_mm=np.float64(1.25), y_mm=np.float64(3.5), contact=True, width_mm=0.45, pressure=np.float64(0.5), nib_angle_deg=np.float64(40.0), edge_start=0, edge_end=0.45, contact_version='physical-edge-v1')
+
+    def contact_corners(sample):
+        values = (sample.x_mm, sample.y_mm, sample.width_mm, sample.pressure, sample.nib_angle_deg,
+                  sample.edge_start, sample.edge_end)
+        if (sample.contact_version != VERSION or any(type(value) not in (float, int) or not math.isfinite(value) for value in values)
+                or type(sample.contact) is not bool or sample.width_mm != WIDTH_MM
+                or sample.pressure != (.5 if sample.contact else 0)
+                or not -180 <= sample.nib_angle_deg <= 540
+                or not 0 <= sample.edge_start < sample.edge_end <= 1 or sample.edge_end - sample.edge_start < .1):
+>           raise ValueError('Unsupported physical contact fields')
+E           ValueError: Unsupported physical contact fields
+
+scribesim/evo/nib_contact.py:29: ValueError
+__ test_fixed_angle_roundoff_retains_raw_rate_without_failing_sample_contract __
+
+    def test_fixed_angle_roundoff_retains_raw_rate_without_failing_sample_contract():
+        row = {'contact': True, 'pressure': .5, 'width_mm': .45, 'angle_deg': 40., 'time_s': 0.}
+        run = {'tool': 'legacy-full-edge', 'trace': [row, {**row, 'angle_deg': 40.00000000000001, 'time_s': .001}]}
+        proof = evaluation.tool_proof(run)
+        assert proof['angle_rate_deg_s'] > 0
+>       assert evaluation.tool_pass(proof)
+               ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'scribesim.handvalidate.foundation_actions' has no attribute 'tool_pass'
+
+tests/test_handvalidate_foundation_actions.py:144: AttributeError
+_______________ test_nonfinite_rate_or_changed_tool_cannot_pass ________________
+
+    def test_nonfinite_rate_or_changed_tool_cannot_pass():
+        proof = evaluation.tool_proof({'tool': 'legacy-full-edge', 'trace': [
+            {'contact': True, 'pressure': .5, 'width_mm': .45, 'angle_deg': 40., 'time_s': 0.}]})
+>       assert evaluation.tool_pass(proof)
+               ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'scribesim.handvalidate.foundation_actions' has no attribute 'tool_pass'
+
+tests/test_handvalidate_foundation_actions.py:152: AttributeError
+__________ test_partial_control_evidence_is_saved_before_next_control __________
+
+tmp_path = PosixPath('/private/var/folders/k7/7bqgt45n5fb91bv4kgrz5tbc0000gn/T/pytest-of-shawn/pytest-386/test_partial_control_evidence_0')
+
+    def test_partial_control_evidence_is_saved_before_next_control(tmp_path):
+        import gzip
+
+        records = {'wrong-angle': {'detected': True, 'errors': 10}}
+        evidence = {'wrong-angle': {'trace': [{'angle_deg': 55}]}}
+>       evaluation.checkpoint_controls(tmp_path, records, evidence)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'scribesim.handvalidate.foundation_actions' has no attribute 'checkpoint_controls'
+
+tests/test_handvalidate_foundation_actions.py:165: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_handvalidate_foundation_actions.py::test_continuation_preserves_failed_attempt_costs
+FAILED tests/test_handvalidate_foundation_actions.py::test_live_numpy_scalars_are_normalized_without_changing_physical_values
+FAILED tests/test_handvalidate_foundation_actions.py::test_fixed_angle_roundoff_retains_raw_rate_without_failing_sample_contract
+FAILED tests/test_handvalidate_foundation_actions.py::test_nonfinite_rate_or_changed_tool_cannot_pass
+FAILED tests/test_handvalidate_foundation_actions.py::test_partial_control_evidence_is_saved_before_next_control
+5 failed, 1 passed, 16 deselected in 1.50s

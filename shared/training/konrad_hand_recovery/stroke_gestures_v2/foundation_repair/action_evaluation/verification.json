@@ -1,0 +1,186 @@
+{
+  "advance": "ADV-SS-HANDVALIDATE-017",
+  "status": "in_progress; stopped awaiting additional measurement-only repair authorization",
+  "code_commit": "8e578f8",
+  "initial_code_commit": "8151001",
+  "tdd_commits": [
+    "6787023",
+    "55afb87"
+  ],
+  "report_sha256": "f7a6d96dccb418e058f7a5daf96bde8af754e76f3868e2d0a609f8b7afb51933",
+  "prior_report_sha256": "ebc0d7b0f7f4045605d0e00a21fd14ac6a420dff52ae4fe4bdedfa7478b60113",
+  "renders": 1062,
+  "prior_renders": 588,
+  "cumulative_renders": 1650,
+  "revision": 1,
+  "optimization_evaluations": 0,
+  "S1_action_accepted": false,
+  "letter_training_allowed": false,
+  "real_accepted": false,
+  "artifact_count": 488,
+  "seeds": [
+    {
+      "seed": 7,
+      "status": "blocked",
+      "reason": "Unsupported physical contact fields",
+      "replay_match": true,
+      "matching_non_clock_files": 80,
+      "cumulative_renders": 550,
+      "cumulative_seconds": 145.3314333750168,
+      "candidate_file_unchanged": true,
+      "measured_holdouts": 9,
+      "local_actual_target_maxima": {
+        "underturn": 0.04470448822396682,
+        "overturn": 0.09942993676063835,
+        "compound_curve": 0.09360012491913718
+      },
+      "contexts_pass": true,
+      "closed_counter_pass": false,
+      "counter_measurements": {
+        "target": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "nominal": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "base": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "arc": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "time": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "subdivision": {
+          "blank_fraction": 0,
+          "enclosed": true
+        }
+      },
+      "composite_guard_pass": false,
+      "foundation_motion_pass": true,
+      "closed_enclosure_only_pass": true,
+      "new_tool_guard_pass": false
+    },
+    {
+      "seed": 19,
+      "status": "blocked",
+      "reason": "Unsupported physical contact fields",
+      "replay_match": true,
+      "matching_non_clock_files": 80,
+      "cumulative_renders": 550,
+      "cumulative_seconds": 148.2666216249345,
+      "candidate_file_unchanged": true,
+      "measured_holdouts": 9,
+      "local_actual_target_maxima": {
+        "underturn": 0.04470448822396682,
+        "overturn": 0.09942993676063835,
+        "compound_curve": 0.09360012491913718
+      },
+      "contexts_pass": true,
+      "closed_counter_pass": false,
+      "counter_measurements": {
+        "target": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "nominal": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "base": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "arc": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "time": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "subdivision": {
+          "blank_fraction": 0,
+          "enclosed": true
+        }
+      },
+      "composite_guard_pass": false,
+      "foundation_motion_pass": true,
+      "closed_enclosure_only_pass": true,
+      "new_tool_guard_pass": false
+    },
+    {
+      "seed": 41,
+      "status": "blocked",
+      "reason": "Unsupported physical contact fields",
+      "replay_match": true,
+      "matching_non_clock_files": 80,
+      "cumulative_renders": 550,
+      "cumulative_seconds": 148.31756320793647,
+      "candidate_file_unchanged": true,
+      "measured_holdouts": 9,
+      "local_actual_target_maxima": {
+        "underturn": 0.04470448822396682,
+        "overturn": 0.09942993676063835,
+        "compound_curve": 0.09360012491913718
+      },
+      "contexts_pass": true,
+      "closed_counter_pass": false,
+      "counter_measurements": {
+        "target": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "nominal": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "base": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "arc": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "time": {
+          "blank_fraction": 0,
+          "enclosed": true
+        },
+        "subdivision": {
+          "blank_fraction": 0,
+          "enclosed": true
+        }
+      },
+      "composite_guard_pass": false,
+      "foundation_motion_pass": true,
+      "closed_enclosure_only_pass": true,
+      "new_tool_guard_pass": false
+    }
+  ],
+  "diagnosis": "Live controller positions are numpy.float64; the new diagnostic physical_samples adapter forwards them to ContactSample, whose unchanged contract requires built-in int/float. JSON serialization hides the type distinction. No-render replay reproduces live float64 fields and contract rejection. Normalize diagnostic scalar representation without changing values, candidates or tool semantics; do not weaken physical validation. No further evaluation until approved. A second diagnostic-only defect compares derived angular rate with exact zero despite unchanged angles agreeing within the existing 1e-12-degree sample check; floating interpolation produces rates up to 2.507475278718794e-10 deg/s. Preserve raw rates and existing sample tolerances; correct constant-tool classification rather than loosening physical thresholds, only after approval.",
+  "missing_proofs": [
+    "swapped-edge physical rendering and endpoint evidence",
+    "erased-counter negative control",
+    "filled-open-pocket negative control",
+    "persisted complete control numeric proof",
+    "independent scoped null acceptance",
+    "correct constant-angle diagnostic classification without exact floating-point derivative equality"
+  ],
+  "tests": {
+    "final_focused": "65 passed in 64.19 seconds",
+    "initial_focused": "62 passed",
+    "revised_unit": "17 passed",
+    "expanded": "305 passed, 18 failed; 12 same inherited IDs and 6 additional folio failures reproduced at pre-task ac08daf",
+    "baseline_folio": "6 failed, 2 passed in clean ac08daf checkout"
+  },
+  "visual_review": "Native actual closed-counter carrier inspected; enclosed diagnostic, not learned letter. No browser validation claimed.",
+  "governance": {"plan":"pass","local_links":132,"diff":"pass","artifact_doctor":"10 identical pre-existing issues","agent_rules_stale":[],"merge":"not performed; Advance remains in progress","provider_ci":"not performed","owner_review":"not performed","log_normalization":"trailing whitespace only"},
+  "verification_scope": "Experiments execute in clean detached committed-code worktrees. Focused tests run locally. The six additional folio failures reproduce in a clean pre-task ac08daf checkout. Temporary worktrees removed only after exact output-copy verification."
+}

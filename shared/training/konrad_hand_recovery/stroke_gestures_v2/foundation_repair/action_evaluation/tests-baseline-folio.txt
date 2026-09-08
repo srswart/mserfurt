@@ -1,0 +1,1123 @@
+FFF.FFF.                                                                 [100%]
+=================================== FAILURES ===================================
+_________ test_guided_folio_render_is_deterministic_for_fixed_profile __________
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+>               line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+
+scribesim/handflow/folio.py:148:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/session.py:488: in build_line_session
+    word_items, word_guide = build_word_session(
+scribesim/handflow/session.py:331: in build_word_session
+    base_glyph, requested_symbol, resolution_kind = resolve_character_guide(char, guide_catalog)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+char = 'H'
+guide_catalog = {'a': DensePathGuide(symbol='a', samples=(GuideSample(x_mm=0.807139, y_mm=0.353224, tangent_dx=-0.640591, tangent_dy=-...uler. Mystische Texte, u.a. Meister Eckhart', confidence_tier='accepted', split='test', source_resolution_ppmm=16.0)))}
+
+    def resolve_character_guide(
+        char: str,
+        guide_catalog: dict[str, DensePathGuide],
+    ) -> tuple[DensePathGuide, str, str]:
+        if char in guide_catalog:
+            return _resolved_entry(guide_catalog[char], requested_symbol=char, resolution_kind="exact")
+        lowered = char.lower()
+        if lowered in guide_catalog:
+            kind = "exact" if lowered == char else "normalized"
+            return _resolved_entry(guide_catalog[lowered], requested_symbol=char, resolution_kind=kind)
+        normalized = unicodedata.normalize("NFKD", lowered).encode("ascii", "ignore").decode("ascii")
+        if normalized in guide_catalog:
+            kind = "exact" if normalized == char else "normalized"
+            return _resolved_entry(guide_catalog[normalized], requested_symbol=char, resolution_kind=kind)
+        alias = _GUIDE_ALIASES.get(lowered) or _GUIDE_ALIASES.get(normalized)
+        if alias and alias in guide_catalog:
+            return _resolved_entry(guide_catalog[alias], requested_symbol=char, resolution_kind="alias")
+>       raise KeyError(f"missing guide for character: {char}")
+E       KeyError: 'missing guide for character: H'
+
+scribesim/handflow/session.py:291: KeyError
+
+The above exception was the direct cause of the following exception:
+
+    def test_guided_folio_render_is_deterministic_for_fixed_profile():
+        lines = _folio_lines()[:2]
+        profile = _profile()
+
+>       page_a, heat_a = render_guided_folio_lines(
+            lines,
+            profile=profile,
+            page_width_mm=70.0,
+            page_height_mm=100.0,
+            margin_left_mm=6.0,
+            margin_top_mm=7.0,
+            line_spacing_mm=8.0,
+            supersample=4,
+        )
+
+/tmp/scribesim-handvalidate-017-baseline/tests/test_handflow_folio.py:88:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/folio.py:233: in render_guided_folio_lines
+    simulation = simulate_guided_folio_lines(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+                line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+            except KeyError as exc:
+                status = _line_resolution_status(li, line_text, tuple(), resolution_error=str(exc))
+                line_statuses.append(status)
+                if exact_symbols:
+>                   raise GuidedFolioResolutionError(
+                        f"exact-symbol guided folio render failed on line {li + 1}: {exc}",
+                        line_statuses=tuple(line_statuses),
+                    ) from exc
+E                   scribesim.handflow.model.GuidedFolioResolutionError: exact-symbol guided folio render failed on line 1: 'missing guide for character: H'
+
+scribesim/handflow/folio.py:159: GuidedFolioResolutionError
+_________ test_guided_folio_heatmap_matches_page_canvas_shape_and_ink __________
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+>               line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+
+scribesim/handflow/folio.py:148:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/session.py:488: in build_line_session
+    word_items, word_guide = build_word_session(
+scribesim/handflow/session.py:331: in build_word_session
+    base_glyph, requested_symbol, resolution_kind = resolve_character_guide(char, guide_catalog)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+char = 'H'
+guide_catalog = {'a': DensePathGuide(symbol='a', samples=(GuideSample(x_mm=0.807139, y_mm=0.353224, tangent_dx=-0.640591, tangent_dy=-...uler. Mystische Texte, u.a. Meister Eckhart', confidence_tier='accepted', split='test', source_resolution_ppmm=16.0)))}
+
+    def resolve_character_guide(
+        char: str,
+        guide_catalog: dict[str, DensePathGuide],
+    ) -> tuple[DensePathGuide, str, str]:
+        if char in guide_catalog:
+            return _resolved_entry(guide_catalog[char], requested_symbol=char, resolution_kind="exact")
+        lowered = char.lower()
+        if lowered in guide_catalog:
+            kind = "exact" if lowered == char else "normalized"
+            return _resolved_entry(guide_catalog[lowered], requested_symbol=char, resolution_kind=kind)
+        normalized = unicodedata.normalize("NFKD", lowered).encode("ascii", "ignore").decode("ascii")
+        if normalized in guide_catalog:
+            kind = "exact" if normalized == char else "normalized"
+            return _resolved_entry(guide_catalog[normalized], requested_symbol=char, resolution_kind=kind)
+        alias = _GUIDE_ALIASES.get(lowered) or _GUIDE_ALIASES.get(normalized)
+        if alias and alias in guide_catalog:
+            return _resolved_entry(guide_catalog[alias], requested_symbol=char, resolution_kind="alias")
+>       raise KeyError(f"missing guide for character: {char}")
+E       KeyError: 'missing guide for character: H'
+
+scribesim/handflow/session.py:291: KeyError
+
+The above exception was the direct cause of the following exception:
+
+    def test_guided_folio_heatmap_matches_page_canvas_shape_and_ink():
+>       page, heat = render_guided_folio_lines(
+            _folio_lines()[:2],
+            profile=_profile(),
+            page_width_mm=70.0,
+            page_height_mm=32.0,
+            margin_left_mm=6.0,
+            margin_top_mm=7.0,
+            line_spacing_mm=8.0,
+            supersample=4,
+        )
+
+/tmp/scribesim-handvalidate-017-baseline/tests/test_handflow_folio.py:114:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/folio.py:233: in render_guided_folio_lines
+    simulation = simulate_guided_folio_lines(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+                line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+            except KeyError as exc:
+                status = _line_resolution_status(li, line_text, tuple(), resolution_error=str(exc))
+                line_statuses.append(status)
+                if exact_symbols:
+>                   raise GuidedFolioResolutionError(
+                        f"exact-symbol guided folio render failed on line {li + 1}: {exc}",
+                        line_statuses=tuple(line_statuses),
+                    ) from exc
+E                   scribesim.handflow.model.GuidedFolioResolutionError: exact-symbol guided folio render failed on line 1: 'missing guide for character: H'
+
+scribesim/handflow/folio.py:159: GuidedFolioResolutionError
+_______ test_guided_folio_exact_metadata_reports_actual_trajectory_mode ________
+
+lines = ['Hie hebet sich an daz bůch von dem lerer']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+>               line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+
+scribesim/handflow/folio.py:148:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/session.py:488: in build_line_session
+    word_items, word_guide = build_word_session(
+scribesim/handflow/session.py:331: in build_word_session
+    base_glyph, requested_symbol, resolution_kind = resolve_character_guide(char, guide_catalog)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+char = 'H'
+guide_catalog = {'a': DensePathGuide(symbol='a', samples=(GuideSample(x_mm=0.807139, y_mm=0.353224, tangent_dx=-0.640591, tangent_dy=-...uler. Mystische Texte, u.a. Meister Eckhart', confidence_tier='accepted', split='test', source_resolution_ppmm=16.0)))}
+
+    def resolve_character_guide(
+        char: str,
+        guide_catalog: dict[str, DensePathGuide],
+    ) -> tuple[DensePathGuide, str, str]:
+        if char in guide_catalog:
+            return _resolved_entry(guide_catalog[char], requested_symbol=char, resolution_kind="exact")
+        lowered = char.lower()
+        if lowered in guide_catalog:
+            kind = "exact" if lowered == char else "normalized"
+            return _resolved_entry(guide_catalog[lowered], requested_symbol=char, resolution_kind=kind)
+        normalized = unicodedata.normalize("NFKD", lowered).encode("ascii", "ignore").decode("ascii")
+        if normalized in guide_catalog:
+            kind = "exact" if normalized == char else "normalized"
+            return _resolved_entry(guide_catalog[normalized], requested_symbol=char, resolution_kind=kind)
+        alias = _GUIDE_ALIASES.get(lowered) or _GUIDE_ALIASES.get(normalized)
+        if alias and alias in guide_catalog:
+            return _resolved_entry(guide_catalog[alias], requested_symbol=char, resolution_kind="alias")
+>       raise KeyError(f"missing guide for character: {char}")
+E       KeyError: 'missing guide for character: H'
+
+scribesim/handflow/session.py:291: KeyError
+
+The above exception was the direct cause of the following exception:
+
+    def test_guided_folio_exact_metadata_reports_actual_trajectory_mode():
+>       page, heat, metadata = render_guided_folio_lines(
+            _folio_lines()[:1],
+            profile=_profile(),
+            page_width_mm=70.0,
+            page_height_mm=20.0,
+            margin_left_mm=6.0,
+            margin_top_mm=7.0,
+            line_spacing_mm=8.0,
+            supersample=4,
+            exact_symbols=True,
+            return_metadata=True,
+        )
+
+/tmp/scribesim-handvalidate-017-baseline/tests/test_handflow_folio.py:137:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/folio.py:233: in render_guided_folio_lines
+    simulation = simulate_guided_folio_lines(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+lines = ['Hie hebet sich an daz bůch von dem lerer']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+                line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+            except KeyError as exc:
+                status = _line_resolution_status(li, line_text, tuple(), resolution_error=str(exc))
+                line_statuses.append(status)
+                if exact_symbols:
+>                   raise GuidedFolioResolutionError(
+                        f"exact-symbol guided folio render failed on line {li + 1}: {exc}",
+                        line_statuses=tuple(line_statuses),
+                    ) from exc
+E                   scribesim.handflow.model.GuidedFolioResolutionError: exact-symbol guided folio render failed on line 1: 'missing guide for character: H'
+
+scribesim/handflow/folio.py:159: GuidedFolioResolutionError
+___ test_guided_high_supersample_improves_fidelity_against_higher_reference ____
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+>               line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+
+scribesim/handflow/folio.py:148:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/session.py:488: in build_line_session
+    word_items, word_guide = build_word_session(
+scribesim/handflow/session.py:331: in build_word_session
+    base_glyph, requested_symbol, resolution_kind = resolve_character_guide(char, guide_catalog)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+char = 'H'
+guide_catalog = {'a': DensePathGuide(symbol='a', samples=(GuideSample(x_mm=0.807139, y_mm=0.353224, tangent_dx=-0.640591, tangent_dy=-...uler. Mystische Texte, u.a. Meister Eckhart', confidence_tier='accepted', split='test', source_resolution_ppmm=16.0)))}
+
+    def resolve_character_guide(
+        char: str,
+        guide_catalog: dict[str, DensePathGuide],
+    ) -> tuple[DensePathGuide, str, str]:
+        if char in guide_catalog:
+            return _resolved_entry(guide_catalog[char], requested_symbol=char, resolution_kind="exact")
+        lowered = char.lower()
+        if lowered in guide_catalog:
+            kind = "exact" if lowered == char else "normalized"
+            return _resolved_entry(guide_catalog[lowered], requested_symbol=char, resolution_kind=kind)
+        normalized = unicodedata.normalize("NFKD", lowered).encode("ascii", "ignore").decode("ascii")
+        if normalized in guide_catalog:
+            kind = "exact" if normalized == char else "normalized"
+            return _resolved_entry(guide_catalog[normalized], requested_symbol=char, resolution_kind=kind)
+        alias = _GUIDE_ALIASES.get(lowered) or _GUIDE_ALIASES.get(normalized)
+        if alias and alias in guide_catalog:
+            return _resolved_entry(guide_catalog[alias], requested_symbol=char, resolution_kind="alias")
+>       raise KeyError(f"missing guide for character: {char}")
+E       KeyError: 'missing guide for character: H'
+
+scribesim/handflow/session.py:291: KeyError
+
+The above exception was the direct cause of the following exception:
+
+    def test_guided_high_supersample_improves_fidelity_against_higher_reference():
+        lines = _folio_lines()[:2]
+        profile = _profile()
+>       low_page, _ = render_guided_folio_lines(
+            lines,
+            profile=profile,
+            page_width_mm=70.0,
+            page_height_mm=45.0,
+            margin_left_mm=6.0,
+            margin_top_mm=7.0,
+            line_spacing_mm=8.0,
+            supersample=2,
+        )
+
+/tmp/scribesim-handvalidate-017-baseline/tests/test_handflow_folio.py:180:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/folio.py:233: in render_guided_folio_lines
+    simulation = simulate_guided_folio_lines(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+                line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+            except KeyError as exc:
+                status = _line_resolution_status(li, line_text, tuple(), resolution_error=str(exc))
+                line_statuses.append(status)
+                if exact_symbols:
+>                   raise GuidedFolioResolutionError(
+                        f"exact-symbol guided folio render failed on line {li + 1}: {exc}",
+                        line_statuses=tuple(line_statuses),
+                    ) from exc
+E                   scribesim.handflow.model.GuidedFolioResolutionError: exact-symbol guided folio render failed on line 1: 'missing guide for character: H'
+
+scribesim/handflow/folio.py:159: GuidedFolioResolutionError
+_________ test_guided_folio_variants_render_without_controller_blowup __________
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+>               line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+
+scribesim/handflow/folio.py:148:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/session.py:488: in build_line_session
+    word_items, word_guide = build_word_session(
+scribesim/handflow/session.py:331: in build_word_session
+    base_glyph, requested_symbol, resolution_kind = resolve_character_guide(char, guide_catalog)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+char = 'H'
+guide_catalog = {'a': DensePathGuide(symbol='a', samples=(GuideSample(x_mm=0.807139, y_mm=0.353224, tangent_dx=-0.640591, tangent_dy=-...uler. Mystische Texte, u.a. Meister Eckhart', confidence_tier='accepted', split='test', source_resolution_ppmm=16.0)))}
+
+    def resolve_character_guide(
+        char: str,
+        guide_catalog: dict[str, DensePathGuide],
+    ) -> tuple[DensePathGuide, str, str]:
+        if char in guide_catalog:
+            return _resolved_entry(guide_catalog[char], requested_symbol=char, resolution_kind="exact")
+        lowered = char.lower()
+        if lowered in guide_catalog:
+            kind = "exact" if lowered == char else "normalized"
+            return _resolved_entry(guide_catalog[lowered], requested_symbol=char, resolution_kind=kind)
+        normalized = unicodedata.normalize("NFKD", lowered).encode("ascii", "ignore").decode("ascii")
+        if normalized in guide_catalog:
+            kind = "exact" if normalized == char else "normalized"
+            return _resolved_entry(guide_catalog[normalized], requested_symbol=char, resolution_kind=kind)
+        alias = _GUIDE_ALIASES.get(lowered) or _GUIDE_ALIASES.get(normalized)
+        if alias and alias in guide_catalog:
+            return _resolved_entry(guide_catalog[alias], requested_symbol=char, resolution_kind="alias")
+>       raise KeyError(f"missing guide for character: {char}")
+E       KeyError: 'missing guide for character: H'
+
+scribesim/handflow/session.py:291: KeyError
+
+The above exception was the direct cause of the following exception:
+
+    def test_guided_folio_variants_render_without_controller_blowup():
+        lines = _folio_lines()[:2]
+        variants = {
+            "clean": {},
+            "pressure_heavy": {"folio.base_pressure": 0.88, "stroke_weight": 1.15},
+            "multi_sitting": {"folio.base_tempo": 2.2, "word.speed_variance": 0.18},
+            "fatigue": {"fatigue_rate": 0.02, "ink.depletion_rate": 0.03},
+        }
+
+        for overrides in variants.values():
+            profile = _profile().apply_delta(overrides)
+>           page, heat = render_guided_folio_lines(
+                lines,
+                profile=profile,
+                page_width_mm=70.0,
+                page_height_mm=60.0,
+                margin_left_mm=6.0,
+                margin_top_mm=7.0,
+                line_spacing_mm=8.0,
+                supersample=4,
+            )
+
+/tmp/scribesim-handvalidate-017-baseline/tests/test_handflow_folio.py:225:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/folio.py:233: in render_guided_folio_lines
+    simulation = simulate_guided_folio_lines(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+                line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+            except KeyError as exc:
+                status = _line_resolution_status(li, line_text, tuple(), resolution_error=str(exc))
+                line_statuses.append(status)
+                if exact_symbols:
+>                   raise GuidedFolioResolutionError(
+                        f"exact-symbol guided folio render failed on line {li + 1}: {exc}",
+                        line_statuses=tuple(line_statuses),
+                    ) from exc
+E                   scribesim.handflow.model.GuidedFolioResolutionError: exact-symbol guided folio render failed on line 1: 'missing guide for character: H'
+
+scribesim/handflow/folio.py:159: GuidedFolioResolutionError
+__________ test_guided_folio_outputs_are_accepted_by_weather_pipeline __________
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+>               line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+
+scribesim/handflow/folio.py:148:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/session.py:488: in build_line_session
+    word_items, word_guide = build_word_session(
+scribesim/handflow/session.py:331: in build_word_session
+    base_glyph, requested_symbol, resolution_kind = resolve_character_guide(char, guide_catalog)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+char = 'H'
+guide_catalog = {'a': DensePathGuide(symbol='a', samples=(GuideSample(x_mm=0.807139, y_mm=0.353224, tangent_dx=-0.640591, tangent_dy=-...uler. Mystische Texte, u.a. Meister Eckhart', confidence_tier='accepted', split='test', source_resolution_ppmm=16.0)))}
+
+    def resolve_character_guide(
+        char: str,
+        guide_catalog: dict[str, DensePathGuide],
+    ) -> tuple[DensePathGuide, str, str]:
+        if char in guide_catalog:
+            return _resolved_entry(guide_catalog[char], requested_symbol=char, resolution_kind="exact")
+        lowered = char.lower()
+        if lowered in guide_catalog:
+            kind = "exact" if lowered == char else "normalized"
+            return _resolved_entry(guide_catalog[lowered], requested_symbol=char, resolution_kind=kind)
+        normalized = unicodedata.normalize("NFKD", lowered).encode("ascii", "ignore").decode("ascii")
+        if normalized in guide_catalog:
+            kind = "exact" if normalized == char else "normalized"
+            return _resolved_entry(guide_catalog[normalized], requested_symbol=char, resolution_kind=kind)
+        alias = _GUIDE_ALIASES.get(lowered) or _GUIDE_ALIASES.get(normalized)
+        if alias and alias in guide_catalog:
+            return _resolved_entry(guide_catalog[alias], requested_symbol=char, resolution_kind="alias")
+>       raise KeyError(f"missing guide for character: {char}")
+E       KeyError: 'missing guide for character: H'
+
+scribesim/handflow/session.py:291: KeyError
+
+The above exception was the direct cause of the following exception:
+
+    def test_guided_folio_outputs_are_accepted_by_weather_pipeline():
+        from weather.compositor import composite_folio
+        from weather.profile import load_profile
+        from weather.substrate.vellum import VellumStock
+
+>       page, heat = render_guided_folio_lines(
+            _folio_lines()[:2],
+            profile=_profile(),
+            page_width_mm=70.0,
+            page_height_mm=32.0,
+            margin_left_mm=6.0,
+            margin_top_mm=7.0,
+            line_spacing_mm=8.0,
+            supersample=4,
+        )
+
+/tmp/scribesim-handvalidate-017-baseline/tests/test_handflow_folio.py:244:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scribesim/handflow/folio.py:233: in render_guided_folio_lines
+    simulation = simulate_guided_folio_lines(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+lines = ['Hie hebet sich an daz bůch von dem lerer', 'meister Eckehart von den heiligen worten']
+
+    def simulate_guided_folio_lines(
+        lines: list[str],
+        *,
+        profile: HandProfile,
+        x_height_mm: float = 3.8,
+        line_spacing_mm: float = 12.0,
+        margin_left_mm: float = 5.0,
+        margin_top_mm: float = 5.0,
+        exact_symbols: bool = True,
+        guide_catalog_path: Path | str | None = None,
+        progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    ) -> GuidedFolioSimulation:
+        """Simulate guided folio trajectories before rasterization."""
+
+        guide_catalog = load_word_guide_catalog(
+            x_height_mm=x_height_mm,
+            exact_symbols=exact_symbols,
+            guide_catalog_path=guide_catalog_path,
+        )
+        page_trajectory: list[TrajectorySample] = []
+        aligned_page_trajectory: list[TrajectorySample] = []
+        line_statuses: list[GuidedFolioLineStatus] = []
+        total_lines = len(lines)
+
+        for li, line_text in enumerate(lines):
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "stage": "line_start",
+                        "line_index": li,
+                        "total_lines": total_lines,
+                        "line_text": line_text,
+                    }
+                )
+            if not line_text.strip():
+                if progress_callback is not None:
+                    progress_callback(
+                        {
+                            "stage": "line_complete",
+                            "line_index": li,
+                            "total_lines": total_lines,
+                            "line_text": line_text,
+                        }
+                    )
+                continue
+
+            controller = GuidedHandFlowController(profile, activate_base_pressure=True)
+            try:
+                line_items, _, _ = build_line_session(
+                    line_text,
+                    guide_catalog=guide_catalog,
+                    start_x_mm=margin_left_mm,
+                    profile=profile,
+                    activate_baseline_jitter=True,
+                )
+            except KeyError as exc:
+                status = _line_resolution_status(li, line_text, tuple(), resolution_error=str(exc))
+                line_statuses.append(status)
+                if exact_symbols:
+>                   raise GuidedFolioResolutionError(
+                        f"exact-symbol guided folio render failed on line {li + 1}: {exc}",
+                        line_statuses=tuple(line_statuses),
+                    ) from exc
+E                   scribesim.handflow.model.GuidedFolioResolutionError: exact-symbol guided folio render failed on line 1: 'missing guide for character: H'
+
+scribesim/handflow/folio.py:159: GuidedFolioResolutionError
+=========================== short test summary info ============================
+FAILED tests/test_handflow_folio.py::test_guided_folio_render_is_deterministic_for_fixed_profile
+FAILED tests/test_handflow_folio.py::test_guided_folio_heatmap_matches_page_canvas_shape_and_ink
+FAILED tests/test_handflow_folio.py::test_guided_folio_exact_metadata_reports_actual_trajectory_mode
+FAILED tests/test_handflow_folio.py::test_guided_high_supersample_improves_fidelity_against_higher_reference
+FAILED tests/test_handflow_folio.py::test_guided_folio_variants_render_without_controller_blowup
+FAILED tests/test_handflow_folio.py::test_guided_folio_outputs_are_accepted_by_weather_pipeline
+6 failed, 2 passed in 1.18s

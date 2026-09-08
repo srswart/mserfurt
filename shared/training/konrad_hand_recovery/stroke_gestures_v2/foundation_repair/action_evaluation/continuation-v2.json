@@ -1,0 +1,11 @@
+{
+  "revision": 2,
+  "authorization": "2026-09-08: User approves the proposed additional measurement-only diagnostic repair and rerun.",
+  "sources": [
+    {"directory": "run-001", "report_sha256": "ebc0d7b0f7f4045605d0e00a21fd14ac6a420dff52ae4fe4bdedfa7478b60113", "spec": "spec-v1.json", "revision": 0},
+    {"directory": "run-002", "report_sha256": "f7a6d96dccb418e058f7a5daf96bde8af754e76f3868e2d0a609f8b7afb51933", "spec": "spec-v2.json", "revision": 1}
+  ],
+  "diagnosis": "Normalize native NumPy scalar representation at the diagnostic physical-sample boundary. Classify the fixed tool through its existing 1e-12 sample-field checks instead of exact zero of a floating derivative; preserve raw angular-rate observations. Journal each completed control before proceeding.",
+  "freeze": "Keep spec-v2.json, selected candidate bytes, source geometry, all targets, frames, control mutations, metrics and existing physical/sample thresholds unchanged. No optimization or active-action fit.",
+  "budget": "Retain both prior attempts: 550 renders per seed and run-002 cumulative elapsed times, without double-counting run-001 time. One newly authorized measurement-only attempt at run-003 with first/replay. Same combined 5000-render/1800-second per-seed limits. No further automatic revision."
+}
