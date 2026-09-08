@@ -1,0 +1,86 @@
+---
+advance:
+  id: "ADV-SS-HANDVALIDATE-017"
+  title: "Foundation Action or Null — Independent Selected-Candidate Acceptance"
+  system: "scribesim"
+  primary_component: "handvalidate"
+  components: ["handvalidate","curriculum","gesture","handflow","pathguide","nibcontact","tests"]
+  started_at: "2026-09-08T03:50:00Z"
+  implementation_completed_at: ~
+  review_time_estimate_minutes: 40
+  review_time_actual_minutes: ~
+  pr_links: []
+  external_refs: []
+  reviewability_score: 0
+  risk_flags: ["public_api","migration"]
+  evidence: []
+  model_usage: []
+  status: planned
+---
+
+## Objective
+
+Independently evaluate the newly frozen action or null candidates that the historical action phase never executed. Issue a matching scoped S1-action decision rather than promoting a fixed profile or copying learning pass flags.
+
+Drafting only. This record registers gated follow-up work, not execution or approval.
+Follows [TD-018 Addendum B](../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md).
+
+## Behavioral Change
+
+Independent current-code numeric proofs and complete scoped action/null evidence are required. Any required unresolved action blocks affected letter inventory. Real G0/G1/G2 and owner appearance review remain separate.
+
+## Component Impact
+
+`scribesim/handvalidate/foundation_actions.py` (planned), explicit action/letter admission integration, focused tests and `shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/` (planned).
+Existing components remain incubating; no separate controller or renderer.
+
+## Dependencies
+
+- [ADV-SS-CURRICULUM-012](ADV-SS-CURRICULUM-012.md)
+- [ADV-SS-HANDVALIDATE-016](ADV-SS-HANDVALIDATE-016.md)
+- [ADV-SS-HANDVALIDATE-014](ADV-SS-HANDVALIDATE-014.md)
+
+## Planned Implementation Tasks
+
+- [ ] branch: confirm implementation/update/merge authorization and preserve unrelated work.
+- [ ] tidy: assess minimal behavior-preserving preparation separately.
+- [ ] test: commit observed failing behavioral tests before implementation.
+- [ ] Pin CURRICULUM-012 selected candidate reports and current lower-layer/code/tool/split identities before fresh proofs. Reconstruct live HANDVALIDATE-016 admission for the exact requested inventory; reject unsupported gestures or real scope.
+- [ ] Freeze independent held-out geometry/action targets and numerical gates before rendering. No refit, optimizer invocation, test leakage, changed reference geometry or post-hoc local regions.
+- [ ] Evaluate every selected action/null candidate on actual versus desired traces and target benefit, including every contact entry/exit, local blank/counter guards, exact contributors, physical footprint, spaces, overlaps and dt/arc/all-cubic subdivision convergence.
+- [ ] Execute all six previously unexecuted selected-action adversarial classes required by the old action evaluation, plus relevant frozen local guards. Preserve global 0.1 misses and independent local detection; missing controls block acceptance.
+- [ ] Require first/replay agreement for seeds 7, 19 and 41, with 5000 renders or 1800 seconds per seed including controls/refinement/replay and at most one diagnosed revision. Preserve failures and cumulative ledgers.
+- [ ] Implement a new explicit S1-action/null manifest reader with consumer-pinned report SHA and current evidence reconstruction. Preserve historical blocked reports and default legacy readers. Reject status-only, stale, incomplete or cross-tool admission.
+- [ ] Publish action-by-action active/null/unresolved dispositions, native-resolution examples and missing inventory. A null pass covers only the frozen experiment and requested constructions; it is not universal evidence that pen manipulation is unnecessary.
+- [ ] Keep CURRICULUM-005 blocked unless matching S1-action/null and every required primitive/gesture/reference prerequisite pass. No letter fitting, historical appearance approval, fatigue or default-mode promotion in this evaluation.
+
+## Validation Gates
+
+- [ ] Independent current-code numeric proofs and complete scoped action/null evidence are required. Any required unresolved action blocks affected letter inventory. Real G0/G1/G2 and owner appearance review remain separate.
+- [ ] Fresh-process results match current pinned source, target, compiler, tool, controller and metric identities.
+- [ ] Missing or failed evidence blocks the affected scope; completion is not promotion.
+
+## Bug Fixes
+
+None implemented; future scoped work only.
+
+## Risk + Rollback
+
+A global image score can hide malformed contact, lost counters or copied geometry.
+Use exact source/owner checks and frozen local guards. Revert only new opt-in behavior;
+keep historical evidence, controllers and defaults unchanged. Review time is an estimate.
+
+## Evidence
+
+- [ ] tdd:red-green and actual focused/expanded test results.
+- [ ] Frozen candidate/target/metric manifests, visible samples and cumulative budgets.
+- [ ] Clean-checkout fresh-process replay and current strict admission reconstruction.
+- [ ] `arrive plan check`, changed local-link checks and `git diff --check`.
+- [ ] `arrive pr check --strict --json` before an authorized merge; report local parser limitations separately from provider CI.
+- [ ] No unexecuted learning, owner review or provider CI counted as complete.
+
+## Changes Made
+
+### 2026-09-08 — plan: Register the previously unexecuted action/null work
+
+- HANDVALIDATE-016 registers this explicit follow-up instead of promoting old blocked action evidence.

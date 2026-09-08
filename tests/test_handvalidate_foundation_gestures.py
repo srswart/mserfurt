@@ -145,3 +145,30 @@ def test_illegal_painted_air_is_reported_not_crashed(source):
     result = evaluation.audit_trace(model, 'i', run)
     assert result['errors'] > 0
     assert 'undeclared' in result['seen_occurrences']
+
+
+@pytest.mark.parametrize('mutation', ['local', 'blank', 'exit', 'missing-refinement', 'contact-runs'])
+def test_numeric_proofs_cannot_be_overridden_by_saved_pass_flags(mutation):
+    root = evaluation.BASE / 'run-001/seed-7/first'
+    record = json.loads((root / 'underturn-overturn-pair.json').read_text())
+    assert evaluation.fixture_pass(record)
+    if mutation == 'local':
+        record['local']['0']['after'] = record['local']['0']['before']
+    elif mutation == 'blank':
+        record['local']['0']['blank_fractions']['arc'][0] = .02
+    elif mutation == 'exit':
+        record['motion']['base']['boundaries'][0]['exit']['position_error_mm'] = .06
+    elif mutation == 'missing-refinement':
+        del record['motion']['subdivision']
+    else:
+        record['diagnostic_contact_runs'] = [1, 1, 1]
+    record['passed'] = True
+    assert not evaluation.fixture_pass(record)
+
+
+def test_retained_render_and_time_costs_are_not_reset():
+    prior = evaluation.prior_usage()
+    assert set(prior) == {7, 19, 41}
+    assert all(row['renders'] == 1176 and row['seconds'] > 0 for row in prior.values())
+    with pytest.raises(ValueError, match='immutable'):
+        evaluation.build(evaluation.BASE / 'run-001')

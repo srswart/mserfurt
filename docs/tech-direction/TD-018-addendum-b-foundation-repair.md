@@ -1,6 +1,23 @@
 # TD-018 Addendum B — Reliable Stroke Foundations Before Further Layers
 
-**Status:** Six foundation outcomes are complete; HANDVALIDATE-016 remains planned.
+**Status:** All seven original foundation outcomes are complete. HANDVALIDATE-016
+independently accepts the three frozen shared constructions for synthetic
+fixed-tool `curve-tangent-v1` use only. All three seeds pass fresh lower-layer,
+held-out, individual contact-boundary, overlap/space, refinement and adversarial
+proofs. Each seed replays 115 artifacts exactly; 3546 new +3528 retained renders
+remain within the cumulative 5000/1800 per-seed limits, with zero optimization.
+The one diagnosed rerun fixes the illegal-air diagnostic's missing-ID reporting;
+targets, candidate geometry, tool, controller and criteria remain unchanged.
+See [independent results, scope and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/README.md).
+
+This is **eligibility to scope CURRICULUM-012**, not accepted action/null behavior
+or letter readiness. The newly registered HANDVALIDATE-017 must independently
+evaluate selected action/null candidates before CURRICULUM-005 can proceed with
+matching inventory and its other prerequisites. Historical HANDVALIDATE-014
+early-stop completion still does not discharge that work. Prefer a scoped fixed
+null hypothesis unless an identified local defect justifies a bounded action.
+
+**Prior learning outcome:**
 After explicit approval, CURRICULUM-011 repairs diagnostic lift handling,
 remeasures frozen seed 7 without refitting and finishes seeds 19/41. All three
 select shared stem/rise/return scales [0.85,1.15,0.85]; all held-out pairings,
@@ -8,13 +25,14 @@ occurrence-local benefits, motion/refinement and eight adversarial controls pass
 Every primitive curve, action and tool parameter stays fixed; lower-layer code
 and scoped `curve-tangent-v1` primitive admission are unchanged. All nine
 seed/ablation first/replay pairs match 54 artifacts exactly. This completes
-learning, **not S1-gesture**: independent HANDVALIDATE-016 is next.
+learning, **not S1-gesture** by itself; the separate HANDVALIDATE-016 outcome above
+now provides only the explicitly named shared-gesture scope.
 See [corrected evidence and retained failures](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/README.md).
 All stopped/cropped/failed attempts remain immutable. No S1-action, learned
 letters, real-hand, default-mode or owner appearance approval is claimed.
 See [findings and samples](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html)
 and the [executed vocabulary audit](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/README.md).
-**Date:** 2026-09-06
+**Date:** 2026-09-08
 **Parent:** [TD-018](TD-018-reference-grounded-hand-recovery.md) and
 [Addendum A](TD-018-addendum-a-stroke-gestures.md).
 
@@ -60,6 +78,8 @@ experiment or permit later training.
 | 4a | [HANDFLOW-011](../../arrive/systems/scribesim/advances/ADV-SS-HANDFLOW-011.md) | Source-tangent repair plus independent no-refit reevaluation; matching new-mode S1 now passes, legacy failure retained |
 | 5 | [CURRICULUM-011](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-011.md) | Actually learned fixed-tool underturn, overturn and compound constructions using accepted shared primitives |
 | 6 | [HANDVALIDATE-016](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-016.md) | Independent S1-gesture transfer/continuity decision and precise next-experiment eligibility |
+| 7 (planned) | [CURRICULUM-012](../../arrive/systems/scribesim/advances/ADV-SS-CURRICULUM-012.md) | New bounded action/null scope and actual selected-candidate evidence; no legacy action-fitter bypass |
+| 8 (planned) | [HANDVALIDATE-017](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-017.md) | Independent selected-action/null acceptance; newly matching S1-action required before letters |
 
 The two independent evaluation records prevent primitive and gesture fitting
 from being collapsed into one self-certified experiment. No new component or

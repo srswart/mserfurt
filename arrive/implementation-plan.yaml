@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-07T15:29:11Z
+  updated_at: 2026-09-08T04:04:05Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -1654,13 +1654,32 @@ passes:
     - id: ADV-SS-HANDVALIDATE-016
       advance_id: ADV-SS-HANDVALIDATE-016
       title: "Foundation Readiness — Independent Gesture Transfer and Next-Stage Eligibility"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-011
       - ADV-SS-HANDVALIDATE-015
       - ADV-SS-HANDVALIDATE-014
-      notes: "EVALUATION: independent stable-contact/shared-transfer S1-gesture and explicit foundation-manifest admission. Only next-experiment eligibility; no automatic S1-action, letters or real promotion."
+      notes: "COMPLETE, SCOPED PASS: all frozen seeds pass fresh baseline/primitive, 8 gesture fixtures, 3 overlap/space contexts, 4 refinements, individual contact boundaries and 9 controls; 115 artifacts replay exactly per seed. One diagnosed painted-air reporter repair preserves all prior diagnostics and criteria. 3546 new +3528 retained renders, 2358/5000 per seed; zero optimization. Explicit consumers verify current evidence but block legacy action fitting. 33 focused tests pass; expanded 269 pass plus 12 identical inherited failures. Only CURRICULUM-012 scoping eligibility, not S1-action/null, letters or real promotion."
+    - id: ADV-SS-CURRICULUM-012
+      advance_id: ADV-SS-CURRICULUM-012
+      title: "Foundation Action or Null — Bounded Experiment on Accepted Shared Gestures"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-016
+      - ADV-SS-CURRICULUM-004
+      notes: "GATED FOLLOW-UP: scope a fixed-tool null first unless a named defect justifies one bounded action. Matching independent foundation admission required; freeze new targets, actual selected candidates and cumulative budgets. Old unexecuted action work is not discharged by a foundation pass. No S1-action or letter promotion."
+    - id: ADV-SS-HANDVALIDATE-017
+      advance_id: ADV-SS-HANDVALIDATE-017
+      title: "Foundation Action or Null — Independent Selected-Candidate Acceptance"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-012
+      - ADV-SS-HANDVALIDATE-016
+      - ADV-SS-HANDVALIDATE-014
+      notes: "GATED EVALUATION: independently measure newly selected action/null candidates; exact local/contact/owner/convergence and six pending adversarial controls, no refit. New scoped S1-action manifest required before CURRICULUM-005; historical HANDVALIDATE-014 remains blocked."
   - id: td018-letters
     title: Combine learned strokes into letter recipes
     order: 9
@@ -1674,6 +1693,7 @@ passes:
       - ADV-SS-CURRICULUM-004
       - ADV-SS-HANDVALIDATE-014
       - ADV-SS-HANDVALIDATE-016
+      - ADV-SS-HANDVALIDATE-017
       notes: "Require repaired foundation acceptance and a newly registered accepted action/null candidate evaluation; HANDVALIDATE-014 early-stop completion is not S1-action. Real fitting also needs live G0 and accepted real layers. No session effects."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes

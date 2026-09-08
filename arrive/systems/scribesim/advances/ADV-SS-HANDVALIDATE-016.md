@@ -6,16 +6,16 @@ advance:
   primary_component: "handvalidate"
   components: ["handvalidate","curriculum","gesture","handflow","pathguide","tests"]
   started_at: "2026-09-06T16:02:10Z"
-  implementation_completed_at: ~
+  implementation_completed_at: "2026-09-08T04:04:05Z"
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api","migration"]
-  evidence: []
+  evidence: ["tdd:red-green","tests:unit","local:independent-evaluation","local:fresh-process-replay"]
   model_usage: []
-  status: in_progress
+  status: complete
 ---
 
 ## Objective
@@ -33,10 +33,10 @@ failed evidence remain unchanged.
 
 ## Component Impact
 
-- `scribesim/handvalidate/foundation_gestures.py (planned independent evaluator)`
+- `scribesim/handvalidate/foundation_gestures.py`
 - `scribesim/curriculum/pen_actions.py and scribesim/handvalidate/pen_actions.py (explicit foundation-manifest admission only)`
-- `tests/test_handvalidate_foundation_gestures.py (planned)`
-- `shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/ (planned immutable evidence)`
+- `tests/test_handvalidate_foundation_gestures.py`
+- `shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/`
 
 Existing components remain incubating. No separate renderer/controller or new component.
 
@@ -65,22 +65,22 @@ This input note does not start or complete HANDVALIDATE-016.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: confirm implementation/commit/merge authorization and preserve unrelated work.
-- [ ] tidy: assess narrow preparation; commit any required behavior-preserving refactor separately.
-- [ ] test: commit failing behavioral tests before implementation when commits are authorized; planning-only edits do not claim TDD execution.
-- [ ] Freeze final acceptance before proofs; reconstruct current baseline, primitive gate, gesture candidates, tool/controller/compiler, target/split and metric identities. Recompute per-seed held-out and actual metrics without calling an optimizer.
-- [ ] Replay continuous/repartitioned gestures, independent held-out attachments, lifted pairs, overlap and spaces with dt/arc refinement. Measure every required contact entry/exit rather than relying on image or corridor averages.
-- [ ] Detect wrong ports/directions, detached per-letter copies, undeclared lifts/air, overbuilt contributors and erased counters using predeclared independent controls. Retain old global failures and report unresolved scope.
-- [ ] Implement an explicit new foundation-manifest input that verifies current evidence instead of editing old pinned reports or copying a pass label. Preserve historical replay; changed model/tool/controller/split/code identities require reevaluation.
-- [ ] Publish one layered sample index and disposition for motion, old primitives, new returns, shared gestures, missing inventory, action/null experiment eligibility, S1-action and real G0/G1/G2. Do not label a constant fixed tool as an accepted null action without its separate evidence.
-- [ ] Issue STOP/REVISE or eligibility to scope the next bounded experiment. Do not run action/letter fitting here; register new follow-up records/evidence for the previous phase's unexecuted selected-action work. Keep CURRICULUM-005 blocked until matching S1-action and its other runtime prerequisites pass.
-- [ ] evidence: record commands, identities, actual budgets, sample paths and outcome before completion; keep unexecuted tasks unchecked.
+- [x] branch: confirm implementation/commit/merge authorization and preserve unrelated work.
+- [x] tidy: assess narrow preparation; commit any required behavior-preserving refactor separately.
+- [x] test: commit failing behavioral tests before implementation when commits are authorized; planning-only edits do not claim TDD execution.
+- [x] Freeze final acceptance before proofs; reconstruct current baseline, primitive gate, gesture candidates, tool/controller/compiler, target/split and metric identities. Recompute per-seed held-out and actual metrics without calling an optimizer.
+- [x] Replay continuous/repartitioned gestures, independent held-out attachments, lifted pairs, overlap and spaces with dt/arc refinement. Measure every required contact entry/exit rather than relying on image or corridor averages.
+- [x] Detect wrong ports/directions, detached per-letter copies, undeclared lifts/air, overbuilt contributors and erased counters using predeclared independent controls. Retain old global failures and report unresolved scope.
+- [x] Implement an explicit new foundation-manifest input that verifies current evidence instead of editing old pinned reports or copying a pass label. Preserve historical replay; changed model/tool/controller/split/code identities require reevaluation.
+- [x] Publish one layered sample index and disposition for motion, old primitives, new returns, shared gestures, missing inventory, action/null experiment eligibility, S1-action and real G0/G1/G2. Do not label a constant fixed tool as an accepted null action without its separate evidence.
+- [x] Issue STOP/REVISE or eligibility to scope the next bounded experiment. Do not run action/letter fitting here; register new follow-up records/evidence for the previous phase's unexecuted selected-action work. Keep CURRICULUM-005 blocked until matching S1-action and its other runtime prerequisites pass.
+- [x] evidence: record commands, identities, actual budgets, sample paths and outcome before completion; keep unexecuted tasks unchecked.
 
 ## Validation Gates
 
-- [ ] Required motion, primitive and gesture scopes pass independently for all required seeds, including held-out topology and exact contact/ownership; failed or absent evidence blocks that scope.
-- [ ] Fresh-process results and current manifests agree; status edits, stale hashes, missing provenance or unsupported inventory cannot authorize training.
-- [ ] The phase exits with learned visible foundation evidence or an explicit failure—not more scaffolding counted as learning. Foundation acceptance is not S1-action, learned letters, real appearance approval or a default switch.
+- [x] Required motion, primitive and gesture scopes pass independently for all required seeds, including held-out topology and exact contact/ownership; failed or absent evidence blocks that scope.
+- [x] Fresh-process results and current manifests agree; status edits, stale hashes, missing provenance or unsupported inventory cannot authorize training.
+- [x] The phase exits with learned visible foundation evidence or an explicit failure—not more scaffolding counted as learning. Foundation acceptance is not S1-action, learned letters, real appearance approval or a default switch.
 
 ## Budget and Stop Rules
 
@@ -105,16 +105,16 @@ Review estimate is 40 minutes, not measured review or approval.
 
 ## Evidence
 
-- [ ] Frozen inputs, independent targets/controls, criteria and scope-specific identities.
-- [ ] Actual work/budget ledger, equal-scale samples, failures and executable replay commands.
-- [ ] Focused red/green regression tests and clean-checkout replay when code changes.
-- [ ] `arrive plan check`, changed local-link checks and `git diff --check`.
-- [ ] Before an authorized merge run `arrive pr check --strict --json`; report installed ID-parser limitations separately from provider CI.
-- [ ] Scope-qualified result; no unperformed learning, candidate evaluation or human review counted as complete.
+- [x] Frozen inputs, independent targets/controls, criteria and scope-specific identities.
+- [x] Actual work/budget ledger, equal-scale samples, failures and executable replay commands.
+- [x] Focused red/green regression tests and clean-checkout replay when code changes.
+- [x] `arrive plan check`, changed local-link checks and `git diff --check`.
+- [x] Before an authorized merge run `arrive pr check --strict --json`; report installed ID-parser limitations separately from provider CI.
+- [x] Scope-qualified result; no unperformed learning, candidate evaluation or human review counted as complete.
 
 ## Bug Fixes
 
-None yet. The planned diagnosis/repair is not an implemented or validated fix.
+The illegal painted-air adversary exposed an evaluator reporting defect: absent occurrence IDs entered the diagnostic set as `None`, then crashed sorting alongside string IDs. The one diagnosed repair reports `undeclared` instead, preserving the exact negative rejection. Run-001 stays failed; all 3528 old renders and elapsed seconds are charged to the same seed budgets. No candidate, target, control mutation, numerical criterion, controller or tool change.
 
 ## Changes Made
 
@@ -122,6 +122,20 @@ None yet. The planned diagnosis/repair is not an implemented or validated fix.
 
 - Added the bounded work to Pass 15 `td018-foundation-repair`.
 - Implementation and acceptance remain pending under Addendum B.
+
+### 2026-09-08 — complete: Independent scoped S1-gesture PASS
+
+- Frozen seeds 7/19/41 pass all eight independently measured gesture fixtures, three overlap/adjacent/space contexts, four refinements, nine gesture controls and fresh current baseline/primitive proofs. No optimizer or learning evaluator calls.
+- Every candidate file remains SHA `d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a`; all original primitive curves, shared scales and tool settings remain unchanged.
+- Held-out full-loss ratios: 0.157574, 0.157807, 0.132465, 0.066255 and 0.154040; maximum occurrence-local ratio 0.408835, all below 0.75. All 912 contact-boundary measurements pass; maximum refinement endpoint shift 0.005718 mm. Open pockets are not closed-letter counter acceptance.
+- Nine adversaries are rejected; six measured small defects still evade global 0.1. Keep those global misses rather than weakening the gate.
+- Each seed replays 115 non-wall-clock artifacts exactly. All 109 prior non-report worker artifacts remain byte-identical in each of six workers. The failed 668-artifact manifest and current 698-artifact manifest verify.
+- 3546 new +3528 retained =7074 renders; each cumulative seed uses 2358/5000, with its old/new seconds below 1800. Zero optimization. Initial clean code `6fbff6a`; one diagnosed continuation `5799ebf`. Red commits `c6aa251`, `4c8d6c0`, `52424d4`.
+- Current report SHA `b564aa11e5752b5d0af0a6cb6ced5671b38b78d1cee62bcca0e07bf29de66f75`. Both explicit pen-action consumers verify it but keep action status blocked and legacy fitting disabled.
+- 33 focused tests pass; clean committed-code focus passes 27 before six added evidence regressions. Expanded 269 pass plus the identical 12 inherited failures. Plan, 131 changed-document/index local links and diff checks pass; artifact doctor retains 10 inherited issues; agent rules have no stale outputs.
+- Strict pre-merge metadata command supplies `ADV-SS-HANDVALIDATE-016` in title/body/label but the installed parser returns `ids=[]`, exit 1. This is a local tool limitation, not provider CI. No push, provider CI or human review is claimed.
+- [Layered native-resolution samples](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/index.html), [method/results](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/README.md), [verification and exact identities](../../../../shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/verification.json).
+- Registered planned CURRICULUM-012 and HANDVALIDATE-017 for the previously unexecuted selected-action/null work; added the latter to CURRICULUM-005 dependencies. This phase permits only scoping that bounded experiment. No accepted null/action, letters/words, real G0/G1/G2, appearance approval, fatigue or default promotion.
 
 ## Check for Understanding
 
