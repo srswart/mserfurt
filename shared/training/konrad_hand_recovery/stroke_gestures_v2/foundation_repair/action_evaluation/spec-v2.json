@@ -1,0 +1,260 @@
+{
+  "version": "independent-foundation-null-v2",
+  "stage": "S1-foundation-actions-tangent-v1",
+  "source": "../actions/run-001",
+  "source_report_sha256": "ba2d46377b59787065486738e861aaea00c042cf0be2704072821aed3ac0fa3a",
+  "candidate_file_sha256": "d8b26fba2655b0bba961865fb74b543829cb1b11ac850afd672dd02ba0822e5a",
+  "candidate_object_sha256": "3e4edf22894a6bff740d45e926c1bb76b2bb74b978cf512d84405d5af0b00318",
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "required_gestures": [
+    "underturn",
+    "overturn",
+    "compound_curve"
+  ],
+  "tool": "legacy-full-edge",
+  "frame_mm": [
+    -2,
+    10,
+    0,
+    22
+  ],
+  "context_frame_mm": [
+    -2,
+    20,
+    0,
+    22
+  ],
+  "dpi": 180,
+  "presentation_dpi": 900,
+  "criteria": {
+    "absolute_loss_max": 0.05,
+    "blank_fraction_max": 0.01,
+    "global_control_minimum": 0.1,
+    "contact_geometry_error_mm": 1e-10
+  },
+  "target_provenance": "Independent HANDVALIDATE-016 Hermite-plus-sine targets, unchanged. Nine new transforms and ordered pairings frozen before any evaluation render. No candidate geometry or learning result enters target construction. Same synthetic family, not historical handwriting.",
+  "contexts": "Reuse frozen HANDVALIDATE-016 overlap, adjacent and spaced mechanical carriers, not learned letters or words.",
+  "fixtures": [
+    {
+      "id": "independent-underturn-1",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "underturn",
+          "scale": 0.97,
+          "offset": [
+            0.08,
+            -0.02
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-underturn-2",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "underturn",
+          "scale": 0.87,
+          "offset": [
+            0.14,
+            0.03
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-overturn-1",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "overturn",
+          "scale": 0.97,
+          "offset": [
+            0.08,
+            -0.02
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-overturn-2",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "overturn",
+          "scale": 0.87,
+          "offset": [
+            0.14,
+            0.03
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-compound_curve-1",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "compound_curve",
+          "scale": 0.97,
+          "offset": [
+            0.08,
+            -0.02
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-compound_curve-2",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "compound_curve",
+          "scale": 0.87,
+          "offset": [
+            0.14,
+            0.03
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-underturn-overturn",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "underturn",
+          "scale": 0.91,
+          "offset": [
+            0.05,
+            0.01
+          ]
+        },
+        {
+          "gesture": "overturn",
+          "scale": 0.91,
+          "offset": [
+            0.05,
+            -1.65
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-compound_curve-terminal",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "compound_curve",
+          "scale": 0.91,
+          "offset": [
+            0.05,
+            0.01
+          ]
+        },
+        {
+          "gesture": "terminal",
+          "scale": 0.91,
+          "offset": [
+            0.05,
+            -1.65
+          ]
+        }
+      ]
+    },
+    {
+      "id": "independent-overturn-underturn",
+      "split": "held_out",
+      "instances": [
+        {
+          "gesture": "overturn",
+          "scale": 0.91,
+          "offset": [
+            0.05,
+            0.01
+          ]
+        },
+        {
+          "gesture": "underturn",
+          "scale": 0.91,
+          "offset": [
+            0.05,
+            -1.65
+          ]
+        }
+      ]
+    }
+  ],
+  "counter_fixture": {
+    "id": "closed-counter-carrier",
+    "text": "i",
+    "instances": [
+      {
+        "gesture": "underturn",
+        "offset": [
+          0,
+          -0.2
+        ],
+        "scale": 1
+      },
+      {
+        "gesture": "overturn",
+        "offset": [
+          0,
+          0.8
+        ],
+        "scale": 1,
+        "overlap_with": [
+          0
+        ]
+      }
+    ]
+  },
+  "counter_bounds_mm": [
+    1.6,
+    1.8,
+    6.3,
+    6.6
+  ],
+  "counter_policy": "Two unchanged shared gestures with frozen placement form a diagnostic enclosure, not a learned letter. Require a blank region disconnected from image border under four-connected flood fill for target, nominal and all actual refinements. Filling that region must fail; an open pocket cannot substitute.",
+  "edge_control": {
+    "expected": [
+      0,
+      0.45
+    ],
+    "swapped": [
+      0.55,
+      1
+    ],
+    "mode": "physical-edge-v1",
+    "candidate_action_activation": false,
+    "policy": "Diagnostic replay of selected actual center/contact paths through the existing explicit physical renderer. Compare asymmetric edge endpoints against independent analytic positions. Candidate remains legacy-full-edge; this is not acceptance of a learned physical action."
+  },
+  "controls": [
+    "wrong-angle",
+    "swapped-edge",
+    "undeclared-lift",
+    "overbuilt-terminal",
+    "erased-counter",
+    "desired-only-actual",
+    "missing-overlap",
+    "air-connector",
+    "filled-open-pocket"
+  ],
+  "control_policy": "All six historical classes freshly executed plus local/contact controls. Preserve global 0.1 misses and reject through exact tool, trace, edge endpoint or frozen blank guards. Terminal mutation adds actual ink and undeclared contributor, not only metadata. No changed cutoffs.",
+  "original_control_report": "../../tool_contract/run-001/report.json",
+  "original_control_report_sha256": "5a4914e308a5e34b9b9c6fab14e15859ee733b09b055311291e686ee429c09ed",
+  "budget": {
+    "max_renders_per_seed_including_replay": 5000,
+    "max_seconds_per_seed_including_replay": 1800,
+    "max_diagnosed_revisions": 1,
+    "optimization_evaluations": 0
+  },
+  "policy": "No refitting, action selection, reference changes or default promotion. A complete negative evaluation is not acceptance. Scoped fixed-null acceptance requires current live foundations, every occurrence/refinement and all controls. Real G0/G1/G2 and complete letter reference/inventory prerequisites remain separate; letters remain blocked.",
+  "revision_policy": "One diagnosed carrier-schema revision, not target-quality selection: preserve the seven executed fixtures unchanged; replace unrenderable seven-stroke carriers with capped compound/terminal and reverse-return controls. Unexecuted seven-stroke coverage remains explicit debt. Translate both counter instances by -0.2 normalized y and its region by +0.7 mm, preserving relative geometry and blank location. No primitive, shared proportion, analytic target definition or threshold changes."
+}

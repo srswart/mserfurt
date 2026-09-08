@@ -24,14 +24,37 @@ from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_j
 
 
 BASE = learning.BASE.parent / 'action_evaluation'
-SPEC_PATH = BASE / 'spec-v1.json'
+SPEC_PATH = BASE / 'spec-v2.json'
+CONTINUATION_PATH = BASE / 'continuation-v1.json'
 SPEC = json.loads(SPEC_PATH.read_text())
 REFINEMENTS = ('base', 'arc', 'time', 'subdivision')
 
 
 def identities():
     return {**learning.identities(), str(Path(__file__).relative_to(ROOT)): digest(Path(__file__)),
-            str(SPEC_PATH.relative_to(ROOT)): digest(SPEC_PATH)}
+            str(SPEC_PATH.relative_to(ROOT)): digest(SPEC_PATH),
+            str(CONTINUATION_PATH.relative_to(ROOT)): digest(CONTINUATION_PATH),
+            str((BASE / 'spec-v1.json').relative_to(ROOT)): digest(BASE / 'spec-v1.json')}
+
+
+def prior_usage():
+    continuation = json.loads(CONTINUATION_PATH.read_text())
+    directory = BASE / continuation['source']
+    if digest(directory / 'S1-actions.json') != continuation['source_report_sha256']:
+        raise ValueError('Preserved failed evaluation identity changed')
+    report = json.loads((directory / 'S1-actions.json').read_text())
+    foundation.primitives.verify_artifacts(directory, report['artifacts'])
+    freeze = json.loads((directory / 'freeze.json').read_text())
+    if freeze['spec'] != json.loads((BASE / continuation['original_spec']).read_text()) or report['revision'] != 0:
+        raise ValueError('Original evaluation freeze changed')
+    ledger = json.loads((directory / 'execution.json').read_text())['ledger']
+    if [(row['seed'], row['process']) for row in ledger] != [(seed, label) for seed in SPEC['seeds'] for label in ('first', 'replay')]:
+        raise ValueError('Missing retained seed costs')
+    usage = {seed: {'renders': sum(row['renders'] for row in ledger if row['seed'] == seed),
+                    'seconds': max(row['cumulative_seed_seconds'] for row in ledger if row['seed'] == seed)} for seed in SPEC['seeds']}
+    if report['renders'] != sum(row['renders'] for row in usage.values()):
+        raise ValueError('Retained total differs')
+    return usage
 
 
 def require_scope(required_gestures, tool, real):
@@ -54,6 +77,10 @@ def load_inputs():
             raise ValueError('Frozen selected candidate bytes required')
         candidates[seed] = json.loads(path.read_text())
         learning.require_candidate(candidates[seed])
+        for fixture in [*SPEC['fixtures'], SPEC['counter_fixture']]:
+            model = foundation.probe(candidates[seed], fixture)
+            compile_gestures('i', model)
+            foundation.measurement.require_containment(target(fixture), frame=SPEC['frame_mm'])
     original = (BASE / SPEC['original_control_report']).resolve()
     if digest(original) != SPEC['original_control_report_sha256']:
         raise ValueError('Historical negative evidence changed')
@@ -72,7 +99,7 @@ def finite(values):
 def quality(row, gesture=None):
     try:
         expected = {str(index) for index, instance in enumerate(row['fixture']['instances'])
-                    if gesture is None or instance['gesture'] == gesture}
+                    if instance['gesture'] in SPEC['required_gestures'] and (gesture is None or instance['gesture'] == gesture)}
         if not expected or not expected <= set(row['local_actual_target']):
             return False
         losses = [row['local_actual_target'][index] for index in expected]
@@ -358,17 +385,19 @@ def worker(directory, seed, maximum, seconds):
 
 def build(output):
     output = Path(output).resolve()
-    if output.exists() or any(BASE.glob('run-*/S1-actions.json')):
-        raise ValueError('Use an immutable first evaluation; any retry needs a diagnosed cumulative protocol')
+    if output.exists() or any(path.parent.name != 'run-001' for path in BASE.glob('run-*/S1-actions.json')):
+        raise ValueError('Use an immutable single continuation; further retries need new authorization')
     write_json(output / 'freeze.json', {'spec': SPEC, 'code_sha256': identities()})
     report = {'stage': SPEC['stage'], 'status': 'blocked', 'evaluation_complete': False, 'code_sha256': identities(),
-        'seeds': [], 'renders': 0, 'optimization_evaluations': 0, 'revision': 0, 'accepted_gestures': [],
+        'seeds': [], 'renders': 0, 'optimization_evaluations': 0, 'revision': 1, 'accepted_gestures': [],
         'S1_action_accepted': False, 'letter_training_allowed': False, 'real_accepted': False, 'promoted': False}
     ledger, records = [], []
     try:
+        prior = prior_usage()
+        report['prior_renders'] = sum(row['renders'] for row in prior.values())
         load_inputs()
         for seed in SPEC['seeds']:
-            started, used = time.monotonic(), 0
+            started, used = time.monotonic() - prior[seed]['seconds'], prior[seed]['renders']
             for label, hashseed in (('first', '7'), ('replay', '839')):
                 remaining = 1800 - (time.monotonic() - started)
                 if remaining <= 0 or used >= 5000:
@@ -395,6 +424,7 @@ def build(output):
             measured = row['status'] == 'complete' and complete(row) and matching and used <= 5000 and time.monotonic() - started <= 1800
             report['seeds'].append({'seed': seed, 'measured': measured, 'replay_match': matching, 'renders': used, 'outcomes': outcomes(row)})
             records.append(row)
+        report['cumulative_renders'] = report['prior_renders'] + report['renders']
         report['evaluation_complete'] = len(records) == 3 and all(row['measured'] for row in report['seeds'])
         if report['evaluation_complete']:
             report['accepted_gestures'] = [gesture for gesture in SPEC['required_gestures'] if all(outcomes(row)[gesture]['null_accepted'] for row in records)]
@@ -404,7 +434,8 @@ def build(output):
         report['reason'] = str(error)
     report['decision'] = 'Scoped fixed-null evidence only; letters remain blocked' if report['S1_action_accepted'] else 'STOP / REVISE unresolved scope; diagnose nominal target geometry before action fitting'
     report['missing_inventory'] = ['unresolved:' + gesture for gesture in SPEC['required_gestures'] if gesture not in report['accepted_gestures']]
-    report['missing_inventory'] += ['active physical actions not fitted or accepted', 'remaining gesture and letter/reference coverage', 'real G0/G1/G2 and owner review']
+    report['missing_inventory'] += ['seven-stroke compound/return carriers exceed unchanged grammar',
+        'active physical actions not fitted or accepted', 'remaining gesture and letter/reference coverage', 'real G0/G1/G2 and owner review']
     write_json(output / 'execution.json', {'ledger': ledger})
     report['artifacts'] = {str(path.relative_to(output)): digest(path) for path in sorted(output.rglob('*')) if path.is_file()}
     write_json(output / 'S1-actions.json', report)
@@ -425,20 +456,23 @@ def inspect_evidence(directory, *, expected_report_sha256):
         if json.loads((directory / 'freeze.json').read_text()) != {'spec': SPEC, 'code_sha256': identities()}:
             raise ValueError('Independent evaluation freeze changed')
         source = load_inputs()
+        prior = prior_usage()
         ledger = json.loads((directory / 'execution.json').read_text())['ledger']
         if ([(row['seed'], row['process']) for row in ledger] != [(seed, label) for seed in SPEC['seeds'] for label in ('first', 'replay')]
-                or report['optimization_evaluations'] != 0 or report['revision'] != 0
+                or report['optimization_evaluations'] != 0 or report['revision'] != 1
+                or report['prior_renders'] != sum(row['renders'] for row in prior.values())
+                or report['cumulative_renders'] != report['prior_renders'] + report['renders']
                 or report['renders'] != sum(row['renders'] for row in ledger)
                 or [row['seed'] for row in report['seeds']] != SPEC['seeds']):
             raise ValueError('Incomplete independent seed accounting')
         records = []
         for seed in SPEC['seeds']:
             receipts = [row for row in ledger if row['seed'] == seed]
-            used = 0
+            used = prior[seed]['renders']
             for receipt in receipts:
                 used += receipt['renders']
                 if (type(receipt['renders']) is not int or receipt['renders'] <= 0 or used > 5000
-                        or receipt['cumulative_seed_renders'] != used or not 0 < receipt['cumulative_seed_seconds'] <= 1800):
+                        or receipt['cumulative_seed_renders'] != used or not prior[seed]['seconds'] < receipt['cumulative_seed_seconds'] <= 1800):
                     raise ValueError('Independent seed budget invalid')
             first, replay = directory / f'seed-{seed}/first', directory / f'seed-{seed}/replay'
             if foundation.primitives.manifest(first) != foundation.primitives.manifest(replay):

@@ -2,6 +2,27 @@
 
 Implementation in progress; no evaluation or acceptance result is claimed yet.
 
+## Preserved stop and one diagnosed revision
+
+`run-001` at code `8151001` stops on a carrier-construction error, not a new
+target-quality decision: compound plus return contains seven primitives, above
+the unchanged six-per-carrier cap. The first counter placement also exceeds
+the unchanged lowered +/-2 transform bound. All six workers retain their
+seven completed fixtures, 98 renders each (588 total, 196 per seed).
+No counter, six-class control or complete action acceptance is claimed there.
+
+The one permitted revision freezes `spec-v2.json` before new rendering. Its
+seven already executed fixtures are identical. The two unrenderable pairings
+become compound/terminal and reverse-return controls; seven-stroke coverage
+stays missing, not silently accepted. Both counter instances translate by
+-0.2 normalized y and its frozen blank region by +0.7 mm, preserving relative
+geometry. Candidate curves/proportions, independent target definitions and
+every numerical limit remain unchanged. No target-quality ranking informs this
+schema repair. Added tests expose the original error before the revision.
+
+`continuation-v1.json` pins the failed report and charges its actual renders and
+time to the same per-seed budgets. No second revision or refitting is authorized.
+
 ## Frozen method
 
 Pin CURRICULUM-012 report
@@ -35,7 +56,7 @@ does not change the selected legacy-full-edge candidate or accept a physical
 action; cross-tool admission remains forbidden.
 
 The closed-counter carrier combines unchanged underturn/overturn gestures at
-predeclared offsets [0,0] and [0,1]. Its fixed region must be blank and disconnected
+predeclared offsets [0,-0.2] and [0,0.8]. Its fixed region must be blank and disconnected
 from the image border for target, nominal and all actual refinements. An open
 pocket is not an enclosure. This is a diagnostic combination, not a letter recipe.
 
@@ -60,12 +81,12 @@ and local-region containment checked analytically before the first render.
 
 ## Command and samples
 
-Run only from the frozen clean code checkout into its immutable first destination:
+Run only from the frozen clean revised code checkout into its immutable continuation:
 
 ```sh
 .venv/bin/python -m scribesim.handvalidate.foundation_actions \
-  --output shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/run-001
+  --output shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/run-002
 ```
 
 Native target/nominal/desired/actual workbooks and control images will be stored
-under `run-001/seed-{7,19,41}/first/`. No sample result is claimed before execution.
+under `run-002/seed-{7,19,41}/first/`. No continuation result is claimed before execution.

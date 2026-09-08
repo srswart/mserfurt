@@ -100,6 +100,20 @@ keep historical evidence, controllers and defaults unchanged. Review time is an 
 
 ## Changes Made
 
+### 2026-09-08 — fix: Preflight diagnostic grammar and retain cumulative costs
+
+- Preserve run-001's 588 renders (196 per seed) and exact replay at `8151001`.
+  Two seven-stroke pairings cannot fit the unchanged six-stroke carrier; the
+  unexecuted counter placement also exceeds the lowered transform bound.
+- Observed revision RED `55afb87` covers grammar preflight, retained budgets
+  and support-terminal inventory. No source/controller/compiler repair needed.
+- One diagnosed `spec-v2` protocol replaces only the two invalid carriers with
+  capped compound/terminal and reverse-return probes; the seven executed cases
+  remain identical. Seven-stroke transfer stays missing inventory. Translate
+  the complete counter and its region together, preserving relative geometry.
+- No fit, metric relaxation or target-quality selection. All failed files and
+  time remain pinned in continuation accounting; no further revision allowed.
+
 ### 2026-09-08 — scope: Independent frozen-null evaluation
 
 - TDD observed import failure committed at `6787023` before implementation.
