@@ -111,7 +111,7 @@ def test_every_frozen_probe_respects_unchanged_grammar_before_rendering():
 def test_continuation_preserves_failed_attempt_costs():
     usage = evaluation.prior_usage()
     assert set(usage) == {7, 19, 41}
-    assert all(row['renders'] == 196 and row['seconds'] > 0 for row in usage.values())
+    assert all(row['renders'] == 550 and row['seconds'] > 140 for row in usage.values())
 
 
 def test_support_terminal_is_not_missing_required_null_inventory():
@@ -120,3 +120,53 @@ def test_support_terminal_is_not_missing_required_null_inventory():
            'local_actual_target': {'0': {label: .04 for label in evaluation.REFINEMENTS}}}
     assert evaluation.quality(row)
     assert not evaluation.quality(row, 'terminal')
+
+
+def test_live_numpy_scalars_are_normalized_without_changing_physical_values():
+    import numpy as np
+    from scribesim.evo.nib_contact import contact_corners
+
+    row = {'to_mm': [np.float64(1.25), np.float64(3.5)], 'contact': True,
+           'pressure': np.float64(.5), 'angle_deg': np.float64(40)}
+    sample = evaluation.physical_samples({'trace': [row]}, [0, .45])[0]
+    contact_corners(sample)
+    assert type(sample.x_mm) is float and type(sample.y_mm) is float
+    assert [sample.x_mm, sample.y_mm] == row['to_mm']
+    assert sample.pressure == row['pressure'] and sample.nib_angle_deg == row['angle_deg']
+    assert [sample.edge_start, sample.edge_end] == [0, .45]
+
+
+def test_fixed_angle_roundoff_retains_raw_rate_without_failing_sample_contract():
+    row = {'contact': True, 'pressure': .5, 'width_mm': .45, 'angle_deg': 40., 'time_s': 0.}
+    run = {'tool': 'legacy-full-edge', 'trace': [row, {**row, 'angle_deg': 40.00000000000001, 'time_s': .001}]}
+    proof = evaluation.tool_proof(run)
+    assert proof['angle_rate_deg_s'] > 0
+    assert evaluation.tool_pass(proof)
+    run['trace'][1]['angle_deg'] = 40.000001
+    assert not evaluation.tool_pass(evaluation.tool_proof(run))
+
+
+def test_nonfinite_rate_or_changed_tool_cannot_pass():
+    proof = evaluation.tool_proof({'tool': 'legacy-full-edge', 'trace': [
+        {'contact': True, 'pressure': .5, 'width_mm': .45, 'angle_deg': 40., 'time_s': 0.}]})
+    assert evaluation.tool_pass(proof)
+    proof['angle_rate_deg_s'] = float('nan')
+    assert not evaluation.tool_pass(proof)
+    proof['angle_rate_deg_s'] = 0
+    proof['mode'] = 'physical-edge-v1'
+    assert not evaluation.tool_pass(proof)
+
+
+def test_partial_control_evidence_is_saved_before_next_control(tmp_path):
+    import gzip
+
+    records = {'wrong-angle': {'detected': True, 'errors': 10}}
+    evidence = {'wrong-angle': {'trace': [{'angle_deg': 55}]}}
+    evaluation.checkpoint_controls(tmp_path, records, evidence)
+    assert json.loads((tmp_path / 'controls.json').read_text()) == records
+    assert json.loads(gzip.decompress((tmp_path / 'control-evidence.json.gz').read_bytes())) == evidence
+
+
+def test_approved_rerun_keeps_fixture_target_and_limit_spec_identical():
+    old_freeze = json.loads((evaluation.BASE / 'run-002/freeze.json').read_text())
+    assert evaluation.SPEC == old_freeze['spec']
