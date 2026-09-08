@@ -1,0 +1,34 @@
+{
+  "stage": "S1-finer-shared-scales-null-v1",
+  "source_report_sha256": "9a1ac0bc066d31e4c57c82529f70af000a3364bf26a57275386b2736171a76b8",
+  "candidate_file_sha256": "6ff3e478799ab1a63d970d1e99fd5d5c454c12557047e5506fec911a65baf4ba",
+  "candidate_object_sha256": "ec1a17fa0df7221542939daf8b35546b0fe8f2d20aceaa513189ef7aec8de0f6",
+  "parameters": [0.83, 1.17, 0.87],
+  "seeds": [7, 19, 41],
+  "required_gestures": ["underturn", "overturn", "compound_curve"],
+  "tool": "legacy-full-edge",
+  "criteria": {"absolute_loss_max": 0.05, "blank_fraction_max": 0.01, "global_control_minimum": 0.1, "contact_geometry_error_mm": 1e-10},
+  "budget": {"renders_per_seed_including_replay": 5000, "seconds_per_seed_including_replay": 1800, "optimization_evaluations": 0, "automatic_revisions": 0},
+  "target_and_runtime": "Unchanged HANDVALIDATE-017 target generator, target definitions, 180-DPI comparison, 900-DPI presentation, physical frames, controller, tool and all four refinement thresholds. Only candidate references differ from the earlier acceptance; no monkeypatching historical specs or admissibility.",
+  "regression": "All 21 CURRICULUM-013 fixtures, relabeled regression. Historical scoring cannot count as fresh holdout evidence.",
+  "fresh_fixtures": [
+    {"id": "accept-underturn-small", "split": "held_out", "instances": [{"gesture": "underturn", "scale": 0.93, "offset": [0.11, -0.03]}]},
+    {"id": "accept-overturn-small", "split": "held_out", "instances": [{"gesture": "overturn", "scale": 0.93, "offset": [0.11, -0.03]}]},
+    {"id": "accept-compound-small", "split": "held_out", "instances": [{"gesture": "compound_curve", "scale": 0.93, "offset": [0.11, -0.03]}]},
+    {"id": "accept-underturn-large", "split": "held_out", "instances": [{"gesture": "underturn", "scale": 1.01, "offset": [-0.03, 0.04]}]},
+    {"id": "accept-overturn-large", "split": "held_out", "instances": [{"gesture": "overturn", "scale": 1.01, "offset": [-0.03, 0.04]}]},
+    {"id": "accept-compound-large", "split": "held_out", "instances": [{"gesture": "compound_curve", "scale": 1.01, "offset": [-0.03, 0.04]}]},
+    {"id": "accept-forward", "split": "held_out", "instances": [{"gesture": "underturn", "scale": 0.96, "offset": [0.07, 0.03]}, {"gesture": "overturn", "scale": 0.96, "offset": [0.07, -1.63]}]},
+    {"id": "accept-reverse", "split": "held_out", "instances": [{"gesture": "overturn", "scale": 0.96, "offset": [0.07, 0.03]}, {"gesture": "underturn", "scale": 0.96, "offset": [0.07, -1.63]}]},
+    {"id": "accept-compound-terminal", "split": "held_out", "instances": [{"gesture": "compound_curve", "scale": 0.96, "offset": [0.07, 0.03]}, {"gesture": "terminal", "scale": 0.96, "offset": [0.07, -1.63]}]}
+  ],
+  "fresh_contexts": [
+    {"id": "fresh-overlap", "text": "i", "instances": [{"gesture": "underturn", "scale": 0.96, "offset": [0.13, 0.02]}, {"gesture": "underturn", "scale": 0.96, "offset": [0.13, 0.02], "overlap_with": [0]}]},
+    {"id": "fresh-adjacent", "text": "ii", "instances": [{"gesture": "underturn", "scale": 0.96, "offset": [0.13, 0.02]}]},
+    {"id": "fresh-spaced", "text": "i i", "instances": [{"gesture": "underturn", "scale": 0.96, "offset": [0.13, 0.02]}]}
+  ],
+  "contexts_and_controls": "Remeasure all three prior mechanical contexts plus three fresh contexts. Preserve the prior closed-counter fixture/bounds and all nine adversarial classes; original overlap is the missing-overlap control carrier. No closed-letter or word-spacing learning claim.",
+  "selection": "No fitting, parameter search, candidate substitution or seed cherry-picking. Reconstruct historical selection solely from frozen recorded losses, independently of the learning selector. Verify each worker, artifact, compiled source and cumulative receipt.",
+  "stop": "One immutable attempt. Stop and preserve evidence on missing admission, runtime, mechanical/control or budget failure. Complete absolute-quality failures remain scoped negative findings, never relaxed limits. No automatic retries.",
+  "promotion": "Explicit consumer-pinned scoped synthetic fixed-null admission for requested constructions only. No letter, real-hand, dynamic-action, cross-tool or default-renderer approval."
+}

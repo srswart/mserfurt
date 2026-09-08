@@ -1,0 +1,691 @@
+{
+  "fixture": {
+    "id": "fresh-compound",
+    "split": "regression",
+    "instances": [
+      {
+        "gesture": "compound_curve",
+        "scale": 1.03,
+        "offset": [
+          0.04,
+          -0.01
+        ]
+      }
+    ]
+  },
+  "probe_sha256": "3b1777da7ceb924c73d25da6087b4647aab409d65d66f00cd032d49ad382597d",
+  "compiled_sources": [
+    {
+      "primitive": "upper-return",
+      "offset": [
+        0.04,
+        -0.01
+      ],
+      "scale": 0.8961,
+      "rotation_deg": 0.0,
+      "transition": "start",
+      "cubics": [
+        [
+          [
+            0.04,
+            -0.01
+          ],
+          [
+            0.1652066135383939,
+            0.2278925657229483
+          ],
+          [
+            0.4695716175475903,
+            0.2671757367861453
+          ],
+          [
+            0.48805,
+            -0.01
+          ]
+        ]
+      ],
+      "primitive_index": 0,
+      "recipe": "i",
+      "letter": 0,
+      "span": [
+        0,
+        1
+      ],
+      "word": 0,
+      "line": 0,
+      "occurrence_id": "0:0",
+      "rules": [],
+      "gesture": "compound_curve",
+      "gesture_index": 0,
+      "gesture_primitive_index": 0,
+      "action_profile": "fixed",
+      "overlap_with": [],
+      "gesture_occurrence_id": "0:0",
+      "overlap_contributors": [],
+      "primitive_sha256": "57cb43ce4cf0add5977b32884d516856b4723f78b67d483129cd4135c85447b6",
+      "gesture_sha256": "b856ebbb53510b93c4d2cb55aff9585781628f7f5a18010b31a9fd4cbbfd13be",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e"
+    },
+    {
+      "primitive": "stem",
+      "offset": [
+        0.48805,
+        -0.8649
+      ],
+      "scale": 0.8549,
+      "rotation_deg": 0.0,
+      "transition": "smooth",
+      "cubics": [
+        [
+          [
+            0.48805,
+            -0.010000000000000009
+          ],
+          [
+            0.5051479999999999,
+            -0.2664700000000001
+          ],
+          [
+            0.470952,
+            -0.40325400000000006
+          ],
+          [
+            0.48805,
+            -0.8649
+          ]
+        ]
+      ],
+      "primitive_index": 1,
+      "recipe": "i",
+      "letter": 0,
+      "span": [
+        0,
+        1
+      ],
+      "word": 0,
+      "line": 0,
+      "occurrence_id": "0:1",
+      "rules": [],
+      "gesture": "compound_curve",
+      "gesture_index": 0,
+      "gesture_primitive_index": 1,
+      "action_profile": "fixed",
+      "overlap_with": [],
+      "gesture_occurrence_id": "0:0",
+      "overlap_contributors": [],
+      "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+      "gesture_sha256": "b856ebbb53510b93c4d2cb55aff9585781628f7f5a18010b31a9fd4cbbfd13be",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e"
+    },
+    {
+      "primitive": "lower-return",
+      "offset": [
+        0.48805,
+        -0.8649
+      ],
+      "scale": 0.8961,
+      "rotation_deg": 0.0,
+      "transition": "smooth",
+      "cubics": [
+        [
+          [
+            0.48805,
+            -0.8649
+          ],
+          [
+            0.49567821426606784,
+            -1.070861785183832
+          ],
+          [
+            0.8350494742486507,
+            -1.1806828929729662
+          ],
+          [
+            0.9360999999999999,
+            -0.8649
+          ]
+        ]
+      ],
+      "primitive_index": 2,
+      "recipe": "i",
+      "letter": 0,
+      "span": [
+        0,
+        1
+      ],
+      "word": 0,
+      "line": 0,
+      "occurrence_id": "0:2",
+      "rules": [],
+      "gesture": "compound_curve",
+      "gesture_index": 0,
+      "gesture_primitive_index": 2,
+      "action_profile": "fixed",
+      "overlap_with": [],
+      "gesture_occurrence_id": "0:0",
+      "overlap_contributors": [],
+      "primitive_sha256": "eeb23f069f260c02c6efceb210697afce0aee83851a9928817a133f9ee4cad7f",
+      "gesture_sha256": "b856ebbb53510b93c4d2cb55aff9585781628f7f5a18010b31a9fd4cbbfd13be",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e"
+    },
+    {
+      "primitive": "rise",
+      "offset": [
+        0.9361,
+        -0.8649
+      ],
+      "scale": 1.2051,
+      "rotation_deg": 0.0,
+      "transition": "smooth",
+      "cubics": [
+        [
+          [
+            0.9361,
+            -0.8649
+          ],
+          [
+            1.032508,
+            -0.563625
+          ],
+          [
+            1.29763,
+            -0.11773799999999979
+          ],
+          [
+            1.53865,
+            0.34020000000000006
+          ]
+        ]
+      ],
+      "primitive_index": 3,
+      "recipe": "i",
+      "letter": 0,
+      "span": [
+        0,
+        1
+      ],
+      "word": 0,
+      "line": 0,
+      "occurrence_id": "0:3",
+      "rules": [],
+      "gesture": "compound_curve",
+      "gesture_index": 0,
+      "gesture_primitive_index": 3,
+      "action_profile": "fixed",
+      "overlap_with": [],
+      "gesture_occurrence_id": "0:0",
+      "overlap_contributors": [],
+      "primitive_sha256": "d6aae8b285ce55da3d02898fd6e1006afe128854f6900d01e87b5e3297a95129",
+      "gesture_sha256": "b856ebbb53510b93c4d2cb55aff9585781628f7f5a18010b31a9fd4cbbfd13be",
+      "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e"
+    }
+  ],
+  "regions_mm": {
+    "0": {
+      "gesture": "compound_curve",
+      "loss": [
+        -0.66,
+        6.185275,
+        8.0093,
+        14.521626908673563
+      ],
+      "blank": [
+        [
+          0.7889,
+          1.04125,
+          10.5397,
+          10.756
+        ],
+        [
+          2.357075,
+          2.609425,
+          12.30615,
+          12.52245
+        ]
+      ]
+    }
+  },
+  "actual_target": {
+    "base": 0.019247957762580804,
+    "arc": 0.01895261845386534,
+    "time": 0.01951512889110102,
+    "subdivision": 0.019247957762580804
+  },
+  "nominal_target": 0.019165539486005616,
+  "local_actual_target": {
+    "0": {
+      "base": 0.01924795776258081,
+      "arc": 0.018952618453865342,
+      "time": 0.01951512889110102,
+      "subdivision": 0.01924795776258081
+    }
+  },
+  "local_nominal_target": {
+    "0": 0.01916553948600562
+  },
+  "blank_fractions": {
+    "0": {
+      "target": [
+        0.0,
+        0.0
+      ],
+      "nominal": [
+        0.0,
+        0.0
+      ],
+      "base": [
+        0.0,
+        0.0
+      ],
+      "arc": [
+        0.0,
+        0.0
+      ],
+      "time": [
+        0.0,
+        0.0
+      ],
+      "subdivision": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "motion": {
+    "base": {
+      "metrics": {
+        "planned_time_s": 2.2331820829160067,
+        "executed_time_s": 2.2331820829160067,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 1.0196879141545203,
+        "retiming_delta_s": 1.2134941687614864,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005463020658706983,
+        "image_loss": 0.005819946069193848,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.48374242029104,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 126.43329435655015,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.591388138799835,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "version": "curve-tangent-v1",
+      "audit": {
+        "errors": 0,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ]
+      },
+      "boundaries": [
+        {
+          "owner": "0:0",
+          "entry": {
+            "position_error_mm": 0.0,
+            "speed_mm_s": 0.0,
+            "velocity_error_mm_s": 0.0,
+            "time_s": 0.0,
+            "actual_mm": [
+              0.14,
+              10.035
+            ],
+            "desired_mm": [
+              0.14,
+              10.035
+            ]
+          },
+          "exit": {
+            "position_error_mm": 0.001538982205540323,
+            "speed_mm_s": 0.031147837375125855,
+            "velocity_error_mm_s": 0.031147837375125855,
+            "time_s": 2.2331820829160067,
+            "actual_mm": [
+              5.384561979612813,
+              8.810663843156828
+            ],
+            "desired_mm": [
+              5.385275,
+              8.8093
+            ]
+          }
+        }
+      ],
+      "required_contacts": [
+        "0:0"
+      ],
+      "contained": true
+    },
+    "arc": {
+      "metrics": {
+        "planned_time_s": 2.2331820829160067,
+        "executed_time_s": 2.2331820829160067,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 1.019699358487364,
+        "retiming_delta_s": 1.2134827244286428,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.002835177327627074,
+        "image_loss": 0.003937048771620007,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 140.17552388634485,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 126.61550736315051,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.591388138799835,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "version": "curve-tangent-v1",
+      "audit": {
+        "errors": 0,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ]
+      },
+      "boundaries": [
+        {
+          "owner": "0:0",
+          "entry": {
+            "position_error_mm": 0.0,
+            "speed_mm_s": 0.0,
+            "velocity_error_mm_s": 0.0,
+            "time_s": 0.0,
+            "actual_mm": [
+              0.14,
+              10.035
+            ],
+            "desired_mm": [
+              0.14,
+              10.035
+            ]
+          },
+          "exit": {
+            "position_error_mm": 0.0006041240253873601,
+            "speed_mm_s": 0.012227013950804484,
+            "velocity_error_mm_s": 0.012227013950804484,
+            "time_s": 2.2331820829160067,
+            "actual_mm": [
+              5.384994495697548,
+              8.809835054365795
+            ],
+            "desired_mm": [
+              5.385275,
+              8.8093
+            ]
+          }
+        }
+      ],
+      "required_contacts": [
+        "0:0"
+      ],
+      "contained": true
+    },
+    "time": {
+      "metrics": {
+        "planned_time_s": 2.2331820829160067,
+        "executed_time_s": 2.2331820829160067,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 1.0196879141545203,
+        "retiming_delta_s": 1.2134941687614864,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.005513165561078665,
+        "image_loss": 0.0068246268269120895,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 148.73374128826725,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 126.43329435655015,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.591388138799835,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "version": "curve-tangent-v1",
+      "audit": {
+        "errors": 0,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ]
+      },
+      "boundaries": [
+        {
+          "owner": "0:0",
+          "entry": {
+            "position_error_mm": 0.0,
+            "speed_mm_s": 0.0,
+            "velocity_error_mm_s": 0.0,
+            "time_s": 0.0,
+            "actual_mm": [
+              0.14,
+              10.035
+            ],
+            "desired_mm": [
+              0.14,
+              10.035
+            ]
+          },
+          "exit": {
+            "position_error_mm": 0.0015134412604992074,
+            "speed_mm_s": 0.030324040106468678,
+            "velocity_error_mm_s": 0.030324040106468678,
+            "time_s": 2.2331820829160067,
+            "actual_mm": [
+              5.384573798810294,
+              8.810641201454121
+            ],
+            "desired_mm": [
+              5.385275,
+              8.8093
+            ]
+          }
+        }
+      ],
+      "required_contacts": [
+        "0:0"
+      ],
+      "contained": true
+    },
+    "subdivision": {
+      "metrics": {
+        "planned_time_s": 2.2331820829160036,
+        "executed_time_s": 2.2331820829160036,
+        "time_error_s": 0.0,
+        "original_plan_time_s": 1.0196907414467693,
+        "retiming_delta_s": 1.2134913414692343,
+        "max_projection_mm": 0.0,
+        "corridor_mm": 0.00546351176638165,
+        "image_loss": 0.005819946069193848,
+        "owner_errors": 0,
+        "entry_speed_mm_s": 0,
+        "entry_position_error_mm": 0,
+        "actual_acceleration_mm_s2": 147.48474526695793,
+        "zero_time_discontinuities": 0,
+        "air_ink_errors": 0,
+        "desired_acceleration_mm_s2": 126.43323467276132,
+        "desired_discontinuities": 0,
+        "desired_contact_speed_mm_s": 5.591388138799841,
+        "geometry_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "version": "curve-tangent-v1",
+      "audit": {
+        "errors": 0,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3"
+        ]
+      },
+      "boundaries": [
+        {
+          "owner": "0:0",
+          "entry": {
+            "position_error_mm": 0.0,
+            "speed_mm_s": 0.0,
+            "velocity_error_mm_s": 0.0,
+            "time_s": 0.0,
+            "actual_mm": [
+              0.14,
+              10.035
+            ],
+            "desired_mm": [
+              0.14,
+              10.035
+            ]
+          },
+          "exit": {
+            "position_error_mm": 0.0015391137456709245,
+            "speed_mm_s": 0.0311504996480129,
+            "velocity_error_mm_s": 0.0311504996480129,
+            "time_s": 2.2331820829160036,
+            "actual_mm": [
+              5.384562248044438,
+              8.81066413187484
+            ],
+            "desired_mm": [
+              5.385275,
+              8.8093
+            ]
+          }
+        }
+      ],
+      "required_contacts": [
+        "0:0"
+      ],
+      "contained": true
+    }
+  },
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "endpoint_mm": 0.0009348588255431877,
+      "event_time_s": 0.0,
+      "image_loss": 0.00031119040703705237,
+      "pass": true
+    },
+    "time": {
+      "owner_match": true,
+      "endpoint_mm": 2.5540950071367203e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.0029398977246847886,
+      "pass": true
+    },
+    "subdivision": {
+      "owner_match": true,
+      "endpoint_mm": 3.942253525092827e-07,
+      "event_time_s": 3.1086244689504383e-15,
+      "image_loss": 0.0,
+      "pass": true
+    }
+  },
+  "tool": {
+    "base": {
+      "errors": 0,
+      "angle_rate_deg_s": 3.5527136788008923e-12,
+      "fixed_angle_error_deg": 7.105427357601002e-15,
+      "edge": [
+        0,
+        1
+      ],
+      "mode": "legacy-full-edge",
+      "active_rotation": false,
+      "active_edge": false,
+      "active_finishing": false
+    },
+    "arc": {
+      "errors": 0,
+      "angle_rate_deg_s": 3.5527136788008923e-12,
+      "fixed_angle_error_deg": 7.105427357601002e-15,
+      "edge": [
+        0,
+        1
+      ],
+      "mode": "legacy-full-edge",
+      "active_rotation": false,
+      "active_edge": false,
+      "active_finishing": false
+    },
+    "time": {
+      "errors": 0,
+      "angle_rate_deg_s": 7.105427357601785e-12,
+      "fixed_angle_error_deg": 7.105427357601002e-15,
+      "edge": [
+        0,
+        1
+      ],
+      "mode": "legacy-full-edge",
+      "active_rotation": false,
+      "active_edge": false,
+      "active_finishing": false
+    },
+    "subdivision": {
+      "errors": 0,
+      "angle_rate_deg_s": 3.5527136788008923e-12,
+      "fixed_angle_error_deg": 7.105427357601002e-15,
+      "edge": [
+        0,
+        1
+      ],
+      "mode": "legacy-full-edge",
+      "active_rotation": false,
+      "active_edge": false,
+      "active_finishing": false
+    }
+  },
+  "diagnostic_contact_runs": [
+    1,
+    1
+  ],
+  "null_supported": true,
+  "diagnosis": "inspect_actual_and_local_evidence"
+}

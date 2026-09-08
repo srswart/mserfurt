@@ -63,6 +63,13 @@ path is CURRICULUM-013's finer shared-scale experiment, then HANDVALIDATE-018's
 independent acceptance of the replacement bytes. Neither a foundation gesture
 pass nor a complete learning experiment releases this Advance for letter fitting.
 
+HANDVALIDATE-018 now supplies independent scoped fixed-null acceptance of the
+frozen finer-scale underturn, overturn and compound constructions. Consume
+`scribesim.handvalidate.finer_scales.require_readiness` with its exact report hash
+and an explicit inventory; do not relax old candidate-specific readers. This
+closes that declared null prerequisite, not this Advance's unexecuted recipe,
+letter/reference coverage or real-hand requirements.
+
 Completion is not acceptance. Synthetic scaffolding may execute with explicitly
 unaccepted inputs. Reference-derived fitting requires live G0, and real layer
 acceptance requires the matching accepted lower-layer checkpoint. Do not import
