@@ -64,6 +64,13 @@ def prerequisites(*, real=False):
             'identities': identities, 'renders': 0, 'real': real}
 
 
+def foundation_prerequisites(manifest, *, expected_report_sha256, required_gestures, real=False):
+    from scribesim.handvalidate.pen_actions import foundation_prerequisites as check_foundation
+
+    return check_foundation(manifest, expected_report_sha256=expected_report_sha256,
+                            required_gestures=required_gestures, real=real)
+
+
 def candidate_models(model, ablation):
     if ablation not in SPEC['ablations']:
         raise ValueError('Unfrozen action ablation')
@@ -248,8 +255,18 @@ def main():
     parser.add_argument('--real', action='store_true')
     parser.add_argument('--lesson', type=Path)
     parser.add_argument('--revision', type=int, choices=(0, 1), default=0)
+    parser.add_argument('--foundation-manifest', type=Path)
+    parser.add_argument('--foundation-sha256')
+    parser.add_argument('--required-gesture', action='append')
     args = parser.parse_args()
-    report = run_actions(args.output, real=args.real, lesson_path=args.lesson, revision=args.revision)
+    if args.foundation_manifest is not None:
+        if args.lesson is not None or args.output.exists():
+            parser.error('Foundation eligibility cannot run a legacy lesson or overwrite evidence')
+        report = foundation_prerequisites(args.foundation_manifest, expected_report_sha256=args.foundation_sha256,
+                                          required_gestures=args.required_gesture, real=args.real)
+        write_json(args.output / 'foundation-eligibility.json', report)
+    else:
+        report = run_actions(args.output, real=args.real, lesson_path=args.lesson, revision=args.revision)
     print(json.dumps({key: report[key] for key in ('status', 'reasons', 'renders')}))
 
 

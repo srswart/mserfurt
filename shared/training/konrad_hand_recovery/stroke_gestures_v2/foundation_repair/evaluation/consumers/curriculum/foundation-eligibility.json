@@ -1,0 +1,24 @@
+{
+  "status": "blocked",
+  "scope_next_action_experiment": true,
+  "S1_action_accepted": false,
+  "letter_training_allowed": false,
+  "legacy_action_fitting_allowed": false,
+  "renders": 0,
+  "optimization_evaluations": 0,
+  "reasons": [
+    "new_bounded_action_or_null_protocol_and_independent_S1_action_required"
+  ],
+  "foundation": {
+    "stage": "S1-foundation-gestures-tangent-v1",
+    "report_sha256": "b564aa11e5752b5d0af0a6cb6ced5671b38b78d1cee62bcca0e07bf29de66f75",
+    "execution_version": "curve-tangent-v1",
+    "required_gestures": [
+      "compound_curve",
+      "overturn",
+      "underturn"
+    ],
+    "scope_next_action_experiment": true,
+    "scope": "Synthetic legacy-full-edge fixed-tool curve-tangent-v1, three shared gesture constructions only. Diagnostic carriers are not learned letters or words. Passing allows scoping a bounded action/null experiment, not executing legacy action fitting."
+  }
+}

@@ -128,6 +128,23 @@ def build(output, *, learning_root=LEARNING):
     return report
 
 
+def foundation_prerequisites(manifest, *, expected_report_sha256, required_gestures, real=False):
+    from scribesim.handvalidate.foundation_gestures import require_readiness
+
+    result = {'status': 'blocked', 'scope_next_action_experiment': False, 'S1_action_accepted': False,
+              'letter_training_allowed': False, 'legacy_action_fitting_allowed': False,
+              'renders': 0, 'optimization_evaluations': 0, 'reasons': []}
+    try:
+        result['foundation'] = require_readiness(manifest, expected_report_sha256=expected_report_sha256,
+                                                  required_gestures=required_gestures)
+        result['scope_next_action_experiment'] = not real
+        result['reasons'].append('live_real_G0_and_real_lower_layers_required' if real else
+                                 'new_bounded_action_or_null_protocol_and_independent_S1_action_required')
+    except ValueError as error:
+        result['reasons'].append(str(error))
+    return result
+
+
 def require_letter_readiness(root):
     root = Path(root)
     report = json.loads((root / 'S1-action.json').read_text())
@@ -143,12 +160,23 @@ def require_letter_readiness(root):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('build', 'worker'))
+    parser.add_argument('command', choices=('build', 'worker', 'foundation'))
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--learning-root', type=Path, default=LEARNING)
     parser.add_argument('--seed', type=int, default=7)
+    parser.add_argument('--foundation-manifest', type=Path)
+    parser.add_argument('--foundation-sha256')
+    parser.add_argument('--required-gesture', action='append')
+    parser.add_argument('--real', action='store_true')
     args = parser.parse_args()
-    if args.command == 'worker':
+    if args.command == 'foundation':
+        if args.foundation_manifest is None or args.output.exists():
+            parser.error('Foundation admission requires a manifest and a new output file')
+        report = foundation_prerequisites(args.foundation_manifest, expected_report_sha256=args.foundation_sha256,
+                                          required_gestures=args.required_gesture, real=args.real)
+        write_json(args.output, report)
+        print(json.dumps(report))
+    elif args.command == 'worker':
         write_json(args.output, evaluate_seed(args.seed, learning_root=args.learning_root))
     else:
         report = build(args.output, learning_root=args.learning_root)

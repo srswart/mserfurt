@@ -46,6 +46,7 @@ No production renderer or component stage changes.
 - [ADV-SS-CURRICULUM-004](ADV-SS-CURRICULUM-004.md)
 - [ADV-SS-HANDVALIDATE-014](ADV-SS-HANDVALIDATE-014.md)
 - [ADV-SS-HANDVALIDATE-016](ADV-SS-HANDVALIDATE-016.md)
+- [ADV-SS-HANDVALIDATE-017](ADV-SS-HANDVALIDATE-017.md)
 
 [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md)
 requires matching accepted primitive, S1-gesture and S1-action/readiness records
@@ -56,6 +57,9 @@ coverage; a required unresolved action blocks the affected inventory.
 inserts foundation repair before this work. A matching foundation pass and a
 newly scoped accepted action/null candidate evaluation are runtime prerequisites;
 HANDVALIDATE-014's completed early-stop record is not S1-action acceptance.
+The registered path is CURRICULUM-012's new bounded action/null experiment,
+then HANDVALIDATE-017's independent selected-candidate acceptance. A foundation
+gesture pass alone cannot release this Advance for letter fitting.
 
 Completion is not acceptance. Synthetic scaffolding may execute with explicitly
 unaccepted inputs. Reference-derived fitting requires live G0, and real layer

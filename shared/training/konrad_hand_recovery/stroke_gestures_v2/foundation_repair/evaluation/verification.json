@@ -1,0 +1,450 @@
+{
+  "advance": "ADV-SS-HANDVALIDATE-016",
+  "status": "pass",
+  "evaluation_code_commit": "5799ebf",
+  "initial_code_commit": "6fbff6a",
+  "tdd_red_commits": [
+    "c6aa251",
+    "4c8d6c0",
+    "52424d4"
+  ],
+  "report_sha256": "b564aa11e5752b5d0af0a6cb6ced5671b38b78d1cee62bcca0e07bf29de66f75",
+  "failed_report_sha256": "9bb5033b70633c3727b8d6f433b397ebb42f07d3fba0855dad9b8c49122429a3",
+  "current_artifacts_verified": 698,
+  "failed_artifacts_verified": 668,
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "9eb9587ee4d9b23cdff2e2861826e4ae8e9ab78f4f5588a7fd18cb0f7da63852",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "d8bcc6f8f5b4b0d2c7fd65d03bcbc6c6182e8f39a814eb067db0936913fb59a0",
+    "scribesim/evofit/stroke_language.py": "ae13c649eaaf97b1fa206eb4201b77e8297fa44cffb8c37b861ea547e3c45ae3",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+    "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+    "scribesim/curriculum/foundation_measurement.py": "9845b93615fda56aa9539a9c378f3cb645aa6e150b19993c0e5908c7e3d1249a",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/measurement-spec-v1.json": "5fc3ef310fe6fa8c65d94d8000ce6ac19ca342989cf67c5d6c20e1b0cb14d25c",
+    "scribesim/handvalidate/foundation_primitives.py": "c6bd9526d8f75b7b8c7975e51674ad5c38f227244e00fca6280e820573aa4411",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/spec-v1.json": "e92dd81238e0a0ffcf473c2999e7e59d7881f15a04000d17db65558f64466af5",
+    "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/spec-v1.json": "5fbc75684f549535f5471e39e1090f23be58046b7898110ed1aef5c2253a9df2",
+    "scribesim/handvalidate/tangent_evaluation.py": "e58743c881c9ab8231ca3dc5a76df91117e8fa4eb1f5fd9f3d86ac9591051a0a",
+    "scribesim/handvalidate/tangent_motion.py": "87a05731b62d58dad8821d4802b2804dae0cc427185b2034b3ea47ba16920b3a",
+    "scribesim/handflow/curve_tangents.py": "7595a900f29e93ab8b558fe640b305eb34d1cd441a21dbe4b7680f13b00d75ee",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v2.json": "a31cb39abddda710611b55097725ccbd4f75ebd5bb10648964c38a91a6e11ff1",
+    "scribesim/curriculum/foundation_gestures.py": "9e89542b7369b1e5f47b9b57b928dd6666bb00535aafdd51e5a71bb1afede320",
+    "scribesim/curriculum/gesture_targets.py": "8a62b41e9246ec948dd178551fe731b4b37cae0933de97d40a370c1fc88dc91a",
+    "scribesim/curriculum/gesture_refinements.py": "64bf34282a00e9d96145dae4c6e81525f2edba161fb5083ebbd26d251b4c1c0d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v2.json": "030bc8c36399d153b0917cecab6af1e610f3a97e3d84d9691261230ae3db6c8f",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/continuation-v1.json": "3399087a7bd63b188dbd9439a4eba1ad06e70f625fe8be8267dc24d481d7b22d",
+    "scribesim/handvalidate/foundation_gestures.py": "b72bbf01b168d083d579e4ac5338f01ccd097ad80677545765ff47906caaf25d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/spec-v1.json": "71a857879bafe4e3c6f2c84ea13f6d57c0f6d6fe67a69c080e5ad836917cf35d",
+    "scribesim/curriculum/pen_actions.py": "a26036cc304ef499ae4f31ac1023fc3e405b79e3998240ebf5dc4cc7c8eaf5e4",
+    "scribesim/handvalidate/pen_actions.py": "103de6792cc5829dfc79ce4e4ecb36ff112fef5ddaa1d537adb856d6106d59cc",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/continuation-v1.json": "f415083bbbef0d83131851a206f28e2709ac97e32d91ce68378f11315b1493c4"
+  },
+  "readiness": {
+    "stage": "S1-foundation-gestures-tangent-v1",
+    "report_sha256": "b564aa11e5752b5d0af0a6cb6ced5671b38b78d1cee62bcca0e07bf29de66f75",
+    "execution_version": "curve-tangent-v1",
+    "required_gestures": [
+      "compound_curve",
+      "overturn",
+      "underturn"
+    ],
+    "scope_next_action_experiment": true,
+    "scope": "Synthetic legacy-full-edge fixed-tool curve-tangent-v1, three shared gesture constructions only. Diagnostic carriers are not learned letters or words. Passing allows scoping a bounded action/null experiment, not executing legacy action fitting."
+  },
+  "first_replay": {
+    "7": {
+      "files": 115,
+      "identical": true
+    },
+    "19": {
+      "files": 115,
+      "identical": true
+    },
+    "41": {
+      "files": 115,
+      "identical": true
+    }
+  },
+  "unchanged_prior_diagnostics": {
+    "7-first": {
+      "files": 109,
+      "identical": true
+    },
+    "7-replay": {
+      "files": 109,
+      "identical": true
+    },
+    "19-first": {
+      "files": 109,
+      "identical": true
+    },
+    "19-replay": {
+      "files": 109,
+      "identical": true
+    },
+    "41-first": {
+      "files": 109,
+      "identical": true
+    },
+    "41-replay": {
+      "files": 109,
+      "identical": true
+    }
+  },
+  "renders": {
+    "new": 3546,
+    "retained": 3528,
+    "cumulative": 7074,
+    "per_seed": {
+      "7": 2358,
+      "19": 2358,
+      "41": 2358
+    }
+  },
+  "execution": {
+    "ledger": [
+      {
+        "seed": 7,
+        "process": "first",
+        "renders": 591,
+        "cumulative_seed_renders": 1767,
+        "cumulative_seed_seconds": 184.63607804093044
+      },
+      {
+        "seed": 7,
+        "process": "replay",
+        "renders": 591,
+        "cumulative_seed_renders": 2358,
+        "cumulative_seed_seconds": 251.83940545702353
+      },
+      {
+        "seed": 19,
+        "process": "first",
+        "renders": 591,
+        "cumulative_seed_renders": 1767,
+        "cumulative_seed_seconds": 192.60161600098945
+      },
+      {
+        "seed": 19,
+        "process": "replay",
+        "renders": 591,
+        "cumulative_seed_renders": 2358,
+        "cumulative_seed_seconds": 256.47021970897913
+      },
+      {
+        "seed": 41,
+        "process": "first",
+        "renders": 591,
+        "cumulative_seed_renders": 1767,
+        "cumulative_seed_seconds": 185.09843995794654
+      },
+      {
+        "seed": 41,
+        "process": "replay",
+        "renders": 591,
+        "cumulative_seed_renders": 2358,
+        "cumulative_seed_seconds": 245.3521588749718
+      }
+    ]
+  },
+  "optimization_evaluations": 0,
+  "maxima": {
+    "image_loss": 0.010408408562002914,
+    "corridor_mm": 0.007935850085854132,
+    "actual_acceleration_mm_s2": 252.05813192820497,
+    "entry_speed_mm_s": 0.0006591097839321473,
+    "entry_position_error_mm": 0.00003292836526117307
+  },
+  "refinement_maxima": {
+    "endpoint_mm": 0.0057178112329284506,
+    "event_time_s": 6.661338147750939e-15,
+    "image_loss": 0.003617524898396677
+  },
+  "boundary_maxima": {
+    "position_error_mm": 0.007935850085854132,
+    "velocity_error_mm_s": 0.15910252624561147
+  },
+  "contact_boundary_measurements_including_replay": 912,
+  "heldout": {
+    "underturn-overturn-pair": 0.1575736383924991,
+    "overturn-underturn-pair": 0.15780667061254053,
+    "compound-terminal-pair": 0.13246454526257925,
+    "underturn-repeat-pair": 0.06625473829008999,
+    "independent-scaled-attachment": 0.15404020539583216
+  },
+  "maximum_occurrence_local_ratio": 0.40883522776020675,
+  "controls": {
+    "wrong-port": {
+      "source_mismatch": true,
+      "grammar_rejected": true,
+      "detected": true
+    },
+    "wrong-direction": {
+      "source_mismatch": true,
+      "grammar_rejected": true,
+      "detected": true
+    },
+    "detached-copy": {
+      "source_mismatch": true,
+      "grammar_rejected": true,
+      "detected": true
+    },
+    "hidden-lift": {
+      "unmodified_pass": true,
+      "audit": {
+        "errors": 1,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ]
+      },
+      "detected": true,
+      "global_loss": 0,
+      "global_detected_at_0_1": false
+    },
+    "extra-contributor": {
+      "unmodified_pass": true,
+      "audit": {
+        "errors": 257,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ]
+      },
+      "detected": true,
+      "global_loss": 0,
+      "global_detected_at_0_1": false
+    },
+    "wrong-owner": {
+      "unmodified_pass": true,
+      "audit": {
+        "errors": 2,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5",
+          "detached-letter-copy"
+        ]
+      },
+      "detected": true,
+      "global_loss": 0,
+      "global_detected_at_0_1": false
+    },
+    "air-connector": {
+      "unmodified_pass": true,
+      "audit": {
+        "errors": 3,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5",
+          "undeclared"
+        ]
+      },
+      "detected": true,
+      "global_loss": 0.0011086615778675465,
+      "global_detected_at_0_1": false
+    },
+    "missing-overlap": {
+      "unmodified_pass": true,
+      "audit": {
+        "errors": 1,
+        "required_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ],
+        "seen_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ]
+      },
+      "detected": true,
+      "global_loss": 0,
+      "global_detected_at_0_1": false
+    },
+    "filled-pocket": {
+      "bounds_mm": [
+        0.63,
+        0.875,
+        8.705,
+        8.915
+      ],
+      "before": 0,
+      "after": 1,
+      "global_loss": 0.010767855118824225,
+      "global_detected_at_0_1": false,
+      "detected": true
+    }
+  },
+  "consumers": {
+    "scribesim.curriculum.pen_actions": {
+      "status": "blocked",
+      "scope_next_action_experiment": true,
+      "S1_action_accepted": false,
+      "letter_training_allowed": false,
+      "legacy_action_fitting_allowed": false,
+      "renders": 0,
+      "optimization_evaluations": 0,
+      "reasons": [
+        "new_bounded_action_or_null_protocol_and_independent_S1_action_required"
+      ],
+      "foundation": {
+        "stage": "S1-foundation-gestures-tangent-v1",
+        "report_sha256": "b564aa11e5752b5d0af0a6cb6ced5671b38b78d1cee62bcca0e07bf29de66f75",
+        "execution_version": "curve-tangent-v1",
+        "required_gestures": [
+          "compound_curve",
+          "overturn",
+          "underturn"
+        ],
+        "scope_next_action_experiment": true,
+        "scope": "Synthetic legacy-full-edge fixed-tool curve-tangent-v1, three shared gesture constructions only. Diagnostic carriers are not learned letters or words. Passing allows scoping a bounded action/null experiment, not executing legacy action fitting."
+      }
+    },
+    "scribesim.handvalidate.pen_actions": {
+      "status": "blocked",
+      "scope_next_action_experiment": true,
+      "S1_action_accepted": false,
+      "letter_training_allowed": false,
+      "legacy_action_fitting_allowed": false,
+      "renders": 0,
+      "optimization_evaluations": 0,
+      "reasons": [
+        "new_bounded_action_or_null_protocol_and_independent_S1_action_required"
+      ],
+      "foundation": {
+        "stage": "S1-foundation-gestures-tangent-v1",
+        "report_sha256": "b564aa11e5752b5d0af0a6cb6ced5671b38b78d1cee62bcca0e07bf29de66f75",
+        "execution_version": "curve-tangent-v1",
+        "required_gestures": [
+          "compound_curve",
+          "overturn",
+          "underturn"
+        ],
+        "scope_next_action_experiment": true,
+        "scope": "Synthetic legacy-full-edge fixed-tool curve-tangent-v1, three shared gesture constructions only. Diagnostic carriers are not learned letters or words. Passing allows scoping a bounded action/null experiment, not executing legacy action fitting."
+      }
+    }
+  },
+  "tests": {
+    "focused": "33 passed",
+    "clean_committed_code_focused": "27 passed",
+    "expanded": "269 passed, 12 pre-existing failures",
+    "same_preexisting_failure_ids": true,
+    "preexisting_failures": [
+      "tests/test_handflow.py::test_desired_velocity_affects_acceleration",
+      "tests/test_gesture_learning.py::test_shared_composition_is_fitted_without_mutating_primitives_profiles_or_letters",
+      "tests/test_gesture_learning.py::test_test_images_cannot_select_the_checkpoint",
+      "tests/test_gesture_learning.py::test_budget_exhaustion_does_not_create_an_accepted_candidate",
+      "tests/test_gesture_learning.py::test_fixed_ablation_is_a_baseline_not_learning_and_output_is_immutable",
+      "tests/test_handvalidate_gestures.py::test_training_reconstructs_and_rejects_stale_artifacts",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[detached]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[recipe]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[profile]",
+      "tests/test_handvalidate_gestures.py::test_candidate_rejects_unfrozen_freedom[out-of-grid]",
+      "tests/test_handvalidate_gestures.py::test_trace_audit_checks_actual_contact_and_contributors_not_summary",
+      "tests/test_handvalidate_gestures.py::test_independent_replay_does_not_optimize_or_hide_endpoint_failure"
+    ]
+  },
+  "governance": {
+    "plan_check": "passed",
+    "local_links_checked": 131,
+    "negative_admission_checks": "unsupported inventory, absent/wrong pin, retained failed attempt and real scope all blocked",
+    "artifact_doctor": "10 unchanged pre-existing issues",
+    "agent_rules_stale": [],
+    "strict_pr_metadata": "exit 1; installed parser returns ids=[] despite ADV-SS-HANDVALIDATE-016 in title, body and label",
+    "provider_CI": "not performed",
+    "human_review": "not performed",
+    "push": "not performed"
+  },
+  "consumer_cli": {"curriculum":"consumers/curriculum/foundation-eligibility.json","handvalidate":"consumers/handvalidate.json","outcome":"both verified foundation and returned blocked action status, zero renders"},
+  "test_logs": ["tests-expanded.txt","tests-focused.txt","tests-clean.txt"],
+  "visual_review": "Native 900-DPI seed-7 practice sheet and spaced actual PNG inspected; no browser automation claim",
+  "layer_disposition": {
+    "motion": "fresh pass",
+    "old_six_primitives": "unchanged and fresh pass",
+    "new_returns": "unchanged and fresh pass",
+    "shared_gestures": "underturn, overturn, compound_curve only",
+    "other_present_gestures": "stem, rise, upper_loop, terminal, shoulder not broadly admitted by this gesture reader",
+    "action_null": "eligible to scope CURRICULUM-012, not S1-action",
+    "letter_training": "blocked pending HANDVALIDATE-017 and all required inventory/lower prerequisites",
+    "real_G0_G1_G2": "not accepted"
+  }
+}
