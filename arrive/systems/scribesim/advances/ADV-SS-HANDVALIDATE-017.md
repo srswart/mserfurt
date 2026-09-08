@@ -109,6 +109,21 @@ CI or merge is claimed; remaining acceptance work and repair approval are open.
 
 ## Changes Made
 
+### 2026-09-08 — authorized: Additional measurement-only repair and replay
+
+- User approves the proposed diagnostic repair and remeasurement. Continue on
+  the existing Advance branch; no preparatory refactor is required.
+- Observed RED `2e79204`: five failures expose native-scalar rejection, constant
+  angle classification, missing control checkpoints and incomplete prior costs.
+- Normalize diagnostic scalars without changing their values; retain raw
+  angular rates while enforcing the existing 1e-12 fixed-sample field checks.
+  No physical validation or target threshold is loosened.
+- Journal each completed control and preserve its evidence on interruption.
+- Pin both failed reports in `continuation-v2.json`; retain 1650 renders,
+  550 per seed, and their cumulative elapsed times. Freeze the unchanged
+  `spec-v2.json`, all candidates/targets/controls and existing 5000/1800 limits.
+  One explicitly authorized run-003, zero refitting, no further automatic retry.
+
 ### 2026-09-08 — stop: Additional measurement-only repair requires approval
 
 - Run-002 at `8e578f8` measures nine heldouts, three contexts and a closed

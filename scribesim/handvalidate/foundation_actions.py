@@ -25,7 +25,7 @@ from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_j
 
 BASE = learning.BASE.parent / 'action_evaluation'
 SPEC_PATH = BASE / 'spec-v2.json'
-CONTINUATION_PATH = BASE / 'continuation-v1.json'
+CONTINUATION_PATH = BASE / 'continuation-v2.json'
 SPEC = json.loads(SPEC_PATH.read_text())
 REFINEMENTS = ('base', 'arc', 'time', 'subdivision')
 
@@ -34,26 +34,35 @@ def identities():
     return {**learning.identities(), str(Path(__file__).relative_to(ROOT)): digest(Path(__file__)),
             str(SPEC_PATH.relative_to(ROOT)): digest(SPEC_PATH),
             str(CONTINUATION_PATH.relative_to(ROOT)): digest(CONTINUATION_PATH),
+            str((BASE / 'continuation-v1.json').relative_to(ROOT)): digest(BASE / 'continuation-v1.json'),
             str((BASE / 'spec-v1.json').relative_to(ROOT)): digest(BASE / 'spec-v1.json')}
 
 
 def prior_usage():
     continuation = json.loads(CONTINUATION_PATH.read_text())
-    directory = BASE / continuation['source']
-    if digest(directory / 'S1-actions.json') != continuation['source_report_sha256']:
-        raise ValueError('Preserved failed evaluation identity changed')
-    report = json.loads((directory / 'S1-actions.json').read_text())
-    foundation.primitives.verify_artifacts(directory, report['artifacts'])
-    freeze = json.loads((directory / 'freeze.json').read_text())
-    if freeze['spec'] != json.loads((BASE / continuation['original_spec']).read_text()) or report['revision'] != 0:
-        raise ValueError('Original evaluation freeze changed')
-    ledger = json.loads((directory / 'execution.json').read_text())['ledger']
-    if [(row['seed'], row['process']) for row in ledger] != [(seed, label) for seed in SPEC['seeds'] for label in ('first', 'replay')]:
-        raise ValueError('Missing retained seed costs')
-    usage = {seed: {'renders': sum(row['renders'] for row in ledger if row['seed'] == seed),
-                    'seconds': max(row['cumulative_seed_seconds'] for row in ledger if row['seed'] == seed)} for seed in SPEC['seeds']}
-    if report['renders'] != sum(row['renders'] for row in usage.values()):
-        raise ValueError('Retained total differs')
+    usage = {seed: {'renders': 0, 'seconds': 0} for seed in SPEC['seeds']}
+    for source in continuation['sources']:
+        directory = BASE / source['directory']
+        if digest(directory / 'S1-actions.json') != source['report_sha256']:
+            raise ValueError('Preserved failed evaluation identity changed')
+        report = json.loads((directory / 'S1-actions.json').read_text())
+        foundation.primitives.verify_artifacts(directory, report['artifacts'])
+        freeze = json.loads((directory / 'freeze.json').read_text())
+        if freeze['spec'] != json.loads((BASE / source['spec']).read_text()) or report['revision'] != source['revision']:
+            raise ValueError('Original evaluation freeze changed')
+        ledger = json.loads((directory / 'execution.json').read_text())['ledger']
+        if [(row['seed'], row['process']) for row in ledger] != [(seed, label) for seed in SPEC['seeds'] for label in ('first', 'replay')]:
+            raise ValueError('Missing retained seed costs')
+        if (report['renders'] != sum(row['renders'] for row in ledger)
+                or report.get('prior_renders', 0) != sum(row['renders'] for row in usage.values())):
+            raise ValueError('Retained total differs')
+        for row in ledger:
+            prior = usage[row['seed']]
+            if (type(row['renders']) is not int or row['renders'] <= 0
+                    or row['cumulative_seed_renders'] != prior['renders'] + row['renders']
+                    or not prior['seconds'] < row['cumulative_seed_seconds'] <= 1800):
+                raise ValueError('Retained cumulative ledger differs')
+            prior.update(renders=row['cumulative_seed_renders'], seconds=row['cumulative_seed_seconds'])
     return usage
 
 
@@ -134,11 +143,12 @@ def enclosed_blank(pixels, bounds):
 
 
 def tool_proof(run):
-    errors, maximum_angle_rate, previous = int(run['tool'] != SPEC['tool']), 0, None
+    errors, maximum_angle_rate, maximum_angle_error, previous = int(run['tool'] != SPEC['tool']), 0, 0, None
     for row in run['trace']:
         if row['contact']:
             errors += sum(not math.isfinite(row[key]) or abs(row[key] - expected) > 1e-12
                           for key, expected in (('angle_deg', 40), ('width_mm', .45), ('pressure', .5)))
+            maximum_angle_error = max(maximum_angle_error, abs(row['angle_deg'] - 40))
             if previous is not None and row['time_s'] > previous['time_s']:
                 maximum_angle_rate = max(maximum_angle_rate,
                     abs(row['angle_deg'] - previous['angle_deg']) / (row['time_s'] - previous['time_s']))
@@ -146,8 +156,18 @@ def tool_proof(run):
         else:
             errors += int(row['pressure'] != 0)
             previous = None
-    return {'errors': errors, 'angle_rate_deg_s': maximum_angle_rate, 'edge': [0, 1],
+    return {'errors': errors, 'angle_rate_deg_s': float(maximum_angle_rate), 'fixed_angle_error_deg': float(maximum_angle_error), 'edge': [0, 1],
             'mode': SPEC['tool'], 'active_rotation': False, 'active_edge': False, 'active_finishing': False}
+
+
+def tool_pass(proof):
+    try:
+        return (proof['errors'] == 0 and proof['mode'] == SPEC['tool'] and proof['edge'] == [0, 1]
+            and all(proof[key] is False for key in ('active_rotation', 'active_edge', 'active_finishing'))
+            and finite([proof['angle_rate_deg_s'], proof['fixed_angle_error_deg']])
+            and proof['fixed_angle_error_deg'] <= 1e-12)
+    except (KeyError, TypeError, ValueError):
+        return False
 
 
 def measure(candidate, fixture, budget, directory, *, counter=False):
@@ -198,8 +218,7 @@ def mechanical(record, *, counter=False):
                 or record['diagnostic_contact_runs'] != [len(record['fixture']['instances'])] * 2
                 or set(record['tool']) != set(REFINEMENTS)):
             return False
-        if any(row != {'errors': 0, 'angle_rate_deg_s': 0, 'edge': [0, 1], 'mode': SPEC['tool'],
-                       'active_rotation': False, 'active_edge': False, 'active_finishing': False} for row in record['tool'].values()):
+        if not all(tool_pass(row) for row in record['tool'].values()):
             return False
         if counter:
             return (set(record['counter']) == {'target', 'nominal', *REFINEMENTS}
@@ -213,7 +232,13 @@ def mechanical(record, *, counter=False):
 
 
 def physical_samples(run, edge):
-    return [ContactSample(*row['to_mm'], row['contact'], .45, row['pressure'], row['angle_deg'], *edge) for row in run['trace']]
+    return [ContactSample(*map(float, row['to_mm']), row['contact'], .45, float(row['pressure']),
+                          float(row['angle_deg']), *map(float, edge)) for row in run['trace']]
+
+
+def checkpoint_controls(directory, records, evidence):
+    foundation.primitives.compressed(directory / 'control-evidence.json.gz', evidence)
+    write_json(directory / 'controls.json', records)
 
 
 def edge_error(samples, expected_edge):
@@ -267,6 +292,7 @@ def controls(candidate, fixture, base, overlap, counter_run, budget, directory):
                          'global_loss': loss, 'global_detected_at_0_1': loss >= .1}
         evidence[name] = foundation.admission.stripped(changed)
         Image.fromarray(pixels).save(directory / f'{name}.png')
+        checkpoint_controls(directory, records, evidence)
     expected_edge = SPEC['edge_control']['expected']
     expected_path, swapped_path = [physical_samples(base, edge) for edge in (expected_edge, SPEC['edge_control']['swapped'])]
     edge_images = [budget.render(paint_trajectory, path, SPEC['frame_mm'], dpi=180, contact_version='physical-edge-v1')
@@ -279,6 +305,7 @@ def controls(candidate, fixture, base, overlap, counter_run, budget, directory):
     evidence['swapped-edge'] = {'expected': [asdict(row) for row in expected_path], 'swapped': [asdict(row) for row in swapped_path]}
     for label, pixels in zip(('expected-edge', 'swapped-edge'), edge_images):
         Image.fromarray(pixels).save(directory / f'{label}.png')
+    checkpoint_controls(directory, records, evidence)
     for name, original, bounds in (('erased-counter', counter_run, SPEC['counter_bounds_mm']),
             ('filled-open-pocket', base, next(iter(foundation.regions(fixture).values()))['blank'][0])):
         pixels = original['images']['actual'].copy()
@@ -291,7 +318,7 @@ def controls(candidate, fixture, base, overlap, counter_run, budget, directory):
             'detected': 0 <= before <= .01 < after and (enclosed is True if name == 'erased-counter' else True),
             'global_loss': loss, 'global_detected_at_0_1': loss >= .1}
         Image.fromarray(pixels).save(directory / f'{name}.png')
-    foundation.primitives.compressed(directory / 'control-evidence.json.gz', evidence)
+        checkpoint_controls(directory, records, evidence)
     return records
 
 
@@ -377,6 +404,8 @@ def worker(directory, seed, maximum, seconds):
         budget.check()
     except (ValueError, RuntimeError, OSError, KeyError, TypeError) as error:
         record['reason'] = str(error)
+        if (directory / 'controls.json').exists():
+            record['controls'] = json.loads((directory / 'controls.json').read_text())
     record['renders'] = budget.used
     write_json(directory / 'report.json', record)
     budget.receipt()
@@ -385,11 +414,11 @@ def worker(directory, seed, maximum, seconds):
 
 def build(output):
     output = Path(output).resolve()
-    if output.exists() or any(path.parent.name != 'run-001' for path in BASE.glob('run-*/S1-actions.json')):
+    if output.exists() or any(path.parent.name not in {'run-001', 'run-002'} for path in BASE.glob('run-*/S1-actions.json')):
         raise ValueError('Use an immutable single continuation; further retries need new authorization')
     write_json(output / 'freeze.json', {'spec': SPEC, 'code_sha256': identities()})
     report = {'stage': SPEC['stage'], 'status': 'blocked', 'evaluation_complete': False, 'code_sha256': identities(),
-        'seeds': [], 'renders': 0, 'optimization_evaluations': 0, 'revision': 1, 'accepted_gestures': [],
+        'seeds': [], 'renders': 0, 'optimization_evaluations': 0, 'revision': 2, 'accepted_gestures': [],
         'S1_action_accepted': False, 'letter_training_allowed': False, 'real_accepted': False, 'promoted': False}
     ledger, records = [], []
     try:
@@ -459,7 +488,7 @@ def inspect_evidence(directory, *, expected_report_sha256):
         prior = prior_usage()
         ledger = json.loads((directory / 'execution.json').read_text())['ledger']
         if ([(row['seed'], row['process']) for row in ledger] != [(seed, label) for seed in SPEC['seeds'] for label in ('first', 'replay')]
-                or report['optimization_evaluations'] != 0 or report['revision'] != 1
+                or report['optimization_evaluations'] != 0 or report['revision'] != 2
                 or report['prior_renders'] != sum(row['renders'] for row in prior.values())
                 or report['cumulative_renders'] != report['prior_renders'] + report['renders']
                 or report['renders'] != sum(row['renders'] for row in ledger)
@@ -480,6 +509,8 @@ def inspect_evidence(directory, *, expected_report_sha256):
             if digest(first / 'candidate.json') != SPEC['candidate_file_sha256']:
                 raise ValueError('Selected candidate bytes changed')
             record = json.loads((first / 'report.json').read_text())
+            if record['controls'] != json.loads((first / 'controls.json').read_text()):
+                raise ValueError('Control checkpoint differs from numeric proof')
             if (record['seed'] != seed or record['status'] != 'complete' or not complete(record)
                     or any(receipt['renders'] != record['renders'] for receipt in receipts)
                     or record['original_controls'] != source['original_controls']):
