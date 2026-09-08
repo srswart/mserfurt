@@ -1,0 +1,19 @@
+{
+  "stage": "S1-standalone-stem-fixed-null-v1",
+  "source_report_sha256": "49e72a04df648ef1295b94e8436c34cdb385a992d7b173c0316899a05f6f837b",
+  "candidate_file_sha256": "6ff3e478799ab1a63d970d1e99fd5d5c454c12557047e5506fec911a65baf4ba",
+  "seeds": [7, 19, 41],
+  "frame_mm": [-2, 12, 3, 13],
+  "tool": "legacy-full-edge",
+  "required_gestures": ["stem"],
+  "criteria": {"absolute_loss_max": 0.05, "blank_fraction_max": 0.01},
+  "fixtures": [
+    {"id": "left-stem", "offsets": [[-0.2, 0]]},
+    {"id": "right-stem", "offsets": [[0.8264404456568248, 0]]},
+    {"id": "subpixel-stem", "offsets": [[0.8634404456568248, 0.041]]},
+    {"id": "lifted-stems", "offsets": [[-0.2, 0], [0.8264404456568248, 0]]}
+  ],
+  "controls": ["geometry", "action", "owner", "painted-air", "desired-as-actual"],
+  "budget": {"renders_per_seed_including_replay": 5000, "seconds_per_seed_including_replay": 1800, "retries": 0},
+  "scope": "Unchanged synthetic standalone stem, scale 1 and rotation 0, fixed full-edge tool. Translation probes and lifted pair only; each downstream placed occurrence still requires physical/frame checks. Not a trained historical primitive, letters, other gestures, active actions or S2."
+}
