@@ -1,7 +1,9 @@
 {
   "advance": "ADV-SS-CURRICULUM-012",
   "status": "experiment complete; overall null unsupported",
-  "tests": {"focused":"48 passed","clean_committed_code":"45 passed before three additional saved-evidence regressions","expanded":"284 passed, 12 identical inherited failures","failure_ids_match_previous":true,"logs":["tests-red.txt","tests-focused.txt","tests-clean.txt","tests-expanded.txt"]},
+  "tests": {"focused":"48 passed","clean_committed_code":"48 passed in 66.79 seconds at detached 087be8c, including all saved-evidence regressions","expanded":"284 passed, 12 identical inherited failures","failure_ids_match_previous":true,"logs":["tests-red.txt","tests-focused.txt","tests-clean.txt","tests-clean-final.txt","tests-expanded.txt"],"log_normalization":"expanded log trailing whitespace only"},
+  "local_merge": {"commit":"6edc81d","branch":"master","date":"2026-09-08","completion_commit":"087be8c"},
+  "post_merge_reconstruction": {"pinned_selected_evidence":"pass, null unsupported and action/letter acceptance false","existing_foundation_readiness":"pass","plan":"pass"},
   "code_commit": "623a687",
   "red_commit": "77ff696",
   "report_sha256": "ba2d46377b59787065486738e861aaea00c042cf0be2704072821aed3ac0fa3a",

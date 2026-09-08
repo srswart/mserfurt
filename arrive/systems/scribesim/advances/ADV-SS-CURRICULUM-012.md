@@ -83,6 +83,18 @@ keep historical evidence, controllers and defaults unchanged. Review time is an 
 
 ## Changes Made
 
+### 2026-09-08 — merge: Local completion receipt
+
+- Completion commit `087be8c` passes all 48 focused tests in a clean detached
+  checkout (66.79 seconds), including the three saved-evidence regressions.
+- Locally merged into `master` with `--no-ff` as `6edc81d` under the standing
+  update/merge instruction. Plan validation passes after merge. No push,
+  provider CI or human acceptance is implied; the strict parser limitation
+  remains recorded. Temporary validation worktree removed after cache cleanup.
+- Post-merge pinned selected-evidence reconstruction passes with review allowed,
+  whole null unsupported and both action/letter acceptance false. The existing
+  foundation readiness gate still passes unchanged.
+
 ### 2026-09-08 — complete: Mixed fixed-null result, no action acceptance
 
 - Executed eleven frozen train/development/held-out fixtures, three mechanical

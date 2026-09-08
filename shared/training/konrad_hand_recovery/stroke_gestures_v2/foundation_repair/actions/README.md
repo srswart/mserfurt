@@ -49,12 +49,16 @@ verifies the complete negative experiment without promoting it.
 Report SHA: `ba2d46377b59787065486738e861aaea00c042cf0be2704072821aed3ac0fa3a`.
 Experiment code: `623a687`; observed-red test commit: `77ff696`.
 
-Validation: 48 focused tests pass; clean committed-code focused tests pass 45
-before three additional saved-evidence regression tests. Expanded tests: 284
+Validation: 48 focused tests pass, including all three saved-evidence regressions
+in a clean detached checkout of `087be8c` (66.79 seconds). Expanded tests: 284
 pass with the same 12 inherited failures. Plan/link/diff checks pass. Artifact
 doctor retains its same 10 inherited issues and agent rules have no stale
 outputs. The installed strict PR parser still returns `ids=[]` despite the
 Advance ID in title/body/label; no provider CI, push or human review is claimed.
+
+Local completion: merged into `master` as `6edc81d` on 2026-09-08. The completion
+record distinguishes scientific null failure from finished implementation.
+Test logs retain observed output; expanded-log trailing whitespace is normalized.
 
 - [Layered sample index](../index.html)
 - [Seed 7 native 900-DPI workbook](run-001/seed-7/first/practice-sheet.png)
