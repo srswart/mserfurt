@@ -53,10 +53,10 @@ another checkpoint. The learning measurements do not transfer acceptance.
 
 - [x] branch: `advance/ss-handvalidate-018` under implementation/update/merge authorization.
 - [x] tidy: no refactor required; preserve all pinned historical modules.
-- [ ] test: commit observed failing admission, lineage, scope and metric tests first.
-- [ ] feat/fix: consumer-pin the completed CURRICULUM-013 manifest and reconstruct all source identities, candidate selections, artifacts and replay evidence.
-- [ ] Verify exactly three shared scale changes and derived endpoint-coincident attachments; reject altered primitives, ports, actions, recipes and per-occurrence overrides.
-- [ ] Freeze new withheld transforms/contexts before evaluation. Treat all previously inspected or learning-scored fixtures as regressions, not new holdouts. Target definitions and numerical limits remain unchanged.
+- [x] test: commit observed failing admission, lineage, scope and metric tests first.
+- [x] feat/fix: consumer-pin the completed CURRICULUM-013 manifest and reconstruct all source identities, candidate selections, artifacts and replay evidence.
+- [x] Verify exactly three shared scale changes and derived endpoint-coincident attachments; reject altered primitives, ports, actions, recipes and per-occurrence overrides.
+- [x] Freeze new withheld transforms/contexts before evaluation. Treat all previously inspected or learning-scored fixtures as regressions, not new holdouts. Target definitions and numerical limits remain unchanged.
 - [ ] Execute seeds 7/19/41 with zero fitting; at most 5000 renders/1800 seconds per seed including first/replay, controls and presentation. Preserve failures and use no silent retries.
 - [ ] Require absolute 0.05 global and occurrence-local actual/target bounds at all four refinements; retain full-frame, motion, exact ownership/contact, blank-pocket, closed-counter and nine adversarial checks.
 - [ ] Reevaluate underturn too: its old scoped acceptance cannot transfer to different candidate bytes. Report accepted/missing inventory explicitly.
@@ -65,8 +65,10 @@ another checkpoint. The learning measurements do not transfer acceptance.
 
 ## Bug Fixes
 
-None identified. Missing measurement or runtime defects must remain distinct
-from geometric residuals; neither warrants an unapproved refit.
+Before any evaluation rendering, a focused failing test exposed vacuous acceptance
+of the requested names when the decision helper received no seed records. The
+helper now requires all three ordered, complete seeds before any scoped decision.
+No source evidence, physical code, targets or fitting behavior changes.
 
 ## Risk + Rollback
 
@@ -96,6 +98,13 @@ Implementation starts at 11:03:16 UTC. Freeze nine fresh same-family holdouts,
 contexts, unchanged counter/control diagnostics and a single no-refit attempt.
 New evaluator and tests use existing incubating components; no new runtime or
 primitive code is required. Observe and commit tests before implementation.
+
+`09b1911` records the initial missing-module failure, followed by `024b427`'s
+independent source reader and evaluator (25 tests pass). `ffbe57c` adds the
+observed empty-seed decision failure before its fix. Source reconstruction
+verifies all six learning workers, the exact recorded search and development
+selection, cumulative budgets, replay and compiled-source identities without
+calling a fitter or selector. Runtime checks still use the pinned physical code.
 
 ### 2026-09-08 — docs: register independent follow-up
 

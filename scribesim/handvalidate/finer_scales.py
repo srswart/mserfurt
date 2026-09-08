@@ -4,7 +4,6 @@ import argparse
 import copy
 import itertools
 import json
-import math
 import os
 from pathlib import Path
 import random
@@ -274,6 +273,8 @@ def worker(directory, seed, maximum, seconds):
 
 
 def decisions(records):
+    if [row.get('seed') for row in records] != SPEC['seeds'] or not all(complete(row) for row in records):
+        return [], False
     accepted = [name for name in SPEC['required_gestures'] if all(outcomes(row)[name]['null_accepted'] for row in records)]
     full = len(records) == len(SPEC['seeds']) and accepted == SPEC['required_gestures'] and all(quality(row) for record in records for row in record['fixtures'])
     return accepted, full
