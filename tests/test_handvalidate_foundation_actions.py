@@ -99,3 +99,24 @@ def test_no_optimistic_completion_for_empty_numeric_proof():
 def test_existing_output_is_immutable(tmp_path):
     with pytest.raises(ValueError, match='immutable'):
         evaluation.build(tmp_path)
+
+
+def test_every_frozen_probe_respects_unchanged_grammar_before_rendering():
+    candidate = json.loads((evaluation.learning.BASE / 'run-001/seed-7/first/candidate.json').read_text())
+    for fixture in [*evaluation.SPEC['fixtures'], evaluation.SPEC['counter_fixture']]:
+        model = evaluation.foundation.probe(candidate, fixture)
+        assert 1 <= len(evaluation.compile_gestures('i', model)['strokes']) <= 6
+
+
+def test_continuation_preserves_failed_attempt_costs():
+    usage = evaluation.prior_usage()
+    assert set(usage) == {7, 19, 41}
+    assert all(row['renders'] == 196 and row['seconds'] > 0 for row in usage.values())
+
+
+def test_support_terminal_is_not_missing_required_null_inventory():
+    fixture = {'instances': [{'gesture': 'compound_curve'}, {'gesture': 'terminal'}]}
+    row = {'fixture': fixture, 'actual_target': {label: .04 for label in evaluation.REFINEMENTS},
+           'local_actual_target': {'0': {label: .04 for label in evaluation.REFINEMENTS}}}
+    assert evaluation.quality(row)
+    assert not evaluation.quality(row, 'terminal')
