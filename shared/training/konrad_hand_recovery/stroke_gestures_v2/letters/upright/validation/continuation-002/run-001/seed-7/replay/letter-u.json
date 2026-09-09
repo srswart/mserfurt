@@ -1,0 +1,457 @@
+{
+  "fixture": {
+    "id": "letter-u",
+    "kind": "letter",
+    "text": "u",
+    "shift": [
+      0,
+      0
+    ]
+  },
+  "model_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+  "regions": {
+    "0": [
+      -1.5,
+      1.5,
+      5.7,
+      10.8
+    ]
+  },
+  "nominal_levels": {
+    "0": 0.0
+  },
+  "actual_levels": {
+    "base": {
+      "0": 0.00010259471440576817
+    },
+    "arc": {
+      "0": 3.208234316787184e-05
+    },
+    "time": {
+      "0": 9.977721829912412e-05
+    },
+    "subdivision": {
+      "0": 9.727641189094527e-05
+    }
+  },
+  "actual_port_errors_mm": {
+    "base": {
+      "0:0": 0.018383642268312687,
+      "0:1": 0.018383642268312687
+    },
+    "arc": {
+      "0:0": 0.006784064110055252,
+      "0:1": 0.006784064110055252
+    },
+    "time": {
+      "0:0": 0.019877509344346535,
+      "0:1": 0.019877509344346535
+    },
+    "subdivision": {
+      "0:0": 0.0183768068369127,
+      "0:1": 0.0183768068369127
+    }
+  },
+  "slant_diagnostics": [
+    {
+      "occurrence_id": "0:0",
+      "primitive": "stem",
+      "chord_deg_from_vertical": -0.007874647697747657,
+      "moving_tangent_deg_min": -1.9991002766511,
+      "moving_tangent_deg_max": 3.6340471728129224
+    },
+    {
+      "occurrence_id": "0:1",
+      "primitive": "lower-return",
+      "chord_deg_from_vertical": 71.18979027978017,
+      "moving_tangent_deg_min": -1.8423953782721576,
+      "moving_tangent_deg_max": 89.83127486995492
+    },
+    {
+      "occurrence_id": "0:2",
+      "primitive": "rise",
+      "chord_deg_from_vertical": 4.888555368957271,
+      "moving_tangent_deg_min": -2.049910393567412,
+      "moving_tangent_deg_max": 29.99407788239014
+    },
+    {
+      "occurrence_id": "0:3",
+      "primitive": "stem",
+      "chord_deg_from_vertical": 0.17831700533079983,
+      "moving_tangent_deg_min": -1.9861171121204018,
+      "moving_tangent_deg_max": 57.52997655007472
+    }
+  ],
+  "motion": {
+    "base": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.007330399468144321,
+        "actual_acceleration_mm_s2": 146.55479333004197,
+        "desired_acceleration_mm_s2": 125.74749227696309,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 12.0,
+        "corner_speed_mm_s": 0.10287044186103887,
+        "corner_error_mm": 0.005047169644046604,
+        "entry_speed_mm_s": 0.0,
+        "entry_error_mm": 0.0,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0"
+      ],
+      "expected_contact_runs": [
+        "contact:0"
+      ],
+      "contained": true
+    },
+    "arc": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.003075898691537603,
+        "actual_acceleration_mm_s2": 138.8262475457697,
+        "desired_acceleration_mm_s2": 125.77736716604274,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 12.0,
+        "corner_speed_mm_s": 0.01744083420560236,
+        "corner_error_mm": 0.0008557059479562448,
+        "entry_speed_mm_s": 0.0,
+        "entry_error_mm": 0.0,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0"
+      ],
+      "expected_contact_runs": [
+        "contact:0"
+      ],
+      "contained": true
+    },
+    "time": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.00733828264854308,
+        "actual_acceleration_mm_s2": 147.7999602343172,
+        "desired_acceleration_mm_s2": 125.74749227696309,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 12.0,
+        "corner_speed_mm_s": 0.10141212990778496,
+        "corner_error_mm": 0.005026326022921124,
+        "entry_speed_mm_s": 0.0,
+        "entry_error_mm": 0.0,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0"
+      ],
+      "expected_contact_runs": [
+        "contact:0"
+      ],
+      "contained": true
+    },
+    "subdivision": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.0073309162965702265,
+        "actual_acceleration_mm_s2": 146.55488054564563,
+        "desired_acceleration_mm_s2": 125.74748626457475,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 12.0,
+        "corner_speed_mm_s": 0.10283316321668244,
+        "corner_error_mm": 0.005045340628457666,
+        "entry_speed_mm_s": 0.0,
+        "entry_error_mm": 0.0,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0"
+      ],
+      "expected_contact_runs": [
+        "contact:0"
+      ],
+      "contained": true
+    }
+  },
+  "overlap": {
+    "base": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 62,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 62,
+      "union_pixels": 239,
+      "undeclared_pairs": 0
+    },
+    "arc": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 62,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 62,
+      "union_pixels": 239,
+      "undeclared_pairs": 0
+    },
+    "time": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 62,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 62,
+      "union_pixels": 239,
+      "undeclared_pairs": 0
+    },
+    "subdivision": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 62,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 62,
+      "union_pixels": 239,
+      "undeclared_pairs": 0
+    }
+  },
+  "losses": {
+    "nominal": {
+      "global": 0.23230271689034016,
+      "local": {
+        "0": 0.23230271689034013
+      }
+    },
+    "base": {
+      "global": 0.23205076110399153,
+      "local": {
+        "0": 0.2320507611039915
+      }
+    },
+    "arc": {
+      "global": 0.23230271689034016,
+      "local": {
+        "0": 0.23230271689034013
+      }
+    },
+    "time": {
+      "global": 0.23205076110399153,
+      "local": {
+        "0": 0.2320507611039915
+      }
+    },
+    "subdivision": {
+      "global": 0.23205076110399153,
+      "local": {
+        "0": 0.2320507611039915
+      }
+    }
+  },
+  "prior_losses": {
+    "global": 0.8297560439291954,
+    "local": {
+      "0": 0.7641483888437585
+    }
+  },
+  "ratios": {
+    "nominal": 0.2799650796037624,
+    "base": 0.2796614291655498,
+    "arc": 0.2799650796037624,
+    "time": 0.2796614291655498,
+    "subdivision": 0.2796614291655498
+  },
+  "tracking_losses": {
+    "base": 0.003136510128913445,
+    "arc": 0.0013649229177741702,
+    "time": 0.003136510128913445,
+    "subdivision": 0.003136510128913445
+  },
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "event_version": "declared-contact-events-v1",
+      "event_ids": [
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:0",
+          "gesture_occurrence_id": "0:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "0:0",
+              "occurrence_id": "0:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "0:1",
+              "occurrence_id": "0:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": []
+        }
+      ],
+      "endpoint_mm": 0.0042066119133965406,
+      "event_time_s": 0.0,
+      "image_loss": 0.00030153784299929634
+    },
+    "time": {
+      "owner_match": true,
+      "event_version": "declared-contact-events-v1",
+      "event_ids": [
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:0",
+          "gesture_occurrence_id": "0:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "0:0",
+              "occurrence_id": "0:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "0:1",
+              "occurrence_id": "0:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": []
+        }
+      ],
+      "endpoint_mm": 2.21787980490398e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.0
+    },
+    "subdivision": {
+      "owner_match": true,
+      "event_version": "declared-contact-events-v1",
+      "event_ids": [
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:0",
+          "gesture_occurrence_id": "0:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "0:0",
+              "occurrence_id": "0:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "0:1",
+              "occurrence_id": "0:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": []
+        }
+      ],
+      "endpoint_mm": 5.075305653187176e-06,
+      "event_time_s": 6.661338147750939e-14,
+      "image_loss": 0.0
+    }
+  }
+}

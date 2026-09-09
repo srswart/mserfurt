@@ -1,0 +1,356 @@
+{
+  "schema_version": "shared-stroke-gestures-connected-v1",
+  "units": "local-xheight-y-up",
+  "scope": "upright-shared-preview-v1; unaccepted synthetic nominal construction",
+  "primitives": {
+    "stem": {
+      "cubics": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0.019999999999999997,
+            0.7
+          ],
+          [
+            -0.01999999999999999,
+            0.5399999999999999
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "entry": [
+        0.06651901052377392,
+        -0.997785157856609
+      ],
+      "exit": [
+        0.03701166050988025,
+        -0.9993148337667671
+      ],
+      "closed": false,
+      "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+    },
+    "rise": {
+      "cubics": [
+        [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -0.008,
+            0.216
+          ],
+          [
+            0.03669910552841841,
+            0.8566554718115462
+          ],
+          [
+            0.08,
+            0.8981889828353081
+          ]
+        ]
+      ],
+      "entry": [
+        -0.037011660509880265,
+        0.9993148337667671
+      ],
+      "exit": [
+        0.7216815745263602,
+        0.6922251837293654
+      ],
+      "closed": false,
+      "provenance": "deterministic upright preview v1; no fitting or historical/physical admission"
+    },
+    "upper-return": {
+      "cubics": [
+        [
+          [
+            0.0,
+            0.8981889828353081
+          ],
+          [
+            0.18290601085575875,
+            1.0736294422275665
+          ],
+          [
+            0.38383636567610085,
+            1.0180237135802213
+          ],
+          [
+            0.40073046926498357,
+            0.7646121597469803
+          ]
+        ]
+      ],
+      "entry": [
+        0.72168157452636,
+        0.6922251837293657
+      ],
+      "exit": [
+        0.06651901052377386,
+        -0.997785157856609
+      ],
+      "closed": false,
+      "provenance": "deterministic upright preview v1; no fitting or historical/physical admission"
+    },
+    "lower-return": {
+      "cubics": [
+        [
+          [
+            0.0,
+            0.24828332068073714
+          ],
+          [
+            0.006790325394673221,
+            0.06494453502456013
+          ],
+          [
+            0.4031590692016797,
+            -0.13109169221828862
+          ],
+          [
+            0.39397199458298726,
+            0.11695932248640808
+          ]
+        ]
+      ],
+      "entry": [
+        0.03701166050988026,
+        -0.9993148337667671
+      ],
+      "exit": [
+        -0.037011660509880175,
+        0.9993148337667671
+      ],
+      "closed": false,
+      "provenance": "deterministic upright preview v1; no fitting or historical/physical admission"
+    }
+  },
+  "recipes": {
+    "n": {
+      "logical": "n",
+      "visible": "n",
+      "advance": 1.3,
+      "gestures": [
+        {
+          "gesture": "stem",
+          "scale": 1,
+          "rotation_deg": 0,
+          "offset": [
+            -0.2,
+            0
+          ],
+          "transition": "start",
+          "overlap_with": []
+        },
+        {
+          "gesture": "overturn",
+          "scale": 1,
+          "rotation_deg": 0,
+          "offset": [
+            -0.2,
+            0
+          ],
+          "transition": "corner",
+          "overlap_with": [
+            0
+          ]
+        }
+      ]
+    },
+    "u": {
+      "logical": "u",
+      "visible": "u",
+      "advance": 1.3,
+      "gestures": [
+        {
+          "gesture": "underturn",
+          "scale": 1,
+          "rotation_deg": 0,
+          "offset": [
+            -0.2,
+            0
+          ],
+          "transition": "start",
+          "overlap_with": []
+        },
+        {
+          "gesture": "stem",
+          "scale": 1,
+          "rotation_deg": 0,
+          "offset": [
+            0.2726227635760428,
+            0
+          ],
+          "transition": "corner",
+          "overlap_with": [
+            0
+          ]
+        }
+      ]
+    },
+    "m": {
+      "logical": "m",
+      "visible": "m",
+      "advance": 2.3,
+      "gestures": [
+        {
+          "gesture": "overturn",
+          "scale": 1,
+          "rotation_deg": 0,
+          "offset": [
+            -0.2,
+            0
+          ],
+          "transition": "start",
+          "overlap_with": []
+        },
+        {
+          "gesture": "overturn",
+          "scale": 1,
+          "rotation_deg": 0,
+          "offset": [
+            0.2807304692649836,
+            0
+          ],
+          "transition": "corner",
+          "overlap_with": [
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "letter_rules": [],
+  "word_rules": [],
+  "x_height_mm": 3.5,
+  "nib_width_mm": 0.45,
+  "nib_angle_deg": 40,
+  "letter_gap": 0.15,
+  "word_gap": 0.8,
+  "line_pitch": 3,
+  "sampling": "gesture-arc-v3",
+  "migration_source_sha256": "73c17320af9b418bb148abe22a105fa030c35d36a605da12504bb20e441cd863",
+  "gestures": {
+    "stem": {
+      "action": "fixed",
+      "strokes": [
+        {
+          "primitive": "stem",
+          "offset": [
+            0,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "start"
+        }
+      ]
+    },
+    "overturn": {
+      "action": "fixed",
+      "strokes": [
+        {
+          "primitive": "rise",
+          "offset": [
+            0,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "start"
+        },
+        {
+          "primitive": "upper-return",
+          "offset": [
+            0.08,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "smooth"
+        },
+        {
+          "primitive": "stem",
+          "offset": [
+            0.4807304692649836,
+            0
+          ],
+          "scale": 0.7646121597469803,
+          "rotation_deg": 0,
+          "transition": "smooth"
+        }
+      ]
+    },
+    "underturn": {
+      "action": "fixed",
+      "strokes": [
+        {
+          "primitive": "stem",
+          "offset": [
+            0,
+            0.24828332068073714
+          ],
+          "scale": 0.7517166793192629,
+          "rotation_deg": 0,
+          "transition": "start"
+        },
+        {
+          "primitive": "lower-return",
+          "offset": [
+            0,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "smooth"
+        },
+        {
+          "primitive": "rise",
+          "offset": [
+            0.39397199458298726,
+            0.11695932248640808
+          ],
+          "scale": 0.9831346124131943,
+          "rotation_deg": 0,
+          "transition": "smooth"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "fixed": {
+      "frame": "physical-y-down",
+      "orientation": [
+        [
+          0,
+          40
+        ],
+        [
+          1,
+          40
+        ]
+      ],
+      "edge": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ]
+      ],
+      "pressure": 0.5,
+      "speed_mm_s": 12
+    }
+  }
+}

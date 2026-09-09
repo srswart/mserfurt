@@ -1,0 +1,21 @@
+{
+  "id": "HANDVALIDATE-021-owner-authorized-event-repair-002",
+  "recorded_at": "2026-09-09T06:10:41Z",
+  "authorization_verbatim": "Okay let's do the \"repair boundary sampling and exact-event comparison, then one bounded no-refit rerun with unchanged targets and thresholds\" -- approved.",
+  "original_spec_sha256": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+  "prior_reports": {
+    "run-001": "6f4678661d6d5103311ac88040f29ad36cd0247d03c45fb9909e0145e4685421",
+    "continuation-001/run-001": "cc4a202e570d292ad899493e5ca53e7cad7b4f796f5e87349af5274d9e587b5c"
+  },
+  "allowed_existing_code_changes": {
+    "scribesim/handvalidate/upright_letters.py": "489af6613967f7bed19580c936f65cef4acbcfd6a9559b0313f2e3ef54c96e1d",
+    "scribesim/evofit/stroke_gestures.py": "2e984b572704f14354513915d658088f0e243761661c0c8d179eff136dc2421b",
+    "scribesim/handvalidate/upright_measurement.py": "f0f42e995662d9c7949e1d1a0b161b347e186011b1b3e108787ca1a9dc0ce785"
+  },
+  "sampling_repair": "Connected boundary-preserving sampling only: remove ordinary grid targets within eight machine ULPs of a declared boundary, keeping every exact boundary. Distinct boundary definitions and ordinary targets outside roundoff remain. Legacy sampling is unchanged. No geometry fit or relaxed geometric acceptance tolerance.",
+  "comparison_version": "declared-contact-events-v1",
+  "comparison_repair": "Compare actual samples at identical declared contact-run entry, corner and terminal events. Require unique event records, complete zero-speed interior corner inventory and stable contact/gesture/contributor identity. Do not use first/last ownership samples on the integration grid. Missing events fail closed. Existing endpoint/time/image thresholds stay unchanged.",
+  "budget_policy": "One immutable new attempt, zero automatic retries or optimization. Retain 5000 renders and 1800 execution seconds per seed across all attempts including replay. Seed 7 starts with 149 calls and 34.57516137394123 seconds debited from the two pinned prior ledgers; seeds 19/41 have zero debit. Tests and read-only archive inspection are not candidate fitting or additional experiment attempts.",
+  "output": "continuation-002/run-001",
+  "scope": "Same reviewed candidate, targets, fixtures, numeric gates and caps. Source archives remain unchanged, and old readers retain their stale-code rejection. New authorized loader checks archived source identity separately from explicitly allowed current code. Finish seeds 7/19/41 with fresh-process replay even if numeric gates fail; do not infer S2, historical-hand, context or fatigue acceptance. Actual-ink owner review remains separate."
+}
