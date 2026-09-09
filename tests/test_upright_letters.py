@@ -72,8 +72,21 @@ def test_preview_exports_nominal_only_and_freezes_review_identity(tmp_path, monk
             assert (output / f'{letter}-{arm}-detail.png').is_file()
         assert (output / f'{letter}-paths.svg').is_file()
     assert (output / 'strokes.svg').is_file()
+    assert (output / 'strokes-ink.png').is_file()
     assert 'Nominal' in (output / 'index.html').read_text()
     assert all(row['contained'] for row in report['containment'])
+    assert upright.verify_preview(output)['candidate_sha256'] == report['candidate_sha256']
+    before = {path: path.read_bytes() for path in output.iterdir()}
+    upright.verify_preview(output)
+    assert all(path.read_bytes() == data for path, data in before.items())
+    review['candidate_sha256'] = 'wrong'
+    (output / 'owner-review.json').write_text(json.dumps(review))
+    with pytest.raises(ValueError, match='review'):
+        upright.verify_preview(output)
+    (output / 'owner-review.json').write_bytes(before[output / 'owner-review.json'])
+    (output / 'candidate.json').write_text('{}')
+    with pytest.raises(ValueError, match='artifact'):
+        upright.verify_preview(output)
     with pytest.raises(ValueError, match='empty'):
         upright.build(output)
 
