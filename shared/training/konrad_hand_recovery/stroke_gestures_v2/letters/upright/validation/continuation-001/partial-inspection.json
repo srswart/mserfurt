@@ -1,0 +1,198 @@
+{
+  "numeric_pass": false,
+  "failures": [
+    "fixture-inventory",
+    "negative-controls",
+    "primitive-rise:nominal:target-image",
+    "primitive-rise:base:target-image",
+    "primitive-rise:arc:target-image",
+    "primitive-rise:time:target-image",
+    "primitive-rise:subdivision:target-image",
+    "primitive-upper:nominal:target-image",
+    "primitive-upper:base:target-image",
+    "primitive-upper:arc:target-image",
+    "primitive-upper:time:target-image",
+    "primitive-upper:subdivision:target-image",
+    "primitive-lower:nominal:target-image",
+    "primitive-lower:base:target-image",
+    "primitive-lower:arc:target-image",
+    "primitive-lower:time:target-image",
+    "primitive-lower:subdivision:target-image",
+    "gesture-overturn:nominal:target-image",
+    "gesture-overturn:base:target-image",
+    "gesture-overturn:arc:target-image",
+    "gesture-overturn:time:target-image",
+    "gesture-overturn:subdivision:target-image",
+    "gesture-underturn:nominal:target-image",
+    "gesture-underturn:base:target-image",
+    "gesture-underturn:arc:target-image",
+    "gesture-underturn:time:target-image",
+    "gesture-underturn:subdivision:target-image",
+    "letter-n:nominal:target-image",
+    "letter-n:base:target-image",
+    "letter-n:arc:target-image",
+    "letter-n:time:target-image",
+    "letter-n:subdivision:target-image",
+    "letter-n:arc:convergence",
+    "letter-n:time:convergence",
+    "letter-u:nominal:target-image",
+    "letter-u:base:target-image",
+    "letter-u:arc:target-image",
+    "letter-u:time:target-image",
+    "letter-u:subdivision:target-image",
+    "letter-u:arc:convergence",
+    "letter-u:time:convergence",
+    "letter-m:nominal:target-image",
+    "letter-m:base:target-image",
+    "letter-m:arc:target-image",
+    "letter-m:time:target-image",
+    "letter-m:subdivision:target-image",
+    "letter-m:time:convergence"
+  ],
+  "actual_ink_review": "pending",
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "status": "incomplete",
+  "evaluation_complete": false,
+  "report_sha256": "cc4a202e570d292ad899493e5ca53e7cad7b4f796f5e87349af5274d9e587b5c",
+  "reader_sha256": "d2b3151c681b7569a0e63c57861a2280acb5bee4a8fcd154468c0904055639f1",
+  "artifacts_verified": 180,
+  "completed_fixtures": [
+    "primitive-stem",
+    "primitive-rise",
+    "primitive-upper",
+    "primitive-lower",
+    "gesture-overturn",
+    "gesture-underturn",
+    "letter-n",
+    "letter-u",
+    "letter-m"
+  ],
+  "missing_fixtures": [
+    "placed-mu"
+  ],
+  "controls_executed": false,
+  "replay_complete": false,
+  "seeds_completed": [],
+  "letters": {
+    "n": {
+      "per_run_motion_pass": true,
+      "contact_runs": [
+        "contact:0"
+      ],
+      "max_corridor_mm": 0.006924389540501729,
+      "max_clock_error_s": 0.0,
+      "max_port_error_mm": 0.006924389540501729,
+      "max_level_error_mm": 0.0006028311973604872,
+      "undeclared_overlap_pairs": 0,
+      "base_target_loss": {
+        "global": 0.38201269616214995,
+        "local": {
+          "0": 0.38201269616215
+        }
+      },
+      "base_relative_loss": 0.6091188399009406,
+      "comparisons": {
+        "arc": {
+          "owner_match": true,
+          "endpoint_mm": 0.005535501587541553,
+          "event_time_s": 0.0040000000000000036,
+          "image_loss": 0.00043973373364266315
+        },
+        "time": {
+          "owner_match": true,
+          "endpoint_mm": 0.001032141444308022,
+          "event_time_s": 0.0010000000000000009,
+          "image_loss": 0.0
+        },
+        "subdivision": {
+          "owner_match": true,
+          "endpoint_mm": 8.395410416669535e-06,
+          "event_time_s": 1.2079226507921703e-13,
+          "image_loss": 0.0
+        }
+      }
+    },
+    "u": {
+      "per_run_motion_pass": true,
+      "contact_runs": [
+        "contact:0"
+      ],
+      "max_corridor_mm": 0.00733828264854308,
+      "max_clock_error_s": 0.0,
+      "max_port_error_mm": 0.019877509344346535,
+      "max_level_error_mm": 0.00010259471440576817,
+      "undeclared_overlap_pairs": 0,
+      "base_target_loss": {
+        "global": 0.23205076110399153,
+        "local": {
+          "0": 0.2320507611039915
+        }
+      },
+      "base_relative_loss": 0.2796614291655498,
+      "comparisons": {
+        "arc": {
+          "owner_match": true,
+          "endpoint_mm": 0.012086292060273786,
+          "event_time_s": 0.008000000000000007,
+          "image_loss": 0.00030153784299929634
+        },
+        "time": {
+          "owner_match": true,
+          "endpoint_mm": 0.001501715100309024,
+          "event_time_s": 0.0009999999999994458,
+          "image_loss": 0.0
+        },
+        "subdivision": {
+          "owner_match": true,
+          "endpoint_mm": 9.090838355288348e-06,
+          "event_time_s": 6.661338147750939e-14,
+          "image_loss": 0.0
+        }
+      }
+    },
+    "m": {
+      "per_run_motion_pass": true,
+      "contact_runs": [
+        "contact:0"
+      ],
+      "max_corridor_mm": 0.007320100591484093,
+      "max_clock_error_s": 0.0,
+      "max_port_error_mm": 0.011016454249354157,
+      "max_level_error_mm": 8.330613063822767e-05,
+      "undeclared_overlap_pairs": 0,
+      "base_target_loss": {
+        "global": 0.5896627006925655,
+        "local": {
+          "0": 0.5896627006925657
+        }
+      },
+      "base_relative_loss": 0.6621727343453311,
+      "comparisons": {
+        "arc": {
+          "owner_match": true,
+          "endpoint_mm": 0.005554757472172331,
+          "event_time_s": 0.0,
+          "image_loss": 0.0002819965354711352
+        },
+        "time": {
+          "owner_match": true,
+          "endpoint_mm": 0.0014291112773222657,
+          "event_time_s": 0.001000000000000334,
+          "image_loss": 0.0007246085101243913
+        },
+        "subdivision": {
+          "owner_match": true,
+          "endpoint_mm": 5.669518619412166e-06,
+          "event_time_s": 2.0961010704922955e-13,
+          "image_loss": 0.0
+        }
+      }
+    }
+  },
+  "combined_renders": 149,
+  "combined_seconds": 34.57516137394123,
+  "rerenders": 0,
+  "scope": "Partial saved seed-7 evidence only. No replay, full protocol pass or acceptance. No candidate or archive modification."
+}

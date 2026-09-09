@@ -18,6 +18,21 @@ reported against that old nominal reference, not claimed as old-vs-new physics.
 
 ## Reproduce and inspect
 
+Both permitted attempts now exist and are immutable. The continuation has nine
+saved fixture records but is blocked at the finer translated-mu corner plan;
+neither original command below may start another run. See `outcome.md` and the
+partial-results gallery `index.html`. The non-admitting partial reader is:
+
+```sh
+.venv/bin/python -m scripts.handvalidate_upright_partial \
+  --report-sha256 cc4a202e570d292ad899493e5ca53e7cad7b4f796f5e87349af5274d9e587b5c
+```
+
+It verifies saved traces/metric pixels and explicitly returns `status=incomplete`,
+`numeric_pass=false`, no replay and no acceptance. It does not render or modify
+the frozen evaluator identities. Its own source hash is included in the separate
+partial receipt. The complete-run reader correctly rejects this incomplete run.
+
 The first attempt is preserved after a pre-score adapter failure. The owner has
 authorized one continuation with the unchanged original protocol. Its explicit
 authorization, prior debit and output path are in

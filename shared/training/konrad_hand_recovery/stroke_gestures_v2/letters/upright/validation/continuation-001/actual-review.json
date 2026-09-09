@@ -1,0 +1,11 @@
+{
+  "status": "pending_partial_actual_ink_review",
+  "candidate_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+  "report_sha256": "cc4a202e570d292ad899493e5ca53e7cad7b4f796f5e87349af5274d9e587b5c",
+  "letters": {"n": {"verdict": "pending"}, "u": {"verdict": "pending"}, "m": {"verdict": "pending"}},
+  "scope": "Saved actual physical ink from seed 7 first process only. Full validation is incomplete; replay, seeds 19/41 and the complete control suite are absent. Nominal KEEP approval is separate and unchanged. No owner actual-ink verdict is inferred.",
+  "questions": ["Are upstrokes upright and close enough to stems?", "Are descents and turns acceptable?", "Are repeated ink coverage and counters visually acceptable?"],
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false
+}

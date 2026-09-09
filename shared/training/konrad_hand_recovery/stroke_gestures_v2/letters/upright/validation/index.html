@@ -6,28 +6,28 @@
 :root{color-scheme:light;font:16px/1.5 system-ui;color:#242b30;background:#f5f2ea}body{max-width:1240px;margin:auto;padding:24px}h1{line-height:1.2}p{max-width:900px}.note{padding:16px;border-left:4px solid #956123;background:#fff9e8}.controls{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}button{font:inherit;padding:10px 16px;cursor:pointer}section{margin:36px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}figure{margin:0;background:white;border:1px solid #d7d0c4;min-width:0}figcaption{font-weight:600;padding:12px}.window{overflow:auto}img{display:block;width:100%;height:auto}.detail img{width:815px;max-width:none}a{color:#174f85}@media(max-width:700px){body{padding:16px}.grid{grid-template-columns:1fr}}
 </style>
 <h1>Actual upright ink · n, u, m</h1>
-<p>Your approved shapes are unchanged. A completed run will compare nominal construction, actual physical ink and an independent analytic yardstick, <strong>not a proposed replacement for your letters</strong>. No actual-ink result is claimed while the evaluation is incomplete.</p>
-<p class="note">HANDVALIDATE-021 keeps numerical evidence, nominal approval and actual-ink review separate. See the linked outcome for the run status. No S2, real-hand, context or fatigue acceptance is granted here. The protocol specifies full-frame metrics at 180 DPI and fresh presentation renders at 900 DPI.</p>
-<p><a href="outcome.md">Measured outcome and archive hash</a> · <a href="spec-v1.json">Frozen protocol</a> · <a href="run-001/report.json">Immutable report</a> · <a href="../run-001/index.html">Original approved preview</a></p>
+<p>Your approved shapes are unchanged. These saved <strong>seed-7 partial results</strong> compare nominal construction, actual physical ink and an independent analytic yardstick, <strong>not a proposed replacement for your letters</strong>. Review the middle column for actual ink.</p>
+<p class="note">INCOMPLETE: n/u/m were measured, but the translated mu probe stopped at a duplicate corner sample. No replay, seeds 19/41 or complete negative-control suite ran. Image-target and convergence gates also fail. These samples are evidence, not acceptance. S2, real-hand and context remain false. Metric images are 180 DPI; these saved presentation images are 900 DPI.</p>
+<p><a href="outcome.md">Measured outcome and archive hashes</a> · <a href="spec-v1.json">Frozen protocol</a> · <a href="continuation-001/run-001/report.json">Immutable continuation report</a> · <a href="continuation-001/partial-inspection.json">Read-only partial verification</a> · <a href="../run-001/index.html">Original approved preview</a></p>
 <div class="controls"><button id="full">Fit complete frame</button><button id="detail">Native-resolution detail (scroll)</button></div>
-<main id="samples"></main>
-<h2>Review checklist · awaiting actual samples</h2>
-<p>Once actual samples exist, review each n/u/m for keep or repair: are upstrokes close and upright enough, descents appropriately vertical, turns acceptable, and retraced ink/counters visually sound? Review will concern the actual middle column, not the analytic target. Nominal KEEP feedback is preserved.</p>
+<main id="samples" class="detail"></main>
+<h2>Actual-ink review · separate from validation</h2>
+<p>For these partial n/u/m samples: keep or repair? Are upstrokes close and upright enough, descents appropriately vertical, turns acceptable, and retraced ink/counters visually sound? Judge the actual middle column, not the analytic target. Nominal KEEP feedback is preserved. Appearance feedback cannot complete the missing validation.</p>
 <script>
 const samples=document.getElementById('samples');
-fetch('run-001/report.json').then(response=>response.json()).then(report=>{
-if(!report.evaluation_complete){
- samples.textContent='No actual-ink comparison is available. The first attempt stopped before scoring because of a nominal-sample scalar-type adapter error. The adapter is repaired and tested; the failed archive is preserved. A new attempt requires explicit authorization.';
- document.getElementById('full').disabled=true;document.getElementById('detail').disabled=true;return;
-}
+const runRoot='continuation-001/run-001';
+fetch(`${runRoot}/report.json`).then(response=>response.json()).then(report=>{
 for(const [id,title] of [['letter-n','n · stem, pen-down reversal, overturn'],['letter-u','u · underturn, pen-down reversal, stem'],['letter-m','m · two overturns with pen-down reversal'],['placed-mu','mu · fixed placement probe, not context learning']]){
  const section=document.createElement('section');
  const heading=document.createElement('h2');heading.textContent=title;section.append(heading);
+ if(!['nominal','actual','target'].every(kind=>`seed-7/first/${id}-${kind}-full.png` in report.artifacts)){
+  const missing=document.createElement('p');missing.textContent='Incomplete fixture: no comparison is shown. The finer arc plan encountered two samples at one corner. No replacement or reconstructed sample is substituted.';section.append(missing);samples.append(section);continue;
+ }
  const grid=document.createElement('div');grid.className='grid';
  for(const [kind,label] of [['nominal','1 · Approved construction (nominal)'],['actual','2 · Actual physical ink — review this'],['target','3 · Independent analytic yardstick']]){
   const figure=document.createElement('figure');const caption=document.createElement('figcaption');caption.textContent=label;
   const window=document.createElement('div');window.className='window';const picture=document.createElement('img');
-  picture.src=`run-001/seed-7/first/${id}-${kind}-full.png`;picture.alt=`${title}: ${label}, entire unchanged frame`;window.append(picture);figure.append(caption,window);grid.append(figure);
+  picture.src=`${runRoot}/seed-7/first/${id}-${kind}-full.png`;picture.alt=`Partial seed-7 ${title}: ${label}, entire unchanged frame`;window.append(picture);figure.append(caption,window);grid.append(figure);
  }
  section.append(grid);samples.append(section);
 }
