@@ -96,6 +96,37 @@ split test, implementation and evidence commits before merge.
 
 ## Changes Made
 
+### 2026-09-09 - authorized boundary/event repair and pre-run freeze
+
+Owner explicitly approves boundary sampling repair, exact-event comparison and
+one bounded no-refit rerun with unchanged targets/thresholds. Authorization is
+frozen in `continuation-002/authorization.json`, binding the original spec, both
+failed reports and the two repair hashes (plus the already approved scalar adapter).
+
+Red `814fc5b`: five regressions fail, including translated mu and old grid-dependent
+comparisons. Green `aab177f`: connected-only sampling drops ordinary arc-grid
+shadows within eight machine ULPs of an exact boundary, never the boundary itself;
+distinct nearby targets and legacy sampling are preserved. The planner's existing
+uniqueness/geometric tolerances are unchanged. All ten frozen fixtures and four
+refinements pass plan-only preflight without controller execution or scoring.
+
+`declared-contact-events-v1` compares actual records at the same entry/corner/end
+events with stable contact, gesture and contributor identity. Missing/duplicate
+events and incomplete corner inventories fail closed. Saved n/u/m trace tests
+verify event correspondence without rerendering or modifying old results. All
+existing endpoint/time/image limits remain unchanged. The focused repair/clock/
+gesture suite passes 79 tests; source/replay/repair checks pass 33 tests.
+
+Red `cb593c5` precedes the new `upright_event_replay` wrapper. Its new authorized
+source loader checks byte-pinned nominal archives and both prior attempts without
+repinning old readers; those readers deliberately reject the changed sampler.
+Both failed archives and prior inspection receipts are immutable. Seed 7 starts
+with 149 calls and 34.57516137394123 seconds already debited from the unchanged
+5,000-render/1,800-second cap; seeds 19/41 have zero debit. One new attempt writes
+only `continuation-002/run-001`, freezing all current identities before scoring.
+No refactoring of archived runners was needed; new orchestration is isolated.
+No candidate/target changes, acceptance or additional automatic retry is implied.
+
 ### 2026-09-09 - continuation measured n/u/m, blocked on finer placement plan
 
 The authorized attempt is preserved in `28b1b30`: nine complete saved fixture
