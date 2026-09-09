@@ -1778,6 +1778,14 @@ passes:
       dependencies:
       - ADV-SS-HANDVALIDATE-021
       notes: "COMPLETE read-only reconciliation: all 1256 source artifacts verified; saved nominal/actual target scores recomputed. n/u/m nominal-to-actual loss 0/0.000302/0.000957 versus target mismatch 0.382013/0.232303/0.590033 already in nominal design; approved port spans 18.16–20.18% wider than analytic. 34 focused tests pass. Owner approves TD-018 section14 reference contract; review pins exact document revision. Next: implement versioned approved-style regression, mechanical checks and explicit independent style provenance, then concrete protocol freeze. No repeat design review required. Zero execution/render/refit so far, no replacement target or relaxed gates; original numeric FAIL, appearance KEEP, S2/real/context false remain."
+    - id: ADV-SS-HANDVALIDATE-023
+      advance_id: ADV-SS-HANDVALIDATE-023
+      title: "Approved Appearance — Versioned Reference Contract"
+      status: in_progress
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-022
+      notes: "Implement approved versioned reference registry, separate result channels and exact replay regression; freeze zero-execution validation and prepare held-out placement protocol. No new target tolerance, refit, historical gate change or S2/real/context admission."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 11
