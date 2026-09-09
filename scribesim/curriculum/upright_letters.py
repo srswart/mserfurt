@@ -196,6 +196,19 @@ def build(output):
     for index, (name, definition) in enumerate(model['primitives'].items()):
         isolated.append({'primitive': name, 'cubics': (np.array(definition['cubics'])+[index*1.1, 0]).tolist()})
     (output/'strokes.svg').write_text(path_svg(isolated, [-1, 15, 5.7, 10.7], title='Shared primitives: stem, rise, upper return, lower return'))
+    isolated_trajectory = []
+    for row in isolated:
+        isolated_trajectory.append(ContactSample(0, 0, False, .45, 0, 40))
+        for cubic in row['cubics']:
+            isolated_trajectory.extend(ContactSample(float(point[0]*3.5), float(10-point[1]*3.5), True, .45, .5, 40)
+                                       for point in points(cubic, 1025))
+    isolated_frame = [-1, 15, 5.7, 10.7]
+    if not all(-1 <= horizontal <= 15 and 5.7 <= vertical <= 10.7 for sample in isolated_trajectory if sample.contact
+               for horizontal, vertical in contact_corners(sample)):
+        raise ValueError('Isolated primitive ink outside frame')
+    Image.fromarray(paint_trajectory(isolated_trajectory, isolated_frame, dpi=1800, contact_version=VERSION)).save(output/'strokes-ink.png')
+    containment.append({'letter': 'isolated primitives, not a recipe', 'arm': 'proposed', 'view': 'ink',
+                        'frame_mm': isolated_frame, 'dpi': 1800, 'contained': True})
     report = {'version': 'upright-shared-preview-v1', 'source_file_sha256': SOURCE_SHA256,
         'source_report_sha256': REPORT_SHA256, 'candidate_sha256': digest(output/'candidate.json'),
         'candidate_object_sha256': object_digest(model), 'proposed_parameters': {'rise_dx_xheight': .08, 'rise_entry_handle': [-.008, .216], 'rise_exit_handle_length_xheight': .06},
@@ -233,11 +246,35 @@ button{font:inherit;padding:10px 16px;cursor:pointer}.timeline{font-family:monos
 <p>Stem cubic geometry is unchanged. Upstroke bodies are more upright; the final rise still turns toward the arch. The n cap keeps its height profile and width, but its exit handle changes to meet the upright stem. Letter widths narrow; advance spacing is unchanged. Fixed-tool retracing may remain visually heavy.</p>
 <p><button id="view" type="button">Show full physical frame</button> Detail uses a shared, uncropped ink-containing frame at 1800 DPI; full views use 900 DPI. No per-letter stretching.</p>
 '''+'\n'.join(sections)+'''
-<section><h2>The four shared primitives</h2><p>Blue: stem · orange: rise · purple: upper return · teal: lower return. Arrows show writing direction; these are vector centerlines, not ink thickness.</p><img src="strokes.svg" alt="Four isolated shared stroke primitives"/></section>
+<section><h2>The four shared primitives</h2><p>Stem · rise · upper return · lower return. Isolated nominal ink, then vector centerlines at the same physical scale. These tiles are diagnostics, not an extra letter recipe.</p><img src="strokes-ink.png" alt="Nominal ink of four isolated shared primitives"/><p>Blue: stem · orange: rise · purple: upper return · teal: lower return. Arrows show writing direction; vector line width does not represent ink thickness.</p><img src="strokes.svg" alt="Four isolated shared stroke primitives"/></section>
 <section><h2>Your review is the next gate</h2><p>For each n/u/m, say keep or repair: upstroke angle and stem proximity, descending slant, turn shape, width and overlap. Is the adjusted n cap still acceptable? We will not fit or run scored physical validation before this review.</p><p><a href="candidate.json">Frozen candidate</a> · <a href="report.json">Measurements and provenance</a> · <a href="owner-review.json">Pending owner review</a></p></section>
 <script>let full=false;document.getElementById('view').onclick=()=>{full=!full;document.querySelectorAll('.ink').forEach(image=>image.src=image.dataset.prefix+'-'+(full?'full':'detail')+'.png');document.getElementById('view').textContent=full?'Show enlarged detail':'Show full physical frame';};</script></html>''')
     report['artifacts'] = {path.name: digest(path) for path in sorted(output.iterdir()) if path.name not in {'report.json', 'owner-review.json'}}
     write_json(output/'report.json', report)
+    return report
+
+
+def verify_preview(directory):
+    directory = Path(directory)
+    report = json.loads((directory/'report.json').read_text())
+    actual = {path.name for path in directory.iterdir()} - {'report.json', 'owner-review.json'}
+    if actual != set(report['artifacts']):
+        raise ValueError('Incomplete preview artifact inventory')
+    for name, checksum in report['artifacts'].items():
+        if Path(name).name != name or digest(directory/name) != checksum:
+            raise ValueError('Changed preview artifact')
+    if digest(directory/'candidate.json') != report['candidate_sha256']:
+        raise ValueError('Changed preview candidate')
+    for name, checksum in report['source_identities'].items():
+        path = (ROOT/name).resolve()
+        if not path.is_relative_to(ROOT) or digest(path) != checksum:
+            raise ValueError('Stale preview source identity')
+    if any(report[key] != 0 for key in ('optimization_evaluations', 'physical_executions', 'targets_created')) or any(
+            report[key] is not False for key in ('S2_accepted', 'real_accepted', 'context_training_allowed')):
+        raise ValueError('Overstated preview scope')
+    review = json.loads((directory/'owner-review.json').read_text())
+    if review['candidate_sha256'] != report['candidate_sha256']:
+        raise ValueError('Stale owner review binding')
     return report
 
 
