@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -41,8 +41,8 @@ Fixed tool/actions and existing primitive/gesture/expanded-reference caps remain
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create `advance/ss-gesture-003` from the verified integration branch.
-- [ ] tidy: inspect boundaries; separate any necessary no-behavior refactor.
+- [x] branch: `advance/ss-gesture-003` from clean `fc562b8`.
+- [x] tidy: boundary audit complete; version-gated additions need no preparatory refactor.
 - [ ] test: commit failing tests before changing the compiler or executor.
 - [ ] feat/fix: add an explicit new version and reject implicit legacy migration.
 - [ ] feat/fix: preserve primitive/gesture/action ownership within one contact run.
