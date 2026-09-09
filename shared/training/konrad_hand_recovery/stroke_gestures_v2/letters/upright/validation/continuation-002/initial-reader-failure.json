@@ -1,0 +1,12 @@
+{
+  "status": "reader_failed",
+  "report_sha256": "c986db16fbbac20d8ce66844a6789d5198b8deaa1c00bc70b97682b823488655",
+  "reader": "scribesim.handvalidate.upright_event_replay.inspect_run",
+  "reason": "Changed negative control evidence",
+  "diagnosis": "trace-owner control mutated one owner dictionary shared by eight live trace records. JSON serialization loses object aliasing, so the original reader mutated only one decoded row. Both detected the intended owner gate; exact diagnostic counts differed (saved 8, decoded 1).",
+  "repair_scope": "Separate read-only script restores original mapped-owner aliases only after exact saved owner-value checks. No saved values, code freeze, decisions, targets, limits or archived files change. No execution, rendering or refitting.",
+  "rerenders": 0,
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false
+}
