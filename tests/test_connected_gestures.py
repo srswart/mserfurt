@@ -104,6 +104,15 @@ def test_parallel_finite_width_overlap_requires_owner_without_crossing():
     validate_gestures(model)
 
 
+def test_short_retracing_cannot_hide_in_the_connection_neighborhood():
+    model = connected_model()
+    for primitive in model['primitives'].values():
+        primitive['cubics'] = [[[value * .1 for value in point] for point in cubic] for cubic in primitive['cubics']]
+    model['recipes']['i']['gestures'][1]['overlap_with'] = []
+    with pytest.raises(ValueError, match='overlap'):
+        validate_gestures(model)
+
+
 @pytest.mark.parametrize('transition', ['smooth', 'corner', 'lift'])
 def test_actual_controller_preserves_contact_and_corner_clock(transition):
     result = execute_actions('i', connected_model(transition), dpi=72)
