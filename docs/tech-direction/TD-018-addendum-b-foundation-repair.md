@@ -569,7 +569,7 @@ changed geometry, contact topology or compiler identities.
 
 ### Why geometry alone is insufficient
 
-`stroke_gestures._lower` requires every subsequent gesture instance to use
+The legacy `stroke_gestures._lower` contract requires every subsequent gesture instance to use
 `lift`. Internal primitive joins already support `smooth` and `corner`, but this
 does not enable pen-down connections between gesture occurrences. Replacing a
 label in the gallery, deleting diagnostic lift samples, or joining rendered
@@ -602,6 +602,15 @@ Version changes must not reinterpret old models. Preserve old evidence and
 source snapshots; if shared compiler identities change, old live admission must
 fail closed until separately refreshed, rather than updating historical hashes.
 Test legacy output compatibility separately from new-version admission.
+
+GESTURE-003 implements this as `shared-stroke-gestures-connected-v1`, with
+fixed-tool execution through the existing curve-tangent clock and event-time-v2
+controller. [Contract details and bounded diagnostic proofs](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/language/connected-contact/README.md)
+document conservative overlap admission, outgoing boundary ownership with both
+contributors, and unchanged legacy guide serialization. Shared source identity
+changes invalidate old live admissions; their reports are preserved, not repinned.
+The repaired upright letter vocabulary remains CURRICULUM-015, and the new
+contract's synthetic tracking pass cannot grant geometry or S2 acceptance.
 
 ### B. Shared geometry and owner-review checkpoint
 

@@ -1747,11 +1747,11 @@ passes:
     - id: ADV-SS-GESTURE-003
       advance_id: ADV-SS-GESTURE-003
       title: "Upright Construction — Explicit Pen-down Gesture Connections"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-020
-      notes: "New opt-in contact/geometry contract; explicit smooth/corner connections, contact-run versus gesture ownership and overlap/reversal guards. Preserve legacy semantics, frozen evidence, fixed actions and caps. Contract completion is not geometry admission. No code changed at registration."
+      notes: "COMPLETE: opt-in connected-v1 smooth/corner/lift contract with separate contact-run/gesture ownership, actual corner clock and conservative overlap guards. 28 new tests and 127 focused regressions pass; 12 final configurations/48 renders replay exactly in-process. Five historical-admission tests reject changed source identities and pass on fc562b8; old report/candidate bytes and guide semantics preserved. Fresh matching-source validation required before admission reuse. No repaired letters, fitting, S2, context or fatigue."
     - id: ADV-SS-CURRICULUM-015
       advance_id: ADV-SS-CURRICULUM-015
       title: "Upright Construction — Shared Rise and Return Repair Preview"
