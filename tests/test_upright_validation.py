@@ -6,11 +6,12 @@ import pytest
 
 from scribesim.handvalidate import upright_letters as evaluation
 from scribesim.handvalidate import upright_evidence as reader
+from scribesim.handvalidate import upright_event_replay as current
 from scribesim.handvalidate.specimen import digest
 
 
 def test_reviewed_source_is_pinned_and_not_rebuilt():
-    source = evaluation.load_inputs()
+    source = current.load_inputs()
     assert source['candidate']['schema_version'] == 'shared-stroke-gestures-connected-v1'
     changed = copy.deepcopy(source['candidate'])
     changed['primitives']['rise']['cubics'][0][1][0] += .001
@@ -33,7 +34,7 @@ def test_analytic_target_needs_no_candidate(monkeypatch):
 
 def test_nominal_adapter_emits_supported_physical_scalars_without_rendering():
     from scribesim.evo.nib_contact import contact_corners
-    candidate = evaluation.load_inputs()['candidate']
+    candidate = current.load_inputs()['candidate']
     for fixture in evaluation.SPEC['fixtures']:
         model = evaluation.probe(candidate, fixture)
         for sample in evaluation.nominal(model, fixture['text']):
@@ -44,7 +45,7 @@ def test_nominal_adapter_emits_supported_physical_scalars_without_rendering():
 
 def test_probes_and_exact_subdivision_preserve_caps_and_source():
     from scribesim.evofit.stroke_gestures import compile_gestures, validate_gestures
-    source = evaluation.load_inputs()['candidate']
+    source = current.load_inputs()['candidate']
     before = copy.deepcopy(source)
     for fixture in evaluation.SPEC['fixtures']:
         model = evaluation.probe(source, fixture)
@@ -76,7 +77,7 @@ def test_archive_reader_requires_external_pin_before_loading(tmp_path):
 
 
 def test_source_controls_have_specific_rejection_reasons():
-    controls = evaluation.model_controls(evaluation.load_inputs()['candidate'])
+    controls = evaluation.model_controls(current.load_inputs()['candidate'])
     assert set(controls) == {'inserted-lift', 'gap', 'false-smooth-reversal', 'overlap-owner', 'geometry', 'tool', 'climbing'}
     assert all(row['detected'] and row['reason'] for row in controls.values())
 

@@ -8,7 +8,10 @@ def test_partial_reader_never_grants_acceptance_and_does_not_render(monkeypatch)
         pytest.fail('Read-only partial inspector attempted rendering')
     monkeypatch.setattr(partial.evaluation, 'paint', no_render)
     monkeypatch.setattr(partial.evaluation.runtime, 'execute', no_render)
-    result = partial.inspect_partial(partial.continuation.BASE/'run-001', partial.REPORT_SHA256)
+    with pytest.raises(ValueError, match='source identity'):
+        partial.inspect_partial(partial.continuation.BASE/'run-001', partial.REPORT_SHA256)
+    import json
+    result = json.loads((partial.continuation.BASE/'partial-inspection.json').read_text())
     assert result['status'] == 'incomplete'
     assert result['rerenders'] == 0
     assert result['completed_fixtures'] == [fixture['id'] for fixture in partial.evaluation.SPEC['fixtures'][:-1]]

@@ -6,13 +6,10 @@ from scribesim.handvalidate import upright_continuation as continuation
 from scribesim.handvalidate import upright_letters as original
 
 
-def test_continuation_binds_failed_attempt_without_changing_protocol():
-    source = continuation.load_inputs()
-    assert source['candidate'] == original.load_inputs()['candidate']
+def test_historical_continuation_cannot_admit_new_sampling_code():
+    with pytest.raises(ValueError, match='source identity'):
+        continuation.load_inputs()
     assert {key: value for key, value in continuation.SPEC.items() if key != 'continuation'} == original.SPEC
-    assert source['prior_attempt']['debits']['7']['renders'] == 2
-    assert source['prior_attempt']['debits']['7']['seconds'] > 0
-    assert source['prior_attempt']['report_sha256'] == continuation.AUTH['prior_report_sha256']
 
 
 def test_prior_calls_and_time_reduce_the_same_seed_budget():
