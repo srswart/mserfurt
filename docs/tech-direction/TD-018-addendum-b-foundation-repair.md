@@ -644,6 +644,14 @@ local windows, seeds, controls, render/time budgets and zero automatic retries.
 No optimizer is needed for the initial repair; any later fitting needs its own
 explicit bounded scope.
 
+CURRICULUM-015 now publishes the [no-fit nominal review sheet](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/run-001/index.html).
+Stem cubics remain unchanged, with truthful port metadata. Shared upright rise
+and return-handle changes preserve exact levels without whole-gesture rotation.
+The n cap retains its y profile and endpoint width but changes its exit-handle x;
+the owner must judge that tradeoff. All 21 preview files replay in a fresh
+process. This completes preview implementation, not owner approval, physical
+execution, target creation or any acceptance gate.
+
 ### C. Independent evaluation and stop rules
 
 [HANDVALIDATE-021](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-021.md)

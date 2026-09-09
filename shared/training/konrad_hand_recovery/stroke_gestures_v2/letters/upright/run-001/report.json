@@ -1,0 +1,547 @@
+{
+  "version": "upright-shared-preview-v1",
+  "source_file_sha256": "e3c6e0a41374ada0ac15085df7100a8fbbc2ee855cddc71c9c2df93a84a74ff9",
+  "source_report_sha256": "bd3def56ffb24c9541815d3234cceddb31d21453331f2a6764f95c009026b28e",
+  "candidate_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+  "candidate_object_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+  "proposed_parameters": {
+    "rise_dx_xheight": 0.08,
+    "rise_entry_handle": [
+      -0.008,
+      0.216
+    ],
+    "rise_exit_handle_length_xheight": 0.06
+  },
+  "parameter_status": "deterministic design proposal, not owner-approved tolerances",
+  "source_identities": {
+    "scribesim/curriculum/upright_letters.py": "f0645cad60cbab16b76bd5fc1f7f7a71dc3630007e508d73a4db7c25ffe7378c",
+    "scribesim/evofit/stroke_gestures.py": "18a42a60f4c93fd78e6238eed97376a0755a825b0139f75471fa1926c8c25f18",
+    "scribesim/evofit/stroke_language.py": "e985209595af7277bd071ffafa048721892c2a05c8c7ee96aa9033d3f2a0d196",
+    "scribesim/evofit/connected_contract.py": "54716b960d104049f7521c33deffdd96799bbbeaa27e92dbb408d4443fb95b27",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2"
+  },
+  "measurements": {
+    "n": {
+      "strokes": [
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:0",
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.9999922990341759,
+          "sampled_tangent_deg_max": 3.814074834290352
+        },
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:1",
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "chord_deg_from_vertical": 5.089796122056717,
+          "sampled_tangent_deg_min": -2.1210963966614558,
+          "sampled_tangent_deg_max": 46.193489423982065
+        },
+        {
+          "primitive": "upper-return",
+          "occurrence_id": "0:2",
+          "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+          "chord_deg_from_vertical": 71.56505117707799,
+          "sampled_tangent_deg_min": 3.8140748342903508,
+          "sampled_tangent_deg_max": 89.99734415821248
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:3",
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.9999922990341765,
+          "sampled_tangent_deg_max": 3.814074834290352
+        }
+      ],
+      "baseline": 0.0,
+      "x_height": 1.0,
+      "body_stem_rise_max_horizontal_separation_mm": 0.12302282865452334,
+      "paired_rise_count": 1,
+      "clearance_scope": "Adjacent stem/rise only, y=0.2..0.7 xheight; initial m rise has no adjacent stem. Horizontal centerline separation, not blank ink clearance.",
+      "contact_runs": 1
+    },
+    "u": {
+      "strokes": [
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:0",
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.9999922990341759,
+          "sampled_tangent_deg_max": 3.814074834290353
+        },
+        {
+          "primitive": "lower-return",
+          "occurrence_id": "0:1",
+          "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+          "chord_deg_from_vertical": 71.56505117707799,
+          "sampled_tangent_deg_min": -2.1210963966614482,
+          "sampled_tangent_deg_max": 89.66083614367719
+        },
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:2",
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "chord_deg_from_vertical": 5.089796122056718,
+          "sampled_tangent_deg_min": -2.1210963966614513,
+          "sampled_tangent_deg_max": 46.193489423982044
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:3",
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.999992299034175,
+          "sampled_tangent_deg_max": 3.814074834290357
+        }
+      ],
+      "baseline": 0.0,
+      "x_height": 1.0,
+      "body_stem_rise_max_horizontal_separation_mm": 0.26011811406345586,
+      "paired_rise_count": 1,
+      "clearance_scope": "Adjacent stem/rise only, y=0.2..0.7 xheight; initial m rise has no adjacent stem. Horizontal centerline separation, not blank ink clearance.",
+      "contact_runs": 1
+    },
+    "m": {
+      "strokes": [
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:0",
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "chord_deg_from_vertical": 5.089796122056717,
+          "sampled_tangent_deg_min": -2.1210963966614558,
+          "sampled_tangent_deg_max": 46.193489423982065
+        },
+        {
+          "primitive": "upper-return",
+          "occurrence_id": "0:1",
+          "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+          "chord_deg_from_vertical": 71.56505117707799,
+          "sampled_tangent_deg_min": 3.8140748342903508,
+          "sampled_tangent_deg_max": 89.99734415821248
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:2",
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.9999922990341765,
+          "sampled_tangent_deg_max": 3.814074834290352
+        },
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:3",
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "chord_deg_from_vertical": 5.089796122056718,
+          "sampled_tangent_deg_min": -2.1210963966614558,
+          "sampled_tangent_deg_max": 46.19348942398206
+        },
+        {
+          "primitive": "upper-return",
+          "occurrence_id": "0:4",
+          "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+          "chord_deg_from_vertical": 71.56505117707799,
+          "sampled_tangent_deg_min": 3.814074834290338,
+          "sampled_tangent_deg_max": 89.99734415821248
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:5",
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.9999922990341765,
+          "sampled_tangent_deg_max": 3.814074834290352
+        }
+      ],
+      "baseline": 0.0,
+      "x_height": 0.9999999999999998,
+      "body_stem_rise_max_horizontal_separation_mm": 0.12454344556383251,
+      "paired_rise_count": 1,
+      "clearance_scope": "Adjacent stem/rise only, y=0.2..0.7 xheight; initial m rise has no adjacent stem. Horizontal centerline separation, not blank ink clearance.",
+      "contact_runs": 1
+    }
+  },
+  "prior_measurements": {
+    "n": {
+      "strokes": [
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:0",
+          "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.9999922990341759,
+          "sampled_tangent_deg_max": 3.814074834290352
+        },
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:1",
+          "primitive_sha256": "d6aae8b285ce55da3d02898fd6e1006afe128854f6900d01e87b5e3297a95129",
+          "chord_deg_from_vertical": 45.0,
+          "sampled_tangent_deg_min": 36.17962044797895,
+          "sampled_tangent_deg_max": 46.95007124243715
+        },
+        {
+          "primitive": "upper-return",
+          "occurrence_id": "0:2",
+          "primitive_sha256": "57cb43ce4cf0add5977b32884d516856b4723f78b67d483129cd4135c85447b6",
+          "chord_deg_from_vertical": 71.56505117707799,
+          "sampled_tangent_deg_min": -14.62087398863166,
+          "sampled_tangent_deg_max": 89.99771362423051
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:3",
+          "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+          "chord_deg_from_vertical": -18.434948822922017,
+          "sampled_tangent_deg_min": -20.434941121956196,
+          "sampled_tangent_deg_max": -14.620873988631656
+        }
+      ],
+      "baseline": 0.0,
+      "x_height": 1.0,
+      "body_stem_rise_max_horizontal_separation_mm": 2.396473147090536,
+      "paired_rise_count": 1,
+      "clearance_scope": "Adjacent stem/rise only, y=0.2..0.7 xheight; initial m rise has no adjacent stem. Horizontal centerline separation, not blank ink clearance.",
+      "contact_runs": null
+    },
+    "u": {
+      "strokes": [
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:0",
+          "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+          "chord_deg_from_vertical": -18.434948822922003,
+          "sampled_tangent_deg_min": -20.434941121956175,
+          "sampled_tangent_deg_max": -14.62087398863165
+        },
+        {
+          "primitive": "lower-return",
+          "occurrence_id": "0:1",
+          "primitive_sha256": "eeb23f069f260c02c6efceb210697afce0aee83851a9928817a133f9ee4cad7f",
+          "chord_deg_from_vertical": 71.56505117707799,
+          "sampled_tangent_deg_min": -16.313852426260542,
+          "sampled_tangent_deg_max": 89.69202427782005
+        },
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:2",
+          "primitive_sha256": "d6aae8b285ce55da3d02898fd6e1006afe128854f6900d01e87b5e3297a95129",
+          "chord_deg_from_vertical": 44.99999999999999,
+          "sampled_tangent_deg_min": 36.17962044797894,
+          "sampled_tangent_deg_max": 46.95007124243714
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:3",
+          "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+          "chord_deg_from_vertical": 0.0,
+          "sampled_tangent_deg_min": -1.9999922990341785,
+          "sampled_tangent_deg_max": 3.814074834290357
+        }
+      ],
+      "baseline": 0.0,
+      "x_height": 1.0000000000000002,
+      "body_stem_rise_max_horizontal_separation_mm": 2.8430505972998903,
+      "paired_rise_count": 1,
+      "clearance_scope": "Adjacent stem/rise only, y=0.2..0.7 xheight; initial m rise has no adjacent stem. Horizontal centerline separation, not blank ink clearance.",
+      "contact_runs": null
+    },
+    "m": {
+      "strokes": [
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:0",
+          "primitive_sha256": "d6aae8b285ce55da3d02898fd6e1006afe128854f6900d01e87b5e3297a95129",
+          "chord_deg_from_vertical": 45.0,
+          "sampled_tangent_deg_min": 36.17962044797895,
+          "sampled_tangent_deg_max": 46.95007124243715
+        },
+        {
+          "primitive": "upper-return",
+          "occurrence_id": "0:1",
+          "primitive_sha256": "57cb43ce4cf0add5977b32884d516856b4723f78b67d483129cd4135c85447b6",
+          "chord_deg_from_vertical": 71.56505117707799,
+          "sampled_tangent_deg_min": -14.62087398863166,
+          "sampled_tangent_deg_max": 89.99771362423051
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:2",
+          "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+          "chord_deg_from_vertical": -18.434948822922017,
+          "sampled_tangent_deg_min": -20.434941121956196,
+          "sampled_tangent_deg_max": -14.620873988631656
+        },
+        {
+          "primitive": "rise",
+          "occurrence_id": "0:3",
+          "primitive_sha256": "d6aae8b285ce55da3d02898fd6e1006afe128854f6900d01e87b5e3297a95129",
+          "chord_deg_from_vertical": 45.0,
+          "sampled_tangent_deg_min": 36.17962044797895,
+          "sampled_tangent_deg_max": 46.95007124243714
+        },
+        {
+          "primitive": "upper-return",
+          "occurrence_id": "0:4",
+          "primitive_sha256": "57cb43ce4cf0add5977b32884d516856b4723f78b67d483129cd4135c85447b6",
+          "chord_deg_from_vertical": 71.565051177078,
+          "sampled_tangent_deg_min": -14.620873988631564,
+          "sampled_tangent_deg_max": 89.99771362423051
+        },
+        {
+          "primitive": "stem",
+          "occurrence_id": "0:5",
+          "primitive_sha256": "ec247e7c0f888a3e13fff55e58375ce6f750e8ba2aaac1fbbcc14c729034704c",
+          "chord_deg_from_vertical": -18.434948822922017,
+          "sampled_tangent_deg_min": -20.43494112195621,
+          "sampled_tangent_deg_max": -14.620873988631656
+        }
+      ],
+      "baseline": 0.0,
+      "x_height": 0.9999999999999998,
+      "body_stem_rise_max_horizontal_separation_mm": 1.5802045462559302,
+      "paired_rise_count": 1,
+      "clearance_scope": "Adjacent stem/rise only, y=0.2..0.7 xheight; initial m rise has no adjacent stem. Horizontal centerline separation, not blank ink clearance.",
+      "contact_runs": null
+    }
+  },
+  "containment": [
+    {
+      "letter": "n",
+      "arm": "prior",
+      "view": "full",
+      "frame_mm": [
+        -3,
+        20,
+        2,
+        13
+      ],
+      "dpi": 900,
+      "contained": true
+    },
+    {
+      "letter": "n",
+      "arm": "prior",
+      "view": "detail",
+      "frame_mm": [
+        -2.364813255894248,
+        8.331764411540625,
+        5.642296952203518,
+        11.05882092276401
+      ],
+      "dpi": 1800,
+      "contained": true
+    },
+    {
+      "letter": "n",
+      "arm": "proposed",
+      "view": "full",
+      "frame_mm": [
+        -3,
+        20,
+        2,
+        13
+      ],
+      "dpi": 900,
+      "contained": true
+    },
+    {
+      "letter": "n",
+      "arm": "proposed",
+      "view": "detail",
+      "frame_mm": [
+        -2.364813255894248,
+        8.331764411540625,
+        5.642296952203518,
+        11.05882092276401
+      ],
+      "dpi": 1800,
+      "contained": true
+    },
+    {
+      "letter": "u",
+      "arm": "prior",
+      "view": "full",
+      "frame_mm": [
+        -3,
+        20,
+        2,
+        13
+      ],
+      "dpi": 900,
+      "contained": true
+    },
+    {
+      "letter": "u",
+      "arm": "prior",
+      "view": "detail",
+      "frame_mm": [
+        -2.364813255894248,
+        8.331764411540625,
+        5.642296952203518,
+        11.05882092276401
+      ],
+      "dpi": 1800,
+      "contained": true
+    },
+    {
+      "letter": "u",
+      "arm": "proposed",
+      "view": "full",
+      "frame_mm": [
+        -3,
+        20,
+        2,
+        13
+      ],
+      "dpi": 900,
+      "contained": true
+    },
+    {
+      "letter": "u",
+      "arm": "proposed",
+      "view": "detail",
+      "frame_mm": [
+        -2.364813255894248,
+        8.331764411540625,
+        5.642296952203518,
+        11.05882092276401
+      ],
+      "dpi": 1800,
+      "contained": true
+    },
+    {
+      "letter": "m",
+      "arm": "prior",
+      "view": "full",
+      "frame_mm": [
+        -3,
+        20,
+        2,
+        13
+      ],
+      "dpi": 900,
+      "contained": true
+    },
+    {
+      "letter": "m",
+      "arm": "prior",
+      "view": "detail",
+      "frame_mm": [
+        -2.364813255894248,
+        8.331764411540625,
+        5.642296952203518,
+        11.05882092276401
+      ],
+      "dpi": 1800,
+      "contained": true
+    },
+    {
+      "letter": "m",
+      "arm": "proposed",
+      "view": "full",
+      "frame_mm": [
+        -3,
+        20,
+        2,
+        13
+      ],
+      "dpi": 900,
+      "contained": true
+    },
+    {
+      "letter": "m",
+      "arm": "proposed",
+      "view": "detail",
+      "frame_mm": [
+        -2.364813255894248,
+        8.331764411540625,
+        5.642296952203518,
+        11.05882092276401
+      ],
+      "dpi": 1800,
+      "contained": true
+    },
+    {
+      "letter": "isolated primitives, not a recipe",
+      "arm": "proposed",
+      "view": "ink",
+      "frame_mm": [
+        -1,
+        15,
+        5.7,
+        10.7
+      ],
+      "dpi": 1800,
+      "contained": true
+    }
+  ],
+  "contact_timeline": {
+    "n": {
+      "prior": [
+        "pen down",
+        "pen up",
+        "pen down"
+      ],
+      "proposed": [
+        "pen down"
+      ]
+    },
+    "u": {
+      "prior": [
+        "pen down",
+        "pen up",
+        "pen down"
+      ],
+      "proposed": [
+        "pen down"
+      ]
+    },
+    "m": {
+      "prior": [
+        "pen down",
+        "pen up",
+        "pen down"
+      ],
+      "proposed": [
+        "pen down"
+      ]
+    }
+  },
+  "timeline_scope": "Ordered nominal contact states, not measured durations or actual motion",
+  "stem_geometry_unchanged": true,
+  "turn_tradeoff": "Upper return retains all y controls, endpoint width and first handle; exit-handle x changes for the unrotated stem tangent. Lower return retains y controls and width; both handle x values change. Upper return curvature is not identical.",
+  "optimization_evaluations": 0,
+  "physical_executions": 0,
+  "targets_created": 0,
+  "owner_review": "pending",
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "artifacts": {
+    "candidate.json": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "index.html": "686abaa0fa413f737052dd0b7920bf82accdb9331794267c5d2ba393111192d0",
+    "m-paths.svg": "d0a6d283a91d417683e96ff14d62490950051b6f2420fd7eb994ce3c13898e13",
+    "m-prior-detail.png": "4ca3ac0ad727173a29a9e107644fe45613ac63b3f22e34f5e19cc7930aa1dcc4",
+    "m-prior-full.png": "97724316caa742385557cc0c43e155d9cfc2c38a8ab5fd1a17b94d80a5c6bba2",
+    "m-proposed-detail.png": "a9c543853ebad9afdfeb8ce7475478dc9b694c8362036b56080a7ddd15c2be24",
+    "m-proposed-full.png": "6cdbee34209ef87a7a71128055d76bf7f73f0820ba1e9c8cbed92b12ad1d7c68",
+    "n-paths.svg": "361d22887fbbb80dfcd3b946fb1af0a2b333f6c170099c3c2d2f5b9329a4823a",
+    "n-prior-detail.png": "d97babe06c57f62015569a836f3ef37844f1cff9dcdc36394c15510020847f18",
+    "n-prior-full.png": "c08749b50f1cd2011a335e8cb931096537e2be0349cd8ed927c6ccd472c4cd40",
+    "n-proposed-detail.png": "d350c60003367a2a3af0f89049b40a37a9086e991e1bddb8a4d29954cbf25dc6",
+    "n-proposed-full.png": "d15fc3c1f4a301421ce07c1cee0c8cf1ae7d7de56b5321cc2c00ce23e998115d",
+    "strokes-ink.png": "7a362eb700a0fe0a67a2b7976a1fd2c1bfbfd2e3b4458283b55560c6103c503b",
+    "strokes.svg": "38d681e4423d45542d17fbe0c78334880c871bc9cdbddfe5c03e4abb67c466a5",
+    "u-paths.svg": "306c56ce07a5ad251373acbeae5eb0ee9e9f58eeab88204ccbf91e1a2f4460dc",
+    "u-prior-detail.png": "68fac24732e38e6d7f8cef677fda11f9bf58a92fdddf0ea55fbac63a8b598aa3",
+    "u-prior-full.png": "c805e0f4e1c3f368837064d65e1e1e6c9b60f1a608e156c1aa0a91f3dd97ca09",
+    "u-proposed-detail.png": "6334b4a2b29144d25aa846a74f68020f6637cf3bad3360b4b6b4515d02cc93f6",
+    "u-proposed-full.png": "3c6bc66b47be144b37eab93c70a4f8a250c316d7aad1fe7ec94171f109322a6b"
+  }
+}
