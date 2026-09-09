@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HANDVALIDATE-024 · Held-out actual ink</title>
+<link rel="icon" href="data:,">
+<style>
+:root{color-scheme:light;font:16px/1.5 system-ui;color:#242b30;background:#f5f2ea}
+body{max-width:1180px;margin:auto;padding:24px}h1{line-height:1.15}a{color:#174f85}
+.note{padding:16px;border-left:4px solid #956123;background:#fff9e8}.controls{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
+button{font:inherit;padding:10px 16px;cursor:pointer}.samples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+section{min-width:0;background:#fff;border:1px solid #d7d0c4;padding:16px}h2{margin:0}figure{margin:12px 0}
+figcaption{font-weight:600;padding:8px 0}.window{overflow:auto}img{display:block;width:100%;height:auto}
+.detail img{width:815px;max-width:none}summary{cursor:pointer;color:#174f85}details{border-top:1px solid #d7d0c4;padding-top:12px}
+.metrics{font-size:14px}code{overflow-wrap:anywhere}@media(max-width:700px){body{padding:16px}.samples{grid-template-columns:1fr}}
+</style>
+<h1>Held-out placements · actual physical ink</h1>
+<p>The approved strokes are unchanged. These six previously untested pairs measure fixed placement and interletter air movement — <strong>not joining, contextual stroke adaptation, spacing design or fatigue</strong>. Within each letter, the intended reversals stay pen-down.</p>
+<p class="note" id="status">Loading the immutable physical validation report. No result is assumed before the evidence is available.</p>
+<p>Review the large <strong>actual ink</strong> image in each panel: do the stems, pen-down returns, turns and baseline still look right in both positions? Each panel shows two letters, not a before/after pair. Expand the diagnostic comparison only if useful. New appearance verdicts are pending; earlier n/u/m/mu approval is not automatically inherited.</p>
+<p><a href="README.md">Outcome and reproducible inspection</a> · <a href="run-001/report.json">Frozen report</a> · <a href="inspection.json">Independent read-only check</a> · <a href="actual-review.json">Pending owner review</a> · <a href="../index.html">Previously approved n/u/m/mu</a></p>
+<div class="controls"><button id="full">Fit complete frame</button><button id="detail">Native detail (horizontal scroll)</button></div>
+<main id="samples" class="samples"></main>
+<script>
+const samples = document.getElementById('samples');
+const status = document.getElementById('status');
+const runRoot = 'run-001';
+function figure(id, kind, label) {
+  const result = document.createElement('figure');
+  const caption = document.createElement('figcaption');
+  caption.textContent = label;
+  const window = document.createElement('div');
+  window.className = 'window';
+  const picture = document.createElement('img');
+  picture.src = `${runRoot}/seed-7/first/${id}-${kind}-full.png`;
+  picture.alt = `${id}: ${label}, complete unchanged frame at 900 DPI`;
+  const link = document.createElement('a');
+  link.href = picture.src;
+  link.textContent = 'Open full-resolution image';
+  window.append(picture);
+  result.append(caption, window, link);
+  return result;
+}
+Promise.all([fetch(`${runRoot}/report.json`).then(response=>response.json()),
+  fetch(`${runRoot}/seed-7/first/report.json`).then(response=>response.json())]).then(([report, worker])=>{
+  if (!report.evaluation_complete || worker.status !== 'complete') throw Error('incomplete');
+  status.textContent = `EVALUATION COMPLETE · execution/mechanical protocol ${report.status.toUpperCase()} · ${report.renders} renders · ${report.seeds.filter(seed=>seed.replay_match).length}/3 replay pairs match. New appearance review PENDING. Independent style remains diagnostic under the approved new contract; historical target-gate failure remains failure. S2, real-hand and context remain false.`;
+  for (const text of ['un', 'nu', 'um', 'nn', 'uu', 'mm']) {
+    const id = `placement-${text}`;
+    if (!['actual', 'nominal', 'target'].every(kind=>`seed-7/first/${id}-${kind}-full.png` in report.artifacts)) throw Error('missing image');
+    const row = worker.fixtures.find(item=>item.fixture.id === id);
+    const section = document.createElement('section');
+    const heading = document.createElement('h2');
+    heading.textContent = `${text} · appearance pending`;
+    const metrics = document.createElement('p');
+    metrics.className = 'metrics';
+    metrics.textContent = `Actual vs derived nominal: ${row.nominal_actual_losses.base.global.toFixed(6)}. Actual vs independent style: ${row.losses.base.global.toFixed(6)}. Both are report-only here, not new appearance gates.`;
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.textContent = 'Show diagnostic references (not replacement letters)';
+    details.append(summary, figure(id, 'nominal', 'Candidate-derived nominal — not independently validated'),
+      figure(id, 'target', 'Independent analytic style — not owner-approved'));
+    section.append(heading, figure(id, 'actual', 'Actual physical ink · seed 7, base refinement'), metrics, details);
+    samples.append(section);
+  }
+}).catch(()=>{
+  samples.replaceChildren();
+  status.textContent = 'Complete readable evidence is unavailable. No reconstructed or substitute samples are shown.';
+});
+document.getElementById('full').onclick = ()=>samples.classList.remove('detail');
+document.getElementById('detail').onclick = ()=>samples.classList.add('detail');
+</script>
+</html>

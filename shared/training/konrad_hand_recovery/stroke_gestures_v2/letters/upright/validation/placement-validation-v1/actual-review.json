@@ -1,0 +1,48 @@
+{
+  "advance": "ADV-SS-HANDVALIDATE-024",
+  "status": "pending_held_out_actual_review",
+  "candidate_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+  "report_sha256": "25b0e886ab643ff5dee969d1393b1f3f1e235e75f945e3c94025aedcfffe36b4",
+  "known_regressions": {
+    "scope": "Exact known base fixtures only; no new quality or generalization verdict",
+    "original_review_sha256": "8d08805dddb2aa98cc636a20a5a3ad24d1411b4f0ba1a562534a349f71ab5f7e",
+    "registry_sha256": "35a30c51fb47af51668ab1ed3f3ce7f3b4d2d0cec4497ad73e50160bd620cad7",
+    "matched_comparisons": 24
+  },
+  "placements": {
+    "un": {
+      "verdict": "pending",
+      "fixture_id": "placement-un",
+      "actual_image": "run-001/seed-7/first/placement-un-actual-full.png"
+    },
+    "nu": {
+      "verdict": "pending",
+      "fixture_id": "placement-nu",
+      "actual_image": "run-001/seed-7/first/placement-nu-actual-full.png"
+    },
+    "um": {
+      "verdict": "pending",
+      "fixture_id": "placement-um",
+      "actual_image": "run-001/seed-7/first/placement-um-actual-full.png"
+    },
+    "nn": {
+      "verdict": "pending",
+      "fixture_id": "placement-nn",
+      "actual_image": "run-001/seed-7/first/placement-nn-actual-full.png"
+    },
+    "uu": {
+      "verdict": "pending",
+      "fixture_id": "placement-uu",
+      "actual_image": "run-001/seed-7/first/placement-uu-actual-full.png"
+    },
+    "mm": {
+      "verdict": "pending",
+      "fixture_id": "placement-mm",
+      "actual_image": "run-001/seed-7/first/placement-mm-actual-full.png"
+    }
+  },
+  "scope": "Fixed placement and interletter air only. Not joining, context adaptation, spacing design or fatigue.",
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false
+}

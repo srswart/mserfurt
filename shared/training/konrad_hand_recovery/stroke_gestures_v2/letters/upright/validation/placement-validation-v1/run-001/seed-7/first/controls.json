@@ -1,0 +1,78 @@
+{
+  "inserted-lift": {
+    "detected": true,
+    "reason": "Continuous contact run changed"
+  },
+  "gap": {
+    "detected": true,
+    "reason": "Contact ports do not coincide; declare a lift"
+  },
+  "false-smooth-reversal": {
+    "detected": true,
+    "reason": "Smooth contact exceeds tangent guardrail"
+  },
+  "overlap-owner": {
+    "detected": true,
+    "reason": "Undeclared finite-width/retracing overlap contributor"
+  },
+  "geometry": {
+    "detected": true,
+    "reason": "Connected primitive ports must match actual tangents"
+  },
+  "tool": {
+    "detected": true,
+    "reason": "Connected contract requires fixed tool/scale and no context"
+  },
+  "climbing": {
+    "detected": true,
+    "reason": "Climbing nominal landmarks"
+  },
+  "trace-owner": {
+    "detected": true,
+    "gate": "owner",
+    "errors": {
+      "identity": 0,
+      "owner": 11,
+      "contact": 0,
+      "clock": 0,
+      "desired": 0,
+      "dynamics": 0,
+      "tool": 0,
+      "corner": 0
+    }
+  },
+  "trace-lift": {
+    "detected": true,
+    "gate": "contact",
+    "errors": {
+      "identity": 0,
+      "owner": 0,
+      "contact": 3,
+      "clock": 0,
+      "desired": 0,
+      "dynamics": 0,
+      "tool": 1,
+      "corner": 0
+    }
+  },
+  "desired-as-actual": {
+    "detected": true,
+    "gate": "dynamics",
+    "errors": {
+      "identity": 0,
+      "owner": 0,
+      "contact": 0,
+      "clock": 0,
+      "desired": 0,
+      "dynamics": 20137,
+      "tool": 0,
+      "corner": 0
+    }
+  },
+  "visible-shift": {
+    "detected": true,
+    "loss": 0.9268588355236798,
+    "gate": "image",
+    "reference": "same-run-unshifted-actual"
+  }
+}

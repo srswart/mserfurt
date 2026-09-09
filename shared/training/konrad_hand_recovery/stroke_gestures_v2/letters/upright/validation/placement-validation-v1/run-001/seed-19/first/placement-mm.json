@@ -1,0 +1,810 @@
+{
+  "fixture": {
+    "id": "placement-mm",
+    "text": "mm",
+    "shift": [
+      0.017,
+      -0.011
+    ],
+    "kind": "letter"
+  },
+  "model_sha256": "c5faa4acbc2e948a5d8ee21d83e11151e01e5511bd36ee02e05c7c60398fd5af",
+  "regions": {
+    "0": [
+      -1.4405000000000001,
+      2.9595000000000002,
+      5.7385,
+      10.838500000000002
+    ],
+    "1": [
+      7.134499999999998,
+      11.534499999999998,
+      5.7385,
+      10.838500000000002
+    ]
+  },
+  "nominal_levels": {
+    "0": 1.1102230246251565e-16,
+    "1": 1.1102230246251565e-16
+  },
+  "actual_levels": {
+    "base": {
+      "0": 8.330613063733949e-05,
+      "1": 8.311896237866989e-05
+    },
+    "arc": {
+      "0": 2.5676302086274916e-05,
+      "1": 2.6711506024845733e-05
+    },
+    "time": {
+      "0": 8.208039246149212e-05,
+      "1": 8.202327620665528e-05
+    },
+    "subdivision": {
+      "0": 7.931029779051357e-05,
+      "1": 7.911795715553893e-05
+    }
+  },
+  "actual_port_errors_mm": {
+    "base": {
+      "0:0": 0.00958734297279471,
+      "0:1": 0.00958734297279471,
+      "1:0": 0.011778612760692276,
+      "1:1": 0.011778612760692276
+    },
+    "arc": {
+      "0:0": 0.009587842470590321,
+      "0:1": 0.009587842470590321,
+      "1:0": 0.011779123033731442,
+      "1:1": 0.011779123033731442
+    },
+    "time": {
+      "0:0": 0.011016454249158621,
+      "0:1": 0.011016454249158621,
+      "1:0": 0.011748472052373757,
+      "1:1": 0.011748472052373757
+    },
+    "subdivision": {
+      "0:0": 0.009592565486956448,
+      "0:1": 0.009592565486956448,
+      "1:0": 0.011783784965928414,
+      "1:1": 0.011783784965928414
+    }
+  },
+  "slant_diagnostics": [
+    {
+      "occurrence_id": "0:0",
+      "primitive": "rise",
+      "chord_deg_from_vertical": 4.9037096549599655,
+      "moving_tangent_deg_min": -1.7912109370910498,
+      "moving_tangent_deg_max": 30.74797171463164
+    },
+    {
+      "occurrence_id": "0:1",
+      "primitive": "upper-return",
+      "chord_deg_from_vertical": 72.52200989992002,
+      "moving_tangent_deg_min": 4.161600392322681,
+      "moving_tangent_deg_max": 89.8926015662584
+    },
+    {
+      "occurrence_id": "0:2",
+      "primitive": "stem",
+      "chord_deg_from_vertical": 0.0003312099017159126,
+      "moving_tangent_deg_min": -1.9992301765714158,
+      "moving_tangent_deg_max": 4.049421203588377
+    },
+    {
+      "occurrence_id": "0:3",
+      "primitive": "rise",
+      "chord_deg_from_vertical": 5.041619835558814,
+      "moving_tangent_deg_min": -1.9377666815234802,
+      "moving_tangent_deg_max": 38.28618715715545
+    },
+    {
+      "occurrence_id": "0:4",
+      "primitive": "upper-return",
+      "chord_deg_from_vertical": 72.54904100829488,
+      "moving_tangent_deg_min": 4.609939079436314,
+      "moving_tangent_deg_max": 89.9604775301095
+    },
+    {
+      "occurrence_id": "0:5",
+      "primitive": "stem",
+      "chord_deg_from_vertical": 0.031167939215585607,
+      "moving_tangent_deg_min": -1.9998411999613677,
+      "moving_tangent_deg_max": 4.494923682886084
+    },
+    {
+      "occurrence_id": "1:0",
+      "primitive": "rise",
+      "chord_deg_from_vertical": 4.884760285803971,
+      "moving_tangent_deg_min": -89.9445709895177,
+      "moving_tangent_deg_max": 30.125912470783835
+    },
+    {
+      "occurrence_id": "1:1",
+      "primitive": "upper-return",
+      "chord_deg_from_vertical": 72.69624336090087,
+      "moving_tangent_deg_min": 4.231694559746282,
+      "moving_tangent_deg_max": 89.88849978594435
+    },
+    {
+      "occurrence_id": "1:2",
+      "primitive": "stem",
+      "chord_deg_from_vertical": 0.002109974371480029,
+      "moving_tangent_deg_min": -1.9992051406745064,
+      "moving_tangent_deg_max": 4.132130092512333
+    },
+    {
+      "occurrence_id": "1:3",
+      "primitive": "rise",
+      "chord_deg_from_vertical": 5.023128208502512,
+      "moving_tangent_deg_min": -1.9373847612333126,
+      "moving_tangent_deg_max": 37.282509348156985
+    },
+    {
+      "occurrence_id": "1:4",
+      "primitive": "upper-return",
+      "chord_deg_from_vertical": 72.60337187375984,
+      "moving_tangent_deg_min": 4.584620235840067,
+      "moving_tangent_deg_max": 89.89539800093884
+    },
+    {
+      "occurrence_id": "1:5",
+      "primitive": "stem",
+      "chord_deg_from_vertical": 0.024287061365104383,
+      "moving_tangent_deg_min": -1.9999488874773306,
+      "moving_tangent_deg_max": 4.462959430715215
+    }
+  ],
+  "motion": {
+    "base": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.007309960635345296,
+        "actual_acceleration_mm_s2": 250.11807294074507,
+        "desired_acceleration_mm_s2": 250.00000000005798,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 1.6148510286665823,
+        "corner_speed_mm_s": 0.028476797147538153,
+        "corner_error_mm": 0.0013993386155007087,
+        "entry_speed_mm_s": 0.0002706234453791562,
+        "entry_error_mm": 1.3332007840067978e-05,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "expected_contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "contained": true
+    },
+    "arc": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.0030674100307614624,
+        "actual_acceleration_mm_s2": 250.11785634071686,
+        "desired_acceleration_mm_s2": 250.00000000005798,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 1.6148510286665823,
+        "corner_speed_mm_s": 0.028484659079016074,
+        "corner_error_mm": 0.0013997249477236862,
+        "entry_speed_mm_s": 0.00027062333604666483,
+        "entry_error_mm": 1.3332002453444732e-05,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "expected_contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "contained": true
+    },
+    "time": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.0073281307933947,
+        "actual_acceleration_mm_s2": 250.14415705159362,
+        "desired_acceleration_mm_s2": 250.00000000005798,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 1.6148510286665823,
+        "corner_speed_mm_s": 0.027803688012492615,
+        "corner_error_mm": 0.0013801641412596048,
+        "entry_speed_mm_s": 6.771808375962664e-05,
+        "entry_error_mm": 3.369926330649287e-06,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "expected_contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "contained": true
+    },
+    "subdivision": {
+      "errors": {
+        "identity": 0,
+        "owner": 0,
+        "contact": 0,
+        "clock": 0,
+        "desired": 0,
+        "dynamics": 0,
+        "tool": 0,
+        "corner": 0
+      },
+      "metrics": {
+        "projection_mm": 0.0,
+        "corridor_mm": 0.007308332022645341,
+        "actual_acceleration_mm_s2": 250.1192077800782,
+        "desired_acceleration_mm_s2": 250.00000000004664,
+        "desired_discontinuities": 0,
+        "contact_speed_mm_s": 1.6148510286665199,
+        "corner_speed_mm_s": 0.028515958005385044,
+        "corner_error_mm": 0.001401262964653299,
+        "entry_speed_mm_s": 0.0002706233763902839,
+        "entry_error_mm": 1.3332004441822231e-05,
+        "clock_error_s": 0.0
+      },
+      "contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "expected_contact_runs": [
+        "contact:0",
+        "contact:1"
+      ],
+      "contained": true
+    }
+  },
+  "overlap": {
+    "base": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 65,
+          "declared": true
+        },
+        {
+          "previous": "0:0",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:0",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "1:0",
+          "current": "1:1",
+          "intersection_pixels": 63,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 128,
+      "union_pixels": 640,
+      "undeclared_pairs": 0
+    },
+    "arc": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 65,
+          "declared": true
+        },
+        {
+          "previous": "0:0",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:0",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "1:0",
+          "current": "1:1",
+          "intersection_pixels": 63,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 128,
+      "union_pixels": 642,
+      "undeclared_pairs": 0
+    },
+    "time": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 65,
+          "declared": true
+        },
+        {
+          "previous": "0:0",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:0",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "1:0",
+          "current": "1:1",
+          "intersection_pixels": 63,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 128,
+      "union_pixels": 640,
+      "undeclared_pairs": 0
+    },
+    "subdivision": {
+      "pairs": [
+        {
+          "previous": "0:0",
+          "current": "0:1",
+          "intersection_pixels": 65,
+          "declared": true
+        },
+        {
+          "previous": "0:0",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:0",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:0",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "0:1",
+          "current": "1:1",
+          "intersection_pixels": 0,
+          "declared": false
+        },
+        {
+          "previous": "1:0",
+          "current": "1:1",
+          "intersection_pixels": 63,
+          "declared": true
+        }
+      ],
+      "repeated_pixels": 128,
+      "union_pixels": 640,
+      "undeclared_pairs": 0
+    }
+  },
+  "losses": {
+    "nominal": {
+      "global": 0.577081099444757,
+      "local": {
+        "0": 0.5888537481836054,
+        "1": 0.56545314527444
+      }
+    },
+    "base": {
+      "global": 0.5769971713483594,
+      "local": {
+        "0": 0.5888217587156551,
+        "1": 0.5653009098009415
+      }
+    },
+    "arc": {
+      "global": 0.5772170564428438,
+      "local": {
+        "0": 0.5888217587156551,
+        "1": 0.5657500738054067
+      }
+    },
+    "time": {
+      "global": 0.5768214380472274,
+      "local": {
+        "0": 0.5888217587156551,
+        "1": 0.5649540451845051
+      }
+    },
+    "subdivision": {
+      "global": 0.5769971713483594,
+      "local": {
+        "0": 0.5888217587156551,
+        "1": 0.5653009098009415
+      }
+    }
+  },
+  "prior_losses": {
+    "global": 0.8913921846348912,
+    "local": {
+      "0": 0.817139097851892,
+      "1": 0.8264388489208633
+    }
+  },
+  "ratios": {
+    "nominal": 0.6473930435918349,
+    "base": 0.6472988896404717,
+    "arc": 0.6475455656807989,
+    "time": 0.647101744877301,
+    "subdivision": 0.6472988896404717
+  },
+  "tracking_losses": {
+    "base": 0.005688953059782305,
+    "arc": 0.002357163495901577,
+    "time": 0.0058459317398509535,
+    "subdivision": 0.005688953059782305
+  },
+  "comparisons": {
+    "arc": {
+      "owner_match": true,
+      "event_version": "declared-contact-events-v1",
+      "event_ids": [
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:0",
+          "gesture_occurrence_id": "0:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "0:0",
+              "occurrence_id": "0:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "0:1",
+              "occurrence_id": "0:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:5",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:0",
+          "gesture_occurrence_id": "1:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:3",
+          "gesture_occurrence_id": "1:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "1:0",
+              "occurrence_id": "1:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "1:1",
+              "occurrence_id": "1:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:5",
+          "gesture_occurrence_id": "1:1",
+          "boundary_contributors": []
+        }
+      ],
+      "endpoint_mm": 0.005539206471038071,
+      "event_time_s": 0.0,
+      "image_loss": 0.0005873120348336794
+    },
+    "time": {
+      "owner_match": true,
+      "event_version": "declared-contact-events-v1",
+      "event_ids": [
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:0",
+          "gesture_occurrence_id": "0:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "0:0",
+              "occurrence_id": "0:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "0:1",
+              "occurrence_id": "0:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:5",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:0",
+          "gesture_occurrence_id": "1:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:3",
+          "gesture_occurrence_id": "1:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "1:0",
+              "occurrence_id": "1:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "1:1",
+              "occurrence_id": "1:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:5",
+          "gesture_occurrence_id": "1:1",
+          "boundary_contributors": []
+        }
+      ],
+      "endpoint_mm": 1.9174482994076608e-05,
+      "event_time_s": 0.0,
+      "image_loss": 0.00015701529126336514
+    },
+    "subdivision": {
+      "owner_match": true,
+      "event_version": "declared-contact-events-v1",
+      "event_ids": [
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:0",
+          "gesture_occurrence_id": "0:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:3",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "0:0",
+              "occurrence_id": "0:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "0:1",
+              "occurrence_id": "0:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:0",
+          "occurrence_id": "0:5",
+          "gesture_occurrence_id": "0:1",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "entry",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:0",
+          "gesture_occurrence_id": "1:0",
+          "boundary_contributors": []
+        },
+        {
+          "kind": "corner",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:3",
+          "gesture_occurrence_id": "1:1",
+          "boundary_contributors": [
+            {
+              "gesture_occurrence_id": "1:0",
+              "occurrence_id": "1:2",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 1
+            },
+            {
+              "gesture_occurrence_id": "1:1",
+              "occurrence_id": "1:3",
+              "action_profile": "fixed",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "gesture_progress": 0
+            }
+          ]
+        },
+        {
+          "kind": "end",
+          "contact_run_id": "contact:1",
+          "occurrence_id": "1:5",
+          "gesture_occurrence_id": "1:1",
+          "boundary_contributors": []
+        }
+      ],
+      "endpoint_mm": 5.601923050104907e-06,
+      "event_time_s": 5.115907697472721e-13,
+      "image_loss": 0.0
+    }
+  },
+  "approved_reference": {
+    "status": "not_applicable",
+    "owner_appearance": "not_reviewed",
+    "quality_pass": null,
+    "generalization_proven": false
+  },
+  "nominal_actual_losses": {
+    "base": {
+      "global": 0.00209252719525356,
+      "local": {
+        "0": 0.0010334974770502764,
+        "1": 0.003151824713954172
+      }
+    },
+    "arc": {
+      "global": 0.0015040487777704626,
+      "local": {
+        "0": 0.0010334974770502764,
+        "1": 0.0019742637008838626
+      }
+    },
+    "time": {
+      "global": 0.001935255078778053,
+      "local": {
+        "0": 0.0010334974770502764,
+        "1": 0.0028370518977850734
+      }
+    },
+    "subdivision": {
+      "global": 0.00209252719525356,
+      "local": {
+        "0": 0.0010334974770502764,
+        "1": 0.003151824713954172
+      }
+    }
+  }
+}
