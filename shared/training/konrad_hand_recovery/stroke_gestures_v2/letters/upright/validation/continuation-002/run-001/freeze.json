@@ -1,0 +1,1388 @@
+{
+  "spec": {
+    "stage": "independent-upright-contact-v1",
+    "candidate_file_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "source_report_sha256": "53f5beefadd9bb3dc0000eb7f9fb730de549bcb68d4b063936eaade3821ff5fb",
+    "source_owner_review_sha256": "f7389c89d5c534e25d18907dfe954bd526a1a0d8b53edcd8361e59c83b9c2c74",
+    "prior_file_sha256": "e3c6e0a41374ada0ac15085df7100a8fbbc2ee855cddc71c9c2df93a84a74ff9",
+    "target_version": "independent-vertical-lines-semicircles-v1",
+    "target_provenance": "New synthetic analytic yardstick from upright stem/rise, level baseline/x-height and continuous rounded turn requirements. Vertical line segments and radius-0.2 semicircles; no candidate controls, sampled candidate paths, rendered pixels or builder functions are inputs. Round-number width 0.4 and origin -0.2 are declared construction conventions, not a fit or an owner-approved target. Failure against this stylized yardstick is not an owner appearance rejection. Never revise it after scoring.",
+    "target": {
+      "radius": 0.2,
+      "origin_x": -0.2,
+      "x_height_mm": 3.5,
+      "baseline_mm": 10,
+      "samples_per_part": 257,
+      "advances": {
+        "n": 1.3,
+        "u": 1.3,
+        "m": 2.3
+      },
+      "letter_gap": 0.15
+    },
+    "frame_mm": [
+      -3,
+      20,
+      2,
+      13
+    ],
+    "local_padding_mm": 0.8,
+    "metric_dpi": 180,
+    "presentation_dpi": 900,
+    "criteria": {
+      "absolute_loss_max": 0.05,
+      "relative_loss_max": 0.75,
+      "nominal_landmark_max": 1e-08,
+      "actual_landmark_mm_max": 0.05,
+      "endpoint_mm": 0.01,
+      "event_time_s": 0.0001,
+      "convergence_loss": 0.03,
+      "clock_s": 1e-10,
+      "projection_mm": 1e-12,
+      "corridor_mm": 0.25,
+      "actual_tracking_loss": 0.35,
+      "corner_speed_mm_s": 0.5,
+      "actual_acceleration_mm_s2": 500,
+      "desired_acceleration_mm_s2": 250,
+      "contact_speed_mm_s": 12
+    },
+    "angle_clearance_policy": "Report-only diagnostics. No new angle, counter-area, retracing darkness or blank-clearance acceptance threshold is owner-approved. Preserve this limitation even if numerical gates pass.",
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "seed_policy": "Frozen deterministic candidate with no stochastic controller/session effects. Seeds are independent fresh-process replay identities, not three trained candidates or statistical robustness evidence.",
+    "fixtures": [
+      {
+        "id": "primitive-stem",
+        "kind": "primitive",
+        "name": "stem",
+        "text": "i",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "primitive-rise",
+        "kind": "primitive",
+        "name": "rise",
+        "text": "i",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "primitive-upper",
+        "kind": "primitive",
+        "name": "upper-return",
+        "text": "i",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "primitive-lower",
+        "kind": "primitive",
+        "name": "lower-return",
+        "text": "i",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "gesture-overturn",
+        "kind": "gesture",
+        "name": "overturn",
+        "text": "i",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "gesture-underturn",
+        "kind": "gesture",
+        "name": "underturn",
+        "text": "i",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "letter-n",
+        "kind": "letter",
+        "text": "n",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "letter-u",
+        "kind": "letter",
+        "text": "u",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "letter-m",
+        "kind": "letter",
+        "text": "m",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "placed-mu",
+        "kind": "letter",
+        "text": "mu",
+        "shift": [
+          0.013,
+          -0.009
+        ]
+      }
+    ],
+    "reversal_scope": "Continuous stem-to-overturn n, underturn-to-stem u and repeated overturn m include explicit pen-down reversal events; placed-mu tests fixed placement and interletter air, not context learning.",
+    "refinements": {
+      "base": [
+        0.025,
+        0.002
+      ],
+      "arc": [
+        0.0125,
+        0.002
+      ],
+      "time": [
+        0.025,
+        0.001
+      ],
+      "subdivision": [
+        0.025,
+        0.002
+      ]
+    },
+    "subdivision_scope": "Exact De Casteljau halves inside each existing primitive, two cubics instead of one. No additional references, primitives or gesture instances; all unchanged schema caps must validate, including six expanded references for m. Whole-letter subdivision is claimed only through this cap-preserving representation.",
+    "controls": [
+      "inserted-lift",
+      "gap",
+      "false-smooth-reversal",
+      "overlap-owner",
+      "geometry",
+      "tool",
+      "climbing",
+      "trace-owner",
+      "trace-lift",
+      "desired-as-actual",
+      "visible-shift"
+    ],
+    "visible_shift_mm": 1.0,
+    "overlap_measurement": "Per-gesture actual swept physical-nib occupancy at 180 DPI. Intersection and union pixels record repeated coverage independently of centerline crossings. Require attribution to declared contributor pairs. Boundary segments belong to both adjacent gestures. Darkness/ink-depletion effects are not simulated or accepted.",
+    "budget": {
+      "renders_per_seed_including_replay": 5000,
+      "seconds_per_seed_including_replay": 1800,
+      "retries": 0,
+      "optimization_evaluations": 0
+    },
+    "scope": "Frozen synthetic fixed-tool actual-contact evaluation, not historical-hand, S2, context or fatigue admission. Original nominal approval is preserved. Renewed actual-ink review remains separate and pending. Targets and limits remain unchanged regardless of failure.",
+    "continuation": {
+      "id": "HANDVALIDATE-021-owner-authorized-event-repair-002",
+      "recorded_at": "2026-09-09T06:10:41Z",
+      "authorization_verbatim": "Okay let's do the \"repair boundary sampling and exact-event comparison, then one bounded no-refit rerun with unchanged targets and thresholds\" -- approved.",
+      "original_spec_sha256": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+      "prior_reports": {
+        "run-001": "6f4678661d6d5103311ac88040f29ad36cd0247d03c45fb9909e0145e4685421",
+        "continuation-001/run-001": "cc4a202e570d292ad899493e5ca53e7cad7b4f796f5e87349af5274d9e587b5c"
+      },
+      "allowed_existing_code_changes": {
+        "scribesim/handvalidate/upright_letters.py": "489af6613967f7bed19580c936f65cef4acbcfd6a9559b0313f2e3ef54c96e1d",
+        "scribesim/evofit/stroke_gestures.py": "2e984b572704f14354513915d658088f0e243761661c0c8d179eff136dc2421b",
+        "scribesim/handvalidate/upright_measurement.py": "f0f42e995662d9c7949e1d1a0b161b347e186011b1b3e108787ca1a9dc0ce785"
+      },
+      "sampling_repair": "Connected boundary-preserving sampling only: remove ordinary grid targets within eight machine ULPs of a declared boundary, keeping every exact boundary. Distinct boundary definitions and ordinary targets outside roundoff remain. Legacy sampling is unchanged. No geometry fit or relaxed geometric acceptance tolerance.",
+      "comparison_version": "declared-contact-events-v1",
+      "comparison_repair": "Compare actual samples at identical declared contact-run entry, corner and terminal events. Require unique event records, complete zero-speed interior corner inventory and stable contact/gesture/contributor identity. Do not use first/last ownership samples on the integration grid. Missing events fail closed. Existing endpoint/time/image thresholds stay unchanged.",
+      "budget_policy": "One immutable new attempt, zero automatic retries or optimization. Retain 5000 renders and 1800 execution seconds per seed across all attempts including replay. Seed 7 starts with 149 calls and 34.57516137394123 seconds debited from the two pinned prior ledgers; seeds 19/41 have zero debit. Tests and read-only archive inspection are not candidate fitting or additional experiment attempts.",
+      "output": "continuation-002/run-001",
+      "scope": "Same reviewed candidate, targets, fixtures, numeric gates and caps. Source archives remain unchanged, and old readers retain their stale-code rejection. New authorized loader checks archived source identity separately from explicitly allowed current code. Finish seeds 7/19/41 with fresh-process replay even if numeric gates fail; do not infer S2, historical-hand, context or fatigue acceptance. Actual-ink owner review remains separate."
+    }
+  },
+  "code_sha256": {
+    "scribesim/__init__.py": "f04851b751fb18d6a1066c89f771c70434a40eb34ec15f1f8be12857b31a86bf",
+    "scribesim/__main__.py": "f1a045eacad16be280daf09de1f6c5b9052320606e3e7aebb04b42bf230c3731",
+    "scribesim/annotate/__init__.py": "d375daa615fb9dc3c0a84f236595358984df10ff8bf867df95374e1417041398",
+    "scribesim/annotate/freeze.py": "0e71f40ccca80c84b007be4b15d6ddc058bcad5f026dfa1d3e7e5280b763e560",
+    "scribesim/annotate/ledger.py": "33eb7f6d4c7d50b41233a8f6df86929f4831a5fe9e70561cfadd557e51444dc1",
+    "scribesim/annotate/strokeassist.py": "9c2f194f9f1cf410236d90ca7d89a4660b5c104e42f7653230500f54c8649837",
+    "scribesim/annotate/wordassist.py": "4c5ce413fb847f4ac9f737029b2ef925e4c95828e970f4d58a195ff6c5bdc6be",
+    "scribesim/annotate/workbench.py": "03b68e53d561895dc61861b33e6d827ba5bb347c14e2fad89943d8c30acbef31",
+    "scribesim/cli.py": "65740e60da7e0efd39b63b31e2e4ae8d4b0007bdae57637e5e51b8ec36beb2f7",
+    "scribesim/curriculum/__init__.py": "f4ff8f02bd99fc7328b9fb6e7ae6b0a35844b6750e30f8065fb2117ca6860c50",
+    "scribesim/curriculum/finer_scales.py": "d6a24451c497250897cc4378aba5d8d0ab111c2af760c71451dcb54641ae913d",
+    "scribesim/curriculum/foundation_actions.py": "8d34c65574f4f0833953235908b9f683ef2164e5d5fd86284c45c82891ac7aee",
+    "scribesim/curriculum/foundation_gestures.py": "9e89542b7369b1e5f47b9b57b928dd6666bb00535aafdd51e5a71bb1afede320",
+    "scribesim/curriculum/foundation_measurement.py": "9845b93615fda56aa9539a9c378f3cb645aa6e150b19993c0e5908c7e3d1249a",
+    "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+    "scribesim/curriculum/gesture_coverage.py": "b9fbb7e529682a6f46d994f5acf217a21a37b70e54539631a37f4aaf299db0a7",
+    "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+    "scribesim/curriculum/gesture_refinements.py": "64bf34282a00e9d96145dae4c6e81525f2edba161fb5083ebbd26d251b4c1c0d",
+    "scribesim/curriculum/gesture_targets.py": "8a62b41e9246ec948dd178551fe731b4b37cae0933de97d40a370c1fc88dc91a",
+    "scribesim/curriculum/glyph_join.py": "910528a23e12a06fb643a92ebb460ae197f74bcd3c39bf1203d6867300387ac0",
+    "scribesim/curriculum/letter_alignment.py": "c3b056bdec4ccbe16ce87c283d01dc54b40af2df91d1a9948f10b91d4a51dc45",
+    "scribesim/curriculum/letter_alignment_evidence.py": "d33033095b9711ec3453e26f0a340709af72392e809a145876bc732ab26912d2",
+    "scribesim/curriculum/letter_recipe_evidence.py": "4d64ea8c79c753044d344bb0ce3513c25f16a05862e02db24aed9071fdad3d03",
+    "scribesim/curriculum/letter_recipes.py": "a55820b48b37a19c704282559495834a085d173641cf516a8a788bd282863c45",
+    "scribesim/curriculum/model.py": "034cad4a509ef37ba4faa02e1b2cfa093454d785c2595dc5f42a1cf8075ad5da",
+    "scribesim/curriculum/pen_actions.py": "a26036cc304ef499ae4f31ac1023fc3e405b79e3998240ebf5dc4cc7c8eaf5e4",
+    "scribesim/curriculum/primitive.py": "a6b44aed858abea31aba813f0871b360aee58ea652de28f8b2c675dc20909c82",
+    "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+    "scribesim/curriculum/upright_letters.py": "f0645cad60cbab16b76bd5fc1f7f7a71dc3630007e508d73a4db7c25ffe7378c",
+    "scribesim/curriculum/word_line.py": "599b0fa4de8a3d0e95dd044d60adbe131f784d270cff90fa0b4ce780d2f3794f",
+    "scribesim/evo/__init__.py": "48de8f5b3b73069253c2e79a0b7064175fe2c5af2189fbf72c50c7f929fe2755",
+    "scribesim/evo/allograph.py": "90abec41882f6721f6110d05c322cdf9ac2712ff4ea162c8b38ac4007b7025a0",
+    "scribesim/evo/char_model.py": "abf6468124ab1ba9f3decd171a335c18c88df88a81840ef0f43483dcbd2b418d",
+    "scribesim/evo/compose.py": "d9e68dc182bca421610fe513bc94c15498702ddb241251a5fc5a7b867cef0f87",
+    "scribesim/evo/engine.py": "bd4225919aa43fa3879700b29a6319e1919b74d18021f43de8d325eb112ed0be",
+    "scribesim/evo/fitness.py": "24486a690d38b9be611de3cc7a2c44c64dbec580fbb2549316aba650be3bfa48",
+    "scribesim/evo/genome.py": "bc90893d993e39be2623559d68cfa60182f70c64ef597498028d241e35a3f32c",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evo/style.py": "346697ee022ce0556beecda32f12183acfd1efafe4245c2ca67ec388b05dc857",
+    "scribesim/evofit/__init__.py": "07e98c9516cdb23e2d0832c651e6a037d94adaff1dcf2d9e0d4d2814b05220da",
+    "scribesim/evofit/connected_contract.py": "54716b960d104049f7521c33deffdd96799bbbeaa27e92dbb408d4443fb95b27",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+    "scribesim/evofit/reference_dataset.py": "a542a258dc27cd7c47f530592d4e0c5d094c53db712cb2eee82b149c00c9a246",
+    "scribesim/evofit/reference_repair.py": "6a5af4e4cc25eb6f4af0c6d06e771519927ea97e03b13f77b83d96b310cd254c",
+    "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+    "scribesim/evofit/stroke_gestures.py": "2e984b572704f14354513915d658088f0e243761661c0c8d179eff136dc2421b",
+    "scribesim/evofit/stroke_language.py": "e985209595af7277bd071ffafa048721892c2a05c8c7ee96aa9033d3f2a0d196",
+    "scribesim/evofit/word_recovery.py": "4a03e7069df765b661bc66d2c060aff502fb7c8774fd91da8d7992b895f0aa12",
+    "scribesim/evofit/workflow.py": "515beee70c8442fd09f5cba6821e98060bb290c17f1b7dd7a8ead5ed289434d2",
+    "scribesim/glyphs/__init__.py": "281721f2716be83c3dfb7c69416a4c8facab7886b70712f944d22b93db79a60c",
+    "scribesim/glyphs/catalog.py": "003a4ff79963dc41cc79eedaaf7b449b82b28df04792d112baa840b074a3d197",
+    "scribesim/glyphs/glyph.py": "d07c30e9a2896ae572e0ff8e42c040808fa6a7ba793423d3307efc2eeeab4c37",
+    "scribesim/glyphs/strokes.py": "be104aeb1cc0654ec32806964c8f81f9aba55c0d62f751ce8686b97dce9d49fd",
+    "scribesim/groundtruth/__init__.py": "0e8da58d0885dad2b7f04bac08e4abf9eb0b91f58b44898acbdbaff24b371be5",
+    "scribesim/groundtruth/page_xml.py": "30da29c3fb03abbfb25f8d0fb95073c0c4e0899c3d9c928e623fe1b66f4cb903",
+    "scribesim/guides/__init__.py": "eed79c388a94ca6e5acea9b2780842dd67e67a78249ad008ba902e113c765a4f",
+    "scribesim/guides/catalog.py": "fdbb5a9c7a03e22a25b86928b73a46508cd2564804d087976e0c6fe3a6a82688",
+    "scribesim/guides/keypoint.py": "2aa34ca3997db54232633966e19d08c8ac821d8879bf30c7e8b2cd5a106b226f",
+    "scribesim/hand/__init__.py": "468e72cbdfc48fb715bd6b9f2784261323188b972afc583cce9e52409b5f6b84",
+    "scribesim/hand/model.py": "19205f15df39921df0f652933aaeefc3039d9af46a966caca9a3f20d393e1960",
+    "scribesim/hand/modifiers.py": "9738218ad6cd49e1f4aaa2b29df8ddb98c96145d0aa0932e1096f12c0f38b82d",
+    "scribesim/hand/params.py": "f8c1150d3ce43502017e6626ebcd07f0282d8490610b233593947588b7789427",
+    "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+    "scribesim/handflow/__init__.py": "4d659804a9a08fdcc3fd98db93e1f7c0b20015e423c85b47e8ec9bdf7bd087ec",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handflow/curve_tangents.py": "7595a900f29e93ab8b558fe640b305eb34d1cd441a21dbe4b7680f13b00d75ee",
+    "scribesim/handflow/execution.py": "84bd0fefc7d064c1b14b429a97b8519d52e4736c75133c8dffeddb1aed25b9a3",
+    "scribesim/handflow/folio.py": "1fa2a2923a19b31851c66f970f81a1ae08a354063783c80b6ea5cf51380a3844",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/proof.py": "4d0556197525981457bc0160d837ad4f4e10590e43fa4d04c8db8ee8b875e1b0",
+    "scribesim/handflow/render.py": "ba0dd4f7819b766e84ecc4f6c75120283b24f666f8a54c98f7e48bb9bd1fd094",
+    "scribesim/handflow/session.py": "bf7f3eb03db6fc269c7e7409b933c4a4b0fb92e2df27d714ad316c68d2ba277e",
+    "scribesim/handsim/__init__.py": "996f4f7f8d0111f8404c73cd7ecddda4bb49c7561a25457c208939023fc6a51d",
+    "scribesim/handsim/planner.py": "dcac520a71be36e3d0163c734939fafc325c1e8ea98d226d04233caf13420f9f",
+    "scribesim/handsim/state.py": "4f0be4dacc61560b0e8870bd92dbc94f5dcd460ea1b6c3d42b65ecffda0d0978",
+    "scribesim/handsim/targets.py": "b55eb1d43523429a011a43599d6bb6f85b54ee02d6517950a3dfc529e1acec9f",
+    "scribesim/handvalidate/__init__.py": "011ce1f86f0cb14d5e07e302bc27b8ac2a9015a25ede7554dbdffd89c59e03c2",
+    "scribesim/handvalidate/action_bridge.py": "87f9659d338834f4ce813f760b510ba0cc4ebd1c216754ce1ff9c116a3a3ddeb",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/handvalidate/expressive.py": "a3b13196b7bdb5c54f498bc8e1b0221d1c6551b560e8a3bb3a4fd777533d7f68",
+    "scribesim/handvalidate/finer_scales.py": "9221a72aad5062c3d72f704205da1757398ae8396df6f3959d52598b1e172f5b",
+    "scribesim/handvalidate/folio_bench.py": "0db44202c171f1236c95ec4e47bf66820976c64f7c9ef32648804164f2b4409f",
+    "scribesim/handvalidate/foundation_actions.py": "c22fa4921bc0a830d1d5b2d88eb707da6cee710e08d7f53efb6a43bf54fd6c37",
+    "scribesim/handvalidate/foundation_gestures.py": "b72bbf01b168d083d579e4ac5338f01ccd097ad80677545765ff47906caaf25d",
+    "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+    "scribesim/handvalidate/foundation_primitives.py": "c6bd9526d8f75b7b8c7975e51674ad5c38f227244e00fca6280e820573aa4411",
+    "scribesim/handvalidate/frozen_replay.py": "55377eccfaf699815abe450bd33fff902bdc7ce035e0065756ad018b44d9e8a7",
+    "scribesim/handvalidate/gates.py": "ff6502a55748e6aea8034fd7f55a5bdb1ea086d231913c13f8eb4c6c3d868d6e",
+    "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+    "scribesim/handvalidate/letter_assembly.py": "a49bb939d446aea07c3a5543d02593ebf14392e1fe2b4a257b371e74e39536bf",
+    "scribesim/handvalidate/letter_assembly_evidence.py": "4d485374cfdd3efad9b2a40718db4a95c954d1f2aebe9645deb75c558fb6d0b8",
+    "scribesim/handvalidate/metrics.py": "84a82082ea9678e25c4902c878b0546efa347138b31ecb48e5507008f12cd3cc",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/nib_contact.py": "bb4e630252ac620699fa1e2122422f9371b1bd56f256ac4850428ebbd6c0e84e",
+    "scribesim/handvalidate/nominal.py": "232f8b41db5c0aef112ef427668fbffda0b33b288597952d85310d428de8cf7a",
+    "scribesim/handvalidate/nominal_review.py": "a76d65c041fe1c475be5ee7321f63c07eaa4612b6ba80406b160e42f1033b1cd",
+    "scribesim/handvalidate/pen_actions.py": "103de6792cc5829dfc79ce4e4ecb36ff112fef5ddaa1d537adb856d6106d59cc",
+    "scribesim/handvalidate/report.py": "65d03d3ee482fb6f415d01ecec7c3866cc009b04288e9d1d417aa40c9652947a",
+    "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+    "scribesim/handvalidate/standalone_stem.py": "0963ae1bcda4857e7a7b5b3d8452ac2caf47332ad38ab24e1a7fe5d026c794d3",
+    "scribesim/handvalidate/tangent_evaluation.py": "e58743c881c9ab8231ca3dc5a76df91117e8fa4eb1f5fd9f3d86ac9591051a0a",
+    "scribesim/handvalidate/tangent_motion.py": "87a05731b62d58dad8821d4802b2804dae0cc427185b2034b3ea47ba16920b3a",
+    "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2",
+    "scribesim/handvalidate/upright_continuation.py": "0c510fc522b6279938163863cbdaf76c38b099272e2e71c39926ae00a1477ebb",
+    "scribesim/handvalidate/upright_event_replay.py": "b53d8e3f44e68c12c73e04b8b5ecac1178860b9e60f95a0c65357de57b1aa831",
+    "scribesim/handvalidate/upright_evidence.py": "08c1b6715ffb188f13b55d543e54d015c8b4839c6c02d0dcb120d4127fa88df6",
+    "scribesim/handvalidate/upright_letters.py": "489af6613967f7bed19580c936f65cef4acbcfd6a9559b0313f2e3ef54c96e1d",
+    "scribesim/handvalidate/upright_measurement.py": "f0f42e995662d9c7949e1d1a0b161b347e186011b1b3e108787ca1a9dc0ce785",
+    "scribesim/handvalidate/upright_targets.py": "ffb58d1f1015bff0982d54df4cc5a684b16bffdfa680d1309a92534525571d00",
+    "scribesim/ink/__init__.py": "49a874271fac643d11dea53edf5813786dc1446c42a3b6dd4e07360d23dba482",
+    "scribesim/ink/cycle.py": "7846e0f840248f36f4814da0631b111ab8278dc50abeefb04608839d01c16871",
+    "scribesim/ink/filters.py": "a3f6cf1412afbbeb42ed9ab3d9a43cff1630af82832ee82e4762e49ed3d110ae",
+    "scribesim/layout/__init__.py": "b3497fa4f98a0a3e4b5b26b0c0fb784494e8f108597e48ea6bcae9a189119cfb",
+    "scribesim/layout/connections.py": "7f40752a00435f41dccb30f6236213e085462b2ac19a6a229f252237cfa2a231",
+    "scribesim/layout/geometry.py": "f5e65550e4284499610b7384bc84168e97da083c804945c7b15163d2b6b5d826",
+    "scribesim/layout/kerning.py": "e0cddadcf7ffd6b9742dfecdb6679557df18d33881d946b40f8cd52ad53eda0c",
+    "scribesim/layout/lacuna.py": "0d3210822a4b637bd6be203283622b512cacb25e189cc6c2ac272a1617c1673c",
+    "scribesim/layout/linebreak.py": "26cfe93991d83cdebef8322d0989f2b9d41783bdd3fe74a00a2d656c5460ac47",
+    "scribesim/layout/placer.py": "881a32085b89aee9c521fc6bbf25d3e7548e484e8f7e4b2bb0f082b0b581e44b",
+    "scribesim/layout/positioned.py": "f2a3c139a6b8cb817beef932c35226d136db6ecd58135a482fd706ffdcaf393b",
+    "scribesim/metrics/__init__.py": "4002c8b799873e672cbc79dbf1e726334663f3c7ab8b60c166f19b64c45215d9",
+    "scribesim/metrics/suite.py": "3eaf2f3b19db8d9b28166c82033b970fcdc1d767718a2bc2f112fe326e5ace07",
+    "scribesim/movement/__init__.py": "a2bb3b54e29a49b8664eb33ea2ef95d5f34eec411bca12ff81b4602c063b0582",
+    "scribesim/movement/imprecision.py": "80a282061efa1abe4815e18f29ed56012d3d4f36c4de8e2f04e002b48a6c0ff1",
+    "scribesim/movement/movement.py": "85f552e6fbe183b540d4b78de3995b70aed3107d8a612566833c334c37fbb443",
+    "scribesim/pathguide/__init__.py": "b429e593d37144cbdff6b23ec826b831f89a04b9d0781272b4f515bce1374f24",
+    "scribesim/pathguide/catalog.py": "0cc52b2af25c2f8db20c8a6b7f4aacf7ddf1e1208e2bf764b550ae066b7f783c",
+    "scribesim/pathguide/freeze.py": "b9c632b9f160b7bd9fe5031c3ae5ada4e1b47a3ec85a0a886a89935a4b241873",
+    "scribesim/pathguide/gesture_actions.py": "e125003308d86b5e5eb5df1b092580e5b585d708abe46aab642863e28674f052",
+    "scribesim/pathguide/io.py": "8d06f2f315d496abf91f5a305015774caea70d20b120b2365d346a732bb78c5b",
+    "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+    "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+    "scribesim/pathguide/review.py": "f587711f2fde3b1a02966d12c1d6482084eaadf0e1ecf11adb24d43999e13776",
+    "scribesim/pathguide/validate.py": "2126b41f2186f0a2238efb099428821f0a48f895000342e81a1a1ab7c1c5fb3f",
+    "scribesim/refextract/__init__.py": "88ce7d048d010ae4e3fd06484b97d03d71bb4832d3d110ef04ebbc024bfc60f1",
+    "scribesim/refextract/centerline.py": "284c48af63a8ccf87bb3ffbad4dc1db8210e05ed546c107b89d2c647505a1872",
+    "scribesim/refextract/corpus.py": "add03ce00d64a8bbebcdfaec03d04f795e6fadfff201458710b040566d3ff00f",
+    "scribesim/refextract/exemplar.py": "5f839a48efc32b482022eea3a12054b6c71a981f0923ea36849ffaff0379a4f6",
+    "scribesim/refextract/guidegen.py": "6ab571f607162f2dfecae12198a9bfb0435b8fa87f29a201f3e65c300d2050f3",
+    "scribesim/refextract/nibcal.py": "ffa846707ae563513c9ea5fc03753b15ad8d2e15148d5e40990202fc0292ca47",
+    "scribesim/refextract/segment.py": "f28c1fcdbc2ca2bc6da3e523195b12483c56a33a9961145828df0f377dbc9c1b",
+    "scribesim/refextract/utils.py": "dceffba317c81323ba9810a6fc59b12f8b521f93975966803c97bd98f7fa912f",
+    "scribesim/refselect/__init__.py": "d357c5a82d23af21105b7f9f398775ebe7692c14248400e70a16a9f0a1c848d3",
+    "scribesim/refselect/analysis.py": "0b08cdb6293375e99a8a62e137586aeb7541f7500f01cba84ea6d99c6435bde2",
+    "scribesim/refselect/harvest.py": "3ea7723c524724627dd3ce8d607071f6ff31f513e8fc742dae017abd883d31ec",
+    "scribesim/refselect/iiif.py": "e5146670942133f83bc89fad4a5385d0995bd9df1e2b73505dafd7d224f0c409",
+    "scribesim/refselect/provenance.py": "f2ee622b49b10804756720543b83a17954e7b8370fa987fbe3610a40e8d578aa",
+    "scribesim/refselect/report.py": "79e4fc734d9f7c75ba87caccebe5606802d325484fc569495ab4969cddbc19bb",
+    "scribesim/render/__init__.py": "daf54b04cd1556cda884ef2952c7889ffec6c3dc8f8082659e9d2d1c0211c7c8",
+    "scribesim/render/bezier.py": "14fad5bd050d666454a040714b549deb42d408a529bf971060a9175bef052ecc",
+    "scribesim/render/diagnostic.py": "50ff831e682649fcb96ce09440d0d15958bb6e6b12182c04f93a8da38608bd47",
+    "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+    "scribesim/render/pipeline.py": "1ac32c8b381d6189b1d80971deacaba86921640224d016ccfad834c9caece56e",
+    "scribesim/render/rasteriser.py": "679c47f333864abda44bc4a360fc6af017cf17dd1cd14f4307657ba3507634c6",
+    "scribesim/render/scribe_state.py": "754af1d6e33d6979a7a6ef7da2e6fb2ac55123130ad05896d2da8dbabf8af956",
+    "scribesim/training/__init__.py": "37e53d027331fb28774660392bb21fe235f564c9e79aa794782c2438789051ab",
+    "scribesim/training/extract.py": "a3e6dc8db901ca15ea5d086a576b19a3f026beee36df8b1599ffb1b52480fdcf",
+    "scribesim/training/path_extract.py": "1d07f5bde5c67e3031a926a7cce5fe1c0c789992f36e0e720832587a7b3c9143",
+    "scribesim/training/trainer.py": "348b63a8943f12780ebb67e7b181b1173c4471606511ea3e74d83b5404dd449e",
+    "scribesim/training/word_trainer.py": "a0ade46e1fb16e19279d2d82615b8ebcc880bbdcdb626f5b8d5ae678aff3f386",
+    "scribesim/transcribe/__init__.py": "59fcbf8f4c8ec6cd36dd89aa2536fb39426d1e1cb74ca2c36d7d413a17c9d40c",
+    "scribesim/transcribe/batch.py": "8ab482236181c5f964d5a47f94ace56c2aa369e79a152ffff78dffef7419bba8",
+    "scribesim/transcribe/examples.py": "270e0c5944d5f0647e7e46fcb0c8606e97ae8d6b3e8d28809bcf1b908a439582",
+    "scribesim/tuning/__init__.py": "f3610ba63805e68c0edfeb189e4efb20bb210d67e5d419852ffa7a7890e9c59f",
+    "scribesim/tuning/cmaes_optimizer.py": "77c54712d0d7e2bc48635fa55fa61ea8a9c438460f15973f84bda4e86dd2b592",
+    "scribesim/tuning/compare.py": "81e4ce4408626f39737d1b16ee1b2e33c94cfda731dc942ca6bf717c070bed89",
+    "scribesim/tuning/diff.py": "a7b66c01bc249abde805563fa79acedd09b6950990a93c5bae37c6f147be5875",
+    "scribesim/tuning/fitting_loop.py": "b0aaa538960bf7d18680ebe2a52fd7c282bbd8df0bfed304b0628ddbc686cbc6",
+    "scribesim/tuning/optimizer.py": "f2838b896cd853c276c913677b92d389680821340cc2d14fd9d3e11914a18c41",
+    "scribesim/tuning/report.py": "6fa19c949382bd6a9190cd464c4c9c69f75aa6df7b1672f417fc9472cd623080",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_bridge/spec-v1.json": "c154d44494b2af73befba34087c93872e780e1dd0f30912198419a561053b575",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_evaluation/spec-v1.json": "3bb71b19da2f6cd09e9d64dd4773cf6c0838031eb0127c08c7e25398b0403312",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/spec-v1.json": "41a3f98ff7b9739d7df6999e9b8130954e2a4458b6ab0670f4a98b085e5ab344",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v1.json": "0f2576801903a1290cccf0c92269c699bb50bf396b2143553e2b88575428b34c",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v2.json": "d068a03bbe1aaf9bb3a967f44e7c7b20120961533b91212ce786fab91e389266",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/spec-v1.json": "d20fb9071edc19757456719db28f7fb7db7da11915215022e6502f7f66e04af3",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/spec-v1.json": "71a857879bafe4e3c6f2c84ea13f6d57c0f6d6fe67a69c080e5ad836917cf35d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/spec-v1.json": "db79b5c01789af8df85c77b64e75ac50ac4edcf06ae2c1ac446fb328f26db347",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v1.json": "5950f6881c0dc850606526ee116a750daa15ee3d020506a3b150922dc3f6629e",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v2.json": "030bc8c36399d153b0917cecab6af1e610f3a97e3d84d9691261230ae3db6c8f",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v1.json": "ab058363433bac4038976e482ace915357d609e696fa576de53ff0d04ba17d51",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v2.json": "211c41e9fdbc85ab38e507c3b0bddfbd26c508ea7b17fd6a5db8f456aa962f80",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v3.json": "983ee6b125dee0a3b3231f6dbd5d003d71829c0010d026e67f6b25caaf87121c",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v4.json": "53c428945e2ed861553fc9a53297a09dc8e31194c7857ca359751fd24c570b44",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/spec-v1.json": "e92dd81238e0a0ffcf473c2999e7e59d7881f15a04000d17db65558f64466af5",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v1.json": "4e5798d95e46f26b7eeb9eb77b1b5eaee25031d5f7d025d774f1d60d5a8c8c67",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/scale_evaluation/spec-v1.json": "89bfdfb98ee6f8927f7b2e53a43d2e8db8124e8e6f54c33704c803983e34a4cf",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/stem_evaluation/spec-v1.json": "2e901e20af5c3c5de4c35d78ae90d586da73c533f0daa05b5087de40ca9c8afd",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v1.json": "4f49543a4ccc17925585208cb8d6c4f0bdfed9ccee14436c21d6eaa222093d71",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v2.json": "a31cb39abddda710611b55097725ccbd4f75ebd5bb10648964c38a91a6e11ff1",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/spec-v1.json": "5fbc75684f549535f5471e39e1090f23be58046b7898110ed1aef5c2253a9df2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/spec-v1.json": "f9ae4f7eb375266a71a53c3f160aa52248697e2b88dc0b8e51c46c51c9ac2448",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json": "c86f5ef17c0c287f250032cdc291e9c71d1bb81116d0b9002c37bd910de0be5f",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/spec-v1.json": "f415b3cb63f5f4ca8f26ac053f9cd90679d25a8479aca0b281609dfd9071dfbe",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json": "8a5598911cb3da300ba5ec376bca42c74ab776ccec72b44553133c489e85b090",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/continuation-002/authorization.json": "0c17bde42bfea9b054cf81d82b94af90f8feedea6e9c35d3892e9cb5beff12f2",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/continuation-001/authorization.json": "1b27656547a9dad2caaff4fc705c026db01c5a995addb343d352715913665681"
+  },
+  "source": {
+    "candidate": {
+      "schema_version": "shared-stroke-gestures-connected-v1",
+      "units": "local-xheight-y-up",
+      "scope": "upright-shared-preview-v1; unaccepted synthetic nominal construction",
+      "primitives": {
+        "stem": {
+          "cubics": [
+            [
+              [
+                0,
+                1
+              ],
+              [
+                0.019999999999999997,
+                0.7
+              ],
+              [
+                -0.01999999999999999,
+                0.5399999999999999
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            0.06651901052377392,
+            -0.997785157856609
+          ],
+          "exit": [
+            0.03701166050988025,
+            -0.9993148337667671
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "rise": {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                -0.008,
+                0.216
+              ],
+              [
+                0.03669910552841841,
+                0.8566554718115462
+              ],
+              [
+                0.08,
+                0.8981889828353081
+              ]
+            ]
+          ],
+          "entry": [
+            -0.037011660509880265,
+            0.9993148337667671
+          ],
+          "exit": [
+            0.7216815745263602,
+            0.6922251837293654
+          ],
+          "closed": false,
+          "provenance": "deterministic upright preview v1; no fitting or historical/physical admission"
+        },
+        "upper-return": {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.8981889828353081
+              ],
+              [
+                0.18290601085575875,
+                1.0736294422275665
+              ],
+              [
+                0.38383636567610085,
+                1.0180237135802213
+              ],
+              [
+                0.40073046926498357,
+                0.7646121597469803
+              ]
+            ]
+          ],
+          "entry": [
+            0.72168157452636,
+            0.6922251837293657
+          ],
+          "exit": [
+            0.06651901052377386,
+            -0.997785157856609
+          ],
+          "closed": false,
+          "provenance": "deterministic upright preview v1; no fitting or historical/physical admission"
+        },
+        "lower-return": {
+          "cubics": [
+            [
+              [
+                0.0,
+                0.24828332068073714
+              ],
+              [
+                0.006790325394673221,
+                0.06494453502456013
+              ],
+              [
+                0.4031590692016797,
+                -0.13109169221828862
+              ],
+              [
+                0.39397199458298726,
+                0.11695932248640808
+              ]
+            ]
+          ],
+          "entry": [
+            0.03701166050988026,
+            -0.9993148337667671
+          ],
+          "exit": [
+            -0.037011660509880175,
+            0.9993148337667671
+          ],
+          "closed": false,
+          "provenance": "deterministic upright preview v1; no fitting or historical/physical admission"
+        }
+      },
+      "recipes": {
+        "n": {
+          "logical": "n",
+          "visible": "n",
+          "advance": 1.3,
+          "gestures": [
+            {
+              "gesture": "stem",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                -0.2,
+                0
+              ],
+              "transition": "start",
+              "overlap_with": []
+            },
+            {
+              "gesture": "overturn",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                -0.2,
+                0
+              ],
+              "transition": "corner",
+              "overlap_with": [
+                0
+              ]
+            }
+          ]
+        },
+        "u": {
+          "logical": "u",
+          "visible": "u",
+          "advance": 1.3,
+          "gestures": [
+            {
+              "gesture": "underturn",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                -0.2,
+                0
+              ],
+              "transition": "start",
+              "overlap_with": []
+            },
+            {
+              "gesture": "stem",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                0.2726227635760428,
+                0
+              ],
+              "transition": "corner",
+              "overlap_with": [
+                0
+              ]
+            }
+          ]
+        },
+        "m": {
+          "logical": "m",
+          "visible": "m",
+          "advance": 2.3,
+          "gestures": [
+            {
+              "gesture": "overturn",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                -0.2,
+                0
+              ],
+              "transition": "start",
+              "overlap_with": []
+            },
+            {
+              "gesture": "overturn",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                0.2807304692649836,
+                0
+              ],
+              "transition": "corner",
+              "overlap_with": [
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "letter_rules": [],
+      "word_rules": [],
+      "x_height_mm": 3.5,
+      "nib_width_mm": 0.45,
+      "nib_angle_deg": 40,
+      "letter_gap": 0.15,
+      "word_gap": 0.8,
+      "line_pitch": 3,
+      "sampling": "gesture-arc-v3",
+      "migration_source_sha256": "73c17320af9b418bb148abe22a105fa030c35d36a605da12504bb20e441cd863",
+      "gestures": {
+        "stem": {
+          "action": "fixed",
+          "strokes": [
+            {
+              "primitive": "stem",
+              "offset": [
+                0,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "start"
+            }
+          ]
+        },
+        "overturn": {
+          "action": "fixed",
+          "strokes": [
+            {
+              "primitive": "rise",
+              "offset": [
+                0,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "start"
+            },
+            {
+              "primitive": "upper-return",
+              "offset": [
+                0.08,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth"
+            },
+            {
+              "primitive": "stem",
+              "offset": [
+                0.4807304692649836,
+                0
+              ],
+              "scale": 0.7646121597469803,
+              "rotation_deg": 0,
+              "transition": "smooth"
+            }
+          ]
+        },
+        "underturn": {
+          "action": "fixed",
+          "strokes": [
+            {
+              "primitive": "stem",
+              "offset": [
+                0,
+                0.24828332068073714
+              ],
+              "scale": 0.7517166793192629,
+              "rotation_deg": 0,
+              "transition": "start"
+            },
+            {
+              "primitive": "lower-return",
+              "offset": [
+                0,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth"
+            },
+            {
+              "primitive": "rise",
+              "offset": [
+                0.39397199458298726,
+                0.11695932248640808
+              ],
+              "scale": 0.9831346124131943,
+              "rotation_deg": 0,
+              "transition": "smooth"
+            }
+          ]
+        }
+      },
+      "actions": {
+        "fixed": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        }
+      }
+    },
+    "prior": {
+      "schema_version": "shared-stroke-gestures-foundation-v1",
+      "units": "local-xheight-y-up",
+      "scope": "untrained-foundation-contract",
+      "primitives": {
+        "stem": {
+          "cubics": [
+            [
+              [
+                0,
+                1
+              ],
+              [
+                0.019999999999999997,
+                0.7
+              ],
+              [
+                -0.01999999999999999,
+                0.5399999999999999
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            0.7071067811865475,
+            -0.7071067811865475
+          ],
+          "exit": [
+            0.5144957554275265,
+            -0.8574929257125441
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "rise": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.07999999999999999,
+                0.24999999999999994
+              ],
+              [
+                0.30000000000000004,
+                0.6200000000000001
+              ],
+              [
+                0.5,
+                1
+              ]
+            ]
+          ],
+          "entry": [
+            -0.3713906763541038,
+            0.9284766908852594
+          ],
+          "exit": [
+            0.894427190999916,
+            0.44721359549995787
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "bowl": {
+          "cubics": [
+            [
+              [
+                0,
+                1
+              ],
+              [
+                0.89,
+                0.8
+              ],
+              [
+                0.8,
+                0.27
+              ],
+              [
+                0.65,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            0.9965457582448797,
+            -0.08304547985373996
+          ],
+          "exit": [
+            -0.9761870601839527,
+            -0.21693045781865616
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "turn": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.10999999999999999,
+                0.2899999999999999
+              ],
+              [
+                0.44,
+                0.09
+              ],
+              [
+                0.5,
+                1
+              ]
+            ]
+          ],
+          "entry": [
+            -0.31622776601683794,
+            0.9486832980505138
+          ],
+          "exit": [
+            -0.2676438637860946,
+            0.9635179096299405
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "loop": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                -0.61,
+                1.45
+              ],
+              [
+                0.84,
+                1.29
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            -0.18428853505018533,
+            0.9828721869343219
+          ],
+          "exit": [
+            -0.5299989400031799,
+            -0.8479983040050879
+          ],
+          "closed": true,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "exit": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.28,
+                0.04000000000000001
+              ],
+              [
+                0.42,
+                0.16999999999999998
+              ],
+              [
+                0.45,
+                0.15
+              ]
+            ]
+          ],
+          "entry": [
+            0.4856429311786321,
+            -0.8741572761215378
+          ],
+          "exit": [
+            0.6000000000000001,
+            -0.7999999999999999
+          ],
+          "closed": false,
+          "provenance": "unaccepted synthetic stroke prior; not historical ductus"
+        },
+        "lower-return": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.008512681917272459,
+                -0.22984241176635645
+              ],
+              [
+                0.3872329809716,
+                -0.35239693446375
+              ],
+              [
+                0.5,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            0.03701166050988025,
+            -0.9993148337667671
+          ],
+          "exit": [
+            0.30477572710378376,
+            0.9524241471993242
+          ],
+          "closed": false,
+          "provenance": "New untrained project-authored lower-return prior; old turn is not relabeled"
+        },
+        "upper-return": {
+          "cubics": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                0.1397239298497867,
+                0.2654754667145947
+              ],
+              [
+                0.47937910673763007,
+                0.3093133989355488
+              ],
+              [
+                0.5,
+                0
+              ]
+            ]
+          ],
+          "entry": [
+            0.46574643283262235,
+            0.8849182223819824
+          ],
+          "exit": [
+            0.06651901052377392,
+            -0.997785157856609
+          ],
+          "closed": false,
+          "provenance": "New untrained project-authored upper-return prior; old loop is not relabeled"
+        }
+      },
+      "recipes": {
+        "n": {
+          "logical": "n",
+          "visible": "n",
+          "advance": 1.3,
+          "gestures": [
+            {
+              "gesture": "stem",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                -0.2,
+                0
+              ],
+              "transition": "start",
+              "overlap_with": []
+            },
+            {
+              "gesture": "overturn",
+              "scale": 0.971050582916053,
+              "rotation_deg": -18.43494882292201,
+              "offset": [
+                -0.2,
+                1.0780827152290817e-16
+              ],
+              "transition": "lift",
+              "overlap_with": []
+            }
+          ]
+        },
+        "u": {
+          "logical": "u",
+          "visible": "u",
+          "advance": 1.3,
+          "gestures": [
+            {
+              "gesture": "underturn",
+              "scale": 0.9546734384687803,
+              "rotation_deg": -18.434948822922003,
+              "offset": [
+                -0.5018942487225955,
+                0.09431725383221334
+              ],
+              "transition": "start",
+              "overlap_with": []
+            },
+            {
+              "gesture": "stem",
+              "scale": 1,
+              "rotation_deg": 0,
+              "offset": [
+                0.8264404456568251,
+                0
+              ],
+              "transition": "lift",
+              "overlap_with": []
+            }
+          ]
+        },
+        "m": {
+          "logical": "m",
+          "visible": "m",
+          "advance": 2.3,
+          "gestures": [
+            {
+              "gesture": "overturn",
+              "scale": 0.971050582916053,
+              "rotation_deg": -18.43494882292201,
+              "offset": [
+                -0.2,
+                1.0780827152290817e-16
+              ],
+              "transition": "start",
+              "overlap_with": []
+            },
+            {
+              "gesture": "overturn",
+              "scale": 0.971050582916053,
+              "rotation_deg": -18.43494882292201,
+              "offset": [
+                0.8440487321846317,
+                1.0780827152290817e-16
+              ],
+              "transition": "lift",
+              "overlap_with": []
+            }
+          ]
+        }
+      },
+      "letter_rules": [],
+      "word_rules": [],
+      "x_height_mm": 3.5,
+      "nib_width_mm": 0.45,
+      "nib_angle_deg": 40,
+      "letter_gap": 0.15,
+      "word_gap": 0.8,
+      "line_pitch": 3,
+      "sampling": "gesture-arc-v3",
+      "migration_source_sha256": "3d3e310a1e8e394372fee1daca8c1aafc268239a67ffdaac7ce7b2bcd0f7ba55",
+      "gestures": {
+        "stem": {
+          "strokes": [
+            {
+              "primitive": "stem",
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            }
+          ],
+          "action": "fixed"
+        },
+        "rise": {
+          "strokes": [
+            {
+              "primitive": "rise",
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            }
+          ],
+          "action": "fixed"
+        },
+        "underturn": {
+          "strokes": [
+            {
+              "primitive": "stem",
+              "offset": [
+                0.0,
+                0.17000000000000004
+              ],
+              "scale": 0.83,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            },
+            {
+              "primitive": "lower-return",
+              "offset": [
+                0.0,
+                0.17000000000000004
+              ],
+              "scale": 0.87,
+              "rotation_deg": 0.0,
+              "transition": "smooth"
+            },
+            {
+              "primitive": "rise",
+              "offset": [
+                0.435,
+                0.17000000000000004
+              ],
+              "scale": 1.17,
+              "rotation_deg": 0.0,
+              "transition": "smooth"
+            }
+          ],
+          "action": "fixed"
+        },
+        "overturn": {
+          "strokes": [
+            {
+              "primitive": "rise",
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": 1.17,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            },
+            {
+              "primitive": "upper-return",
+              "offset": [
+                0.585,
+                1.17
+              ],
+              "scale": 0.87,
+              "rotation_deg": 0.0,
+              "transition": "smooth"
+            },
+            {
+              "primitive": "stem",
+              "offset": [
+                1.02,
+                0.33999999999999997
+              ],
+              "scale": 0.83,
+              "rotation_deg": 0.0,
+              "transition": "smooth"
+            }
+          ],
+          "action": "fixed"
+        },
+        "compound_curve": {
+          "strokes": [
+            {
+              "primitive": "upper-return",
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": 0.87,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            },
+            {
+              "primitive": "stem",
+              "offset": [
+                0.435,
+                -0.83
+              ],
+              "scale": 0.83,
+              "rotation_deg": 0.0,
+              "transition": "smooth"
+            },
+            {
+              "primitive": "lower-return",
+              "offset": [
+                0.435,
+                -0.83
+              ],
+              "scale": 0.87,
+              "rotation_deg": 0.0,
+              "transition": "smooth"
+            },
+            {
+              "primitive": "rise",
+              "offset": [
+                0.87,
+                -0.83
+              ],
+              "scale": 1.17,
+              "rotation_deg": 0.0,
+              "transition": "smooth"
+            }
+          ],
+          "action": "fixed"
+        },
+        "upper_loop": {
+          "strokes": [
+            {
+              "primitive": "loop",
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            }
+          ],
+          "action": "fixed"
+        },
+        "terminal": {
+          "strokes": [
+            {
+              "primitive": "exit",
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            }
+          ],
+          "action": "fixed"
+        },
+        "shoulder": {
+          "strokes": [
+            {
+              "primitive": "upper-return",
+              "offset": [
+                0.0,
+                0.0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0.0,
+              "transition": "start"
+            }
+          ],
+          "action": "fixed"
+        }
+      },
+      "actions": {
+        "fixed": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        }
+      }
+    },
+    "nominal_review_sha256": "f7389c89d5c534e25d18907dfe954bd526a1a0d8b53edcd8361e59c83b9c2c74",
+    "prior_attempt": {
+      "reports": {
+        "run-001": "6f4678661d6d5103311ac88040f29ad36cd0247d03c45fb9909e0145e4685421",
+        "continuation-001/run-001": "cc4a202e570d292ad899493e5ca53e7cad7b4f796f5e87349af5274d9e587b5c"
+      },
+      "debits": {
+        "7": {
+          "renders": 149,
+          "seconds": 34.57516137394123
+        },
+        "19": {
+          "renders": 0,
+          "seconds": 0.0
+        },
+        "41": {
+          "renders": 0,
+          "seconds": 0.0
+        }
+      }
+    }
+  }
+}
