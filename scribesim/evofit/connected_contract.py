@@ -66,7 +66,7 @@ def require_overlap_owners(rows, instances, nib_extent):
         for previous in range(current):
             other, other_error = envelopes[previous]
             overlap = np.linalg.norm(points[:, None] - other[None, :], axis=2) <= nib_extent + error + other_error
-            if previous == current - 1 and instances[current]['transition'] in {'smooth', 'corner'}:
+            if previous == current - 1 and instances[current]['transition'] == 'smooth':
                 port = np.asarray(groups[current][0]['cubics'][0][0])
                 local = 2 * (nib_extent + error + other_error)
                 overlap &= ~((np.linalg.norm(points-port, axis=1) <= local)[:, None]
