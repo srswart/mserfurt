@@ -18,49 +18,38 @@ reported against that old nominal reference, not claimed as old-vs-new physics.
 
 ## Reproduce and inspect
 
-Both permitted attempts now exist and are immutable. The continuation has nine
-saved fixture records but is blocked at the finer translated-mu corner plan;
-neither original command below may start another run. See `outcome.md` and the
-partial-results gallery `index.html`. The non-admitting partial reader is:
+All three authorized attempts now exist and are immutable. The latest,
+`continuation-002/run-001`, completes ten fixtures at four refinements, eleven
+negative controls and seeds 7/19/41 with byte-identical fresh-process replay.
+Motion and convergence pass; independent target-image gates fail. No acceptance
+or automatic retry is authorized. See `outcome.md` and the complete gallery
+`index.html`.
+
+Inspect the latest archive without rendering or fitting:
 
 ```sh
-.venv/bin/python -m scripts.handvalidate_upright_partial \
-  --report-sha256 cc4a202e570d292ad899493e5ca53e7cad7b4f796f5e87349af5274d9e587b5c
+.venv/bin/python -m scripts.handvalidate_upright_events \
+  --report-sha256 c986db16fbbac20d8ce66844a6789d5198b8deaa1c00bc70b97682b823488655
 ```
 
-It verifies saved traces/metric pixels and explicitly returns `status=incomplete`,
-`numeric_pass=false`, no replay and no acceptance. It does not render or modify
-the frozen evaluator identities. Its own source hash is included in the separate
-partial receipt. The complete-run reader correctly rejects this incomplete run.
+`continuation-002/authorization.json` pins the original protocol, both failed
+reports and the explicitly approved repair hashes. The latest attempt charges
+966 new renders, 1,115 including prior failures. All per-seed combined budgets
+remain within 5,000 renders/1,800 seconds. Zero optimization evaluations.
 
-The first attempt is preserved after a pre-score adapter failure. The owner has
-authorized one continuation with the unchanged original protocol. Its explicit
-authorization, prior debit and output path are in
-`continuation-001/authorization.json`. Run it only before its own run exists:
+The original pre-score adapter failure and the finer-mu failure remain intact in
+`run-001` and `continuation-001/run-001`. The saved historical partial receipt is
+`continuation-001/partial-inspection.json`. Historical live readers deliberately
+reject changed source identities on this revision; use their frozen revisions
+for historical recomputation, not new hash pins or repaired comparison code to
+rewrite old decisions. The new authorized loader does not relax those readers.
 
-```sh
-.venv/bin/python -m scribesim.handvalidate.upright_continuation
-```
-
-Inspect the continuation without rendering or fitting:
-
-```sh
-.venv/bin/python -m scribesim.handvalidate.upright_continuation \
-  --inspect shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/continuation-001/run-001 \
-  --report-sha256 REPORT_SHA256
-```
-
-From the repository root, before a run exists:
-
-```sh
-.venv/bin/python -m scribesim.handvalidate.upright_letters
-```
-
-Read an existing archive using its externally recorded report hash:
-
-```sh
-.venv/bin/python -m scribesim.handvalidate.upright_evidence --report-sha256 REPORT_SHA256
-```
+The initial frozen reader stopped on an exact negative-control count mismatch:
+JSON loses shared owner dictionary identity (eight live rows versus one decoded
+row mutated). `continuation-002/initial-reader-failure.json` preserves that result. The separate
+script restores original mapped-owner aliases in memory only after exact value
+checks; it rejects corrupted owners rather than replacing their values. This
+changes no frozen evaluator or archive, runs no motion and performs no renders.
 
 The separate reader verifies source pins, the complete artifact inventory,
 first/replay byte equality, cumulative budgets, rebuilt desired plans, actual

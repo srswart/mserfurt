@@ -1,4 +1,88 @@
-# HANDVALIDATE-021: partial actual results; evaluation still incomplete
+# HANDVALIDATE-021: repaired replay complete; image-target gates fail
+
+## Latest: one authorized boundary/event repair rerun
+
+The approved no-refit attempt completes all ten fixtures at base/arc/time/exact
+subdivision, eleven negative controls and seeds **7, 19 and 41**, each with
+byte-identical fresh-process replay. Candidate, original targets, thresholds,
+fixture scope and per-seed budgets are unchanged. **Evaluation complete is not
+numeric acceptance:** the only failed category is independent target-image loss.
+Nominal owner KEEP remains valid; actual-ink owner review is still pending.
+
+- Frozen evaluator: `a97428b`; immutable evidence commit: `5a01a6d`.
+- Archive: `continuation-002/run-001`, **1,256 pinned artifacts** plus root report.
+- Consumer-pinned report SHA256:
+  `c986db16fbbac20d8ce66844a6789d5198b8deaa1c00bc70b97682b823488655`.
+- **966 new render calls, 1,115 combined** including both failed attempts;
+  zero optimization, zero extra execution attempts.
+- Combined seed 7: 471 calls / 137.381661 s; seed 19: 322 / 95.802606 s;
+  seed 41: 322 / 108.769607 s. Each remains below 5,000 calls / 1,800 s.
+- Deterministic frozen-candidate repetitions, not three learned models or a
+  population-level robustness claim. Read-only verification is not a rerun.
+
+### Repairs and measured results
+
+Connected arc sampling removes only machine-roundoff ordinary-grid shadows next
+to declared exact boundaries. Outgoing ownership and both contributors remain;
+the planner's unique-port requirement is unchanged. The translated mu finer plan
+now completes. Convergence compares identical declared contact entry/corner/end
+events, not resolution-dependent first/last gesture integration rows.
+
+All 40 fixture/refinement motion checks pass, with correct contact/ownership,
+fixed tool, contained full frames, zero total-clock error and zero projection.
+There are no undeclared overlap pairs. Each n/u/m stays one contact run; mu has
+two, separated by its declared interletter air movement (not word training).
+Tracking, actual levels/ports and nominal-level gates all pass. All eleven
+negative controls detect their intended violations.
+
+| Maximum over all fixture comparisons | Measured | Unchanged limit |
+| --- | ---: | ---: |
+| Exact-event position difference | 0.00560306 mm | 0.01 mm |
+| Exact-event time difference | 2.0961e-13 s | 0.0001 s |
+| Convergence image loss | 0.00224349 | 0.03 |
+
+| Base actual fixture | Global target loss | Relative loss | Max port error, all refinements |
+| --- | ---: | ---: | ---: |
+| n | 0.382013 | 0.609119 | 0.00692439 mm |
+| u | 0.232051 | 0.279661 | 0.01987751 mm |
+| m | 0.589663 | 0.662173 | 0.01101645 mm |
+| placed mu | 0.444487 | 0.514789 | 0.01871544 mm |
+
+Only the isolated stem passes all target-image gates. The other nine fixtures
+fail at nominal and all four execution refinements: 45 target-image failures per
+worker, no other decision failure category. Letter relative ratios pass 0.75;
+absolute/local losses still exceed 0.05. The independent vertical-line/semicircle
+yardstick is not an owner-approved replacement for the reviewed construction.
+Neither shapes nor targets have been adjusted to force a pass.
+
+### Read-only verification and next checkpoint
+
+The frozen complete reader initially rejected negative-control diagnostic counts:
+`trace-owner` modifies an owner dictionary shared by eight live rows, whereas JSON
+decoding loses aliases and changes only one row. Both detect the owner violation,
+but exact counts differ. `continuation-002/initial-reader-failure.json` preserves
+that result. Red `fa4f8a3`, green `e3ec964`: a separate script reconstructs original
+mapped-owner aliases only after exact saved-value checks; corrupt values reject.
+All 40 saved fixture/refinement records are still independently recomputed per
+worker. Frozen evaluator identities and archived values remain untouched.
+Four new reader tests pass, including rejection of corrupted owners and a
+no-execution/no-render guard. Receipt: `continuation-002/inspection.json`.
+The complete read-only check verifies all 1,256 artifacts and all six worker
+records/controls/replays/decisions. All 206 frozen evaluation identities remain
+unchanged. Final focused suite: **145 passed in 80.94 s**.
+
+The broader suite has **163 passes and five pre-existing curve-tangent admission
+failures** (previously reproduced on pre-work master). These are not new numeric
+experiment failures or silently relaxed historical source guards.
+
+Open `index.html` for full-frame/native-detail 900-DPI n/u/m/mu comparisons.
+Please review the **actual middle column** for uprightness, turns and retraced
+ink/counters. Candidate/report-bound review is pending in
+`continuation-002/actual-review.json`. Next, reconcile the analytic yardstick with
+reviewed appearance requirements in a separately documented scope before any
+target revision or fitting. No context, fatigue, S2 or real-hand admission.
+
+## Historical continuation-001: partial results, incomplete at that checkpoint
 
 The authorized continuation produced actual physical-ink n/u/m samples, then
 stopped in the finer-arc translated `mu` probe. **No full protocol pass or acceptance.**

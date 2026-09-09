@@ -6,8 +6,8 @@ advance:
   primary_component: "handvalidate"
   components: ["handvalidate", "curriculum", "gesture", "tests"]
   started_at: "2026-09-08T18:57:52Z"
-  implementation_completed_at: ~
-  review_time_estimate_minutes: 280
+  implementation_completed_at: "2026-09-09T06:29:14Z"
+  review_time_estimate_minutes: 786
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: ["tdd:red-green", "tests:unit", "tests:integration"]
   model_usage: []
-  status: in_progress
+  status: complete
 ---
 
 ## Objective
@@ -47,17 +47,17 @@ success cannot override the owner's repair verdict or grant context permission.
 - [x] tidy: isolate reader/measurement logic without mutating frozen source artifacts.
 - [x] test: commit failing independent decision, ownership and archive tests first.
 - [x] feat/fix: implement no-fit actual-motion and full-frame image evaluation.
-- [ ] evaluate: isolated strokes/reversals, n/u/m and predeclared transfer probes at seeds 7/19/41 with fresh-process replay.
-- [ ] evaluate: inserted lift, gap, false smooth reversal, overlap-owner, geometry/tool, climbing, desired-as-actual and visible-shift controls.
-- [ ] evaluate: base/arc/time for letters; subdivision only within unchanged caps.
-- [x] evidence: immutable partial reports, actual/nominal comparison samples, independent partial reader and renewed owner review request; full evaluation remains incomplete.
+- [x] evaluate: isolated strokes/reversals, n/u/m and predeclared transfer probes at seeds 7/19/41 with fresh-process replay.
+- [x] evaluate: inserted lift, gap, false smooth reversal, overlap-owner, geometry/tool, climbing, desired-as-actual and visible-shift controls.
+- [x] evaluate: base/arc/time for letters; subdivision only within unchanged caps.
+- [x] evidence: immutable complete reports, actual/nominal comparison samples, independent read-only verification and renewed owner review request; both earlier failures preserved.
 - [ ] merge: update implementation outcome separately from all acceptance flags.
 
 ## Bug Fixes
 
 - [x] Ensure inter-gesture ownership changes do not imply actual pen lifts; saved n/u/m each have one contact run.
 - [x] Detect repeated finite-nib coverage and missing overlap contributors, not only crossings; no darkness/depletion simulation claimed.
-- [x] Implement rejection of cropped ink, substituted desired motion and stale source identities; the complete control experiment remains outstanding.
+- [x] Implement rejection of cropped ink, substituted desired motion and stale source identities; complete negative-control experiment detects all eleven intended violations.
 
 ## Risk + Rollback
 
@@ -74,27 +74,81 @@ their separately explicit acceptance requirements are satisfied; no fatigue.
 
 ## Evidence
 
-- [ ] tidy:preparatory if needed, otherwise record why isolation suffices.
-- [ ] tdd:red-green; tests:unit and tests:integration.
-- [ ] Complete full-frame traces/images, source identities and fresh-process replay.
-- [ ] All negative controls fail for the intended reason; independent reader verifies archive integrity.
-- [ ] Candidate-bound actual-ink owner review, distinct from numerical results.
+- [x] tidy:preparatory not needed; new wrappers/readers isolate changes without rewriting frozen evaluators.
+- [x] tdd:red-green; tests:unit and tests:integration.
+- [x] Complete full-frame traces/images, source identities and fresh-process replay.
+- [x] All negative controls fail for the intended reason; independent reader verifies archive integrity.
+- [ ] Candidate-bound actual-ink owner verdict remains pending; review record and samples delivered. This is a separate acceptance checkpoint, not unfinished evaluation implementation.
 
 ## CI Evidence Notes
 
-Continuation closeout: plan/rules/whitespace checks pass; provider CI is not claimed.
-Browser inspection at 1440px and 390px confirms all nine saved comparison images
+Latest closeout: 145 focused tests pass in 80.94 s. The broader suite before the
+four final reader tests has 163 passes and five pre-existing curve-tangent
+admission failures, previously reproduced on pre-work `85e3b44`. No old source
+guards are repinned. Plan/rules/whitespace checks pass. Strict PR metadata parsing
+still returns `ids=[]` despite explicit IDs in title/body/labels; no provider CI
+or remote merge is claimed.
+
+Browser inspection at 1440px and 390px confirms all twelve saved comparison images
 load, no page-wide horizontal overflow, and functional full-frame/detail controls.
-The page explicitly identifies partial evidence and missing mu/replay/seeds/controls.
-Screenshots were inspected at `/tmp/ss-h021-cont-desktop.png` and
-`/tmp/ss-h021-cont-mobile.png`. The complete-run reader correctly rejects the
-incomplete archive; all 204 frozen evaluation identity entries remain unchanged.
+The page distinguishes completed evaluation, image-target failure and pending
+owner review. Screenshots inspected: `/tmp/ss-h021-event-desktop.png` and
+`/tmp/ss-h021-event-mobile.png`; actual mu full-frame PNG also inspected. All 206
+frozen evaluation identities remain unchanged after read-only reader repair.
 
 Run targeted/broader tests, plan/rules/whitespace and strict PR metadata checks.
 Record only real provider/run evidence. Recalculate reviewability on actual work;
 split test, implementation and evidence commits before merge.
 
 ## Changes Made
+
+### 2026-09-09 - complete repaired replay and independent verification
+
+One authorized no-refit attempt frozen at `a97428b` completes all ten fixtures,
+four refinements and eleven negative controls in six fresh workers. Seeds 7/19/41
+each replay byte-identically. Archive `continuation-002/run-001` is preserved in
+`5a01a6d`; report SHA256
+`c986db16fbbac20d8ce66844a6789d5198b8deaa1c00bc70b97682b823488655`.
+There are 966 new render calls, 1,115 with prior debits, zero optimization and no
+extra execution attempts. Combined per-seed calls/time: 7 = 471/137.381661 s;
+19 = 322/95.802606 s; 41 = 322/108.769607 s, within unchanged budgets.
+
+All motion, tracking, nominal/actual level/port, overlap and convergence gates
+pass. Total-clock error and projection are zero. Maximum convergence event
+position/time/image differences are 0.00560306 mm / 2.0961e-13 s / 0.00224349,
+below unchanged 0.01 mm / 0.0001 s / 0.03 limits. Continuous n/u/m and the declared
+two-contact-run mu placement complete; all controls detect intended violations.
+
+Only target-image gates fail: nine fixtures times five views = 45 failures per
+worker. Stem passes its target gates. n/u/m base target losses remain
+0.382013/0.232051/0.589663, exceeding 0.05; relative ratios pass 0.75. This independent
+analytic yardstick is not an owner-approved replacement. Implementation/evaluation
+is **complete with a numeric failure**, not S2/real/context or actual-ink acceptance.
+Nominal KEEP candidate/report/review hashes, targets and all limits are unchanged.
+
+The initial frozen reader caught a negative-control count mismatch: JSON loses
+shared owner-object identity, so mutating one decoded owner affects one row rather
+than the original eight. Both correctly detect the owner gate. That failure is
+preserved in `continuation-002/initial-reader-failure.json`. Red `fa4f8a3`, green
+`e3ec964`: separate read-only script reconstructs original mapped-owner aliases
+after exact saved-value checks; it rejects corrupted owners and changes no values,
+frozen code or archived evidence. No rendering/execution/refit. Four new tests
+pass; the complete independent reader verifies **1,256 artifacts**, all six worker
+records, controls, replay, budgets and failed decisions. Receipt is outside the
+immutable archive at `continuation-002/inspection.json`.
+
+`arrive score --base 85e3b44 --json` remains red, 120; estimated review time is
+approximately 786 minutes, dominated by retained evidence files. TDD, core fixes,
+orchestration, immutable experiment and separate reader are distinct commits.
+Actual human review time is unknown, not this estimate. No unrelated YAML or
+historical admission repair is included.
+
+The gallery now includes complete n/u/m/mu nominal/actual/analytic comparisons at
+900 DPI, retaining 180-DPI full-frame metric pixels. Actual-ink owner review is
+pending in `continuation-002/actual-review.json`. Next checkpoint: review actual
+ink and explicitly reconcile the independent yardstick with desired appearance
+before any target revision/fitting; no context or fatigue expansion.
+The entries below preserve historical checkpoint states, not current blockers.
 
 ### 2026-09-09 - authorized boundary/event repair and pre-run freeze
 
