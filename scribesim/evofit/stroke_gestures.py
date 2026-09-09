@@ -231,7 +231,7 @@ def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_
             boundaries.append(len(points) - 1)
     points = np.asarray(points)
     distance = np.r_[0, np.cumsum(np.linalg.norm(np.diff(points, axis=0), axis=1))]
-    extents, gestures = {}, []
+    extents, gestures, terminals = {}, [], {}
     if connected_progress:
         for index, owner in enumerate(owners):
             identifier = owner['gesture_occurrence_id']
@@ -239,6 +239,7 @@ def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_
                 extents[identifier] = [distance[max(0, index-1)], distance[index]]
                 gestures.append(owner)
             extents[identifier][1] = distance[index]
+            terminals[identifier] = owner
     if distance[-1] < .001:
         raise ValueError('Stationary contact action unsupported')
     targets = np.linspace(0, distance[-1], math.ceil(distance[-1] / step) + 1)
@@ -258,7 +259,7 @@ def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_
             owner = {**owner, 'gesture_progress': progress, 'boundary_contributors': []}
             group_index = next(offset for offset, row in enumerate(gestures) if row['gesture_occurrence_id'] == identifier)
             if group_index and target == beginning:
-                previous = gestures[group_index-1]
+                previous = terminals[gestures[group_index-1]['gesture_occurrence_id']]
                 owner['boundary_contributors'] = [
                     {key: row[key] for key in ('gesture_occurrence_id', 'occurrence_id', 'action_profile', 'action_sha256')}
                     | {'gesture_progress': value} for row, value in ((previous, 1), (owner, 0))]

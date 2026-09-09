@@ -173,8 +173,14 @@ def execute_actions(text, model, *, step_mm=.025, dt=.002, dpi=180, frame=None, 
                'image_loss': stroke_loss(desired, actual)}
     if continuous:
         metrics['time_error_s'] = abs(result.final_state.time_s - bundle.plan.total_time_s)
+        metrics.update(connected_contract.execution_metrics(compile_gestures(text, model)['strokes'],
+            bundle.owners, indices, result.trajectory, result.final_state.execution_trace, timed))
     tracking_pass = (metrics['orientation_error_deg'] <= 2 and metrics['edge_error_fraction'] <= .02
                      and metrics['corridor_error_mm'] <= .25 and contact_errors == 0)
+    if continuous:
+        tracking_pass = (tracking_pass and metrics['time_error_s'] <= 1e-10 and metrics['owner_errors'] == 0
+                         and metrics['corner_errors'] == 0 and metrics['corner_speed_mm_s'] <= .5
+                         and metrics['corner_position_error_mm'] <= .05)
     return {'schema_version': SCHEMA, 'model_sha256': bundle.model_sha256, 'tool_sha256': bundle.tool_sha256,
             **({'execution_version': 'event-time-v2', 'clock_version': timed.version, 'corners': list(timed.corners)} if continuous else {}),
             'code_sha256': bundle.code_sha256, 'text': text, 'step_mm': step_mm, 'dt_s': dt,

@@ -22,6 +22,11 @@ def validate_extensions(model):
         if model['sampling'] != 'gesture-arc-v3' or model['actions'] != {'fixed': fixed}:
             raise ValueError('Connected contract requires boundary sampling and fixed actions')
     for primitive in model['primitives'].values():
+        for before, after in zip(primitive['cubics'], primitive['cubics'][1:]):
+            incoming, outgoing = np.subtract(before[-1], before[-2]), np.subtract(after[1], after[0])
+            product = float(np.linalg.norm(incoming) * np.linalg.norm(outgoing))
+            if math.dist(before[-1], after[0]) > 1e-10 or product <= 1e-12 or np.dot(incoming, outgoing) < (1-1e-6) * product:
+                raise ValueError('Internal cubic join must be smooth; expose corners as primitive boundaries')
         for name, start, end in [('entry', primitive['cubics'][0][0], primitive['cubics'][0][1]),
                                   ('exit', primitive['cubics'][-1][-2], primitive['cubics'][-1][-1])]:
             delta = np.subtract(end, start)
@@ -76,3 +81,45 @@ def annotate_runs(rows):
         if row['transition'] in {'start', 'lift'}:
             run += 1
         row['contact_run_id'] = f'contact:{run}'
+
+
+def execution_metrics(strokes, owners, indices, trajectory, execution, timed):
+    indexed = {row['occurrence_id']: row for row in strokes}
+    seen, runs = set(), []
+    errors = int(len(indices) != len(trajectory) or len(execution) != len(trajectory))
+    previous_run = None
+    for point, index, event in zip(trajectory, indices, execution):
+        owner = owners[index]
+        errors += int(point.contact != event['contact'])
+        if not point.contact:
+            previous_run = None
+            continue
+        original = indexed.get(owner.get('occurrence_id'))
+        if original is None:
+            errors += 1
+            continue
+        seen.add(original['occurrence_id'])
+        keys = ('primitive_sha256', 'gesture_occurrence_id', 'gesture_sha256', 'action_profile',
+                'action_sha256', 'span', 'contact_run_id', 'overlap_contributors')
+        errors += int(owner.get('kind') != 'stroke' or any(owner.get(key) != original[key] for key in keys))
+        run = owner.get('contact_run_id')
+        if run != previous_run:
+            runs.append(run)
+        previous_run = run
+    errors += len(set(indexed).symmetric_difference(seen))
+    expected_runs = list(dict.fromkeys(row['contact_run_id'] for row in strokes))
+    errors += int(runs != expected_runs)
+    corner_errors, speeds, distances = 0, [], []
+    for corner in timed.corners:
+        matches = [(point, event) for point, index, event in zip(trajectory, indices, execution)
+                   if index == corner['plan_index'] and event['time_s'] == corner['time_s']]
+        if len(matches) != 1:
+            corner_errors += 1
+            continue
+        point, event = matches[0]
+        corner_errors += int(not point.contact or not event['contact'])
+        speeds.append(math.hypot(*event['velocity_mm_s']))
+        distances.append(math.dist((point.x_mm, point.y_mm), corner['position_mm']))
+    return {'owner_errors': errors, 'corner_errors': corner_errors,
+            'corner_speed_mm_s': max(speeds, default=0),
+            'corner_position_error_mm': max(distances, default=0)}
