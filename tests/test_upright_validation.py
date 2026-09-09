@@ -71,7 +71,7 @@ def test_source_controls_have_specific_rejection_reasons():
 
 
 def test_synthetic_contact_audit_survives_json_and_detects_substitution():
-    from test_connected_gestures import connected_model
+    from tests.test_connected_gestures import connected_model
     from scribesim.handvalidate.foundation_motion import Budget
     from scribesim.handvalidate import upright_measurement as measurement
     model = connected_model()
