@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -44,8 +44,8 @@ This produces a deterministic no-fit preview, not a learned or accepted hand.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create `advance/ss-curriculum-015` after GESTURE-003 merges.
-- [ ] tidy: isolate new experiment from frozen modules; refactor only if needed.
+- [x] branch: `advance/ss-curriculum-015` from merged GESTURE-003 on master.
+- [x] tidy: isolated new builder; no frozen-module refactor required.
 - [ ] test: commit failing lineage, geometry, contact, containment and cap tests.
 - [ ] feat/fix: version shared rise/return geometry; prefer the unchanged standalone stem.
 - [ ] feat/fix: derive truthful tangent ports and shared attachment transforms.
