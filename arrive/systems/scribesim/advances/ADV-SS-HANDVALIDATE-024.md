@@ -37,7 +37,7 @@ remain pending owner review. Fixed placements are not joins or contextual learni
 - [x] test: fail-closed decision, reference roles, source preflight and retry boundaries.
 - [x] feat/fix: execution harness and separate raw-evidence reader.
 - [x] evidence: one immutable run, all three seeds and fresh-process replays.
-- [ ] docs/merge: publish samples, update advance/plan and merge locally; no push.
+- [x] docs/merge: publish samples, update advance/plan and merge locally at 15e61d2; no push.
 
 ## Bug Fixes
 
@@ -78,6 +78,14 @@ The installed strict PR metadata parser returns ids=[] despite explicit
 title/body/label IDs. No parser repair or provider CI success is claimed.
 
 ## Changes Made
+
+### 2026-09-09 - local merge receipt
+
+Merged advance/ss-handvalidate-024 into local master at 15e61d2 after 53 passing
+focused tests, complete bounded execution, independent 1,808-artifact verification
+and gallery/governance checks. No push or provider CI. Implementation and physical
+validation are complete; six held-out owner appearance reviews remain pending,
+with all prior numerical decisions and S2/real/context restrictions intact.
 
 ### 2026-09-09 - independent inspection and completion
 
