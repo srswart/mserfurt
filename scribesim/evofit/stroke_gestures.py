@@ -11,6 +11,7 @@ import numpy as np
 from PIL import Image
 
 from scribesim.evofit import stroke_language as legacy
+from scribesim.evofit import connected_contract as connected
 from scribesim.handflow.controls import RepertoireControls
 from scribesim.handflow.controller import GuidedHandFlowController
 from scribesim.handvalidate.bridge import neutral_profile, paint_trajectory
@@ -30,6 +31,9 @@ def _lower(model):
     lowered = {key: copy.deepcopy(model[key]) for key in legacy.MODEL_FIELDS if key != 'recipes'}
     lowered['schema_version'] = ('shared-stroke-language-foundation-v1'
                                  if model['schema_version'] == 'shared-stroke-gestures-foundation-v1' else legacy.SCHEMA)
+    continuous = model['schema_version'] == connected.SCHEMA
+    if continuous:
+        lowered['schema_version'] = connected.LANGUAGE_SCHEMA
     lowered['recipes'], bindings = {}, {}
     for identifier, recipe in model['recipes'].items():
         if set(recipe) != {'logical', 'visible', 'advance', 'gestures'} or not 1 <= len(recipe['gestures']) <= 4:
@@ -38,11 +42,12 @@ def _lower(model):
         for group_index, instance in enumerate(recipe['gestures']):
             if set(instance) != INSTANCE_FIELDS or instance['gesture'] not in model['gestures']:
                 raise ValueError('Unknown gesture instance')
-            if (instance['transition'] != ('start' if group_index == 0 else 'lift')
+            transitions = {'start'} if group_index == 0 else ({'lift', 'smooth', 'corner'} if continuous else {'lift'})
+            if (instance['transition'] not in transitions
                     or not isinstance(instance['overlap_with'], list)
                     or any(type(index) is not int or not 0 <= index < group_index for index in instance['overlap_with'])
                     or len(set(instance['overlap_with'])) != len(instance['overlap_with'])):
-                raise ValueError('Explicit lift and earlier overlap contributors required')
+                raise ValueError('Explicit supported transition and earlier overlap contributors required')
             if (len(instance['offset']) != 2 or not all(legacy._number(value, -2, 2) for value in instance['offset'])
                     or not legacy._number(instance['scale'], .5, 1.5)
                     or not legacy._number(instance['rotation_deg'], -20, 20)):
@@ -74,10 +79,12 @@ def _lower(model):
 
 def validate_gestures(model):
     try:
-        if (set(model) != legacy.MODEL_FIELDS | EXTRA_FIELDS or model['schema_version'] not in {SCHEMA, 'shared-stroke-gestures-foundation-v1'}
+        if (set(model) != legacy.MODEL_FIELDS | EXTRA_FIELDS or model['schema_version'] not in {SCHEMA, 'shared-stroke-gestures-foundation-v1', connected.SCHEMA}
                 or model['sampling'] not in {'legacy-v1', 'gesture-arc-v2', 'gesture-arc-v3'}
                 or model['letter_rules'] or model['word_rules']):
             raise ValueError('Explicit gesture schema/sampling required; context overlays are not supported yet')
+        if model['schema_version'] == connected.SCHEMA:
+            connected.validate_extensions(model)
         if model['schema_version'] == 'shared-stroke-gestures-foundation-v1':
             from scribesim.evofit.foundation_contract import validate_extensions
             validate_extensions(model)
@@ -126,6 +133,10 @@ def validate_gestures(model):
         legacy.validate_language(lowered)
         for identifier, recipe in lowered['recipes'].items():
             expanded = legacy._recipe_strokes(recipe, lowered)
+            if model['schema_version'] == connected.SCHEMA:
+                annotated = [{**row, **owner} for row, owner in zip(expanded, bindings[identifier])]
+                connected.require_overlap_owners(annotated, model['recipes'][identifier]['gestures'],
+                                                model['nib_width_mm'] / model['x_height_mm'])
             for group_index in range(len(model['recipes'][identifier]['gestures'])):
                 rows = [row for row, owner in zip(expanded, bindings[identifier]) if owner['gesture_index'] == group_index]
                 length = sum(math.dist(first[:2], second[:2]) for row in rows for cubic in row['cubics']
@@ -198,10 +209,12 @@ def compile_gestures(text, model):
         row['gesture_sha256'] = object_digest(model['gestures'][row['gesture']])
         row['action_sha256'] = object_digest(model['actions'][row['action_profile']])
     plan.update(schema_version=model['schema_version'], model_sha256=object_digest(model))
+    if model['schema_version'] == connected.SCHEMA:
+        connected.annotate_runs(plan['strokes'])
     return plan
 
 
-def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_positions=False):
+def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_positions=False, connected_progress=False):
     points, owners = [], []
     source_positions = []
     boundaries = []
@@ -218,6 +231,14 @@ def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_
             boundaries.append(len(points) - 1)
     points = np.asarray(points)
     distance = np.r_[0, np.cumsum(np.linalg.norm(np.diff(points, axis=0), axis=1))]
+    extents, gestures = {}, []
+    if connected_progress:
+        for index, owner in enumerate(owners):
+            identifier = owner['gesture_occurrence_id']
+            if identifier not in extents:
+                extents[identifier] = [distance[max(0, index-1)], distance[index]]
+                gestures.append(owner)
+            extents[identifier][1] = distance[index]
     if distance[-1] < .001:
         raise ValueError('Stationary contact action unsupported')
     targets = np.linspace(0, distance[-1], math.ceil(distance[-1] / step) + 1)
@@ -230,6 +251,17 @@ def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_
         tangent = points[index] - points[index - 1]
         tangent /= max(1e-12, np.linalg.norm(tangent))
         owner = owners[index]
+        if connected_progress:
+            identifier = owner['gesture_occurrence_id']
+            beginning, ending = extents[identifier]
+            progress = float(np.clip((target-beginning)/(ending-beginning), 0, 1))
+            owner = {**owner, 'gesture_progress': progress, 'boundary_contributors': []}
+            group_index = next(offset for offset, row in enumerate(gestures) if row['gesture_occurrence_id'] == identifier)
+            if group_index and target == beginning:
+                previous = gestures[group_index-1]
+                owner['boundary_contributors'] = [
+                    {key: row[key] for key in ('gesture_occurrence_id', 'occurrence_id', 'action_profile', 'action_sha256')}
+                    | {'gesture_progress': value} for row, value in ((previous, 1), (owner, 0))]
         if include_curve_positions:
             cubic_index, vertex = source_positions[index]
             owner = {**owner, 'curve_position': {'cubic_index': cubic_index,
@@ -241,6 +273,7 @@ def gesture_guide(text, model, *, step_mm=.05, include_curve_positions=False):
     if not legacy._number(step_mm, .005, .2):
         raise ValueError('Physical sampling bound')
     plan = compile_gestures(text, model)
+    continuous = model['schema_version'] == connected.SCHEMA
     if any(action['orientation'] != [[0, model['nib_angle_deg']], [1, model['nib_angle_deg']]]
            or action['edge'] != [[0, 0, 1], [1, 0, 1]] for action in model['actions'].values()):
         raise ValueError('Dynamic/nonbaseline action execution unsupported until the realized action bridge')
@@ -255,12 +288,13 @@ def gesture_guide(text, model, *, step_mm=.05, include_curve_positions=False):
     else:
         groups = {}
         for row in plan['strokes']:
-            groups.setdefault(row['gesture_occurrence_id'], []).append(row)
+            groups.setdefault(row['contact_run_id'] if continuous else row['gesture_occurrence_id'], []).append(row)
         samples, owners = [], []
         for rows in groups.values():
             contact = list(_arc_samples(rows, model['x_height_mm'], step_mm,
                                        preserve_boundaries=model['sampling'] == 'gesture-arc-v3',
-                                       include_curve_positions=include_curve_positions))
+                                       include_curve_positions=include_curve_positions or continuous,
+                                       connected_progress=continuous))
             if samples:
                 start, end = [samples[-1].x_mm, samples[-1].y_mm], list(contact[0][0][:2])
                 for point in _sample_cubic([start, start, end, end], step_mm):
@@ -270,7 +304,8 @@ def gesture_guide(text, model, *, step_mm=.05, include_curve_positions=False):
             for point, row, progress in contact:
                 samples.append(GuideSample(*point, pressure_nominal=.5, nib_angle_deg=model['nib_angle_deg']))
                 owners.append({**{key: value for key, value in row.items() if key != 'cubics'},
-                               'kind': 'stroke', 'spans': [row['span']], 'gesture_progress': progress})
+                               'kind': 'stroke', 'spans': [row['span']],
+                               'gesture_progress': row['gesture_progress'] if continuous else progress})
         if len(samples) > 100000:
             raise ValueError('Guide sample budget')
         points = np.array([point for row in plan['strokes'] for cubic in row['cubics'] for point in cubic])
@@ -297,6 +332,9 @@ def render_gestures(text, model, *, dpi=180, frame=None, step_mm=.05):
 
 
 def execute_gestures(text, model, *, dpi=180, frame=None, step_mm=.05, dt=.002):
+    if model['schema_version'] == connected.SCHEMA:
+        from scribesim.pathguide.gesture_actions import execute_actions
+        return execute_actions(text, model, dpi=dpi, frame=frame, step_mm=step_mm, dt=dt)
     from scribesim.curriculum.stroke_learning import stroke_loss
 
     bundle = gesture_guide(text, model, step_mm=step_mm)

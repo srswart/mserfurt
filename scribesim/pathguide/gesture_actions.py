@@ -10,6 +10,7 @@ import numpy as np
 
 from scribesim.evo.nib_contact import ContactSample, VERSION
 from scribesim.evofit.stroke_gestures import compile_gestures, gesture_guide, validate_gestures
+from scribesim.evofit import connected_contract
 from scribesim.handflow.controller import GuidedHandFlowController
 from scribesim.handflow.controls import RepertoireControls
 from scribesim.handflow.model import HandStateV2, TrackPlan, TrackPlanSample
@@ -93,7 +94,11 @@ def action_bundle(text, model, *, step_mm=.025, include_curve_positions=False):
         desired.append(ActionPlanSample(**{**physical, 'nib_angle_deg': angle},
                                         edge_start=edge_start, edge_end=edge_end, gesture_progress=progress))
         owners.append(owner)
-    return ActionBundle(SCHEMA, object_digest(model), digest(CONTRACT_PATH), code_identities(), text,
+    identities = code_identities()
+    if model['schema_version'] == connected_contract.SCHEMA:
+        for name in ('scribesim/evofit/connected_contract.py', 'scribesim/handflow/curve_tangents.py'):
+            identities[name] = digest(ROOT / name)
+    return ActionBundle(SCHEMA, object_digest(model), digest(CONTRACT_PATH), identities, text,
                         step_mm, geometry.metadata['frame_mm'], replace(plan, samples=tuple(desired)), owners)
 
 
@@ -132,8 +137,15 @@ def execute_actions(text, model, *, step_mm=.025, dt=.002, dpi=180, frame=None, 
     if type(dt) not in (float, int) or not math.isfinite(dt) or not .001 <= dt <= .004:
         raise ValueError('Unsupported controller timestep')
     bundle = action_bundle(text, model, step_mm=step_mm)
-    controller = ActionController(model, angular_rate=angular_rate, edge_rate=edge_rate)
-    result = controller.follow_plan(bundle.plan, dt=dt)
+    continuous = model['schema_version'] == connected_contract.SCHEMA
+    timed = None
+    if continuous:
+        from scribesim.handflow.curve_tangents import retime_curve_tangents
+        timed = retime_curve_tangents(bundle.plan, bundle.owners, compile_gestures(text, model)['strokes'])
+        bundle = replace(bundle, plan=timed.plan, owners=[bundle.owners[index] for index in timed.source_indices])
+    controller = ActionController(model, angular_rate=angular_rate, edge_rate=edge_rate,
+                                  execution_version='event-time-v2' if continuous else 'legacy-v1')
+    result = controller.follow_plan(bundle.plan, dt=dt, **({'settle_time_s': 0} if continuous else {}))
     playback = [ContactSample(sample.x_mm, sample.y_mm, sample.contact, .45, sample.pressure, sample.nib_angle_deg,
                               sample.edge_start, sample.edge_end) for sample in bundle.plan.samples]
     desired = paint_trajectory(playback, frame or bundle.frame_mm, dpi=dpi, contact_version=VERSION)
@@ -143,9 +155,14 @@ def execute_actions(text, model, *, step_mm=.025, dt=.002, dpi=180, frame=None, 
     for point, index, execution in zip(result.trajectory, indices, result.final_state.execution_trace):
         target = bundle.plan.samples[index]
         contact_errors += int(point.contact != target.contact)
-        angular_rates.append(abs(point.nib_angle_deg - execution['previous_action'][0]) / execution['dt_s'])
-        edge_rates.append(max(abs(point.edge_start - execution['previous_action'][1]),
-                              abs(point.edge_end - execution['previous_action'][2])) / execution['dt_s'])
+        angular_delta = abs(point.nib_angle_deg - execution['previous_action'][0])
+        edge_delta = max(abs(point.edge_start - execution['previous_action'][1]),
+                         abs(point.edge_end - execution['previous_action'][2]))
+        duration = execution['dt_s']
+        if duration == 0 and (angular_delta != 0 or edge_delta != 0):
+            raise ValueError('Zero-time actuator discontinuity')
+        angular_rates.append(angular_delta / duration if duration else 0)
+        edge_rates.append(edge_delta / duration if duration else 0)
         if point.contact:
             angular.append(abs(point.nib_angle_deg - target.nib_angle_deg))
             edge.append(max(abs(point.edge_start - target.edge_start), abs(point.edge_end - target.edge_end)))
@@ -154,9 +171,12 @@ def execute_actions(text, model, *, step_mm=.025, dt=.002, dpi=180, frame=None, 
                'corridor_error_mm': max(corridor), 'contact_errors': contact_errors,
                'realized_angular_rate_deg_s': max(angular_rates), 'realized_edge_rate_s': max(edge_rates),
                'image_loss': stroke_loss(desired, actual)}
+    if continuous:
+        metrics['time_error_s'] = abs(result.final_state.time_s - bundle.plan.total_time_s)
     tracking_pass = (metrics['orientation_error_deg'] <= 2 and metrics['edge_error_fraction'] <= .02
                      and metrics['corridor_error_mm'] <= .25 and contact_errors == 0)
     return {'schema_version': SCHEMA, 'model_sha256': bundle.model_sha256, 'tool_sha256': bundle.tool_sha256,
+            **({'execution_version': 'event-time-v2', 'clock_version': timed.version, 'corners': list(timed.corners)} if continuous else {}),
             'code_sha256': bundle.code_sha256, 'text': text, 'step_mm': step_mm, 'dt_s': dt,
             'actuator_limits': {'angular_rate': angular_rate, 'edge_rate': edge_rate},
             'metrics': metrics, 'tracking_pass': tracking_pass, 'S1_action_accepted': False,
