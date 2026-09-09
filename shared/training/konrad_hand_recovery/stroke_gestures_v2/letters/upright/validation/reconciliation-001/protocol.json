@@ -1,0 +1,16 @@
+{
+  "version": "upright-yardstick-reconciliation-v1",
+  "source_pins": {
+    "spec-v1.json": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+    "continuation-002/run-001/report.json": "c986db16fbbac20d8ce66844a6789d5198b8deaa1c00bc70b97682b823488655",
+    "continuation-002/actual-review.json": "8d08805dddb2aa98cc636a20a5a3ad24d1411b4f0ba1a562534a349f71ab5f7e",
+    "continuation-002/inspection.json": "aa4e70482951046f97c2217d748a3b1a008a907b492c1be19519160a993c25a1"
+  },
+  "worker": "seed-7/first",
+  "worker_scope": "Diagnostic representative of the frozen deterministic candidate; existing full replay receipt supplies seed coverage, not a new experiment.",
+  "diagnostics": ["target_to_nominal", "target_to_actual", "nominal_to_actual", "desired_to_actual", "primitive_ports", "letter_entry_exit_span"],
+  "budgets": {"controller_executions": 0, "raster_renders": 0, "optimization_evaluations": 0},
+  "new_thresholds": false,
+  "new_target": false,
+  "acceptance_authority": false
+}
