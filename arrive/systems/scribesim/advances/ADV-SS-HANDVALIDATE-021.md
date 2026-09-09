@@ -51,7 +51,7 @@ success cannot override the owner's repair verdict or grant context permission.
 - [x] evaluate: inserted lift, gap, false smooth reversal, overlap-owner, geometry/tool, climbing, desired-as-actual and visible-shift controls.
 - [x] evaluate: base/arc/time for letters; subdivision only within unchanged caps.
 - [x] evidence: immutable complete reports, actual/nominal comparison samples, independent read-only verification and renewed owner review request; both earlier failures preserved.
-- [ ] merge: update implementation outcome separately from all acceptance flags.
+- [x] merge: update implementation outcome separately from all acceptance flags; local merge `9368fc4`, no push or provider CI claim.
 
 ## Bug Fixes
 
@@ -101,6 +101,17 @@ Record only real provider/run evidence. Recalculate reviewability on actual work
 split test, implementation and evidence commits before merge.
 
 ## Changes Made
+
+### 2026-09-09 - local merge receipt
+
+Merged `advance/ss-handvalidate-021` into local master at `9368fc4` after the
+completed bounded replay, independent saved-evidence verification and 145 passing
+focused tests. Final plan/rules/whitespace checks pass. The installed strict PR
+metadata parser limitation and five pre-existing old admission test failures are
+recorded above, not claimed fixed. No push or provider CI. All frozen identities
+and report hashes remain unchanged; no extra experiment follows the merge.
+Implementation is complete; numeric target failure and pending owner actual-ink
+review continue to withhold all new acceptance and context permission.
 
 ### 2026-09-09 - complete repaired replay and independent verification
 

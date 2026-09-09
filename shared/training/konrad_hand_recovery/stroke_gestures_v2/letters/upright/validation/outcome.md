@@ -8,6 +8,7 @@ byte-identical fresh-process replay. Candidate, original targets, thresholds,
 fixture scope and per-seed budgets are unchanged. **Evaluation complete is not
 numeric acceptance:** the only failed category is independent target-image loss.
 Nominal owner KEEP remains valid; actual-ink owner review is still pending.
+Implementation/evaluation merged locally at `9368fc4`; no push or provider CI.
 
 - Frozen evaluator: `a97428b`; immutable evidence commit: `5a01a6d`.
 - Archive: `continuation-002/run-001`, **1,256 pinned artifacts** plus root report.
