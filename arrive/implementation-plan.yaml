@@ -1770,6 +1770,14 @@ passes:
       - ADV-SS-GESTURE-003
       - ADV-SS-CURRICULUM-015
       notes: "COMPLETE implementation/evaluation, numeric target-image FAIL. Boundary shadows and exact-event comparison repaired; all ten fixtures/four refinements pass motion/convergence, eleven controls detected, seeds7/19/41 replay identically. 966 new/1115 combined renders, zero refit, unchanged targets/limits/candidate. Both failures immutable. Separate reader restores verified owner aliases after JSON, verifies 1256 artifacts without execution/rendering; frozen evaluator identities unchanged. 145 focused tests pass; five older admission failures remain. Owner approves actual n/u/m and mu placement after explicit non-context scope clarification; candidate/report-bound KEEP recorded. Independent yardstick reconciliation is next. Nominal KEEP preserved; S2/real/context false, no fatigue or automatic retry."
+    - id: ADV-SS-HANDVALIDATE-022
+      advance_id: ADV-SS-HANDVALIDATE-022
+      title: "Upright Targets — Read-only Yardstick Reconciliation"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-021
+      notes: "COMPLETE read-only reconciliation: all 1256 source artifacts verified; saved nominal/actual target scores recomputed. n/u/m nominal-to-actual loss 0/0.000302/0.000957 versus target mismatch 0.382013/0.232303/0.590033 already in nominal design; approved port spans 18.16–20.18% wider than analytic. 34 focused tests pass. TD-018 section14 proposes approved-style regression separate from independent style provenance; requires owner reference-contract review before activation/new scoring. Zero execution/render/refit, no replacement target or relaxed gates; original numeric FAIL, appearance KEEP, S2/real/context false remain."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 11
@@ -1782,7 +1790,7 @@ passes:
       dependencies:
       - ADV-SS-CURRICULUM-005
       - ADV-SS-HANDVALIDATE-021
-      notes: "Context remains unimplemented and context_training_allowed=false. HANDVALIDATE-020 passes bounded mechanics but the owner requires less-slanted n/u/m with nearly upright pen-down upstrokes close to stems. Shared-construction repair with continuous contact and appropriate S2 clearance are prerequisites. Whole-letter subdivision is not claimed. Preserve frozen evidence; no ink depletion, fatigue or session effects."
+      notes: "Context remains unimplemented and context_training_allowed=false. Upright repair and actual n/u/m owner approval are complete; HANDVALIDATE-021 passes mechanics/convergence/replay but fails independent style-target gates. HANDVALIDATE-022 diagnoses mismatched style conventions without changing those gates. Prospective reference-contract review and matching lower-layer clearance remain prerequisites, not another automatic shape repair. Preserve frozen evidence; no ink depletion, fatigue or session effects."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
     order: 12

@@ -1,5 +1,8 @@
 # HANDVALIDATE-021: repaired replay complete; image-target gates fail
 
+Follow-up: [HANDVALIDATE-022 read-only reconciliation](reconciliation-001/README.md)
+quantifies the construction/yardstick mismatch. No old verdict or gate changes.
+
 ## Latest: one authorized boundary/event repair rerun
 
 The approved no-refit attempt completes all ten fixtures at base/arc/time/exact

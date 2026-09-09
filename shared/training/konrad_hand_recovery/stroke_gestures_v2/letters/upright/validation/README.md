@@ -1,5 +1,10 @@
 # HANDVALIDATE-021: independent upright contact evaluation
 
+Owner appearance is now approved. [HANDVALIDATE-022 reconciliation](reconciliation-001/README.md)
+explains why the independent target score still fails, without modifying this
+protocol or its evidence. Actual ink closely follows the approved construction;
+the synthetic vertical/semicircle yardstick has different width and turn geometry.
+
 This directory is **not another fit**. The owner-approved CURRICULUM-015 candidate
 is read byte-for-byte. `spec-v1.json` freezes the independent analytic yardstick,
 fixtures, existing gates, source identities and budget before any candidate scoring.
