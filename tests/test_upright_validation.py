@@ -31,6 +31,17 @@ def test_analytic_target_needs_no_candidate(monkeypatch):
     assert max(point.y_mm for point in path) == pytest.approx(10)
 
 
+def test_nominal_adapter_emits_supported_physical_scalars_without_rendering():
+    from scribesim.evo.nib_contact import contact_corners
+    candidate = evaluation.load_inputs()['candidate']
+    for fixture in evaluation.SPEC['fixtures']:
+        model = evaluation.probe(candidate, fixture)
+        for sample in evaluation.nominal(model, fixture['text']):
+            assert type(sample.x_mm) is float
+            assert type(sample.y_mm) is float
+            contact_corners(sample)
+
+
 def test_probes_and_exact_subdivision_preserve_caps_and_source():
     from scribesim.evofit.stroke_gestures import compile_gestures, validate_gestures
     source = evaluation.load_inputs()['candidate']
