@@ -7,7 +7,8 @@ subdivision, eleven negative controls and seeds **7, 19 and 41**, each with
 byte-identical fresh-process replay. Candidate, original targets, thresholds,
 fixture scope and per-seed budgets are unchanged. **Evaluation complete is not
 numeric acceptance:** the only failed category is independent target-image loss.
-Nominal owner KEEP remains valid; actual-ink owner review is still pending.
+Nominal owner KEEP remains valid; the owner now also approves actual n/u/m and
+the mu placement sample. Numerical failure remains unchanged.
 Implementation/evaluation merged locally at `9368fc4`; no push or provider CI.
 
 - Frozen evaluator: `a97428b`; immutable evidence commit: `5a01a6d`.
@@ -77,9 +78,12 @@ failures** (previously reproduced on pre-work master). These are not new numeric
 experiment failures or silently relaxed historical source guards.
 
 Open `index.html` for full-frame/native-detail 900-DPI n/u/m/mu comparisons.
-Please review the **actual middle column** for uprightness, turns and retraced
-ink/counters. Candidate/report-bound review is pending in
-`continuation-002/actual-review.json`. Next, reconcile the analytic yardstick with
+The owner approves all displayed actual samples: “okay got it -- yes then all are
+approved.  They look great.” Candidate/report-bound KEEP verdicts are recorded in
+`continuation-002/actual-review.json`, including mu as placement/interletter air
+only, not joining, spacing design or contextual stroke adaptation. The frozen
+reports and inspection retain their at-execution pending review state; this later
+external review does not rewrite their decisions. Next, reconcile the analytic yardstick with
 reviewed appearance requirements in a separately documented scope before any
 target revision or fitting. No context, fatigue, S2 or real-hand admission.
 

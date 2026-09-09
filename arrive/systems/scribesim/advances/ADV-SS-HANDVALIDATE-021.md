@@ -78,7 +78,7 @@ their separately explicit acceptance requirements are satisfied; no fatigue.
 - [x] tdd:red-green; tests:unit and tests:integration.
 - [x] Complete full-frame traces/images, source identities and fresh-process replay.
 - [x] All negative controls fail for the intended reason; independent reader verifies archive integrity.
-- [ ] Candidate-bound actual-ink owner verdict remains pending; review record and samples delivered. This is a separate acceptance checkpoint, not unfinished evaluation implementation.
+- [x] Candidate/report-bound owner KEEP for actual n/u/m and mu placement, recorded after explicit scope clarification. Numerical target-image failure and S2/real/context restrictions remain unchanged.
 
 ## CI Evidence Notes
 
@@ -101,6 +101,24 @@ Record only real provider/run evidence. Recalculate reviewability on actual work
 split test, implementation and evidence commits before merge.
 
 ## Changes Made
+
+### 2026-09-09 - owner approves actual ink and bounded placement sample
+
+Owner: “okay got it -- yes then all are approved.  They look great.” This follows
+clarification that mu tests fixed placement and interletter air movement, not
+joining, spacing design or contextual stroke adaptation. Record actual n/u/m KEEP
+and placed-mu KEEP in `continuation-002/actual-review.json`, bound to the unchanged
+candidate and complete report hashes. Nominal approval remains separate.
+
+Gallery and current plan/outcome now show appearance approved. Frozen reports and
+the independent inspection retain their historical pending-review values; the
+later external owner record does not rewrite evidence or turn numeric failure
+into a pass. No code, candidate, target, threshold, render, execution, fit or new
+admission changes. Next is separately scoped analytic-yardstick reconciliation,
+not automatic context/fatigue work. Earlier entries retain checkpoint history.
+Approval hash bindings and all 1,256 archived artifacts verify unchanged;
+plan/rules/whitespace checks pass. Documentation/review-only update, no experiment
+rerun. The existing strict PR metadata parser limitation persists; no provider CI.
 
 ### 2026-09-09 - local merge receipt
 
