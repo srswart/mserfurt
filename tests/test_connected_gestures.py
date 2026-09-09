@@ -187,7 +187,7 @@ def test_actual_contact_and_owner_controls_cannot_report_tracking_pass(monkeypat
         def wrong_contact(controller, state, desired, *, dt):
             result = original(controller, state, desired, dt=dt)
             if desired.contact and desired.progress_ratio > .5:
-                state.trace[-1] = replace(state.trace[-1], contact=False)
+                state.trace[-1] = replace(state.trace[-1], contact=False, pressure=0)
             return result
         monkeypatch.setattr(bridge.ActionController, 'step', wrong_contact)
     else:
