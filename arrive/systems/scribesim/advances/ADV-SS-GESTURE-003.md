@@ -49,7 +49,7 @@ Fixed tool/actions and existing primitive/gesture/expanded-reference caps remain
 - [x] evaluate: smooth/corner/lift and two-letter separator fixtures, three refinements, exact same-process replay.
 - [x] evaluate: gap, false smooth reversal, tangent, short/parallel overlap, macro/reference cap, forged owner and actual lift controls.
 - [x] evidence: unchanged legacy guide hashes and historical report bytes; old live admission rejects changed compiler identities.
-- [ ] merge: update this Advance and plan after checks; do not grant geometry admission.
+- [x] merge: completion ed50ead merged locally into master as 4e82325; no geometry admission.
 
 ## Bug Fixes
 
@@ -92,6 +92,13 @@ provider CI is claimed. Existing component schema warnings and the installed
 strict PR parser's `ids=[]` limitation are recorded separately from local checks.
 
 ## Changes Made
+
+### 2026-09-09 - merge: local completion receipt
+
+Completion ed50ead merged as 4e82325. Post-merge connected-contract tests pass
+(28), and plan/rules/whitespace checks pass. The temporary validation checkout
+was removed. Historical source-identity invalidation and the strict PR parser
+limitation remain explicit; no push, provider CI, geometry or hand acceptance.
 
 ### 2026-09-09 - feat: implement and measure the connected contract
 
