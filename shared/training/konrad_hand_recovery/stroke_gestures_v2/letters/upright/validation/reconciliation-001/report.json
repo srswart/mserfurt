@@ -1,0 +1,638 @@
+{
+  "version": "upright-yardstick-reconciliation-v1",
+  "protocol_sha256": "e9a841f76ae469e20f5f86e110bc6c5aaa8c467d1791c961b9f95b9ea869b9e6",
+  "diagnostic_code_sha256": "cbfdf52d0f98b529a69d242fd0e3d49934704938dd1e3a8cb8b9e6faa41f7822",
+  "source_pins": {
+    "spec-v1.json": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+    "continuation-002/run-001/report.json": "c986db16fbbac20d8ce66844a6789d5198b8deaa1c00bc70b97682b823488655",
+    "continuation-002/actual-review.json": "8d08805dddb2aa98cc636a20a5a3ad24d1411b4f0ba1a562534a349f71ab5f7e",
+    "continuation-002/inspection.json": "aa4e70482951046f97c2217d748a3b1a008a907b492c1be19519160a993c25a1"
+  },
+  "artifacts_verified": 1256,
+  "source_numeric_pass": false,
+  "appearance": "approved_actual_ink",
+  "fixtures": [
+    {
+      "id": "primitive-stem",
+      "target_to_nominal": {
+        "global": 0.04842587292501431,
+        "local": {
+          "0": 0.04842587292501432
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.04842587292501431,
+            "local": {
+              "0": 0.04842587292501432
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.04842587292501431,
+            "local": {
+              "0": 0.04842587292501432
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.04842587292501431,
+            "local": {
+              "0": 0.04842587292501432
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.04842587292501431,
+            "local": {
+              "0": 0.04842587292501432
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0
+        }
+      }
+    },
+    {
+      "id": "primitive-rise",
+      "target_to_nominal": {
+        "global": 0.21174041038709962,
+        "local": {
+          "0": 0.21174041038709962
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.21060486348871918,
+            "local": {
+              "0": 0.21060486348871918
+            }
+          },
+          "nominal_to_actual": 0.0013717421124828514,
+          "desired_to_actual": 0.004754233625397823
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.21060486348871918,
+            "local": {
+              "0": 0.21060486348871918
+            }
+          },
+          "nominal_to_actual": 0.0013717421124828514,
+          "desired_to_actual": 0.002392813713568429
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.21060486348871918,
+            "local": {
+              "0": 0.21060486348871918
+            }
+          },
+          "nominal_to_actual": 0.0013717421124828514,
+          "desired_to_actual": 0.004754233625397823
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.21060486348871918,
+            "local": {
+              "0": 0.21060486348871918
+            }
+          },
+          "nominal_to_actual": 0.0013717421124828514,
+          "desired_to_actual": 0.004754233625397823
+        }
+      }
+    },
+    {
+      "id": "primitive-upper",
+      "target_to_nominal": {
+        "global": 0.17207403758181433,
+        "local": {
+          "0": 0.17207403758181433
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.1712714970397519,
+            "local": {
+              "0": 0.17127149703975192
+            }
+          },
+          "nominal_to_actual": 0.006658188075110348,
+          "desired_to_actual": 0.005421686746987954
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.1712714970397519,
+            "local": {
+              "0": 0.17127149703975192
+            }
+          },
+          "nominal_to_actual": 0.006658188075110348,
+          "desired_to_actual": 0.0021770137377073793
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.1720838609821303,
+            "local": {
+              "0": 0.1720838609821303
+            }
+          },
+          "nominal_to_actual": 0.004554618084073769,
+          "desired_to_actual": 0.007665714715166093
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.1712714970397519,
+            "local": {
+              "0": 0.17127149703975192
+            }
+          },
+          "nominal_to_actual": 0.006658188075110348,
+          "desired_to_actual": 0.005421686746987954
+        }
+      }
+    },
+    {
+      "id": "primitive-lower",
+      "target_to_nominal": {
+        "global": 0.40641189278474366,
+        "local": {
+          "0": 0.4064118927847435
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.4058929645219483,
+            "local": {
+              "0": 0.40589296452194823
+            }
+          },
+          "nominal_to_actual": 0.0018461538461538465,
+          "desired_to_actual": 0.007964601769911506
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.4058929645219483,
+            "local": {
+              "0": 0.40589296452194823
+            }
+          },
+          "nominal_to_actual": 0.0018461538461538465,
+          "desired_to_actual": 0.002557544757033248
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.4058929645219483,
+            "local": {
+              "0": 0.40589296452194823
+            }
+          },
+          "nominal_to_actual": 0.0018461538461538465,
+          "desired_to_actual": 0.007964601769911506
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.4058929645219483,
+            "local": {
+              "0": 0.40589296452194823
+            }
+          },
+          "nominal_to_actual": 0.0018461538461538465,
+          "desired_to_actual": 0.007964601769911506
+        }
+      }
+    },
+    {
+      "id": "gesture-overturn",
+      "target_to_nominal": {
+        "global": 0.42335879172745217,
+        "local": {
+          "0": 0.42335879172745217
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.42249729970682537,
+            "local": {
+              "0": 0.42249729970682526
+            }
+          },
+          "nominal_to_actual": 0.0014490311710193755,
+          "desired_to_actual": 0.004628378378378378
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.4222992093573671,
+            "local": {
+              "0": 0.422299209357367
+            }
+          },
+          "nominal_to_actual": 0.0009775830102814755,
+          "desired_to_actual": 0.001804780137298226
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.42249729970682537,
+            "local": {
+              "0": 0.42249729970682526
+            }
+          },
+          "nominal_to_actual": 0.0014490311710193755,
+          "desired_to_actual": 0.004628378378378378
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.42249729970682537,
+            "local": {
+              "0": 0.42249729970682526
+            }
+          },
+          "nominal_to_actual": 0.0014490311710193755,
+          "desired_to_actual": 0.004628378378378378
+        }
+      }
+    },
+    {
+      "id": "gesture-underturn",
+      "target_to_nominal": {
+        "global": 0.15608913334743674,
+        "local": {
+          "0": 0.15608913334743668
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.15572239258397663,
+            "local": {
+              "0": 0.1557223925839766
+            }
+          },
+          "nominal_to_actual": 0.0005315944288903853,
+          "desired_to_actual": 0.004711194865686502
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.15572239258397663,
+            "local": {
+              "0": 0.1557223925839766
+            }
+          },
+          "nominal_to_actual": 0.0005315944288903853,
+          "desired_to_actual": 0.001507172367324503
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.15572239258397663,
+            "local": {
+              "0": 0.1557223925839766
+            }
+          },
+          "nominal_to_actual": 0.0005315944288903853,
+          "desired_to_actual": 0.004711194865686502
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.15572239258397663,
+            "local": {
+              "0": 0.1557223925839766
+            }
+          },
+          "nominal_to_actual": 0.0005315944288903853,
+          "desired_to_actual": 0.004711194865686502
+        }
+      }
+    },
+    {
+      "id": "letter-n",
+      "target_to_nominal": {
+        "global": 0.38201269616214995,
+        "local": {
+          "0": 0.38201269616215
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.38201269616214995,
+            "local": {
+              "0": 0.38201269616215
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0020510794755313824
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.3815007489249303,
+            "local": {
+              "0": 0.38150074892493036
+            }
+          },
+          "nominal_to_actual": 0.00043973373364266315,
+          "desired_to_actual": 0.0015631876887587078
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.38201269616214995,
+            "local": {
+              "0": 0.38201269616215
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0020510794755313824
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.38201269616214995,
+            "local": {
+              "0": 0.38201269616215
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0020510794755313824
+        }
+      }
+    },
+    {
+      "id": "letter-u",
+      "target_to_nominal": {
+        "global": 0.23230271689034016,
+        "local": {
+          "0": 0.23230271689034013
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.23205076110399153,
+            "local": {
+              "0": 0.2320507611039915
+            }
+          },
+          "nominal_to_actual": 0.00030153784299929634,
+          "desired_to_actual": 0.003136510128913445
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.23230271689034016,
+            "local": {
+              "0": 0.23230271689034013
+            }
+          },
+          "nominal_to_actual": 0.0,
+          "desired_to_actual": 0.0013649229177741702
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.23205076110399153,
+            "local": {
+              "0": 0.2320507611039915
+            }
+          },
+          "nominal_to_actual": 0.00030153784299929634,
+          "desired_to_actual": 0.003136510128913445
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.23205076110399153,
+            "local": {
+              "0": 0.2320507611039915
+            }
+          },
+          "nominal_to_actual": 0.00030153784299929634,
+          "desired_to_actual": 0.003136510128913445
+        }
+      }
+    },
+    {
+      "id": "letter-m",
+      "target_to_nominal": {
+        "global": 0.5900334308399497,
+        "local": {
+          "0": 0.5900334308399497
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.5896627006925655,
+            "local": {
+              "0": 0.5896627006925657
+            }
+          },
+          "nominal_to_actual": 0.0009566872438344019,
+          "desired_to_actual": 0.005898242667664884
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.5895769556268349,
+            "local": {
+              "0": 0.589576955626835
+            }
+          },
+          "nominal_to_actual": 0.0006748521872261561,
+          "desired_to_actual": 0.0015634298625190378
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.5893216959168119,
+            "local": {
+              "0": 0.5893216959168119
+            }
+          },
+          "nominal_to_actual": 0.000875665556148279,
+          "desired_to_actual": 0.006400728044896103
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.5896627006925655,
+            "local": {
+              "0": 0.5896627006925657
+            }
+          },
+          "nominal_to_actual": 0.0009566872438344019,
+          "desired_to_actual": 0.005898242667664884
+        }
+      }
+    },
+    {
+      "id": "placed-mu",
+      "target_to_nominal": {
+        "global": 0.44451090486940537,
+        "local": {
+          "0": 0.5822013254332125,
+          "1": 0.23395256531216452
+        }
+      },
+      "actual": {
+        "base": {
+          "target_to_actual": {
+            "global": 0.44448659666540213,
+            "local": {
+              "0": 0.5821025657384075,
+              "1": 0.23395256531216452
+            }
+          },
+          "nominal_to_actual": 0.0006739679865206407,
+          "desired_to_actual": 0.0038671533287080334
+        },
+        "arc": {
+          "target_to_actual": {
+            "global": 0.444536599479217,
+            "local": {
+              "0": 0.5821025657384075,
+              "1": 0.23412698412698413
+            }
+          },
+          "nominal_to_actual": 0.000818320757668749,
+          "desired_to_actual": 0.0018605379302870293
+        },
+        "time": {
+          "target_to_actual": {
+            "global": 0.4446222976491235,
+            "local": {
+              "0": 0.5822091824260398,
+              "1": 0.23412698412698413
+            }
+          },
+          "nominal_to_actual": 0.0006497491246435407,
+          "desired_to_actual": 0.0038421405005036402
+        },
+        "subdivision": {
+          "target_to_actual": {
+            "global": 0.44448659666540213,
+            "local": {
+              "0": 0.5821025657384075,
+              "1": 0.23395256531216452
+            }
+          },
+          "nominal_to_actual": 0.0006739679865206407,
+          "desired_to_actual": 0.0038671533287080334
+        }
+      }
+    }
+  ],
+  "primitive_ports_local_y_up_mm": {
+    "stem": {
+      "approved_entry_mm": [
+        0.0,
+        3.5
+      ],
+      "approved_exit_mm": [
+        0.0,
+        0.0
+      ],
+      "analytic_entry_mm": [
+        0.0,
+        3.5
+      ],
+      "analytic_exit_mm": [
+        0.0,
+        0.0
+      ],
+      "entry_difference_mm": 0.0,
+      "exit_difference_mm": 0.0
+    },
+    "rise": {
+      "approved_entry_mm": [
+        0.0,
+        0.0
+      ],
+      "approved_exit_mm": [
+        0.28,
+        3.1436614399235783
+      ],
+      "analytic_entry_mm": [
+        0.0,
+        0.0
+      ],
+      "analytic_exit_mm": [
+        0.0,
+        2.8000000000000003
+      ],
+      "entry_difference_mm": 0.0,
+      "exit_difference_mm": 0.4432867980104382
+    },
+    "upper-return": {
+      "approved_entry_mm": [
+        0.0,
+        3.1436614399235783
+      ],
+      "approved_exit_mm": [
+        1.4025566424274425,
+        2.6761425591144308
+      ],
+      "analytic_entry_mm": [
+        0.0,
+        2.8000000000000003
+      ],
+      "analytic_exit_mm": [
+        1.4000000000000001,
+        2.8000000000000003
+      ],
+      "entry_difference_mm": 0.343661439923578,
+      "exit_difference_mm": 0.1238838249458909
+    },
+    "lower-return": {
+      "approved_entry_mm": [
+        0.0,
+        0.86899162238258
+      ],
+      "approved_exit_mm": [
+        1.3789019810404555,
+        0.4093576287024283
+      ],
+      "analytic_entry_mm": [
+        0.0,
+        0.7000000000000002
+      ],
+      "analytic_exit_mm": [
+        1.4000000000000001,
+        0.6999999999999998
+      ],
+      "entry_difference_mm": 0.1689916223825798,
+      "exit_difference_mm": 0.29140712825442816
+    }
+  },
+  "letter_entry_exit_span_mm": {
+    "n": {
+      "approved": 1.6825566424274425,
+      "analytic": 1.4000000000000001
+    },
+    "u": {
+      "approved": 1.65417967251615,
+      "analytic": 1.4000000000000001
+    },
+    "m": {
+      "approved": 3.3651132848548846,
+      "analytic": 2.8000000000000007
+    }
+  },
+  "budgets": {
+    "controller_executions": 0,
+    "raster_renders": 0,
+    "optimization_evaluations": 0
+  },
+  "new_target": false,
+  "new_thresholds": false,
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "interpretation": "Diagnostic comparisons are not additive loss attribution or new gates. Candidate-derived anchors are regression references, not independent style truth. Existing verified receipt supplies motion/replay evidence; this script does not reexecute those checks."
+}
