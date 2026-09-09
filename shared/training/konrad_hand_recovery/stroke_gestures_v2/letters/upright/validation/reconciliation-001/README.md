@@ -55,8 +55,10 @@ not quantify the contribution of each geometric difference.
 The approved design is in [TD-018 Addendum B section 14](../../../../../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#14-reconcile-approved-appearance-and-independent-target-provenance).
 The owner approves approved-style regression plus separate mechanical checks and
 explicit style diagnostics: “I have reviewed it -- approved.” The
-[contract review](contract-review.json) binds the reviewed revision. Implementation
-and a concrete protocol freeze are next; the design itself no longer awaits review.
+[contract review](contract-review.json) binds the reviewed revision.
+[HANDVALIDATE-023 implements the registry and read-only evaluator](../reference-contract-v1/README.md)
+and prepares the held-out placement protocol; its physical execution authorization
+and execution freeze are next. The design itself no longer awaits review.
 No unlisted numeric threshold, independent exemplar or new execution budget is
 approved by implication. Historical scores and appearance KEEP remain unchanged.
 

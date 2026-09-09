@@ -728,13 +728,15 @@ HANDVALIDATE-021 stays numeric FAIL, with owner appearance KEEP. Independent
 recomputation of a candidate-derived reference does not make its provenance
 candidate-independent.
 
-### C. Approved prospective reference contract — implementation pending
+### C. Approved reference contract — implemented, physical validation pending
 
 Owner approval recorded on 2026-09-09: “I have reviewed it -- approved.” The
 [contract review record](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/reconciliation-001/contract-review.json)
 pins the exact reviewed revision and section body. Design version:
-`reviewed-synthetic-appearance-contract-v1`. Implementation and experiment freeze
-remain pending; no further approval of this same design is required.
+`reviewed-synthetic-appearance-contract-v1`. HANDVALIDATE-023 implements the
+registry and read-only evaluator described below. A new physical experiment still
+needs its execution authorization and freeze; no further approval of this same
+design is required. The immutable review record retains its at-review status.
 
 The approved design is to retain the approved synthetic style as a versioned
 regression anchor and keep analytic style comparison explicit, rather than train
@@ -764,7 +766,50 @@ Before any new scored execution or optimizer:
 
 No new style target, appearance threshold, candidate geometry, renderer, fitter,
 S2/real-hand/context authorization or fatigue model is implemented here. The next
-work is to implement the approved contract and freeze the concrete evaluation
-requirements and bounded execution protocol, not re-review this design or the
-n/u/m appearance. The already approved mu placement remains an execution probe,
+work is the prepared held-out placement protocol's bounded physical validation,
+not re-review of this design or the n/u/m appearance. The already approved mu placement remains an execution probe,
 not a spacing target or demonstration of word-context learning.
+
+### D. Implemented reference registry and read-only contract evaluation
+
+[HANDVALIDATE-023](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-023.md)
+implements `scripts.upright_reference_contract` outside old evaluator identities.
+The [contract bundle](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/reference-contract-v1/README.md)
+contains a consumer-pinned registry, prepared protocol, source freeze and immutable
+snapshot with an independently callable read-only inspector. Existing core code,
+candidate, target, numerical criteria, archived decisions and owner records are
+unchanged. The existing incubating handvalidate component owns the new API.
+
+Four actual-ink anchors bind n/u/m and placed mu to candidate, owner review,
+fixture/text/placement, frame, DPI, fixed physical tool/actions, base refinement
+and source identities. Consumers verify registry identity and provenance before
+comparison. Full RGB pixel identity gives match/mismatch only: no new quality
+threshold or generalization claim. Changed scope, cropped images and forged
+independent provenance fail closed. Regression variant tolerance remains unset;
+the historical 0.05 threshold is not transplanted to these derived anchors.
+
+The snapshot separates construction PASS, archived motion PASS, reviewed-sample
+appearance KEEP, independent style FAIL and exact replay MATCH. It verifies
+24 known-anchor comparisons across six saved workers and eight in-memory pixel/
+metadata mutation controls. Original mechanical measurements come from pinned
+independently verified H021 evidence, not a new controller run. The inspector
+checks all 1,256 original artifacts and reconstructs the new contract decisions.
+Malformed, missing or nonfinite measurement evidence produces invalid channels,
+not a partial green summary. Overall admission is withheld.
+
+The prepared next protocol declares known n/u/m/mu regressions and six
+text-disjoint placement probes: un, nu, um, nn, uu, mm, with normalized translation
+[0.017, -0.011]. All 24 held-out base/arc/time/subdivision plans preflight without
+controller execution. This checks planned topology and containment, not actual
+ink or learned transfer. Unseen pairs use explicitly candidate-derived nominal
+references and do not inherit owner appearance approval. No contextual stroke
+changes or joins are introduced.
+
+Existing mechanical criteria, frame, local padding, seeds and controls are
+preserved in the prepared protocol. Proposed new execution limits are 5,000
+renders/1,800 seconds per seed including fresh-process replay, zero retries and
+zero fitting; the proposal is not an authorized allowance. Bind new execution
+authorization and freeze its code/derived artifacts/reader before scoring.
+Current contract validation has zero controller executions, raster renders and
+optimization evaluations. No new layer admission follows from either this
+implementation or its successful identity checks.

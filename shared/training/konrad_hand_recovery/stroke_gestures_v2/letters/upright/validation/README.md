@@ -4,6 +4,9 @@ Owner appearance is now approved. [HANDVALIDATE-022 reconciliation](reconciliati
 explains why the independent target score still fails, without modifying this
 protocol or its evidence. Actual ink closely follows the approved construction;
 the synthetic vertical/semicircle yardstick has different width and turn geometry.
+[HANDVALIDATE-023 reference contract](reference-contract-v1/README.md) now implements
+separate result channels and scoped approved-appearance replay references. It
+preserves this historical numeric failure; held-out physical execution is pending.
 
 This directory is **not another fit**. The owner-approved CURRICULUM-015 candidate
 is read byte-for-byte. `spec-v1.json` freezes the independent analytic yardstick,
