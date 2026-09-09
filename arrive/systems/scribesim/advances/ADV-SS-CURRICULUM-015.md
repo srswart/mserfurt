@@ -53,7 +53,7 @@ This produces a deterministic no-fit preview, not a learned or accepted hand.
 - [x] evidence: 900-DPI full and 1800-DPI detail nominal ink, four isolated primitive tiles and vector direction diagrams.
 - [x] evidence: full finite-nib containment before each paint; one common detail frame without per-letter stretching.
 - [x] evidence: candidate/report/source hashes frozen; candidate-bound owner-review record remains pending.
-- [ ] merge: complete preview implementation with owner review explicitly pending if unanswered.
+- [x] merge: f2fab6b merged locally into master as dadafc3; owner review explicitly pending.
 
 ## Bug Fixes
 
@@ -97,6 +97,14 @@ provider CI pass.
 
 ## Changes Made
 
+### 2026-09-09 - merge: local completion receipt
+
+Completion f2fab6b merged as dadafc3. Post-merge read-only checks verify the
+candidate/report hashes, complete preview artifacts and source identities.
+Plan/rules/whitespace checks pass, and the local review URL responds successfully.
+The temporary validation checkout is removed. No push, provider CI or appearance
+acceptance is claimed; owner review remains the next checkpoint.
+
 ### 2026-09-09 - feat: complete deterministic upright preview
 
 `scribesim/curriculum/upright_letters.py` loads only the pinned HANDVALIDATE-020
@@ -119,7 +127,7 @@ report SHA-256
 `53f5beefadd9bb3dc0000eb7f9fb730de549bcb68d4b063936eaade3821ff5fb`.
 Artifacts live in `letters/upright/run-001`, with gallery links from letter and
 foundation pages. No actual hand simulation, target, fitting, acceptance, context
-or fatigue. Completion awaits only local merge; the next substantive checkpoint
+or fatigue. The next substantive checkpoint
 is owner keep/repair feedback before scored HANDVALIDATE-021 evaluation.
 
 ### 2026-09-08 - plan: register shared geometry and visual checkpoint
