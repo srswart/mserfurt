@@ -88,6 +88,23 @@ split test, implementation and evidence commits before merge.
 
 ## Changes Made
 
+### 2026-09-09 - owner authorizes one bounded no-refit continuation
+
+Owner: “Yes approved - go ahead.” Authorization is recorded before execution in
+`letters/upright/validation/continuation-001/authorization.json`. The original spec
+hash, failed report hash and sole scalar-adapter repair hash are pinned. No old
+archive, candidate, target, fixture, criterion or budget is changed. The new runner
+debits two render calls and 0.8869196659652516 seconds from seed 7's unchanged
+5,000-render/1,800-second allowance; waiting for authorization is not execution.
+Seeds 19/41 have no prior debit. No further automatic attempt is permitted.
+
+Red `ab653a5` precedes the new continuation wrapper; 13 evaluator/continuation
+tests pass, including source binding, budget debit, no-overwrite and consumer-pin
+checks. Existing measurement/reader code is unchanged. The generic worker and
+read-only evidence reader are reused; continuation accounting is separately
+verified against the pinned failed ledger. New artifacts go only to
+`continuation-001/run-001`, with identities frozen before any render.
+
 ### 2026-09-09 - preserve pre-score failure, repair adapter, await continuation
 
 The one permitted attempt stopped before scoring in seed 7's first process:

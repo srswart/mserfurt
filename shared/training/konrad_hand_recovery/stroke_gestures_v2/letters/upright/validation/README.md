@@ -18,6 +18,23 @@ reported against that old nominal reference, not claimed as old-vs-new physics.
 
 ## Reproduce and inspect
 
+The first attempt is preserved after a pre-score adapter failure. The owner has
+authorized one continuation with the unchanged original protocol. Its explicit
+authorization, prior debit and output path are in
+`continuation-001/authorization.json`. Run it only before its own run exists:
+
+```sh
+.venv/bin/python -m scribesim.handvalidate.upright_continuation
+```
+
+Inspect the continuation without rendering or fitting:
+
+```sh
+.venv/bin/python -m scribesim.handvalidate.upright_continuation \
+  --inspect shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/continuation-001/run-001 \
+  --report-sha256 REPORT_SHA256
+```
+
 From the repository root, before a run exists:
 
 ```sh
