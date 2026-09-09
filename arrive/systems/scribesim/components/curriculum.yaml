@@ -21,6 +21,7 @@ selectors:
     - "tests/test_letter_recipes.py"
     - "tests/test_letter_recipe_evidence.py"
     - "tests/test_letter_alignment.py"
+    - "tests/test_upright_letters.py"
     - "tests/test_letter_alignment_evidence.py"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/**"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/**"
@@ -35,6 +36,7 @@ selectors:
   contracts: []
 
 interfaces:
+  - "Deterministic connected-v1 shared upright n/u/m nominal preview, pinned unaccepted source bytes, unchanged stem cubics, truthful ports, level 4/4/6-reference recipes, same-scale ink/ownership review artifacts and no fitting or physical acceptance before owner review"
   - "Exact baseline/x-height-compatible whole-gesture assembly with separately versioned independent targets, scoped standalone-stem consumption, immutable numeric adjudication and no S2/context promotion"
   - "Bounded opt-in n/u/m letter recipes over pinned finer-scale strokes, with live scoped admission, explicit unresolved stem debt, development-only placement selection, local/physical/attachment proofs and synthetic-only replay evidence"
   - "Curriculum stages for primitive, glyph, word, line, and folio training"

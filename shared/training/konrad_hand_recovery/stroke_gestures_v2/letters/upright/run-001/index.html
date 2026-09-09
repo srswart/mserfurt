@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Upright shared strokes — CURRICULUM-015</title><style>
+body{font:17px/1.5 system-ui;background:#faf7ef;color:#282d31;max-width:1180px;margin:auto;padding:24px}h1{line-height:1.15}h2{font-size:30px}
+.notice{background:#fff0d1;padding:18px;border-left:5px solid #c05d00}.pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}figure{margin:0}img{width:100%;height:auto}figcaption{font-weight:600}section{border-top:1px solid #cabfae;margin-top:28px;padding-top:8px}
+button{font:inherit;padding:10px 16px;cursor:pointer}.timeline{font-family:monospace;background:#e8f2ed;padding:12px}summary{cursor:pointer}a{color:#185b9d}@media(max-width:650px){.pair{grid-template-columns:1fr}body{padding:15px}}
+</style><h1>Upright strokes. Pen stays down.</h1><p>CURRICULUM-015 · shared vocabulary → n / u / m</p>
+<p class="notice"><strong>Nominal design preview — awaiting your review.</strong> No fitting, actual hand simulation or acceptance run. Old and proposed ink use the same fixed nib, pressure and physical scale. These are construction comparisons, not independent targets.</p>
+<p>Stem cubic geometry is unchanged. Upstroke bodies are more upright; the final rise still turns toward the arch. The n cap keeps its height profile and width, but its exit handle changes to meet the upright stem. Letter widths narrow; advance spacing is unchanged. Fixed-tool retracing may remain visually heavy.</p>
+<p><button id="view" type="button">Show full physical frame</button> Detail uses a shared, uncropped ink-containing frame at 1800 DPI; full views use 900 DPI. No per-letter stretching.</p>
+<section><h2>n</h2><div class="pair">
+<figure><img class="ink" data-prefix="n-prior" src="n-prior-detail.png" alt="Archived n, nominal ink"/><figcaption>Archived construction — nominal ink</figcaption></figure>
+<figure><img class="ink" data-prefix="n-proposed" src="n-proposed-detail.png" alt="Proposed n, nominal ink"/><figcaption>Proposed construction — nominal ink</figcaption></figure></div>
+<p class="timeline">Old: pen down → pen up → pen down<br/>Proposed: pen down throughout the letter.</p>
+<details><summary>Shared stroke paths, order and direction</summary><img src="n-paths.svg" alt="n shared stroke decomposition"/></details></section>
+<section><h2>u</h2><div class="pair">
+<figure><img class="ink" data-prefix="u-prior" src="u-prior-detail.png" alt="Archived u, nominal ink"/><figcaption>Archived construction — nominal ink</figcaption></figure>
+<figure><img class="ink" data-prefix="u-proposed" src="u-proposed-detail.png" alt="Proposed u, nominal ink"/><figcaption>Proposed construction — nominal ink</figcaption></figure></div>
+<p class="timeline">Old: pen down → pen up → pen down<br/>Proposed: pen down throughout the letter.</p>
+<details><summary>Shared stroke paths, order and direction</summary><img src="u-paths.svg" alt="u shared stroke decomposition"/></details></section>
+<section><h2>m</h2><div class="pair">
+<figure><img class="ink" data-prefix="m-prior" src="m-prior-detail.png" alt="Archived m, nominal ink"/><figcaption>Archived construction — nominal ink</figcaption></figure>
+<figure><img class="ink" data-prefix="m-proposed" src="m-proposed-detail.png" alt="Proposed m, nominal ink"/><figcaption>Proposed construction — nominal ink</figcaption></figure></div>
+<p class="timeline">Old: pen down → pen up → pen down<br/>Proposed: pen down throughout the letter.</p>
+<details><summary>Shared stroke paths, order and direction</summary><img src="m-paths.svg" alt="m shared stroke decomposition"/></details></section>
+<section><h2>The four shared primitives</h2><p>Stem · rise · upper return · lower return. Isolated nominal ink, then vector centerlines at the same physical scale. These tiles are diagnostics, not an extra letter recipe.</p><img src="strokes-ink.png" alt="Nominal ink of four isolated shared primitives"/><p>Blue: stem · orange: rise · purple: upper return · teal: lower return. Arrows show writing direction; vector line width does not represent ink thickness.</p><img src="strokes.svg" alt="Four isolated shared stroke primitives"/></section>
+<section><h2>Your review is the next gate</h2><p>For each n/u/m, say keep or repair: upstroke angle and stem proximity, descending slant, turn shape, width and overlap. Is the adjusted n cap still acceptable? We will not fit or run scored physical validation before this review.</p><p><a href="candidate.json">Frozen candidate</a> · <a href="report.json">Measurements and provenance</a> · <a href="owner-review.json">Pending owner review</a></p></section>
+<script>let full=false;document.getElementById('view').onclick=()=>{full=!full;document.querySelectorAll('.ink').forEach(image=>image.src=image.dataset.prefix+'-'+(full?'full':'detail')+'.png');document.getElementById('view').textContent=full?'Show enlarged detail':'Show full physical frame';};</script></html>

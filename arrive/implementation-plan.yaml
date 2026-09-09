@@ -1755,12 +1755,12 @@ passes:
     - id: ADV-SS-CURRICULUM-015
       advance_id: ADV-SS-CURRICULUM-015
       title: "Upright Construction — Shared Rise and Return Repair Preview"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-GESTURE-003
       - ADV-SS-HANDVALIDATE-020
-      notes: "Deterministic no-fit shared rise/return repair for n/u/m; pen-down near-upright upstrokes, less-slanted descents, acceptable n turn retained where compatible. Publish isolated strokes and same-scale old/new nominal ink with arrows/contact timeline. Owner preview review required before scored evaluation; no per-letter curves, context or fatigue."
+      notes: "COMPLETE nominal preview, owner review PENDING. Unchanged stem cubics, one 5.090-degree rise chord and shared return handle repair; zero rotation, level 4/4/6-reference continuous pen-down n/u/m. Cap height profile/width retained, exit handle changed and disclosed. 125 focused tests pass; 21 files replay byte-for-byte in a fresh process. Same-scale 900-DPI full /1800-DPI detail ink, isolated primitives and direction diagrams published. No fitting, targets, physical executions, S2, context or fatigue. Review before HANDVALIDATE-021."
     - id: ADV-SS-HANDVALIDATE-021
       advance_id: ADV-SS-HANDVALIDATE-021
       title: "Upright Construction — Independent Continuous-Contact Evaluation"
