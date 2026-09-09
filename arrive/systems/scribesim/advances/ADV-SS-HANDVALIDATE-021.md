@@ -15,7 +15,7 @@ advance:
   risk_flags: ["public_api"]
   evidence: []
   model_usage: []
-  status: planned
+  status: in_progress
 ---
 
 ## Objective
@@ -41,7 +41,7 @@ success cannot override the owner's repair verdict or grant context permission.
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create `advance/ss-handvalidate-021` after CURRICULUM-015 merges.
+- [x] branch: create `advance/ss-handvalidate-021` after CURRICULUM-015 merges.
 - [x] prerequisite: owner endorses the frozen CURRICULUM-015 nominal n/u/m; candidate-bound keep verdicts recorded. This is not actual-ink review.
 - [ ] prerequisite: freeze independent analytic target provenance/version, candidate/code hashes and all evaluation budgets before scoring.
 - [ ] tidy: isolate reader/measurement logic without mutating frozen source artifacts.
