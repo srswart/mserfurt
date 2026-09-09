@@ -40,7 +40,7 @@ starting an unbudgeted physical experiment or borrowing old render allowances.
 - [x] feat/fix: registry, replay comparison, five-channel report, immutable build and consumer-pinned read-only inspector.
 - [x] protocol: freeze current zero-execution validation and prepare held-out placements, controls and explicit execution-authorization boundary.
 - [x] evidence: validate saved first/replay samples and adversarial mutations; no re-render or fitting.
-- [ ] docs/merge: publish contract state, update plan and merge locally.
+- [x] docs/merge: publish contract state, update plan and merge locally at `4a16658`; no push.
 
 ## Bug Fixes
 
@@ -81,6 +81,14 @@ completed human review. Component metadata now explicitly routes the script/API
 and focused tests to the existing incubating handvalidate component.
 
 ## Changes Made
+
+### 2026-09-09 - local merge receipt
+
+Merged `advance/ss-handvalidate-023` into local master at `4a16658` after 50 passing
+focused tests, consumer-pinned snapshot verification and governance checks. No
+push or provider CI. Contract implementation is complete; the prepared held-out
+physical run is not executed or authorized by this merge. Source/archive/reference
+bindings and all prior numerical decisions remain unchanged.
 
 ### 2026-09-09 - implemented and validated approved reference contract
 
