@@ -74,6 +74,23 @@ machine estimate, not completed human review.
 
 ## Changes Made
 
+### 2026-09-09 - owner approves prospective reference contract
+
+Owner: “I have reviewed it -- approved.” Record design approval as
+`reviewed-synthetic-appearance-contract-v1` in the reconciliation directory's
+`contract-review.json`, pinning the pre-approval document at `a7ca2ac` and section
+14C body hashes. TD-018 and the current plan now distinguish approved design from
+pending implementation and concrete protocol freeze. No repeat review of this
+same design or approved n/u/m appearance is needed.
+
+This documentation-only checkpoint changes no evaluator, candidate, target,
+threshold, measured result or archived approval. New experiment budgets, fitting
+and S2/real/context admission are not inferred. Earlier entries preserve the
+then-pending design state; HANDVALIDATE-022 investigation remains complete.
+Reviewed revision/section hashes verify; the diagnostic report reproduces with
+all 1,256 archived artifacts unchanged. Plan/rules/whitespace checks pass. Existing
+strict PR metadata parser limitation persists; no provider CI or experiment rerun.
+
 ### 2026-09-09 - local merge receipt
 
 Merged `advance/ss-handvalidate-022` into local master at `948d94c`. The scoped

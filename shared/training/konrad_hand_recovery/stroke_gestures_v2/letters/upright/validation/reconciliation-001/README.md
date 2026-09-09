@@ -52,11 +52,13 @@ not quantify the contribution of each geometric difference.
 - Approved specimens can anchor regression tests, but must be labeled candidate-derived, not independent targets.
 - Document a prospective reference contract before new scoring; do not unlock context, S2 or real-hand admission by changing a label.
 
-The proposal is in [TD-018 Addendum B section 14](../../../../../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#14-reconcile-approved-appearance-and-independent-target-provenance).
-Its preferred direction is approved-style regression plus separate mechanical
-checks and explicit style diagnostics. It is **not activated**: target roles,
-required gates and any new independent exemplar/style specification still need
-review and a fresh protocol freeze. Appearance itself is already approved.
+The approved design is in [TD-018 Addendum B section 14](../../../../../../../../docs/tech-direction/TD-018-addendum-b-foundation-repair.md#14-reconcile-approved-appearance-and-independent-target-provenance).
+The owner approves approved-style regression plus separate mechanical checks and
+explicit style diagnostics: “I have reviewed it -- approved.” The
+[contract review](contract-review.json) binds the reviewed revision. Implementation
+and a concrete protocol freeze are next; the design itself no longer awaits review.
+No unlisted numeric threshold, independent exemplar or new execution budget is
+approved by implication. Historical scores and appearance KEEP remain unchanged.
 
 ## Evidence and reproduction
 

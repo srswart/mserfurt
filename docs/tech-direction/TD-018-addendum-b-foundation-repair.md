@@ -728,11 +728,17 @@ HANDVALIDATE-021 stays numeric FAIL, with owner appearance KEEP. Independent
 recomputation of a candidate-derived reference does not make its provenance
 candidate-independent.
 
-### C. Proposed prospective reference contract — not activated
+### C. Approved prospective reference contract — implementation pending
 
-Preferred next design is to retain the approved synthetic style as a versioned
+Owner approval recorded on 2026-09-09: “I have reviewed it -- approved.” The
+[contract review record](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/reconciliation-001/contract-review.json)
+pins the exact reviewed revision and section body. Design version:
+`reviewed-synthetic-appearance-contract-v1`. Implementation and experiment freeze
+remain pending; no further approval of this same design is required.
+
+The approved design is to retain the approved synthetic style as a versioned
 regression anchor and keep analytic style comparison explicit, rather than train
-against a conflicting ideal. This is a proposed **new protocol**, not permission
+against a conflicting ideal. This is a prospective **new protocol**, not permission
 to drop HANDVALIDATE-021's failed gate, reuse its budget or grant admission.
 
 Before any new scored execution or optimizer:
@@ -758,6 +764,7 @@ Before any new scored execution or optimizer:
 
 No new style target, appearance threshold, candidate geometry, renderer, fitter,
 S2/real-hand/context authorization or fatigue model is implemented here. The next
-required owner decision is the prospective reference contract, not re-approval
-of n/u/m appearance. The already approved mu placement remains an execution probe,
+work is to implement the approved contract and freeze the concrete evaluation
+requirements and bounded execution protocol, not re-review this design or the
+n/u/m appearance. The already approved mu placement remains an execution probe,
 not a spacing target or demonstration of word-context learning.
