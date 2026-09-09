@@ -1,12 +1,18 @@
 # CURRICULUM-015 — shared upright nominal preview
 
-**Implementation complete; owner review pending.**
+**Implementation complete; owner approves the nominal n/u/m shapes.**
+
+The owner calls all three letters solid and endorses this direction. Current
+candidate-bound feedback is in [owner-review.json](run-001/owner-review.json).
+The frozen report and review sheet retain their original pending-review snapshot;
+they are not rewritten. Physical validation and its protocol remain outstanding.
 
 [Open the before/after review sheet](run-001/index.html): n/u/m ink, full-frame
 and enlarged views, shared-stroke paths and direction arrows, isolated primitives
 in ink and vector form, and ordered pen-contact states. Everything is nominal
 construction: **no actual controller execution, fitting, new target or acceptance
-experiment**. HANDVALIDATE-021 waits for owner review and a frozen protocol.
+experiment**. The nominal owner-review checkpoint is satisfied; HANDVALIDATE-021
+still requires a frozen independent evaluation protocol.
 
 ## What changed
 
@@ -62,10 +68,11 @@ across all letters, at 1800 DPI. No per-letter stretching or cropped pass.
 - Candidate file SHA-256: `01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd`.
 - Report SHA-256: `53f5beefadd9bb3dc0000eb7f9fb730de549bcb68d4b063936eaade3821ff5fb`.
 - Builder frozen at `e3631d5`; source identity hashes are in the report.
-- All 21 files replay byte-for-byte in a fresh process. Each build produces 13
+- All 21 original preview files replayed byte-for-byte in a fresh process before
+  owner feedback was recorded separately. Each build produces 13
   raster panels and four SVG diagrams. No seed, optimization, target loss or
   actual-motion result is claimed.
-- `owner-review.json` is pending and candidate-bound. It is separate from the
+- `owner-review.json` now records keep for all three nominal shapes and is candidate-bound. It is separate from the
   immutable manifest so genuine feedback need not rewrite the preview.
 - Seven new tests and 125 focused regressions pass (the latter includes the new
   tests). Desktop/mobile image loading, layout and view controls are checked;
@@ -85,9 +92,9 @@ HANDVALIDATE-020 candidates/reports and all targets remain unchanged. The earlie
 GESTURE-003 live-admission invalidation still applies; this preview consumes
 source bytes as explicitly unaccepted scaffolding, not through a bypassed reader.
 
-## Requested owner review
+## Owner review outcome
 
-For each n/u/m: **keep or repair**, naming the feature. Are rises close/upright
-enough? Are descents and the initial u underturn acceptable? Is the n cap still
-okay? Are width and fixed-tool overlap okay? No fitting or scored HANDVALIDATE-021
-experiment begins before this checkpoint.
+The owner endorses the current n/u/m shapes: **keep** for all three. This satisfies
+the nominal preview checkpoint, not physical or historical-hand acceptance.
+Next: freeze the HANDVALIDATE-021 protocol and independently evaluate this exact
+candidate without refitting. Actual-ink appearance will need its own review.

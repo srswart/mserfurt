@@ -1,21 +1,24 @@
 {
-  "status": "pending",
+  "status": "approved_nominal_preview",
   "candidate_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
   "letters": {
     "n": {
-      "verdict": "pending",
-      "notes": null
+      "verdict": "keep",
+      "notes": "Owner endorses the current nominal n shape in combined feedback."
     },
     "u": {
-      "verdict": "pending",
-      "notes": null
+      "verdict": "keep",
+      "notes": "Owner endorses the current nominal u shape in combined feedback."
     },
     "m": {
-      "verdict": "pending",
-      "notes": null
+      "verdict": "keep",
+      "notes": "Owner endorses the current nominal m shape in combined feedback."
     }
   },
-  "reviewer": null,
+  "reviewer": "project owner, conversation feedback",
+  "recorded_at": "2026-09-09T03:54:45Z",
+  "feedback_verbatim": "OMG wow that looks so much better now. I think we are on the right track.  We have a solid u, n and m.",
+  "approved_scope": "Current candidate's nominal n/u/m appearance only. No independent target, numeric tolerance, physical-motion, historical-hand, S2 or context approval is inferred.",
   "questions": [
     "Are upstrokes upright and close enough to stems?",
     "Are descents and the u underturn upright enough?",

@@ -42,7 +42,7 @@ success cannot override the owner's repair verdict or grant context permission.
 ## Planned Implementation Tasks
 
 - [ ] branch: create `advance/ss-handvalidate-021` after CURRICULUM-015 merges.
-- [ ] prerequisite: require candidate-bound owner preview review; completion status alone is insufficient.
+- [x] prerequisite: owner endorses the frozen CURRICULUM-015 nominal n/u/m; candidate-bound keep verdicts recorded. This is not actual-ink review.
 - [ ] prerequisite: freeze independent analytic target provenance/version, candidate/code hashes and all evaluation budgets before scoring.
 - [ ] tidy: isolate reader/measurement logic without mutating frozen source artifacts.
 - [ ] test: commit failing independent decision, ownership and archive tests first.
@@ -87,6 +87,14 @@ Record only real provider/run evidence. Recalculate reviewability on actual work
 split test, implementation and evidence commits before merge.
 
 ## Changes Made
+
+### 2026-09-09 - prerequisite: nominal appearance checkpoint satisfied
+
+The owner approves CURRICULUM-015's nominal n/u/m appearance; all three verdicts
+are keep in its separate candidate-bound owner-review record. The candidate and
+frozen evidence are unchanged. This Advance remains planned: independent target,
+fixture, criterion and budget freeze still precedes execution. No refitting or
+physical validation is performed by recording the feedback.
 
 ### 2026-09-08 - plan: register independent evaluation after visual review
 

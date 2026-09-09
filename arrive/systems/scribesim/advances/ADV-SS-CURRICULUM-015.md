@@ -97,6 +97,16 @@ provider CI pass.
 
 ## Changes Made
 
+### 2026-09-09 - review: owner endorses nominal n/u/m
+
+The owner says the preview looks much better and that u, n and m are solid.
+Record keep for all three in the candidate-bound owner-review record. This
+satisfies the nominal appearance checkpoint for candidate
+`01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd`.
+Candidate, source, report and image bytes are unchanged. Historical pending
+snapshots below remain accurate for their time. No new experiment or approval
+of numeric tolerances, targets, actual motion, historical hand, S2 or context.
+
 ### 2026-09-09 - merge: local completion receipt
 
 Completion f2fab6b merged as dadafc3. Post-merge read-only checks verify the
