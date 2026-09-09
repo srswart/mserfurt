@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HANDVALIDATE-021 · Actual upright ink</title>
+<style>
+:root{color-scheme:light;font:16px/1.5 system-ui;color:#242b30;background:#f5f2ea}body{max-width:1240px;margin:auto;padding:24px}h1{line-height:1.2}p{max-width:900px}.note{padding:16px;border-left:4px solid #956123;background:#fff9e8}.controls{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}button{font:inherit;padding:10px 16px;cursor:pointer}section{margin:36px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}figure{margin:0;background:white;border:1px solid #d7d0c4;min-width:0}figcaption{font-weight:600;padding:12px}.window{overflow:auto}img{display:block;width:100%;height:auto}.detail img{width:815px;max-width:none}a{color:#174f85}@media(max-width:700px){body{padding:16px}.grid{grid-template-columns:1fr}}
+</style>
+<h1>Actual upright ink · n, u, m</h1>
+<p>Your approved shapes are unchanged. The middle column is newly executed physical ink, not a nominal preview. The right column is an independent analytic yardstick, <strong>not a proposed replacement for your letters</strong>.</p>
+<p class="note">HANDVALIDATE-021 keeps numerical evidence, nominal approval and actual-ink review separate. See the linked outcome for the measured result. No S2, real-hand, context or fatigue acceptance is granted here. Full-frame metric images are 180 DPI; these presentation images are freshly rendered at 900 DPI.</p>
+<p><a href="outcome.md">Measured outcome and archive hash</a> · <a href="spec-v1.json">Frozen protocol</a> · <a href="run-001/report.json">Immutable report</a> · <a href="../run-001/index.html">Original approved preview</a></p>
+<div class="controls"><button id="full">Fit complete frame</button><button id="detail">Native-resolution detail (scroll)</button></div>
+<main id="samples"></main>
+<h2>Actual-ink review requested</h2>
+<p>For each n/u/m: keep or repair? Are upstrokes close and upright enough, descents appropriately vertical, turns acceptable, and retraced ink/counters visually sound? Please judge the actual middle column, not the analytic target. Nominal KEEP feedback is preserved.</p>
+<script>
+const samples=document.getElementById('samples');
+for(const [id,title] of [['letter-n','n · stem, pen-down reversal, overturn'],['letter-u','u · underturn, pen-down reversal, stem'],['letter-m','m · two overturns with pen-down reversal'],['placed-mu','mu · fixed placement probe, not context learning']]){
+ const section=document.createElement('section');
+ const heading=document.createElement('h2');heading.textContent=title;section.append(heading);
+ const grid=document.createElement('div');grid.className='grid';
+ for(const [kind,label] of [['nominal','1 · Approved construction (nominal)'],['actual','2 · Actual physical ink — review this'],['target','3 · Independent analytic yardstick']]){
+  const figure=document.createElement('figure');const caption=document.createElement('figcaption');caption.textContent=label;
+  const window=document.createElement('div');window.className='window';const picture=document.createElement('img');
+  picture.src=`run-001/seed-7/first/${id}-${kind}-full.png`;picture.alt=`${title}: ${label}, entire unchanged frame`;window.append(picture);figure.append(caption,window);grid.append(figure);
+ }
+ section.append(grid);samples.append(section);
+}
+document.getElementById('full').onclick=()=>samples.classList.remove('detail');
+document.getElementById('detail').onclick=()=>samples.classList.add('detail');
+</script></html>

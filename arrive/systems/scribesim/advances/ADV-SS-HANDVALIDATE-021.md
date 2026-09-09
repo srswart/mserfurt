@@ -43,10 +43,10 @@ success cannot override the owner's repair verdict or grant context permission.
 
 - [x] branch: create `advance/ss-handvalidate-021` after CURRICULUM-015 merges.
 - [x] prerequisite: owner endorses the frozen CURRICULUM-015 nominal n/u/m; candidate-bound keep verdicts recorded. This is not actual-ink review.
-- [ ] prerequisite: freeze independent analytic target provenance/version, candidate/code hashes and all evaluation budgets before scoring.
-- [ ] tidy: isolate reader/measurement logic without mutating frozen source artifacts.
-- [ ] test: commit failing independent decision, ownership and archive tests first.
-- [ ] feat/fix: implement no-fit actual-motion and full-frame image evaluation.
+- [x] prerequisite: freeze independent analytic target provenance/version, candidate/code hashes and all evaluation budgets before scoring.
+- [x] tidy: isolate reader/measurement logic without mutating frozen source artifacts.
+- [x] test: commit failing independent decision, ownership and archive tests first.
+- [x] feat/fix: implement no-fit actual-motion and full-frame image evaluation.
 - [ ] evaluate: isolated strokes/reversals, n/u/m and predeclared transfer probes at seeds 7/19/41 with fresh-process replay.
 - [ ] evaluate: inserted lift, gap, false smooth reversal, overlap-owner, geometry/tool, climbing, desired-as-actual and visible-shift controls.
 - [ ] evaluate: base/arc/time for letters; subdivision only within unchanged caps.
@@ -87,6 +87,31 @@ Record only real provider/run evidence. Recalculate reviewability on actual work
 split test, implementation and evidence commits before merge.
 
 ## Changes Made
+
+### 2026-09-09 - implementation and pre-score protocol freeze
+
+New isolated `upright_targets`, `upright_measurement`, `upright_letters` and
+`upright_evidence` modules leave all frozen builders, controllers and previous
+readers untouched. No preparatory refactoring is needed. The target accepts only
+the frozen specification and fixture: vertical lines and round-number semicircles,
+not candidate curves/pixels. This is an independent synthetic yardstick, **not an
+owner-approved aesthetic target**. New aesthetic angle/clearance thresholds are
+not invented; slant and repeated coverage remain diagnostics.
+
+The pre-score spec pins candidate `01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd`,
+its report and nominal KEEP record, the old comparison candidate, ten fixtures,
+four refinements, unchanged numeric gates and 5,000 renders/1,800 seconds per seed
+including replay, zero retries and zero optimization. The runner writes complete
+code/spec identities before executing any candidate. Source subdivision uses two
+exact internal cubics, not extra references: all existing caps validate, including
+six expanded references for m. It can therefore be measured for full letters.
+
+Red: `c937cc0` missing evaluator import; `5e43d25` exercises a synthetic two-letter
+retrace and fails on serialized identity/air-field handling. Green: seven new
+tests pass. The broader five-file suite has 70 passes and five pre-existing stale
+admission failures in `test_curve_tangents.py`; no archived source is repinned.
+The synthetic integration fixture is not the reviewed candidate and does not
+score it. Actual candidate evaluation has not run at this checkpoint.
 
 ### 2026-09-09 - prerequisite: nominal appearance checkpoint satisfied
 
