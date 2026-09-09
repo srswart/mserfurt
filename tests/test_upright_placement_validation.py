@@ -1,8 +1,10 @@
 import copy
 import json
+import gzip
 
 import numpy as np
 import pytest
+from PIL import Image
 
 from scripts import upright_placement_validation as runner
 from scripts import upright_placement_evidence as reader
@@ -103,3 +105,43 @@ def test_no_automatic_retry_or_missing_consumer_pin(tmp_path, monkeypatch):
         runner.evaluation.protocol.build(runner)
     with pytest.raises(ValueError, match='pin'):
         reader.inspect_run(tmp_path/'run-001', None)
+
+
+def test_reader_recomputes_saved_raw_evidence_without_rendering(tmp_path, monkeypatch):
+    source = runner.load_inputs()
+    fixture = runner.SPEC['fixtures'][0]
+    monkeypatch.setitem(runner.SPEC, 'fixtures', [fixture])
+    original = contract.SOURCE/'seed-7/first'
+    for path in original.glob('letter-n-*'):
+        (tmp_path/path.name).symlink_to(path)
+    model = runner.model_for_fixture(source['candidate'], fixture)
+    runs = json.loads(gzip.decompress((tmp_path/'letter-n-traces.json.gz').read_bytes()))
+    row = json.loads((original/'letter-n.json').read_text())
+    images = {label: np.array(Image.open(tmp_path/f'letter-n-{label}-metric.png'))
+              for label in ('target', 'nominal', 'prior', *runner.SPEC['refinements'])}
+    row['approved_reference'] = runner.reference_result(source, fixture, images['base'])
+    row['nominal_actual_losses'] = {label: runner.measurement.losses(images['nominal'], images[label], row['regions'], runner.evaluation.SPEC)
+                                  for label in runs}
+    shifted = np.roll(images['base'], 10, axis=1)
+    Image.fromarray(shifted).save(tmp_path/'visible-shift-metric.png')
+    controls = {**runner.evaluation.model_controls(source['candidate']),
+                **runner.evaluation.trace_controls(model, fixture, runner.restore_owner_aliases(model, fixture, runs['base'])),
+                'visible-shift': runner.shift_control(images['base'], shifted)}
+    record = {'fixtures': [row], 'controls': controls}
+    for name, value in [('candidate', source['candidate']), ('letter-n', row), ('controls', controls)]:
+        (tmp_path/f'{name}.json').write_text(json.dumps(value))
+    def forbidden(*args, **kwargs):
+        pytest.fail('Read-only verification attempted execution or rendering')
+    monkeypatch.setattr(runner.evaluation.runtime, 'execute', forbidden)
+    monkeypatch.setattr(runner.evaluation, 'paint', forbidden)
+    reader.verify_record(source, record, tmp_path)
+    row['tracking_losses']['base'] += .001
+    with pytest.raises(ValueError, match='raw evidence'):
+        reader.verify_record(source, record, tmp_path)
+    row['tracking_losses']['base'] -= .001
+    path = tmp_path/'letter-n-traces.json.gz'
+    path.unlink()
+    runs['base']['trace'][10]['to_mm'][0] += 1
+    path.write_bytes(gzip.compress(json.dumps(runs).encode()))
+    with pytest.raises(ValueError):
+        reader.verify_record(source, record, tmp_path)
