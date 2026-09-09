@@ -1,0 +1,15 @@
+{
+  "id": "HANDVALIDATE-021-owner-authorized-continuation-001",
+  "recorded_at": "2026-09-09T04:46:42Z",
+  "authorization_verbatim": "Yes approved - go ahead.",
+  "approved_request": "One bounded no-refit continuation after fixing the nominal scalar adapter. Preserve the failed evidence, approved candidate, target and thresholds unchanged.",
+  "original_spec_sha256": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+  "prior_report_sha256": "6f4678661d6d5103311ac88040f29ad36cd0247d03c45fb9909e0145e4685421",
+  "prior_code_commit": "495c119",
+  "allowed_existing_code_changes": {
+    "scribesim/handvalidate/upright_letters.py": "489af6613967f7bed19580c936f65cef4acbcfd6a9559b0313f2e3ef54c96e1d"
+  },
+  "output": "continuation-001/run-001",
+  "budget_policy": "Retain 5000 renders and 1800 execution seconds per seed including first/replay and the prior failed attempt. Debit the pinned prior ledger: two seed-7 render calls and 0.8869196659652516 seconds. Waiting for owner authorization is not execution time. Other seeds have no prior debit. Zero further retries and zero optimization.",
+  "scope": "Same ten fixtures and four refinements, frozen analytic yardstick and numeric gates. Complete evaluation even if numeric gates fail; preserve failures. Actual-ink owner review stays separate. No geometry repair, target adaptation, refitting, S2, historical-hand, context or fatigue acceptance."
+}
