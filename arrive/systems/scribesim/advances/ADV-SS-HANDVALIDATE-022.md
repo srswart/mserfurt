@@ -39,7 +39,7 @@ causes. Keep historical numeric failure and all acceptance restrictions intact.
 - [x] test: saved-pixel recomputation, corrupted input rejection and no execution/rendering.
 - [x] feat/fix: read-only reconciliation report with pinned inputs and no new thresholds.
 - [x] design: distinguish approved regression anchors from independent style targets.
-- [ ] evidence: publish measurements, update phase and merge locally.
+- [x] evidence: publish measurements, update phase and merge locally at `948d94c`; no push.
 
 ## Bug Fixes
 
@@ -73,6 +73,14 @@ scope, red-test, implementation, immutable report and design commits. This is a
 machine estimate, not completed human review.
 
 ## Changes Made
+
+### 2026-09-09 - local merge receipt
+
+Merged `advance/ss-handvalidate-022` into local master at `948d94c`. The scoped
+investigation/design is complete; prospective reference-contract approval and
+implementation are deliberately not claimed. No push, provider CI, new scored
+experiment or acceptance. Final read-only report replay, source/archive pins,
+plan/rules/whitespace and report links pass. Owner-approved shapes stay unchanged.
 
 ### 2026-09-09 - measured reconciliation and prospective contract
 
