@@ -813,3 +813,39 @@ authorization and freeze its code/derived artifacts/reader before scoring.
 Current contract validation has zero controller executions, raster renders and
 optimization evaluations. No new layer admission follows from either this
 implementation or its successful identity checks.
+
+### E. Authorized held-out physical placement validation
+
+[HANDVALIDATE-024](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-024.md)
+executes that prepared protocol after the owner's explicit execution approval.
+The new [validation bundle](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/placement-validation-v1/README.md)
+pins the authorization, candidate, original reference contract, execution code,
+independent reader and derived nominal/style/prior vectors before scoring.
+H023's historical prepared-not-authorized snapshot is unchanged.
+
+All ten known/held-out fixtures pass the unchanged mechanical criteria at four
+refinements in all six first/replay workers. Seeds 7/19/41 replay identically;
+24 known-base reference comparisons match; eleven adversarial controls detect in
+every worker. The run uses 1,086 renders, zero fitting and zero automatic retries.
+Each seed uses 362 calls and less than 352 seconds including replay, within its
+new 5,000-call/1,800-second cap. All 206 old core identities remain unchanged.
+
+The visible-shift control is frozen to compare shifted actual ink against the
+same unshifted actual image, avoiding a false detection from existing analytic
+style mismatch. This retains the 0.05 negative-control threshold; it does not
+transfer that tolerance to candidate-derived held-out comparisons. All derived
+nominal/actual losses are report-only, and analytic style remains diagnostic
+under the approved prospective contract. H021's original numeric FAIL stays FAIL.
+
+The separately callable reader reconstructs raw-motion/clock/owner/overlap/level/
+port/convergence proofs and saved-pixel losses, verifies the 1,808-artifact
+inventory and frozen sources, and recomputes decisions without trusting aggregate
+builder flags. It performs no controller execution or rerendering. The immutable
+report is pinned by SHA256
+`25b0e886ab643ff5dee969d1393b1f3f1e235e75f945e3c94025aedcfffe36b4`.
+
+The next action is owner appearance review of actual un/nu/um/nn/uu/mm images,
+not another shape fit. Existing known-fixture approval is scoped to exact replay;
+it does not extend to unseen pairs. These are fixed placements with interletter
+air, not joins, contextual stroke learning or spacing-design targets. Overall,
+S2, real-hand and context admission remain withheld; fatigue remains out of scope.

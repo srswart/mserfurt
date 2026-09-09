@@ -96,3 +96,12 @@ The [inspection receipt](inspection.json) sits outside the snapshot.
 
 Keep inspection receipts outside the immutable snapshot directory. Never rebuild
 over it or treat a read-only inspection as another physical run.
+
+## Subsequent authorized execution
+
+On 2026-09-09 the owner separately authorizes the prepared physical validation.
+[HANDVALIDATE-024 results and new samples](../placement-validation-v1/README.md)
+record the one frozen run: 1,086 renders, all three seed/replay pairs passing,
+unchanged candidate/criteria and no fitting. The historical snapshot above is
+not rewritten. Six held-out appearance reviews remain pending; no S2/real/context
+permission follows from the mechanical or exact-reference results.

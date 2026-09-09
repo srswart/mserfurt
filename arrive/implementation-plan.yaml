@@ -1789,11 +1789,11 @@ passes:
     - id: ADV-SS-HANDVALIDATE-024
       advance_id: ADV-SS-HANDVALIDATE-024
       title: "Approved Appearance — Held-out Placement Physical Validation"
-      status: in_progress
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-023
-      notes: "Owner authorizes prepared frozen placement validation, 5000 renders/1800s per seed including replay, zero retries/fitting. Known n/u/m/mu identity plus held-out un/nu/um/nn/uu/mm mechanics. Derived references and independent reader freeze before scoring. Held-out appearance pending; independent style diagnostic only in new contract; historical FAIL and S2/real/context false unchanged."
+      notes: "COMPLETE authorized frozen physical validation: all ten fixtures/four refinements pass mechanics, all three seed/replay pairs match, 24 known-base reference matches, eleven controls detected per worker. 1086 renders total, 362 per seed and <352s including replay; no fitting/retries. Independent raw reader verifies all 1808 artifacts; 53 tests pass. Actual un/nu/um/nn/uu/mm samples await owner appearance review. Candidate and 206 core identities unchanged; style remains diagnostic only in new contract, historical FAIL and S2/real/context false intact. No joins, spacing design or fatigue."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 11
@@ -1806,7 +1806,7 @@ passes:
       dependencies:
       - ADV-SS-CURRICULUM-005
       - ADV-SS-HANDVALIDATE-021
-      notes: "Context remains unimplemented and context_training_allowed=false. Upright repair and actual n/u/m owner approval are complete; HANDVALIDATE-021 passes mechanics/convergence/replay but fails independent style-target gates. HANDVALIDATE-022 diagnoses mismatched style conventions; HANDVALIDATE-023 implements the approved reference contract without changing historical gates. Prepared held-out placement protocol still needs execution authorization/freeze and matching lower-layer clearance, not another automatic shape repair. Preserve frozen evidence; no ink depletion, fatigue or session effects."
+      notes: "Context remains unimplemented and context_training_allowed=false. Upright repair and known n/u/m/mu appearance approval are complete. HANDVALIDATE-023 implements the approved reference contract without rewriting historical style FAIL; HANDVALIDATE-024 passes frozen held-out placement mechanics/replay with 1086 renders and independent 1808-artifact verification. Next: owner appearance review of actual un/nu/um/nn/uu/mm, then explicit matching lower-layer clearance and a separately authorized context protocol. Fixed placement is not joining, spacing design or contextual stroke learning. Preserve frozen evidence; no ink depletion, fatigue or session effects."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
     order: 12
