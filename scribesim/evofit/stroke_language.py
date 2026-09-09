@@ -111,8 +111,12 @@ def _has_crossings(expanded):
 def validate_language(model):
     try:
         foundation = model['schema_version'] == 'shared-stroke-language-foundation-v1'
-        if set(model) != MODEL_FIELDS or model["schema_version"] not in {SCHEMA, 'shared-stroke-language-foundation-v1'} or model["units"] != "local-xheight-y-up":
+        connected = model['schema_version'] == 'shared-stroke-language-connected-v1'
+        if set(model) != MODEL_FIELDS or model["schema_version"] not in {SCHEMA, 'shared-stroke-language-foundation-v1', 'shared-stroke-language-connected-v1'} or model["units"] != "local-xheight-y-up":
             raise ValueError("Explicit stroke-language schema required")
+        if connected:
+            from scribesim.evofit.connected_contract import validate_extensions
+            validate_extensions(model)
         if foundation:
             from scribesim.evofit.foundation_contract import validate_extensions
             validate_extensions(model)
@@ -156,7 +160,7 @@ def validate_language(model):
                 raise ValueError("Exact lowercase logical span required")
             if recipe["visible"] != logical and (logical, recipe["visible"]) != ("s", "ſ"):
                 raise ValueError("Undeclared visible mapping")
-            if not _number(recipe["advance"], .1, 4) or not isinstance(recipe["allow_crossings"], bool) or not 1 <= len(recipe["strokes"]) <= (6 if foundation else 4):
+            if not _number(recipe["advance"], .1, 4) or not isinstance(recipe["allow_crossings"], bool) or not 1 <= len(recipe["strokes"]) <= (6 if foundation or connected else 4):
                 raise ValueError("Recipe bounds")
             for index, stroke in enumerate(recipe["strokes"]):
                 if set(stroke) != STROKE_FIELDS or stroke["primitive"] not in model["primitives"]:
@@ -167,6 +171,9 @@ def validate_language(model):
                 if stroke["transition"] not in ({"start"} if index == 0 else {"lift", "smooth", "corner"}):
                     raise ValueError("Undeclared stroke transition")
             expanded = _recipe_strokes(recipe, model)
+            if connected:
+                from scribesim.evofit.connected_contract import require_joins
+                require_joins(expanded)
             if not recipe["allow_crossings"] and _has_crossings(expanded):
                 raise ValueError("Undeclared recipe crossing")
         for layer, limit in (("letter_rules", 16), ("word_rules", 8)):

@@ -1,0 +1,439 @@
+{
+  "advance": "ADV-SS-GESTURE-003",
+  "implementation_commit": "aa5feed",
+  "scope": "Synthetic straight contact-contract fixtures, not letter repair or independent admission. Same-process replay only; no seeds, fitting or thresholds changed.",
+  "fixture_source": "tests/test_connected_gestures.py:connected_model",
+  "fixture_source_sha256": "1ec4039c817764f90d7d0eea5fae1316cb6a6b3d9a256b6fa64db9c5dd55e940",
+  "code_sha256": {
+    "scribesim/pathguide/gesture_actions.py": "e125003308d86b5e5eb5df1b092580e5b585d708abe46aab642863e28674f052",
+    "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+    "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+    "scribesim/evofit/stroke_gestures.py": "18a42a60f4c93fd78e6238eed97376a0755a825b0139f75471fa1926c8c25f18",
+    "scribesim/evofit/stroke_language.py": "e985209595af7277bd071ffafa048721892c2a05c8c7ee96aa9033d3f2a0d196",
+    "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+    "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+    "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+    "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+    "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+    "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+    "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+    "scribesim/evofit/connected_contract.py": "54716b960d104049f7521c33deffdd96799bbbeaa27e92dbb408d4443fb95b27",
+    "scribesim/handflow/curve_tangents.py": "7595a900f29e93ab8b558fe640b305eb34d1cd441a21dbe4b7680f13b00d75ee"
+  },
+  "render_count": 48,
+  "dpi": 72,
+  "proofs": [
+    {
+      "transition": "smooth",
+      "text": "i",
+      "step_mm": 0.025,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.024999189152595136,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "planned_time_s": 0.6793333333333333,
+      "corners": [],
+      "exact_same_process_replay": true,
+      "result_sha256": "c52cbdac166cc24d7fd9214f19a1418640f18f2b3cfb48f1438323ca3b354c7a",
+      "model_sha256": "d9bce30597be9fe8c906bc626db1ca3fd8326f55ceb6173617afde7711edc868",
+      "contact_runs": 1
+    },
+    {
+      "transition": "smooth",
+      "text": "i",
+      "step_mm": 0.0125,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.012499759324269277,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "planned_time_s": 0.6793333333333333,
+      "corners": [],
+      "exact_same_process_replay": true,
+      "result_sha256": "d981dfd129eb5ce91e25cf21eb1a6b91d51d6f04cf4091ccee8f40c06397ee17",
+      "model_sha256": "d9bce30597be9fe8c906bc626db1ca3fd8326f55ceb6173617afde7711edc868",
+      "contact_runs": 1
+    },
+    {
+      "transition": "smooth",
+      "text": "i",
+      "step_mm": 0.025,
+      "dt_s": 0.001,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.024999805164494404,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.1054273576011925e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "planned_time_s": 0.6793333333333333,
+      "corners": [],
+      "exact_same_process_replay": true,
+      "result_sha256": "acef51b4941a65b3914162a2ea9be14e628c0243e3bede2ac2079fbf18aeeb95",
+      "model_sha256": "d9bce30597be9fe8c906bc626db1ca3fd8326f55ceb6173617afde7711edc868",
+      "contact_runs": 1
+    },
+    {
+      "transition": "corner",
+      "text": "i",
+      "step_mm": 0.025,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.024978183138948395,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0.03147721942251991,
+        "corner_position_error_mm": 0.0015476299549401773
+      },
+      "planned_time_s": 0.7753333333333333,
+      "corners": [
+        {
+          "source_index": 140,
+          "occurrence_id": "0:1",
+          "position_mm": [
+            0,
+            10
+          ],
+          "plan_index": 140,
+          "time_s": 0.38766666666666666
+        }
+      ],
+      "exact_same_process_replay": true,
+      "result_sha256": "0a99885dfb4eb027fe763f38b87baa8ec0c83e282e44f2d782a0965b27249201",
+      "model_sha256": "2c3be32f6fe95d5659102ab7693679c9436c0838704fa29373cefb15224b117d",
+      "contact_runs": 1
+    },
+    {
+      "transition": "corner",
+      "text": "i",
+      "step_mm": 0.0125,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.012493575560363901,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0.012057313420825722,
+        "corner_position_error_mm": 0.0005928179098564357
+      },
+      "planned_time_s": 0.7753333333333333,
+      "corners": [
+        {
+          "source_index": 280,
+          "occurrence_id": "0:1",
+          "position_mm": [
+            0,
+            10
+          ],
+          "plan_index": 280,
+          "time_s": 0.38766666666666666
+        }
+      ],
+      "exact_same_process_replay": true,
+      "result_sha256": "79302e2ccdf6b704a0e3e5eb7db9ca87728cce04042cb747aef9d8f34603255c",
+      "model_sha256": "2c3be32f6fe95d5659102ab7693679c9436c0838704fa29373cefb15224b117d",
+      "contact_runs": 1
+    },
+    {
+      "transition": "corner",
+      "text": "i",
+      "step_mm": 0.025,
+      "dt_s": 0.001,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.024976169170943585,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.10542735760139e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0.03095787673988326,
+        "corner_position_error_mm": 0.0015375745447485656
+      },
+      "planned_time_s": 0.7753333333333333,
+      "corners": [
+        {
+          "source_index": 140,
+          "occurrence_id": "0:1",
+          "position_mm": [
+            0,
+            10
+          ],
+          "plan_index": 140,
+          "time_s": 0.38766666666666666
+        }
+      ],
+      "exact_same_process_replay": true,
+      "result_sha256": "56612080f91722c0665f0ecc6404cc6ff0e02237a686ca371c8a27cc3f1f640c",
+      "model_sha256": "2c3be32f6fe95d5659102ab7693679c9436c0838704fa29373cefb15224b117d",
+      "contact_runs": 1
+    },
+    {
+      "transition": "lift",
+      "text": "i",
+      "step_mm": 0.025,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.02496131737437146,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "planned_time_s": 0.8568874570859952,
+      "corners": [],
+      "exact_same_process_replay": true,
+      "result_sha256": "822d2011169c30e7ae2d04b95b0557ea33a832e29f0bdc0c622786a163727d81",
+      "model_sha256": "14212548c57151b49997fff84a9473404583b4d63f66f5787d4f0434e3e68e40",
+      "contact_runs": 2
+    },
+    {
+      "transition": "lift",
+      "text": "i",
+      "step_mm": 0.0125,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.012463409067951403,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "planned_time_s": 0.8568874570859952,
+      "corners": [],
+      "exact_same_process_replay": true,
+      "result_sha256": "a5a217035b0230db07ce67249f5ce92e9f5e02e5d54bed40e5e28d94fcafffbf",
+      "model_sha256": "14212548c57151b49997fff84a9473404583b4d63f66f5787d4f0434e3e68e40",
+      "contact_runs": 2
+    },
+    {
+      "transition": "lift",
+      "text": "i",
+      "step_mm": 0.025,
+      "dt_s": 0.001,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.024958925999429837,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.1054273576011925e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0,
+        "corner_position_error_mm": 0
+      },
+      "planned_time_s": 0.8568874570859952,
+      "corners": [],
+      "exact_same_process_replay": true,
+      "result_sha256": "0bab80a5cd5a3a6b9ad67d7abc7da6c4085a954e381e3eb2af158739719c0519",
+      "model_sha256": "14212548c57151b49997fff84a9473404583b4d63f66f5787d4f0434e3e68e40",
+      "contact_runs": 2
+    },
+    {
+      "transition": "corner",
+      "text": "ii",
+      "step_mm": 0.025,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.024992137274904458,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0.03147721942251991,
+        "corner_position_error_mm": 0.0015476299549401773
+      },
+      "planned_time_s": 2.017714172226237,
+      "corners": [
+        {
+          "source_index": 140,
+          "occurrence_id": "0:1",
+          "position_mm": [
+            0,
+            10
+          ],
+          "plan_index": 140,
+          "time_s": 0.38766666666666666
+        },
+        {
+          "source_index": 583,
+          "occurrence_id": "1:1",
+          "position_mm": [
+            4.0249999999999995,
+            10
+          ],
+          "plan_index": 938,
+          "time_s": 1.6300475055595705
+        }
+      ],
+      "exact_same_process_replay": true,
+      "result_sha256": "e8da438082d35720a1e5d00fc9dc481e1d4a9adc20995e8d1773337c23bec64b",
+      "model_sha256": "2c3be32f6fe95d5659102ab7693679c9436c0838704fa29373cefb15224b117d",
+      "contact_runs": 2
+    },
+    {
+      "transition": "corner",
+      "text": "ii",
+      "step_mm": 0.0125,
+      "dt_s": 0.002,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.012497684653047791,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357600995e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0.012057313420825722,
+        "corner_position_error_mm": 0.0005928179098564357
+      },
+      "planned_time_s": 2.017714172226237,
+      "corners": [
+        {
+          "source_index": 280,
+          "occurrence_id": "0:1",
+          "position_mm": [
+            0,
+            10
+          ],
+          "plan_index": 280,
+          "time_s": 0.38766666666666666
+        },
+        {
+          "source_index": 1164,
+          "occurrence_id": "1:1",
+          "position_mm": [
+            4.0249999999999995,
+            10
+          ],
+          "plan_index": 1358,
+          "time_s": 1.6300475055595705
+        }
+      ],
+      "exact_same_process_replay": true,
+      "result_sha256": "76d34e3a00e1be12f027d29e0919576ff67132248eea8b6546db3b5b792a2762",
+      "model_sha256": "2c3be32f6fe95d5659102ab7693679c9436c0838704fa29373cefb15224b117d",
+      "contact_runs": 2
+    },
+    {
+      "transition": "corner",
+      "text": "ii",
+      "step_mm": 0.025,
+      "dt_s": 0.001,
+      "metrics": {
+        "orientation_error_deg": 7.105427357601002e-15,
+        "edge_error_fraction": 0,
+        "corridor_error_mm": 0.025033871397861063,
+        "contact_errors": 0,
+        "realized_angular_rate_deg_s": 7.105427357601785e-12,
+        "realized_edge_rate_s": 0,
+        "image_loss": 0,
+        "time_error_s": 0,
+        "owner_errors": 0,
+        "corner_errors": 0,
+        "corner_speed_mm_s": 0.03095787673988326,
+        "corner_position_error_mm": 0.0015375745447485656
+      },
+      "planned_time_s": 2.017714172226237,
+      "corners": [
+        {
+          "source_index": 140,
+          "occurrence_id": "0:1",
+          "position_mm": [
+            0,
+            10
+          ],
+          "plan_index": 140,
+          "time_s": 0.38766666666666666
+        },
+        {
+          "source_index": 583,
+          "occurrence_id": "1:1",
+          "position_mm": [
+            4.0249999999999995,
+            10
+          ],
+          "plan_index": 938,
+          "time_s": 1.6300475055595705
+        }
+      ],
+      "exact_same_process_replay": true,
+      "result_sha256": "bf1da08a498656390d448f0c90cee780b90fd322976fb3e803c2a3455260c5de",
+      "model_sha256": "2c3be32f6fe95d5659102ab7693679c9436c0838704fa29373cefb15224b117d",
+      "contact_runs": 2
+    }
+  ],
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false
+}

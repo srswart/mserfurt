@@ -93,6 +93,15 @@ Planning checks pass for the plan, generated rules and whitespace. The installed
 strict PR metadata parser returns `ids=[]` despite explicit Advance IDs in the
 title and labels; no provider CI or implementation test pass is claimed.
 
+### 2026-09-09 - prerequisite: GESTURE-003 contract implemented
+
+The new connected-v1 schema supports explicit pen-down boundaries, truthful ports
+and fixed-tool corner timing. Its diagnostics are not letter geometry. Shared
+compiler identities changed, so old live admissions now fail closed while their
+bytes and source snapshots remain intact. Build this preview as explicitly
+unaccepted with pinned source bytes; do not bypass or repin an old readiness
+reader. Fresh matching-source validation remains necessary before admission use.
+
 ## Check for Understanding
 
 1. How does the same shared rise/return change propagate into n, u and m?
