@@ -68,3 +68,28 @@ def test_source_controls_have_specific_rejection_reasons():
     controls = evaluation.model_controls(evaluation.load_inputs()['candidate'])
     assert set(controls) == {'inserted-lift', 'gap', 'false-smooth-reversal', 'overlap-owner', 'geometry', 'tool', 'climbing'}
     assert all(row['detected'] and row['reason'] for row in controls.values())
+
+
+def test_synthetic_contact_audit_survives_json_and_detects_substitution():
+    from test_connected_gestures import connected_model
+    from scribesim.handvalidate.foundation_motion import Budget
+    from scribesim.handvalidate import upright_measurement as measurement
+    model = connected_model()
+    fixture = {'text': 'ii', 'kind': 'primitive', 'shift': [0, 0]}
+    run = evaluation.runtime.execute(model, 'ii', step=.025, dt=.002, budget=Budget(), physical=True,
+                                     frame=evaluation.SPEC['frame_mm'])
+    compact = {key: value for key, value in run.items() if key != 'images'}
+    saved = json.loads(json.dumps(compact))
+    proof = measurement.audit(model, fixture, saved, evaluation.SPEC)
+    assert not any(proof['errors'].values()), proof
+    assert len(proof['contact_runs']) == 2
+    assert proof == measurement.audit(model, fixture, compact, evaluation.SPEC)
+    controls = evaluation.trace_controls(model, fixture, saved)
+    assert all(row['detected'] for row in controls.values()), controls
+    masks = measurement.overlap_masks(saved, evaluation.SPEC)
+    overlaps = measurement.overlap_proof(masks, model, 'ii')
+    assert overlaps['repeated_pixels'] > 0
+    assert overlaps['undeclared_pairs'] == 0
+    saved['trace'][5]['to_mm'][0] = float('nan')
+    with pytest.raises(ValueError, match='finite'):
+        measurement.audit(model, fixture, saved, evaluation.SPEC)
