@@ -102,7 +102,8 @@ def subdivide(model):
 
 def nominal(model, text):
     guide = gesture_guide(text, model, step_mm=.005).guide
-    return [ContactSample(point.x_mm, point.y_mm, point.contact, .45, .5 if point.contact else 0, 40) for point in guide.samples]
+    return [ContactSample(float(point.x_mm), float(point.y_mm), bool(point.contact), .45,
+                          .5 if point.contact else 0, 40) for point in guide.samples]
 
 
 def paint(path, dpi=180):
