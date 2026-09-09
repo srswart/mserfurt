@@ -1,5 +1,6 @@
 import copy
 from dataclasses import asdict
+import math
 
 import pytest
 
@@ -145,3 +146,78 @@ def test_legacy_guide_bytes_are_unchanged(sampling, expected):
     model = migrate_v1(seed_language())
     model['sampling'] = sampling
     assert object_digest(asdict(gesture_guide('i u', model))) == expected
+
+
+def test_boundary_names_the_last_incoming_primitive_not_the_first():
+    model = connected_model()
+    source = model['gestures']['down']['strokes'][0]
+    model['gestures']['down']['strokes'] = [
+        {**source, 'scale': .5, 'offset': [0, .5]},
+        {**source, 'scale': .5, 'offset': [0, 0], 'transition': 'smooth'}]
+    compiled = compile_gestures('i', model)['strokes']
+    bundle = gesture_guide('i', model)
+    owner = next(owner for owner in bundle.metadata['owners'] if owner.get('boundary_contributors'))
+    assert owner['boundary_contributors'][0]['occurrence_id'] == compiled[1]['occurrence_id']
+
+
+def test_six_references_remain_supported_without_a_macro_cap_bypass():
+    model = connected_model()
+    for name, sequence in [('down', ['down', 'up', 'down']), ('up', ['up', 'down', 'up'])]:
+        model['gestures'][name]['strokes'] = [
+            {'primitive': primitive, 'offset': [0, 0], 'scale': 1, 'rotation_deg': 0,
+             'transition': 'start' if index == 0 else 'corner'} for index, primitive in enumerate(sequence)]
+    assert len(compile_gestures('i', model)['strokes']) == 6
+
+
+def test_undeclared_internal_cubic_corner_is_rejected_before_execution():
+    model = connected_model()
+    model['primitives']['up']['cubics'] = [
+        [[0, 0], [0, .2], [0, .4], [.1, .5]],
+        [[.1, .5], [.1, .6], [0, .8], [0, 1]]]
+    with pytest.raises(ValueError, match='Internal cubic'):
+        validate_gestures(model)
+
+
+@pytest.mark.parametrize('fault', ['actual-lift', 'owner'])
+def test_actual_contact_and_owner_controls_cannot_report_tracking_pass(monkeypatch, fault):
+    import scribesim.pathguide.gesture_actions as bridge
+    if fault == 'actual-lift':
+        from dataclasses import replace
+        original = bridge.ActionController.step
+        def wrong_contact(controller, state, desired, *, dt):
+            result = original(controller, state, desired, dt=dt)
+            if desired.contact and desired.progress_ratio > .5:
+                state.trace[-1] = replace(state.trace[-1], contact=False)
+            return result
+        monkeypatch.setattr(bridge.ActionController, 'step', wrong_contact)
+    else:
+        original = bridge.action_bundle
+        def wrong_owner(*args, **kwargs):
+            bundle = original(*args, **kwargs)
+            for owner in bundle.owners:
+                if owner.get('gesture_occurrence_id') == '0:1':
+                    owner['contact_run_id'] = 'forged'
+            return bundle
+        monkeypatch.setattr(bridge, 'action_bundle', wrong_owner)
+    result = execute_actions('i', connected_model(), dpi=72)
+    assert not result['tracking_pass']
+    assert result['metrics']['contact_errors'] + result['metrics']['owner_errors'] > 0
+
+
+def test_actual_corner_and_clock_survive_refinement_without_fitting():
+    results = [execute_actions('i', connected_model(), step_mm=step, dt=timestep, dpi=72)
+               for step, timestep in [(.025, .002), (.0125, .002), (.025, .001)]]
+    for result in results:
+        assert result['tracking_pass']
+        assert result['metrics']['owner_errors'] == 0
+        assert result['metrics']['corner_errors'] == 0
+        assert result['metrics']['corner_speed_mm_s'] <= .5
+        assert result['metrics']['corner_position_error_mm'] <= .05
+        assert result['desired_plan']['samples'][-1]['t_s'] == pytest.approx(
+            results[0]['desired_plan']['samples'][-1]['t_s'], abs=1e-10)
+        for row in result['execution']:
+            if row['dt_s'] == 0:
+                assert row['from_mm'] == row['to_mm']
+                assert row['velocity_before_mm_s'] == row['velocity_mm_s']
+            else:
+                assert math.dist(row['velocity_before_mm_s'], row['velocity_mm_s']) / row['dt_s'] <= 250 + 1e-6
