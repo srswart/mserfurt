@@ -9,6 +9,8 @@ component:
 selectors:
   paths:
     - "scribesim/handvalidate/**"
+    - "scripts/upright_reference_contract.py"
+    - "tests/test_upright_reference_contract.py"
     - "tests/test_handvalidate*.py"
     - "shared/training/konrad_hand_recovery/**"
   build_modules: []
@@ -16,6 +18,7 @@ selectors:
   contracts: []
 
 interfaces:
+  - "upright_reference_contract loads consumer-pinned approved-appearance registries and separates construction, physical motion, owner appearance, independent style and exact replay identity. Candidate-derived anchors cannot be relabeled independent; prepared held-out placement protocols confer no execution or S2/real/context authority."
   - "letter_assembly independently measures pinned rotated returns and exact level n/u/m recipes; letter_assembly_evidence.inspect_run reconstructs immutable traces and saved metric pixels with unchanged gates and explicit per-kind refinement coverage. Human appearance remains pending and S2/context/real permissions stay false"
   - "standalone_stem.require_readiness admits only the consumer-pinned unchanged synthetic stem under fixed full-edge unit-scale/zero-rotation semantics, with four refinements, local/absolute target checks, adversarial proofs and immutable bounded replay; no letter or real acceptance"
   - "Metrics API for corridor containment, path self-intersection, DTW, width profile error, OCR/recognition score"

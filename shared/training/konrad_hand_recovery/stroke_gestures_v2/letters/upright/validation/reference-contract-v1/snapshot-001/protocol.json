@@ -1,0 +1,260 @@
+{
+  "version": "reviewed-synthetic-appearance-contract-v1-placement-protocol-v1",
+  "registry_digest": "c44966cbc87c8f711c4f2f0dbbe889e0d04e367b0cd677be49aab2c7a6750e11",
+  "status": "prepared_not_executed",
+  "execution_authorized": false,
+  "known_regressions": [
+    {
+      "id": "letter-n",
+      "kind": "letter",
+      "text": "n",
+      "shift": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "letter-u",
+      "kind": "letter",
+      "text": "u",
+      "shift": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "letter-m",
+      "kind": "letter",
+      "text": "m",
+      "shift": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "placed-mu",
+      "kind": "letter",
+      "text": "mu",
+      "shift": [
+        0.013,
+        -0.009
+      ]
+    }
+  ],
+  "held_out_placements": [
+    {
+      "id": "placement-un",
+      "text": "un",
+      "shift": [
+        0.017,
+        -0.011
+      ],
+      "plan_preflight_pass": true,
+      "plan_sample_counts": {
+        "base": 1555,
+        "arc": 2462,
+        "time": 1555,
+        "subdivision": 1563
+      },
+      "owner_appearance": "not_reviewed",
+      "reference_provenance": "candidate-derived nominal; not independently validated"
+    },
+    {
+      "id": "placement-nu",
+      "text": "nu",
+      "shift": [
+        0.017,
+        -0.011
+      ],
+      "plan_preflight_pass": true,
+      "plan_sample_counts": {
+        "base": 1489,
+        "arc": 2396,
+        "time": 1489,
+        "subdivision": 1497
+      },
+      "owner_appearance": "not_reviewed",
+      "reference_provenance": "candidate-derived nominal; not independently validated"
+    },
+    {
+      "id": "placement-um",
+      "text": "um",
+      "shift": [
+        0.017,
+        -0.011
+      ],
+      "plan_preflight_pass": true,
+      "plan_sample_counts": {
+        "base": 1538,
+        "arc": 2619,
+        "time": 1538,
+        "subdivision": 1548
+      },
+      "owner_appearance": "not_reviewed",
+      "reference_provenance": "candidate-derived nominal; not independently validated"
+    },
+    {
+      "id": "placement-nn",
+      "text": "nn",
+      "shift": [
+        0.017,
+        -0.011
+      ],
+      "plan_preflight_pass": true,
+      "plan_sample_counts": {
+        "base": 1491,
+        "arc": 2399,
+        "time": 1491,
+        "subdivision": 1499
+      },
+      "owner_appearance": "not_reviewed",
+      "reference_provenance": "candidate-derived nominal; not independently validated"
+    },
+    {
+      "id": "placement-uu",
+      "text": "uu",
+      "shift": [
+        0.017,
+        -0.011
+      ],
+      "plan_preflight_pass": true,
+      "plan_sample_counts": {
+        "base": 1553,
+        "arc": 2459,
+        "time": 1553,
+        "subdivision": 1561
+      },
+      "owner_appearance": "not_reviewed",
+      "reference_provenance": "candidate-derived nominal; not independently validated"
+    },
+    {
+      "id": "placement-mm",
+      "text": "mm",
+      "shift": [
+        0.017,
+        -0.011
+      ],
+      "plan_preflight_pass": true,
+      "plan_sample_counts": {
+        "base": 1881,
+        "arc": 3137,
+        "time": 1881,
+        "subdivision": 1893
+      },
+      "owner_appearance": "not_reviewed",
+      "reference_provenance": "candidate-derived nominal; not independently validated"
+    }
+  ],
+  "held_out_policy": "Text-disjoint from n/u/m/mu; no context overlays or fitting. Preflight is not actual motion or transfer evidence.",
+  "frame_mm": [
+    -3,
+    20,
+    2,
+    13
+  ],
+  "local_padding_mm": 0.8,
+  "metric_dpi": 180,
+  "presentation_dpi": 900,
+  "refinements": {
+    "base": [
+      0.025,
+      0.002
+    ],
+    "arc": [
+      0.0125,
+      0.002
+    ],
+    "time": [
+      0.025,
+      0.001
+    ],
+    "subdivision": [
+      0.025,
+      0.002
+    ]
+  },
+  "mechanical_criteria": {
+    "nominal_landmark_max": 1e-08,
+    "actual_landmark_mm_max": 0.05,
+    "endpoint_mm": 0.01,
+    "event_time_s": 0.0001,
+    "convergence_loss": 0.03,
+    "clock_s": 1e-10,
+    "projection_mm": 1e-12,
+    "corridor_mm": 0.25,
+    "actual_tracking_loss": 0.35,
+    "corner_speed_mm_s": 0.5,
+    "actual_acceleration_mm_s2": 500,
+    "desired_acceleration_mm_s2": 250,
+    "contact_speed_mm_s": 12
+  },
+  "regression_mode": "exact_replay_identity_for_known_base_fixtures",
+  "regression_variant_tolerance": null,
+  "held_out_nominal_actual_loss": "report_only; no transferred 0.05 threshold",
+  "style_reference": {
+    "version": "independent-vertical-lines-semicircles-v1",
+    "role": "independent_style_comparator",
+    "candidate_independent": true,
+    "owner_approved": false,
+    "historical_hand_validated": false,
+    "spec_sha256": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+    "definition": {
+      "radius": 0.2,
+      "origin_x": -0.2,
+      "x_height_mm": 3.5,
+      "baseline_mm": 10,
+      "samples_per_part": 257,
+      "advances": {
+        "n": 1.3,
+        "u": 1.3,
+        "m": 2.3
+      },
+      "letter_gap": 0.15
+    },
+    "historical_required_gate": true,
+    "prospective_preservation_role": "diagnostic",
+    "absolute_local_limit": 0.05,
+    "relative_limit": 0.75,
+    "provenance": "New synthetic analytic yardstick from upright stem/rise, level baseline/x-height and continuous rounded turn requirements. Vertical line segments and radius-0.2 semicircles; no candidate controls, sampled candidate paths, rendered pixels or builder functions are inputs. Round-number width 0.4 and origin -0.2 are declared construction conventions, not a fit or an owner-approved target. Failure against this stylized yardstick is not an owner appearance rejection. Never revise it after scoring."
+  },
+  "physical_controls": [
+    "inserted-lift",
+    "gap",
+    "false-smooth-reversal",
+    "overlap-owner",
+    "geometry",
+    "tool",
+    "climbing",
+    "trace-owner",
+    "trace-lift",
+    "desired-as-actual",
+    "visible-shift"
+  ],
+  "seeds": [
+    7,
+    19,
+    41
+  ],
+  "fresh_process_replays_per_seed": 1,
+  "proposed_budget_per_seed_including_replay": {
+    "renders": 5000,
+    "seconds": 1800,
+    "automatic_retries": 0
+  },
+  "budget_authorized": false,
+  "optimization_evaluations": 0,
+  "execution_requirements": [
+    "New owner-bound execution authorization for this protocol and budget",
+    "Freeze execution code, candidate, derived reference artifacts and independent reader before any scoring"
+  ],
+  "acceptance_debt": [
+    "Held-out actual motion/replay and adversarial evidence absent",
+    "Held-out actual appearance not reviewed",
+    "No S2/real/context admission authorized"
+  ],
+  "implementation_validation_budget": {
+    "controller_executions": 0,
+    "raster_renders": 0,
+    "optimization_evaluations": 0
+  }
+}

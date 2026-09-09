@@ -1,0 +1,651 @@
+{
+  "version": "reviewed-synthetic-appearance-contract-v1",
+  "status": "complete",
+  "overall_admission": "withheld",
+  "historical_numeric_pass": false,
+  "workers": [
+    {
+      "seed": 7,
+      "process": "first",
+      "construction": {
+        "status": "pass",
+        "failures": []
+      },
+      "physical_motion": {
+        "status": "pass",
+        "failures": []
+      },
+      "style_target": {
+        "status": "fail",
+        "failures": [
+          "primitive-rise:nominal:target-image",
+          "primitive-rise:base:target-image",
+          "primitive-rise:arc:target-image",
+          "primitive-rise:time:target-image",
+          "primitive-rise:subdivision:target-image",
+          "primitive-upper:nominal:target-image",
+          "primitive-upper:base:target-image",
+          "primitive-upper:arc:target-image",
+          "primitive-upper:time:target-image",
+          "primitive-upper:subdivision:target-image",
+          "primitive-lower:nominal:target-image",
+          "primitive-lower:base:target-image",
+          "primitive-lower:arc:target-image",
+          "primitive-lower:time:target-image",
+          "primitive-lower:subdivision:target-image",
+          "gesture-overturn:nominal:target-image",
+          "gesture-overturn:base:target-image",
+          "gesture-overturn:arc:target-image",
+          "gesture-overturn:time:target-image",
+          "gesture-overturn:subdivision:target-image",
+          "gesture-underturn:nominal:target-image",
+          "gesture-underturn:base:target-image",
+          "gesture-underturn:arc:target-image",
+          "gesture-underturn:time:target-image",
+          "gesture-underturn:subdivision:target-image",
+          "letter-n:nominal:target-image",
+          "letter-n:base:target-image",
+          "letter-n:arc:target-image",
+          "letter-n:time:target-image",
+          "letter-n:subdivision:target-image",
+          "letter-u:nominal:target-image",
+          "letter-u:base:target-image",
+          "letter-u:arc:target-image",
+          "letter-u:time:target-image",
+          "letter-u:subdivision:target-image",
+          "letter-m:nominal:target-image",
+          "letter-m:base:target-image",
+          "letter-m:arc:target-image",
+          "letter-m:time:target-image",
+          "letter-m:subdivision:target-image",
+          "placed-mu:nominal:target-image",
+          "placed-mu:base:target-image",
+          "placed-mu:arc:target-image",
+          "placed-mu:time:target-image",
+          "placed-mu:subdivision:target-image"
+        ]
+      },
+      "historical_numeric_pass": false,
+      "appearance": {
+        "status": "approved_saved_fixtures",
+        "references": [
+          "actual:letter-n",
+          "actual:letter-u",
+          "actual:letter-m",
+          "actual:placed-mu"
+        ],
+        "unreviewed_scope": "Isolated primitives and gestures have no separate owner verdict; unseen combinations inherit none."
+      },
+      "regression": {
+        "actual:letter-n": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-u": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-m": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:placed-mu": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        }
+      }
+    },
+    {
+      "seed": 7,
+      "process": "replay",
+      "construction": {
+        "status": "pass",
+        "failures": []
+      },
+      "physical_motion": {
+        "status": "pass",
+        "failures": []
+      },
+      "style_target": {
+        "status": "fail",
+        "failures": [
+          "primitive-rise:nominal:target-image",
+          "primitive-rise:base:target-image",
+          "primitive-rise:arc:target-image",
+          "primitive-rise:time:target-image",
+          "primitive-rise:subdivision:target-image",
+          "primitive-upper:nominal:target-image",
+          "primitive-upper:base:target-image",
+          "primitive-upper:arc:target-image",
+          "primitive-upper:time:target-image",
+          "primitive-upper:subdivision:target-image",
+          "primitive-lower:nominal:target-image",
+          "primitive-lower:base:target-image",
+          "primitive-lower:arc:target-image",
+          "primitive-lower:time:target-image",
+          "primitive-lower:subdivision:target-image",
+          "gesture-overturn:nominal:target-image",
+          "gesture-overturn:base:target-image",
+          "gesture-overturn:arc:target-image",
+          "gesture-overturn:time:target-image",
+          "gesture-overturn:subdivision:target-image",
+          "gesture-underturn:nominal:target-image",
+          "gesture-underturn:base:target-image",
+          "gesture-underturn:arc:target-image",
+          "gesture-underturn:time:target-image",
+          "gesture-underturn:subdivision:target-image",
+          "letter-n:nominal:target-image",
+          "letter-n:base:target-image",
+          "letter-n:arc:target-image",
+          "letter-n:time:target-image",
+          "letter-n:subdivision:target-image",
+          "letter-u:nominal:target-image",
+          "letter-u:base:target-image",
+          "letter-u:arc:target-image",
+          "letter-u:time:target-image",
+          "letter-u:subdivision:target-image",
+          "letter-m:nominal:target-image",
+          "letter-m:base:target-image",
+          "letter-m:arc:target-image",
+          "letter-m:time:target-image",
+          "letter-m:subdivision:target-image",
+          "placed-mu:nominal:target-image",
+          "placed-mu:base:target-image",
+          "placed-mu:arc:target-image",
+          "placed-mu:time:target-image",
+          "placed-mu:subdivision:target-image"
+        ]
+      },
+      "historical_numeric_pass": false,
+      "appearance": {
+        "status": "approved_saved_fixtures",
+        "references": [
+          "actual:letter-n",
+          "actual:letter-u",
+          "actual:letter-m",
+          "actual:placed-mu"
+        ],
+        "unreviewed_scope": "Isolated primitives and gestures have no separate owner verdict; unseen combinations inherit none."
+      },
+      "regression": {
+        "actual:letter-n": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-u": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-m": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:placed-mu": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "process": "first",
+      "construction": {
+        "status": "pass",
+        "failures": []
+      },
+      "physical_motion": {
+        "status": "pass",
+        "failures": []
+      },
+      "style_target": {
+        "status": "fail",
+        "failures": [
+          "primitive-rise:nominal:target-image",
+          "primitive-rise:base:target-image",
+          "primitive-rise:arc:target-image",
+          "primitive-rise:time:target-image",
+          "primitive-rise:subdivision:target-image",
+          "primitive-upper:nominal:target-image",
+          "primitive-upper:base:target-image",
+          "primitive-upper:arc:target-image",
+          "primitive-upper:time:target-image",
+          "primitive-upper:subdivision:target-image",
+          "primitive-lower:nominal:target-image",
+          "primitive-lower:base:target-image",
+          "primitive-lower:arc:target-image",
+          "primitive-lower:time:target-image",
+          "primitive-lower:subdivision:target-image",
+          "gesture-overturn:nominal:target-image",
+          "gesture-overturn:base:target-image",
+          "gesture-overturn:arc:target-image",
+          "gesture-overturn:time:target-image",
+          "gesture-overturn:subdivision:target-image",
+          "gesture-underturn:nominal:target-image",
+          "gesture-underturn:base:target-image",
+          "gesture-underturn:arc:target-image",
+          "gesture-underturn:time:target-image",
+          "gesture-underturn:subdivision:target-image",
+          "letter-n:nominal:target-image",
+          "letter-n:base:target-image",
+          "letter-n:arc:target-image",
+          "letter-n:time:target-image",
+          "letter-n:subdivision:target-image",
+          "letter-u:nominal:target-image",
+          "letter-u:base:target-image",
+          "letter-u:arc:target-image",
+          "letter-u:time:target-image",
+          "letter-u:subdivision:target-image",
+          "letter-m:nominal:target-image",
+          "letter-m:base:target-image",
+          "letter-m:arc:target-image",
+          "letter-m:time:target-image",
+          "letter-m:subdivision:target-image",
+          "placed-mu:nominal:target-image",
+          "placed-mu:base:target-image",
+          "placed-mu:arc:target-image",
+          "placed-mu:time:target-image",
+          "placed-mu:subdivision:target-image"
+        ]
+      },
+      "historical_numeric_pass": false,
+      "appearance": {
+        "status": "approved_saved_fixtures",
+        "references": [
+          "actual:letter-n",
+          "actual:letter-u",
+          "actual:letter-m",
+          "actual:placed-mu"
+        ],
+        "unreviewed_scope": "Isolated primitives and gestures have no separate owner verdict; unseen combinations inherit none."
+      },
+      "regression": {
+        "actual:letter-n": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-u": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-m": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:placed-mu": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        }
+      }
+    },
+    {
+      "seed": 19,
+      "process": "replay",
+      "construction": {
+        "status": "pass",
+        "failures": []
+      },
+      "physical_motion": {
+        "status": "pass",
+        "failures": []
+      },
+      "style_target": {
+        "status": "fail",
+        "failures": [
+          "primitive-rise:nominal:target-image",
+          "primitive-rise:base:target-image",
+          "primitive-rise:arc:target-image",
+          "primitive-rise:time:target-image",
+          "primitive-rise:subdivision:target-image",
+          "primitive-upper:nominal:target-image",
+          "primitive-upper:base:target-image",
+          "primitive-upper:arc:target-image",
+          "primitive-upper:time:target-image",
+          "primitive-upper:subdivision:target-image",
+          "primitive-lower:nominal:target-image",
+          "primitive-lower:base:target-image",
+          "primitive-lower:arc:target-image",
+          "primitive-lower:time:target-image",
+          "primitive-lower:subdivision:target-image",
+          "gesture-overturn:nominal:target-image",
+          "gesture-overturn:base:target-image",
+          "gesture-overturn:arc:target-image",
+          "gesture-overturn:time:target-image",
+          "gesture-overturn:subdivision:target-image",
+          "gesture-underturn:nominal:target-image",
+          "gesture-underturn:base:target-image",
+          "gesture-underturn:arc:target-image",
+          "gesture-underturn:time:target-image",
+          "gesture-underturn:subdivision:target-image",
+          "letter-n:nominal:target-image",
+          "letter-n:base:target-image",
+          "letter-n:arc:target-image",
+          "letter-n:time:target-image",
+          "letter-n:subdivision:target-image",
+          "letter-u:nominal:target-image",
+          "letter-u:base:target-image",
+          "letter-u:arc:target-image",
+          "letter-u:time:target-image",
+          "letter-u:subdivision:target-image",
+          "letter-m:nominal:target-image",
+          "letter-m:base:target-image",
+          "letter-m:arc:target-image",
+          "letter-m:time:target-image",
+          "letter-m:subdivision:target-image",
+          "placed-mu:nominal:target-image",
+          "placed-mu:base:target-image",
+          "placed-mu:arc:target-image",
+          "placed-mu:time:target-image",
+          "placed-mu:subdivision:target-image"
+        ]
+      },
+      "historical_numeric_pass": false,
+      "appearance": {
+        "status": "approved_saved_fixtures",
+        "references": [
+          "actual:letter-n",
+          "actual:letter-u",
+          "actual:letter-m",
+          "actual:placed-mu"
+        ],
+        "unreviewed_scope": "Isolated primitives and gestures have no separate owner verdict; unseen combinations inherit none."
+      },
+      "regression": {
+        "actual:letter-n": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-u": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-m": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:placed-mu": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "process": "first",
+      "construction": {
+        "status": "pass",
+        "failures": []
+      },
+      "physical_motion": {
+        "status": "pass",
+        "failures": []
+      },
+      "style_target": {
+        "status": "fail",
+        "failures": [
+          "primitive-rise:nominal:target-image",
+          "primitive-rise:base:target-image",
+          "primitive-rise:arc:target-image",
+          "primitive-rise:time:target-image",
+          "primitive-rise:subdivision:target-image",
+          "primitive-upper:nominal:target-image",
+          "primitive-upper:base:target-image",
+          "primitive-upper:arc:target-image",
+          "primitive-upper:time:target-image",
+          "primitive-upper:subdivision:target-image",
+          "primitive-lower:nominal:target-image",
+          "primitive-lower:base:target-image",
+          "primitive-lower:arc:target-image",
+          "primitive-lower:time:target-image",
+          "primitive-lower:subdivision:target-image",
+          "gesture-overturn:nominal:target-image",
+          "gesture-overturn:base:target-image",
+          "gesture-overturn:arc:target-image",
+          "gesture-overturn:time:target-image",
+          "gesture-overturn:subdivision:target-image",
+          "gesture-underturn:nominal:target-image",
+          "gesture-underturn:base:target-image",
+          "gesture-underturn:arc:target-image",
+          "gesture-underturn:time:target-image",
+          "gesture-underturn:subdivision:target-image",
+          "letter-n:nominal:target-image",
+          "letter-n:base:target-image",
+          "letter-n:arc:target-image",
+          "letter-n:time:target-image",
+          "letter-n:subdivision:target-image",
+          "letter-u:nominal:target-image",
+          "letter-u:base:target-image",
+          "letter-u:arc:target-image",
+          "letter-u:time:target-image",
+          "letter-u:subdivision:target-image",
+          "letter-m:nominal:target-image",
+          "letter-m:base:target-image",
+          "letter-m:arc:target-image",
+          "letter-m:time:target-image",
+          "letter-m:subdivision:target-image",
+          "placed-mu:nominal:target-image",
+          "placed-mu:base:target-image",
+          "placed-mu:arc:target-image",
+          "placed-mu:time:target-image",
+          "placed-mu:subdivision:target-image"
+        ]
+      },
+      "historical_numeric_pass": false,
+      "appearance": {
+        "status": "approved_saved_fixtures",
+        "references": [
+          "actual:letter-n",
+          "actual:letter-u",
+          "actual:letter-m",
+          "actual:placed-mu"
+        ],
+        "unreviewed_scope": "Isolated primitives and gestures have no separate owner verdict; unseen combinations inherit none."
+      },
+      "regression": {
+        "actual:letter-n": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-u": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-m": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:placed-mu": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        }
+      }
+    },
+    {
+      "seed": 41,
+      "process": "replay",
+      "construction": {
+        "status": "pass",
+        "failures": []
+      },
+      "physical_motion": {
+        "status": "pass",
+        "failures": []
+      },
+      "style_target": {
+        "status": "fail",
+        "failures": [
+          "primitive-rise:nominal:target-image",
+          "primitive-rise:base:target-image",
+          "primitive-rise:arc:target-image",
+          "primitive-rise:time:target-image",
+          "primitive-rise:subdivision:target-image",
+          "primitive-upper:nominal:target-image",
+          "primitive-upper:base:target-image",
+          "primitive-upper:arc:target-image",
+          "primitive-upper:time:target-image",
+          "primitive-upper:subdivision:target-image",
+          "primitive-lower:nominal:target-image",
+          "primitive-lower:base:target-image",
+          "primitive-lower:arc:target-image",
+          "primitive-lower:time:target-image",
+          "primitive-lower:subdivision:target-image",
+          "gesture-overturn:nominal:target-image",
+          "gesture-overturn:base:target-image",
+          "gesture-overturn:arc:target-image",
+          "gesture-overturn:time:target-image",
+          "gesture-overturn:subdivision:target-image",
+          "gesture-underturn:nominal:target-image",
+          "gesture-underturn:base:target-image",
+          "gesture-underturn:arc:target-image",
+          "gesture-underturn:time:target-image",
+          "gesture-underturn:subdivision:target-image",
+          "letter-n:nominal:target-image",
+          "letter-n:base:target-image",
+          "letter-n:arc:target-image",
+          "letter-n:time:target-image",
+          "letter-n:subdivision:target-image",
+          "letter-u:nominal:target-image",
+          "letter-u:base:target-image",
+          "letter-u:arc:target-image",
+          "letter-u:time:target-image",
+          "letter-u:subdivision:target-image",
+          "letter-m:nominal:target-image",
+          "letter-m:base:target-image",
+          "letter-m:arc:target-image",
+          "letter-m:time:target-image",
+          "letter-m:subdivision:target-image",
+          "placed-mu:nominal:target-image",
+          "placed-mu:base:target-image",
+          "placed-mu:arc:target-image",
+          "placed-mu:time:target-image",
+          "placed-mu:subdivision:target-image"
+        ]
+      },
+      "historical_numeric_pass": false,
+      "appearance": {
+        "status": "approved_saved_fixtures",
+        "references": [
+          "actual:letter-n",
+          "actual:letter-u",
+          "actual:letter-m",
+          "actual:placed-mu"
+        ],
+        "unreviewed_scope": "Isolated primitives and gestures have no separate owner verdict; unseen combinations inherit none."
+      },
+      "regression": {
+        "actual:letter-n": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-u": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:letter-m": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        },
+        "actual:placed-mu": {
+          "quality_pass": null,
+          "generalization_proven": false,
+          "scope": "Exact scoped replay identity only",
+          "status": "match"
+        }
+      }
+    }
+  ],
+  "controls": {
+    "single_pixel": {
+      "detected": true,
+      "status": "mismatch"
+    },
+    "shift": {
+      "detected": true,
+      "status": "mismatch"
+    },
+    "crop": {
+      "detected": true,
+      "status": "incompatible"
+    },
+    "tool": {
+      "detected": true,
+      "status": "incompatible"
+    },
+    "frame": {
+      "detected": true,
+      "status": "incompatible"
+    },
+    "candidate": {
+      "detected": true,
+      "status": "incompatible"
+    },
+    "fixture": {
+      "detected": true,
+      "status": "incompatible"
+    },
+    "independence": {
+      "detected": true,
+      "status": "rejected-provenance"
+    }
+  },
+  "evidence_basis": "Current source/artifact hashes and pinned independent H021 receipt. Stored motion gates are reclassified, not newly executed or independently reconstructed here.",
+  "control_scope": "In-memory pixel/metadata mutations, not new physical-controller runs",
+  "validation_budget": {
+    "controller_executions": 0,
+    "raster_renders": 0,
+    "optimization_evaluations": 0
+  },
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "artifacts": {
+    "freeze.json": "a77df577374dc6e09b8f99038b7b2667dfc72fba052865fcb17b0d9c66474f0f",
+    "protocol.json": "c0ba24a2e1550ba3833d08acb77605d826c7f96405970716e4c0490dcd206110",
+    "registry.json": "35a30c51fb47af51668ab1ed3f3ce7f3b4d2d0cec4497ad73e50160bd620cad7"
+  }
+}
