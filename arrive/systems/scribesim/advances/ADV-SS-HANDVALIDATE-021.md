@@ -13,7 +13,7 @@ advance:
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tdd:red-green", "tests:unit", "tests:integration"]
   model_usage: []
   status: in_progress
 ---
@@ -87,6 +87,38 @@ Record only real provider/run evidence. Recalculate reviewability on actual work
 split test, implementation and evidence commits before merge.
 
 ## Changes Made
+
+### 2026-09-09 - preserve pre-score failure, repair adapter, await continuation
+
+The one permitted attempt stopped before scoring in seed 7's first process:
+`Unsupported physical contact fields`. Two render calls were charged; nominal
+guide coordinates were NumPy float64 rather than supported Python scalars. No
+fixture completed, no replay/seed 19/41 ran, and this is **not** a candidate
+appearance or numeric failure verdict. `run-001` is immutable in `c722bd1`, with
+report SHA256 `6f4678661d6d5103311ac88040f29ad36cd0247d03c45fb9909e0145e4685421`.
+
+Red `50b5330` reproduces the adapter boundary without rendering or scoring the
+candidate. Green `21151c4` performs scalar conversion only, without rounding or
+changing geometry, targets, thresholds or physical fields. Eight evaluator tests
+and adjacent nominal/connection/action tests pass: 49 total. The five older
+curve-tangent admission failures reproduce on clean pre-work `85e3b44` (22 pass,
+five fail in that file). Existing source candidate, report and KEEP review hashes
+are unchanged. New modules isolate the change; no tidy/refactor claim is needed.
+
+Plan/rules/whitespace checks pass. Strict PR metadata still fails with `ids=[]`
+despite explicit title/body/label IDs; no provider CI is asserted. The reviewer
+gallery explicitly withholds missing actual samples rather than displaying broken
+or mislabeled comparisons.
+
+**No automatic retry.** One new bounded no-refit continuation has been requested
+from the owner and is not yet authorized or executed. It must preserve this
+failure, freeze the new code/authorization and output path, bind the failed report
+hash and include the two prior seed-7 calls in its cumulative budget. All candidate,
+target and acceptance limits stay unchanged. This Advance remains in progress;
+evaluation, actual-ink owner review and merge are deliberately not marked done.
+
+See `letters/upright/validation/outcome.md` under the training tree for the exact
+boundary and remaining work. No S2/real/context admission, fitting or fatigue.
 
 ### 2026-09-09 - implementation and pre-score protocol freeze
 
