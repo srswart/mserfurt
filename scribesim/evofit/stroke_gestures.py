@@ -214,6 +214,12 @@ def compile_gestures(text, model):
     return plan
 
 
+def _boundary_targets(targets, boundaries):
+    tolerance = 8 * math.ulp(max(1.0, float(targets[-1])))
+    ordinary = targets[np.all(np.abs(targets[:, None]-boundaries[None, :]) > tolerance, axis=1)]
+    return np.unique(np.r_[ordinary, boundaries])
+
+
 def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_positions=False, connected_progress=False):
     points, owners = [], []
     source_positions = []
@@ -244,7 +250,8 @@ def _arc_samples(rows, scale, step, *, preserve_boundaries=False, include_curve_
         raise ValueError('Stationary contact action unsupported')
     targets = np.linspace(0, distance[-1], math.ceil(distance[-1] / step) + 1)
     if preserve_boundaries:
-        targets = np.unique(np.r_[targets, distance[boundaries]])
+        targets = (_boundary_targets(targets, distance[boundaries]) if connected_progress
+                   else np.unique(np.r_[targets, distance[boundaries]]))
     for target in targets:
         index = min(len(points) - 1, max(1, int(np.searchsorted(distance, target, side='right'))))
         ratio = (target - distance[index - 1]) / max(1e-12, distance[index] - distance[index - 1])

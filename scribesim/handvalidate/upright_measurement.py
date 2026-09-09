@@ -262,17 +262,60 @@ def overlap_proof(masks, model, text):
             'undeclared_pairs': sum(row['intersection_pixels'] > 0 and not row['declared'] for row in pairs)}
 
 
+def exact_events(run):
+    plan, trace = run['plan']['samples'], run['trace']
+    if not plan or not trace:
+        raise ValueError('Complete event source required')
+    required = {}
+    for index, point in enumerate(plan):
+        if not point['contact']:
+            continue
+        if index == 0 or not plan[index-1]['contact']:
+            required[index] = 'entry'
+        if index == len(plan)-1 or not plan[index+1]['contact']:
+            if index in required:
+                raise ValueError('Degenerate contact run')
+            required[index] = 'end'
+    stops = {index for index, point in enumerate(plan) if point['contact'] and point['speed_mm_s'] == 0}-required.keys()
+    corners = {row['plan_index']: row for row in run['corners']}
+    if len(corners) != len(run['corners']) or stops != corners.keys():
+        raise ValueError('Incomplete or duplicate declared corner events')
+    for index, corner in corners.items():
+        point = plan[index]
+        if (index in required or not point['contact'] or abs(corner['time_s']-point['t_s']) > 1e-12
+                or math.dist(corner['position_mm'], [point['x_mm'], point['y_mm']]) > 1e-8):
+            raise ValueError('Changed declared corner')
+        required[index] = 'corner'
+    events = []
+    for index, kind in sorted(required.items()):
+        instant = plan[index]['t_s']
+        matches = [row for row in trace if row['plan_index'] == index and row['contact']
+                   and abs(row['time_s']-instant) <= 1e-12]
+        if len(matches) != 1:
+            raise ValueError('Exact unique actual event required')
+        row = matches[0]
+        owner = row['owner']
+        if kind == 'corner' and owner['occurrence_id'] != corners[index]['occurrence_id']:
+            raise ValueError('Corner event owner mismatch')
+        events.append({'kind': kind, 'contact_run_id': owner['contact_run_id'],
+            'occurrence_id': owner['occurrence_id'], 'gesture_occurrence_id': owner['gesture_occurrence_id'],
+            'boundary_contributors': owner.get('boundary_contributors', []),
+            'time_s': row['time_s'], 'position_mm': row['to_mm']})
+    return events
+
+
 def comparison(first, second, first_pixels, second_pixels):
-    def endpoints(run):
-        result = {}
-        for row in run['trace']:
-            if row['contact']:
-                result.setdefault(row['owner']['gesture_occurrence_id'], [row, row])[1] = row
-        return result
-    before, after = endpoints(first), endpoints(second)
-    if before.keys() != after.keys():
-        return {'owner_match': False, 'endpoint_mm': 1e9, 'event_time_s': 1e9, 'image_loss': 1e9}
-    pairs = [(left, right) for name in before for left, right in zip(before[name], after[name])]
-    return {'owner_match': True, 'endpoint_mm': max(math.dist(left['to_mm'], right['to_mm']) for left, right in pairs),
+    version = 'declared-contact-events-v1'
+    try:
+        before, after = exact_events(first), exact_events(second)
+        identities = lambda events: [{key: value for key, value in event.items() if key not in {'time_s', 'position_mm'}} for event in events]
+        if identities(before) != identities(after):
+            raise ValueError('Event inventory or ownership differs')
+        pairs = list(zip(before, after))
+        return {'owner_match': True, 'event_version': version, 'event_ids': identities(before),
+            'endpoint_mm': max(math.dist(left['position_mm'], right['position_mm']) for left, right in pairs),
             'event_time_s': max(abs(left['time_s']-right['time_s']) for left, right in pairs),
             'image_loss': float(stroke_loss(first_pixels, second_pixels))}
+    except (ValueError, KeyError, IndexError, TypeError) as error:
+        return {'owner_match': False, 'event_version': version, 'reason': str(error),
+                'endpoint_mm': 1e9, 'event_time_s': 1e9, 'image_loss': 1e9}
