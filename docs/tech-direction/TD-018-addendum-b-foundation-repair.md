@@ -677,3 +677,87 @@ relaxing limits. Publish full-frame actual ink alongside nominal ink for renewed
 owner review; do not infer it from a low image loss. S2, real-hand and context
 permissions stay false until their separately explicit acceptance requirements
 are satisfied. Context and fatigue remain deferred.
+
+## 14. Reconcile approved appearance and independent target provenance
+
+### A. Executed finding — HANDVALIDATE-022
+
+The owner approves HANDVALIDATE-021's actual n/u/m and fixed mu placement after
+clarification that the latter is not word-level construction. Mechanical,
+convergence and replay checks pass; all nine non-stem fixtures still fail the
+independent vertical-line/semicircle image gates, including nominal views before
+physical execution. These facts can coexist: approval is not target equivalence.
+
+[HANDVALIDATE-022](../../arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-022.md)
+recomputes saved 180-DPI full-frame pixels without controller execution, new
+rasterization or fitting. Base n/u/m target-to-nominal losses are
+0.382013/0.232303/0.590033; nominal-to-actual differences are
+0/0.000302/0.000957. Over all fixtures/refinements the latter is at most 0.006659.
+These diagnostic losses are not additive causal attribution or new pass gates;
+zero raster loss is not exact continuous-geometry equivalence.
+
+The approved n/u/m entry/exit horizontal spans are 1.682557/1.654180/3.365113 mm,
+versus analytic 1.4/1.4/2.8 mm. These are centerline port spans, not finite-nib
+width or spacing requirements. The approved rise moves 0.28 mm laterally and ends
+at local y=3.143661 mm rather than the analytic vertical rise's y=2.8 mm. Approved
+return entry/exit heights differ; the analytic semicircles have equal-height
+endpoints. Shared assembly accumulates these convention differences. Baseline
+and x-height are nevertheless aligned and pass existing checks.
+
+Inference: the remaining large target losses primarily reflect incompatible
+style/construction conventions, not failure to execute the approved shape.
+No loss percentage is attributed solely to width and no counterfactual fit is
+performed. The arbitrary radius 0.2/width 0.4 was never owner-approved as the
+desired style. Do not narrow approved letters or replace their turns merely to
+pass that yardstick. No historic failure is erased or reclassified as a pass.
+
+### B. Evidence roles — keep distinct now
+
+| Evidence | Valid question | Cannot establish |
+| --- | --- | --- |
+| Fixed analytic v1 target | How similar is this construction to the declared vertical/semicircular style? | Owner taste, historical-hand fidelity or universal letter quality |
+| Owner-approved nominal specimen | Does a future output preserve this reviewed synthetic design? | Candidate-independent style accuracy; copied geometry remains derived |
+| Owner-approved actual specimen | Is this saved fixed-tool output visually acceptable? | All future outputs, pen settings, spacing or word-context behavior |
+| Actual versus desired trace and saved ink | Does execution track the declared plan under the frozen mechanics? | That the declared plan is the correct aesthetic design |
+| Structural/level/contact/overlap/clock controls | Are declared physical and composition constraints respected? | Aesthetic correctness, historical acceptance or context permission |
+
+Current reporting keeps five separate fields: construction validity, physical
+execution, owner appearance, style-target comparison and any regression comparison.
+There is no combined green score that overrides an individual required gate.
+HANDVALIDATE-021 stays numeric FAIL, with owner appearance KEEP. Independent
+recomputation of a candidate-derived reference does not make its provenance
+candidate-independent.
+
+### C. Proposed prospective reference contract — not activated
+
+Preferred next design is to retain the approved synthetic style as a versioned
+regression anchor and keep analytic style comparison explicit, rather than train
+against a conflicting ideal. This is a proposed **new protocol**, not permission
+to drop HANDVALIDATE-021's failed gate, reuse its budget or grant admission.
+
+Before any new scored execution or optimizer:
+
+1. Review the intended claim: preservation of approved synthetic appearance,
+   or accuracy to an independent style/historical exemplar. Do not conflate them.
+2. For preservation, label approved candidate/pixels as derived regression anchors.
+   Pin owner review, construction, physical settings and original samples; use
+   held-out placements/combinations and adversarial changes. A self-comparison
+   establishes only identity, never learning or generalization.
+3. For independent style accuracy, obtain a separately reviewed style specification
+   or independent exemplar family. Review width, rise proximity, turn asymmetry,
+   relative port heights and shared assembly before scoring. Do not copy measured
+   candidate coordinates and relabel them independent. The values in section A
+   are observations, not newly approved numeric requirements.
+4. Explicitly version and approve the target's role, required gates and provenance.
+   Do not silently transplant 0.05 to a new reference, relax it, or mark the old
+   style test not applicable to manufacture acceptance. Freeze every changed
+   requirement and its rationale before evaluating future evidence.
+5. Freeze candidate, code, target/reference hashes, fixtures, full frame/local
+   windows, controls, seeds, budget and zero automatic retries. Any fitting is a
+   separately authorized scope. Keep previous archives and failed outcomes intact.
+
+No new style target, appearance threshold, candidate geometry, renderer, fitter,
+S2/real-hand/context authorization or fatigue model is implemented here. The next
+required owner decision is the prospective reference contract, not re-approval
+of n/u/m appearance. The already approved mu placement remains an execution probe,
+not a spacing target or demonstration of word-context learning.
