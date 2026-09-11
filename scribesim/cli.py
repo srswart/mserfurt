@@ -19,7 +19,7 @@ def main() -> None:
     """ScribeSim — render Brother Konrad's Bastarda hand from XL folio JSON."""
 
 
-_RENDER_APPROACHES = ("evo", "plain", "guided")
+_RENDER_APPROACHES = ("evo", "plain", "guided", "neural")
 _EVO_QUALITIES = ("balanced", "deep")
 _CHARACTER_MODELS = ("standard", "deep")
 
@@ -103,6 +103,94 @@ def _evo_config(profile, nib_width_mm: float, quality: str = "balanced"):
     )
 
 
+def _render_folio_neural(
+    folio_dict: dict,
+    profile,
+    folio_path: Path,
+    output_dir: Path,
+    folio_id: str,
+    backend_name: str,
+    htr: str | None,
+    cache_dir: str | None,
+    base_seed: int,
+    allow_unverified: bool,
+    diag_dir: str | None,
+) -> tuple[Path, Path, Path]:
+    """TD-018 neural page render: generate → verify → compose → PAGE XML."""
+    import numpy as np
+    from PIL import Image as PILImage
+
+    from scribesim.scribehand.backends import backend_from_config
+    from scribesim.scribehand.compose import compose_folio
+    from scribesim.scribehand.generate import WordGenerator
+    from scribesim.scribehand.pagexml import generate_word_level
+
+    backend = backend_from_config(backend_name)
+    cache = Path(cache_dir) if cache_dir else output_dir / ".scribehand-cache"
+    generator = WordGenerator(backend, cache_dir=cache)
+
+    scorer = None
+    if htr == "stub-echo":
+        from scribesim.scribehand.htr import StubScorer
+        scorer = StubScorer("echo")
+    elif htr:
+        from scribesim.scribehand.htr import TrOCRScorer
+        scorer = TrOCRScorer(htr)
+
+    composed = compose_folio(
+        folio_dict, profile, generator, scorer=scorer,
+        base_seed=base_seed, allow_unverified=allow_unverified,
+    )
+
+    page_path = output_dir / f"{folio_id}.png"
+    PILImage.fromarray(composed.page, "RGB").save(
+        str(page_path), dpi=(int(composed.dpi), int(composed.dpi))
+    )
+
+    # Ink-intensity map stands in for the pressure heatmap in the neural path.
+    gray = 255 - composed.page.mean(axis=2).astype(np.uint8)
+    heatmap_path = output_dir / f"{folio_id}_pressure.png"
+    PILImage.fromarray(gray, "L").save(str(heatmap_path), dpi=(300, 300))
+
+    xml_path = output_dir / f"{folio_id}.xml"
+    generate_word_level(composed, xml_path)
+
+    report = {
+        "folio_id": folio_id,
+        "approach": "neural",
+        "requested_approach": "neural",
+        "page_renderer": "scribehand",
+        "folio_json": str(folio_path),
+        "outputs": {
+            "page": str(page_path),
+            "heatmap": str(heatmap_path),
+            "page_xml": str(xml_path),
+            "page_xml_granularity": "word",
+        },
+        "geometry": {
+            "page_w_mm": composed.geometry.page_w_mm,
+            "page_h_mm": composed.geometry.page_h_mm,
+            "ruling_pitch_mm": composed.geometry.ruling_pitch_mm,
+            "x_height_mm": composed.geometry.x_height_mm,
+        },
+        "neural": composed.report,
+    }
+    report_path = output_dir / f"{folio_id}_render_report.json"
+    report_path.write_text(json.dumps(report, indent=1, ensure_ascii=False))
+
+    if diag_dir:
+        from scribesim.scribehand.diagnostics import write_run_diagnostics
+        write_run_diagnostics(
+            Path(diag_dir),
+            run_info={"kind": "render-neural", "folio_id": folio_id,
+                      "backend": backend_name, "htr": htr,
+                      "base_seed": base_seed, "report": str(report_path)},
+            composed=composed,
+        )
+
+    return page_path, heatmap_path, report_path
+
+
 def _write_render_report(
     output_dir: Path,
     folio_id: str,
@@ -180,12 +268,27 @@ def _render_folio(
     guided_supersample: int = 4,
     guided_exact_symbols: bool = True,
     guided_guide_catalog: str | None = None,
+    neural_backend: str = "stub-evo",
+    neural_htr: str | None = None,
+    neural_cache_dir: str | None = None,
+    neural_seed: int = 1457,
+    neural_allow_unverified: bool = False,
+    neural_diag_dir: str | None = None,
 ) -> tuple[Path, Path, Path]:
     from PIL import Image as PILImage
     from scribesim.layout import place
 
-    layout = place(folio_dict, params, profile=profile)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    if approach == "neural":
+        return _render_folio_neural(
+            folio_dict, profile, folio_path, output_dir, folio_id,
+            backend_name=neural_backend, htr=neural_htr,
+            cache_dir=neural_cache_dir, base_seed=neural_seed,
+            allow_unverified=neural_allow_unverified, diag_dir=neural_diag_dir,
+        )
+
+    layout = place(folio_dict, params, profile=profile)
 
     if approach == "plain":
         from scribesim.render.pipeline import render_pipeline
@@ -402,6 +505,18 @@ def _render_folio(
               help="Require exact glyph resolution for guided folio rendering; disable only for exploratory debugging.")
 @click.option("--guided-guide-catalog", "guided_guide_catalog", default=None, type=click.Path(exists=True),
               help="Optional reviewed promoted guide catalog override for guided folio rendering.")
+@click.option("--neural-backend", "neural_backend", default="stub-evo", show_default=True,
+              help="TD-018 generation backend: stub-pil, stub-evo, or a name from shared/models/scribehand/backends.toml")
+@click.option("--neural-htr", "neural_htr", default=None,
+              help="HTR fidelity gate: stub-echo, or a TrOCR checkpoint path. Omit to skip scoring (marked unscored).")
+@click.option("--neural-cache-dir", "neural_cache_dir", default=None, type=click.Path(),
+              help="Word-image cache directory (default: <output-dir>/.scribehand-cache)")
+@click.option("--neural-seed", "neural_seed", default=1457, type=int, show_default=True,
+              help="Base seed for the deterministic per-word seed policy")
+@click.option("--neural-allow-unverified", "neural_allow_unverified", is_flag=True, default=False,
+              help="Compose words that failed HTR verification (exploratory only)")
+@click.option("--neural-diag-dir", "neural_diag_dir", default=None, type=click.Path(),
+              help="Write a TD-018 diagnostic bundle directory for this render")
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params and report plan without rendering")
 @click.option("--set", "overrides", multiple=True,
@@ -410,6 +525,8 @@ def render(folio_id: str, input_dir: str, output_dir: str,
            hand_toml: str | None, approach: str, evo_quality: str,
            character_model: str, char_rounds: int, char_candidates: int,
            guided_supersample: int, guided_exact_symbols: bool, guided_guide_catalog: str | None,
+           neural_backend: str, neural_htr: str | None, neural_cache_dir: str | None,
+           neural_seed: int, neural_allow_unverified: bool, neural_diag_dir: str | None,
            dry_run: bool, overrides: tuple) -> None:
     """Render a single folio to PNG + pressure heatmap.
 
@@ -476,6 +593,12 @@ def render(folio_id: str, input_dir: str, output_dir: str,
         guided_supersample=guided_supersample,
         guided_exact_symbols=guided_exact_symbols,
         guided_guide_catalog=guided_guide_catalog,
+        neural_backend=neural_backend,
+        neural_htr=neural_htr,
+        neural_cache_dir=neural_cache_dir,
+        neural_seed=neural_seed,
+        neural_allow_unverified=neural_allow_unverified,
+        neural_diag_dir=neural_diag_dir,
     )
 
     click.echo(f"  page    → {png_path}")
@@ -2797,3 +2920,329 @@ def glyph_sheet_cmd(output_path: str | None, dpi: int,
     h, w = arr.shape[:2]
     click.echo(f"[glyph-sheet] → {out}  ({w}×{h}px)")
     click.echo(f"               also → {dest}")
+
+
+# ---------------------------------------------------------------------------
+# TD-018: scribehand (learned scribal hand) commands
+# ---------------------------------------------------------------------------
+
+@main.command("generate-word")
+@click.argument("text")
+@click.option("--backend", default="stub-evo", show_default=True,
+              help="Generation backend: stub-pil, stub-evo, or a backends.toml name")
+@click.option("--seed", default=1457, type=int, show_default=True)
+@click.option("--out", "out_path", required=True, type=click.Path(),
+              help="Output PNG path for the word ink strip")
+@click.option("--cache-dir", "cache_dir", default=None, type=click.Path())
+@click.option("--htr", default=None,
+              help="Optional HTR gate: stub-echo or a TrOCR checkpoint path")
+def generate_word(text: str, backend: str, seed: int, out_path: str,
+                  cache_dir: str | None, htr: str | None) -> None:
+    """Generate a single word strip with the TD-018 learned-hand path."""
+    from PIL import Image as PILImage
+
+    from scribesim.scribehand.backends import backend_from_config
+    from scribesim.scribehand.generate import WordGenerator
+    from scribesim.scribehand.types import WordRequest
+
+    try:
+        be = backend_from_config(backend)
+    except (FileNotFoundError, KeyError) as exc:
+        raise click.ClickException(str(exc))
+
+    gen = WordGenerator(be, cache_dir=Path(cache_dir) if cache_dir else None)
+    requests = [WordRequest(text=text, seed=seed)]
+
+    if htr:
+        from scribesim.scribehand.verify import verify_words
+        if htr == "stub-echo":
+            from scribesim.scribehand.htr import StubScorer
+            scorer = StubScorer("echo")
+        else:
+            from scribesim.scribehand.htr import TrOCRScorer
+            scorer = TrOCRScorer(htr)
+        results = verify_words(gen, scorer, requests)
+    else:
+        results = gen.generate(requests)
+
+    res = results[0]
+    out = Path(out_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    PILImage.fromarray(res.strip.ink, "L").save(out)
+    prov_path = out.parent / f"{out.stem}_provenance.json"
+    prov_path.write_text(json.dumps(res.provenance, indent=1, ensure_ascii=False))
+    click.echo(f"[generate-word] {text!r} → {out}")
+    click.echo(f"                provenance → {prov_path}")
+    if "verified" in res.provenance:
+        click.echo(f"                verified={res.provenance['verified']} "
+                   f"cer={res.provenance['htr_cer']:.3f}")
+
+
+@main.command("verify-words")
+@click.argument("strips_tsv", type=click.Path(exists=True))
+@click.option("--htr", required=True,
+              help="HTR scorer: stub-echo or a TrOCR checkpoint path")
+@click.option("--cer-threshold", default=0.05, type=float, show_default=True)
+@click.option("--report", "report_path", default=None, type=click.Path())
+def verify_words_cmd(strips_tsv: str, htr: str, cer_threshold: float,
+                     report_path: str | None) -> None:
+    """Batch re-score existing word strips.
+
+    STRIPS_TSV lines: image_path<TAB>expected_text
+    """
+    import numpy as np
+    from PIL import Image as PILImage
+
+    from scribesim.scribehand.htr import StubScorer, TrOCRScorer, cer as _cer
+
+    scorer = StubScorer("echo") if htr == "stub-echo" else TrOCRScorer(htr)
+
+    rows = [r.split("\t") for r in Path(strips_tsv).read_text().strip().splitlines()]
+    images = [np.asarray(PILImage.open(r[0]).convert("L"), dtype=np.uint8) for r in rows]
+    expected = [r[1] for r in rows]
+    readings = scorer.read(images, expected=expected)
+
+    records, failures = [], 0
+    for (path, want), got in zip(rows, readings):
+        err = _cer(want, got)
+        ok = err <= cer_threshold
+        failures += 0 if ok else 1
+        records.append({"image": path, "expected": want, "read": got,
+                        "cer": err, "ok": ok})
+        click.echo(f"  {'OK ' if ok else 'FAIL'} cer={err:.3f} {want!r} → {got!r}")
+
+    if report_path:
+        Path(report_path).write_text(json.dumps({
+            "cer_threshold": cer_threshold,
+            "total": len(records), "failures": failures,
+            "records": records,
+        }, indent=1, ensure_ascii=False))
+        click.echo(f"[verify-words] report → {report_path}")
+    if failures:
+        raise click.ClickException(f"{failures}/{len(records)} words failed the CER gate")
+
+
+@main.command("build-scribehand-corpus")
+@click.option("--out-dir", "out_dir", default="shared/training/scribehand/corpus_v1",
+              show_default=True, type=click.Path())
+@click.option("--catmus/--no-catmus", default=False,
+              help="Stream + filter CATMuS Medieval (requires the scribehand extra; heavy download)")
+@click.option("--catmus-max-lines", default=None, type=int,
+              help="Cap the number of CATMuS lines (useful for smoke runs)")
+@click.option("--scripts", default="cursiva,bastarda,hybrida", show_default=True)
+@click.option("--centuries", default="14,15,16", show_default=True)
+@click.option("--languages", default=None,
+              help="Comma-separated language filter (default: all)")
+@click.option("--anchor-dir", "anchor_dir", default=None, type=click.Path(exists=True),
+              help="Reviewed anchor-hand crop directory (images + labels.tsv)")
+def build_scribehand_corpus(out_dir: str, catmus: bool, catmus_max_lines: int | None,
+                            scripts: str, centuries: str, languages: str | None,
+                            anchor_dir: str | None) -> None:
+    """Assemble the TD-018 two-tier training corpus."""
+    from scribesim.handcorpus.manifest import CorpusManifest
+
+    out = Path(out_dir)
+    manifest_path = out / "manifest.json"
+    manifest = CorpusManifest.load(manifest_path) if manifest_path.exists() else CorpusManifest()
+
+    if catmus:
+        from scribesim.handcorpus.builder import build_catmus_tier
+        click.echo("[corpus] streaming CATMuS Medieval…")
+        catmus_manifest = build_catmus_tier(
+            out,
+            scripts=tuple(s.strip().lower() for s in scripts.split(",")),
+            centuries=tuple(int(c) for c in centuries.split(",")),
+            languages=tuple(l.strip() for l in languages.split(",")) if languages else None,
+            max_lines=catmus_max_lines,
+        )
+        known = {s.id for s in catmus_manifest.samples}
+        manifest.samples = [s for s in manifest.samples
+                            if not (s.tier == "script_family" and s.id in known)]
+        manifest.samples.extend(catmus_manifest.samples)
+
+    if anchor_dir:
+        from scribesim.handcorpus.anchor import ingest_anchor_dir
+        click.echo(f"[corpus] ingesting anchor tier from {anchor_dir}")
+        manifest = ingest_anchor_dir(Path(anchor_dir), out_dir=out, manifest=manifest)
+
+    manifest.save(manifest_path)
+    tiers = manifest.tier_counts()
+    click.echo(f"[corpus] saved → {manifest_path}")
+    click.echo(f"         script_family={tiers['script_family']} anchor={tiers['anchor']}")
+    click.echo(f"         charset size={len(manifest.training_charset())}")
+
+
+@main.command("check-scribehand-corpus")
+@click.option("--manifest", "manifest_path",
+              default="shared/training/scribehand/corpus_v1/manifest.json",
+              show_default=True, type=click.Path(exists=True))
+@click.option("--charset-map", "charset_map",
+              default="shared/training/scribehand/charset_map.toml",
+              show_default=True, type=click.Path(exists=True))
+@click.option("--folio-dir", "folio_dir", default="output-live", show_default=True,
+              type=click.Path(exists=True))
+@click.option("--min-script-family", default=5000, type=int, show_default=True)
+@click.option("--min-anchor", default=300, type=int, show_default=True)
+@click.option("--report", "report_path", default=None, type=click.Path())
+def check_scribehand_corpus(manifest_path: str, charset_map: str, folio_dir: str,
+                            min_script_family: int, min_anchor: int,
+                            report_path: str | None) -> None:
+    """Run TD-018 corpus gates: charset coverage + tier minimums."""
+    from scribesim.handcorpus.charset import load_charset_map, xl_character_inventory
+    from scribesim.handcorpus.gates import run_corpus_gates
+    from scribesim.handcorpus.manifest import CorpusManifest
+
+    manifest = CorpusManifest.load(Path(manifest_path))
+    table = load_charset_map(Path(charset_map))
+    inventory = xl_character_inventory(Path(folio_dir))
+
+    report = run_corpus_gates(
+        manifest, table, inventory,
+        min_script_family=min_script_family, min_anchor=min_anchor,
+    )
+    payload = report.to_dict()
+    click.echo(json.dumps(payload, indent=1, ensure_ascii=False))
+    if report_path:
+        Path(report_path).write_text(json.dumps(payload, indent=1, ensure_ascii=False))
+    if not report.ok:
+        raise click.ClickException(
+            "corpus gates failed — "
+            + ("charset gaps: " + ", ".join(report.charset.missing) + "; "
+               if not report.charset.ok else "")
+            + ("tier counts below minimums" if not report.counts_ok else "")
+        )
+    click.echo("[corpus] all gates passed")
+
+
+@main.command("export-scribehand-corpus")
+@click.option("--manifest", "manifest_path",
+              default="shared/training/scribehand/corpus_v1/manifest.json",
+              show_default=True, type=click.Path(exists=True))
+@click.option("--out-dir", "out_dir", required=True, type=click.Path())
+@click.option("--format", "fmt", default="generic", show_default=True,
+              type=click.Choice(["generic"]))
+@click.option("--tiers", default="script_family,anchor", show_default=True)
+def export_scribehand_corpus(manifest_path: str, out_dir: str, fmt: str, tiers: str) -> None:
+    """Export the corpus into a training layout (images/ + labels.tsv + charset.txt)."""
+    from scribesim.handcorpus.export import export_training_format
+
+    out = export_training_format(
+        Path(manifest_path), Path(out_dir), fmt=fmt,
+        tiers=tuple(t.strip() for t in tiers.split(",")),
+    )
+    click.echo(f"[corpus-export] {fmt} → {out}")
+
+
+@main.command("diag-pack")
+@click.argument("diag_dir", type=click.Path(exists=True))
+@click.option("--out", "out_zip", required=True, type=click.Path())
+@click.option("--max-mb", default=25.0, type=float, show_default=True)
+def diag_pack(diag_dir: str, out_zip: str, max_mb: float) -> None:
+    """Pack a TD-018 diagnostic directory into a shareable zip bundle."""
+    from scribesim.scribehand.diagnostics import pack_bundle, summarize_bundle
+
+    bundle = pack_bundle(Path(diag_dir), Path(out_zip), max_mb=max_mb)
+    summary = summarize_bundle(bundle)
+    click.echo(f"[diag-pack] → {bundle} ({bundle.stat().st_size / 1024:.0f} KiB)")
+    click.echo(f"            runs={summary['runs']} files={summary['files']} "
+               f"metrics={'yes' if summary['has_metrics'] else 'no'}")
+
+
+@main.command("bench-neural")
+@click.argument("folio_id")
+@click.option("--input-dir", "input_dir", default="output-live", show_default=True,
+              type=click.Path(exists=True))
+@click.option("--backend", default="stub-evo", show_default=True)
+@click.option("--htr", default=None,
+              help="HTR scorer: stub-echo or a TrOCR checkpoint path")
+@click.option("--anchor-words-dir", "anchor_words_dir", default=None,
+              type=click.Path(exists=True),
+              help="Directory of anchor-hand word crop PNGs for the style gate")
+@click.option("--reference-page", "reference_page", default=None,
+              type=click.Path(exists=True),
+              help="Anchor manuscript page image for the acceptance-band gate")
+@click.option("--gates-toml", "gates_toml", default=None, type=click.Path(exists=True))
+@click.option("--seed", default=1457, type=int, show_default=True)
+@click.option("--out-dir", "out_dir", default="diagnostics/bench", show_default=True,
+              type=click.Path())
+@click.option("--hand-toml", "hand_toml", default=None, type=click.Path(exists=True))
+@click.option("--allow-unverified", is_flag=True, default=False)
+def bench_neural(folio_id: str, input_dir: str, backend: str, htr: str | None,
+                 anchor_words_dir: str | None, reference_page: str | None,
+                 gates_toml: str | None, seed: int, out_dir: str,
+                 hand_toml: str | None, allow_unverified: bool) -> None:
+    """Run the TD-018 promotion gates on a neurally rendered folio.
+
+    Writes metrics.json + proof sheets into OUT_DIR (a diagnostic directory
+    ready for `scribesim diag-pack`). Exits non-zero when hard gates fail.
+    """
+    import numpy as np
+    from PIL import Image as PILImage
+
+    from scribesim.handvalidate.neural_bench import load_neural_gates, run_neural_bench
+    from scribesim.scribehand.backends import backend_from_config
+    from scribesim.scribehand.compose import compose_folio
+    from scribesim.scribehand.diagnostics import write_run_diagnostics
+    from scribesim.scribehand.generate import WordGenerator
+
+    fid = _normalise_folio_id(folio_id)
+    folio_path = Path(input_dir) / f"{fid}.json"
+    if not folio_path.exists():
+        raise click.ClickException(f"folio JSON not found: {folio_path}")
+    folio_dict = json.loads(folio_path.read_text())
+
+    profile = load_profile(Path(hand_toml) if hand_toml else None)
+    profile = resolve_profile(profile, fid, Path(hand_toml) if hand_toml else None)
+
+    try:
+        be = backend_from_config(backend)
+    except (FileNotFoundError, KeyError) as exc:
+        raise click.ClickException(str(exc))
+    out = Path(out_dir)
+    generator = WordGenerator(be, cache_dir=out / ".cache")
+
+    scorer = None
+    if htr == "stub-echo":
+        from scribesim.scribehand.htr import StubScorer
+        scorer = StubScorer("echo")
+    elif htr:
+        from scribesim.scribehand.htr import TrOCRScorer
+        scorer = TrOCRScorer(htr)
+
+    click.echo(f"[bench-neural] folio={fid} backend={backend} htr={htr or 'none'}")
+    composed = compose_folio(
+        folio_dict, profile, generator, scorer=scorer,
+        base_seed=seed, allow_unverified=allow_unverified,
+    )
+
+    anchor_images = None
+    if anchor_words_dir:
+        anchor_images = [
+            np.asarray(PILImage.open(p).convert("L"), dtype=np.uint8)
+            for p in sorted(Path(anchor_words_dir).glob("*.png"))
+        ]
+        click.echo(f"  anchor words : {len(anchor_images)}")
+
+    ref_page = None
+    if reference_page:
+        ref_page = np.asarray(PILImage.open(reference_page).convert("RGB"), dtype=np.uint8)
+
+    gates = load_neural_gates(Path(gates_toml) if gates_toml else None)
+    report = run_neural_bench(
+        composed, gates=gates,
+        anchor_word_images=anchor_images, reference_page=ref_page,
+        out_dir=out,
+    )
+    write_run_diagnostics(
+        out,
+        run_info={"kind": "bench-neural", "folio_id": fid, "backend": backend,
+                  "htr": htr, "seed": seed, "gates_ok": report.ok},
+        composed=composed,
+    )
+
+    d = report.to_dict()
+    click.echo(json.dumps(d, indent=1, ensure_ascii=False))
+    click.echo(f"[bench-neural] diagnostics → {out}")
+    if not report.ok:
+        raise click.ClickException("neural promotion gates FAILED — see metrics.json")
+    click.echo("[bench-neural] all evaluated gates passed")

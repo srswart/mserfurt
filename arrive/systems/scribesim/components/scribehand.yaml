@@ -1,0 +1,23 @@
+component:
+  id: scribehand
+  name: "Learned Scribal Hand Synthesis"
+  type: library
+  owners:
+    - team: shawn
+  stage: incubating
+
+selectors:
+  paths:
+    - "scribesim/scribehand/**"
+    - "shared/models/scribehand/**"
+  build_modules: []
+  tags: []
+  contracts: []
+
+interfaces:
+  - "generate_word(text, style_anchor, seed, modifiers) -> ink strip (grayscale alpha) + generation provenance"
+  - "HTR fidelity gate: score(word_image, expected_text) -> CER/confidence; rejection-sampling loop"
+  - "Page composition entry point consumed by `scribesim render --approach neural`"
+  - "Model/weights manifest: checksummed external artifact references under shared/models/scribehand/"
+
+invariants: []

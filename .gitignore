@@ -33,6 +33,16 @@ scribesim/refextract/
 scribesim/refselect/
 scribesim/transcribe/
 
+# ScribeHand (TD-018): track corpus config/manifests, ignore heavy data
+!shared/training/scribehand/
+shared/training/scribehand/**/images/
+shared/training/scribehand/exports/
+shared/models/scribehand/weights/
+
+# ScribeHand orchestration local state (machine-specific paths)
+diagnostics/.scribehand-orchestration-state.json
+diagnostics/scribehand.env
+
 # ARRIVE runtime state
 .arrive/
 

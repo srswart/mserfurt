@@ -1,0 +1,12 @@
+# TD-018 neural promotion gates (ADV-SS-HANDVALIDATE-007).
+#
+# Calibration rule: real anchor pages must pass their own gates. Re-calibrate
+# style_distance_max / acceptance_mean_distance_max on the Mac once real
+# anchor exemplars exist (see docs/scribehand-mac-runbook.md §6).
+
+[gates]
+cer_mean_max = 0.05
+cer_verified_fraction_min = 0.98
+anti_font_max_ncc = 0.995
+style_distance_max = 0.35
+acceptance_mean_distance_max = 0.35

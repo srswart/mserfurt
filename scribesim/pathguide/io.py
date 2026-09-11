@@ -388,7 +388,6 @@ def load_trace_as_dense(
     source_resolution_ppmm: float | None = None,
 ) -> DensePathGuide:
     """Load a JSON trace written by refextract.centerline and convert it."""
-
     from scribesim.refextract.centerline import load_trace
 
     path = Path(trace_path)

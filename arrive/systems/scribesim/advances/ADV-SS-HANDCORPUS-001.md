@@ -1,0 +1,96 @@
+---
+advance:
+  id: ADV-SS-HANDCORPUS-001
+  title: Bastarda Training Corpus — CATMuS Filter, Anchor-Hand Freeze, Charset Gates
+  system: scribesim
+  primary_component: handcorpus
+  components:
+  - handcorpus
+  - refselect
+  - refextract
+  - annotate
+  started_at: 2026-07-03T14:00:00Z
+  started_by: null
+  implementation_completed_at: null
+  implementation_completed_by: null
+  updated_by: cursor-agent
+  archived_at: null
+  archived_by: null
+  review_time_estimate_minutes: 30
+  pr_links: []
+  reviewability_score: 0
+  risk_flags:
+  - new_dependency
+  evidence:
+  - ci:passed
+  status: in_progress
+---
+
+## Objective
+
+Assemble the two-tier training corpus for TD-018 learned scribal hand synthesis
+([TD-018](../../../../docs/tech-direction/TD-018-learned-scribal-hand.md) §2.3):
+
+- **Tier 1 (script family):** filter CATMuS Medieval (HF `CATMuS/medieval`) to
+  cursiva/bastarda/hybrida script families, 14th–16th century, German + Latin,
+  producing transcribed line images with per-line provenance metadata.
+- **Tier 2 (anchor hand):** freeze a reviewed line/word corpus from the selected
+  BSB anchor manuscript using the existing TD-009 `refselect` harvest and the
+  TD-014 annotation workbench (`shared/training/scribehand/anchor_v1`).
+- **Charset contract:** build and validate the XL→training charset normalization
+  table (MUFI-aligned); unmappable characters fail loudly (no silent aliasing,
+  per the TD-014 exact-character-coverage lesson).
+
+## Behavioral Change
+
+After this advance:
+- `scribesim build-scribehand-corpus` produces a manifest of image/transcription
+  pairs with tier, split (train/val/held-out), and provenance for every sample.
+- Corpus gates report charset coverage against the full XL folio-JSON character
+  inventory and fail on gaps.
+- The anchor-hand corpus (target 300–1,000 reviewed pairs) is frozen with
+  IIIF shelfmark/canvas provenance retained.
+
+## Planned Implementation Tasks
+
+- [x] branch: cursor/learned-scribal-hand-direction-3c31
+- [x] tidy: none required (new package)
+- [x] test: corpus manifest schema tests; charset-coverage gate tests (red first)
+- [x] feat: CATMuS filter tooling (record-based core + streaming HF wrapper), tier manifests, split assignment
+- [x] feat: anchor-hand ingestion (labels.tsv) into shared/training/scribehand
+- [x] feat: charset normalization table + validation gate wired into corpus build
+- [ ] Mac: real CATMuS pull (verify live column names), anchor-tier freeze, gate run on real data
+
+## Risk + Rollback
+
+- Risk: CATMuS Bastarda/German subset may be smaller than estimated, weakening the
+  script prior; mitigate by widening to all cursiva-family lines and adding TRIDIS.
+- Risk: new heavy dependencies (`datasets`, `torch`) enter the dev environment;
+  keep them in an optional dependency group so the base pipeline stays lean.
+- Rollback: corpus artifacts are additive (new directories + manifests); delete
+  `shared/training/scribehand/` and the optional dependency group.
+
+## Evidence
+
+- [ ] tidy:preparatory
+- [ ] tdd:red-green
+- [ ] tests:unit
+- [ ] docs:updated (corpus manifest + license/provenance notes)
+
+## Changes Made
+
+### 2026-07-03: handcorpus manifest, charset gates, builder, anchor ingest, export
+
+**test**
+
+- `tests/test_handcorpus.py: 18 tests (red first)`: 
+
+### 2026-07-03: handcorpus package
+
+**feat**
+
+- `scribesim/handcorpus/{manifest,charset,builder,anchor,gates,export}.py: two-tier corpus assembly`: 
+- `shared/training/scribehand/charset_map.toml: charset contract seed`: 
+- `scribesim/cli.py: build/check/export-scribehand-corpus commands`: 
+- `.gitignore: track corpus config/manifests, ignore heavy image data`: 
+

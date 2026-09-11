@@ -1,0 +1,311 @@
+# ScribeHand Mac orchestration manifest (TD-018 pass-14)
+#
+# Machine-readable workflow for a local agent. Human eyes are required only
+# at step_8_human_review. Pair with docs/scribehand-mac-runbook-agent.md.
+#
+# Usage:
+#   python scripts/scribehand/orchestrate.py status
+#   python scripts/scribehand/orchestrate.py next
+#   python scripts/scribehand/orchestrate.py validate step_0_setup
+#   python scripts/scribehand/orchestrate.py record step_0_setup --status passed
+
+schema: 1
+runbook_human: docs/scribehand-mac-runbook.md
+runbook_agent: docs/scribehand-mac-runbook-agent.md
+state_file: diagnostics/.scribehand-orchestration-state.json
+
+# Resolve ${VAR} in command templates from env or state.env
+env:
+  REPO_ROOT: "."
+  ONEDM_ROOT: "${HOME}/src/One-DM"
+  DIFFUSIONPEN_ROOT: "${HOME}/src/DiffusionPen"
+  ANCHOR_DIR: ""                    # reviewed anchor: images/ + labels.tsv
+  ANCHOR_WORDS_DIR: ""              # word crop PNGs for style gate
+  REFERENCE_PAGE: ""                # anchor folio page image
+  STYLE_ANCHOR_DIR: shared/models/scribehand/style_anchor_v1
+  CORPUS_MANIFEST: shared/training/scribehand/corpus_v1/manifest.json
+  CORPUS_EXPORT: shared/training/scribehand/exports/generic_v1
+  HTR_CKPT: shared/models/scribehand/weights/htr_trocr_v1
+  ONEDM_CKPT: ""                    # set after fine-tune
+  ONEDM_TRAINING_REPORT: ""         # e.g. ${ONEDM_ROOT}/ckpt/training_report.json
+  DIFFUSIONPEN_CKPT: ""
+  DIFFUSIONPEN_TRAINING_REPORT: ""
+  BACKENDS_TOML: shared/models/scribehand/backends.toml
+  PROOF_FOLIO: f01r
+  DIAG_ONEDM: diagnostics/onedm_f01r
+  DIAG_DIFFUSIONPEN: diagnostics/diffusionpen_f01r
+
+steps:
+  step_0_setup:
+    title: Environment setup
+    executor: agent
+    depends_on: []
+    commands:
+      - "cd ${REPO_ROOT} && git pull"
+      - "cd ${REPO_ROOT} && uv sync --extra scribehand"
+      - "cd ${REPO_ROOT} && uv run python scripts/scribehand/env_check.py > diagnostics/env_check.json"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: diagnostics/env_check.json
+          json:
+            mps_available: true
+            device_smoke_ok: true
+    on_failure: Fix uv/torch install; re-run env_check until smoke passes.
+
+  step_0b_clone_upstream:
+    title: Clone upstream model repos
+    executor: agent
+    depends_on: [step_0_setup]
+    commands:
+      - "test -d ${ONEDM_ROOT} || git clone https://github.com/dailenson/One-DM ${ONEDM_ROOT}"
+      - "test -d ${DIFFUSIONPEN_ROOT} || git clone https://github.com/koninik/DiffusionPen ${DIFFUSIONPEN_ROOT}"
+    success:
+      artifacts:
+        - path: "${ONEDM_ROOT}/.git"
+        - path: "${DIFFUSIONPEN_ROOT}/.git"
+    notes: Install each repo's requirements and download IAM checkpoints per upstream README.
+
+  step_1_corpus_smoke:
+    title: CATMuS corpus smoke build
+    executor: agent
+    depends_on: [step_0_setup]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim build-scribehand-corpus --catmus --catmus-max-lines 300"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${CORPUS_MANIFEST}"
+    on_failure: If column names differ, adjust field_map and report actual schema.
+
+  step_1_corpus_full:
+    title: CATMuS full corpus build
+    executor: agent
+    depends_on: [step_1_corpus_smoke]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim build-scribehand-corpus --catmus"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${CORPUS_MANIFEST}"
+
+  step_2_anchor_tier:
+    title: Ingest anchor tier (BSB hand)
+    executor: agent
+    depends_on: [step_1_corpus_full]
+    requires_env: [ANCHOR_DIR]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim build-scribehand-corpus --anchor-dir ${ANCHOR_DIR}"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${CORPUS_MANIFEST}"
+        - path: "${STYLE_ANCHOR_DIR}/style.json"
+    notes: Harvest/review anchor data with existing tooling before ingest; target 300–1000 pairs.
+
+  step_3_corpus_gates:
+    title: Corpus charset and tier gates
+    executor: agent
+    depends_on: [step_2_anchor_tier]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim check-scribehand-corpus --report diagnostics/corpus_gates.json"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: diagnostics/corpus_gates.json
+          json:
+            ok: true
+    on_failure: Fill charset_map.toml gaps and re-run until ok=true.
+
+  step_3_export:
+    title: Export training layout
+    executor: agent
+    depends_on: [step_3_corpus_gates]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim export-scribehand-corpus --out-dir ${CORPUS_EXPORT}"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${CORPUS_EXPORT}/labels.tsv"
+        - path: "${CORPUS_EXPORT}/charset.txt"
+
+  step_4_finetune_onedm:
+    title: Fine-tune One-DM on generic export
+    executor: agent
+    depends_on: [step_3_export]
+    requires_env: [ONEDM_ROOT, ONEDM_CKPT]
+    manual: true
+    notes: |
+      Prepare IAM-style data from ${CORPUS_EXPORT} inside ${ONEDM_ROOT}.
+      Run upstream training (Tier 1 script family → Tier 2 anchor-only, low LR).
+      Write training_report.json beside ${ONEDM_CKPT}.
+    success:
+      artifacts:
+        - path: "${ONEDM_CKPT}"
+        - path: "${ONEDM_TRAINING_REPORT}"
+
+  step_4_finetune_diffusionpen:
+    title: Fine-tune DiffusionPen on generic export
+    executor: agent
+    depends_on: [step_3_export]
+    requires_env: [DIFFUSIONPEN_ROOT, DIFFUSIONPEN_CKPT]
+    manual: true
+    notes: Same tier sequence as One-DM; record training_report.json.
+    success:
+      artifacts:
+        - path: "${DIFFUSIONPEN_CKPT}"
+        - path: "${DIFFUSIONPEN_TRAINING_REPORT}"
+
+  step_5_htr_train:
+    title: Fine-tune HTR gate (TrOCR)
+    executor: agent
+    depends_on: [step_3_export]
+    commands:
+      - "cd ${REPO_ROOT} && uv run python scripts/scribehand/train_htr_trocr.py --data ${CORPUS_EXPORT} --out ${HTR_CKPT}"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${HTR_CKPT}/config.json"
+
+  step_5_htr_calibrate:
+    title: Calibrate HTR on held-out real anchor words
+    executor: agent
+    depends_on: [step_5_htr_train]
+    requires_env: [ANCHOR_WORDS_DIR]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim verify-words diagnostics/heldout_anchor.tsv --htr ${HTR_CKPT} --report diagnostics/htr_calibration.json"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: diagnostics/htr_calibration.json
+          json:
+            failures: 0
+    notes: Create diagnostics/heldout_anchor.tsv (image_path<TAB>text) from held-out anchor crops.
+
+  step_6_configure_backends:
+    title: Configure generation backends
+    executor: agent
+    depends_on: [step_4_finetune_onedm, step_4_finetune_diffusionpen]
+    requires_env: [ONEDM_ROOT, DIFFUSIONPEN_ROOT, ONEDM_CKPT, DIFFUSIONPEN_CKPT]
+    notes: Uncomment and fill ${BACKENDS_TOML} with absolute paths to runners, workdirs, checkpoints, style_dir.
+    success:
+      artifacts:
+        - path: "${BACKENDS_TOML}"
+          contains: "[backends.onedm]"
+
+  step_6_word_proofs:
+    title: Single-word generation proofs
+    executor: agent
+    depends_on: [step_6_configure_backends]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim generate-word und --backend onedm --seed 7 --out diagnostics/proofs/und_onedm.png"
+      - "cd ${REPO_ROOT} && uv run scribesim generate-word schreiber --backend diffusionpen --seed 7 --out diagnostics/proofs/schreiber_diffusionpen.png"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: diagnostics/proofs/und_onedm.png
+        - path: diagnostics/proofs/schreiber_diffusionpen.png
+    on_failure: Runner import/shape errors — patch scripts/scribehand/*_runner.py against your clone revision.
+
+  step_6_folio_render_onedm:
+    title: Neural folio render (One-DM)
+    executor: agent
+    depends_on: [step_6_word_proofs, step_5_htr_calibrate]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim render ${PROOF_FOLIO} --approach neural --neural-backend onedm --neural-htr ${HTR_CKPT} --neural-diag-dir ${DIAG_ONEDM}"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${DIAG_ONEDM}/run.json"
+        - path: "${DIAG_ONEDM}/report.json"
+
+  step_7_bench_onedm:
+    title: Bench + gates (One-DM)
+    executor: agent
+    depends_on: [step_6_folio_render_onedm]
+    requires_env: [ANCHOR_WORDS_DIR, REFERENCE_PAGE]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim bench-neural ${PROOF_FOLIO} --backend onedm --htr ${HTR_CKPT} --anchor-words-dir ${ANCHOR_WORDS_DIR} --reference-page ${REFERENCE_PAGE} --out-dir ${DIAG_ONEDM}"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${DIAG_ONEDM}/metrics.json"
+          json:
+            ok: true
+
+  step_7_pack_onedm:
+    title: Pack diagnostic bundle (One-DM)
+    executor: agent
+    depends_on: [step_7_bench_onedm]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim diag-pack ${DIAG_ONEDM} --out ${DIAG_ONEDM}.zip"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${DIAG_ONEDM}.zip"
+
+  step_6_folio_render_diffusionpen:
+    title: Neural folio render (DiffusionPen)
+    executor: agent
+    depends_on: [step_6_word_proofs, step_5_htr_calibrate]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim render ${PROOF_FOLIO} --approach neural --neural-backend diffusionpen --neural-htr ${HTR_CKPT} --neural-diag-dir ${DIAG_DIFFUSIONPEN}"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${DIAG_DIFFUSIONPEN}/run.json"
+
+  step_7_bench_diffusionpen:
+    title: Bench + gates (DiffusionPen)
+    executor: agent
+    depends_on: [step_6_folio_render_diffusionpen]
+    requires_env: [ANCHOR_WORDS_DIR, REFERENCE_PAGE]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim bench-neural ${PROOF_FOLIO} --backend diffusionpen --htr ${HTR_CKPT} --anchor-words-dir ${ANCHOR_WORDS_DIR} --reference-page ${REFERENCE_PAGE} --out-dir ${DIAG_DIFFUSIONPEN}"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${DIAG_DIFFUSIONPEN}/metrics.json"
+          json:
+            ok: true
+
+  step_7_pack_diffusionpen:
+    title: Pack diagnostic bundle (DiffusionPen)
+    executor: agent
+    depends_on: [step_7_bench_diffusionpen]
+    commands:
+      - "cd ${REPO_ROOT} && uv run scribesim diag-pack ${DIAG_DIFFUSIONPEN} --out ${DIAG_DIFFUSIONPEN}.zip"
+    success:
+      exit_code: 0
+      artifacts:
+        - path: "${DIAG_DIFFUSIONPEN}.zip"
+
+  step_8_human_review:
+    title: Guided human visual evaluation
+    executor: human
+    depends_on: [step_7_pack_onedm, step_7_pack_diffusionpen]
+    blocked_until: human_review.md exists in each diagnostic dir with scores
+    artifacts_required:
+      - "${DIAG_ONEDM}/human_review.md"
+      - "${DIAG_DIFFUSIONPEN}/human_review.md"
+    rubric_axes:
+      - letterform_authenticity
+      - instance_variation
+      - word_rhythm
+      - ink_behavior
+      - text_fidelity
+    pass_rule: All axes scored 4–5; nothing ≤3 on axes 1–2
+    agent_action: STOP — notify human reviewer with bundle paths and rubric from runbook §8
+
+  step_9_promotion:
+    title: Promote neural default after gates + human review
+    executor: agent
+    depends_on: [step_8_human_review]
+    notes: |
+      Run proof folios (f01r + pressure/fatigue/final-stock). Record decision in ADV-SS-HANDVALIDATE-007.
+      Keep --approach evo as fallback per TD-018 rollout policy.
+    success:
+      artifacts:
+        - path: diagnostics/promotion_decision.json
+          json:
+            approved: true
