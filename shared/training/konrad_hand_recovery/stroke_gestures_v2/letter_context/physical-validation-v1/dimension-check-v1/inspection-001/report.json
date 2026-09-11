@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "dimension_contract_sha256": "56e3ed722e086ec1415ea54c179070985c8d4841c19368a7c666db56d4f31f11",
+  "controller_executions": 0,
+  "raster_renders": 0,
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "fitting_authorized": false,
+  "optimization_evaluations": 0,
+  "read_only": true,
+  "report_sha256": "e294db3edc76d2d22f28548e8a5f54834c61e9c3d543b6102410a274ce20dc98",
+  "recovery_contract_sha256": "1b454630045689f257ac322f1334cebf614c106d748ca00301f5edfcde01b405",
+  "original_contract_sha256": "db909d00cd3d7c26cff021e2c9ff9ad19a6ebb8ca08bfd873bd41dd13d443eb5",
+  "failure_manifest_sha256": "adec239210591bf83b37abbe22543012e89ed5912fea2aea359be4e958fd086e",
+  "cases_verified": 1464,
+  "seeds": [
+    {
+      "seed": 7,
+      "replay_match": true
+    },
+    {
+      "seed": 19,
+      "replay_match": true
+    },
+    {
+      "seed": 41,
+      "replay_match": true
+    }
+  ],
+  "seed_41_cumulative_ledger": {
+    "prior_seconds": 1165.910421833978,
+    "prior_renders": 954,
+    "recovery_seconds": 955.0227957089664,
+    "recovery_renders": 787,
+    "cumulative_seconds": 2120.9332175429445,
+    "cumulative_renders": 1741
+  },
+  "historical_style_numeric_pass": false,
+  "appearance_review": "pending"
+}

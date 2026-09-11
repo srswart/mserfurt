@@ -1,0 +1,10 @@
+{
+  "snapshot": "snapshot-001",
+  "status": "incomplete_exception_during_desired_planning",
+  "error": "ValueError: Exact unique corner port required",
+  "origin": "scribesim/handflow/planning.py:293",
+  "disposition": "Retain original freeze and reader source. Repair exception collection only, then measure the identical geometry/threshold inventory in snapshot-002; do not adjust the sampler or candidates.",
+  "controller_executions": 0,
+  "raster_renders": 0,
+  "optimization_evaluations": 0
+}

@@ -1,0 +1,106 @@
+{
+  "version": "nu-boundary-actions-v1",
+  "status": "contract_and_numeric_checks_pass_geometry_gated",
+  "accepted": false,
+  "connector_geometries": 0,
+  "raster_renders": 0,
+  "controller_executions": 0,
+  "fitting_evaluations": 0,
+  "owner_scope": "Address boundary-local contract and numeric handling; no geometry activation",
+  "contacts": {
+    "negative": {
+      "accepted": true,
+      "exact_interval": [
+        "0",
+        "1/10"
+      ],
+      "reflection_error_mm": 0.0,
+      "corners_mm_y_down": [
+        [
+          -0.16593212360490464,
+          -0.15228765661066113
+        ],
+        [
+          -0.17878787579863545,
+          -0.13696676774828154
+        ],
+        [
+          -0.13146012366455065,
+          -0.12336221417476687
+        ],
+        [
+          -0.14431587585828146,
+          -0.1080413253123873
+        ]
+      ]
+    },
+    "positive": {
+      "accepted": true,
+      "exact_interval": [
+        "9/10",
+        "1"
+      ],
+      "reflection_error_mm": 0.0,
+      "corners_mm_y_down": [
+        [
+          0.14431587585828146,
+          0.1080413253123873
+        ],
+        [
+          0.13146012366455065,
+          0.12336221417476687
+        ],
+        [
+          0.17878787579863545,
+          0.13696676774828154
+        ],
+        [
+          0.16593212360490464,
+          0.15228765661066113
+        ]
+      ]
+    },
+    "full": {
+      "accepted": true,
+      "exact_interval": [
+        "0",
+        "1"
+      ],
+      "reflection_error_mm": 0.0,
+      "corners_mm_y_down": [
+        [
+          -0.16593212360490464,
+          -0.15228765661066113
+        ],
+        [
+          -0.17878787579863545,
+          -0.13696676774828154
+        ],
+        [
+          0.17878787579863545,
+          0.13696676774828154
+        ],
+        [
+          0.16593212360490464,
+          0.15228765661066113
+        ]
+      ]
+    }
+  },
+  "capability_report_sha256": "b42bf1a70a0d52d4fde0a19a4fb7a52aab9ec81da342fbb959f59a796da231d6",
+  "canonical_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+  "code_sha256": "ad13391556b413f5552118e41847687c327c8aff0aa2ce001243f4a5b0d3e300",
+  "tests_sha256": "1cd8010df440592fe44ab74ef4c63077daeb6c780da641e34ffed5d6f9922e6a",
+  "manifests_sha256": {
+    "nu": "1423c7643fc2392ed9e2b2ea0ac32f1a8e7c2f7235fb707b738ab67517ffb59f",
+    "mu": "6ab04c53a886645586ae967e99cfc2872c474bb0f40b6bc1be3db9c7c1284d23"
+  },
+  "retained_piece_counts": {
+    "nu": 8,
+    "mu": 10
+  },
+  "whole_track_interval_proof": "Affine interpolation of valid endpoint intervals preserves bounds and minimum span by convexity; exact rational interpolation, no epsilon.",
+  "legacy_behavior": "Unmodified: connected-v1 remains fixed-action only and legacy positive-corner rejection remains preserved.",
+  "contracts_file_sha256": "93f7bb36897c27bef756650748882180b868856ebdac20c55a06d0fdaeb26eb2",
+  "elapsed_seconds": 10.874166415887885
+}

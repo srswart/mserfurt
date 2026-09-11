@@ -8,10 +8,25 @@ component:
 
 selectors:
   paths:
+    - "scripts/stroke_context_physical.py"
+    - "scripts/stroke_context_evidence.py"
+    - "scripts/stroke_context_review.py"
+    - "tests/test_stroke_context_physical.py"
+    - "tests/test_stroke_context_review.py"
+    - "docs/tech-direction/TD-018-addendum-d-stroke-context-transitions.md"
     - "scribesim/handvalidate/**"
     - "scripts/upright_reference_contract.py"
     - "scripts/upright_placement_validation.py"
     - "scripts/upright_placement_evidence.py"
+    - "scripts/current_foundation_readiness.py"
+    - "scripts/letter_context_evidence.py"
+    - "scripts/letter_context_variant_evidence.py"
+    - "scripts/letter_context_physical.py"
+    - "scripts/letter_context_physical_evidence.py"
+    - "tests/test_letter_context_physical.py"
+    - "tests/test_letter_context_variants.py"
+    - "tests/test_letter_context_contract.py"
+    - "tests/test_current_foundation_readiness.py"
     - "tests/test_upright_placement_validation.py"
     - "tests/test_upright_reference_contract.py"
     - "tests/test_handvalidate*.py"
@@ -21,6 +36,11 @@ selectors:
   contracts: []
 
 interfaces:
+  - "Planned stroke-context evidence (Addendum D): independently verify actual entry/exit and inter-letter contact/ownership, local containment, exact events and replay before separate owner usefulness and frozen-rule transfer decisions; no execution or acceptance from planning."
+  - "letter_context_physical_evidence reconstructs derived-port motion, fixed-nib frames, local windows, overlap ownership, exact event convergence, scoped known-reference pixels and first/replay budget receipts from raw evidence; approved budget is not actual-mechanics or fitting acceptance."
+  - "Bounded geometry reader reconstructs affine derivations, fixed-nib control-hull containment, union-frozen local windows and desired-plan safety; physical execution remains blocked until the concrete runner/reader and feasible revised budget are authorized."
+  - "letter_context_evidence independently reconstructs null sidecars, checks exact compile/plan/timing equivalence and binds unchanged archived owner traces/pixels; no fresh physical null replay or nonidentity mechanical acceptance is inferred."
+  - "current_foundation_readiness verifies consumer-pinned H024 sources and raw canonical occurrence coverage for frozen-baseline reuse only; explicit candidate/letter/tool/purpose scope is required. Nonidentity geometry, context fitting and broader S1/S2/real claims fail closed with named gaps."
   - "upright_placement_validation runs one owner-authorized frozen placement experiment; upright_placement_evidence reconstructs raw motion, exact known-base regression identity and diagnostic losses with no fitting or rerendering. Held-out appearance remains pending and S2/real/context admission is withheld."
   - "upright_reference_contract loads consumer-pinned approved-appearance registries and separates construction, physical motion, owner appearance, independent style and exact replay identity. Candidate-derived anchors cannot be relabeled independent; prepared held-out placement protocols confer no execution or S2/real/context authority."
   - "letter_assembly independently measures pinned rotated returns and exact level n/u/m recipes; letter_assembly_evidence.inspect_run reconstructs immutable traces and saved metric pixels with unchanged gates and explicit per-kind refinement coverage. Human appearance remains pending and S2/context/real permissions stay false"

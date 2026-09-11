@@ -1,0 +1,886 @@
+{
+  "version": "nu-corner-capability-v1",
+  "status": "capability_review_required",
+  "representations": {
+    "full": {
+      "contact": {
+        "interval": [
+          0,
+          1
+        ],
+        "float_fraction": 1,
+        "decimal_fraction": "1",
+        "status": "pass",
+        "reflection_error_mm": 0.0,
+        "reflected_interval": [
+          0,
+          1
+        ],
+        "center_offset_mm": [
+          0.0,
+          0.0
+        ],
+        "center_offset_length_mm": 0.0,
+        "corners_mm_y_up": [
+          [
+            -0.17878787579863545,
+            0.13696676774828154
+          ],
+          [
+            -0.16593212360490464,
+            0.15228765661066113
+          ],
+          [
+            0.16593212360490464,
+            -0.15228765661066113
+          ],
+          [
+            0.17878787579863545,
+            -0.13696676774828154
+          ]
+        ]
+      },
+      "schema": {
+        "status": "pass",
+        "action_profile": "fixed",
+        "geometry_changed": false
+      }
+    },
+    "negative": {
+      "contact": {
+        "interval": [
+          0,
+          0.1
+        ],
+        "float_fraction": 0.1,
+        "decimal_fraction": "1/10",
+        "status": "pass",
+        "reflection_error_mm": 0.0,
+        "reflected_interval": [
+          0,
+          0.1
+        ],
+        "center_offset_mm": [
+          -0.15512399973159305,
+          0.13016449096152422
+        ],
+        "center_offset_length_mm": 0.20249999999999999,
+        "corners_mm_y_up": [
+          [
+            -0.17878787579863545,
+            0.13696676774828154
+          ],
+          [
+            -0.16593212360490464,
+            0.15228765661066113
+          ],
+          [
+            -0.14431587585828146,
+            0.1080413253123873
+          ],
+          [
+            -0.13146012366455065,
+            0.12336221417476687
+          ]
+        ]
+      },
+      "schema": {
+        "status": "rejected_by_current_schema",
+        "error": "Connected contract requires boundary sampling and fixed actions",
+        "geometry_changed": false
+      }
+    },
+    "positive": {
+      "contact": {
+        "interval": [
+          0.9,
+          1
+        ],
+        "float_fraction": 0.09999999999999998,
+        "decimal_fraction": "1/10",
+        "status": "rejected_by_current_contact_api",
+        "error": "Unsupported physical contact fields"
+      },
+      "schema": {
+        "status": "rejected_by_current_schema",
+        "error": "Connected contract requires boundary sampling and fixed actions",
+        "geometry_changed": false
+      }
+    }
+  },
+  "sites": [
+    {
+      "text": "nu",
+      "departure": {
+        "owner": "0:3",
+        "canonical_parameter": 0.7648068784772746,
+        "center_mm": [
+          0.9672599986155733,
+          0.8689916223825797
+        ],
+        "full_ramp_envelope_mm": [
+          [
+            0.7884721228169379,
+            1.005958390130861
+          ],
+          [
+            1.133192122220478,
+            0.7167039657719186
+          ],
+          [
+            1.1460478744142089,
+            0.7320248546342981
+          ],
+          [
+            0.8013278750106686,
+            1.0212792789932408
+          ]
+        ],
+        "regions": [
+          {
+            "occurrence": "0:0",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.3296398817961061,
+            "upper_distance_mm": 1.3296598837961064,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.2797769513845165,
+            "upper_distance_mm": 1.2797969533845168,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.5421489365362777,
+            "upper_distance_mm": 1.542168938536278,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:3",
+            "region": "departure_retained",
+            "interval": [
+              0,
+              0.7648068784772746
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "0:3",
+            "region": "departure_proposed_replacement",
+            "interval": [
+              0.7648068784772746,
+              1
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_retained",
+            "interval": [
+              0.2500000000000001,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 3.062430452714861,
+            "upper_distance_mm": 3.0624504547148614,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_proposed_replacement",
+            "interval": [
+              0,
+              0.2500000000000001
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 3.868669416434959,
+            "upper_distance_mm": 3.8686894184349594,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 3.061881827231346,
+            "upper_distance_mm": 3.0619018292313465,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.425846725759042,
+            "upper_distance_mm": 4.4258667277590416,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:3",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.687405449426693,
+            "upper_distance_mm": 4.687425451426693,
+            "status": "certified_clear"
+          }
+        ],
+        "nonowner_possible_contacts": [],
+        "method": "At a fixed center/orientation every full-to-corner or reverse-ramp rectangle is a subset of full contact; union equals full rectangle. Exact continuous-ramp envelope, not samples.",
+        "scope": "Stationary canonical site only; no moving ramp, connector or splice permission"
+      },
+      "receiving": {
+        "owner": "1:0",
+        "canonical_parameter": 0.2500000000000001,
+        "center_mm": [
+          4.3897994221240975,
+          2.9557101418803957
+        ],
+        "full_ramp_envelope_mm": [
+          [
+            4.211011546325461,
+            3.0926769096286773
+          ],
+          [
+            4.555731545729002,
+            2.803422485269735
+          ],
+          [
+            4.5685872979227335,
+            2.818743374132114
+          ],
+          [
+            4.223867298519193,
+            3.1079977984910565
+          ]
+        ],
+        "regions": [
+          {
+            "occurrence": "0:0",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.716118773275775,
+            "upper_distance_mm": 4.716138775275774,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.45304384524494,
+            "upper_distance_mm": 4.453063847244939,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 3.0926565386335265,
+            "upper_distance_mm": 3.092676540633527,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:3",
+            "region": "departure_retained",
+            "interval": [
+              0,
+              0.7648068784772746
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 3.0994790649904567,
+            "upper_distance_mm": 3.099499066990457,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:3",
+            "region": "departure_proposed_replacement",
+            "interval": [
+              0.7648068784772746,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 3.8686694164349587,
+            "upper_distance_mm": 3.868689418434959,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_retained",
+            "interval": [
+              0.2500000000000001,
+              1
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_proposed_replacement",
+            "interval": [
+              0,
+              0.2500000000000001
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "1:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.8155367781586944,
+            "upper_distance_mm": 1.8155567801586947,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.1187607020437562,
+            "upper_distance_mm": 1.1187807040437565,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:3",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.3000275159044286,
+            "upper_distance_mm": 1.3000475179044289,
+            "status": "certified_clear"
+          }
+        ],
+        "nonowner_possible_contacts": [],
+        "method": "At a fixed center/orientation every full-to-corner or reverse-ramp rectangle is a subset of full contact; union equals full rectangle. Exact continuous-ramp envelope, not samples.",
+        "scope": "Stationary canonical site only; no moving ramp, connector or splice permission"
+      }
+    },
+    {
+      "text": "mu",
+      "departure": {
+        "owner": "0:5",
+        "canonical_parameter": 0.7648068784772746,
+        "center_mm": [
+          2.6498166410430155,
+          0.8689916223825797
+        ],
+        "full_ramp_envelope_mm": [
+          [
+            2.4710287652443803,
+            1.005958390130861
+          ],
+          [
+            2.8157487646479202,
+            0.7167039657719186
+          ],
+          [
+            2.8286045168416507,
+            0.7320248546342981
+          ],
+          [
+            2.483884517438111,
+            1.0212792789932408
+          ]
+        ],
+        "regions": [
+          {
+            "occurrence": "0:0",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 2.959247818527721,
+            "upper_distance_mm": 2.9592678205277214,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 2.010217676961036,
+            "upper_distance_mm": 2.0102376789610363,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.3216024079553375,
+            "upper_distance_mm": 1.3216224099553378,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:3",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.2797769513845163,
+            "upper_distance_mm": 1.2797969533845166,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:4",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.5421489365362777,
+            "upper_distance_mm": 1.542168938536278,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:5",
+            "region": "departure_retained",
+            "interval": [
+              0,
+              0.7648068784772746
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "0:5",
+            "region": "departure_proposed_replacement",
+            "interval": [
+              0.7648068784772746,
+              1
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_retained",
+            "interval": [
+              0.2500000000000001,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.8752995687704965,
+            "upper_distance_mm": 4.875319570770496,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_proposed_replacement",
+            "interval": [
+              0,
+              0.2500000000000001
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 5.4231418986154,
+            "upper_distance_mm": 5.4231619006153995,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.87522297640622,
+            "upper_distance_mm": 4.875242978406219,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 6.243288365634349,
+            "upper_distance_mm": 6.243308367634349,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:3",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 6.504664136230244,
+            "upper_distance_mm": 6.504684138230243,
+            "status": "certified_clear"
+          }
+        ],
+        "nonowner_possible_contacts": [],
+        "method": "At a fixed center/orientation every full-to-corner or reverse-ramp rectangle is a subset of full contact; union equals full rectangle. Exact continuous-ramp envelope, not samples.",
+        "scope": "Stationary canonical site only; no moving ramp, connector or splice permission"
+      },
+      "receiving": {
+        "owner": "1:0",
+        "canonical_parameter": 0.2500000000000001,
+        "center_mm": [
+          7.889799422124097,
+          2.9557101418803957
+        ],
+        "full_ramp_envelope_mm": [
+          [
+            7.7110115463254605,
+            3.0926769096286773
+          ],
+          [
+            8.055731545729001,
+            2.803422485269735
+          ],
+          [
+            8.06858729792273,
+            2.818743374132114
+          ],
+          [
+            7.723867298519192,
+            3.1079977984910565
+          ]
+        ],
+        "regions": [
+          {
+            "occurrence": "0:0",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 7.952678491028632,
+            "upper_distance_mm": 7.952698493028631,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 6.572791693917351,
+            "upper_distance_mm": 6.57281169591735,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 6.573003133544162,
+            "upper_distance_mm": 6.573023135544162,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:3",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 6.2702465797464395,
+            "upper_distance_mm": 6.270266581746439,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:4",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.897111570523996,
+            "upper_distance_mm": 4.897131572523995,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:5",
+            "region": "departure_retained",
+            "interval": [
+              0,
+              0.7648068784772746
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 4.898472110249723,
+            "upper_distance_mm": 4.8984921122497225,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "0:5",
+            "region": "departure_proposed_replacement",
+            "interval": [
+              0.7648068784772746,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 5.423141898615399,
+            "upper_distance_mm": 5.423161900615399,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_retained",
+            "interval": [
+              0.2500000000000001,
+              1
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "1:0",
+            "region": "receiving_proposed_replacement",
+            "interval": [
+              0,
+              0.2500000000000001
+            ],
+            "same_owner": true,
+            "lower_distance_mm": 0,
+            "upper_distance_mm": 1.0001000000000001e-05,
+            "status": "possible_contact"
+          },
+          {
+            "occurrence": "1:1",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.8155367781586946,
+            "upper_distance_mm": 1.815556780158695,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:2",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.1187607020437587,
+            "upper_distance_mm": 1.118780704043759,
+            "status": "certified_clear"
+          },
+          {
+            "occurrence": "1:3",
+            "region": "protected_other_occurrence",
+            "interval": [
+              0,
+              1
+            ],
+            "same_owner": false,
+            "lower_distance_mm": 1.3000275159044312,
+            "upper_distance_mm": 1.3000475179044315,
+            "status": "certified_clear"
+          }
+        ],
+        "nonowner_possible_contacts": [],
+        "method": "At a fixed center/orientation every full-to-corner or reverse-ramp rectangle is a subset of full contact; union equals full rectangle. Exact continuous-ramp envelope, not samples.",
+        "scope": "Stationary canonical site only; no moving ramp, connector or splice permission"
+      }
+    }
+  ],
+  "ownership": {
+    "status": "boundary_consumer_not_admitted",
+    "canonical_rows": [
+      {
+        "text": "nu",
+        "departure": "0:3",
+        "receiver": "1:0",
+        "shared_departure_gesture_occurrences": [
+          "0:1",
+          "0:2",
+          "0:3"
+        ],
+        "shared_departure_action_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "1:0",
+          "1:1",
+          "1:2",
+          "1:3"
+        ],
+        "receiver_action": "fixed"
+      },
+      {
+        "text": "mu",
+        "departure": "0:5",
+        "receiver": "1:0",
+        "shared_departure_gesture_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5"
+        ],
+        "shared_departure_action_occurrences": [
+          "0:0",
+          "0:1",
+          "0:2",
+          "0:3",
+          "0:4",
+          "0:5",
+          "1:0",
+          "1:1",
+          "1:2",
+          "1:3"
+        ],
+        "receiver_action": "fixed"
+      }
+    ],
+    "finding": "action_bundle resolves profiles through model.actions[model.gestures[original.gesture].action]; changing shared gesture/profile affects other occurrences. No isolated T/R/S boundary consumer exists in this capability package.",
+    "required": "New opt-in derived piece/action lineage retaining canonical source and contributor identities; no existing profile mutation or legacy-cap bypass."
+  },
+  "ramp_contract": {
+    "negative": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        0.1
+      ]
+    ],
+    "positive": [
+      [
+        0,
+        1
+      ],
+      [
+        0.9,
+        1
+      ]
+    ],
+    "full_corner_return_union": "Full rectangle at fixed site for both corners; mathematical containment, not positive-corner API acceptance",
+    "endpoint_rate_limit_per_s": 3,
+    "minimum_one_way_seconds": 0.3,
+    "minimum_roundtrip_seconds": 0.6,
+    "moving_ramp_rate_validated": false,
+    "action_bridge_interpolation_endpoint": 0.1,
+    "endpoint_contact_accepted": true
+  },
+  "negative_corner_width_upper_mm": 0.04924428900898052,
+  "accepted": false,
+  "connector_geometries": 0,
+  "controller_executions": 0,
+  "raster_renders": 0,
+  "fitting_evaluations": 0,
+  "code_sha256": "eb8c5dc6e8777f05a24f9ad0d363984c78d6ca1ab197e3bcd3e9f16359f29f1c",
+  "tests_sha256": "60c551e48ce5c388ae0a75381899e8d2f73c70f1d007083e9b53860f023842ad",
+  "candidate_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+  "proposal_sha256": "7f8aff72c7769e5c28eb8eaec4ec3d41251d97320a6ac997c5fdaf6c7a74821c",
+  "investigation_sha256": "0b8b2f84474ef80cd37e94085483e5e312f52d348f46a32a07d972e83bd28aa3",
+  "tool_contract_sha256": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+  "bridge_sha256": "e125003308d86b5e5eb5df1b092580e5b585d708abe46aab642863e28674f052",
+  "contact_source_sha256": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+  "approval": {
+    "version": "nu-corner-capability-v1",
+    "owner_quote": "Let's do the next",
+    "scope": "Read-only capability package, section 6.1 only",
+    "proposal_sha256": "7f8aff72c7769e5c28eb8eaec4ec3d41251d97320a6ac997c5fdaf6c7a74821c",
+    "investigation_sha256": "0b8b2f84474ef80cd37e94085483e5e312f52d348f46a32a07d972e83bd28aa3",
+    "tool_contract_sha256": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+    "seconds": 300,
+    "max_output_bytes": 10485760,
+    "minimum_free_bytes": 5368709120,
+    "retries": 0,
+    "geometry_generation": false,
+    "raster_renders": 0,
+    "controller_executions": 0,
+    "fitting": false
+  },
+  "approval_sha256": "830e999a5a8599035c54b13ff28aa1f257a33dd1a0ae14ec2ba33e262199ad16",
+  "elapsed_seconds": 13.63783100002911
+}

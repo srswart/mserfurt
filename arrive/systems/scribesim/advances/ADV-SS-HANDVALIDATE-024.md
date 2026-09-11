@@ -79,6 +79,20 @@ title/body/label IDs. No parser repair or provider CI success is claimed.
 
 ## Changes Made
 
+### 2026-09-09 - owner appearance approval and next-step boundary
+
+Owner says “Looks good -- what is next ?” after the six actual placement samples
+are presented. Record candidate/report-bound KEEP for un/nu/um/nn/uu/mm and update
+the gallery. This is appearance approval only. Immutable execution/inspection
+records retain their at-run pending state; historical style failure and all
+S2/real/context restrictions remain unchanged. No new execution or fitting.
+
+Next recommendation: audit current connected-v1 primitive/gesture/fixed-action/
+letter readiness without repinning old rejected readers, then freeze a small
+CURRICULUM-006 context protocol. Distinguish spacing-only changes from changes
+to constituent strokes and require unseen pair/triple tests. No context run or
+training budget is authorized by this appearance approval.
+
 ### 2026-09-09 - local merge receipt
 
 Merged advance/ss-handvalidate-024 into local master at 15e61d2 after 53 passing

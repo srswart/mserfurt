@@ -1,0 +1,208 @@
+{
+  "version": "neighbor-context-pilot-v1-draft",
+  "advance": "ADV-SS-CURRICULUM-006",
+  "status": "prepared_for_review_not_executable",
+  "scope": "Synthetic n/u/m following-neighbor experiment; not historical-hand or S3 admission",
+  "preparation_authorization": "Okay let's prepare CURRICULUM-006—how neighboring letters change their strokes.",
+  "implementation_authorized": false,
+  "execution_authorized": false,
+  "fitting_authorized": false,
+  "readiness_audit": {
+    "path": "readiness-audit.json",
+    "sha256": "aaf7efa6466ee2234d9e0d7a9a2d6fd2d47df47ab0a396f2e05f3019674ea505",
+    "context_ready": false
+  },
+  "candidate_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+  "reference_contract_version": "reviewed-synthetic-appearance-contract-v1",
+  "canonical_layers": "Four primitives, three gestures, fixed action, and n/u/m recipes remain byte-frozen; new contract required for derived occurrence geometry",
+  "rule_selection": {
+    "maximum_rules": 6,
+    "current_letter": [
+      "n",
+      "u",
+      "m"
+    ],
+    "following_entry_class": {
+      "stem_entry": [
+        "n",
+        "u"
+      ],
+      "rise_entry": [
+        "m"
+      ]
+    },
+    "previous_neighbor_used": false,
+    "final_letter": "identity",
+    "multiple_matches": "reject",
+    "missing_rule": "identity",
+    "unknown_letter_or_whitespace": "reject",
+    "word_rules": false,
+    "per_word_parameters": false
+  },
+  "proposed_variant_grid": {
+    "horizontal_scale": [
+      0.97,
+      1,
+      1.03
+    ],
+    "advance_delta_normalized": [
+      -0.05,
+      0,
+      0.05
+    ],
+    "horizontal_anchor": "Canonical letter entry x before placement",
+    "vertical_change": 0,
+    "parameters_per_rule": 2,
+    "approval_status": "not_approved",
+    "geometry_definition": "Apply x'=x_entry+s*(x-x_entry), y'=y to every control point in the composed letter; transform and renormalize tangents. Physical nib is never stretched."
+  },
+  "arms": {
+    "context_off": {
+      "horizontal_scale": 1,
+      "advance_delta": 0
+    },
+    "spacing_only": {
+      "horizontal_scale": 1,
+      "advance_delta": "selected from the same grid and training judgments"
+    },
+    "stroke_context": {
+      "horizontal_scale": "selected from grid",
+      "advance_delta": "selected from the same grid"
+    }
+  },
+  "partitions": {
+    "controls": [
+      "n",
+      "u",
+      "m"
+    ],
+    "train_pairs": [
+      "nn",
+      "nm",
+      "un",
+      "um",
+      "mn",
+      "mm"
+    ],
+    "development_triples": [
+      "nnu",
+      "unu",
+      "mnu",
+      "nmm",
+      "umm",
+      "mmm"
+    ],
+    "held_out_triples": [
+      "num",
+      "mun",
+      "umn",
+      "nmn",
+      "umu",
+      "mum"
+    ],
+    "previously_reviewed_pair_probes": [
+      "nu",
+      "uu",
+      "mu"
+    ],
+    "held_out_policy": "Only the six triples are context-composition-disjoint holdouts; previously reviewed pairs are not pristine unseen samples"
+  },
+  "measurement": {
+    "known_regression_frame_mm": [
+      -3,
+      20,
+      2,
+      13
+    ],
+    "context_frame_mm": [
+      -3,
+      30,
+      2,
+      13
+    ],
+    "local_windows": "Freeze per-occurrence union over all allowed variants and placement combinations plus 0.8 mm before scoring",
+    "local_padding_mm": 0.8,
+    "metric_dpi": 180,
+    "presentation_dpi": 900,
+    "old_regression_mode": "Exact known base fixtures in original frame only",
+    "new_frame_approval": "pending",
+    "refinements": {
+      "base": [
+        0.025,
+        0.002
+      ],
+      "arc": [
+        0.0125,
+        0.002
+      ],
+      "time": [
+        0.025,
+        0.001
+      ],
+      "subdivision": [
+        0.025,
+        0.002
+      ]
+    }
+  },
+  "learning": {
+    "target_source": "Owner ranks bounded TRAINING previews; these are subjective preference labels, not independent historical exemplar images",
+    "training_preferences_sha256": null,
+    "objective": "Minimize frozen preference disagreement on six training rule cells; separable enumeration, not a whole-word table",
+    "objective_definition_sha256": null,
+    "maximum_training_grid_rows": 54,
+    "all_identity_is_valid": true,
+    "selection_tie_break": [
+      "fewest nonidentity parameters",
+      "smallest total normalized displacement",
+      "lexical rule/variant ID"
+    ],
+    "development_use": "Safety and reading check only; no retuning; failure withholds sealed test",
+    "held_out_access": "After one selected table and development outcome are frozen"
+  },
+  "proposed_budget": {
+    "authorized": false,
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "fresh_process_replays_per_seed": 1,
+    "renders_per_seed_total_all_arms_and_replay": 5000,
+    "seconds_per_seed_total_all_arms_and_replay": 1800,
+    "automatic_retries": 0,
+    "automatic_revisions": 0,
+    "accounting": "All preview/reference/mask/presentation calls must be journaled. Pre-fit human-review preview calls need a separately approved ledger debit carried into seed budgets; operator waits excluded, no hidden free rendering."
+  },
+  "evaluation": {
+    "mechanical_criteria_source": "H024 prepared protocol mechanical_criteria, unchanged",
+    "style_target": "Historical comparator diagnostic; original FAIL unchanged",
+    "nominal_actual_loss": "report-only, no transplanted 0.05 tolerance",
+    "effect_proof": "Remove placement and measure canonical occurrence control-point differences; compare nonidentity scale with scale=1 at exactly the same advance delta",
+    "owner_test_review": "Unseen triple reading and preference against best spacing-only and context-off; no automatic preference score invented",
+    "possible_outcomes": [
+      "blocked_missing_readiness_or_targets",
+      "mechanical_fail",
+      "spacing_only_sufficient",
+      "context_effect_not_preferred",
+      "bounded_synthetic_context_supported"
+    ],
+    "S3_accepted": false
+  },
+  "required_before_first_fit": [
+    "Owner approval of new context geometry/lineage contract and exact variant bounds",
+    "Current-source primitive/gesture/fixed-action/letter consumption clearance under explicit approved scope; no old-reader bypass",
+    "Null context exact replay and mechanical variant envelope proofs",
+    "Owner training judgments and deterministic objective/tie-breaking fully frozen",
+    "Full-frame and local-window containment for all allowed variants, complete evaluation/render-count preflight",
+    "New concrete execution/budget authorization; runner and independent reader frozen"
+  ],
+  "budget_used_during_preparation": {
+    "controller_executions": 0,
+    "raster_renders": 0,
+    "optimization_evaluations": 0
+  },
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false
+}

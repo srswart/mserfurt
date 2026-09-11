@@ -1,0 +1,36 @@
+{
+  "version": "letter-context-dimension-check-v1",
+  "owner_request": "Yes please correct measurement-only checker and reinspect the saved files",
+  "original_contract_sha256": "db909d00cd3d7c26cff021e2c9ff9ad19a6ebb8ca08bfd873bd41dd13d443eb5",
+  "recovery_contract_sha256": "1b454630045689f257ac322f1334cebf614c106d748ca00301f5edfcde01b405",
+  "recovery_report_sha256": "e294db3edc76d2d22f28548e8a5f54834c61e9c3d543b6102410a274ce20dc98",
+  "previous_inspection_failure_sha256": "90d6287394d1feec8cdf40a141a5678dc602c77eba382a5d5fee070d8d947463",
+  "renderer_sha256": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+  "code_sha256": {
+    "scripts/letter_context_dimension_evidence.py": "6cc5283e443b188810233d9ead266c562e8ab9ab3fb8ac9d4fecf70d5742540c",
+    "tests/test_letter_context_dimension_evidence.py": "5ff94b14ae482268308d17a64391475e6b0dfba82d4436f323eaec5602afe407"
+  },
+  "change": "Only presentation dimensions use exact frozen supersample-ceil then integer-downsize formula",
+  "unchanged": [
+    "raw containment",
+    "metric images",
+    "targets",
+    "frames",
+    "thresholds",
+    "candidate",
+    "controls",
+    "budgets",
+    "all frozen sources",
+    "all saved evidence"
+  ],
+  "inspection_cases": 1464,
+  "presentation_images": 324,
+  "physical_executions_allowed": 0,
+  "raster_renders_allowed": 0,
+  "sealed_holdout_access": false,
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "fitting_authorized": false,
+  "optimization_evaluations": 0
+}

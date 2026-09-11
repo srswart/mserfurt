@@ -1,6 +1,11 @@
 # HANDVALIDATE-024 — held-out placement physical validation
 
-**Execution/mechanical protocol PASS. Held-out appearance review PENDING.**
+**Execution/mechanical protocol PASS. Held-out actual appearance APPROVED.**
+
+The owner approves the six displayed actual samples: “Looks good -- what is next ?”
+This closes their appearance review only. Frozen execution/inspection records
+retain their at-run pending-review state. Current lower-layer readiness and a
+separate bounded context protocol must be established before context training.
 
 Open [the actual-ink gallery](index.html). Review **un, nu, um, nn, uu and mm**.
 Each primary image is actual simulated physical ink, at 900 DPI in the complete
@@ -23,7 +28,7 @@ joining, contextual stroke changes, spacing design or fatigue.
 - **1,086 charged render calls**, 240 actual controller executions, zero fitting,
   automatic retries or candidate changes. Pre-scoring vector/reference construction
   has no raster or controller calls. The independent reader performs neither.
-- Owner appearance for all six new pairs remains pending in
+- Owner appearance for all six new pairs is KEEP in
   [the report/candidate-bound review record](actual-review.json). S2, real-hand,
   context and overall admission remain withheld.
 

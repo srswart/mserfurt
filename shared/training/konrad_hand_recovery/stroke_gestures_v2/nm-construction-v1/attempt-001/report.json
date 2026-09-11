@@ -1,0 +1,53 @@
+{
+  "version": "nm-turn-rise-construction-v1",
+  "status": "unresolved",
+  "raster_renders": 0,
+  "controller_executions": 0,
+  "fitting_evaluations": 0,
+  "accepted": false,
+  "approval_sha256": "b9b04e7e4be34367c2811dca5dc401cb93636ea1d78b88f5e08dca46d694a4e9",
+  "code_sha256": "1b8fa1266579ea06086af80f4300e4279eea8b098b76c8b93c49dbd90e95d303",
+  "tests_sha256": "3a8cf9453166fd20bb976632630956a2ba916b3b29e8c8b4ec4a97c4cd617e8c",
+  "candidate_sha256": "5b570b3df83e88dea38c4faf3b3c4badc121bf2055b0a0631efebf1b515b434c",
+  "checks": {
+    "exact_body_ownership_placement": {
+      "status": "pass"
+    },
+    "extent_direction_baseline": {
+      "status": "unresolved",
+      "method": "Bernstein control hull and derivative signs; positive interior height; sole baseline join B"
+    },
+    "attachments": {
+      "status": "pass",
+      "tangent_errors": [
+        2.177751704867561e-16,
+        0.0,
+        1.6711069443220838e-16
+      ],
+      "position_errors_mm": [
+        3.510833468576701e-16,
+        1.1102230246251565e-16
+      ]
+    },
+    "length": {
+      "status": "pass",
+      "upper_mm": 4.432965778012767,
+      "lower_mm": 4.43296566175456,
+      "limit_mm": 4.797308243701987,
+      "margin_mm": 0.36434246568921935
+    },
+    "turn_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 8.806225097690568
+    },
+    "transfer_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 5.5189552704256055
+    },
+    "finite_nib_overlap": {
+      "status": "not_evaluated",
+      "reason": "Downstream admission is blocked until every preceding geometry gate passes; no rendering entrypoint"
+    }
+  },
+  "elapsed_seconds": 18.8205470420653
+}

@@ -1,0 +1,22 @@
+{
+  "scope": "Read-only sampler diagnostic for the frozen train_pairs-mn width0.97 advance0 subdivision assignment",
+  "failed_report_sha256": "a58c673514efc2bd89a23e04b644caa50150a0e21b9864a1c747955f844c7671",
+  "arc_length_mm": 15.648632022553832,
+  "ordinary_midpoint_mm": 7.824316011276916,
+  "exact_boundary_distance_mm": 7.824316011276901,
+  "distance_delta_mm": 1.509903313490213e-14,
+  "frozen_boundary_target_roundoff_tolerance_mm": 1.4210854715202004e-14,
+  "unchanged_corner_uniqueness_tolerance_mm": 1e-8,
+  "derived_corner_roundoff_coalescing_mm": 2.842170943040401e-14,
+  "coalescing_rule": "Only consecutive ordinary interior samples at an explicitly owned exact corner, on the incoming last or outgoing first cubic, within 16 coordinate ULPs capped at the existing exact-corner tolerance. Never remove endpoints, boundary contributors, unrelated owners or unproven exact anchors.",
+  "contact_run_samples_before": 638,
+  "contact_run_samples_after": 637,
+  "preserved_exact_corner_occurrence": "0:3",
+  "preserved_exact_corner_sample_index": 318,
+  "removed_ordinary_sample_index": 319,
+  "canonical_geometry_changed": false,
+  "null_path_changed": false,
+  "controller_executions": 0,
+  "raster_renders": 0,
+  "optimization_evaluations": 0
+}

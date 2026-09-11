@@ -4,6 +4,19 @@ training/
 !shared/training/
 shared/training/*
 !shared/training/konrad_hand_recovery/
+# External-backup evidence: retain local files, exclude raw runs and renders.
+# Keep candidates, contracts, approvals, reports, manifests and review records.
+# See docs/evidence-storage.md before cleanup or restoring a fresh checkout.
+/shared/training/konrad_hand_recovery/**/*.json.gz
+/shared/training/konrad_hand_recovery/**/document.json
+/shared/training/konrad_hand_recovery/**/documents.json
+/shared/training/konrad_hand_recovery/**/measurement.json
+/shared/training/konrad_hand_recovery/**/attempt.json
+/shared/training/konrad_hand_recovery/**/*.png
+/shared/training/konrad_hand_recovery/**/*.svg
+/shared/training/konrad_hand_recovery/**/*.html
+/shared/training/konrad_hand_recovery/**/.preview/
+/shared/training/konrad_hand_recovery/**/worker.log
 render-output/
 weather-output/
 debug/

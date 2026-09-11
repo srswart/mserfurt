@@ -1,0 +1,145 @@
+{
+  "version": "context-preparation-readiness-audit-v1",
+  "advance": "ADV-SS-CURRICULUM-006",
+  "date": "2026-09-09",
+  "repository_base_commit": "2394000",
+  "scope": "Read-only current-source audit and nominal topology/frame preflight; no admission or context fitting",
+  "status": "blocked_for_context_training",
+  "preparation_authorized": true,
+  "implementation_authorized": false,
+  "execution_authorized": false,
+  "source_pins": {
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/run-001/candidate.json": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/placement-validation-v1/run-001/report.json": "25b0e886ab643ff5dee969d1393b1f3f1e235e75f945e3c94025aedcfffe36b4",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/placement-validation-v1/inspection.json": "bda0a94c03a4d8a870cf398137e29c1e093349c0b8f1345a71a4da0caa3c499d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/placement-validation-v1/actual-review.json": "cf890ca88e8295c1a3e66a7ae71545ba7806e3159600b13274f241d1ce06a076",
+    "scribesim/evofit/connected_contract.py": "54716b960d104049f7521c33deffdd96799bbbeaa27e92dbb408d4443fb95b27",
+    "scribesim/evofit/stroke_gestures.py": "2e984b572704f14354513915d658088f0e243761661c0c8d179eff136dc2421b",
+    "scripts/upright_placement_evidence.py": "2705e18f1dadb320a3ade9641298054e61132b83d98b20b4b30917614f999b84"
+  },
+  "current_evidence": {
+    "artifacts_verified": 1808,
+    "artifact_inventory_exact": true,
+    "current_execution_identities_match": true,
+    "core_identity_count": 206,
+    "core_identity_digest": "c666d259186e327ffbced1aa68c88e9ad0e4de6a4302ae1e0654c73b178493bf",
+    "mechanics": "pass",
+    "owner_appearance": "keep for six reviewed placements",
+    "raw_motion_reconstruction": "Reused pinned independent H024 receipt; not repeated in this preparation"
+  },
+  "canonical_inventory": {
+    "primitives": [
+      "stem",
+      "rise",
+      "upper-return",
+      "lower-return"
+    ],
+    "gestures": [
+      "stem",
+      "overturn",
+      "underturn"
+    ],
+    "actions": [
+      "fixed"
+    ],
+    "letters": [
+      "n",
+      "u",
+      "m"
+    ],
+    "context_alternatives": 0
+  },
+  "legacy_readers": [
+    {
+      "reader": "scribesim.handvalidate.finer_scales.require_readiness",
+      "report": "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/scale_evaluation/run-001/S1-actions.json",
+      "report_sha256": "49e72a04df648ef1295b94e8436c34cdb385a992d7b173c0316899a05f6f837b",
+      "required_gestures": [
+        "underturn",
+        "overturn"
+      ],
+      "requested_tool": "legacy-full-edge",
+      "result": "rejected",
+      "reason": "Stale, incomplete or overstated independent evidence"
+    },
+    {
+      "reader": "scribesim.handvalidate.standalone_stem.require_readiness",
+      "report": "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/stem_evaluation/run-001/report.json",
+      "report_sha256": "14a8ded4d6e29be259ff1dcb4c04607c44f5e7a5a9eb61727e0869150eb7dee0",
+      "required_gestures": [
+        "stem"
+      ],
+      "requested_tool": "legacy-full-edge",
+      "result": "rejected",
+      "reason": "Stale, incomplete or overstated independent evidence"
+    }
+  ],
+  "legacy_changed_source_entries": [
+    "scribesim/pathguide/gesture_actions.py",
+    "scribesim/evofit/stroke_gestures.py",
+    "scribesim/evofit/stroke_language.py"
+  ],
+  "context_rule_probe": {
+    "mutation": "Add one zero-displacement n-before-u rule to an in-memory copy",
+    "result": "rejected",
+    "reason": "Explicit gesture schema/sampling required; context overlays are not supported yet"
+  },
+  "baseline_preflight": {
+    "strings": [
+      "n",
+      "u",
+      "m",
+      "nn",
+      "nm",
+      "un",
+      "um",
+      "mn",
+      "mm",
+      "nnu",
+      "unu",
+      "mnu",
+      "nmm",
+      "umm",
+      "mmm",
+      "num",
+      "mun",
+      "umn",
+      "nmn",
+      "umu",
+      "mum"
+    ],
+    "contact_runs_equal_letter_count": true,
+    "frame_checked_triples": 12,
+    "old_frame_mm": [
+      -3,
+      20,
+      2,
+      13
+    ],
+    "old_frame_failures": [
+      "mmm"
+    ],
+    "proposed_context_frame_mm": [
+      -3,
+      30,
+      2,
+      13
+    ],
+    "proposed_frame_failures": [],
+    "coverage": "Unchanged nominal geometry only; proposed variants, actual motion and full timing plans not preflighted"
+  },
+  "blockers": [
+    "Current-source primitive/gesture/fixed-action/letter consumption contract absent; old readers must not be repinned",
+    "Connected-v1 rejects context rules and has no admitted nonidentity context alternatives",
+    "Independent contextual preference targets, variant bounds and execution budget not approved",
+    "Context-off preservation evidence does not establish that stroke changes are needed"
+  ],
+  "budget_used": {
+    "controller_executions": 0,
+    "raster_renders": 0,
+    "optimization_evaluations": 0
+  },
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false
+}

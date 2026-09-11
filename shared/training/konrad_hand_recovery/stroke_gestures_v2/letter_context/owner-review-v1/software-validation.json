@@ -1,0 +1,19 @@
+{
+  "advance": "ADV-SS-CURRICULUM-006",
+  "packet_sha256": "a928389737c6e6c0ff0c2598dc66b625e9b8e13a3dfd6ee63c61423d438a4331",
+  "test_command": ".venv/bin/python -m pytest -q tests/test_letter_context_review.py tests/test_letter_context_dimension_evidence.py tests/test_letter_context_recovery.py tests/test_letter_context_physical.py",
+  "tests_passed": 88,
+  "elapsed_seconds": 45.72,
+  "review_tests": 13,
+  "red_before_implementation": "Review tests fail import before the new module exists",
+  "javascript_syntax": "pass",
+  "native_chrome_visual_check": "Grid, full-frame comparison dialog, source/control labels, final 0/54 reviewed state, budget and disabled completed export verified",
+  "owner_preferences_entered_during_testing": false,
+  "complete_browser_export_round_trip_tested": false,
+  "playwright_cli": "Unavailable: bundled wrapper returns playwright-cli: command not found; native Chrome via CUA used instead",
+  "arrive_plan_check": "pass",
+  "arrive_sync_agent_rules_check": "pass",
+  "git_diff_check": "pass",
+  "evidence_boundary": "Prepared review and proposed objective/budget only, not owner approval, fitting, provider CI or merge",
+  "changes_remain_uncommitted": true
+}

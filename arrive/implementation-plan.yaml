@@ -1793,7 +1793,7 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-023
-      notes: "COMPLETE authorized frozen physical validation: all ten fixtures/four refinements pass mechanics, all three seed/replay pairs match, 24 known-base reference matches, eleven controls detected per worker. 1086 renders total, 362 per seed and <352s including replay; no fitting/retries. Independent raw reader verifies all 1808 artifacts; 53 tests pass. Actual un/nu/um/nn/uu/mm samples await owner appearance review. Candidate and 206 core identities unchanged; style remains diagnostic only in new contract, historical FAIL and S2/real/context false intact. No joins, spacing design or fatigue."
+      notes: "COMPLETE authorized frozen physical validation: all ten fixtures/four refinements pass mechanics, all three seed/replay pairs match, 24 known-base reference matches, eleven controls detected per worker. 1086 renders total, 362 per seed and <352s including replay; no fitting/retries. Independent raw reader verifies all 1808 artifacts; 53 tests pass. Owner approves actual un/nu/um/nn/uu/mm appearance; candidate/report-bound KEEP recorded. Candidate and 206 core identities unchanged; style remains diagnostic only in new contract, historical FAIL and S2/real/context false intact. Next: current-source readiness audit and a separately authorized bounded context protocol. No joins, spacing design or fatigue."
   - id: td018-letter-context
     title: Learn how combining letters changes their strokes
     order: 11
@@ -1801,15 +1801,64 @@ passes:
     - id: ADV-SS-CURRICULUM-006
       advance_id: ADV-SS-CURRICULUM-006
       title: "Letter Context — Bounded Stroke Changes Within Words"
-      status: planned
+      status: in_progress
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-005
       - ADV-SS-HANDVALIDATE-021
-      notes: "Context remains unimplemented and context_training_allowed=false. Upright repair and known n/u/m/mu appearance approval are complete. HANDVALIDATE-023 implements the approved reference contract without rewriting historical style FAIL; HANDVALIDATE-024 passes frozen held-out placement mechanics/replay with 1086 renders and independent 1808-artifact verification. Next: owner appearance review of actual un/nu/um/nn/uu/mm, then explicit matching lower-layer clearance and a separately authorized context protocol. Fixed placement is not joining, spacing design or contextual stroke learning. Preserve frozen evidence; no ink depletion, fatigue or session effects."
+      - ADV-SS-GESTURE-003
+      - ADV-SS-CURRICULUM-015
+      - ADV-SS-HANDVALIDATE-024
+      notes: "P1/P2a and bounded P2b mechanical evidence remain CLEARED:1464 cases,324 presentations and exact three-seed replays. Owner PAUSES P3 width/spacing rankings and downstream selection: near-identical previews are not meaningful evidence of contextual forms. Preserve packet a928389737c6e6c0ff0c2598dc66b625e9b8e13a3dfd6ee63c61423d438a4331, all draft preferences, source pins and failure/recovery costs; no tied labels, rejection or automatic wider bounds inferred. Addendum D defines the new planned td018-stroke-context phase: GESTURE-004 investigation, GESTURE-005 opt-in span/transition contract, CURRICULUM-016 deterministic demonstrator, HANDVALIDATE-025 physical validation, HANDVALIDATE-026 owner/transfer review. First next work is read-only GESTURE-004; no new execution allowance. C006 remains IN PROGRESS as umbrella; old P3/P4/P5 ranking/selection path paused, no fitting, S2/real/context acceptance or natural-variation/fatigue work. Changes uncommitted."
+  - id: td018-stroke-context
+    title: Investigate neighbor-aware stroke forms and explicit boundary transitions
+    order: 12
+    items:
+    - id: ADV-SS-GESTURE-004
+      advance_id: ADV-SS-GESTURE-004
+      title: "Stroke Context — Entry Body Exit and Boundary Investigation"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GESTURE-003
+      - ADV-SS-CURRICULUM-015
+      - ADV-SS-HANDVALIDATE-024
+      notes: "COMPLETE: owner approved proposal and requested GESTURE-005 after discussing generalization. Investigation d7eb422948f7de6696221d2f026559ca603fb84a95e713e9e6cdce5aa95a6b75 remains unchanged; separate approval contract f438dc9f8d4e9c8464dfe183346117b21c3a5f97da60e34fe5539d402b25fd3b freezes lift-only local exceptions/H0-H3. Twelve strings only; triples/new letter families unadmitted. Contrasting-family investigation before word-level expansion. No physical/raster execution or fitting; rankings paused, changes uncommitted."
+    - id: ADV-SS-GESTURE-005
+      advance_id: ADV-SS-GESTURE-005
+      title: "Stroke Context — Versioned Contextual Span and Transition Contract"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-GESTURE-004
+      notes: "COMPLETE: opt-in lift-preserving bounded occurrence contract, previous/following states, body exceptions and exact H0 planning. Approval f438dc9f8d4e9c8464dfe183346117b21c3a5f97da60e34fe5539d402b25fd3b; report 8af42ea3bcec6ac97546856798f1aec970dd96a6cd59a01a1822ef45761f42e4 records192 structural cases and36 exact saved seed-7 null bindings. 261 local tests pass. H1-H3 geometry-only; joins/retraces/new letters/triples reject. No frozen source changes, physical runs, raster generation, fitting, acceptance or budget reset. Changes uncommitted. Next CURRICULUM-016 requires bounded demonstrator/visual protocol; no automatic physical execution."
+    - id: ADV-SS-CURRICULUM-016
+      advance_id: ADV-SS-CURRICULUM-016
+      title: "Stroke Context — Bounded Deterministic n-u-m Demonstrator"
+      status: in_progress
+      owner: shawn
+      dependencies:
+      - ADV-SS-GESTURE-005
+      notes: "F1 CONSTRUCTION BRIEFS PREPARED: TD-018-mutual-nu-construction-briefs specifies J1 distinct upright receiving rise and J2 shared follow-through/rising crown; exact cuts, ports, deterministic rules, envelopes and action/contact ownership. Both letters adapt; standalone/context-off protected. Numeric choices, new contact centers and length endpoints await approval; thinness/curvature unchanged. Proposed F2: two candidates, one batch, no retries, 300s checks plus 300s render, 25MiB, minimum 5GiB free. Next owner review before implementation/execution; fixed-angle shapes before isolated nib rotation. Existing candidates preserved; no new samples, fitting, physical runs or mu. Documentation checks pass; CURRICULUM-016 in progress; HANDVALIDATE-025/026 gated; uncommitted."
+    - id: ADV-SS-HANDVALIDATE-025
+      advance_id: ADV-SS-HANDVALIDATE-025
+      title: "Stroke Context — Independent Physical Boundary Validation"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-CURRICULUM-016
+      notes: "Freeze prospective numeric criteria, complete physical/refinement/seed/replay inventory, independent reader and explicit cumulative resource approval BEFORE execution. Preserve all C006 failure/recovery debits; no inherited fresh allowance. Audit full-nib containment, local body/port/contact/overlap and exact events; include negative controls and fresh replay. No automatic recovery/refit/threshold relaxation or appearance acceptance."
+    - id: ADV-SS-HANDVALIDATE-026
+      advance_id: ADV-SS-HANDVALIDATE-026
+      title: "Stroke Context — Owner Usefulness and Frozen-Rule Transfer Review"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-025
+      notes: "Collect actual owner usefulness/readability/contact judgments from pinned actual examples; no forced ranks or invented approvals. Any held-out transfer needs split provenance declared before selection, frozen rules/development and separate inventory/resource authority. Preserve C006 sealed reservations and no-effect/separate-lettering outcomes. Explicit checkpoint decision before word context; stochastic variability/actions/fatigue remain later."
   - id: td018-word-context
     title: Learn word-boundary stroke effects and validate the hierarchy
-    order: 12
+    order: 13
     items:
     - id: ADV-SS-CURRICULUM-007
       advance_id: ADV-SS-CURRICULUM-007
@@ -1818,7 +1867,8 @@ passes:
       owner: shawn
       dependencies:
       - ADV-SS-CURRICULUM-006
-      notes: "Reuse accepted deliberate gesture actions without learning session effects or overriding frozen action profiles; exact boundary ownership and null context remain valid."
+      - ADV-SS-HANDVALIDATE-026
+      notes: "Deferred until explicit neighbor-aware contextual checkpoint and owner decision after the planned stroke-context phase; completion of planning or C006 affine mechanics alone is insufficient. Reuse scope-qualified actions without learning session effects or overriding frozen profiles; exact boundary ownership and null context remain valid."
     - id: ADV-SS-HANDVALIDATE-011
       advance_id: ADV-SS-HANDVALIDATE-011
       title: "Konrad Layered Acceptance — Stroke Transfer and Revalidated G0–G2"
@@ -1833,7 +1883,7 @@ passes:
       notes: "Audit S0–S4 plus S1-gesture/S1-action, matching tool/controller identities and current G0/G1/G2 with session effects disabled. Missing inventory/review stops real acceptance."
   - id: td018-expressive-later
     title: Deferred ink and expressive evaluation after layered acceptance
-    order: 13
+    order: 14
     items:
     - id: ADV-SS-HANDFLOW-009
       advance_id: ADV-SS-HANDFLOW-009
@@ -1856,7 +1906,7 @@ passes:
       notes: "DEFERRED expressive G3 evaluation of the learned layered candidate; requires matching live G0–G2 and genuine review. Synthetic catalog replay cannot authorize folios; fatigue and broader state effects remain separately scoped."
   - id: td018-folio
     title: Integrate opt-in folios and evaluate the release candidate
-    order: 14
+    order: 15
     items:
     - id: ADV-SS-RENDER-006
       advance_id: ADV-SS-RENDER-006

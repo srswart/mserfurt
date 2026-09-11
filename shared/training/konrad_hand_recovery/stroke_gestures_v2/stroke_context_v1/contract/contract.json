@@ -1,0 +1,17 @@
+{
+  "version": "stroke-context-spans-v1",
+  "candidate_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+  "investigation_sha256": "d7eb422948f7de6696221d2f026559ca603fb84a95e713e9e6cdce5aa95a6b75",
+  "proposal_sha256": "9f0076010c4fdf9d539527e0333bb0d8c36982a458bb493391645201592dad87",
+  "owner_review": "Okay the proposal looks good.  However one question I have is will we later have issues with letters that are much different from n/m/u ?",
+  "owner_implementation_request": "Okay good let's continue on this path.  Let's implement the next advance.",
+  "scope": "Opt-in GESTURE-005 contract only; preserve lifts and canonical sources; no new images, physical runs, fitting, commits or merges",
+  "hypotheses": ["H0", "H1", "H2", "H3"],
+  "previous_gap_bin_xheight": 1.2,
+  "angles_deg": [-1, 0, 1],
+  "maximum_handle_displacement_mm": 0.04,
+  "admitted_transition": "pen_up_transfer",
+  "triple_admission": false,
+  "execution_authorized": false,
+  "fitting_authorized": false
+}

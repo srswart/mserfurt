@@ -1,0 +1,436 @@
+{
+  "version": "nu-receiving-envelope-evaluation-v2",
+  "status": "revised_geometry_pass_nominal_gated",
+  "accepted": false,
+  "structural_pass": true,
+  "revised_geometry_pass": true,
+  "not_started": [
+    "mu",
+    "nominal",
+    "physical"
+  ],
+  "geometry_generations": 0,
+  "raster_renders": 0,
+  "controller_executions": 0,
+  "fitting_evaluations": 0,
+  "approval": {
+    "version": "nu-receiving-envelope-evaluation-v2",
+    "owner_quote": "Okay let's implement the revised checker and reinspect the saved nu candidate **without refitting**.",
+    "pins": {
+      "docs/tech-direction/TD-018-nu-receiving-envelope-revision.md": "9abc82e845aa7e07c3c62c52354614a84f53f2828fa44ad2c1c1eecca65b0457",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/geometry-001/nu-candidate.json": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/geometry-001/report.json": "773ecfc7684284cf01354a18aed4a54a40354c8150c8a6c34ba91b883de27eaa",
+      "scripts/nu_corner_geometry.py": "1d8042685f5854749876de4a8a213d004a64555ce90e00210d817645c29b9c0e",
+      "tests/test_nu_corner_geometry.py": "e6fad3a4d144e31d7058fa2c67f15e1632fff65adc6f34af1194f521e1ba6193",
+      "scripts/stroke_nm_envelope.py": "e9e31cff349a8caba796982d2c751a2571c3c7ae7544da936aa1f840e8cb66e7",
+      "scripts/stroke_nm_construction.py": "1b8fa1266579ea06086af80f4300e4279eea8b098b76c8b93c49dbd90e95d303"
+    },
+    "reinspections": 1,
+    "verification_seconds": 300,
+    "max_output_bytes": 10485760,
+    "minimum_free_bytes": 5368709120,
+    "retries": 0,
+    "geometry_generation": false,
+    "fitting": false,
+    "physical_runs": 0,
+    "images": 0,
+    "mu_authorized": false
+  },
+  "approval_sha256": "ee5d0459d4eafe987517c9617c56ec63ac5c5836e5dba8d8b3fbd444ceae010a",
+  "code_sha256": "ecac8382fea5c167c4c9f8b3edfd317e1e9564f21317c9b7e0acfb575a832e5f",
+  "tests_sha256": "37a773c98bb617f59c3ae3f07e31adbdb6001ba5f6e3b32d5db19f61e1d9a2b2",
+  "checks": {
+    "departure_envelope": {
+      "status": "pass",
+      "delta_mm": 0.003178919367997482,
+      "cap_margin_mm": 0.0013210806320025177,
+      "stationary_roots": [
+        0.01840313414972025
+      ],
+      "recovery_roots": [
+        0.036818754825242245
+      ],
+      "envelope_margin_mm": 0.003091194966098665,
+      "locality_upper_mm": 0.08359011867356339,
+      "locality_margin_mm": 0.028909881326436612
+    },
+    "T_length": {
+      "status": "pass",
+      "lower_mm": 0.9835375017883945,
+      "upper_mm": 0.9835375650955324,
+      "limit_mm": 1.1270044066007159,
+      "margin_mm": 0.1434668415051835
+    },
+    "T_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 8.806225097690568
+    },
+    "R_length": {
+      "status": "pass",
+      "lower_mm": 4.7263674519042205,
+      "upper_mm": 4.726367506217144,
+      "limit_mm": 5.727576502390104,
+      "margin_mm": 1.0012089961729593
+    },
+    "R_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 2.4012940933713374,
+      "margin_per_mm": 6.487594795517551
+    },
+    "R_rightward": {
+      "status": "pass",
+      "minimum_dx": 2.957242779696655,
+      "parameters_checked": [
+        0,
+        1
+      ],
+      "method": "Analytic quadratic minimum including endpoints"
+    },
+    "S_length": {
+      "status": "pass",
+      "lower_mm": 0.6533466854238484,
+      "upper_mm": 0.6533467395800583,
+      "limit_mm": 0.736202725192612,
+      "margin_mm": 0.08285598561255367
+    },
+    "S_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 8.212738378863563
+    },
+    "receiver_top_shift": {
+      "status": "pass",
+      "shift_mm": 0.21020057787590218,
+      "limit_mm": 0.45
+    },
+    "attachments": {
+      "status": "pass",
+      "tangent_errors": [
+        2.282612009149506e-16,
+        4.0072112295064244e-16,
+        0.0,
+        0.0
+      ],
+      "position_errors_mm": [
+        3.510833468576701e-16,
+        0.0
+      ]
+    },
+    "vertical_band": {
+      "status": "pass",
+      "method": "Bernstein derivative signs and control hull"
+    },
+    "thin_core": {
+      "status": "pass",
+      "width_upper_mm": 0.04924429000898052,
+      "limit_mm": 0.08939393789931772,
+      "method": "Direction-independent rectangular support bound over exact constant negative-corner R profile"
+    },
+    "receiving_envelope_v2": {
+      "status": "pass",
+      "delta_mm": 0.0038877847008544344,
+      "cap_mm": 0.0045,
+      "cap_margin_mm": 0.0006122152991455652,
+      "stationary_intervals": [
+        [
+          0.976477127485972,
+          0.976477127487972
+        ]
+      ],
+      "crossing_intervals": [
+        [
+          0.9529281511093552,
+          0.9529281511113552
+        ]
+      ],
+      "endpoint_crossing_factored": true,
+      "original_negative_endpoint_dx": -0.011663354102562806,
+      "maximum_x_upper_mm": 4.38993652501716,
+      "excursion_upper_mm": 0.0001371028930625684,
+      "envelope_margin_mm": 0.0037506818077917004,
+      "locality_upper_mm": 0.05585181304393619,
+      "locality_limit_mm": 0.1125,
+      "locality_margin_mm": 0.056648186956063815,
+      "horizontal_signs": [
+        "positive",
+        "zero at maximum",
+        "negative through endpoint"
+      ],
+      "method": "Exact-rational quadratic coefficients, sign-certified root enclosures; endpoint factored; guarded restricted Bezier hull bounds entire overshoot interval"
+    },
+    "frozen_identity": {
+      "status": "pass",
+      "candidate_sha256": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+      "scope": "All control points, retained bodies, sites, tangents, profiles and contact identities byte-pinned"
+    },
+    "finite_contact_sweep": {
+      "status": "pass",
+      "pairs": [
+        {
+          "pieces": [
+            "T",
+            "retained:0:0"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "retained:0:1"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "retained:0:2"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "retained:0:3"
+          ],
+          "retained_cubic": 0,
+          "join": [
+            0.9672599986155733,
+            0.8689916223825797
+          ],
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "retained:1:0"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "retained:1:1"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "retained:1:2"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "retained:1:3"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:0:0"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:0:1"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:0:2"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:0:3"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:1:0"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:1:1"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:1:2"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "retained:1:3"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:0:0"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:0:1"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:0:2"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:0:3"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:1:0"
+          ],
+          "retained_cubic": 0,
+          "join": [
+            4.3897994221240975,
+            2.955710141880396
+          ],
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:1:1"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:1:2"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "S",
+            "retained:1:3"
+          ],
+          "retained_cubic": 0,
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "R"
+          ],
+          "join": [
+            1.2075566424274427,
+            0.0
+          ],
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "T",
+            "S"
+          ],
+          "join": null,
+          "status": "pass"
+        },
+        {
+          "pieces": [
+            "R",
+            "S"
+          ],
+          "join": [
+            4.164799422124098,
+            3.5
+          ],
+          "status": "pass"
+        }
+      ],
+      "method": "Finite .02mm rectangle Minkowski/control-hull enclosures, guarded separating axes and whole intersection containment; full-contact supersets bound every T/S ramp phase, exact negative corner on R",
+      "ramp_bound": "Conservative envelope proof, not a static-width render or sampled acceptance. Actual ink accumulation is not measured."
+    }
+  },
+  "original_S_rightward": {
+    "status": "fail",
+    "minimum_dx": -0.011663354102562806,
+    "parameters_checked": [
+      0,
+      1
+    ],
+    "method": "Analytic quadratic minimum including endpoints"
+  },
+  "frozen_inputs_unchanged": true,
+  "elapsed_seconds": 5.227678791969083
+}

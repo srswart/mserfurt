@@ -1,0 +1,117 @@
+{
+  "version": "letter-context-bounded-geometry-v1",
+  "authorization": {
+    "owner_request": "Okay let's do P2b—approve and validate bounded stroke changes and their measurement frame.",
+    "geometry_bounds_approved": true,
+    "widths": [
+      0.97,
+      1.0,
+      1.03
+    ],
+    "advances": [
+      -0.05,
+      0.0,
+      0.05
+    ],
+    "frame_approved": true,
+    "context_frame_mm": [
+      -3,
+      30,
+      2,
+      13
+    ],
+    "known_frame_mm": [
+      -3,
+      20,
+      2,
+      13
+    ],
+    "fitting_authorized": false,
+    "larger_physical_budget_authorized": false,
+    "leave_uncommitted": true,
+    "sampling_repair_request": "repair corner sampling, then rerun the same grid without changing geometry or thresholds.",
+    "failed_report_sha256": "a58c673514efc2bd89a23e04b644caa50150a0e21b9864a1c747955f844c7671"
+  },
+  "geometry_frame_status": "pass",
+  "desired_plan_status": "pass",
+  "geometry_cases": 860,
+  "canonical_variant_cases": 430,
+  "desired_plan_cases": 244,
+  "rule_cells_covered": [
+    "m:rise-entry",
+    "m:stem-entry",
+    "n:rise-entry",
+    "n:stem-entry",
+    "u:rise-entry",
+    "u:stem-entry"
+  ],
+  "failures": [],
+  "physical_inventory": {
+    "scope": "Pair variant mechanical gate before preferences; development/probe physical checks follow selection",
+    "runs_by_role_per_process": {
+      "train_pairs": 216,
+      "controls": 12,
+      "known_regression": 16
+    },
+    "runs_per_process": 244,
+    "runs_per_seed_including_replay": 488,
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "renders_per_seed_upper_bound": 1588,
+    "render_accounting": {
+      "actual_desired_overlap_per_run": 3,
+      "train_actual_presentations_per_process": 54,
+      "control_allowance_per_process": 8
+    },
+    "proposed_renders_per_seed": 5000,
+    "proposed_seconds_per_seed": 1800,
+    "historical_h024_worst_seconds_per_seed": 351.9448943339521,
+    "historical_runs_per_seed": 80,
+    "historical_ledger_sha256": "d9bc82fbf1c8b6a562f208976793dd7a55a18bb61d7d6381a9b5f8606532830f",
+    "estimated_seconds_per_seed_without_headroom": 2146.8638554371078,
+    "planning_headroom_fraction": 0.25,
+    "recommended_seconds_per_seed": 2700,
+    "budget_feasible": false,
+    "estimate_limit": "Historical wall-time extrapolation, not a measured runtime guarantee or a completed new run",
+    "physical_execution_authorized": false,
+    "automatic_retries": 0,
+    "automatic_revisions": 0,
+    "future_accounting": "Carry P2b preview/validation debits into the combined C006 seed budget; never reset per arm"
+  },
+  "physical_validation": "not_run_budget_clearance_pending",
+  "frame_proof": "Conservative Bezier control hull plus unstretched physical-edge-v1 footprint; not actual-motion containment",
+  "sealed_holdout_texts_opened": [],
+  "inherited_context_gaps": [
+    {
+      "id": "transformed-occurrences",
+      "required": "Approved opt-in derivation/lineage contract, null replay and nonidentity mechanical envelope; H024 covers unchanged recipes only"
+    },
+    {
+      "id": "new-context-coverage",
+      "required": "New pair/triple and frame/local-window coverage; no inference from current ten fixed placements"
+    },
+    {
+      "id": "preferences-objective",
+      "required": "Owner training labels, exact objective and immutable train/development/test protocol"
+    },
+    {
+      "id": "execution-authorization",
+      "required": "Explicit context experiment/fitting clearance and combined budget; no permission inherited from baseline reuse"
+    },
+    {
+      "id": "broader-layer-admission",
+      "required": "Independent reusable S1/S2 or historical-hand scope needs its own matching-source quality contract; legacy readers remain unchanged"
+    }
+  ],
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "controller_executions": 0,
+  "raster_renders": 0,
+  "optimization_evaluations": 0,
+  "report_sha256": "190cc9975bfb307ebd60b293cb7e62bef49a137bbaf5fe5a217b9f9b88c02cfb",
+  "read_only": true
+}

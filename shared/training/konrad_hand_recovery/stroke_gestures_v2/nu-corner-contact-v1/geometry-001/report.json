@@ -1,0 +1,136 @@
+{
+  "version": "nu-coupled-corner-geometry-v1",
+  "status": "rejected",
+  "accepted": false,
+  "cases": {
+    "nu": {
+      "candidate_sha256": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+      "checks": {
+        "departure_envelope": {
+          "status": "pass",
+          "delta_mm": 0.003178919367997482,
+          "cap_margin_mm": 0.0013210806320025177,
+          "stationary_roots": [
+            0.01840313414972025
+          ],
+          "recovery_roots": [
+            0.036818754825242245
+          ],
+          "envelope_margin_mm": 0.003091194966098665,
+          "locality_upper_mm": 0.08359011867356339,
+          "locality_margin_mm": 0.028909881326436612
+        },
+        "T_length": {
+          "status": "pass",
+          "lower_mm": 0.9835375017883945,
+          "upper_mm": 0.9835375650955324,
+          "limit_mm": 1.1270044066007159,
+          "margin_mm": 0.1434668415051835
+        },
+        "T_curvature": {
+          "status": "pass",
+          "certified_upper_per_mm": 8.806225097690568
+        },
+        "R_length": {
+          "status": "pass",
+          "lower_mm": 4.7263674519042205,
+          "upper_mm": 4.726367506217144,
+          "limit_mm": 5.727576502390104,
+          "margin_mm": 1.0012089961729593
+        },
+        "R_curvature": {
+          "status": "pass",
+          "certified_upper_per_mm": 2.4012940933713374,
+          "margin_per_mm": 6.487594795517551
+        },
+        "R_rightward": {
+          "status": "pass",
+          "minimum_dx": 2.957242779696655,
+          "parameters_checked": [
+            0,
+            1
+          ],
+          "method": "Analytic quadratic minimum including endpoints"
+        },
+        "S_length": {
+          "status": "pass",
+          "lower_mm": 0.6533466854238484,
+          "upper_mm": 0.6533467395800583,
+          "limit_mm": 0.736202725192612,
+          "margin_mm": 0.08285598561255367
+        },
+        "S_curvature": {
+          "status": "pass",
+          "certified_upper_per_mm": 8.212738378863563
+        },
+        "S_rightward": {
+          "status": "fail",
+          "minimum_dx": -0.011663354102562806,
+          "parameters_checked": [
+            0,
+            1
+          ],
+          "method": "Analytic quadratic minimum including endpoints"
+        },
+        "receiver_top_shift": {
+          "status": "pass",
+          "shift_mm": 0.21020057787590218,
+          "limit_mm": 0.45
+        },
+        "attachments": {
+          "status": "pass",
+          "tangent_errors": [
+            2.282612009149506e-16,
+            4.0072112295064244e-16,
+            0.0,
+            0.0
+          ],
+          "position_errors_mm": [
+            3.510833468576701e-16,
+            0.0
+          ]
+        },
+        "vertical_band": {
+          "status": "pass",
+          "method": "Bernstein derivative signs and control hull"
+        },
+        "thin_core": {
+          "status": "pass",
+          "width_upper_mm": 0.04924429000898052,
+          "limit_mm": 0.08939393789931772,
+          "method": "Direction-independent rectangular support bound over exact constant negative-corner R profile"
+        },
+        "finite_contact_sweep": {
+          "status": "not_evaluated",
+          "reason": "Downstream continuous-contact and nonlocal overlap admission stays gated until structural checks pass"
+        }
+      }
+    }
+  },
+  "connector_instances": 1,
+  "raster_renders": 0,
+  "controller_executions": 0,
+  "fitting_evaluations": 0,
+  "approval": {
+    "owner_quote": "Yes implementation approved. Let's do it.",
+    "version": "nu-coupled-corner-geometry-v1",
+    "proposal_sha256": "7f8aff72c7769e5c28eb8eaec4ec3d41251d97320a6ac997c5fdaf6c7a74821c",
+    "contract_report_sha256": "f02c6105d8990616d7c74cb53ebc00030025728c6f1d90d809a65e0e649f1c14",
+    "scope": "One fixed nu and one fixed mu instance; stop on failure/unresolved; no rendering",
+    "seconds": 300,
+    "maximum_instances": 2,
+    "max_output_bytes": 10485760,
+    "minimum_free_bytes": 5368709120,
+    "retries": 0,
+    "raster_renders": 0,
+    "controller_executions": 0,
+    "fitting": false
+  },
+  "approval_sha256": "2d155b95a64287c3487b1651a0098ac2496510aa637bcc3c0e8f103672d2b8b9",
+  "code_sha256": "1d8042685f5854749876de4a8a213d004a64555ce90e00210d817645c29b9c0e",
+  "tests_sha256": "e6fad3a4d144e31d7058fa2c67f15e1632fff65adc6f34af1194f521e1ba6193",
+  "not_started": [
+    "mu"
+  ],
+  "elapsed_seconds": 5.709008750040084
+}

@@ -1,0 +1,20 @@
+{
+  "scope": "Read-only desired-plan inspection, not physical execution or sampler repair",
+  "report_sha256": "a58c673514efc2bd89a23e04b644caa50150a0e21b9864a1c747955f844c7671",
+  "fixture": "train_pairs-mn",
+  "refinement": "subdivision",
+  "rule": {"id": "m:stem-entry", "width_scale": 0.97, "advance_delta": 0.0},
+  "corner": "0:3",
+  "corner_mm": [0.9320799431546192, 10.0],
+  "matches": [
+    {"plan_index": 318, "distance_mm": 0.0, "owner": "0:3", "cubic_index": 0, "parameter": 0.0},
+    {"plan_index": 319, "distance_mm": 1.4221692604176232e-14, "owner": "0:3", "cubic_index": 0, "parameter": 1.3255722673748402e-14}
+  ],
+  "existing_port_tolerance_mm": 1e-8,
+  "required_match_count": 1,
+  "observed_match_count": 2,
+  "sampler_changed": false,
+  "thresholds_changed": false,
+  "controller_executions": 0,
+  "raster_renders": 0
+}

@@ -1,0 +1,465 @@
+{
+  "status": "nominal_packet_complete_owner_review_pending",
+  "approval_sha256": "8ca9757e8946b35b3b0198f93231204d64a27d9352fe2e2a4b7d0334bbef86e3",
+  "sources": {
+    "candidate_file_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "candidate_object_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+    "original_manifest_sha256": "adec239210591bf83b37abbe22543012e89ed5912fea2aea359be4e958fd086e",
+    "original_artifacts_verified": 12771,
+    "recovery_contract_sha256": "1b454630045689f257ac322f1334cebf614c106d748ca00301f5edfcde01b405",
+    "recovery_report_sha256": "e294db3edc76d2d22f28548e8a5f54834c61e9c3d543b6102410a274ce20dc98",
+    "recovery_artifacts_verified": 2455,
+    "dimension_contract_sha256": "56e3ed722e086ec1415ea54c179070985c8d4841c19368a7c666db56d4f31f11",
+    "dimension_report_sha256": "251d4fd3ff6a9c11ea0162b2b73108d679e22fa6ea7fd2a82756e103fdaddb5b",
+    "scope": "Verify saved artifact bytes and frozen source contracts; reuse full independent measurement, do not rerun it"
+  },
+  "image_checks": [
+    {
+      "id": "n:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        151,
+        291
+      ]
+    },
+    {
+      "id": "n:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        151,
+        291
+      ]
+    },
+    {
+      "id": "n:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        151,
+        291
+      ]
+    },
+    {
+      "id": "n:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        151,
+        291
+      ]
+    },
+    {
+      "id": "u:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        150,
+        291
+      ]
+    },
+    {
+      "id": "u:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        150,
+        291
+      ]
+    },
+    {
+      "id": "u:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        150,
+        291
+      ]
+    },
+    {
+      "id": "u:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        150,
+        291
+      ]
+    },
+    {
+      "id": "m:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        210,
+        291
+      ]
+    },
+    {
+      "id": "m:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        210,
+        291
+      ]
+    },
+    {
+      "id": "m:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        210,
+        291
+      ]
+    },
+    {
+      "id": "m:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        210,
+        291
+      ]
+    },
+    {
+      "id": "nn:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "nn:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "nn:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "nn:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "nm:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "nm:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "nm:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "nm:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "un:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "un:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "un:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "un:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "um:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "um:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "um:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "um:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        390,
+        291
+      ]
+    },
+    {
+      "id": "mn:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        454,
+        291
+      ]
+    },
+    {
+      "id": "mn:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        454,
+        291
+      ]
+    },
+    {
+      "id": "mn:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        454,
+        291
+      ]
+    },
+    {
+      "id": "mn:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        454,
+        291
+      ]
+    },
+    {
+      "id": "mm:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        514,
+        291
+      ]
+    },
+    {
+      "id": "mm:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        514,
+        291
+      ]
+    },
+    {
+      "id": "mm:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        514,
+        291
+      ]
+    },
+    {
+      "id": "mm:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        514,
+        291
+      ]
+    },
+    {
+      "id": "nu:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "nu:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "nu:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "nu:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "uu:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "uu:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "uu:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "uu:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        330,
+        291
+      ]
+    },
+    {
+      "id": "mu:H0",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        453,
+        291
+      ]
+    },
+    {
+      "id": "mu:H1",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        453,
+        291
+      ]
+    },
+    {
+      "id": "mu:H2",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        453,
+        291
+      ]
+    },
+    {
+      "id": "mu:H3",
+      "nonwhite_bbox_pixels": [
+        72,
+        152,
+        453,
+        291
+      ]
+    }
+  ],
+  "nominal_raster_renders": 48,
+  "extra_raster_renders": 0,
+  "controller_executions": 0,
+  "optimization_evaluations": 0,
+  "seconds_before_report": 8.284724458004348,
+  "bytes_before_report": 732745,
+  "code_sha256": "737075c2239d29b844555e91c8bc4c0ba6d9b61c77923c6a43835d8dddd4abdf",
+  "tests_sha256": "a5c2df9fde9d229e04758892c41c5621dccc741a1cbd9418303010f01ed68a71",
+  "template_sha256": "f416161789e05b59d5200f6ea7429ae9a6ab05c1e89198bd4065dc80949b9bad",
+  "manifest_sha256": "cf651cad0b65e8bb1ddfd55127fd78ed981f158c6f0dab61871491c91b1dd77a",
+  "html_sha256": "759885d3369dcac32b961df0abf502a5b8e89774f91b4ebbcf8dd4f3e4fb8393",
+  "physical_accepted": false,
+  "owner_usefulness_review": "pending",
+  "S2_accepted": false,
+  "real_accepted": false
+}

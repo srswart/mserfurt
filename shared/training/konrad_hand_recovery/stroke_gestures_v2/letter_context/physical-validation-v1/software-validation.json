@@ -1,0 +1,22 @@
+{
+  "scope": "Software preparation checks using archived H024 evidence and controller stubs; not a physical experiment",
+  "contract_sha256": "db909d00cd3d7c26cff021e2c9ff9ad19a6ebb8ca08bfd873bd41dd13d443eb5",
+  "command": ".venv/bin/python -m pytest -q tests/test_letter_context_physical.py tests/test_letter_context_variants.py tests/test_letter_context_contract.py tests/test_current_foundation_readiness.py tests/test_upright_reference_contract.py tests/test_upright_event_replay.py",
+  "passed": 205,
+  "new_physical_preparation_tests": 38,
+  "existing_regression_tests": 167,
+  "elapsed_seconds": 228.38,
+  "red_before_implementation": "ImportError: cannot import name letter_context_physical; collection failed before new modules existed",
+  "arrive_plan_check": "pass",
+  "generated_agent_rules_check": "pass",
+  "local_links_check": "pass",
+  "whitespace_check": "pass",
+  "strict_pr_metadata_check": "blocked: installed parser returns ids=[] despite explicit advance title/body/label",
+  "provider_ci_claimed": false,
+  "controller_executions": 0,
+  "raster_renders": 0,
+  "optimization_evaluations": 0,
+  "physical_acceptance_claimed": false,
+  "committed": false,
+  "merged": false
+}

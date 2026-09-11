@@ -1,6 +1,9 @@
 {
   "advance": "ADV-SS-HANDVALIDATE-024",
-  "status": "pending_held_out_actual_review",
+  "status": "approved_held_out_actual_appearance",
+  "reviewed_by": "shawn",
+  "owner_statement": "Looks good -- what is next ?",
+  "approval_boundary": "Appearance approval for the six displayed seed-7 base samples and their exact replays only; not new style accuracy, lower-layer readiness or context-training authorization.",
   "candidate_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
   "report_sha256": "25b0e886ab643ff5dee969d1393b1f3f1e235e75f945e3c94025aedcfffe36b4",
   "known_regressions": {
@@ -11,32 +14,32 @@
   },
   "placements": {
     "un": {
-      "verdict": "pending",
+      "verdict": "keep",
       "fixture_id": "placement-un",
       "actual_image": "run-001/seed-7/first/placement-un-actual-full.png"
     },
     "nu": {
-      "verdict": "pending",
+      "verdict": "keep",
       "fixture_id": "placement-nu",
       "actual_image": "run-001/seed-7/first/placement-nu-actual-full.png"
     },
     "um": {
-      "verdict": "pending",
+      "verdict": "keep",
       "fixture_id": "placement-um",
       "actual_image": "run-001/seed-7/first/placement-um-actual-full.png"
     },
     "nn": {
-      "verdict": "pending",
+      "verdict": "keep",
       "fixture_id": "placement-nn",
       "actual_image": "run-001/seed-7/first/placement-nn-actual-full.png"
     },
     "uu": {
-      "verdict": "pending",
+      "verdict": "keep",
       "fixture_id": "placement-uu",
       "actual_image": "run-001/seed-7/first/placement-uu-actual-full.png"
     },
     "mm": {
-      "verdict": "pending",
+      "verdict": "keep",
       "fixture_id": "placement-mm",
       "actual_image": "run-001/seed-7/first/placement-mm-actual-full.png"
     }

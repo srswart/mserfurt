@@ -1,0 +1,267 @@
+{
+  "version": "nm-tangent-envelope-evaluation-v2",
+  "status": "geometry_pass",
+  "accepted": false,
+  "new_geometries": 0,
+  "raster_renders": 0,
+  "physical_runs": 0,
+  "fitting_evaluations": 0,
+  "approval": {
+    "version": "nm-tangent-envelope-evaluation-v2",
+    "owner_quote": "Okay please implement the revised checker and reinspecting the saved candidate.",
+    "revision_sha256": "2cec3eb8cf243f56a901d51d57ef5f38e318966839bd732f6a72965f164bda0b",
+    "saved_candidate_sha256": "5b570b3df83e88dea38c4faf3b3c4badc121bf2055b0a0631efebf1b515b434c",
+    "original_report_sha256": "1f5cb5b87bb4aa6a264c09bc8a9bf0fccf6efacc24935f8b1327a3277d8f2a80",
+    "helper_sha256": "1b8fa1266579ea06086af80f4300e4279eea8b098b76c8b93c49dbd90e95d303",
+    "reinspections": 1,
+    "verification_seconds": 300,
+    "conditional_nominal_seconds": 300,
+    "max_output_bytes": 104857600,
+    "minimum_free_bytes": 5368709120,
+    "geometry_generation": false,
+    "fitting": false,
+    "physical_runs": 0,
+    "retries": 0
+  },
+  "approval_sha256": "333139c35fded91dac0c54683c03edbd16437b7ef17fc02eaa674a1de01cd35c",
+  "checker_sha256": "e9e31cff349a8caba796982d2c751a2571c3c7ae7544da936aa1f840e8cb66e7",
+  "tests_sha256": "886ef4ea3f5a1b9757d472b9a586598f472c520fe1cbd4fb96b2af0c048f4961",
+  "original_extent_check": {
+    "status": "unresolved",
+    "method": "Bernstein control hull and derivative signs; positive interior height; sole baseline join B"
+  },
+  "checks": {
+    "attachments": {
+      "status": "pass",
+      "tangent_errors": [
+        2.177751704867561e-16,
+        0.0,
+        1.6711069443220838e-16
+      ],
+      "position_errors_mm": [
+        3.510833468576701e-16,
+        1.1102230246251565e-16
+      ]
+    },
+    "length": {
+      "status": "pass",
+      "upper_mm": 4.432965778012767,
+      "lower_mm": 4.43296566175456,
+      "limit_mm": 4.797308243701987,
+      "margin_mm": 0.36434246568921935
+    },
+    "turn_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 8.806225097690568
+    },
+    "transfer_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 5.5189552704256055
+    },
+    "finite_nib_overlap": {
+      "status": "pass",
+      "pairs": [
+        {
+          "new": "T",
+          "retained": 0,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 1,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 2,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 3,
+          "cubic": 0,
+          "splice_center_mm": [
+            0.9672599986155733,
+            0.8689916223825797
+          ],
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 4,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 5,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 6,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 7,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 8,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T",
+          "retained": 9,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 0,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 1,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 2,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 3,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 4,
+          "cubic": 0,
+          "splice_center_mm": [
+            4.389025731007817,
+            0.8689916223825799
+          ],
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 5,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 6,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 7,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 8,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "R",
+          "retained": 9,
+          "cubic": 0,
+          "splice_center_mm": null,
+          "status": "pass"
+        },
+        {
+          "new": "T/R",
+          "splice_center_mm": [
+            1.2075566424274427,
+            0.0
+          ],
+          "status": "pass"
+        }
+      ],
+      "method": "Conservative control-hull swept boxes; recursive de Casteljau; full intersection enclosure inside splice disk or disjoint boxes",
+      "coordinate_guard_mm": 1e-09,
+      "max_subdivision_depth": 24,
+      "nib_full_edge_mm": 0.45,
+      "nib_y_down_angle_deg": 40
+    },
+    "revised_envelope": {
+      "status": "pass",
+      "delta_mm": 0.0031789193679973775,
+      "cap_mm": 0.0045,
+      "cap_margin_mm": 0.0013210806320026222,
+      "original_negative_dx": -0.00953675810399257,
+      "stationary_parameters": [
+        0.01840313414972025
+      ],
+      "recovery_parameters": [
+        0.036818754825242245
+      ],
+      "stationary_intervals": [
+        [
+          0.018403134148720253,
+          0.01840313415072025
+        ]
+      ],
+      "recovery_intervals": [
+        [
+          0.036818754824242246,
+          0.03681875482624224
+        ]
+      ],
+      "minimum_x_interval_mm": [
+        0.9671722742136745,
+        0.9671722762183671
+      ],
+      "maximum_left_excursion_upper_mm": 8.772440189883847e-05,
+      "envelope_margin_mm": 0.003091194966098554,
+      "locality_radius_upper_mm": 0.08359011867356339,
+      "locality_limit_mm": 0.1125,
+      "locality_margin_mm": 0.028909881326436612,
+      "method": "Exact-rational polynomial coefficients, 80-digit quadratic roots, guarded extrema; restricted Bezier convex hull locality"
+    },
+    "saved_identity": {
+      "status": "pass",
+      "sha256": "5b570b3df83e88dea38c4faf3b3c4badc121bf2055b0a0631efebf1b515b434c",
+      "method": "Exact file pin; no construction function called"
+    }
+  },
+  "elapsed_seconds": 9.172015125048347
+}

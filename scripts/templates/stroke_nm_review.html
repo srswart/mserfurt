@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n → m · nominal construction review</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f2ec;color:#202b33;font:16px/1.5 system-ui,sans-serif}main{max-width:1240px;margin:auto;padding:28px 20px}h1{font-size:32px;margin:10px 0}h2{font-size:18px;margin:0}p{max-width:85ch}.eyebrow{font-size:12px;font-weight:750;letter-spacing:.12em;color:#765427}.toolbar{display:flex;gap:20px;flex-wrap:wrap;align-items:center;padding:15px 0}select,button,textarea{font:inherit;padding:8px;border:1px solid #aaa;border-radius:5px;background:white}label{display:flex;align-items:center;gap:8px}article{margin:18px 0;border:1px solid #ccc;border-radius:8px;overflow:hidden;background:white}header{padding:12px 16px;background:#e7eceb;display:flex;justify-content:space-between;gap:12px}.viewport{overflow:auto}.viewport img{display:block;width:100%;height:auto;max-width:none}.zoomed img{width:400%}.note{font-size:14px;color:#4b565b}fieldset{margin:25px 0;padding:18px;border:1px solid #bbb}fieldset label{display:block;margin:12px 0}textarea{display:block;width:100%;min-height:90px}a{color:#225c64}button{cursor:pointer}#control-note{font-weight:600}@media(max-width:500px){main{padding:16px 10px}h1{font-size:25px}header{display:block}.toolbar label{flex-wrap:wrap}}
+</style>
+<main>
+<div class="eyebrow">NOMINAL CONSTRUCTION — NOT ACTUAL INK</div>
+<h1>A purposeful connection—or better apart?</h1>
+<p>The same upright letters, positions and spacing. B3 replaces only the end of n and beginning of m with the approved turn and pen-down transfer. No fitting, fatigue or physical simulation.</p>
+<div class="toolbar">
+<label>Specimen <select id="specimen"><option>nm</option><option>n</option><option>m</option><option>nn</option><option>mm</option></select></label>
+<label><input type="checkbox" id="zoom"> 4× inspection zoom</label>
+<a href="report.json">Evidence report</a>
+</div>
+<p id="control-note"></p>
+<article><header><h2>B0 · unchanged separation</h2><span class="note">Full frame · 33 × 11 mm · 900 dpi</span></header><div class="viewport"><img id="before" width="1169" height="390" alt="Unchanged canonical specimen"></div></article>
+<article><header><h2>B3 · joint construction</h2><span class="note">Same frame, tool and placement</span></header><div class="viewport"><img id="after" width="1169" height="390" alt="Joint construction specimen"></div></article>
+<p class="note">Full-frame comparisons are the default; screen size is not calibrated physical size. Zoom enlarges the same PNGs, not a new rendering. The four controls must look identical. Only nm should change.</p>
+<fieldset><legend>Your usefulness review</legend>
+<p>Does the connected specimen still read as an upright n followed by m? Does the long low connection look purposeful, or like an underline? Separation is a valid preference.</p>
+<label>Preference <select id="preference"><option value="">Not reviewed</option><option value="connected">Connected nm preferred</option><option value="separate">Separate letters preferred</option><option value="uncertain">Uncertain / needs discussion</option></select></label>
+<label>Notes<textarea id="notes" placeholder="Readability, connector length, entry/exit shape…"></textarea></label>
+<button id="export">Export my review</button><p class="note" id="export-status">No preference is recorded until you choose one. Export downloads locally; it does not submit acceptance.</p>
+</fieldset>
+</main>
+<script>
+const manifest = __MANIFEST__;
+const specimen = document.querySelector('#specimen');
+const zoom = document.querySelector('#zoom');
+function update(){
+  for(const [mode,identifier] of [['B0','before'],['B3','after']]){
+    document.getElementById(identifier).src=manifest.find(row=>row.text===specimen.value&&row.mode===mode).src;
+  }
+  document.getElementById('control-note').textContent=specimen.value==='nm'?'Active comparison: examine the low n-to-m connection.':'Unchanged control: both images are pixel-identical.';
+  document.querySelectorAll('.viewport').forEach(view=>{view.classList.toggle('zoomed',zoom.checked);view.scrollLeft=0;});
+}
+specimen.addEventListener('change',update);zoom.addEventListener('change',update);
+let synchronizing=false;
+document.querySelectorAll('.viewport').forEach(view=>view.addEventListener('scroll',()=>{
+  if(synchronizing)return;synchronizing=true;
+  document.querySelectorAll('.viewport').forEach(other=>{if(other!==view)other.scrollLeft=view.scrollLeft;});
+  requestAnimationFrame(()=>{synchronizing=false;});
+}));
+document.getElementById('export').addEventListener('click',()=>{
+  const preference=document.getElementById('preference').value;
+  if(!preference){document.getElementById('export-status').textContent='Choose a preference before exporting.';return;}
+  const review={version:'nm-nominal-owner-review-v1',preference,notes:document.getElementById('notes').value,images:manifest.map(row=>({src:row.src,sha256:row.sha256})),physical_acceptance:false};
+  const anchor=document.createElement('a');anchor.href=URL.createObjectURL(new Blob([JSON.stringify(review,null,2)],{type:'application/json'}));anchor.download='nm-owner-review.json';anchor.click();setTimeout(()=>URL.revokeObjectURL(anchor.href),1000);
+});
+update();
+</script>
+</html>

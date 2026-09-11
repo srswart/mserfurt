@@ -1,0 +1,1652 @@
+{
+  "nu": {
+    "version": "nu-boundary-actions-v1",
+    "contact_version": "boundary-contact-decimal-v1",
+    "exposed_fixture": "nu",
+    "candidate_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+    "canonical_compilation_sha256": "c3d915a49d3d09b693fba7bee4b1fe079bd08303f21cad9752ee718bd21f3671",
+    "proposal_sha256": "7f8aff72c7769e5c28eb8eaec4ec3d41251d97320a6ac997c5fdaf6c7a74821c",
+    "selection": {
+      "departure_role": "final_descending_stem",
+      "receiving_role": "first_u_descending_stem",
+      "policy": "explicit_connection_permitted",
+      "layout_sha256": "c3d915a49d3d09b693fba7bee4b1fe079bd08303f21cad9752ee718bd21f3671"
+    },
+    "tool": {
+      "width_mm": 0.45,
+      "thickness_mm": 0.02,
+      "physical_y_down_angle_deg": 40,
+      "pressure": 0.5,
+      "speed_cap_mm_s": 12,
+      "edge_endpoint_rate_per_s": 3
+    },
+    "profiles": {
+      "full": [
+        [
+          "0",
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ]
+      ],
+      "departure": [
+        [
+          "0",
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0",
+          "0.1"
+        ]
+      ],
+      "core": [
+        [
+          "0",
+          "0",
+          "0.1"
+        ],
+        [
+          "1",
+          "0",
+          "0.1"
+        ]
+      ],
+      "receiving": [
+        [
+          "0",
+          "0",
+          "0.1"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ]
+      ]
+    },
+    "retained": [
+      {
+        "piece_id": "retained:0:0",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            -0.2,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "start",
+          "primitive_index": 0,
+          "recipe": "n",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:0",
+          "rules": [],
+          "gesture": "stem",
+          "gesture_index": 0,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "0:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "ebdf71189a74f3135bbb7424d7b98fc1b51121d2c5148932624bfb60448e17fa",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:1",
+        "canonical_owner": {
+          "primitive": "rise",
+          "offset": [
+            -0.2,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "corner",
+          "primitive_index": 1,
+          "recipe": "n",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:1",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "28af70b15cc0d657422c6b9348fad396d748cf6e1cdea76ff9fc20fb366f66d7",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:2",
+        "canonical_owner": {
+          "primitive": "upper-return",
+          "offset": [
+            -0.12000000000000001,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 2,
+          "recipe": "n",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:2",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 1,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "86e1df0b4e593314a0139fb93e3cd67fcf926e6f71b7dfde36f8167b2a49e885",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:3",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            0.2807304692649836,
+            0
+          ],
+          "scale": 0.7646121597469803,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 3,
+          "recipe": "n",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:3",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 2,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+        "source_interval": [
+          "0",
+          "0.7648068784772746"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:0",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            -0.2,
+            0.24828332068073714
+          ],
+          "scale": 0.7517166793192629,
+          "rotation_deg": 0,
+          "transition": "start",
+          "primitive_index": 0,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:0",
+          "rules": [],
+          "gesture": "underturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "1:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "5f51436582bb1ff98ce8a9680a1e4e52202e2e3acf1eb7aa50312afd7c76016f",
+        "source_interval": [
+          "0.25",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:1",
+        "canonical_owner": {
+          "primitive": "lower-return",
+          "offset": [
+            -0.2,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 1,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:1",
+          "rules": [],
+          "gesture": "underturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 1,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "1:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+          "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "29759662ccaf25e19f1bb2d9ef72026f6a5d69b777ecf9ad1facfa2795d45503",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:2",
+        "canonical_owner": {
+          "primitive": "rise",
+          "offset": [
+            0.19397199458298725,
+            0.11695932248640808
+          ],
+          "scale": 0.9831346124131943,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 2,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:2",
+          "rules": [],
+          "gesture": "underturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 2,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "1:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "fa7a8aab598f1206a4452686303610343d9d5f320e731245bdd20981b6fd0049",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:3",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            0.2726227635760428,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "corner",
+          "primitive_index": 3,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:3",
+          "rules": [],
+          "gesture": "stem",
+          "gesture_index": 1,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "1:1",
+          "overlap_contributors": [
+            "1:0"
+          ],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "8d7cc5982ad2f15be33841d57188382043210bf5008b79131158f6143dab0987",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      }
+    ],
+    "boundary_slots": [
+      {
+        "piece_id": "T",
+        "role": "derived_departure",
+        "source_owner": "0:3",
+        "removed_interval": [
+          "0.7648068784772746",
+          "1"
+        ],
+        "contributors": [
+          "0:3"
+        ],
+        "contact_profile": "departure",
+        "contact": "pen-down",
+        "contact_run_ref": "proposed-boundary-run"
+      },
+      {
+        "piece_id": "R",
+        "role": "boundary",
+        "source_owner": null,
+        "removed_interval": null,
+        "contributors": [
+          "0:3",
+          "1:0"
+        ],
+        "contact_profile": "core",
+        "contact": "pen-down",
+        "contact_run_ref": "proposed-boundary-run"
+      },
+      {
+        "piece_id": "S",
+        "role": "derived_receiving",
+        "source_owner": "1:0",
+        "removed_interval": [
+          "0",
+          "0.25"
+        ],
+        "contributors": [
+          "0:3",
+          "1:0"
+        ],
+        "contact_profile": "receiving",
+        "contact": "pen-down",
+        "contact_run_ref": "proposed-boundary-run"
+      }
+    ],
+    "joins": [
+      {
+        "name": "A",
+        "pieces": [
+          "retained:0:3",
+          "T"
+        ],
+        "edge_state": [
+          "0",
+          "1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      },
+      {
+        "name": "B",
+        "pieces": [
+          "T",
+          "R"
+        ],
+        "edge_state": [
+          "0",
+          "0.1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      },
+      {
+        "name": "D",
+        "pieces": [
+          "R",
+          "S"
+        ],
+        "edge_state": [
+          "0",
+          "0.1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      },
+      {
+        "name": "C",
+        "pieces": [
+          "S",
+          "retained:1:0"
+        ],
+        "edge_state": [
+          "0",
+          "1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      }
+    ],
+    "shared_contact_run": {
+      "id": "proposed-boundary-run",
+      "does_not_replace_canonical_owner": true
+    },
+    "piece_cap": 13,
+    "geometry_present": false,
+    "geometry_approved": false,
+    "nominal_execution_approved": false,
+    "physical_execution_approved": false
+  },
+  "mu": {
+    "version": "nu-boundary-actions-v1",
+    "contact_version": "boundary-contact-decimal-v1",
+    "exposed_fixture": "mu",
+    "candidate_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+    "canonical_compilation_sha256": "18787aa9cf3062641d86d5c75cd09449e07895f73c50841eafe2cbe41329eb19",
+    "proposal_sha256": "7f8aff72c7769e5c28eb8eaec4ec3d41251d97320a6ac997c5fdaf6c7a74821c",
+    "selection": {
+      "departure_role": "final_descending_stem",
+      "receiving_role": "first_u_descending_stem",
+      "policy": "explicit_connection_permitted",
+      "layout_sha256": "18787aa9cf3062641d86d5c75cd09449e07895f73c50841eafe2cbe41329eb19"
+    },
+    "tool": {
+      "width_mm": 0.45,
+      "thickness_mm": 0.02,
+      "physical_y_down_angle_deg": 40,
+      "pressure": 0.5,
+      "speed_cap_mm_s": 12,
+      "edge_endpoint_rate_per_s": 3
+    },
+    "profiles": {
+      "full": [
+        [
+          "0",
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ]
+      ],
+      "departure": [
+        [
+          "0",
+          "0",
+          "1"
+        ],
+        [
+          "1",
+          "0",
+          "0.1"
+        ]
+      ],
+      "core": [
+        [
+          "0",
+          "0",
+          "0.1"
+        ],
+        [
+          "1",
+          "0",
+          "0.1"
+        ]
+      ],
+      "receiving": [
+        [
+          "0",
+          "0",
+          "0.1"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ]
+      ]
+    },
+    "retained": [
+      {
+        "piece_id": "retained:0:0",
+        "canonical_owner": {
+          "primitive": "rise",
+          "offset": [
+            -0.2,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "start",
+          "primitive_index": 0,
+          "recipe": "m",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:0",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "0:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "28af70b15cc0d657422c6b9348fad396d748cf6e1cdea76ff9fc20fb366f66d7",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:1",
+        "canonical_owner": {
+          "primitive": "upper-return",
+          "offset": [
+            -0.12000000000000001,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 1,
+          "recipe": "m",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:1",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 1,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "0:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "86e1df0b4e593314a0139fb93e3cd67fcf926e6f71b7dfde36f8167b2a49e885",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:2",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            0.2807304692649836,
+            0
+          ],
+          "scale": 0.7646121597469803,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 2,
+          "recipe": "m",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:2",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 2,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "0:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:3",
+        "canonical_owner": {
+          "primitive": "rise",
+          "offset": [
+            0.2807304692649836,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "corner",
+          "primitive_index": 3,
+          "recipe": "m",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:3",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "0b5e85bbb591c6d578092ee133498f7b2f57639519df6050530b6850721bde93",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:4",
+        "canonical_owner": {
+          "primitive": "upper-return",
+          "offset": [
+            0.3607304692649836,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 4,
+          "recipe": "m",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:4",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 1,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "820f2c423ca6f994faa85f1704e35209e8cf174222263d8fc01407a378cfc7e5",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:0:5",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            0.7614609385299671,
+            0
+          ],
+          "scale": 0.7646121597469803,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 5,
+          "recipe": "m",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:5",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 2,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+        "source_interval": [
+          "0",
+          "0.7648068784772746"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:0",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            -0.2,
+            0.24828332068073714
+          ],
+          "scale": 0.7517166793192629,
+          "rotation_deg": 0,
+          "transition": "start",
+          "primitive_index": 0,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:0",
+          "rules": [],
+          "gesture": "underturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "1:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "563d0ef4054604abd1e12d8369e140ca1d823967c914694ae3c2f1233c76e6cb",
+        "source_interval": [
+          "0.25",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:1",
+        "canonical_owner": {
+          "primitive": "lower-return",
+          "offset": [
+            -0.2,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 1,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:1",
+          "rules": [],
+          "gesture": "underturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 1,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "1:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+          "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "642bc964dcb66f882ff0501e99f969ae50d654e04604077128ea6999f861abad",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:2",
+        "canonical_owner": {
+          "primitive": "rise",
+          "offset": [
+            0.19397199458298725,
+            0.11695932248640808
+          ],
+          "scale": 0.9831346124131943,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 2,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:2",
+          "rules": [],
+          "gesture": "underturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 2,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "1:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "a740ca3d92e391d310a916e5be762cb2ae337f4340b04f607a1a344d04500bd7",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      },
+      {
+        "piece_id": "retained:1:3",
+        "canonical_owner": {
+          "primitive": "stem",
+          "offset": [
+            0.2726227635760428,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "corner",
+          "primitive_index": 3,
+          "recipe": "u",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:3",
+          "rules": [],
+          "gesture": "stem",
+          "gesture_index": 1,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "1:1",
+          "overlap_contributors": [
+            "1:0"
+          ],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        },
+        "canonical_geometry_sha256": "daa8da5f13c9b0e3bf91ff7e4531907f6ec95f696fc008356936e800bc6d66f6",
+        "source_interval": [
+          "0",
+          "1"
+        ],
+        "canonical_action": {
+          "frame": "physical-y-down",
+          "orientation": [
+            [
+              0,
+              40
+            ],
+            [
+              1,
+              40
+            ]
+          ],
+          "edge": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "pressure": 0.5,
+          "speed_mm_s": 12
+        },
+        "boundary_override": null,
+        "contact_profile": "full",
+        "contact": "pen-down"
+      }
+    ],
+    "boundary_slots": [
+      {
+        "piece_id": "T",
+        "role": "derived_departure",
+        "source_owner": "0:5",
+        "removed_interval": [
+          "0.7648068784772746",
+          "1"
+        ],
+        "contributors": [
+          "0:5"
+        ],
+        "contact_profile": "departure",
+        "contact": "pen-down",
+        "contact_run_ref": "proposed-boundary-run"
+      },
+      {
+        "piece_id": "R",
+        "role": "boundary",
+        "source_owner": null,
+        "removed_interval": null,
+        "contributors": [
+          "0:5",
+          "1:0"
+        ],
+        "contact_profile": "core",
+        "contact": "pen-down",
+        "contact_run_ref": "proposed-boundary-run"
+      },
+      {
+        "piece_id": "S",
+        "role": "derived_receiving",
+        "source_owner": "1:0",
+        "removed_interval": [
+          "0",
+          "0.25"
+        ],
+        "contributors": [
+          "0:5",
+          "1:0"
+        ],
+        "contact_profile": "receiving",
+        "contact": "pen-down",
+        "contact_run_ref": "proposed-boundary-run"
+      }
+    ],
+    "joins": [
+      {
+        "name": "A",
+        "pieces": [
+          "retained:0:5",
+          "T"
+        ],
+        "edge_state": [
+          "0",
+          "1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      },
+      {
+        "name": "B",
+        "pieces": [
+          "T",
+          "R"
+        ],
+        "edge_state": [
+          "0",
+          "0.1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      },
+      {
+        "name": "D",
+        "pieces": [
+          "R",
+          "S"
+        ],
+        "edge_state": [
+          "0",
+          "0.1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      },
+      {
+        "name": "C",
+        "pieces": [
+          "S",
+          "retained:1:0"
+        ],
+        "edge_state": [
+          "0",
+          "1"
+        ],
+        "geometric_continuity": "not_evaluated_no_geometry"
+      }
+    ],
+    "shared_contact_run": {
+      "id": "proposed-boundary-run",
+      "does_not_replace_canonical_owner": true
+    },
+    "piece_cap": 13,
+    "geometry_present": false,
+    "geometry_approved": false,
+    "nominal_execution_approved": false,
+    "physical_execution_approved": false
+  }
+}

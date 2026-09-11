@@ -1,0 +1,171 @@
+{
+  "version": "current-connected-foundation-baseline-v1",
+  "status": "complete",
+  "source_pins": {
+    "report.json": "25b0e886ab643ff5dee969d1393b1f3f1e235e75f945e3c94025aedcfffe36b4",
+    "inspection.json": "bda0a94c03a4d8a870cf398137e29c1e093349c0b8f1345a71a4da0caa3c499d",
+    "actual-review.json": "cf890ca88e8295c1a3e66a7ae71545ba7806e3159600b13274f241d1ce06a076"
+  },
+  "candidate_file_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+  "candidate_object_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+  "source_artifacts_verified": 1808,
+  "core_identity_count": 206,
+  "core_identity_sha256": "c666d259186e327ffbced1aa68c88e9ad0e4de6a4302ae1e0654c73b178493bf",
+  "missing_baseline_inventory": [],
+  "baseline_readiness": "pass",
+  "purpose": "frozen-baseline-reuse",
+  "baseline_scope": {
+    "fixtures": [
+      {
+        "id": "letter-n",
+        "kind": "letter",
+        "text": "n",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "letter-u",
+        "kind": "letter",
+        "text": "u",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "letter-m",
+        "kind": "letter",
+        "text": "m",
+        "shift": [
+          0,
+          0
+        ]
+      },
+      {
+        "id": "placed-mu",
+        "kind": "letter",
+        "text": "mu",
+        "shift": [
+          0.013,
+          -0.009
+        ]
+      },
+      {
+        "id": "placement-un",
+        "text": "un",
+        "shift": [
+          0.017,
+          -0.011
+        ],
+        "kind": "letter"
+      },
+      {
+        "id": "placement-nu",
+        "text": "nu",
+        "shift": [
+          0.017,
+          -0.011
+        ],
+        "kind": "letter"
+      },
+      {
+        "id": "placement-um",
+        "text": "um",
+        "shift": [
+          0.017,
+          -0.011
+        ],
+        "kind": "letter"
+      },
+      {
+        "id": "placement-nn",
+        "text": "nn",
+        "shift": [
+          0.017,
+          -0.011
+        ],
+        "kind": "letter"
+      },
+      {
+        "id": "placement-uu",
+        "text": "uu",
+        "shift": [
+          0.017,
+          -0.011
+        ],
+        "kind": "letter"
+      },
+      {
+        "id": "placement-mm",
+        "text": "mm",
+        "shift": [
+          0.017,
+          -0.011
+        ],
+        "kind": "letter"
+      }
+    ],
+    "frame_mm": [
+      -3,
+      20,
+      2,
+      13
+    ],
+    "tool": "physical-edge-v1",
+    "refinements": {
+      "base": [
+        0.025,
+        0.002
+      ],
+      "arc": [
+        0.0125,
+        0.002
+      ],
+      "time": [
+        0.025,
+        0.001
+      ],
+      "subdivision": [
+        0.025,
+        0.002
+      ]
+    },
+    "limitation": "Observed canonical occurrences inside these letters only, not arbitrary transformed or isolated-use admission"
+  },
+  "physical_evidence": "Reused consumer-pinned H024 independent raw inspection; new coverage/lineage scan only",
+  "appearance": "Approved exact n/u/m and listed placement samples, not new geometry",
+  "historical_style_target": "fail, unchanged; diagnostic under the approved preservation contract",
+  "context_readiness": "blocked",
+  "context_gaps": [
+    {
+      "id": "transformed-occurrences",
+      "required": "Approved opt-in derivation/lineage contract, null replay and nonidentity mechanical envelope; H024 covers unchanged recipes only"
+    },
+    {
+      "id": "new-context-coverage",
+      "required": "New pair/triple and frame/local-window coverage; no inference from current ten fixed placements"
+    },
+    {
+      "id": "preferences-objective",
+      "required": "Owner training labels, exact objective and immutable train/development/test protocol"
+    },
+    {
+      "id": "execution-authorization",
+      "required": "Explicit context experiment/fitting clearance and combined budget; no permission inherited from baseline reuse"
+    },
+    {
+      "id": "broader-layer-admission",
+      "required": "Independent reusable S1/S2 or historical-hand scope needs its own matching-source quality contract; legacy readers remain unchanged"
+    }
+  ],
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "new_controller_executions": 0,
+  "new_renders": 0,
+  "optimization_evaluations": 0,
+  "report_sha256": "af4e70fc3c1b61c4e69ff46f0a9a3e70ecf5d737659901d0d5730edb976181aa",
+  "read_only": true
+}

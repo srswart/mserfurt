@@ -1,0 +1,2337 @@
+{
+  "version": "stroke-context-investigation-v1",
+  "status": "audit_complete_owner_review_pending",
+  "sources": {
+    "candidate_file_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "candidate_object_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+    "original_manifest_sha256": "adec239210591bf83b37abbe22543012e89ed5912fea2aea359be4e958fd086e",
+    "original_artifacts_verified": 12771,
+    "recovery_contract_sha256": "1b454630045689f257ac322f1334cebf614c106d748ca00301f5edfcde01b405",
+    "recovery_report_sha256": "e294db3edc76d2d22f28548e8a5f54834c61e9c3d543b6102410a274ce20dc98",
+    "recovery_artifacts_verified": 2455,
+    "dimension_contract_sha256": "56e3ed722e086ec1415ea54c179070985c8d4841c19368a7c666db56d4f31f11",
+    "dimension_report_sha256": "251d4fd3ff6a9c11ea0162b2b73108d679e22fa6ea7fd2a82756e103fdaddb5b",
+    "scope": "Verify saved artifact bytes and frozen source contracts; reuse full independent measurement, do not rerun it"
+  },
+  "geometry": {
+    "coordinate_frame": "canonical local x-height y-up; physical y is inverted",
+    "role_policy": "First and last whole canonical occurrences overlap protected body; roles do not grant edits",
+    "body_policy": "All control points, endpoints, advances, action state and internal joins frozen",
+    "letters": {
+      "n": {
+        "compiled_sha256": "ad209964aa891db48f6f0a0aff719011fa1a89e772ea65ba14b475046718cf12",
+        "spans": [
+          {
+            "owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "start",
+              "primitive_index": 0,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:0",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body",
+              "entry"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    -0.2,
+                    1.0
+                  ],
+                  [
+                    -0.18000000000000002,
+                    0.7
+                  ],
+                  [
+                    -0.22,
+                    0.5399999999999999
+                  ],
+                  [
+                    -0.2,
+                    0.0
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                -0.2,
+                1.0
+              ],
+              "tangent_local_y_up": [
+                0.06651901052377389,
+                -0.997785157856609
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:0"
+            },
+            "exit_port": {
+              "position_local": [
+                -0.2,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                0.03701166050988025,
+                -0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:0"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "rise",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "primitive_index": 1,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:1",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    -0.2,
+                    0.0
+                  ],
+                  [
+                    -0.20800000000000002,
+                    0.216
+                  ],
+                  [
+                    -0.1633008944715816,
+                    0.8566554718115462
+                  ],
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                -0.2,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                -0.03701166050988029,
+                0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:1"
+            },
+            "exit_port": {
+              "position_local": [
+                -0.12000000000000001,
+                0.8981889828353081
+              ],
+              "tangent_local_y_up": [
+                0.7216815745263603,
+                0.6922251837293654
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:1"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "upper-return",
+              "offset": [
+                -0.12000000000000001,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 2,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:2",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ],
+                  [
+                    0.06290601085575874,
+                    1.0736294422275665
+                  ],
+                  [
+                    0.26383636567610086,
+                    1.0180237135802213
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                -0.12000000000000001,
+                0.8981889828353081
+              ],
+              "tangent_local_y_up": [
+                0.72168157452636,
+                0.6922251837293657
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:2"
+            },
+            "exit_port": {
+              "position_local": [
+                0.2807304692649836,
+                0.7646121597469803
+              ],
+              "tangent_local_y_up": [
+                0.06651901052377386,
+                -0.997785157856609
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:2"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2807304692649836,
+                0
+              ],
+              "scale": 0.7646121597469803,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 3,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:3",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body",
+              "exit"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ],
+                  [
+                    0.2960227124599232,
+                    0.5352285118228861
+                  ],
+                  [
+                    0.26543822607004397,
+                    0.4128905662633693
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.0
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                0.2807304692649836,
+                0.7646121597469803
+              ],
+              "tangent_local_y_up": [
+                0.0665190105237739,
+                -0.9977851578566089
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:3"
+            },
+            "exit_port": {
+              "position_local": [
+                0.2807304692649836,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                0.037011660509880265,
+                -0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:3"
+            }
+          }
+        ],
+        "contact_runs": [
+          "contact:0"
+        ],
+        "entry": {
+          "position_local": [
+            -0.2,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.06651901052377389,
+            -0.997785157856609
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:0"
+        },
+        "exit": {
+          "position_local": [
+            0.2807304692649836,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        }
+      },
+      "u": {
+        "compiled_sha256": "3767824c5f1c60c2444c5d93fccf6d7f3b2280c9738083e3c9faeed65028ea42",
+        "spans": [
+          {
+            "owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0.24828332068073714
+              ],
+              "scale": 0.7517166793192629,
+              "rotation_deg": 0,
+              "transition": "start",
+              "primitive_index": 0,
+              "recipe": "u",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:0",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body",
+              "entry"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    -0.2,
+                    1.0
+                  ],
+                  [
+                    -0.18496566641361475,
+                    0.7744849962042211
+                  ],
+                  [
+                    -0.21503433358638527,
+                    0.654210327513139
+                  ],
+                  [
+                    -0.2,
+                    0.24828332068073714
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                -0.2,
+                1.0
+              ],
+              "tangent_local_y_up": [
+                0.0665190105237739,
+                -0.997785157856609
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:0"
+            },
+            "exit_port": {
+              "position_local": [
+                -0.2,
+                0.24828332068073714
+              ],
+              "tangent_local_y_up": [
+                0.037011660509880265,
+                -0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:0"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "lower-return",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 1,
+              "recipe": "u",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:1",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    -0.2,
+                    0.24828332068073714
+                  ],
+                  [
+                    -0.1932096746053268,
+                    0.06494453502456013
+                  ],
+                  [
+                    0.2031590692016797,
+                    -0.13109169221828862
+                  ],
+                  [
+                    0.19397199458298725,
+                    0.11695932248640808
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                -0.2,
+                0.24828332068073714
+              ],
+              "tangent_local_y_up": [
+                0.03701166050988027,
+                -0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:1"
+            },
+            "exit_port": {
+              "position_local": [
+                0.19397199458298725,
+                0.11695932248640808
+              ],
+              "tangent_local_y_up": [
+                -0.037011660509880175,
+                0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:1"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "rise",
+              "offset": [
+                0.19397199458298725,
+                0.11695932248640808
+              ],
+              "scale": 0.9831346124131943,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 2,
+              "recipe": "u",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:2",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    0.19397199458298725,
+                    0.11695932248640808
+                  ],
+                  [
+                    0.1861069176836817,
+                    0.32931639876765806
+                  ],
+                  [
+                    0.2300521554725798,
+                    0.9591669677374947
+                  ],
+                  [
+                    0.2726227635760428,
+                    1.0
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                0.19397199458298725,
+                0.11695932248640808
+              ],
+              "tangent_local_y_up": [
+                -0.03701166050988022,
+                0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:2"
+            },
+            "exit_port": {
+              "position_local": [
+                0.2726227635760428,
+                1.0
+              ],
+              "tangent_local_y_up": [
+                0.7216815745263601,
+                0.6922251837293656
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:2"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2726227635760428,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "primitive_index": 3,
+              "recipe": "u",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:3",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body",
+              "exit"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    0.2726227635760428,
+                    1.0
+                  ],
+                  [
+                    0.29262276357604283,
+                    0.7
+                  ],
+                  [
+                    0.25262276357604285,
+                    0.5399999999999999
+                  ],
+                  [
+                    0.2726227635760428,
+                    0.0
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                0.2726227635760428,
+                1.0
+              ],
+              "tangent_local_y_up": [
+                0.06651901052377399,
+                -0.997785157856609
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:3"
+            },
+            "exit_port": {
+              "position_local": [
+                0.2726227635760428,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                0.037011660509880195,
+                -0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:3"
+            }
+          }
+        ],
+        "contact_runs": [
+          "contact:0"
+        ],
+        "entry": {
+          "position_local": [
+            -0.2,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.0665190105237739,
+            -0.997785157856609
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:0"
+        },
+        "exit": {
+          "position_local": [
+            0.2726227635760428,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880195,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        }
+      },
+      "m": {
+        "compiled_sha256": "7eb913ed0866a901faabc89c0ea5ca7aa26814962eaba23a293cf2af542ccfe0",
+        "spans": [
+          {
+            "owner": {
+              "primitive": "rise",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "start",
+              "primitive_index": 0,
+              "recipe": "m",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:0",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body",
+              "entry"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    -0.2,
+                    0.0
+                  ],
+                  [
+                    -0.20800000000000002,
+                    0.216
+                  ],
+                  [
+                    -0.1633008944715816,
+                    0.8566554718115462
+                  ],
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                -0.2,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                -0.03701166050988029,
+                0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:0"
+            },
+            "exit_port": {
+              "position_local": [
+                -0.12000000000000001,
+                0.8981889828353081
+              ],
+              "tangent_local_y_up": [
+                0.7216815745263603,
+                0.6922251837293654
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:0"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "upper-return",
+              "offset": [
+                -0.12000000000000001,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 1,
+              "recipe": "m",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:1",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ],
+                  [
+                    0.06290601085575874,
+                    1.0736294422275665
+                  ],
+                  [
+                    0.26383636567610086,
+                    1.0180237135802213
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                -0.12000000000000001,
+                0.8981889828353081
+              ],
+              "tangent_local_y_up": [
+                0.72168157452636,
+                0.6922251837293657
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:1"
+            },
+            "exit_port": {
+              "position_local": [
+                0.2807304692649836,
+                0.7646121597469803
+              ],
+              "tangent_local_y_up": [
+                0.06651901052377386,
+                -0.997785157856609
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:1"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2807304692649836,
+                0
+              ],
+              "scale": 0.7646121597469803,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 2,
+              "recipe": "m",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:2",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ],
+                  [
+                    0.2960227124599232,
+                    0.5352285118228861
+                  ],
+                  [
+                    0.26543822607004397,
+                    0.4128905662633693
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.0
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                0.2807304692649836,
+                0.7646121597469803
+              ],
+              "tangent_local_y_up": [
+                0.0665190105237739,
+                -0.9977851578566089
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:2"
+            },
+            "exit_port": {
+              "position_local": [
+                0.2807304692649836,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                0.037011660509880265,
+                -0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:2"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "rise",
+              "offset": [
+                0.2807304692649836,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "primitive_index": 3,
+              "recipe": "m",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:3",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    0.2807304692649836,
+                    0.0
+                  ],
+                  [
+                    0.27273046926498357,
+                    0.216
+                  ],
+                  [
+                    0.317429574793402,
+                    0.8566554718115462
+                  ],
+                  [
+                    0.3607304692649836,
+                    0.8981889828353081
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                0.2807304692649836,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                -0.03701166050988029,
+                0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:3"
+            },
+            "exit_port": {
+              "position_local": [
+                0.3607304692649836,
+                0.8981889828353081
+              ],
+              "tangent_local_y_up": [
+                0.7216815745263602,
+                0.6922251837293654
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:3"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "upper-return",
+              "offset": [
+                0.3607304692649836,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 4,
+              "recipe": "m",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:4",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    0.3607304692649836,
+                    0.8981889828353081
+                  ],
+                  [
+                    0.5436364801207423,
+                    1.0736294422275665
+                  ],
+                  [
+                    0.7445668349410844,
+                    1.0180237135802213
+                  ],
+                  [
+                    0.7614609385299671,
+                    0.7646121597469803
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                0.3607304692649836,
+                0.8981889828353081
+              ],
+              "tangent_local_y_up": [
+                0.7216815745263597,
+                0.6922251837293657
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:4"
+            },
+            "exit_port": {
+              "position_local": [
+                0.7614609385299671,
+                0.7646121597469803
+              ],
+              "tangent_local_y_up": [
+                0.06651901052377364,
+                -0.997785157856609
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:4"
+            }
+          },
+          {
+            "owner": {
+              "primitive": "stem",
+              "offset": [
+                0.7614609385299671,
+                0
+              ],
+              "scale": 0.7646121597469803,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "primitive_index": 5,
+              "recipe": "m",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:5",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "roles": [
+              "body",
+              "exit"
+            ],
+            "editable": false,
+            "cubics": [
+              {
+                "canonical_cubic": 0,
+                "parameter_range": [
+                  0,
+                  1
+                ],
+                "control_points_local": [
+                  [
+                    0.7614609385299671,
+                    0.7646121597469803
+                  ],
+                  [
+                    0.7767531817249067,
+                    0.5352285118228861
+                  ],
+                  [
+                    0.7461686953350275,
+                    0.4128905662633693
+                  ],
+                  [
+                    0.7614609385299671,
+                    0.0
+                  ]
+                ]
+              }
+            ],
+            "entry_port": {
+              "position_local": [
+                0.7614609385299671,
+                0.7646121597469803
+              ],
+              "tangent_local_y_up": [
+                0.0665190105237739,
+                -0.9977851578566089
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:5"
+            },
+            "exit_port": {
+              "position_local": [
+                0.7614609385299671,
+                0.0
+              ],
+              "tangent_local_y_up": [
+                0.037011660509880265,
+                -0.9993148337667671
+              ],
+              "contact_intent": "down",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "occurrence_id": "0:5"
+            }
+          }
+        ],
+        "contact_runs": [
+          "contact:0"
+        ],
+        "entry": {
+          "position_local": [
+            -0.2,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            -0.03701166050988029,
+            0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:0"
+        },
+        "exit": {
+          "position_local": [
+            0.7614609385299671,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:5"
+        }
+      }
+    },
+    "boundaries": [
+      {
+        "example": "nn",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "stem-entry",
+        "exit": {
+          "position_local": [
+            0.2807304692649836,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        },
+        "entry": {
+          "position_local": [
+            1.25,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.06651901052377399,
+            -0.997785157856609
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 4.874286812892545,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "nm",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "rise-entry",
+        "exit": {
+          "position_local": [
+            0.2807304692649836,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        },
+        "entry": {
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            -0.03701166050988029,
+            0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 3.3924433575725574,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "un",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "stem-entry",
+        "exit": {
+          "position_local": [
+            0.2726227635760428,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880195,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        },
+        "entry": {
+          "position_local": [
+            1.25,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.06651901052377399,
+            -0.997785157856609
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 4.894079250781164,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "um",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "rise-entry",
+        "exit": {
+          "position_local": [
+            0.2726227635760428,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880195,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        },
+        "entry": {
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            -0.03701166050988029,
+            0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 3.4208203274838502,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "mn",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "stem-entry",
+        "exit": {
+          "position_local": [
+            0.7614609385299671,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:5"
+        },
+        "entry": {
+          "position_local": [
+            2.2499999999999996,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.06651901052377399,
+            -0.997785157856609
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 6.276377903269173,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "mm",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "rise-entry",
+        "exit": {
+          "position_local": [
+            0.7614609385299671,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:5"
+        },
+        "entry": {
+          "position_local": [
+            2.2499999999999996,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            -0.03701166050988029,
+            0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 5.209886715145114,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "nu",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "stem-entry",
+        "exit": {
+          "position_local": [
+            0.2807304692649836,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        },
+        "entry": {
+          "position_local": [
+            1.25,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.06651901052377354,
+            -0.997785157856609
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 4.874286812892545,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "uu",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "stem-entry",
+        "exit": {
+          "position_local": [
+            0.2726227635760428,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880195,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:3"
+        },
+        "entry": {
+          "position_local": [
+            1.25,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.06651901052377354,
+            -0.997785157856609
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 4.894079250781164,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      },
+      {
+        "example": "mu",
+        "previous_exit_class": "stem-down-baseline",
+        "following_entry_class": "stem-entry",
+        "exit": {
+          "position_local": [
+            0.7614609385299671,
+            0.0
+          ],
+          "tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "0:5"
+        },
+        "entry": {
+          "position_local": [
+            2.2499999999999996,
+            1.0
+          ],
+          "tangent_local_y_up": [
+            0.0665190105237755,
+            -0.9977851578566088
+          ],
+          "contact_intent": "down",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "occurrence_id": "1:0"
+        },
+        "endpoint_gap_mm": 6.276377903269173,
+        "baseline": "pen_up_transfer",
+        "contact_runs": [
+          "contact:0",
+          "contact:1"
+        ],
+        "direct_join_supported": false,
+        "cross_letter_retrace_supported": false,
+        "reason": "Separated endpoints and separate contact runs; no declared cross-letter path or overlap owners"
+      }
+    ],
+    "selectors": [
+      "current_recipe",
+      "previous_exit_class_or_BOS",
+      "following_entry_class_or_EOS",
+      "transition_intent"
+    ],
+    "previous_classes": [
+      "BOS",
+      "stem-down-baseline"
+    ],
+    "following_classes": [
+      "EOS",
+      "stem-entry",
+      "rise-entry"
+    ],
+    "limitation": "All three previous letters share directed exit class; distinguishing them needs reviewed state beyond class alone",
+    "unsupported": [
+      "unknown recipe",
+      "word boundary",
+      "line boundary",
+      "cross-letter join",
+      "cross-letter retrace"
+    ]
+  },
+  "exposure": {
+    "metadata_sources": {
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_bridge/spec-v1.json": "c154d44494b2af73befba34087c93872e780e1dd0f30912198419a561053b575",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_evaluation/spec-v1.json": "3bb71b19da2f6cd09e9d64dd4773cf6c0838031eb0127c08c7e25398b0403312",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/spec-v1.json": "41a3f98ff7b9739d7df6999e9b8130954e2a4458b6ab0670f4a98b085e5ab344",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v1.json": "0f2576801903a1290cccf0c92269c699bb50bf396b2143553e2b88575428b34c",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v2.json": "d068a03bbe1aaf9bb3a967f44e7c7b20120961533b91212ce786fab91e389266",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/spec-v1.json": "d20fb9071edc19757456719db28f7fb7db7da11915215022e6502f7f66e04af3",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/spec-v1.json": "71a857879bafe4e3c6f2c84ea13f6d57c0f6d6fe67a69c080e5ad836917cf35d",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/spec-v1.json": "db79b5c01789af8df85c77b64e75ac50ac4edcf06ae2c1ac446fb328f26db347",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v1.json": "5950f6881c0dc850606526ee116a750daa15ee3d020506a3b150922dc3f6629e",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v2.json": "030bc8c36399d153b0917cecab6af1e610f3a97e3d84d9691261230ae3db6c8f",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v1.json": "ab058363433bac4038976e482ace915357d609e696fa576de53ff0d04ba17d51",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v2.json": "211c41e9fdbc85ab38e507c3b0bddfbd26c508ea7b17fd6a5db8f456aa962f80",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v3.json": "983ee6b125dee0a3b3231f6dbd5d003d71829c0010d026e67f6b25caaf87121c",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v4.json": "53c428945e2ed861553fc9a53297a09dc8e31194c7857ca359751fd24c570b44",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/spec-v1.json": "e92dd81238e0a0ffcf473c2999e7e59d7881f15a04000d17db65558f64466af5",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v1.json": "4e5798d95e46f26b7eeb9eb77b1b5eaee25031d5f7d025d774f1d60d5a8c8c67",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/scale_evaluation/spec-v1.json": "89bfdfb98ee6f8927f7b2e53a43d2e8db8124e8e6f54c33704c803983e34a4cf",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/stem_evaluation/spec-v1.json": "2e901e20af5c3c5de4c35d78ae90d586da73c533f0daa05b5087de40ca9c8afd",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v1.json": "4f49543a4ccc17925585208cb8d6c4f0bdfed9ccee14436c21d6eaa222093d71",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v2.json": "a31cb39abddda710611b55097725ccbd4f75ebd5bb10648964c38a91a6e11ff1",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/spec-v1.json": "5fbc75684f549535f5471e39e1090f23be58046b7898110ed1aef5c2253a9df2",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/spec-v1.json": "f9ae4f7eb375266a71a53c3f160aa52248697e2b88dc0b8e51c46c51c9ac2448",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json": "c86f5ef17c0c287f250032cdc291e9c71d1bb81116d0b9002c37bd910de0be5f",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/spec-v1.json": "f415b3cb63f5f4ca8f26ac053f9cd90679d25a8479aca0b281609dfd9071dfbe",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json": "8a5598911cb3da300ba5ec376bca42c74ab776ccec72b44553133c489e85b090",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+      "scripts/letter_context_variants.py": "3cdb4d88ecd3cff234504fbf38a97a0b4e21e31659b7f05c5365a888c2ab15f1",
+      "docs/tech-direction/TD-018-addendum-c-letter-context.md": "1673886a7ed95e919af9b445a528284acdfa47aa3ae1c55ff7becee01f5d01e8"
+    },
+    "token_mentions_not_proof_of_execution": {
+      "n": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "u": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_bridge/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v2.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v3.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v4.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "m": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "nn": [
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "nm": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "un": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "um": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "mn": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "mm": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_bridge/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v2.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v2.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v2.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v3.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v4.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/scale_evaluation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/stem_evaluation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v2.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "nu": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "uu": [
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "mu": [
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json",
+        "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json",
+        "scripts/letter_context_variants.py",
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "nuu": [],
+      "uuu": [],
+      "muu": [],
+      "num": [
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "mun": [
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "umn": [
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "nmn": [
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "umu": [
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ],
+      "mum": [
+        "docs/tech-direction/TD-018-addendum-c-letter-context.md"
+      ]
+    },
+    "existing_design_probes": [
+      "n",
+      "u",
+      "m",
+      "nn",
+      "nm",
+      "un",
+      "um",
+      "mn",
+      "mm",
+      "nu",
+      "uu",
+      "mu"
+    ],
+    "proposed_triples": {
+      "nuu": {
+        "status": "not_admitted",
+        "reason": "Bounded metadata audit cannot prove complete historical exposure or absence of other reservations; owner must freeze as design-only before use"
+      },
+      "uuu": {
+        "status": "not_admitted",
+        "reason": "Bounded metadata audit cannot prove complete historical exposure or absence of other reservations; owner must freeze as design-only before use"
+      },
+      "muu": {
+        "status": "not_admitted",
+        "reason": "Bounded metadata audit cannot prove complete historical exposure or absence of other reservations; owner must freeze as design-only before use"
+      }
+    },
+    "reserved": [
+      "num",
+      "mun",
+      "umn",
+      "nmn",
+      "umu",
+      "mum"
+    ],
+    "sealed_pixels_or_traces_opened": [],
+    "coverage_limit": "spec-*.json registries and named context metadata only; no global absence or unseen-transfer claim"
+  },
+  "saved_trace_audit": [
+    {
+      "text": "n",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "controls-n",
+        "text": "n",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "controls"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/controls-n-1fd9d60bf6d7d4e5c3309cd9cf08cfbda47198d7750f979165dbdd7ea7d45e3f-base/trace.json.gz",
+      "trace_sha256": "9ad29c9fe598d3efa0ae13ed64acbd6cf465db4a660dfc15d81cf85a86b50027",
+      "document_sha256": "e447a63b6d048da8e6ae5b41855ec286777d7f3199af63088c2c0d3c17ec3899",
+      "events": 2637,
+      "pen_down_upward_events": 1245,
+      "lift_events": 0,
+      "landing_events": 0,
+      "air_events": 0,
+      "air_transfers": []
+    },
+    {
+      "text": "u",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "controls-u",
+        "text": "u",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "controls"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/controls-u-1fd9d60bf6d7d4e5c3309cd9cf08cfbda47198d7750f979165dbdd7ea7d45e3f-base/trace.json.gz",
+      "trace_sha256": "fd5e59482900f910ae2fa49c2cab4c1ab34d011122500d67b42cb60b38d50341",
+      "document_sha256": "7c67fb2bc1b803d2d3e609c9454411682dd7aeaebc424f949973ac6847c8557b",
+      "events": 2642,
+      "pen_down_upward_events": 1169,
+      "lift_events": 0,
+      "landing_events": 0,
+      "air_events": 0,
+      "air_transfers": []
+    },
+    {
+      "text": "m",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "controls-m",
+        "text": "m",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "controls"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/controls-m-1fd9d60bf6d7d4e5c3309cd9cf08cfbda47198d7750f979165dbdd7ea7d45e3f-base/trace.json.gz",
+      "trace_sha256": "9156020cccc19af4959be4263ebfddf868af1d4d5a072f70002a6972a0d27f73",
+      "document_sha256": "cab463ee7339b035604b44deaf7c961e9edc64620acce317f04f5e86c483b450",
+      "events": 4883,
+      "pen_down_upward_events": 2488,
+      "lift_events": 0,
+      "landing_events": 0,
+      "air_events": 0,
+      "air_transfers": []
+    },
+    {
+      "text": "nn",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "train_pairs-nn",
+        "text": "nn",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "train_pairs"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/train_pairs-nn-343f8dc28fc80cf2bd4628e51241460528509cb11dfdc43a0ae8b5980830e5ab-base/trace.json.gz",
+      "trace_sha256": "b4bb949a65254eb284a3d9273401003fd03b41c4d33a3b1d52893e3d5dcc5f96",
+      "document_sha256": "ad15ea7bc626d5844da54d2af48fec68865a176265ad66bdf71e66f35efbadf4",
+      "events": 5558,
+      "pen_down_upward_events": 2489,
+      "lift_events": 1,
+      "landing_events": 1,
+      "air_events": 288,
+      "air_transfers": [
+        {
+          "from": "0:1",
+          "to": "1:0"
+        },
+        {
+          "from": null,
+          "to": "1:0"
+        }
+      ]
+    },
+    {
+      "text": "nm",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "train_pairs-nm",
+        "text": "nm",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "train_pairs"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/train_pairs-nm-6ca9be6da9cdabe63f7c1b0ae73ab9484489389d89d0c4053962b585bd36934c-base/trace.json.gz",
+      "trace_sha256": "67483837d40011afb6f32c292e51b3706fa32481f898ea5f255c736e054ca167",
+      "document_sha256": "1ac8cca0c0381ffddec6efb4dddfa022158273b62e340f37b521f7ac18ca2f05",
+      "events": 7718,
+      "pen_down_upward_events": 3733,
+      "lift_events": 1,
+      "landing_events": 1,
+      "air_events": 202,
+      "air_transfers": [
+        {
+          "from": "0:1",
+          "to": "1:0"
+        },
+        {
+          "from": null,
+          "to": "1:0"
+        }
+      ]
+    },
+    {
+      "text": "un",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "train_pairs-un",
+        "text": "un",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "train_pairs"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/train_pairs-un-b2184f78e7c28f53494172f3b5e2ee38b24ff6c9defec39dc05a437e1b0fb0ba-base/trace.json.gz",
+      "trace_sha256": "01dc17504464e22118fc153b39bdb6c66f8e02d0006d1957c18892adc641e581",
+      "document_sha256": "5726757f92523c8a90a3bd9f83ce6b0c1f0610165d0d4960377c1236fa002d95",
+      "events": 5576,
+      "pen_down_upward_events": 2413,
+      "lift_events": 1,
+      "landing_events": 1,
+      "air_events": 321,
+      "air_transfers": [
+        {
+          "from": "0:1",
+          "to": "1:0"
+        },
+        {
+          "from": null,
+          "to": "1:0"
+        }
+      ]
+    },
+    {
+      "text": "um",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "train_pairs-um",
+        "text": "um",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "train_pairs"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/train_pairs-um-9a7fd989133cb1c56223ef1fb28c6bacd3bf37fbe527c96b7dd041f1ad0bb28a-base/trace.json.gz",
+      "trace_sha256": "a0a5dc7819114cd4fafea0fa0fede409601a66901c6ce470c407d4f2ec949693",
+      "document_sha256": "edc0683304a534f24b46d48c1c5771ed7f51d1f9d751721515f1596f68a70506",
+      "events": 7726,
+      "pen_down_upward_events": 3658,
+      "lift_events": 1,
+      "landing_events": 1,
+      "air_events": 224,
+      "air_transfers": [
+        {
+          "from": "0:1",
+          "to": "1:0"
+        },
+        {
+          "from": null,
+          "to": "1:0"
+        }
+      ]
+    },
+    {
+      "text": "mn",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "train_pairs-mn",
+        "text": "mn",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "train_pairs"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/train_pairs-mn-9cc0f80995c93ac89a732d3a0f3218d13fe6c64615399461d851047037c7c8eb-base/trace.json.gz",
+      "trace_sha256": "6c57f24d638b9d065f2b783b1c121f42bd1f99af7df965da7b18102c5b758552",
+      "document_sha256": "4657750684242dd6dc9fa97a89eaca5475764f721d348eb664215c9b0a05e851",
+      "events": 7885,
+      "pen_down_upward_events": 3732,
+      "lift_events": 1,
+      "landing_events": 1,
+      "air_events": 368,
+      "air_transfers": [
+        {
+          "from": "0:1",
+          "to": "1:0"
+        },
+        {
+          "from": null,
+          "to": "1:0"
+        }
+      ]
+    },
+    {
+      "text": "mm",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "train_pairs-mm",
+        "text": "mm",
+        "kind": "letter",
+        "shift": [
+          0,
+          0
+        ],
+        "role": "train_pairs"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/train_pairs-mm-3068946ad298e03122628149469b17c321fa6f4d6a05e794e74badccf8fffe2e-base/trace.json.gz",
+      "trace_sha256": "c110ecd3183efc444ff3635d2e581ae0dc389f331d5905b2d1c559fea001ce6c",
+      "document_sha256": "7f1aeb404aa29f50d9fd7420ffec17167cb1bc6bed22d8bbba4f57a3391da2f1",
+      "events": 10069,
+      "pen_down_upward_events": 4976,
+      "lift_events": 1,
+      "landing_events": 1,
+      "air_events": 306,
+      "air_transfers": [
+        {
+          "from": "0:1",
+          "to": "1:0"
+        },
+        {
+          "from": null,
+          "to": "1:0"
+        }
+      ]
+    },
+    {
+      "text": "nu",
+      "status": "no_identity_case_in_C006_physical_contract",
+      "scope": "Canonical geometry only; no new trace generated"
+    },
+    {
+      "text": "uu",
+      "status": "no_identity_case_in_C006_physical_contract",
+      "scope": "Canonical geometry only; no new trace generated"
+    },
+    {
+      "text": "mu",
+      "status": "saved_trace_audited",
+      "fixture": {
+        "id": "placed-mu",
+        "kind": "letter",
+        "text": "mu",
+        "shift": [
+          0.013,
+          -0.009
+        ],
+        "role": "known_regression"
+      },
+      "trace_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/physical-validation-v1/run-001/seed-7/first/placed-mu-1fd9d60bf6d7d4e5c3309cd9cf08cfbda47198d7750f979165dbdd7ea7d45e3f-base/trace.json.gz",
+      "trace_sha256": "7d3aef3826ee10dfef25ecd3755b76907f00706d3f9ef729180e3eec4c71460b",
+      "document_sha256": "35eb588371ef339f2e4a98a5d3d91e7c91bf7c011a7a98512b190c6e9dbfc76e",
+      "events": 7891,
+      "pen_down_upward_events": 3658,
+      "lift_events": 1,
+      "landing_events": 1,
+      "air_events": 368,
+      "air_transfers": [
+        {
+          "from": "0:1",
+          "to": "1:0"
+        },
+        {
+          "from": null,
+          "to": "1:0"
+        }
+      ]
+    }
+  ],
+  "adapter_sha256": "38c534637eb8196fd284f89e17d46c565a3165966fb387670b170c0fff197b60",
+  "tests_sha256": "a62d86c4a1dabb212a04f72e781ec2f10ae7996b37bc8c4cfe20f1fe539e8541",
+  "controller_executions": 0,
+  "raster_renders": 0,
+  "read_only": true,
+  "owner_scope_approved": false,
+  "GESTURE_005_authorized": false,
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "fitting_authorized": false,
+  "optimization_evaluations": 0
+}

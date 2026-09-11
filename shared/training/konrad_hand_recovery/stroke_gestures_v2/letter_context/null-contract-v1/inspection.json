@@ -1,0 +1,45 @@
+{
+  "version": "letter-context-null-v1",
+  "status": "pass",
+  "readiness_report_sha256": "af4e70fc3c1b61c4e69ff46f0a9a3e70ecf5d737659901d0d5730edb976181aa",
+  "compilation_plan_cases": 80,
+  "archived_runs_bound": 240,
+  "archived_images_bound": 480,
+  "known_base_reference_matches": 24,
+  "proof_kind": "exact-null-input-equivalence-and-archived-output-binding",
+  "physical_evidence": "Pinned H024 evidence reused; no new controller or renderer replay",
+  "fresh_physical_null_replay": false,
+  "source_artifacts_verified": 1808,
+  "context_gaps": [
+    {
+      "id": "transformed-occurrences",
+      "required": "Approved opt-in derivation/lineage contract, null replay and nonidentity mechanical envelope; H024 covers unchanged recipes only"
+    },
+    {
+      "id": "new-context-coverage",
+      "required": "New pair/triple and frame/local-window coverage; no inference from current ten fixed placements"
+    },
+    {
+      "id": "preferences-objective",
+      "required": "Owner training labels, exact objective and immutable train/development/test protocol"
+    },
+    {
+      "id": "execution-authorization",
+      "required": "Explicit context experiment/fitting clearance and combined budget; no permission inherited from baseline reuse"
+    },
+    {
+      "id": "broader-layer-admission",
+      "required": "Independent reusable S1/S2 or historical-hand scope needs its own matching-source quality contract; legacy readers remain unchanged"
+    }
+  ],
+  "nonidentity_authorized": false,
+  "execution_authorized": false,
+  "context_training_allowed": false,
+  "S2_accepted": false,
+  "real_accepted": false,
+  "new_controller_executions": 0,
+  "new_renders": 0,
+  "optimization_evaluations": 0,
+  "report_sha256": "7d8030f9818238a6e7d1252d4b152c844c0e423f9d2909df4400f52e428700ac",
+  "read_only": true
+}

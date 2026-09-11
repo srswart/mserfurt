@@ -1,0 +1,900 @@
+{
+  "version": "nu-local-contact-classification-v1",
+  "status": "revised_geometry_contact_pass_nominal_gated",
+  "accepted": false,
+  "revised_geometry_contact_pass": true,
+  "new_geometries": 0,
+  "fitting_evaluations": 0,
+  "images": 0,
+  "physical_runs": 0,
+  "mu_started": false,
+  "approval": {
+    "version": "nu-local-contact-classification-v1",
+    "owner_quote": "I approve lets implement and re-inspect without refitting.",
+    "rule_sha256": "e749563aced409e48d53bede3094e15ed024568cc3c1cccb6a1bc6b812633860",
+    "pins": {
+      "docs/tech-direction/TD-018-local-contact-classification.md": "e749563aced409e48d53bede3094e15ed024568cc3c1cccb6a1bc6b812633860",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/self-contact-review-001/report.json": "6bd3453b1ff86f7e6461ff77cecc4026f23a6cd0097a3284271b12e39dc20278",
+      "scripts/nu_self_contact_review.py": "ca265c4910de5bc0fbe8410d9b1ac651706b2ef00ea42e640462f1b7eb746037",
+      "tests/test_nu_self_contact_review.py": "492522f71a412a00a85791bc1bb0cb72f9e68da41268c1b1b0f3dc6035a5537d",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/derived-entry-001/candidate.json": "16872e32eb44d15c2b226a4327a75851bf6a286ba08568930f856c554e97c433",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/derived-entry-001/report.json": "8123f6684aaf0dd01ea384defa97e8547ddcaa259ba0ec149ce00bf8c759f30c",
+      "scripts/nu_derived_entry.py": "94c9fee35678948c421be2495a6285dbcbb945673c0b6e9987baa10fff5918fa",
+      "tests/test_nu_derived_entry.py": "80ca5e1fd1e3fc8d77745bfda8777146dfe485f4f53cdbd6a826f67e0a48f3c8"
+    },
+    "seconds": 300,
+    "max_output_bytes": 10485760,
+    "minimum_free_bytes": 5368709120,
+    "reinspections": 1,
+    "retries": 0,
+    "new_geometry": false,
+    "fitting": false,
+    "images": 0,
+    "physical_runs": 0,
+    "mu": false
+  },
+  "approval_sha256": "3a42ccaba48f7af2647f731808899aac0e1e7113a5d12a6d1e4e5d269da49611",
+  "code_sha256": "c1bf31b44440a9ee65c58276c64c20fcb7cecc405e39f1a2b900316c5b71097e",
+  "tests_sha256": "ee02bcd1bbacfc1f680716c7821627a697c5dc4d6316d987c7194b4bd4217801",
+  "unchanged_structural_checks": {
+    "departure_envelope": {
+      "status": "pass",
+      "delta_mm": 0.003178919367997482,
+      "cap_margin_mm": 0.0013210806320025177,
+      "stationary_roots": [
+        0.01840313414972025
+      ],
+      "recovery_roots": [
+        0.036818754825242245
+      ],
+      "envelope_margin_mm": 0.003091194966098665,
+      "locality_upper_mm": 0.08359011867356339,
+      "locality_margin_mm": 0.028909881326436612
+    },
+    "T_length": {
+      "status": "pass",
+      "lower_mm": 0.9835375017883945,
+      "upper_mm": 0.9835375650955324,
+      "limit_mm": 1.1270044066007159,
+      "margin_mm": 0.1434668415051835
+    },
+    "T_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 8.806225097690568
+    },
+    "S_length": {
+      "status": "pass",
+      "lower_mm": 0.6533466854238484,
+      "upper_mm": 0.6533467395800583,
+      "limit_mm": 0.736202725192612,
+      "margin_mm": 0.08285598561255367
+    },
+    "S_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 8.212738378863563
+    },
+    "receiver_top_shift": {
+      "status": "pass",
+      "shift_mm": 0.21020057787590218,
+      "limit_mm": 0.45
+    },
+    "attachments": {
+      "status": "pass",
+      "tangent_errors": [
+        2.282612009149506e-16,
+        4.0072112295064244e-16,
+        0.0,
+        0.0
+      ],
+      "position_errors_mm": [
+        3.510833468576701e-16,
+        0.0
+      ]
+    },
+    "thin_core": {
+      "status": "pass",
+      "width_upper_mm": 0.04924429000898052,
+      "limit_mm": 0.08939393789931772,
+      "method": "Direction-independent rectangular support bound over exact constant negative-corner R profile"
+    },
+    "receiving_envelope_v2": {
+      "status": "pass",
+      "delta_mm": 0.0038877847008544344,
+      "cap_mm": 0.0045,
+      "cap_margin_mm": 0.0006122152991455652,
+      "stationary_intervals": [
+        [
+          0.976477127485972,
+          0.976477127487972
+        ]
+      ],
+      "crossing_intervals": [
+        [
+          0.9529281511093552,
+          0.9529281511113552
+        ]
+      ],
+      "endpoint_crossing_factored": true,
+      "original_negative_endpoint_dx": -0.011663354102562806,
+      "maximum_x_upper_mm": 4.38993652501716,
+      "excursion_upper_mm": 0.0001371028930625684,
+      "envelope_margin_mm": 0.0037506818077917004,
+      "locality_upper_mm": 0.05585181304393619,
+      "locality_limit_mm": 0.1125,
+      "locality_margin_mm": 0.056648186956063815,
+      "horizontal_signs": [
+        "positive",
+        "zero at maximum",
+        "negative through endpoint"
+      ],
+      "method": "Exact-rational quadratic coefficients, sign-certified root enclosures; endpoint factored; guarded restricted Bezier hull bounds entire overshoot interval"
+    },
+    "frozen_identity": {
+      "status": "pass",
+      "candidate_sha256": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+      "scope": "All control points, retained bodies, sites, tangents, profiles and contact identities byte-pinned"
+    },
+    "R_aggregate_length": {
+      "status": "pass",
+      "lower_mm": 4.851822990360715,
+      "upper_mm": 4.85182315332164,
+      "limit_mm": 5.727576502390104
+    },
+    "R0_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 7.779179195762481
+    },
+    "R0_rightward": {
+      "status": "pass",
+      "minimum_dx": 0.004971845885556325,
+      "parameters_checked": [
+        0,
+        1,
+        0.1627591048666301
+      ],
+      "method": "Analytic quadratic minimum including endpoints"
+    },
+    "R0_vertical": {
+      "status": "pass",
+      "method": "Bernstein derivative sign bound"
+    },
+    "R0_ports": {
+      "status": "pass",
+      "unit_errors": [
+        0.0,
+        1.8561541192951836e-16
+      ]
+    },
+    "R1_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 5.637839337540473
+    },
+    "R1_rightward": {
+      "status": "pass",
+      "minimum_dx": 0.009476305667974527,
+      "parameters_checked": [
+        0,
+        1,
+        0.5265118342587314
+      ],
+      "method": "Analytic quadratic minimum including endpoints"
+    },
+    "R1_vertical": {
+      "status": "pass",
+      "method": "Bernstein derivative sign bound"
+    },
+    "R1_ports": {
+      "status": "pass",
+      "unit_errors": [
+        6.765421556309548e-17,
+        4.710277376051325e-16
+      ]
+    },
+    "R2_curvature": {
+      "status": "pass",
+      "certified_upper_per_mm": 4.388525694813591,
+      "margin_per_mm": 4.500363194075298
+    },
+    "R2_rightward": {
+      "status": "pass",
+      "minimum_dx": 0.563220258406282,
+      "parameters_checked": [
+        0,
+        1,
+        0.7625157519825551
+      ],
+      "method": "Analytic quadratic minimum including endpoints"
+    },
+    "R2_vertical": {
+      "status": "pass",
+      "method": "Bernstein derivative sign bound"
+    },
+    "R2_ports": {
+      "status": "pass",
+      "unit_errors": [
+        4.002966042486721e-16,
+        0.0
+      ]
+    },
+    "R_position_joins": {
+      "status": "pass"
+    }
+  },
+  "external_contact": {
+    "status": "pass",
+    "pairs": [
+      {
+        "pieces": [
+          "T",
+          "retained:0:0"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "retained:0:1"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "retained:0:2"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "retained:0:3"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": [
+          0.9672599986155733,
+          0.8689916223825797
+        ],
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "retained:1:0"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "retained:1:1"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "retained:1:2"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "retained:1:3"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:0"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:1"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:2"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:3"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:0"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:1"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:2"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:3"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:0"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:1"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:2"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:3"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:0"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:1"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:2"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:3"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:0"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:1"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:2"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:0:3"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:0"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:1"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:2"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "retained:1:3"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:0:0"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:0:1"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:0:2"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:0:3"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:1:0"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": [
+          4.3897994221240975,
+          2.955710141880396
+        ],
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:1:1"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:1:2"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "S",
+          "retained:1:3"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "R"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": [
+          1.2075566424274427,
+          0.0
+        ],
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "R"
+        ],
+        "cubic_indices": [
+          0,
+          1
+        ],
+        "splice_center": [
+          1.2075566424274427,
+          0.0
+        ],
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "R"
+        ],
+        "cubic_indices": [
+          0,
+          2
+        ],
+        "splice_center": [
+          1.2075566424274427,
+          0.0
+        ],
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "T",
+          "S"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": null,
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "S"
+        ],
+        "cubic_indices": [
+          0,
+          0
+        ],
+        "splice_center": [
+          4.164799422124098,
+          3.5
+        ],
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "S"
+        ],
+        "cubic_indices": [
+          1,
+          0
+        ],
+        "splice_center": [
+          4.164799422124098,
+          3.5
+        ],
+        "status": "pass"
+      },
+      {
+        "pieces": [
+          "R",
+          "S"
+        ],
+        "cubic_indices": [
+          2,
+          0
+        ],
+        "splice_center": [
+          4.164799422124098,
+          3.5
+        ],
+        "status": "pass"
+      }
+    ],
+    "method": "Unchanged finite-rectangle enclosure/separation and existing A/B/D/C splice disks; local R permission not used"
+  },
+  "local_contact": {
+    "status": "pass",
+    "classification": "ordinary_neighboring_path_coverage",
+    "scope": "R-to-R only; no other owner/run or T/S permission",
+    "measurement": {
+      "status": "bound_certified",
+      "derivative_certificates": [
+        {
+          "piece": 0,
+          "minimum_dx": 0.004971845885556325,
+          "minimum_bernstein_dy": 0.0,
+          "edge_derivative_control_values": [
+            0.6451140486723644,
+            0.7967329088208052,
+            -0.7824469268727793
+          ]
+        },
+        {
+          "piece": 1,
+          "minimum_dx": 0.009476305667974527,
+          "minimum_bernstein_dy": 0.4284287377931939,
+          "edge_derivative_control_values": [
+            -1.4913387137670466,
+            0.12610417223534442,
+            0.0961886856438407
+          ]
+        },
+        {
+          "piece": 2,
+          "minimum_dx": 0.563220258406282,
+          "minimum_bernstein_dy": 0.0,
+          "edge_derivative_control_values": [
+            0.12793706655574028,
+            0.09103663134954576,
+            0.4375404206745511
+          ]
+        }
+      ],
+      "normal_axis": [
+        0.6427876096865393,
+        0.766044443118978
+      ],
+      "normal_progress_per_arclength_lower": 0.6427876096855393,
+      "finite_contact_thickness_mm": 0.02,
+      "guarded_overlap_normal_separation_mm": 0.020000002,
+      "possible_overlap_arclength_separation_upper_mm": 0.031114479648704306,
+      "turn_bound_radians_using_unchanged_curvature_limit": 0.2765731524329272,
+      "whole_chain_including_P_Q": true,
+      "proof": "dx>0,dy>=0 imply n dot tangent >= min(sin40,cos40). Two translated identical rectangles can overlap only if their n-center projections differ by <= thickness. Integrating the positive normal progress bounds the intervening arclength. This applies to all parameter pairs, not samples.",
+      "corner_offset": "Constant negative10% rectangle offset cancels between two footprints; finite .02mm thickness is retained.",
+      "meaning": "All overlap beyond the reported derived arclength bound is excluded. The bound is a measurement, not a new locality cutoff or permission for overlap inside it."
+    },
+    "curvature": [
+      {
+        "status": "pass",
+        "certified_upper_per_mm": 7.779179195762481
+      },
+      {
+        "status": "pass",
+        "certified_upper_per_mm": 5.637839337540473
+      },
+      {
+        "status": "pass",
+        "certified_upper_per_mm": 4.388525694813591,
+        "margin_per_mm": 4.500363194075298
+      }
+    ],
+    "join_errors": [
+      1.1796119636642288e-16,
+      8.671119018262734e-16
+    ],
+    "turning": {
+      "status": "pass",
+      "turn_upper_radians": 0.2765731524359281,
+      "classification_limit_radians": 1.5707963267948966,
+      "margin_radians": 1.2942231743589685,
+      "curvature_limit_per_mm": 8.88888888888889,
+      "includes_all_join_turns": true
+    },
+    "rule": "One continuous fixed-footprint run, strictly forward normal window and total turning below pi/2; within-window edge-membership changes are permitted by the approved rule"
+  },
+  "frozen_inputs_unchanged": true,
+  "elapsed_seconds": 9.853396957973018
+}

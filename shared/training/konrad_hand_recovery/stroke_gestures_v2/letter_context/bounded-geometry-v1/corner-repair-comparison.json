@@ -1,0 +1,55 @@
+{
+  "comparison_status": "pass",
+  "previous_report_sha256": "a58c673514efc2bd89a23e04b644caa50150a0e21b9864a1c747955f844c7671",
+  "report_sha256": "190cc9975bfb307ebd60b293cb7e62bef49a137bbaf5fe5a217b9f9b88c02cfb",
+  "preserved_sources": {
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/bounded-geometry-v1/failed-snapshot-002-letter_context_variant_evidence.py.txt": "18477dc3ea15d972896531139070830cb2632d06425c343adc9b107c2fb22a64",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/bounded-geometry-v1/failed-snapshot-002-letter_context_variants.py.txt": "ed94784760a04f6d52f37742c59d283e3c7c7f0d3a59b8156f41c33811a36fa0"
+  },
+  "geometry_cases_unchanged": 860,
+  "windows_unchanged": true,
+  "grid_and_thresholds_unchanged": true,
+  "frozen_foundation_sources_unchanged": true,
+  "previously_passing_timing_unchanged": 238,
+  "exact_null_bundles_unchanged": 52,
+  "repaired_cases": [
+    {
+      "fixture": "train_pairs-mn",
+      "program_sha256": "fffa97e812ab333ab443d72b6bf45ad54c0522bf34ab205f518197f6b49efea5",
+      "refinement": "subdivision",
+      "reason": "Exact unique corner port required"
+    },
+    {
+      "fixture": "train_pairs-mn",
+      "program_sha256": "441123f0c7c8d4d742f61ce15f703314cfb5ee4b8128375ad141cef9795425ad",
+      "refinement": "subdivision",
+      "reason": "Exact unique corner port required"
+    },
+    {
+      "fixture": "train_pairs-mn",
+      "program_sha256": "184bdcffb2801a99e84a025d1dfc7295e1c6713b882d7f5dbdf1206022c96a10",
+      "refinement": "subdivision",
+      "reason": "Exact unique corner port required"
+    },
+    {
+      "fixture": "train_pairs-mm",
+      "program_sha256": "77ab755c34d540655d24641640504a7e8fd66601f51cbe43f7471f8a06ed68cf",
+      "refinement": "subdivision",
+      "reason": "Exact unique corner port required"
+    },
+    {
+      "fixture": "train_pairs-mm",
+      "program_sha256": "2acbe109f1b562c9673e21135d19346aadf383c79612b4560fe0e7f1cc9d1dbe",
+      "refinement": "subdivision",
+      "reason": "Exact unique corner port required"
+    },
+    {
+      "fixture": "train_pairs-mm",
+      "program_sha256": "4851b959c4810ee5409d047c573af39328ed9269531f51e984798e8c0cba7082",
+      "refinement": "subdivision",
+      "reason": "Exact unique corner port required"
+    }
+  ],
+  "read_only": true,
+  "physical_validation": "not_run_budget_clearance_pending"
+}

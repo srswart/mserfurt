@@ -1,5 +1,142 @@
 # TD-018 — Reference-Grounded Recovery of Konrad's Hand
 
+**Current direction:** [Mutual letter construction and isolated nib-flow studies](TD-018-addendum-f-mutual-letter-flow.md).
+Owner finds both connectors unsuitable (old better than derived). Pause their
+promotion. [Two bounded reciprocal construction briefs](TD-018-mutual-nu-construction-briefs.md)
+are prepared for review before fixed-angle shape execution and a later separate
+nib-angle comparison. Numeric choices await approval; no new geometry or training.
+
+**Current visual review:** [Canonical / old bridge / derived entry](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/nominal-001/index.html).
+Same-scale frozen drawings reveal a lower recovery shoulder in the derived
+entry. Assistant review notes reduced fluidity there; owner finds the derived
+entry wrong and old bridge better but still wrong. No candidate is selected.
+No geometry changes, fitting, mu or physical execution.
+
+**Latest result:** [Approved local-contact classification passes](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/local-contact-review-001/README.md).
+The saved derived nu passes the R-only ordinary-overlap rule and all47 external
+contact checks. Geometry and existing limits unchanged; no refitting. Next is
+a separately approved nominal comparison, not mu or physical execution.
+
+**Current contract proposal:** [Ordinary versus nonlocal contact](TD-018-local-contact-classification.md)
+defines finite-footprint neighboring overlap inside one forward, non-folding
+normal window. This is an explicit R-only classification proposal, not a new
+thinness/curvature limit or an executed pass. Approval and reinspection pending.
+
+**Latest measurement:** [Saved-entry self-contact bound](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/self-contact-review-001/README.md)
+excludes overlap beyond0.031114480mm arc separation, with geometry and limits
+unchanged. Residual near-path overlap remains unclassified, not newly permitted;
+admission and nominal rendering remain gated.
+
+**Latest result:** [Derived nu entry structural pass; self-contact unresolved](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/derived-entry-001/README.md).
+One approved candidate preserved. Thinness, curvature, length and external
+contacts pass; no complete contact admission. Next improve measurement on the
+saved candidate, not refit. No new visuals, mu or physical execution.
+
+**Current proposal:** [One deterministic derived nu entry](TD-018-nu-derived-entry-proposal.md)
+preserves T/S and body geometry, deriving three thin entry segments from shared
+gesture handle proportions and ports. New cuts/family are explicit; unchanged
+thinness/curvature/contact limits still gate the result. Execution awaits approval.
+
+**Latest execution:** [Bounded nu port audit](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/port-audit-001/README.md)
+rules out exact full-primitive similarity reuse at the fixed anchors: departure
+baseline mismatch0.730208mm. Rise endpoint directions can match, but crown/descent
+also needs adaptation. No candidate or image generated; all limits unchanged.
+
+**Next proposal prepared:** [Bounded contextual-entry port/envelope feasibility](TD-018-contextual-entry-feasibility-proposal.md).
+One proposed read-only nu audit separates exact gesture reuse from necessary
+adaptations, preserving thinness, curvature, source cuts and contact regions.
+No execution or candidate generation started; separate approval required.
+
+**Latest audit:** [Reusable entry-rise/turn vocabulary](TD-018-contextual-u-entry-audit.md)
+identifies a lower-return-derived departure followed by rise→upper-return→descent.
+Existing internal ports match, but fixed n/u attachments do not admit a simple
+translation. Source coverage and next feasibility contract are documented;
+no new geometry, render or mu execution.
+
+**Current direction:** [Contextual u entry from n](TD-018-contextual-u-entry.md).
+Owner accepts nu as nominal, while requesting a natural n departure into u's
+entry rise, turn and descent. Continue contract preparation; defer unspecified
+fine-tuning and mu. Existing samples and constraints remain unchanged.
+
+**Current visual review:** [Frozen-nu nominal comparison](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/nominal-001/index.html)
+shows unconnected n/u versus connected nu at the same scale, plus enlarged
+color-keyed connection detail. This is nominal finite-contact geometry, not actual
+ink. No refitting or geometry changes; owner feedback pending and mu unstarted.
+
+**Current result:** [Saved-nu receiving-envelope reinspection passes](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/receiving-envelope-review-001/README.md)
+under the approved [canonical-tangent-compatible receiving envelope](TD-018-nu-receiving-envelope-revision.md).
+All structural and 27 finite-contact pair checks pass, with no refitting or geometry
+change. Thinness and curvature limits remain unchanged. Mu, nominal rendering and
+physical execution remain gated; this is not visual or physical acceptance.
+
+**Historical geometry attempt:** [Fixed nu stopped at the receiving-direction gate](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/geometry-001/README.md).
+Its preserved u tangent points slightly left while S was required to remain
+strictly rightward. Length, curvature, attachments and thin-core bounds pass;
+finite-contact admission and mu remain untested. No image or physical run.
+Next is a receiving-tangent/envelope compatibility decision, not automatic tuning.
+
+**Latest implementation:** [Boundary-local actions and exact edge handling](TD-018-boundary-local-action-contract.md)
+pass in a new isolated contract. Both exact10% corners are accepted without an
+epsilon or wider interval; canonical body actions and legacy APIs stay unchanged.
+Next is explicit nu/mu geometry approval, not automatic rendering or simulation.
+
+**Latest capability result:** [Corner-contact findings](TD-018-nu-corner-capability-findings.md)
+confirm the selected corner's contact geometry and fixed-site clearance, but
+connected-v1 rejects partial actions and shares body profiles. The opposite10%
+corner also exposes a floating-point minimum-width rejection. Next is a
+boundary-local action/numeric-edge contract, not connector geometry yet. No
+new path, image, fitting or controller run was generated.
+
+**Current proposal:** [Corner-contact capability and coupled nu construction](TD-018-nu-corner-contact-proposal.md)
+specifies a departure turn, thin rising connection and receiving turn into u,
+with explicit foot/top-anchor exceptions and mu as the larger-gap comparator.
+The next approval is capability inspection only; geometry and the new
+finite-contact comparison packet remain separately gated. Nothing is rendered
+or executed by preparing this proposal.
+
+**Latest investigation:** [Thin-connection feasibility](TD-018-thin-connection-feasibility.md)
+finds that nu/mu need a new receiving-turn construction and that their up-right
+directions are broad under the current full-edge orientation. Partial-corner
+contact is analytically promising but not admitted; um retained-stroke contact
+still blocks compositional num. Recommended next: corner-contact capability
+and coupled nu entry/exit proposal, with mu as a larger-gap comparator. No new
+connector geometry, images, fitting or physical runs were generated.
+
+**Latest owner decision:** The connected nm prototype is unnatural and too thick
+for the intended style; do not progress it to physical validation. Prioritize
+nib-thin, context-appropriate connections in nu/mu, then compositional num.
+See [thin-connection feedback and next scope](TD-018-thin-connection-feedback.md).
+No new geometry, renders or overlap exceptions are approved by this feedback.
+
+**Current outcome:** The [n→m-only construction proposal](TD-018-nm-construction-proposal.md)
+was approved and its single candidate attempted. The extent/direction gate
+stopped admission: the canonical departure tangent initially points left,
+contradicting the strict rightward/no-left-of-A constraints. See the
+[saved outcome and implementation boundary](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nm-construction-v1/README.md).
+No images, fitting or physical runs; u→m stays deferred. The
+[revised tangent-compatible envelope](TD-018-nm-attachment-envelope-revision.md)
+keeps geometry fixed and permits only a tightly bounded initial leftward
+departure. The owner approved implementation and saved-candidate reinspection;
+[all revised geometry and finite-nib gates pass](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nm-construction-v1/envelope-review-001/README.md)
+with the saved geometry unchanged. The
+[conditional nominal comparison](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nm-construction-v1/nominal-001/index.html)
+is now generated: ten images, nm visibly connected, four unchanged controls.
+The owner subsequently rejected this construction as unnatural and too thick;
+the packet remains negative style evidence. No physical work or fitting started.
+
+**Current next-step update — 2026-09-10:** [Addendum E — Neighbor-dependent
+boundary construction](TD-018-addendum-e-boundary-construction.md) revises the
+design after CURRICULUM-016's small terminal-handle changes were indistinguishable
+to the owner in the examples reviewed. Preserve the upright n/u/m baseline and
+GESTURE-004/005 infrastructure. Investigate a boundary's departure, transfer and
+receiving construction jointly, with a concrete purpose and an unchanged-separate
+fallback, rather than enlarge the old perturbations. The first proposed study
+audits a terminal-turn/receiving-rise family against incompatible receiver and
+gap controls; feasibility and style approval are not assumed. Current physical
+progression is paused. No new geometry, images, fitting or execution allowance
+is granted by this design revision. Earlier dated summaries remain historical;
+natural variation, word context and fatigue stay downstream of their own gates.
+
 **Status:** benchmark/nominal/guided and stroke-phase infrastructure implemented; synthetic S0/S1 pass; real G0–G3 blocked; no hand or renderer promoted.
 **Date:** 2026-09-05  
 **Revised:** 2026-09-06 — shared stroke language, continuous gestures and intentional pen actions before session effects.

@@ -1,0 +1,17 @@
+{
+  "advance": "ADV-SS-CURRICULUM-006",
+  "dimension_contract_sha256": "56e3ed722e086ec1415ea54c179070985c8d4841c19368a7c666db56d4f31f11",
+  "test_command": ".venv/bin/python -m pytest -q tests/test_letter_context_dimension_evidence.py tests/test_letter_context_recovery.py tests/test_letter_context_physical.py",
+  "tests_passed": 75,
+  "elapsed_seconds": 37.67,
+  "red_before_implementation": "New dimension-reader tests fail collection because the module does not yet exist",
+  "new_dimension_tests": 20,
+  "structural_worker_difference": "Only presentation size check replaced; raw measurements, controls and containment unchanged",
+  "structural_composite_difference": "Only worker dispatch changed",
+  "negative_cases": ["cropped width", "cropped height", "padded width", "wrong resolution", "truncated image", "invalid frame or DPI", "pixel-budget overflow", "physical execution", "raster rendering", "changed contract pin", "existing inspection output"],
+  "arrive_plan_check": "pass",
+  "arrive_sync_agent_rules_check": "pass",
+  "git_diff_check": "pass",
+  "evidence_boundary": "Local software validation only; independent saved-file inspection is reported separately. No provider CI or merge claim.",
+  "changes_remain_uncommitted": true
+}

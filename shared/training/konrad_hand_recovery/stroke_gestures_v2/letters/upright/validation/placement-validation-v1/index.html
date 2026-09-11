@@ -16,8 +16,8 @@ figcaption{font-weight:600;padding:8px 0}.window{overflow:auto}img{display:block
 <h1>Held-out placements · actual physical ink</h1>
 <p>The approved strokes are unchanged. These six previously untested pairs measure fixed placement and interletter air movement — <strong>not joining, contextual stroke adaptation, spacing design or fatigue</strong>. Within each letter, the intended reversals stay pen-down.</p>
 <p class="note" id="status">Loading the immutable physical validation report. No result is assumed before the evidence is available.</p>
-<p>Review the large <strong>actual ink</strong> image in each panel: do the stems, pen-down returns, turns and baseline still look right in both positions? Each panel shows two letters, not a before/after pair. Expand the diagnostic comparison only if useful. New appearance verdicts are pending; earlier n/u/m/mu approval is not automatically inherited.</p>
-<p><a href="README.md">Outcome and reproducible inspection</a> · <a href="run-001/report.json">Frozen report</a> · <a href="inspection.json">Independent read-only check</a> · <a href="actual-review.json">Pending owner review</a> · <a href="../index.html">Previously approved n/u/m/mu</a></p>
+<p>The owner approves the large <strong>actual ink</strong> images in all six panels. Each panel shows two letters, not a before/after pair. Expand the diagnostic comparison only if useful. This is a new sample-bound appearance review, not inherited n/u/m/mu approval or permission to train context.</p>
+<p><a href="README.md">Outcome and reproducible inspection</a> · <a href="run-001/report.json">Frozen report</a> · <a href="inspection.json">Independent read-only check</a> · <a href="actual-review.json">Approved owner review</a> · <a href="../index.html">Previously approved n/u/m/mu</a></p>
 <div class="controls"><button id="full">Fit complete frame</button><button id="detail">Native detail (horizontal scroll)</button></div>
 <main id="samples" class="samples"></main>
 <script>
@@ -43,14 +43,14 @@ function figure(id, kind, label) {
 Promise.all([fetch(`${runRoot}/report.json`).then(response=>response.json()),
   fetch(`${runRoot}/seed-7/first/report.json`).then(response=>response.json())]).then(([report, worker])=>{
   if (!report.evaluation_complete || worker.status !== 'complete') throw Error('incomplete');
-  status.textContent = `EVALUATION COMPLETE · execution/mechanical protocol ${report.status.toUpperCase()} · ${report.renders} renders · ${report.seeds.filter(seed=>seed.replay_match).length}/3 replay pairs match. New appearance review PENDING. Independent style remains diagnostic under the approved new contract; historical target-gate failure remains failure. S2, real-hand and context remain false.`;
+  status.textContent = `EVALUATION COMPLETE · execution/mechanical protocol ${report.status.toUpperCase()} · ${report.renders} renders · ${report.seeds.filter(seed=>seed.replay_match).length}/3 replay pairs match. Actual appearance APPROVED for these six samples. Frozen reports retain their at-run pending-review state. Independent style remains diagnostic; historical target-gate failure remains failure. S2, real-hand and context remain false.`;
   for (const text of ['un', 'nu', 'um', 'nn', 'uu', 'mm']) {
     const id = `placement-${text}`;
     if (!['actual', 'nominal', 'target'].every(kind=>`seed-7/first/${id}-${kind}-full.png` in report.artifacts)) throw Error('missing image');
     const row = worker.fixtures.find(item=>item.fixture.id === id);
     const section = document.createElement('section');
     const heading = document.createElement('h2');
-    heading.textContent = `${text} · appearance pending`;
+    heading.textContent = `${text} · appearance approved`;
     const metrics = document.createElement('p');
     metrics.className = 'metrics';
     metrics.textContent = `Actual vs derived nominal: ${row.nominal_actual_losses.base.global.toFixed(6)}. Actual vs independent style: ${row.losses.base.global.toFixed(6)}. Both are report-only here, not new appearance gates.`;

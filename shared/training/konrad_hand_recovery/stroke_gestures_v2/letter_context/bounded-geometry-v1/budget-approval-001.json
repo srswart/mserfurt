@@ -1,0 +1,30 @@
+{
+  "version": "letter-context-physical-budget-approval-v1",
+  "advance": "ADV-SS-CURRICULUM-006",
+  "approved_on": "2026-09-09",
+  "authority": "Explicit project-owner message",
+  "owner_request": "Okay lets approve the proposed 45-minute-per-seed physical-validation budget.",
+  "preflight_report_sha256": "190cc9975bfb307ebd60b293cb7e62bef49a137bbaf5fe5a217b9f9b88c02cfb",
+  "budget_approved": true,
+  "seeds": [7, 19, 41],
+  "seconds_per_seed": 2700,
+  "renders_per_seed": 5000,
+  "includes_first_and_replay": true,
+  "automatic_retries": 0,
+  "automatic_revisions": 0,
+  "accounting": "Carry P2b preview and validation debits into the combined CURRICULUM-006 seed budget; never reset per arm or stage.",
+  "scope": "Budget approval only for the proposed bounded physical-validation inventory; no geometry, target, measurement-frame or acceptance-threshold changes.",
+  "remaining_prerequisites": [
+    "Implement and freeze the concrete physical runner and budget accounting",
+    "Implement and freeze the independent reader and negative controls",
+    "Bind this approval and the unchanged preflight evidence in the new execution contract before the first physical run"
+  ],
+  "execution_status": "not_started_runner_reader_controls_freeze_pending",
+  "fitting_authorized": false,
+  "sealed_holdout_access_authorized": false,
+  "S2_accepted": false,
+  "real_accepted": false,
+  "context_training_allowed": false,
+  "leave_uncommitted": true,
+  "historical_snapshots_and_source_identities_unchanged": true
+}

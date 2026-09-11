@@ -1,0 +1,50 @@
+{
+  "version": "nu-nominal-vector-review-v1",
+  "status": "nominal_packet_ready_owner_review_pending",
+  "accepted": false,
+  "physical_runs": 0,
+  "fitting_evaluations": 0,
+  "new_geometries": 0,
+  "mu_started": false,
+  "files": {
+    "comparison.svg": "14096bb53a037db1109cca78df8232641e542ccd5fdde2cc6c051e43839bcbc9",
+    "detail.svg": "b91d39db16386ae4568990e926d454f1dfbbf87a2fda6f23593a1b1453964882",
+    "index.html": "8423fd4423fe7eb4a23b5b595b6c09fd107c46ea0bd735e0b7b0a02e4f779fd3",
+    "comparison.png": "a94048227133838b967f4ffbbca9df8b68874f334c49b3f4a9bc88658651b2af"
+  },
+  "approval": {
+    "version": "nu-nominal-vector-review-v1",
+    "owner_quote": "yes",
+    "approved_offer": "Generate standalone n/u beside connected nu, plus an enlarged connection detail, using frozen geometry without refitting.",
+    "report_sha256": "053aff33d2b767c622ea63614fd4727a394c1c6bce365740d007915c7e163b8f",
+    "candidate_sha256": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+    "seconds": 300,
+    "max_output_bytes": 26214400,
+    "minimum_free_bytes": 5368709120,
+    "svg_count": 2,
+    "png_count": 1,
+    "html_count": 1,
+    "retries": 0,
+    "new_geometry": false,
+    "fitting": false,
+    "physical_runs": 0,
+    "mu": false
+  },
+  "code_sha256": "f10d6c4bc5f9efa054bce561bb4eeb6bd65ff4e0ef71e36d393b131505ff081e",
+  "tests_sha256": "0cb1d5484a9baee251f233c02d6de8a63f36008449a5d6726f39d9f89688ebf6",
+  "common_full_frame_mm_y_down": [
+    -1.398995080617361,
+    -4.15228765661066,
+    6.728174753133511,
+    0.6522876566106611
+  ],
+  "flattening_error_mm": 1e-05,
+  "arc_progress": "Nominal cumulative flattened chord length; not physical timing",
+  "contact": "Finite rectangular full/corner/full profile, physical-y-up; reflected only for SVG",
+  "polygon_counts": [
+    3081,
+    3992
+  ],
+  "frozen_inputs_unchanged": true,
+  "elapsed_seconds": 7.371214166050777
+}

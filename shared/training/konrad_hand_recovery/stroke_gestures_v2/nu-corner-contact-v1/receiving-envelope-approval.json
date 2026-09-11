@@ -1,0 +1,23 @@
+{
+  "version": "nu-receiving-envelope-evaluation-v2",
+  "owner_quote": "Okay let's implement the revised checker and reinspect the saved nu candidate **without refitting**.",
+  "pins": {
+    "docs/tech-direction/TD-018-nu-receiving-envelope-revision.md": "9abc82e845aa7e07c3c62c52354614a84f53f2828fa44ad2c1c1eecca65b0457",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/geometry-001/nu-candidate.json": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/geometry-001/report.json": "773ecfc7684284cf01354a18aed4a54a40354c8150c8a6c34ba91b883de27eaa",
+    "scripts/nu_corner_geometry.py": "1d8042685f5854749876de4a8a213d004a64555ce90e00210d817645c29b9c0e",
+    "tests/test_nu_corner_geometry.py": "e6fad3a4d144e31d7058fa2c67f15e1632fff65adc6f34af1194f521e1ba6193",
+    "scripts/stroke_nm_envelope.py": "e9e31cff349a8caba796982d2c751a2571c3c7ae7544da936aa1f840e8cb66e7",
+    "scripts/stroke_nm_construction.py": "1b8fa1266579ea06086af80f4300e4279eea8b098b76c8b93c49dbd90e95d303"
+  },
+  "reinspections": 1,
+  "verification_seconds": 300,
+  "max_output_bytes": 10485760,
+  "minimum_free_bytes": 5368709120,
+  "retries": 0,
+  "geometry_generation": false,
+  "fitting": false,
+  "physical_runs": 0,
+  "images": 0,
+  "mu_authorized": false
+}

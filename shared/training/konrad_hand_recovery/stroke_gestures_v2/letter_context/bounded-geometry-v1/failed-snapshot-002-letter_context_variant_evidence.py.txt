@@ -1,0 +1,278 @@
+"""Geometric/frame and desired-plan preflight, not actual-motion acceptance."""
+
+import argparse
+import copy
+from dataclasses import asdict
+import json
+import math
+from pathlib import Path
+
+import numpy as np
+
+from scripts import letter_context_variants as variants, letter_context_evidence as prior
+from scribesim.evo.nib_contact import ContactSample, contact_corners
+from scribesim.evofit.connected_contract import require_joins, require_overlap_owners
+from scribesim.handvalidate.specimen import ROOT, digest, object_digest, write_json
+
+
+foundation = variants.foundation
+BASE = foundation.BASE.parent/'bounded-geometry-v1'
+NULL_REPORT_SHA256 = '7d8030f9818238a6e7d1252d4b152c844c0e423f9d2909df4400f52e428700ac'
+AUTHORIZATION = {'owner_request': 'Okay let\'s do P2b—approve and validate bounded stroke changes and their measurement frame.',
+    'geometry_bounds_approved': True, 'widths': list(variants.WIDTHS), 'advances': list(variants.ADVANCES),
+    'frame_approved': True, 'context_frame_mm': variants.CONTEXT_FRAME, 'known_frame_mm': variants.OLD_FRAME,
+    'fitting_authorized': False, 'larger_physical_budget_authorized': False, 'leave_uncommitted': True}
+
+
+def identities():
+    return {**prior.identities(), **{str(path.relative_to(ROOT)): digest(path)
+            for path in (Path(__file__), Path(variants.__file__))}}
+
+
+def verify_document(document, candidate, fixture, refinement):
+    try:
+        program = variants.validate_program(document['program'])
+        source = variants.source_compile(candidate, fixture, refinement)
+        if fixture['role'] == 'known_regression' and any(row['width_scale'] != 1 or row['advance_delta'] != 0 for row in program['rules']):
+            raise ValueError('Known regression geometry cannot change')
+        expected, occurrences, shift = copy.deepcopy(source), [], 0.0
+        for letter, logical in enumerate(fixture['text']):
+            following_letter = fixture['text'][letter+1:letter+2]
+            following = 'rise-entry' if following_letter == 'm' else 'stem-entry' if following_letter in ('n', 'u') else None
+            matches = [rule for rule in program['rules'] if rule['current_letter'] == logical and rule['following_entry_class'] == following]
+            scale, advance = (matches[0]['width_scale'], matches[0]['advance_delta']) if matches else (1.0, 0.0)
+            selected = [row for row in source['strokes'] if row['letter'] == letter]
+            anchor = selected[0]['cubics'][0][0][0]
+            for original in selected:
+                derived = copy.deepcopy(original['cubics'])
+                for cubic in derived:
+                    for point in cubic:
+                        if scale != 1:
+                            point[0] = anchor+scale*(point[0]-anchor)
+                        if shift != 0:
+                            point[0] += shift
+                target = next(row for row in expected['strokes'] if row['occurrence_id'] == original['occurrence_id'])
+                target['cubics'] = derived
+                occurrences.append({'source_owner': {key: value for key, value in original.items() if key != 'cubics'},
+                    'canonical_primitive_sha256': object_digest(candidate['primitives'][original['primitive']]),
+                    'canonical_recipe_sha256': object_digest(candidate['recipes'][original['recipe']]),
+                    'source_geometry_sha256': object_digest(original['cubics']), 'derived_geometry_sha256': object_digest(derived),
+                    'rule_id': matches[0]['id'] if matches else None, 'following_entry_class': following,
+                    'transform': {'anchor_x': anchor, 'width_scale': scale, 'advance_delta': advance, 'preceding_advance_offset': shift},
+                    'source_ports': variants.ports(original['cubics']), 'derived_ports': variants.ports(derived)})
+            shift += advance
+        if shift != 0:
+            expected['lines'][0]['width'] += shift
+        expected_document = {'version': variants.VERSION, 'program': program, 'fixture': fixture, 'refinement': refinement,
+            'frame_mm': variants.OLD_FRAME if fixture['role'] == 'known_regression' else variants.CONTEXT_FRAME,
+            'compiled': expected, 'lineage': {'source_compiled_sha256': object_digest(source),
+                'context_program_sha256': object_digest(program), 'occurrences': occurrences,
+                'geometry_bounds_approved': True, 'frame_approved': True, 'physical_validated': False,
+                'context_training_allowed': False, 'S2_accepted': False, 'real_accepted': False}}
+        if object_digest(document) != object_digest(expected_document):
+            raise ValueError('Derived geometry, ports, lineage, frame or permission differs')
+        require_joins(expected['strokes'])
+        for occurrence in occurrences:
+            scale = occurrence['transform']['width_scale']
+            for name in ('entry', 'exit'):
+                tangent = occurrence['source_ports'][name]
+                transformed = [tangent[0]*scale, tangent[1]]
+                transformed = [value/math.hypot(*transformed) for value in transformed]
+                if math.dist(transformed, occurrence['derived_ports'][name]) > 1e-8:
+                    raise ValueError('Derived tangent not transformed and renormalized')
+        return expected
+    except (KeyError, TypeError, IndexError) as error:
+        raise ValueError('Incomplete derived geometry contract') from error
+
+
+def envelope(compiled):
+    points = np.asarray([point for row in compiled['strokes'] for cubic in row['cubics'] for point in cubic])*[3.5, -3.5]+[0, 10]
+    nib = np.asarray(contact_corners(ContactSample(0, 0, True, .45, .5, 40)))
+    low, high = points.min(axis=0)+nib.min(axis=0), points.max(axis=0)+nib.max(axis=0)
+    return [float(low[0]), float(high[0]), float(low[1]), float(high[1])]
+
+
+def within(bounds, frame):
+    return (all(type(value) in (int, float) and math.isfinite(value) for value in [*bounds, *frame])
+        and frame[0] <= bounds[0] <= bounds[1] <= frame[1] and frame[2] <= bounds[2] <= bounds[3] <= frame[3])
+
+
+def local_windows(documents):
+    windows = {}
+    for document in documents:
+        for letter in range(len(document['fixture']['text'])):
+            bounds = envelope({'strokes': [row for row in document['compiled']['strokes'] if row['letter'] == letter]})
+            previous = windows.setdefault(str(letter), bounds.copy())
+            windows[str(letter)] = [min(previous[0], bounds[0]), max(previous[1], bounds[1]),
+                                   min(previous[2], bounds[2]), max(previous[3], bounds[3])]
+    return {key: [bounds[0]-.8, bounds[1]+.8, bounds[2]-.8, bounds[3]+.8] for key, bounds in windows.items()}
+
+
+def plan_contained(plan, frame):
+    return all(frame[0] <= horizontal <= frame[1] and frame[2] <= vertical <= frame[3]
+        for sample in plan.samples if sample.contact
+        for horizontal, vertical in contact_corners(ContactSample(sample.x_mm, sample.y_mm, True, .45,
+            sample.pressure, sample.nib_angle_deg, sample.edge_start, sample.edge_end)))
+
+
+def physical_inventory():
+    ledger = foundation.read_json(foundation.SOURCE/'execution.json')['ledger']
+    worst_seed = max(row['cumulative_seconds'] for row in ledger)
+    runs = {'train_pairs': 54*4, 'controls': 3*4, 'known_regression': 4*4}
+    per_seed = sum(runs.values())*2
+    renders = per_seed*3+54*2+8*2
+    extrapolation = worst_seed*(per_seed/80)
+    recommended = math.ceil(extrapolation*1.25/300)*300
+    return {'scope': 'Pair variant mechanical gate before preferences; development/probe physical checks follow selection',
+        'runs_by_role_per_process': runs, 'runs_per_process': sum(runs.values()),
+        'runs_per_seed_including_replay': per_seed, 'seeds': [7, 19, 41],
+        'renders_per_seed_upper_bound': renders, 'render_accounting': {'actual_desired_overlap_per_run': 3,
+            'train_actual_presentations_per_process': 54, 'control_allowance_per_process': 8},
+        'proposed_renders_per_seed': 5000, 'proposed_seconds_per_seed': 1800,
+        'historical_h024_worst_seconds_per_seed': worst_seed, 'historical_runs_per_seed': 80,
+        'historical_ledger_sha256': digest(foundation.SOURCE/'execution.json'),
+        'estimated_seconds_per_seed_without_headroom': extrapolation, 'planning_headroom_fraction': .25,
+        'recommended_seconds_per_seed': recommended, 'budget_feasible': extrapolation*1.25 <= 1800 and renders <= 5000,
+        'estimate_limit': 'Historical wall-time extrapolation, not a measured runtime guarantee or a completed new run',
+        'physical_execution_authorized': False, 'automatic_retries': 0, 'automatic_revisions': 0,
+        'future_accounting': 'Carry P2b preview/validation debits into the combined C006 seed budget; never reset per arm'}
+
+
+def require_physical_execution(plan):
+    raise ValueError('Physical runner/reader freeze and revised concrete time budget require owner approval; preflight is not execution clearance')
+
+
+def load_inputs():
+    candidate = foundation.read_json(foundation.placement.evaluation.SOURCE/'candidate.json')
+    clearance = foundation.require_readiness(prior.READINESS, expected_report_sha256=prior.READINESS_SHA256,
+        candidate=candidate, required_letters=['n', 'u', 'm'], tool='physical-edge-v1', purpose=foundation.PURPOSE)
+    snapshot = prior.BASE/'snapshot-001'
+    if digest(snapshot/'report.json') != NULL_REPORT_SHA256 or foundation.read_json(snapshot/'freeze.json') != prior.freeze_record():
+        raise ValueError('Changed P2a null contract evidence')
+    report = foundation.read_json(snapshot/'report.json')
+    foundation.verify_inventory(snapshot, report['artifacts'], ['report.json'])
+    if report['status'] != 'pass' or report['compilation_plan_cases'] != 80 or report['context_training_allowed'] is not False:
+        raise ValueError('Missing null baseline proof')
+    return candidate, clearance
+
+
+def summarize():
+    candidate, clearance = load_inputs()
+    geometry, planning, windows, failures, cells = [], [], {}, [], set()
+    for fixture in variants.fixtures():
+        programs = [variants.make_program({})] if fixture['role'] == 'known_regression' else variants.programs_for(fixture['text'])
+        documents = [variants.compile_variant(candidate, fixture, program, refinement)
+                     for program in programs for refinement in ('base', 'subdivision')]
+        windows[fixture['id']] = local_windows(documents)
+        for document in documents:
+            verify_document(document, candidate, fixture, document['refinement'])
+            bounds = envelope(document['compiled'])
+            frame = document['frame_mm']
+            contained = within(bounds, frame) and all(within(window, frame) for window in windows[fixture['id']].values())
+            levels = foundation.placement.measurement.extrema([cubic for row in document['compiled']['strokes'] for cubic in row['cubics']])
+            level_error = max(abs(levels[0]-fixture['shift'][1]), abs(levels[1]-fixture['shift'][1]-1))
+            overlap = True
+            try:
+                for letter, logical in enumerate(fixture['text']):
+                    selected = [row for row in document['compiled']['strokes'] if row['letter'] == letter]
+                    require_overlap_owners(selected, candidate['recipes'][logical]['gestures'], .45/3.5)
+            except ValueError:
+                overlap = False
+            passed = contained and overlap and level_error <= foundation.placement.SPEC['mechanical_criteria']['nominal_landmark_max']
+            row = {'fixture': fixture['id'], 'program': document['program'], 'refinement': document['refinement'],
+                'document_sha256': object_digest(document), 'frame_mm': frame, 'finite_nib_control_hull_mm': bounds,
+                'contained_with_frozen_windows': contained, 'nominal_level_error': level_error,
+                'declared_overlap_envelope': overlap, 'geometry_pass': passed}
+            geometry.append(row)
+            if not passed:
+                failures.append({'stage': 'geometry', 'fixture': fixture['id'], 'program_sha256': object_digest(document['program']),
+                                 'refinement': document['refinement']})
+            cells.update(rule['id'] for rule in document['program']['rules'])
+        if fixture['role'] not in ('train_pairs', 'controls', 'known_regression'):
+            continue
+        for program in programs:
+            for refinement in foundation.placement.SPEC['refinements']:
+                document = variants.compile_variant(candidate, fixture, program, refinement)
+                try:
+                    bundle, timed = variants.prepare_plan(document, candidate, fixture, refinement)
+                except ValueError as error:
+                    rejected = {'stage': 'desired_plan', 'fixture': fixture['id'],
+                                'program_sha256': object_digest(program), 'refinement': refinement, 'reason': str(error)}
+                    failures.append(rejected)
+                    planning.append({**rejected, 'desired_plan_pass': False, 'plan_constructed': False})
+                    continue
+                metrics = foundation.placement.evaluation.runtime.motion.desired_motion_metrics(bundle.plan)
+                contained = plan_contained(bundle.plan, document['frame_mm'])
+                criteria = foundation.placement.SPEC['mechanical_criteria']
+                passed = (contained and metrics['desired_discontinuities'] == 0
+                    and metrics['desired_acceleration_mm_s2'] <= criteria['desired_acceleration_mm_s2']+1e-8
+                    and metrics['desired_contact_speed_mm_s'] <= criteria['contact_speed_mm_s'])
+                planning.append({'fixture': fixture['id'], 'program_sha256': object_digest(program), 'refinement': refinement,
+                    'bundle_sha256': object_digest(asdict(bundle)), 'timing_sha256': object_digest(asdict(timed)),
+                    'metrics': metrics, 'desired_frame_contained': contained, 'desired_plan_pass': passed})
+                if not passed:
+                    failures.append({'stage': 'desired_plan', 'fixture': fixture['id'], 'program_sha256': object_digest(program), 'refinement': refinement})
+    return {'version': variants.VERSION, 'authorization': AUTHORIZATION,
+        'geometry_frame_status': 'fail' if any(row['stage'] == 'geometry' for row in failures) else 'pass',
+        'desired_plan_status': 'fail' if any(row['stage'] == 'desired_plan' for row in failures) else 'pass',
+        'geometry_cases': len(geometry),
+        'canonical_variant_cases': len(geometry)//2, 'desired_plan_cases': len(planning),
+        'rule_cells_covered': sorted(cells), 'local_windows_mm': windows, 'geometry': geometry, 'planning': planning,
+        'failures': failures, 'physical_inventory': physical_inventory(),
+        'physical_validation': 'blocked_preflight_failure' if failures else 'not_run_budget_clearance_pending',
+        'frame_proof': 'Conservative Bezier control hull plus unstretched physical-edge-v1 footprint; not actual-motion containment',
+        'sealed_holdout_texts_opened': [], 'inherited_context_gaps': clearance['context_gaps'],
+        'S2_accepted': False, 'real_accepted': False, 'context_training_allowed': False,
+        'controller_executions': 0, 'raster_renders': 0, 'optimization_evaluations': 0}
+
+
+def freeze_record():
+    return {'version': variants.VERSION, 'code_sha256': identities(), 'authorization': AUTHORIZATION,
+        'readiness_report_sha256': prior.READINESS_SHA256, 'null_report_sha256': NULL_REPORT_SHA256,
+        'fixtures': variants.fixtures(), 'widths': list(variants.WIDTHS), 'advances': list(variants.ADVANCES),
+        'mechanical_criteria': foundation.placement.SPEC['mechanical_criteria'], 'physical_inventory': physical_inventory()}
+
+
+def build(directory):
+    directory = Path(directory)
+    if directory.exists():
+        raise ValueError('Immutable preflight already exists')
+    directory.mkdir(parents=True, exist_ok=False)
+    write_json(directory/'freeze.json', freeze_record())
+    report = summarize()
+    if foundation.read_json(directory/'freeze.json') != freeze_record():
+        raise ValueError('Source changed during bounded preflight')
+    report['artifacts'] = {'freeze.json': digest(directory/'freeze.json')}
+    write_json(directory/'report.json', report)
+    return report
+
+
+def inspect(directory, expected_report_sha256):
+    directory = Path(directory)
+    if not expected_report_sha256 or digest(directory/'report.json') != expected_report_sha256:
+        raise ValueError('External preflight report pin required')
+    report = foundation.read_json(directory/'report.json')
+    foundation.verify_inventory(directory, report['artifacts'], ['report.json'])
+    if foundation.read_json(directory/'freeze.json') != freeze_record():
+        raise ValueError('Changed preflight identities or authority')
+    expected = summarize()
+    if report != {**expected, 'artifacts': {'freeze.json': digest(directory/'freeze.json')}}:
+        raise ValueError('Preflight differs from reconstructed evidence')
+    return {**expected, 'report_sha256': expected_report_sha256, 'read_only': True}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--build', type=Path)
+    parser.add_argument('--inspect', type=Path)
+    parser.add_argument('--report-sha256')
+    args = parser.parse_args()
+    if bool(args.build) == bool(args.inspect):
+        parser.error('Choose --build or --inspect')
+    report = build(args.build) if args.build else inspect(args.inspect, args.report_sha256)
+    print(json.dumps({key: value for key, value in report.items()
+        if key not in {'geometry', 'planning', 'local_windows_mm', 'artifacts'}}, indent=2))
+
+
+if __name__ == '__main__':
+    main()

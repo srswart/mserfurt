@@ -1,0 +1,184 @@
+"""Approved bounded derived geometry; no physical execution or fitting permission."""
+
+import copy
+from dataclasses import asdict, replace
+from functools import lru_cache
+from itertools import product
+import json
+import math
+
+from scripts import current_foundation_readiness as foundation, letter_context_contract as null
+from scribesim.evofit import stroke_gestures as gestures
+from scribesim.handflow.curve_tangents import retime_curve_tangents
+from scribesim.handflow.planning import build_track_plan
+from scribesim.handvalidate.specimen import object_digest
+from scribesim.pathguide import gesture_actions as actions
+from scribesim.pathguide.model import DensePathGuide, GuideSample
+from scribesim.pathguide.repertoire import _sample_cubic
+
+
+VERSION = 'letter-context-bounded-geometry-v1'
+WIDTHS = (.97, 1.0, 1.03)
+ADVANCES = (-.05, 0.0, .05)
+OLD_FRAME = [-3, 20, 2, 13]
+CONTEXT_FRAME = [-3, 30, 2, 13]
+PARTITIONS = {'controls': ['n', 'u', 'm'], 'train_pairs': ['nn', 'nm', 'un', 'um', 'mn', 'mm'],
+    'development_triples': ['nnu', 'unu', 'mnu', 'nmm', 'umm', 'mmm'],
+    'previously_reviewed_pair_probes': ['nu', 'uu', 'mu']}
+
+
+def fixtures():
+    return [{'id': role+'-'+text, 'text': text, 'kind': 'letter', 'shift': [0, 0], 'role': role}
+            for role, texts in PARTITIONS.items() for text in texts] + [
+            {**row, 'role': 'known_regression'} for row in foundation.placement.SPEC['known_regressions']]
+
+
+def make_program(cells):
+    program = {'schema_version': VERSION, 'candidate_sha256': null.CANDIDATE_SHA256,
+        'rules': [{'id': identifier, 'current_letter': identifier.split(':')[0],
+            'following_entry_class': identifier.split(':')[1], 'width_scale': values[0], 'advance_delta': values[1]}
+            for identifier, values in cells.items()]}
+    return validate_program(program)
+
+
+def validate_program(program):
+    try:
+        if (set(program) != {'schema_version', 'candidate_sha256', 'rules'} or program['schema_version'] != VERSION
+                or program['candidate_sha256'] != null.CANDIDATE_SHA256 or type(program['rules']) is not list
+                or len(program['rules']) > 6):
+            raise ValueError('Unapproved context program')
+        rules, seen = [], set()
+        for row in program['rules']:
+            if (set(row) != null.RULE_FIELDS or row['current_letter'] not in null.ENTRY_CLASSES
+                    or row['following_entry_class'] not in set(null.ENTRY_CLASSES.values())
+                    or row['id'] != row['current_letter']+':'+row['following_entry_class'] or row['id'] in seen):
+                raise ValueError('Invalid or duplicate context selector')
+            for key, choices in [('width_scale', WIDTHS), ('advance_delta', ADVANCES)]:
+                if type(row[key]) not in (int, float) or not math.isfinite(row[key]) or row[key] not in choices:
+                    raise ValueError('Outside approved discrete geometry bounds')
+            seen.add(row['id'])
+            rules.append({**row, 'width_scale': float(row['width_scale']), 'advance_delta': float(row['advance_delta'])})
+        return {**program, 'rules': sorted(rules, key=lambda row: row['id'])}
+    except (KeyError, TypeError) as error:
+        raise ValueError('Malformed bounded context program') from error
+
+
+def programs_for(text):
+    if text not in {text for texts in PARTITIONS.values() for text in texts}:
+        raise ValueError('Text outside unsealed preflight inventory')
+    cells = sorted({letter+':'+null.ENTRY_CLASSES[following] for letter, following in zip(text, text[1:])})
+    return [make_program(dict(zip(cells, values))) for values in product(list(product(WIDTHS, ADVANCES)), repeat=len(cells))]
+
+
+def source_model(candidate, fixture, refinement):
+    if (object_digest(candidate) != null.CANDIDATE_SHA256 or fixture not in fixtures()
+            or refinement not in foundation.placement.SPEC['refinements']):
+        raise ValueError('Unfrozen candidate, fixture or refinement')
+    model = copy.deepcopy(candidate)
+    for recipe in model['recipes'].values():
+        for instance in recipe['gestures']:
+            instance['offset'] = [value+shift for value, shift in zip(instance['offset'], fixture['shift'])]
+    return foundation.placement.evaluation.subdivide(model) if refinement == 'subdivision' else model
+
+
+def source_compile(candidate, fixture, refinement):
+    model = source_model(candidate, fixture, refinement)
+    return copy.deepcopy(cached_compile(fixture['text'], json.dumps(model, sort_keys=True, allow_nan=False)))
+
+
+@lru_cache(maxsize=64)
+def cached_compile(text, serialized_model):
+    return gestures.compile_gestures(text, json.loads(serialized_model))
+
+
+def ports(cubics):
+    result = {}
+    for name, before, after in [('entry', cubics[0][0], cubics[0][1]), ('exit', cubics[-1][-2], cubics[-1][-1])]:
+        delta = [after[axis]-before[axis] for axis in (0, 1)]
+        length = math.hypot(*delta)
+        if length <= 1e-10:
+            raise ValueError('Stationary derived port')
+        result[name] = [value/length for value in delta]
+    return result
+
+
+def compile_variant(candidate, fixture, program, refinement='base'):
+    program = validate_program(program)
+    source = source_compile(candidate, fixture, refinement)
+    if fixture['role'] == 'known_regression' and any(row['width_scale'] != 1 or row['advance_delta'] != 0 for row in program['rules']):
+        raise ValueError('Known regressions remain identity in the original frame')
+    compiled, occurrences, displacement = copy.deepcopy(source), [], 0.0
+    rules = {row['id']: row for row in program['rules']}
+    for letter, logical in enumerate(fixture['text']):
+        selected = [row for row in compiled['strokes'] if row['letter'] == letter]
+        anchor = selected[0]['cubics'][0][0][0]
+        following = null.ENTRY_CLASSES[fixture['text'][letter+1]] if letter+1 < len(fixture['text']) else None
+        identifier = logical+':'+following if following else None
+        rule = rules.get(identifier)
+        scale, advance = (rule['width_scale'], rule['advance_delta']) if rule else (1.0, 0.0)
+        for row in selected:
+            original = copy.deepcopy(row)
+            for cubic in row['cubics']:
+                for point in cubic:
+                    if scale != 1:
+                        point[0] = anchor+scale*(point[0]-anchor)
+                    if displacement != 0:
+                        point[0] += displacement
+            occurrences.append({'source_owner': {key: value for key, value in original.items() if key != 'cubics'},
+                'canonical_primitive_sha256': object_digest(candidate['primitives'][row['primitive']]),
+                'canonical_recipe_sha256': object_digest(candidate['recipes'][row['recipe']]),
+                'source_geometry_sha256': object_digest(original['cubics']), 'derived_geometry_sha256': object_digest(row['cubics']),
+                'rule_id': identifier if rule else None, 'following_entry_class': following,
+                'transform': {'anchor_x': anchor, 'width_scale': scale, 'advance_delta': advance,
+                              'preceding_advance_offset': displacement},
+                'source_ports': ports(original['cubics']), 'derived_ports': ports(row['cubics'])})
+        displacement += advance
+    if displacement != 0:
+        compiled['lines'][0]['width'] += displacement
+    return {'version': VERSION, 'program': program, 'fixture': copy.deepcopy(fixture), 'refinement': refinement,
+        'frame_mm': OLD_FRAME.copy() if fixture['role'] == 'known_regression' else CONTEXT_FRAME.copy(),
+        'compiled': compiled, 'lineage': {'source_compiled_sha256': object_digest(source),
+            'context_program_sha256': object_digest(program), 'occurrences': occurrences,
+            'geometry_bounds_approved': True, 'frame_approved': True, 'physical_validated': False,
+            'context_training_allowed': False, 'S2_accepted': False, 'real_accepted': False}}
+
+
+def prepare_plan(document, candidate, fixture, refinement):
+    from scripts.letter_context_variant_evidence import verify_document, identities
+    verify_document(document, candidate, fixture, refinement)
+    model = source_model(candidate, fixture, refinement)
+    source = source_compile(candidate, fixture, refinement)
+    step = foundation.placement.SPEC['refinements'][refinement][0]
+    if document['compiled'] == source:
+        bundle = actions.action_bundle(fixture['text'], model, step_mm=step, include_curve_positions=True)
+    else:
+        samples, owners, groups = [], [], {}
+        occurrences = {row['source_owner']['occurrence_id']: row for row in document['lineage']['occurrences']}
+        for row in document['compiled']['strokes']:
+            groups.setdefault(row['contact_run_id'], []).append(row)
+        for rows in groups.values():
+            contact = list(gestures._arc_samples(rows, 3.5, step, preserve_boundaries=True,
+                                                include_curve_positions=True, connected_progress=True))
+            if samples:
+                start, end = [samples[-1].x_mm, samples[-1].y_mm], list(contact[0][0][:2])
+                for point in _sample_cubic([start, start, end, end], step):
+                    samples.append(GuideSample(*point, contact=False, pressure_nominal=0, nib_angle_deg=40))
+                    owners.append({'kind': 'air', 'spans': [], 'from': owners[-1].get('gesture_occurrence_id'),
+                                   'to': rows[0]['gesture_occurrence_id']})
+            for point, row, progress in contact:
+                samples.append(GuideSample(*point, pressure_nominal=.5, nib_angle_deg=40))
+                owners.append({**{key: value for key, value in row.items() if key != 'cubics'}, 'kind': 'stroke',
+                    'spans': [row['span']], 'gesture_progress': row['gesture_progress'],
+                    'derived_geometry_sha256': occurrences[row['occurrence_id']]['derived_geometry_sha256'],
+                    'context_program_sha256': object_digest(document['program'])})
+        guide = DensePathGuide(fixture['text'], tuple(samples), document['compiled']['lines'][0]['width']*3.5, 3.5,
+            kind='word', entry_tangent=(samples[0].tangent_dx, samples[0].tangent_dy),
+            exit_tangent=(samples[-1].tangent_dx, samples[-1].tangent_dy))
+        plan = build_track_plan(guide, base_speed_mm_s=12)
+        desired = [actions.ActionPlanSample(**{key: value if key == 'contact' else float(value)
+                       for key, value in asdict(sample).items()}, edge_start=0.0, edge_end=1.0,
+                       gesture_progress=owner.get('gesture_progress', 0)) for sample, owner in zip(plan.samples, owners)]
+        bundle = actions.ActionBundle(VERSION, object_digest(document), actions.digest(actions.CONTRACT_PATH), identities(),
+            fixture['text'], step, document['frame_mm'], replace(plan, samples=tuple(desired)), owners)
+    timed = retime_curve_tangents(bundle.plan, bundle.owners, document['compiled']['strokes'])
+    return replace(bundle, plan=timed.plan, owners=[bundle.owners[index] for index in timed.source_indices]), timed

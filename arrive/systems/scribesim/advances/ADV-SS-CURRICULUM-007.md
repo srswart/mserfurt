@@ -43,6 +43,12 @@ No production renderer or component stage changes.
 ## Dependencies
 
 - [ADV-SS-CURRICULUM-006](ADV-SS-CURRICULUM-006.md)
+- [ADV-SS-HANDVALIDATE-026](ADV-SS-HANDVALIDATE-026.md)
+
+Per [TD-018 Addendum D](../../../../docs/tech-direction/TD-018-addendum-d-stroke-context-transitions.md),
+word-context work now waits for the new neighbor-aware stroke-context phase and
+an explicit scope-qualified owner/checkpoint decision. The old affine mechanical
+pass or completion of these planning documents is not contextual acceptance.
 
 Per [TD-018 Addendum A](../../../../docs/tech-direction/TD-018-addendum-a-stroke-gestures.md),
 retain the matching primitive/gesture/action/recipe/context identities and

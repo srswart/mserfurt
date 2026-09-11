@@ -1,0 +1,25 @@
+{
+  "version": "nu-local-contact-classification-v1",
+  "owner_quote": "I approve lets implement and re-inspect without refitting.",
+  "rule_sha256": "e749563aced409e48d53bede3094e15ed024568cc3c1cccb6a1bc6b812633860",
+  "pins": {
+    "docs/tech-direction/TD-018-local-contact-classification.md": "e749563aced409e48d53bede3094e15ed024568cc3c1cccb6a1bc6b812633860",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/self-contact-review-001/report.json": "6bd3453b1ff86f7e6461ff77cecc4026f23a6cd0097a3284271b12e39dc20278",
+    "scripts/nu_self_contact_review.py": "ca265c4910de5bc0fbe8410d9b1ac651706b2ef00ea42e640462f1b7eb746037",
+    "tests/test_nu_self_contact_review.py": "492522f71a412a00a85791bc1bb0cb72f9e68da41268c1b1b0f3dc6035a5537d",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/derived-entry-001/candidate.json": "16872e32eb44d15c2b226a4327a75851bf6a286ba08568930f856c554e97c433",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/derived-entry-001/report.json": "8123f6684aaf0dd01ea384defa97e8547ddcaa259ba0ec149ce00bf8c759f30c",
+    "scripts/nu_derived_entry.py": "94c9fee35678948c421be2495a6285dbcbb945673c0b6e9987baa10fff5918fa",
+    "tests/test_nu_derived_entry.py": "80ca5e1fd1e3fc8d77745bfda8777146dfe485f4f53cdbd6a826f67e0a48f3c8"
+  },
+  "seconds": 300,
+  "max_output_bytes": 10485760,
+  "minimum_free_bytes": 5368709120,
+  "reinspections": 1,
+  "retries": 0,
+  "new_geometry": false,
+  "fitting": false,
+  "images": 0,
+  "physical_runs": 0,
+  "mu": false
+}

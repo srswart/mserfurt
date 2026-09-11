@@ -1,0 +1,336 @@
+{
+  "version": "nu-entry-port-audit-v1",
+  "status": "incompatible",
+  "new_geometries": 0,
+  "renders": 0,
+  "physical_runs": 0,
+  "fitting_evaluations": 0,
+  "mu_started": false,
+  "approval": {
+    "version": "nu-entry-port-audit-v1",
+    "owner_quote": "Okay execution of CURRICULUM-016 is approved.  Let's go.",
+    "scope": "One nu-only read-only port/envelope audit; no geometry, rendering, fitting or mu",
+    "proposal_sha256": "f2c7ee6343ba4ffe9286936a8233058f4ba6c0856113ceaf2c91b9f4cdc39351",
+    "seconds": 300,
+    "max_output_bytes": 10485760,
+    "minimum_free_bytes": 5368709120,
+    "retries": 0
+  },
+  "code_sha256": "a536f13263038651759993e3bc6711337cd2caa242abaa1985a95d0adf1f2d35",
+  "tests_sha256": "12a2872c3f5b4a4f579ec1a4d544034c9a7240caeea1deb99f4fe8f897debf8f",
+  "input_pins": {
+    "docs/tech-direction/TD-018-nu-receiving-envelope-revision.md": "9abc82e845aa7e07c3c62c52354614a84f53f2828fa44ad2c1c1eecca65b0457",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/geometry-001/nu-candidate.json": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/geometry-001/report.json": "773ecfc7684284cf01354a18aed4a54a40354c8150c8a6c34ba91b883de27eaa",
+    "scripts/nu_corner_geometry.py": "1d8042685f5854749876de4a8a213d004a64555ce90e00210d817645c29b9c0e",
+    "tests/test_nu_corner_geometry.py": "e6fad3a4d144e31d7058fa2c67f15e1632fff65adc6f34af1194f521e1ba6193",
+    "scripts/stroke_nm_envelope.py": "e9e31cff349a8caba796982d2c751a2571c3c7ae7544da936aa1f840e8cb66e7",
+    "scripts/stroke_nm_construction.py": "1b8fa1266579ea06086af80f4300e4279eea8b098b76c8b93c49dbd90e95d303",
+    "docs/tech-direction/TD-018-contextual-entry-feasibility-proposal.md": "f2c7ee6343ba4ffe9286936a8233058f4ba6c0856113ceaf2c91b9f4cdc39351",
+    "docs/tech-direction/TD-018-contextual-u-entry-audit.md": "f86601c164429ae1b7022b281c7303d9ed2da6b4129e0839e7e9b4427e12b377",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/run-001/candidate.json": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-corner-contact-v1/receiving-envelope-review-001/report.json": "053aff33d2b767c622ea63614fd4727a394c1c6bce365740d007915c7e163b8f"
+  },
+  "family": {
+    "scale": [
+      0.5,
+      1.5
+    ],
+    "rotation_deg": [
+      -20,
+      20
+    ],
+    "reflection": false,
+    "shear": false,
+    "inventory": [
+      "lower-return",
+      "rise",
+      "upper-return"
+    ]
+  },
+  "analysis": {
+    "status": "incompatible",
+    "scope": "Exact full-primitive reuse in the approved similarity family, fixed A/B/D/C",
+    "identity": {
+      "status": "necessary_conditions_pass",
+      "canonical_model_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+      "retained_source_intervals": [
+        {
+          "owner": "0:0",
+          "interval": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "owner": "0:1",
+          "interval": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "owner": "0:2",
+          "interval": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "owner": "0:3",
+          "interval": [
+            "0",
+            "0.7648068784772746"
+          ]
+        },
+        {
+          "owner": "1:0",
+          "interval": [
+            "0.25",
+            "1"
+          ]
+        },
+        {
+          "owner": "1:1",
+          "interval": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "owner": "1:2",
+          "interval": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "owner": "1:3",
+          "interval": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "replaced_source_intervals": [
+        {
+          "owner": "0:3",
+          "interval": [
+            "0.7648068784772746",
+            "1"
+          ]
+        },
+        {
+          "owner": "1:0",
+          "interval": [
+            "0",
+            "0.25"
+          ]
+        }
+      ],
+      "action_partition": "A-B full to corner; B-D constant negative10%; D-C corner to full",
+      "semantic_partition": "departure crosses B to P; rise P-Q; crown crosses D; descent to C",
+      "length_partition": [
+        "A-B",
+        "B-D",
+        "D-C"
+      ]
+    },
+    "inventory": {
+      "lower-return": {
+        "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+        "entry_tangent": [
+          0.03701166050988026,
+          -0.9993148337667671
+        ],
+        "exit_tangent": [
+          -0.037011660509880175,
+          0.9993148337667671
+        ],
+        "displacement_mm": [
+          1.3789019810404555,
+          -0.4596339936801517
+        ],
+        "y_extrema": {
+          "root_intervals": [
+            [
+              0.6619431296305446,
+              0.6619431296325445
+            ]
+          ],
+          "values_at_probes": [
+            0.86899162238258,
+            1.2810029482637533e-17,
+            0.4093576287024283
+          ],
+          "parameters": [
+            0.0,
+            0.6619431296315446,
+            1.0
+          ],
+          "minimum_lower": -1.0069879298897897e-09,
+          "maximum_upper": 0.8689916233895679,
+          "numeric_guard": 1.0069879426998193e-09
+        }
+      },
+      "rise": {
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "entry_tangent": [
+          -0.037011660509880265,
+          0.9993148337667671
+        ],
+        "exit_tangent": [
+          0.7216815745263602,
+          0.6922251837293654
+        ],
+        "displacement_mm": [
+          0.28,
+          3.1436614399235783
+        ],
+        "y_extrema": {
+          "root_intervals": [],
+          "values_at_probes": [
+            0.0,
+            3.1436614399235783
+          ],
+          "parameters": [
+            0.0,
+            1.0
+          ],
+          "minimum_lower": -1.0219354279503356e-09,
+          "maximum_upper": 3.1436614409455137,
+          "numeric_guard": 1.0219354279503356e-09
+        }
+      },
+      "upper-return": {
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "entry_tangent": [
+          0.72168157452636,
+          0.6922251837293657
+        ],
+        "exit_tangent": [
+          0.06651901052377386,
+          -0.997785157856609
+        ],
+        "displacement_mm": [
+          1.4025566424274425,
+          -0.4675188808091475
+        ],
+        "y_extrema": {
+          "root_intervals": [
+            [
+              0.39064265979243284,
+              0.3906426597944328
+            ]
+          ],
+          "values_at_probes": [
+            3.1436614399235783,
+            3.499999999999999,
+            2.6761425591144308
+          ],
+          "parameters": [
+            0.0,
+            0.3906426597934328,
+            1.0
+          ],
+          "minimum_lower": 2.6761425581073874,
+          "maximum_upper": 3.5000000010070424,
+          "numeric_guard": 1.0070431185824144e-09
+        }
+      }
+    },
+    "source_join_constraints": [
+      {
+        "from": "lower-return",
+        "to": "rise",
+        "unit_tangent_error": 9.020562075079397e-17,
+        "consequence": "Matching directions force the same rotation on neighboring full primitives"
+      },
+      {
+        "from": "rise",
+        "to": "upper-return",
+        "unit_tangent_error": 4.002966042486721e-16,
+        "consequence": "Matching directions force the same rotation on neighboring full primitives"
+      }
+    ],
+    "entry_port_domains": {
+      "status": "necessary_conditions_pass",
+      "rotation_interval_deg": [
+        -20,
+        -2.121096396661457
+      ],
+      "quadrant_boundaries_open": true,
+      "forced_rotation_deg": -2.353981470278427,
+      "P_angle_deg": 89.76711492638303,
+      "Q_angle_deg": 41.452529105739515,
+      "unrotated_rise_entry_incompatible": true,
+      "meaning": "Positive x/y endpoint directions only, not selected P/Q coordinates or full-curve admission"
+    },
+    "departure_baseline_constraint": {
+      "status": "incompatible",
+      "forced_rotation_deg": -2.353981470278427,
+      "minimum_parameter_interval": [
+        0.6739452647989841,
+        0.673945264800984
+      ],
+      "projected_y_extrema": {
+        "root_intervals": [
+          [
+            0.6739452647989841,
+            0.673945264800984
+          ]
+        ],
+        "values_at_probes": [
+          0.8682583162466744,
+          -0.04285515382357438,
+          0.35237631327054336
+        ],
+        "parameters": [
+          0.0,
+          0.6739452647999841,
+          1.0
+        ],
+        "minimum_lower": -0.0428551548312383,
+        "maximum_upper": 0.8682583172543383,
+        "numeric_guard": 1.0076639161265174e-09
+      },
+      "unit_scale_drop_mm": 0.9111134700702488,
+      "baseline_required_scale": 0.9537688234546445,
+      "scale_in_family": true,
+      "baseline_required_horizontal_travel_mm": 0.24029664381186933,
+      "projected_horizontal_travel_at_baseline_mm": 0.9705049264426479,
+      "horizontal_residual_mm": 0.7302082826307785,
+      "residual_guard_mm": 1e-07,
+      "reason": "A tangent fixes rotation; B baseline fixes scale; remaining horizontal displacement must also match B",
+      "scope": "Full lower-return only; no candidate curve or new point generated"
+    },
+    "independent_receiving_port_constraints": {
+      "direct_crown_to_C": {
+        "status": "incompatible",
+        "angle_error_deg": 2.005750957427665
+      },
+      "crown_to_unchanged_canonical_prefix": {
+        "status": "incompatible",
+        "angle_error_deg": -2.3539814702783985
+      },
+      "scope": "Necessary tangent checks only; a derived descent is not covered by these rejections"
+    },
+    "adaptation_requirements": [
+      "Full lower-return similarity cannot be assumed: retain A/B and derive departure handles or separately propose a source cut. No handle length selected.",
+      "Unrotated rise entry is leftward; a compatible common rotation can address endpoint sign only. It does not prove displacement/envelope/curvature fit.",
+      "Crown exit needs direction adaptation or a derived descent to fixed C; exact canonical prefix and direct crown joins remain separate rejected cases.",
+      "Changing only the lower-return entry handle cannot prove simultaneous B location and P tangent; complete derived-shape proof is required."
+    ],
+    "not_evaluated": [
+      "adapted coordinates",
+      "adapted curvature",
+      "whole adapted envelope",
+      "adapted finite contact sweep",
+      "visual naturalness",
+      "physical execution"
+    ],
+    "next": "Review contradictions before a separate deterministic derivation proposal; do not enlarge the family or retry"
+  },
+  "frozen_inputs_unchanged": true,
+  "elapsed_seconds": 5.674518291954882
+}

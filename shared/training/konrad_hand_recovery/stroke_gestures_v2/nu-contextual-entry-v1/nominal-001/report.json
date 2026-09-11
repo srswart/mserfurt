@@ -1,0 +1,171 @@
+{
+  "version": "nu-three-way-nominal-v1",
+  "status": "nominal_packet_ready_for_review",
+  "accepted": false,
+  "new_geometries": 0,
+  "fitting_evaluations": 0,
+  "physical_runs": 0,
+  "mu_started": false,
+  "files": {
+    "comparison.svg": "027f5aa18ec4ef979e569ccfdbcaf644939f76586994518893b22d8836b46477",
+    "index.html": "31434fb46606291b97f9f6408f0f5ab6451519aa0dd278ff0e7223972fa37e38",
+    "comparison.png": "a92c3de84dc13f47f840ba5239c5476e24a4c78167f5f487664de94cfffbb6ac",
+    "detail.svg": "22dc863670c1c0f663bf5e4f66a1bdafb390ce68dacd374ef34c13c6ae3891a5",
+    "detail.png": "69a6a5f62e8ffba5be0ec0b32497db6f496d19a69b81b98c5d7ec8361d9f437e"
+  },
+  "approval": {
+    "version": "nu-three-way-nominal-v1",
+    "owner_quote": "Please generate the **canonical / old-bridge / derived-entry visual comparison** for your review.",
+    "classification_report_sha256": "2531730f4839d2f9c6fce32484406f6e5d858ad4a4af80da3f77143b851ede3b",
+    "renderer_sha256": "f10d6c4bc5f9efa054bce561bb4eeb6bd65ff4e0ef71e36d393b131505ff081e",
+    "seconds": 300,
+    "max_output_bytes": 26214400,
+    "minimum_free_bytes": 5368709120,
+    "svg_count": 2,
+    "png_count": 2,
+    "html_count": 1,
+    "retries": 0,
+    "new_geometry": false,
+    "fitting": false,
+    "physical_runs": 0,
+    "mu": false
+  },
+  "code_sha256": "21dc2f39c2913120d3fe4057b42bdb1e1357d27badc963db5c4f520fd56773f2",
+  "tests_sha256": "3bf4cb66c1b3b7c001f0544b1155a908c2ef0e056262b54eaedd7b8d6b985840",
+  "frame_mm": [
+    -1.398995080617361,
+    -4.15228765661066,
+    6.728174753133511,
+    0.6522876566106611
+  ],
+  "retained_and_T_S_identical": true,
+  "candidate_sha256": "16872e32eb44d15c2b226a4327a75851bf6a286ba08568930f856c554e97c433",
+  "old_candidate_sha256": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+  "labels": [
+    "1 \u00b7 Canonical \u2014 unconnected n + u",
+    "2 \u00b7 Old bridge \u2014 frozen thin connector",
+    "3 \u00b7 Derived entry \u2014 recovery, rise and crown approach"
+  ],
+  "derivation": {
+    "family": "source-handle-chord-ratios-v1",
+    "theta_deg": -2.353981470278427,
+    "ports": [
+      [
+        [
+          1.837977013210518,
+          0.40935762870242837
+        ],
+        {
+          "parameter": 0.2131784292826109,
+          "bracket_exact": [
+            "122888997719116041/576460752303423488",
+            "245777995438232083/1152921504606846976"
+          ],
+          "signs": [
+            "negative",
+            "nonnegative"
+          ]
+        }
+      ],
+      [
+        [
+          3.580123095808504,
+          3.1436614399235783
+        ],
+        {
+          "parameter": 0.802290048578437,
+          "bracket_exact": [
+            "924977449938151905/1152921504606846976",
+            "462488724969075953/576460752303423488"
+          ],
+          "signs": [
+            "negative",
+            "nonnegative"
+          ]
+        }
+      ]
+    ],
+    "tangents": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.004064600121423428,
+        0.9999917394788084
+      ],
+      [
+        0.749504459883209,
+        0.6619992935156194
+      ],
+      [
+        1.0,
+        0.0
+      ]
+    ],
+    "source_spans": [
+      {
+        "primitive": "lower-return",
+        "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+        "source_interval": [
+          0.6739452647999841,
+          1.0
+        ],
+        "extremum_brackets": [
+          [
+            0.6739452647989841,
+            0.673945264800984
+          ]
+        ],
+        "handle_chord_ratios": [
+          0.3734527868527811,
+          0.542441619534263
+        ]
+      },
+      {
+        "primitive": "rise",
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "source_interval": [
+          0.0,
+          1.0
+        ],
+        "extremum_brackets": [],
+        "handle_chord_ratios": [
+          0.23969988922567162,
+          0.06653768193207345
+        ]
+      },
+      {
+        "primitive": "upper-return",
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "source_interval": [
+          0.0,
+          0.3748236295744619
+        ],
+        "extremum_brackets": [
+          [
+            0.37482362957346194,
+            0.3748236295754619
+          ]
+        ],
+        "handle_chord_ratios": [
+          0.4190515876170629,
+          0.2780598199321577
+        ]
+      }
+    ],
+    "semantics": [
+      "n departure T plus recovery",
+      "u entry-rise",
+      "u crown approach plus S"
+    ],
+    "contact_partition": [
+      "A-B",
+      "B-D",
+      "D-C"
+    ],
+    "derived_not_exact_reuse": true
+  },
+  "frozen_inputs_unchanged": true,
+  "elapsed_seconds": 10.091448249993846
+}

@@ -1,0 +1,242 @@
+{
+  "version": "stroke-context-demonstrator-preflight-v1",
+  "contract_sha256": "f438dc9f8d4e9c8464dfe183346117b21c3a5f97da60e34fe5539d402b25fd3b",
+  "contract_report_sha256": "8af42ea3bcec6ac97546856798f1aec970dd96a6cd59a01a1822ef45761f42e4",
+  "texts": [
+    "n",
+    "u",
+    "m",
+    "nn",
+    "nm",
+    "un",
+    "um",
+    "mn",
+    "mm",
+    "nu",
+    "uu",
+    "mu"
+  ],
+  "hypotheses": [
+    "H0",
+    "H1",
+    "H2",
+    "H3"
+  ],
+  "refinement": "base",
+  "nominal_rendering": {
+    "approved": false,
+    "image_count": 48,
+    "frame_mm": [
+      -3,
+      30,
+      2,
+      13
+    ],
+    "dpi": 900,
+    "size_pixels": [
+      1169,
+      390
+    ],
+    "representation": "nominal fixed-edge swept geometry only; neither desired timed motion nor actual ink",
+    "maximum_flattening_error_mm": 0.001,
+    "tool": {
+      "full_edge_mm": 0.45,
+      "angle_deg": 40
+    },
+    "wall_time_limit_seconds": 300,
+    "output_limit_bytes": 104857600,
+    "minimum_free_bytes": 5368709120,
+    "automatic_retries": 0,
+    "extra_zoom_or_diff_rasters": 0,
+    "html_review_pages": 1,
+    "limits_are": "Prospective hard stop limits, not measured runtime estimates or physical budget resets"
+  },
+  "comparisons": [
+    {
+      "name": "previous-only",
+      "texts": [
+        "nn",
+        "mn"
+      ],
+      "focus": "second n",
+      "arms": [
+        "H0",
+        "H1"
+      ],
+      "fixed": "following EOS"
+    },
+    {
+      "name": "same-bin control",
+      "texts": [
+        "nn",
+        "un"
+      ],
+      "focus": "second n",
+      "arms": [
+        "H0",
+        "H1"
+      ],
+      "expected": "same local delta"
+    },
+    {
+      "name": "following-only",
+      "texts": [
+        "un",
+        "um"
+      ],
+      "focus": "first u",
+      "arms": [
+        "H0",
+        "H2"
+      ],
+      "fixed": "previous BOS"
+    },
+    {
+      "name": "combined entry-exit",
+      "texts": [
+        "nn",
+        "nm",
+        "un",
+        "um",
+        "mn",
+        "mm",
+        "nu",
+        "uu",
+        "mu"
+      ],
+      "arms": [
+        "H0",
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "limitation": "Pairs have no middle letter with both neighbors; no two-sided within-letter interaction claim"
+    }
+  ],
+  "unsupported_arms": {
+    "transition-only": "join/retrace unadmitted; unchanged lift arm duplicates H0",
+    "form-plus-new-transition": "no new transition admitted",
+    "spacing-only": "not generated; all advances exact, old affine grid remains paused"
+  },
+  "view_specification": {
+    "full_frame": "Show complete untouched fixed-scale image for each arm",
+    "diagnostics": "Synchronized zoom/blink reuse same images; canonical span/port and control-delta annotations toggle separately",
+    "contact": "Semantic pen-down/corner and lift-air-landing schematic only; no invented seconds or physical timeline",
+    "labels": [
+      "NOMINAL GEOMETRY — NOT ACTUAL INK",
+      "Diagnostic magnification is not acceptance evidence"
+    ],
+    "actual_desired_panels": "Absent until separately authorized physical execution; never substitute nominal as actual"
+  },
+  "owner_feedback": [],
+  "owner_questions": [
+    "Can you identify the changed stroke at normal scale?",
+    "Does it help the lettering or is it unnecessary?",
+    "Would you prefer unchanged separate lettering?"
+  ],
+  "allowed_judgments": [
+    "useful",
+    "indistinguishable",
+    "unnecessary",
+    "less readable",
+    "separate lettering preferred",
+    "unsupported"
+  ],
+  "physical": {
+    "approved": false,
+    "texts": [
+      "n",
+      "u",
+      "m",
+      "nn",
+      "nm",
+      "un",
+      "um",
+      "mn",
+      "mm",
+      "nu",
+      "uu",
+      "mu"
+    ],
+    "hypotheses": [
+      "H0",
+      "H1",
+      "H2",
+      "H3"
+    ],
+    "refinements": [
+      "base",
+      "arc",
+      "time",
+      "subdivision"
+    ],
+    "seeds": [
+      7,
+      19,
+      41
+    ],
+    "processes": [
+      "first",
+      "replay"
+    ],
+    "executions": 1152,
+    "metric_images_per_execution": 3,
+    "base_presentation_images": 576,
+    "adverse_control_render_reserve_per_seed": 24,
+    "render_calls_upper_bound": 4104,
+    "frame_mm": [
+      -3,
+      30,
+      2,
+      13
+    ],
+    "metric_dpi": 180,
+    "presentation_dpi": 900,
+    "unchanged_mechanical_criteria": {
+      "nominal_landmark_max": 1e-08,
+      "actual_landmark_mm_max": 0.05,
+      "endpoint_mm": 0.01,
+      "event_time_s": 0.0001,
+      "convergence_loss": 0.03,
+      "clock_s": 1e-10,
+      "projection_mm": 1e-12,
+      "corridor_mm": 0.25,
+      "actual_tracking_loss": 0.35,
+      "corner_speed_mm_s": 0.5,
+      "actual_acceleration_mm_s2": 500,
+      "desired_acceleration_mm_s2": 250,
+      "contact_speed_mm_s": 12
+    },
+    "proposed_additional_checks": {
+      "undeclared_canonical_control_point_changes": 0,
+      "anchor_or_advance_changes": 0,
+      "maximum_handle_delta_mm": 0.04,
+      "directed_port_unit_vector_error_max": 1e-08,
+      "handle_length_error_mm_max": 1e-12,
+      "missing_or_duplicate_boundary_events": 0,
+      "unowned_new_ink_segments": 0
+    },
+    "remaining_seconds": {
+      "7": 582.1848200419918,
+      "19": 988.4159828750417,
+      "41": 579.0667824570555
+    },
+    "remaining_renders": {
+      "7": 3426,
+      "19": 3426,
+      "41": 3259
+    },
+    "time_feasibility": "Unmeasured; do not assume residual time suffices. No fresh allowance or automatic retry.",
+    "blocking_work": [
+      "owner nominal usefulness review",
+      "reviewed non-null planner",
+      "independent measurement reader",
+      "freeze local finite-nib windows and full adverse-control schedule",
+      "time/storage estimate and explicit cumulative execution budget approval"
+    ],
+    "inventory_status": "Concrete upper-bound proposal, not execution-ready protocol"
+  },
+  "controller_executions_allowed_now": 0,
+  "raster_renders_allowed_now": 0,
+  "fitting_authorized": false
+}

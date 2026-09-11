@@ -1,0 +1,17 @@
+{
+  "advance": "ADV-SS-CURRICULUM-006",
+  "recovery_contract_sha256": "1b454630045689f257ac322f1334cebf614c106d748ca00301f5edfcde01b405",
+  "original_contract_sha256": "db909d00cd3d7c26cff021e2c9ff9ad19a6ebb8ca08bfd873bd41dd13d443eb5",
+  "test_command": ".venv/bin/python -m pytest -q tests/test_letter_context_recovery.py tests/test_letter_context_physical.py",
+  "tests_passed": 55,
+  "elapsed_seconds": 34.97,
+  "red_before_implementation": "New recovery test collection fails because letter_context_recovery does not yet exist",
+  "original_evidence_files_verified": 12771,
+  "original_combined_budgets_and_all_six_journals_verified": true,
+  "arrive_plan_check": "pass",
+  "arrive_sync_agent_rules_check": "pass",
+  "git_diff_check": "pass",
+  "tool_discovery_note": "arrive rules check is not supported by the installed CLI; the correct arrive sync agent-rules --check passes",
+  "evidence_boundary": "Local software validation only; not a physical acceptance, provider CI, commit or merge",
+  "changes_remain_uncommitted": true
+}

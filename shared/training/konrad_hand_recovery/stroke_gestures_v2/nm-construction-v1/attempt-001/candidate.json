@@ -1,0 +1,1383 @@
+{
+  "version": "nm-turn-rise-construction-v1",
+  "coordinates": "physical-mm-y-up for new cubics; canonical local for retained",
+  "canonical_sha256": "3a77acb14fa805ab6d6d88aa0a8b38691d17d53bdc3162ffabb9c46e52e126d3",
+  "policy": "connection-permitted",
+  "pieces": [
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "stem",
+        "offset": [
+          -0.2,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "start",
+        "cubics": [
+          [
+            [
+              -0.2,
+              1.0
+            ],
+            [
+              -0.18000000000000002,
+              0.7
+            ],
+            [
+              -0.22,
+              0.5399999999999999
+            ],
+            [
+              -0.2,
+              0.0
+            ]
+          ]
+        ],
+        "primitive_index": 0,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:0",
+        "rules": [],
+        "gesture": "stem",
+        "gesture_index": 0,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "0:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "stem",
+        "offset": [
+          -0.2,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "start",
+        "cubics": [
+          [
+            [
+              -0.2,
+              1.0
+            ],
+            [
+              -0.18000000000000002,
+              0.7
+            ],
+            [
+              -0.22,
+              0.5399999999999999
+            ],
+            [
+              -0.2,
+              0.0
+            ]
+          ]
+        ],
+        "primitive_index": 0,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:0",
+        "rules": [],
+        "gesture": "stem",
+        "gesture_index": 0,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "0:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "rise",
+        "offset": [
+          -0.2,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "corner",
+        "cubics": [
+          [
+            [
+              -0.2,
+              0.0
+            ],
+            [
+              -0.20800000000000002,
+              0.216
+            ],
+            [
+              -0.1633008944715816,
+              0.8566554718115462
+            ],
+            [
+              -0.12000000000000001,
+              0.8981889828353081
+            ]
+          ]
+        ],
+        "primitive_index": 1,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:1",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "0:1",
+        "overlap_contributors": [
+          "0:0"
+        ],
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "rise",
+        "offset": [
+          -0.2,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "corner",
+        "cubics": [
+          [
+            [
+              -0.2,
+              0.0
+            ],
+            [
+              -0.20800000000000002,
+              0.216
+            ],
+            [
+              -0.1633008944715816,
+              0.8566554718115462
+            ],
+            [
+              -0.12000000000000001,
+              0.8981889828353081
+            ]
+          ]
+        ],
+        "primitive_index": 1,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:1",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "0:1",
+        "overlap_contributors": [
+          "0:0"
+        ],
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "upper-return",
+        "offset": [
+          -0.12000000000000001,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              -0.12000000000000001,
+              0.8981889828353081
+            ],
+            [
+              0.06290601085575874,
+              1.0736294422275665
+            ],
+            [
+              0.26383636567610086,
+              1.0180237135802213
+            ],
+            [
+              0.2807304692649836,
+              0.7646121597469803
+            ]
+          ]
+        ],
+        "primitive_index": 2,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:2",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "0:1",
+        "overlap_contributors": [
+          "0:0"
+        ],
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "upper-return",
+        "offset": [
+          -0.12000000000000001,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              -0.12000000000000001,
+              0.8981889828353081
+            ],
+            [
+              0.06290601085575874,
+              1.0736294422275665
+            ],
+            [
+              0.26383636567610086,
+              1.0180237135802213
+            ],
+            [
+              0.2807304692649836,
+              0.7646121597469803
+            ]
+          ]
+        ],
+        "primitive_index": 2,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:2",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "0:1",
+        "overlap_contributors": [
+          "0:0"
+        ],
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "stem",
+        "offset": [
+          0.2807304692649836,
+          0
+        ],
+        "scale": 0.7646121597469803,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              0.2807304692649836,
+              0.7646121597469803
+            ],
+            [
+              0.2960227124599232,
+              0.5352285118228861
+            ],
+            [
+              0.26543822607004397,
+              0.4128905662633693
+            ],
+            [
+              0.2807304692649836,
+              0.0
+            ]
+          ]
+        ],
+        "primitive_index": 3,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:3",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "0:1",
+        "overlap_contributors": [
+          "0:0"
+        ],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      },
+      "interval": [
+        0,
+        0.7648068784772746
+      ],
+      "stroke": {
+        "primitive": "stem",
+        "offset": [
+          0.2807304692649836,
+          0
+        ],
+        "scale": 0.7646121597469803,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              0.2807304692649836,
+              0.7646121597469803
+            ],
+            [
+              0.29242608204782067,
+              0.5891779680044237
+            ],
+            [
+              0.2772870395176961,
+              0.47635797199211105
+            ],
+            [
+              0.27635999960444957,
+              0.24828332068073714
+            ]
+          ]
+        ],
+        "primitive_index": 3,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:3",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "0:1",
+        "overlap_contributors": [
+          "0:0"
+        ],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "rise",
+        "offset": [
+          -0.2,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "start",
+        "cubics": [
+          [
+            [
+              1.25,
+              0.0
+            ],
+            [
+              1.242,
+              0.216
+            ],
+            [
+              1.2866991055284183,
+              0.8566554718115462
+            ],
+            [
+              1.3299999999999998,
+              0.8981889828353081
+            ]
+          ]
+        ],
+        "primitive_index": 0,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:0",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "1:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      },
+      "interval": [
+        0.27054139156528234,
+        1
+      ],
+      "stroke": {
+        "primitive": "rise",
+        "offset": [
+          -0.2,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "start",
+        "cubics": [
+          [
+            [
+              1.2540073517165191,
+              0.24828332068073714
+            ],
+            [
+              1.2660835776578745,
+              0.5187963249975296
+            ],
+            [
+              1.2984137897747814,
+              0.8678920056805067
+            ],
+            [
+              1.3299999999999998,
+              0.8981889828353081
+            ]
+          ]
+        ],
+        "primitive_index": 0,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:0",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "1:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "upper-return",
+        "offset": [
+          -0.12000000000000001,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              1.3299999999999998,
+              0.8981889828353081
+            ],
+            [
+              1.5129060108557586,
+              1.0736294422275665
+            ],
+            [
+              1.7138363656761009,
+              1.0180237135802213
+            ],
+            [
+              1.7307304692649836,
+              0.7646121597469803
+            ]
+          ]
+        ],
+        "primitive_index": 1,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:1",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "1:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "upper-return",
+        "offset": [
+          -0.12000000000000001,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              1.3299999999999998,
+              0.8981889828353081
+            ],
+            [
+              1.5129060108557586,
+              1.0736294422275665
+            ],
+            [
+              1.7138363656761009,
+              1.0180237135802213
+            ],
+            [
+              1.7307304692649836,
+              0.7646121597469803
+            ]
+          ]
+        ],
+        "primitive_index": 1,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:1",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "1:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "stem",
+        "offset": [
+          0.2807304692649836,
+          0
+        ],
+        "scale": 0.7646121597469803,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              1.7307304692649836,
+              0.7646121597469803
+            ],
+            [
+              1.746022712459923,
+              0.5352285118228861
+            ],
+            [
+              1.7154382260700438,
+              0.4128905662633693
+            ],
+            [
+              1.7307304692649836,
+              0.0
+            ]
+          ]
+        ],
+        "primitive_index": 2,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:2",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "1:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "stem",
+        "offset": [
+          0.2807304692649836,
+          0
+        ],
+        "scale": 0.7646121597469803,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              1.7307304692649836,
+              0.7646121597469803
+            ],
+            [
+              1.746022712459923,
+              0.5352285118228861
+            ],
+            [
+              1.7154382260700438,
+              0.4128905662633693
+            ],
+            [
+              1.7307304692649836,
+              0.0
+            ]
+          ]
+        ],
+        "primitive_index": 2,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:2",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 0,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": [],
+        "gesture_occurrence_id": "1:0",
+        "overlap_contributors": [],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "rise",
+        "offset": [
+          0.2807304692649836,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "corner",
+        "cubics": [
+          [
+            [
+              1.7307304692649836,
+              0.0
+            ],
+            [
+              1.7227304692649836,
+              0.216
+            ],
+            [
+              1.767429574793402,
+              0.8566554718115462
+            ],
+            [
+              1.8107304692649835,
+              0.8981889828353081
+            ]
+          ]
+        ],
+        "primitive_index": 3,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:3",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "1:1",
+        "overlap_contributors": [
+          "1:0"
+        ],
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "rise",
+        "offset": [
+          0.2807304692649836,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "corner",
+        "cubics": [
+          [
+            [
+              1.7307304692649836,
+              0.0
+            ],
+            [
+              1.7227304692649836,
+              0.216
+            ],
+            [
+              1.767429574793402,
+              0.8566554718115462
+            ],
+            [
+              1.8107304692649835,
+              0.8981889828353081
+            ]
+          ]
+        ],
+        "primitive_index": 3,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:3",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 0,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "1:1",
+        "overlap_contributors": [
+          "1:0"
+        ],
+        "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "upper-return",
+        "offset": [
+          0.3607304692649836,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              1.8107304692649835,
+              0.8981889828353081
+            ],
+            [
+              1.9936364801207422,
+              1.0736294422275665
+            ],
+            [
+              2.1945668349410843,
+              1.0180237135802213
+            ],
+            [
+              2.2114609385299673,
+              0.7646121597469803
+            ]
+          ]
+        ],
+        "primitive_index": 4,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:4",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "1:1",
+        "overlap_contributors": [
+          "1:0"
+        ],
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "upper-return",
+        "offset": [
+          0.3607304692649836,
+          0
+        ],
+        "scale": 1.0,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              1.8107304692649835,
+              0.8981889828353081
+            ],
+            [
+              1.9936364801207422,
+              1.0736294422275665
+            ],
+            [
+              2.1945668349410843,
+              1.0180237135802213
+            ],
+            [
+              2.2114609385299673,
+              0.7646121597469803
+            ]
+          ]
+        ],
+        "primitive_index": 4,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:4",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 1,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "1:1",
+        "overlap_contributors": [
+          "1:0"
+        ],
+        "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      }
+    },
+    {
+      "kind": "retained",
+      "canonical_owner": {
+        "primitive": "stem",
+        "offset": [
+          0.7614609385299671,
+          0
+        ],
+        "scale": 0.7646121597469803,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              2.2114609385299673,
+              0.7646121597469803
+            ],
+            [
+              2.2267531817249067,
+              0.5352285118228861
+            ],
+            [
+              2.1961686953350275,
+              0.4128905662633693
+            ],
+            [
+              2.2114609385299673,
+              0.0
+            ]
+          ]
+        ],
+        "primitive_index": 5,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:5",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "1:1",
+        "overlap_contributors": [
+          "1:0"
+        ],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      },
+      "interval": [
+        0,
+        1
+      ],
+      "stroke": {
+        "primitive": "stem",
+        "offset": [
+          0.7614609385299671,
+          0
+        ],
+        "scale": 0.7646121597469803,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "cubics": [
+          [
+            [
+              2.2114609385299673,
+              0.7646121597469803
+            ],
+            [
+              2.2267531817249067,
+              0.5352285118228861
+            ],
+            [
+              2.1961686953350275,
+              0.4128905662633693
+            ],
+            [
+              2.2114609385299673,
+              0.0
+            ]
+          ]
+        ],
+        "primitive_index": 5,
+        "recipe": "m",
+        "letter": 1,
+        "span": [
+          1,
+          2
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "1:5",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "1:1",
+        "overlap_contributors": [
+          "1:0"
+        ],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:1"
+      }
+    },
+    {
+      "kind": "terminal-turn",
+      "owner": {
+        "primitive": "stem",
+        "offset": [
+          0.2807304692649836,
+          0
+        ],
+        "scale": 0.7646121597469803,
+        "rotation_deg": 0,
+        "transition": "smooth",
+        "primitive_index": 3,
+        "recipe": "n",
+        "letter": 0,
+        "span": [
+          0,
+          1
+        ],
+        "word": 0,
+        "line": 0,
+        "occurrence_id": "0:3",
+        "rules": [],
+        "gesture": "overturn",
+        "gesture_index": 1,
+        "gesture_primitive_index": 2,
+        "action_profile": "fixed",
+        "overlap_with": [
+          0
+        ],
+        "gesture_occurrence_id": "0:1",
+        "overlap_contributors": [
+          "0:0"
+        ],
+        "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+        "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "contact_run_id": "contact:0"
+      },
+      "contact": "pen-down",
+      "contributors": [
+        {
+          "primitive": "stem",
+          "offset": [
+            0.2807304692649836,
+            0
+          ],
+          "scale": 0.7646121597469803,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 3,
+          "recipe": "n",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:3",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 2,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        }
+      ],
+      "removed_interval": [
+        0.7648068784772746,
+        1
+      ],
+      "cubics_mm": [
+        [
+          [
+            0.9672599986155733,
+            0.8689916223825797
+          ],
+          [
+            0.9640810792475758,
+            0.08689916223825767
+          ],
+          [
+            1.0473588798861964,
+            0.0
+          ],
+          [
+            1.2075566424274427,
+            0.0
+          ]
+        ]
+      ]
+    },
+    {
+      "kind": "boundary-transfer-receiving",
+      "owner": "boundary:0:3->1:0",
+      "contact": "pen-down",
+      "contributors": [
+        {
+          "primitive": "stem",
+          "offset": [
+            0.2807304692649836,
+            0
+          ],
+          "scale": 0.7646121597469803,
+          "rotation_deg": 0,
+          "transition": "smooth",
+          "primitive_index": 3,
+          "recipe": "n",
+          "letter": 0,
+          "span": [
+            0,
+            1
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "0:3",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 1,
+          "gesture_primitive_index": 2,
+          "action_profile": "fixed",
+          "overlap_with": [
+            0
+          ],
+          "gesture_occurrence_id": "0:1",
+          "overlap_contributors": [
+            "0:0"
+          ],
+          "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:0"
+        },
+        {
+          "primitive": "rise",
+          "offset": [
+            -0.2,
+            0
+          ],
+          "scale": 1.0,
+          "rotation_deg": 0,
+          "transition": "start",
+          "primitive_index": 0,
+          "recipe": "m",
+          "letter": 1,
+          "span": [
+            1,
+            2
+          ],
+          "word": 0,
+          "line": 0,
+          "occurrence_id": "1:0",
+          "rules": [],
+          "gesture": "overturn",
+          "gesture_index": 0,
+          "gesture_primitive_index": 0,
+          "action_profile": "fixed",
+          "overlap_with": [],
+          "gesture_occurrence_id": "1:0",
+          "overlap_contributors": [],
+          "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+          "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+          "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+          "contact_run_id": "contact:1"
+        }
+      ],
+      "removed_interval": [
+        0,
+        0.27054139156528234
+      ],
+      "cubics_mm": [
+        [
+          [
+            1.2075566424274427,
+            0.0
+          ],
+          [
+            2.268046338620901,
+            0.0
+          ],
+          [
+            4.3599306255815335,
+            0.21724790559564489
+          ],
+          [
+            4.389025731007817,
+            0.8689916223825799
+          ]
+        ]
+      ]
+    }
+  ],
+  "joins_mm": [
+    [
+      0.9672599986155733,
+      0.8689916223825797
+    ],
+    [
+      1.2075566424274427,
+      0.0
+    ],
+    [
+      4.389025731007817,
+      0.8689916223825799
+    ]
+  ],
+  "height_mm": 0.86899162238258,
+  "physical_execution_authorized": false
+}

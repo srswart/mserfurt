@@ -1,0 +1,4040 @@
+{
+  "version": "stroke-attachment-investigation-v1",
+  "status": "necessary_conditions_audited_no_geometry_admitted",
+  "sources": {
+    "candidate_file_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "candidate_object_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+    "original_manifest_sha256": "adec239210591bf83b37abbe22543012e89ed5912fea2aea359be4e958fd086e",
+    "original_artifacts_verified": 12771,
+    "recovery_contract_sha256": "1b454630045689f257ac322f1334cebf614c106d748ca00301f5edfcde01b405",
+    "recovery_report_sha256": "e294db3edc76d2d22f28548e8a5f54834c61e9c3d543b6102410a274ce20dc98",
+    "recovery_artifacts_verified": 2455,
+    "dimension_contract_sha256": "56e3ed722e086ec1415ea54c179070985c8d4841c19368a7c666db56d4f31f11",
+    "dimension_report_sha256": "251d4fd3ff6a9c11ea0162b2b73108d679e22fa6ea7fd2a82756e103fdaddb5b",
+    "scope": "Verify saved artifact bytes and frozen source contracts; reuse full independent measurement, do not rerun it"
+  },
+  "design_sha256": "32df0e82832cf3f2defef651a51673af58785f0764fc1c9ab340b9df6cace0b3",
+  "investigation": {
+    "coordinate_frame": "canonical local-xheight-y-up; 3.5 mm per unit",
+    "inventory": [
+      "n",
+      "u",
+      "m",
+      "nm",
+      "nn",
+      "um",
+      "mm"
+    ],
+    "compiled_sha256": {
+      "n": "ad209964aa891db48f6f0a0aff719011fa1a89e772ea65ba14b475046718cf12",
+      "u": "3767824c5f1c60c2444c5d93fccf6d7f3b2280c9738083e3c9faeed65028ea42",
+      "m": "7eb913ed0866a901faabc89c0ea5ca7aa26814962eaba23a293cf2af542ccfe0",
+      "nm": "3a77acb14fa805ab6d6d88aa0a8b38691d17d53bdc3162ffabb9c46e52e126d3",
+      "nn": "dc59e4406c7da1b55de25b36c29822448d1513db279be91c05203ab968fee984",
+      "um": "c1c9253f99a687999789d61863df1191faf7013147b819add00d4cfb1790c339",
+      "mm": "e9e260e61e870cd9c5f296aea4c01b16d81606b6c0b518f1db905caafe860170"
+    },
+    "existing_lower_return_reference_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+    "reference_turn_width_mm": 1.3789019810404555,
+    "reference_turn_entry_height_local": 0.24828332068073714,
+    "site_height_levels_local": [
+      0.0,
+      0.12414166034036857,
+      0.24828332068073714
+    ],
+    "site_level_reason": "Baseline obstruction control, half and full existing lower-return entry height; finite inspection grid, not permitted bounds or optimization",
+    "site_pairs": [
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.2807304692649836,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.3924433575725574,
+        "gap_in_reference_turn_widths": 2.4602498250185825,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.3924433575725574,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.2807304692649836,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            1.2498106456949445,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.021010480401583858,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.391780617504863,
+        "gap_in_reference_turn_widths": 2.459769196172728,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.4194973851758457,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.2807304692649836,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            1.2540073517165191,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.04459752518909698,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4064690885803746,
+        "gap_in_reference_turn_widths": 2.470421491460917,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.515562272414573,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8919706142530521,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.27726494926517126,
+            0.12414166034036853
+          ],
+          "directed_tangent_local_y_up": [
+            0.018181324525053975,
+            -0.9998347060582137
+          ],
+          "proposed_replacement_interval": [
+            0.8919706142530521,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8919706142530521
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4045726775719003,
+        "gap_in_reference_turn_widths": 2.469046186301776,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.432186143963039,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8919706142530521,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.27726494926517126,
+            0.12414166034036853
+          ],
+          "directed_tangent_local_y_up": [
+            0.018181324525053975,
+            -0.9998347060582137
+          ],
+          "proposed_replacement_interval": [
+            0.8919706142530521,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8919706142530521
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            1.2498106456949445,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.021010480401583858,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4039099375042063,
+        "gap_in_reference_turn_widths": 2.4685655574559213,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.5130825925974185,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8919706142530521,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.27726494926517126,
+            0.12414166034036853
+          ],
+          "directed_tangent_local_y_up": [
+            0.018181324525053975,
+            -0.9998347060582137
+          ],
+          "proposed_replacement_interval": [
+            0.8919706142530521,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8919706142530521
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            1.2540073517165191,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.04459752518909698,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4185984085797174,
+        "gap_in_reference_turn_widths": 2.4792178527441098,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.658673881152674,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.7648068784772746,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.2763599996044495,
+            0.24828332068073705
+          ],
+          "directed_tangent_local_y_up": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "proposed_replacement_interval": [
+            0.7648068784772746,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.7648068784772746
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.407740001384427,
+        "gap_in_reference_turn_widths": 2.4713431761212674,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.5167937609144273,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.7648068784772746,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.2763599996044495,
+            0.24828332068073705
+          ],
+          "directed_tangent_local_y_up": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "proposed_replacement_interval": [
+            0.7648068784772746,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.7648068784772746
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            1.2498106456949445,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.021010480401583858,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.407077261316733,
+        "gap_in_reference_turn_widths": 2.470862547275413,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.6479110397687227,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "nm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2807304692649836,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 3,
+            "recipe": "n",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "eb289c051e6838b3d1f2e1ea3183999539980393c9dcd12d244fc7f015e3c7fd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.7648068784772746,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.2763599996044495,
+            0.24828332068073705
+          ],
+          "directed_tangent_local_y_up": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "proposed_replacement_interval": [
+            0.7648068784772746,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.7648068784772746
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2807304692649836,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            1.2540073517165191,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.04459752518909698,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.421765732392244,
+        "gap_in_reference_turn_widths": 2.4815148425636013,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.837846594961589,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.2726227635760428,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.0370116605098802,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4208203274838502,
+        "gap_in_reference_turn_widths": 2.480829221017333,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.4208203274838502,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.2726227635760428,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.0370116605098802,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            1.2498106456949445,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.021010480401583858,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4201575874161563,
+        "gap_in_reference_turn_widths": 2.4803485921714783,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.4476462307932754,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.2726227635760428,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.0370116605098802,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            1.2540073517165191,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.04459752518909698,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4348460584916674,
+        "gap_in_reference_turn_widths": 2.4910008874596667,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.5430656055606495,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 0.9189136258610247,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.2688771039905988,
+            0.12414166034036844
+          ],
+          "directed_tangent_local_y_up": [
+            0.02294702292591439,
+            -0.9997366824013398
+          ],
+          "proposed_replacement_interval": [
+            0.9189136258610247,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.9189136258610247
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.433930136032904,
+        "gap_in_reference_turn_widths": 2.490336647019551,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.4613094038380527,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 0.9189136258610247,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.2688771039905988,
+            0.12414166034036844
+          ],
+          "directed_tangent_local_y_up": [
+            0.02294702292591439,
+            -0.9997366824013398
+          ],
+          "proposed_replacement_interval": [
+            0.9189136258610247,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.9189136258610247
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            1.2498106456949445,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.021010480401583858,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.43326739596521,
+        "gap_in_reference_turn_widths": 2.489856018173696,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.5415351829353385,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 0.9189136258610247,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.2688771039905988,
+            0.12414166034036844
+          ],
+          "directed_tangent_local_y_up": [
+            0.02294702292591439,
+            -0.9997366824013398
+          ],
+          "proposed_replacement_interval": [
+            0.9189136258610247,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.9189136258610247
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            1.2540073517165191,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.04459752518909698,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.447955867040721,
+        "gap_in_reference_turn_widths": 2.5005083134618844,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.686119796011183,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8274322027180538,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.26701235085578795,
+            0.248283320680737
+          ],
+          "directed_tangent_local_y_up": [
+            0.006752598434034127,
+            -0.999977200947296
+          ],
+          "proposed_replacement_interval": [
+            0.8274322027180538,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8274322027180538
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            1.25,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.440456772004742,
+        "gap_in_reference_turn_widths": 2.4950698594317293,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.5485052120300455,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8274322027180538,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.26701235085578795,
+            0.248283320680737
+          ],
+          "directed_tangent_local_y_up": [
+            0.006752598434034127,
+            -0.999977200947296
+          ],
+          "proposed_replacement_interval": [
+            0.8274322027180538,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8274322027180538
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            1.2498106456949445,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.021010480401583858,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4397940319370477,
+        "gap_in_reference_turn_widths": 2.4945892305858743,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.6784864376037496,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "um",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.2726227635760428,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "corner",
+            "primitive_index": 3,
+            "recipe": "u",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:3",
+            "rules": [],
+            "gesture": "stem",
+            "gesture_index": 1,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "d2ce1dc7c2119cdf35cbbf8663ddabf1d939570f8be983cc9557788ff9f5f14f",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8274322027180538,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.26701235085578795,
+            0.248283320680737
+          ],
+          "directed_tangent_local_y_up": [
+            0.006752598434034127,
+            -0.999977200947296
+          ],
+          "proposed_replacement_interval": [
+            0.8274322027180538,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8274322027180538
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.2726227635760428,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "eb12759d0b1e58894a011876abf0a57d4b60ac5febb1c380d094da95a6d96ffa",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            1.2540073517165191,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.04459752518909698,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            1.25,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 3.4544825030125588,
+        "gap_in_reference_turn_widths": 2.505241525874063,
+        "path_length_lower_bound_if_touching_baseline_mm": 3.8670447531292353,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.7614609385299671,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            2.2499999999999996,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.209886715145114,
+        "gap_in_reference_turn_widths": 3.77828648212832,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.209886715145114,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.7614609385299671,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            2.2498106456949443,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.02101048040158404,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.20922397507742,
+        "gap_in_reference_turn_widths": 3.777805853282466,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.227312983977923,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 1.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            0.7614609385299671,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            0.037011660509880265,
+            -0.9993148337667671
+          ],
+          "proposed_replacement_interval": [
+            1.0,
+            1
+          ],
+          "retained_interval": [
+            0,
+            1.0
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            2.2540073517165187,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.044597525189097216,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.22391244615293,
+        "gap_in_reference_turn_widths": 3.7884581485706534,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.295697091492545,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8919706142530521,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.7579954185301548,
+            0.12414166034036853
+          ],
+          "directed_tangent_local_y_up": [
+            0.018181324525053975,
+            -0.9998347060582137
+          ],
+          "proposed_replacement_interval": [
+            0.8919706142530521,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8919706142530521
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            2.2499999999999996,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.222016035144457,
+        "gap_in_reference_turn_widths": 3.787082843411514,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.240060885261603,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8919706142530521,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.7579954185301548,
+            0.12414166034036853
+          ],
+          "directed_tangent_local_y_up": [
+            0.018181324525053975,
+            -0.9998347060582137
+          ],
+          "proposed_replacement_interval": [
+            0.8919706142530521,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8919706142530521
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            2.2498106456949443,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.02101048040158404,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.221353295076764,
+        "gap_in_reference_turn_widths": 3.7866022145656593,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.2931726470785065,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 0.8919706142530521,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            0.7579954185301548,
+            0.12414166034036853
+          ],
+          "directed_tangent_local_y_up": [
+            0.018181324525053975,
+            -0.9998347060582137
+          ],
+          "proposed_replacement_interval": [
+            0.8919706142530521,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.8919706142530521
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            2.2540073517165187,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.044597525189097216,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.236041766152274,
+        "gap_in_reference_turn_widths": 3.7972545098538477,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.395851449620905,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 0.7648068784772746,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.757090468869433,
+            0.24828332068073705
+          ],
+          "directed_tangent_local_y_up": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "proposed_replacement_interval": [
+            0.7648068784772746,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.7648068784772746
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.0,
+          "height_local": 0.0,
+          "height_mm": 0.0,
+          "position_local": [
+            2.2499999999999996,
+            0.0
+          ],
+          "directed_tangent_local_y_up": [
+            -0.03701166050988029,
+            0.999314833766767
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.0
+          ],
+          "retained_interval": [
+            0.0,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": true,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.225183358956984,
+        "gap_in_reference_turn_widths": 3.789379833231005,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.296950780825898,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "fails",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 0.7648068784772746,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.757090468869433,
+            0.24828332068073705
+          ],
+          "directed_tangent_local_y_up": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "proposed_replacement_interval": [
+            0.7648068784772746,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.7648068784772746
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.1518000860047466,
+          "height_local": 0.12414166034036857,
+          "height_mm": 0.43449581119129,
+          "position_local": [
+            2.2498106456949443,
+            0.12414166034036858
+          ],
+          "directed_tangent_local_y_up": [
+            0.02101048040158404,
+            0.9997792554925785
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.1518000860047466
+          ],
+          "retained_interval": [
+            0.1518000860047466,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.22452061888929,
+        "gap_in_reference_turn_widths": 3.788899204385151,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.384672245056734,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      },
+      {
+        "text": "mm",
+        "departure": {
+          "owner": {
+            "primitive": "stem",
+            "offset": [
+              0.7614609385299671,
+              0
+            ],
+            "scale": 0.7646121597469803,
+            "rotation_deg": 0,
+            "transition": "smooth",
+            "primitive_index": 5,
+            "recipe": "m",
+            "letter": 0,
+            "span": [
+              0,
+              1
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "0:5",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 1,
+            "gesture_primitive_index": 2,
+            "action_profile": "fixed",
+            "overlap_with": [
+              0
+            ],
+            "gesture_occurrence_id": "0:1",
+            "overlap_contributors": [
+              "0:0"
+            ],
+            "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:0"
+          },
+          "canonical_geometry_sha256": "804ab109074719c2908495a2d1a06d630fa999186f8339bc0151efb584af2d32",
+          "cubic_index": 0,
+          "canonical_parameter": 0.7648068784772746,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            0.757090468869433,
+            0.24828332068073705
+          ],
+          "directed_tangent_local_y_up": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "proposed_replacement_interval": [
+            0.7648068784772746,
+            1
+          ],
+          "retained_interval": [
+            0,
+            0.7648068784772746
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            0.7614609385299671,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "receiving": {
+          "owner": {
+            "primitive": "rise",
+            "offset": [
+              -0.2,
+              0
+            ],
+            "scale": 1.0,
+            "rotation_deg": 0,
+            "transition": "start",
+            "primitive_index": 0,
+            "recipe": "m",
+            "letter": 1,
+            "span": [
+              1,
+              2
+            ],
+            "word": 0,
+            "line": 0,
+            "occurrence_id": "1:0",
+            "rules": [],
+            "gesture": "overturn",
+            "gesture_index": 0,
+            "gesture_primitive_index": 0,
+            "action_profile": "fixed",
+            "overlap_with": [],
+            "gesture_occurrence_id": "1:0",
+            "overlap_contributors": [],
+            "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+            "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+            "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+            "contact_run_id": "contact:1"
+          },
+          "canonical_geometry_sha256": "3ae7a59b11dc493bd34ef5a3c35a9d1b1c3a000012ac1e4b27d5b859a6b29efd",
+          "cubic_index": 0,
+          "canonical_parameter": 0.27054139156528234,
+          "height_local": 0.24828332068073714,
+          "height_mm": 0.86899162238258,
+          "position_local": [
+            2.2540073517165187,
+            0.2482833206807371
+          ],
+          "directed_tangent_local_y_up": [
+            0.044597525189097216,
+            0.9990050353962225
+          ],
+          "proposed_replacement_interval": [
+            0,
+            0.27054139156528234
+          ],
+          "retained_interval": [
+            0.27054139156528234,
+            1
+          ],
+          "intervals_are": "Canonical domain descriptions only; no split/replacement geometry generated or admitted",
+          "baseline_smooth_obstruction": false,
+          "proposed_removed_baseline_anchor": [
+            2.2499999999999996,
+            0.0
+          ],
+          "body_exception_approved": false
+        },
+        "horizontal_gap_mm": 5.239209089964801,
+        "gap_in_reference_turn_widths": 3.7995514996733393,
+        "path_length_lower_bound_if_touching_baseline_mm": 5.519954496864465,
+        "length_bound_basis": "Reflection bound via any centerline baseline touch; no tangent/curvature/obstacle sufficiency",
+        "necessary_baseline_condition": "not_ruled_out",
+        "construction_feasible": null,
+        "site_admitted": false,
+        "unresolved": [
+          "protected body and baseline-foot replacement approval",
+          "actual connector construction and smooth attach feasibility",
+          "finite-nib clearance and overlap ownership",
+          "length/curvature/excursion limits",
+          "letter identity and style usefulness",
+          "versioned topology and physical validation"
+        ]
+      }
+    ],
+    "negative_control": {
+      "text": "nn",
+      "entry": {
+        "position_local": [
+          1.25,
+          1.0
+        ],
+        "tangent_local_y_up": [
+          0.06651901052377399,
+          -0.997785157856609
+        ],
+        "contact_intent": "down",
+        "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+        "occurrence_id": "1:0"
+      },
+      "status": "incompatible_receiving_site_for_family_P",
+      "reason": "First occurrence is a descending stem at x-height, not a baseline rising prefix; do not skip into a later internal rise"
+    },
+    "isolated_controls": {
+      "n": {
+        "compiled_sha256": "ad209964aa891db48f6f0a0aff719011fa1a89e772ea65ba14b475046718cf12",
+        "occurrences": 4,
+        "boundary_substitution": "none"
+      },
+      "u": {
+        "compiled_sha256": "3767824c5f1c60c2444c5d93fccf6d7f3b2280c9738083e3c9faeed65028ea42",
+        "occurrences": 4,
+        "boundary_substitution": "none"
+      },
+      "m": {
+        "compiled_sha256": "7eb913ed0866a901faabc89c0ea5ca7aa26814962eaba23a293cf2af542ccfe0",
+        "occurrences": 6,
+        "boundary_substitution": "none"
+      }
+    },
+    "family_S": "canonical separate letters retained exactly",
+    "gap_ratio_interpretation": "Scale comparison with an existing turn, not a maximum admissible gap or a failure threshold",
+    "conclusion": "Both baseline endpoints fail a smooth above-baseline construction; positive-height sites remain unproven, not admitted"
+  },
+  "code_sha256": "ce8cb69d64a270c770480a6464881ac168e7f141e38b334e3f95fee9a52e5ce5",
+  "tests_sha256": "8874422f675fc9d1827a207fbd5070d8800adcf0d4fc6848339b56e35ba2cb67",
+  "read_only": true,
+  "new_connector_geometries": 0,
+  "raster_renders": 0,
+  "controller_executions": 0,
+  "optimization_evaluations": 0,
+  "physical_execution_authorized": false,
+  "site_or_body_exception_approved": false,
+  "S2_accepted": false,
+  "real_accepted": false
+}
