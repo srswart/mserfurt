@@ -40,6 +40,12 @@ CHECKPOINT_1_SPECIMENS: tuple[str, ...] = (
     "mir",
 )
 
+CHECKPOINT_2_SPECIMENS: tuple[str, ...] = (
+    "in seines wercks alle der heiligen kirchen",
+    "und glauben wir nicht alleine",
+    "Hie hebt sich an das ein schreiber nit mag lassen",
+)
+
 RUBRIC_QUESTIONS: tuple[dict[str, object], ...] = (
     {
         "id": "join_ductus_flow",

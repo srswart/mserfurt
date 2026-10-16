@@ -6,17 +6,17 @@ advance:
   primary_component: "tuning"
   components: ["tuning", "annotate", "handvalidate", "tests"]
   started_at: "2026-10-16T04:45:00+00:00"
-  implementation_completed_at: ~
+  implementation_completed_at: 2026-10-16T19:00:43.225582Z
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: []
-  evidence: []
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -48,15 +48,15 @@ Primary component: `tuning`. Impacted components: `tuning`, `annotate`, `handval
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: preparatory cleanup of shared loss utilities in `scribesim/tuning/` (no behavior change)
-- [ ] test: add failing unit tests for differentiable quad SDF forward/backward gradients, baseline-band loss weighting, and bounded via-point refinement preserving `A1–A4` invariants
-- [ ] feat/fix: implement `scribesim/tuning/diff_render.py`, confirm ~30 BSB reference word crops, and run bounded gradient refinement of the shared `ViaPointRecipe` catalog
-- [ ] review: capture owner visual review for **Human Checkpoint #2** (3-line specimen) in `shared/training/reviews/checkpoint-2-specimen.json`
+- [x] branch: create or confirm feature branch for this advance (`feat/adv-ss-tuning-002`)
+- [x] tidy: preparatory cleanup of shared loss utilities in `scribesim/tuning/` (no behavior change)
+- [x] test: add failing unit tests for differentiable quad SDF forward/backward gradients, baseline-band loss weighting, and bounded via-point refinement preserving `A1–A4` invariants
+- [x] feat/fix: implement `scribesim/tuning/diff_render.py`, confirm ~30 BSB reference word crops, and run bounded gradient refinement of the shared `ViaPointRecipe` catalog
+- [ ] review: capture owner visual review for **Human Checkpoint #2** (3-line specimen) in `shared/training/reviews/checkpoint-2-specimen-review.json` (board ready at `shared/training/reviews/checkpoint-2-specimen/index.html`, awaiting owner eyes)
 
 ## Bug Fixes
 
-- [ ] None yet
+- [x] Detached scalar assertions in `tests/test_diff_render.py` to avoid PyTorch leaf-tensor warnings.
 
 ## Risk + Rollback
 
@@ -65,10 +65,10 @@ Primary component: `tuning`. Impacted components: `tuning`, `annotate`, `handval
 
 ## Evidence
 
-- [ ] tidy:preparatory
-- [ ] tdd:red-green
-- [ ] tests:unit
-- [ ] review:owner
+- [x] tidy:preparatory
+- [x] tdd:red-green
+- [x] tests:unit
+- [ ] review:owner (board ready at `shared/training/reviews/checkpoint-2-specimen/index.html`)
 
 ## CI Evidence Notes
 
@@ -83,3 +83,22 @@ Primary component: `tuning`. Impacted components: `tuning`, `annotate`, `handval
 
 ### 2026-10-16 - docs: Draft ADV-SS-TUNING-002 for TD-019 Pass 16b
 - `arrive/systems/scribesim/advances/ADV-SS-TUNING-002.md`: Created planned advance record for the Differentiable Nib Renderer and Reference Word Grounding.
+
+### 2026-10-16 - tidy: add baseline-band weight mask helper in scribesim/tuning
+- `scribesim/tuning/__init__.py`: Added `baseline_band_weight_mask()` computing a smooth vertical Gaussian window centered on `[baseline - x_height, baseline]`.
+- `arrive/systems/scribesim/components/tuning.yaml`: Added differentiable renderer interface description.
+
+### 2026-10-16 - test: add differentiable ribbon renderer, 30-word reference confirmation, and Checkpoint #2 specimen tests
+- `tests/test_diff_render.py`: Added unit tests covering BSB reference word confirmation ($\ge 30$ crops), `DifferentiableRibbonRenderer` forward/backward gradient verification, bounded `Adam` parameter refinement preserving `A1–A4`, and Checkpoint #2 3-line specimen board generation.
+
+### 2026-10-16 - feat: implement PyTorch differentiable nib renderer, 32-word BSB grounding, and Checkpoint #2 specimen board
+- `scribesim/annotate/reference_confirm.py`: Implemented `confirm_reference_words()` and `load_confirmed_reference_words()`, confirming 32 non-test BSB `Cgm 628` word crops in `shared/training/handsim/reviewed_annotations/bsb_confirmed_words_v1.json`.
+- `scribesim/tuning/diff_render.py`: Implemented `DifferentiableRibbonRenderer(nn.Module)` and `refine_viapoints_on_reference_words()`, writing `shared/hands/konrad_kinematic_v1.toml` (reducing weighted reference loss `0.175369 -> 0.165177` with `A1–A4` all passing).
+- `scribesim/annotate/review_board.py` & `scribesim/cli.py`: Added `CHECKPOINT_2_SPECIMENS` and generated the 3-line specimen review board at `shared/training/reviews/checkpoint-2-specimen/index.html`.
+
+## Check for Understanding
+
+1. Why does `baseline_band_weight_mask()` weight pixels inside `[baseline - x_height, baseline]` with 1.0 and smoothly decay outside that band, rather than rejecting reference word crops whose ascenders/descenders touch neighboring lines?
+2. How does `DifferentiableRibbonRenderer.forward()` compute differentiable pixel coverage across trajectory segments using capsule signed distance and probabilistic transmittance $1 - \prod_i (1 - \alpha_i)$?
+3. How does `refine_viapoints_on_reference_words()` prevent overfitting individual noisy reference crops during `Adam` optimization?
+

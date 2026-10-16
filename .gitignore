@@ -43,6 +43,8 @@ shared/models/scribehand/weights/
 !shared/training/reviews/
 /shared/training/reviews/**/*.png
 /shared/training/reviews/**/*.html
+!shared/training/handsim/
+!shared/training/handsim/reviewed_annotations/
 
 # ScribeHand orchestration local state (machine-specific paths)
 diagnostics/.scribehand-orchestration-state.json
