@@ -1955,12 +1955,13 @@ passes:
     - id: ADV-SS-ANNOTATE-007
       advance_id: ADV-SS-ANNOTATE-007
       title: "Human-Eyes Review Board & Checkpoint #1 (Core Coarticulation)"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDFLOW-012
       - ADV-SS-ANNOTATE-002
       notes: "Add `scribesim review-sheet` 3-way equal-scale comparison board with 4-question rubric and parameter-mapped diagnostic quick-tags. Capture Human Checkpoint #1 on core joins (nu, nm, um, und, der, mir)."
+      status_changed_at: 2026-10-16T18:41:31.923279Z
   - id: td019-alphabet-and-grounding
     title: Full Bastarda via-point alphabet and differentiable reference word grounding
     order: 2
