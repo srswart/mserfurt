@@ -75,12 +75,17 @@ def composite_folio(
     aged_ink = apply_ink_aging(page_img, heatmap_img, profile, seed=seed + 1)
 
     # 3. Blend ink over substrate
-    #    Extract ink mask from *original* page (pre-fade, reliable threshold)
+    #    Use core ink_mask for aged/flaked ink, plus smooth continuous alpha on
+    #    anti-aliased stroke edges and faint dissolved lacuna traces (195..235).
     ink_mask = extract_ink_mask(page_img)
-    sub_arr = np.array(substrate, dtype=np.uint8)
-    ink_arr = np.array(aged_ink, dtype=np.uint8)
-    mask3 = ink_mask[:, :, np.newaxis]
-    blended_arr = np.where(mask3, ink_arr, sub_arr).astype(np.uint8)
+    sub_arr = np.array(substrate, dtype=np.float32)
+    ink_arr = np.array(aged_ink, dtype=np.float32)
+    orig_grey = np.array(page_img.convert("L"), dtype=np.float32)
+
+    # Core ink alpha = 1.0 where ink_mask is True, with smooth ramp on anti-aliased edges / faint lacuna traces
+    edge_alpha = np.clip((235.0 - orig_grey) / (235.0 - 195.0), 0.0, 1.0)
+    alpha = np.where(ink_mask, 1.0, edge_alpha)[:, :, np.newaxis]
+    blended_arr = np.clip(alpha * ink_arr + (1.0 - alpha) * sub_arr, 0.0, 255.0).astype(np.uint8)
     blended = Image.fromarray(blended_arr, mode="RGB")
 
     # 4. Damage (water staining, missing corner — dispatch internal to apply_damage)

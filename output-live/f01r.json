@@ -11,7 +11,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.88,
+            "note": "outer top-margin rub on opening incipit"
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 27,
+            "char_end": 41
+          },
+          "detail": {
+            "reason": "ink_fade",
+            "note": "slight outer-margin abrasion on \"schreiber nit\""
           }
         }
       ]
@@ -206,7 +218,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.86,
+            "note": "slight vellum-pore flaking on \"geformet, glat\""
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 35,
+            "char_end": 49
+          },
+          "detail": {
+            "reason": "ink_fade",
+            "note": "minor iron-gall flaking on outer margin"
           }
         }
       ]

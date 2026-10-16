@@ -11,7 +11,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.74,
+            "note": "upper binding water propagation precursor"
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 32,
+            "char_end": 49
+          },
+          "detail": {
+            "reason": "water_damage",
+            "note": "damp fade at top-right of L01"
           }
         }
       ]
@@ -154,7 +166,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.72,
+            "note": "tremor and ink thinning on \"zu zittern\""
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 24,
+            "char_end": 34
+          },
+          "detail": {
+            "reason": "ink_fade",
+            "note": "faded stroke on \"zu zittern\""
           }
         }
       ]

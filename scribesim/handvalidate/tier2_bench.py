@@ -80,12 +80,15 @@ def render_kinematic_folio(
         l_res = compose_line_kinematic_Stateful(txt, session=session, line_index=l_idx)
         line_results.append((line_obj, l_res))
 
-    # Page dimensions in mm (standard 185x265mm or fitted to rendered lines with manuscript margins)
+    # Page dimensions in mm (standard 195x255mm codex leaf when rendering full page, or fitted to subset)
     margin_left_mm = 18.0
     margin_top_mm = 18.0
     all_contact = [s for _, lr in line_results for s in lr.samples if s.contact]
     max_x_mm = max((s.x_mm for s in all_contact), default=120.0) + margin_left_mm + 18.0
     max_y_mm = max((s.y_mm for s in all_contact), default=160.0) + margin_top_mm + 18.0
+    if max_lines is None:
+        max_x_mm = max(max_x_mm, 195.0)
+        max_y_mm = max(max_y_mm, 255.0)
 
     px_per_mm = dpi / 25.4
     ss = max(1, int(supersample))
@@ -104,6 +107,7 @@ def render_kinematic_folio(
     angles_deg: list[float] = []
     pressures_all: list[float] = []
     line_xml_records: list[dict] = []
+    damage_annotations: list[dict] = []
     poly_queue: list[tuple[int, int, list[tuple[float, float]], list[tuple[float, float]]]] = []
 
     base_prof = resolve_clio7_kinematic_profile(fid, line_index=0)
@@ -121,8 +125,113 @@ def render_kinematic_folio(
             flexibility=l_prof.nib.flexibility,
         )
 
+        # Parse line-level confidence and character-span lacuna/damage annotations
+        anns = line_obj.get("annotations", []) or []
+        line_conf = 0.95
+        line_conf_note = ""
+        span_damages: list[tuple[int, int, str, str]] = []
+        for ann in anns:
+            atype = ann.get("type", "")
+            detail = ann.get("detail", {}) or {}
+            if atype == "confidence":
+                line_conf = float(detail.get("score", line_conf))
+                line_conf_note = str(detail.get("note", ""))
+            elif atype == "lacuna":
+                sp = ann.get("span", {}) or {}
+                c0 = int(sp.get("char_start", 0))
+                c1 = int(sp.get("char_end", 0))
+                reason = str(detail.get("reason", "water_damage"))
+                note = str(detail.get("note", ""))
+                span_damages.append((c0, c1, reason, note))
+
         samples = l_res.samples
         n_pts = len(samples)
+
+        # Build per-sample darkness & width modifiers from [—] lacunae and span damage annotations
+        sample_dark_mult = np.ones(n_pts, dtype=np.float64)
+        sample_width_mult = np.ones(n_pts, dtype=np.float64)
+        sample_skip = np.zeros(n_pts, dtype=bool)
+
+        if line_conf < 0.85:
+            base_line_mult = max(0.56, 0.38 + 0.62 * line_conf)
+            sample_dark_mult *= base_line_mult
+
+        # Map each word result to its character span and sample index range in `samples`
+        line_text = line_obj.get("text", "")
+        search_pos = 0
+        word_sample_ranges: list[tuple[int, int, int, int, str, bool]] = []
+        sample_cursor = 0
+        for w_i, w_res in enumerate(l_res.word_results):
+            w_str = w_res.word
+            w_len = len(w_res.samples)
+            s0 = sample_cursor
+            s1 = min(n_pts, sample_cursor + w_len)
+            sample_cursor = s1
+            # Advance past inter-word air transit samples if present
+            while sample_cursor < n_pts and not samples[sample_cursor].contact:
+                sample_cursor += 1
+
+            c_idx = line_text.find(w_str, search_pos)
+            if c_idx < 0:
+                c_idx = search_pos
+            c_end = c_idx + len(w_str)
+            search_pos = c_end
+            is_lacuna_token = "[—]" in w_str
+            word_sample_ranges.append((w_i, s0, s1, c_idx, c_end, w_str, is_lacuna_token))
+
+        for idx_rec, (w_i, s0, s1, c0, c1, w_str, is_lacuna_token) in enumerate(word_sample_ranges):
+            # Check overlapping span annotations
+            matched_reason = ""
+            matched_note = ""
+            for sc0, sc1, reason, note in span_damages:
+                if max(c0, sc0) < min(c1, sc1):
+                    matched_reason = reason
+                    matched_note = note
+                    break
+
+            if is_lacuna_token:
+                reason = matched_reason or "water_damage"
+                note = matched_note or line_conf_note or "CLIO-7 lacuna ([—])"
+                for si in range(s0, s1):
+                    if reason == "missing_corner":
+                        sample_skip[si] = True
+                    else:
+                        # Dissolve literal [—] glyphs into sparse, faint abraded ink remnants near baseline
+                        phase = (si - s0) / max(1, (s1 - s0))
+                        # Keep only 2 tiny broken ink flecks (<12% of samples) at very low darkness
+                        if (0.18 <= phase <= 0.24) or (0.66 <= phase <= 0.71):
+                            sample_dark_mult[si] = 0.16
+                            sample_width_mult[si] = 0.75
+                        else:
+                            sample_skip[si] = True
+                # Taper adjacent words into the lacuna gap so strokes visibly fray/dissolve at the edges
+                if idx_rec > 0:
+                    _, ps0, ps1, _, _, _, prev_lac = word_sample_ranges[idx_rec - 1]
+                    if not prev_lac and ps1 > ps0:
+                        taper_start = ps0 + int(0.60 * (ps1 - ps0))
+                        for si in range(taper_start, ps1):
+                            u = (si - taper_start) / max(1, ps1 - taper_start)
+                            sample_dark_mult[si] *= max(0.32, 1.0 - 0.65 * u)
+                if idx_rec + 1 < len(word_sample_ranges):
+                    _, ns0, ns1, _, _, _, next_lac = word_sample_ranges[idx_rec + 1]
+                    if not next_lac and ns1 > ns0:
+                        taper_end = ns0 + int(0.40 * (ns1 - ns0))
+                        for si in range(ns0, taper_end):
+                            u = (si - ns0) / max(1, taper_end - ns0)
+                            sample_dark_mult[si] *= max(0.32, 0.35 + 0.65 * u)
+            elif matched_reason:
+                for si in range(s0, s1):
+                    u = (si - s0) / max(1, s1 - s0)
+                    flake_mod = 0.82 + 0.18 * math.sin(0.37 * si + 1.3 * l_idx)
+                    if matched_reason == "water_damage":
+                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.38, line_conf * 0.72) * flake_mod)
+                        sample_width_mult[si] = 1.08  # slight moisture feathering
+                    elif matched_reason == "ink_fade":
+                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.44, line_conf * 0.76) * flake_mod)
+                        sample_width_mult[si] = 0.90
+                    elif matched_reason == "missing_corner":
+                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.18, 0.55 * (1.0 - u)))
+
         raw_eff_w = np.zeros(n_pts, dtype=np.float64)
         raw_dark = np.zeros(n_pts, dtype=np.float64)
         raw_heat = np.zeros(n_pts, dtype=np.int32)
@@ -131,6 +240,8 @@ def render_kinematic_folio(
             prev = samples[idx - 1]
             curr = samples[idx]
             if not (prev.contact and curr.contact):
+                continue
+            if sample_skip[idx] or sample_skip[idx - 1]:
                 continue
             dx = curr.x_mm - prev.x_mm
             dy = curr.y_mm - prev.y_mm
@@ -144,9 +255,10 @@ def render_kinematic_folio(
 
             app_w = chisel_apparent_width_mm(l_nib, dir_deg, avg_p)
             pool_w, pool_i = turn_pooling_factor(speed, nominal_speed_mm_s=12.0)
-            raw_eff_w[idx] = app_w * pool_w
-            raw_dark[idx] = min(0.96, max(0.68, (0.72 + 0.24 * avg_p) * pool_i * l_prof.ink_density))
-            raw_heat[idx] = max(1, min(255, round(avg_p * 240.0)))
+            raw_eff_w[idx] = app_w * pool_w * sample_width_mult[idx]
+            base_d = min(0.96, max(0.68, (0.72 + 0.24 * avg_p) * pool_i * l_prof.ink_density))
+            raw_dark[idx] = max(0.08, base_d * sample_dark_mult[idx])
+            raw_heat[idx] = max(1, min(255, round(avg_p * sample_dark_mult[idx] * 240.0)))
             widths_mm.append(float(raw_eff_w[idx]))
 
         for _ in range(3):
@@ -164,14 +276,14 @@ def render_kinematic_folio(
         for idx in range(1, n_pts):
             prev = samples[idx - 1]
             curr = samples[idx]
-            if not (prev.contact and curr.contact):
+            if not (prev.contact and curr.contact) or sample_skip[idx] or sample_skip[idx - 1]:
                 prev_hx = prev_hy = prev_nx = prev_ny = None
                 continue
 
             dx = curr.x_mm - prev.x_mm
             dy = curr.y_mm - prev.y_mm
             seg_len = math.hypot(dx, dy)
-            if seg_len < 1e-6:
+            if seg_len < 1e-6 or raw_dark[idx] <= 0.01:
                 continue
 
             eff_w = float(raw_eff_w[idx])
@@ -254,6 +366,31 @@ def render_kinematic_folio(
                 glyph_xml_list.append({"char": ch_str, "bbox_px": gbbox})
 
             word_xml_list.append({"text": w_res.word, "bbox_px": wbbox, "glyphs": glyph_xml_list})
+
+        # Record any lacuna or damage spans on this line with their pixel bounding boxes
+        for idx_rec, (w_i, s0, s1, c0, c1, w_str, is_lacuna_token) in enumerate(word_sample_ranges):
+            matched_reason = ""
+            matched_note = ""
+            for sc0, sc1, reason, note in span_damages:
+                if max(c0, sc0) < min(c1, sc1):
+                    matched_reason = reason
+                    matched_note = note
+                    break
+            if is_lacuna_token or matched_reason:
+                wbbox = word_xml_list[w_i]["bbox_px"] if w_i < len(word_xml_list) else (0, 0, 0, 0)
+                damage_annotations.append(
+                    {
+                        "folio_id": fid,
+                        "line_number": int(line_obj.get("number", l_idx + 1)),
+                        "word": w_str,
+                        "char_span": (c0, c1),
+                        "damage_type": "lacuna" if is_lacuna_token else matched_reason,
+                        "reason": matched_reason or ("water_damage" if is_lacuna_token else "ink_fade"),
+                        "line_confidence": line_conf,
+                        "note": matched_note or line_conf_note,
+                        "bbox_px": wbbox,
+                    }
+                )
 
         if word_xml_list:
             lx0 = min(w["bbox_px"][0] for w in word_xml_list)
@@ -355,6 +492,7 @@ def render_kinematic_folio(
         "angles_deg": angles_deg,
         "page_array": page_arr,
         "hybrid_texture": hybrid_gate,
+        "damage_annotations": damage_annotations,
         "contracts": {
             "exact_character_coverage": 1.0,
             "glyph_bbox_iou": round(ink_recall, 4),

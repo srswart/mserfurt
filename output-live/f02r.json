@@ -102,7 +102,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.76,
+            "note": "surface abrasion where Konrad hesitates over confession"
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 22,
+            "char_end": 34
+          },
+          "detail": {
+            "reason": "ink_fade",
+            "note": "abraded ink on \"oder ich hab\""
           }
         }
       ]
@@ -258,7 +270,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.72,
+            "note": "vellum crease over \"gerissenen Pergament\""
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 6,
+            "char_end": 27
+          },
+          "detail": {
+            "reason": "water_damage",
+            "note": "crease and partial fade on \"gerissenen Pergament\""
           }
         }
       ]

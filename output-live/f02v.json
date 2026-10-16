@@ -37,7 +37,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.75,
+            "note": "damp stain from upper binding edge over \"die Augen, die mir feilen\""
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 16,
+            "char_end": 41
+          },
+          "detail": {
+            "reason": "water_damage",
+            "note": "moisture fade on \"die Augen, die mir feilen\""
           }
         }
       ]

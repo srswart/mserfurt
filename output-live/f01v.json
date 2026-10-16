@@ -37,7 +37,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.74,
+            "note": "moisture smudge over \"beschädigten Texte\""
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 18,
+            "char_end": 37
+          },
+          "detail": {
+            "reason": "water_damage",
+            "note": "damp spot over \"beschädigten Texte\""
           }
         }
       ]
@@ -245,7 +257,19 @@
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.84,
+            "note": "faint ink on Latin confession clause"
+          }
+        },
+        {
+          "type": "lacuna",
+          "span": {
+            "char_start": 33,
+            "char_end": 47
+          },
+          "detail": {
+            "reason": "ink_fade",
+            "note": "thin ink on \"in secreto meo\""
           }
         }
       ]
