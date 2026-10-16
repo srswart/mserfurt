@@ -1946,11 +1946,12 @@ passes:
     - id: ADV-SS-HANDFLOW-012
       advance_id: ADV-SS-HANDFLOW-012
       title: "Global Minimum-Jerk Via-Point Coarticulation Solver"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HAND-004
       notes: "Replace pairwise cubic spline-splicing with a banded Minimum-Jerk QP trajectory solver over ViaPointRecipe definitions (i, n, u, m, d, e, r). Proves automatic reciprocal neighbor adaptation (A2-KINEMATICS, A3-COARTICULATE) in <1ms per word."
+      status_changed_at: 2026-10-16T18:34:21.621702Z
     - id: ADV-SS-ANNOTATE-007
       advance_id: ADV-SS-ANNOTATE-007
       title: "Human-Eyes Review Board & Checkpoint #1 (Core Coarticulation)"

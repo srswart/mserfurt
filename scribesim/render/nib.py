@@ -194,6 +194,11 @@ def chisel_apparent_width_mm(
     t_nib = nib.width_mm * thickness_ratio
     broad_component = nib.width_mm * (0.82 + effective_splay * p) * abs(math.sin(delta_rad))
     edge_component = t_nib * abs(math.cos(delta_rad))
+    # Unloaded rising hairline release: when moving upward (sin(theta) > 0) at light join pressure (p <= 0.40),
+    # the quill tines close and skim along the leading edge toward t_nib.
+    if math.sin(theta_rad) > 0.15 and p <= 0.40:
+        release = max(0.12, (p / 0.40) ** 2 * 0.45)
+        broad_component *= release
     return max(t_nib * 0.85, broad_component + edge_component)
 
 

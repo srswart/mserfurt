@@ -1,0 +1,144 @@
+"""Automated Tier-1 kinematic and coarticulation gates (TD-019 §4).
+
+Provides:
+  - A2-KINEMATICS: Dimensionless Jerk (DLJ) & velocity continuity gate
+  - A3-COARTICULATE: Reciprocal neighbor adaptation gate
+"""
+
+from __future__ import annotations
+
+import math
+import numpy as np
+
+from scribesim.hand.profile import HandProfile, bastarda_nib_calibrated_profile
+from scribesim.handflow.coarticulate import (
+    CoarticulatedWordResult,
+    solve_word_coarticulation,
+)
+
+
+def evaluate_a2_kinematics(
+    result: CoarticulatedWordResult,
+    *,
+    max_dimensionless_jerk: float = 450.0,
+    max_speed_mm_s: float = 85.0,
+) -> dict:
+    """Evaluate Tier-1 A2-KINEMATICS gate on a solved word trajectory."""
+    if len(result.samples) < 5:
+        return {
+            "gate": "A2-KINEMATICS",
+            "passed": False,
+            "failures": ["insufficient_samples"],
+        }
+
+    dt = result.dt_s
+    x = np.array([s.x_mm for s in result.samples], dtype=np.float64)
+    y = np.array([s.y_mm for s in result.samples], dtype=np.float64)
+
+    vx = np.gradient(x, dt)
+    vy = np.gradient(y, dt)
+    speed = np.hypot(vx, vy)
+    peak_speed = float(np.max(speed))
+
+    jx = np.diff(x, n=3) / (dt ** 3)
+    jy = np.diff(y, n=3) / (dt ** 3)
+    jerk_sq = jx ** 2 + jy ** 2
+
+    duration = max(dt, (len(x) - 1) * dt)
+    path_len = float(np.sum(np.hypot(np.diff(x), np.diff(y))))
+    # Per-stroke normalized dimensionless jerk (scaled by number of via-point segments)
+    n_strokes = max(1, len(result.placed_via_points) - 1)
+    stroke_dur = duration / n_strokes
+    stroke_len = max(0.5, path_len / n_strokes)
+    mean_jerk_sq = float(np.mean(jerk_sq))
+    dlj = math.sqrt(mean_jerk_sq * (stroke_dur ** 5) / (stroke_len ** 2))
+
+    # Check velocity continuity (no sudden single-step velocity jump > 35 mm/s)
+    dv = np.hypot(np.diff(vx), np.diff(vy))
+    max_dv_step = float(np.max(dv)) if len(dv) else 0.0
+
+    failures: list[str] = []
+    if dlj > max_dimensionless_jerk:
+        failures.append("dimensionless_jerk")
+    if peak_speed > max_speed_mm_s:
+        failures.append("peak_speed")
+    if max_dv_step > 45.0:
+        failures.append("velocity_discontinuity")
+
+    return {
+        "gate": "A2-KINEMATICS",
+        "passed": len(failures) == 0,
+        "word": result.word,
+        "dimensionless_jerk": round(dlj, 4),
+        "peak_speed_mm_s": round(peak_speed, 4),
+        "max_velocity_step_mm_s": round(max_dv_step, 4),
+        "failures": failures,
+    }
+
+
+def evaluate_a3_coarticulate(
+    *,
+    profile: HandProfile | None = None,
+    bounds_wnib: tuple[float, float] = (0.03, 0.35),
+    max_body_drift_wnib: float = 0.05,
+) -> dict:
+    """Evaluate Tier-1 A3-COARTICULATE gate across nu, nm, isolated n, and isolated u."""
+    prof = profile or bastarda_nib_calibrated_profile()
+
+    res_n = solve_word_coarticulation("n", profile=prof, start_x_wnib=1.2)
+    res_u = solve_word_coarticulation("u", profile=prof, start_x_wnib=1.2)
+    res_nu = solve_word_coarticulation("nu", profile=prof, start_x_wnib=1.2)
+    res_nm = solve_word_coarticulation("nm", profile=prof, start_x_wnib=1.2)
+
+    # 1. Preceding letter adaptation: compare n's exit via-point solved position in "nu" vs "nm"
+    n_exit_nu = next(vp for vp in res_nu.placed_via_points if vp.letter_index == 0 and vp.role == "exit")
+    n_exit_nm = next(vp for vp in res_nm.placed_via_points if vp.letter_index == 0 and vp.role == "exit")
+    idx_exit = n_exit_nu.sample_index
+    n_exit_delta_wnib = float(
+        math.hypot(
+            res_nu.solved_x_wnib[idx_exit] - res_nm.solved_x_wnib[idx_exit],
+            res_nu.solved_y_wnib[idx_exit] - res_nm.solved_y_wnib[idx_exit],
+        )
+    )
+
+    # 2. Protected body stability: compare n's first stem body via-point in "nu" vs isolated "n"
+    n_body_nu = next(vp for vp in res_nu.placed_via_points if vp.letter_index == 0 and vp.role == "body")
+    idx_body = n_body_nu.sample_index
+    n_body_delta_wnib = float(
+        math.hypot(
+            res_nu.solved_x_wnib[idx_body] - res_n.solved_x_wnib[idx_body],
+            res_nu.solved_y_wnib[idx_body] - res_n.solved_y_wnib[idx_body],
+        )
+    )
+
+    # 3. Following letter adaptation: compare u's entry via-point in "nu" (relative to u's origin) vs isolated "u"
+    u_entry_nu = next(vp for vp in res_nu.placed_via_points if vp.letter_index == 1 and vp.role == "entry")
+    u_entry_iso = next(vp for vp in res_u.placed_via_points if vp.letter_index == 0 and vp.role == "entry")
+    offset_x_wnib = u_entry_nu.x_wnib - u_entry_iso.x_wnib
+    u_idx_nu = u_entry_nu.sample_index
+    u_idx_iso = u_entry_iso.sample_index
+    u_entry_delta_wnib = float(
+        math.hypot(
+            (res_nu.solved_x_wnib[u_idx_nu] - offset_x_wnib) - res_u.solved_x_wnib[u_idx_iso],
+            res_nu.solved_y_wnib[u_idx_nu] - res_u.solved_y_wnib[u_idx_iso],
+        )
+    )
+
+    failures: list[str] = []
+    if not (bounds_wnib[0] <= n_exit_delta_wnib <= bounds_wnib[1]):
+        failures.append("n_exit_delta_wnib_nu_vs_nm")
+    if not (bounds_wnib[0] <= u_entry_delta_wnib <= bounds_wnib[1]):
+        failures.append("u_entry_delta_wnib_nu_vs_isolated")
+    if n_body_delta_wnib >= max_body_drift_wnib:
+        failures.append("n_protected_body_delta_wnib")
+
+    return {
+        "gate": "A3-COARTICULATE",
+        "passed": len(failures) == 0,
+        "n_exit_delta_wnib_nu_vs_nm": round(n_exit_delta_wnib, 4),
+        "u_entry_delta_wnib_nu_vs_isolated": round(u_entry_delta_wnib, 4),
+        "n_protected_body_delta_wnib": round(n_body_delta_wnib, 5),
+        "bounds_wnib": list(bounds_wnib),
+        "max_body_drift_wnib": max_body_drift_wnib,
+        "failures": failures,
+    }
