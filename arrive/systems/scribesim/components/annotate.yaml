@@ -10,6 +10,7 @@ selectors:
   paths:
     - "scribesim/annotate/**"
     - "shared/training/handsim/reviewed_annotations/**"
+    - "shared/training/reviews/**"
   build_modules: []
   tags: []
   contracts: []
@@ -20,6 +21,7 @@ interfaces:
   - "Per-annotation cleanup mask editing so nearby-stroke artifacts can be removed non-destructively before reviewed freeze"
   - "Frozen reviewed-annotation manifest and crop bundle for downstream exemplar recovery"
   - "Coverage ledger for required symbols, joins, and per-source exemplar counts"
+  - "Human-Eyes Review Board (`scribesim review-sheet`) for 3-way equal-scale visual evaluation, 4-question rubric, and parameter-mapped diagnostic quick-tags (TD-019)"
 
 invariants:
   - "Every saved annotation must retain source image provenance and pixel bounds."
