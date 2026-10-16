@@ -32,6 +32,10 @@ from scribesim.guides.viapoint_catalog import (
 )
 from scribesim.hand.profile import HandProfile, bastarda_nib_calibrated_profile
 from scribesim.render.sandbox import SandboxSample
+from scribesim.render.scribe_state import (
+    KinematicScribeSession,
+    resolve_clio7_kinematic_profile,
+)
 
 
 @dataclass(frozen=True)
@@ -101,6 +105,17 @@ def _build_banded_smoothness_matrix(
     return ab
 
 
+@dataclass(frozen=True)
+class StatefulLineResult:
+    """Solved trajectory and word metadata for a full line with ScribeState carryover."""
+
+    line_text: str
+    line_index: int
+    word_results: tuple[CoarticulatedWordResult, ...]
+    samples: tuple[SandboxSample, ...]
+    vias: list[dict]
+
+
 def solve_word_coarticulation(
     word: str,
     *,
@@ -111,6 +126,7 @@ def solve_word_coarticulation(
     w_jerk: float = 0.0045,
     w_acc: float = 0.025,
     dt_s: float = 0.008,
+    session: KinematicScribeSession | None = None,
 ) -> CoarticulatedWordResult:
     """Solve the global Minimum-Jerk Via-Point QP for `word`."""
     prof = profile or bastarda_nib_calibrated_profile()
@@ -118,17 +134,46 @@ def solve_word_coarticulation(
     xh = prof.letterform.x_height_mm
     base_y_mm = baseline_y_mm if baseline_y_mm is not None else xh * 2.1
     nib_angle = prof.nib.angle_deg
+    spacing_norm = getattr(prof, "letter_spacing_norm", 1.0) or 1.0
 
     cursor_wnib = start_x_wnib
-    raw_vias: list[tuple[str, int, int, ViaPoint, float, float]] = []
+    raw_vias: list[tuple[str, int, int, ViaPoint, float, float, float]] = []
 
     for l_idx, ch in enumerate(word):
         recipe = select_contextual_viapoint_recipe(word, l_idx)
-        for v_idx, vp in enumerate(recipe.via_points):
-            raw_vias.append(
-                (recipe.letter, l_idx, v_idx, vp, cursor_wnib + vp.x_wnib, vp.y_wnib)
+        if session is not None:
+            var = session.next_letter_variation(
+                recipe.letter,
+                is_word_initial=(l_idx == 0),
+                prev_word_exit_y_wnib=session.last_word_exit_y_wnib,
             )
-        cursor_wnib += recipe.advance_wnib
+        else:
+            var = {
+                "dx_wnib": 0.0,
+                "dy_wnib": 0.0,
+                "slant_shear": 0.0,
+                "peak_arch_dy": 0.0,
+                "x_scale": 1.0,
+                "entry_hook_dx": 0.0,
+                "entry_hook_dy": 0.0,
+                "nib_angle_drift_deg": 0.0,
+            }
+
+        for v_idx, vp in enumerate(recipe.via_points):
+            x_v = vp.x_wnib * var["x_scale"] + var["dx_wnib"] + (vp.y_wnib / 4.2) * var["slant_shear"]
+            y_v = vp.y_wnib + var["dy_wnib"]
+            if vp.role in ("peak", "loop", "turn"):
+                y_v += var["peak_arch_dy"]
+            if l_idx == 0 and v_idx == 0:
+                x_v += var["entry_hook_dx"]
+                y_v += var["entry_hook_dy"]
+            elif l_idx == 0 and v_idx == 1:
+                x_v += 0.45 * var["entry_hook_dx"]
+
+            raw_vias.append(
+                (recipe.letter, l_idx, v_idx, vp, cursor_wnib + x_v, y_v, var["nib_angle_drift_deg"])
+            )
+        cursor_wnib += recipe.advance_wnib * var["x_scale"] * spacing_norm
 
     k_pts = len(raw_vias)
     if k_pts == 0:
@@ -154,7 +199,7 @@ def solve_word_coarticulation(
     by = np.zeros(n_samples, dtype=np.float64)
 
     placed: list[PlacedViaPoint] = []
-    for k, (ch, l_idx, v_idx, vp, x_w, y_w) in enumerate(raw_vias):
+    for k, (ch, l_idx, v_idx, vp, x_w, y_w, _) in enumerate(raw_vias):
         s_idx = k * substeps_per_segment
         wx = 1.0 / max(1e-4, vp.sigma_x_wnib ** 2)
         wy = 1.0 / max(1e-4, vp.sigma_y_wnib ** 2)
@@ -191,20 +236,29 @@ def solve_word_coarticulation(
     vx_arr = np.gradient(x_mm_arr, dt_s)
     vy_arr = np.gradient(y_mm_arr, dt_s)
 
+    pressure_scale = prof.folio.base_pressure / 0.72 if prof.folio else 1.0
     samples: list[SandboxSample] = []
     for idx in range(n_samples):
         seg_k = min(k_pts - 2, idx // substeps_per_segment) if k_pts > 1 else 0
         u = (idx - seg_k * substeps_per_segment) / max(1, substeps_per_segment)
         p_a = placed[seg_k]
         p_b = placed[min(k_pts - 1, seg_k + 1)]
+        angle_drift = raw_vias[seg_k][6]
 
         # Smooth cosine interpolation of target pressure, modulated by vertical travel direction
-        p_interp = p_a.pressure + (0.5 - 0.5 * math.cos(math.pi * u)) * (p_b.pressure - p_a.pressure)
+        p_interp = (p_a.pressure + (0.5 - 0.5 * math.cos(math.pi * u)) * (p_b.pressure - p_a.pressure)) * pressure_scale
         # Rising strokes (vy_mm_s < 0 in y-down canvas) naturally lighten pressure
         if vy_arr[idx] < -0.5:
             p_eff = min(p_interp, 0.30)
         else:
-            p_eff = p_interp
+            p_eff = min(1.05, p_interp)
+
+        is_contact = p_a.contact and p_b.contact
+        if session is not None and idx > 0 and is_contact:
+            seg_dist = math.hypot(float(x_mm_arr[idx] - x_mm_arr[idx - 1]), float(y_mm_arr[idx] - y_mm_arr[idx - 1]))
+            session.state.consume_contact_distance(seg_dist, avg_pressure=float(p_eff), avg_width_mm=w_nib)
+            dark_mult = max(0.75, min(1.08, session.state.darkness_scale()))
+            p_eff = max(0.18, min(1.05, p_eff * dark_mult))
 
         role = "join" if (p_a.letter_index != p_b.letter_index or p_b.role in ("exit", "peak", "loop")) else "body"
         samples.append(
@@ -213,13 +267,18 @@ def solve_word_coarticulation(
                 y_mm=float(y_mm_arr[idx]),
                 vx_mm_s=float(vx_arr[idx]),
                 vy_mm_s=float(vy_arr[idx]),
-                contact=p_a.contact and p_b.contact,
+                contact=is_contact,
                 pressure=float(p_eff),
-                nib_angle_deg=nib_angle,
+                nib_angle_deg=nib_angle + angle_drift,
                 letter=p_a.letter if u < 0.5 else p_b.letter,
                 role=role,
             )
         )
+
+    if session is not None:
+        session.last_word_exit_y_wnib = float(sol_y[-1])
+        session.word_counter += 1
+        session.state.ink_state.process_word_boundary()
 
     return CoarticulatedWordResult(
         word=word,
@@ -234,64 +293,129 @@ def solve_word_coarticulation(
     )
 
 
+def compose_line_kinematic_Stateful(
+    line_text: str,
+    *,
+    session: KinematicScribeSession | None = None,
+    line_index: int = 0,
+    profile: HandProfile | None = None,
+) -> StatefulLineResult:
+    """Compose a full line of words with ScribeState, word-initial attack, and InkState."""
+    sess = session or KinematicScribeSession(folio_id="f01r", seed=1457)
+    if line_index != sess.current_line:
+        sess.advance_to_line(line_index)
+
+    prof = profile or resolve_clio7_kinematic_profile(sess.folio_id, line_index=line_index)
+    w_nib = prof.nib.width_mm
+    xh = prof.letterform.x_height_mm
+    baseline_sag_mm = sess.state.baseline_drift_mm(line_index)
+    baseline_y_mm = xh * 2.1 + line_index * (xh * 2.5) + baseline_sag_mm
+
+    word_gap_wnib = 2.2 * (prof.word.spacing_mean_ratio / 1.2)
+    cursor_wnib = 1.2
+    word_results: list[CoarticulatedWordResult] = []
+    line_samples: list[SandboxSample] = []
+    line_vias: list[dict] = []
+
+    for w in line_text.split(" "):
+        if not w:
+            cursor_wnib += word_gap_wnib
+            continue
+        res = solve_word_coarticulation(
+            w,
+            profile=prof,
+            start_x_wnib=cursor_wnib,
+            baseline_y_mm=baseline_y_mm,
+            session=sess,
+        )
+        word_results.append(res)
+        if line_samples and res.samples:
+            prev_s = line_samples[-1]
+            first_s = res.samples[0]
+            line_samples.append(
+                SandboxSample(
+                    x_mm=0.5 * (prev_s.x_mm + first_s.x_mm),
+                    y_mm=0.5 * (prev_s.y_mm + first_s.y_mm) - 0.8 * w_nib,
+                    vx_mm_s=0.0,
+                    vy_mm_s=0.0,
+                    contact=False,
+                    pressure=0.0,
+                    nib_angle_deg=prof.nib.angle_deg,
+                    letter=" ",
+                    role="air",
+                )
+            )
+        line_samples.extend(res.samples)
+        for vp in res.placed_via_points:
+            line_vias.append(
+                {
+                    "x_mm": vp.x_mm,
+                    "y_mm": vp.y_mm,
+                    "sigma_x_mm": vp.sigma_x_wnib * w_nib,
+                    "sigma_y_mm": vp.sigma_y_wnib * w_nib,
+                    "role": "boundary" if vp.role in ("entry", "exit") else "body",
+                    "letter": vp.letter,
+                }
+            )
+        last_x_wnib = float(res.solved_x_wnib[-1]) if len(res.solved_x_wnib) else cursor_wnib
+        cursor_wnib = last_x_wnib + word_gap_wnib
+
+    return StatefulLineResult(
+        line_text=line_text,
+        line_index=line_index,
+        word_results=tuple(word_results),
+        samples=tuple(line_samples),
+        vias=line_vias,
+    )
+
+
 def compose_text_kinematic(
     text: str,
     *,
     profile: HandProfile | None = None,
+    folio_id: str = "f01r",
+    seed: int = 1457,
+    use_state: bool = True,
 ) -> tuple[list[SandboxSample], list[dict]]:
     """Compose multi-word/multi-line text using the global minimum-jerk coarticulation solver."""
-    prof = profile or bastarda_nib_calibrated_profile()
-    w_nib = prof.nib.width_mm
-    xh = prof.letterform.x_height_mm
-
+    session = KinematicScribeSession(folio_id=folio_id, seed=seed) if use_state else None
     lines = text.splitlines() or [text]
     all_samples: list[SandboxSample] = []
     all_vias: list[dict] = []
 
     for line_idx, line in enumerate(lines):
-        baseline_y_mm = xh * 2.1 + line_idx * (xh * 2.5)
-        cursor_wnib = 1.2
-        words = line.split(" ")
-        for w in words:
-            if not w:
-                cursor_wnib += 2.2
-                continue
-            res = solve_word_coarticulation(
-                w,
-                profile=prof,
-                start_x_wnib=cursor_wnib,
-                baseline_y_mm=baseline_y_mm,
+        if session is not None:
+            l_res = compose_line_kinematic_Stateful(
+                line, session=session, line_index=line_idx, profile=profile
             )
-            if all_samples and res.samples:
-                # Insert pen-up air transition sample between words
-                prev_s = all_samples[-1]
-                first_s = res.samples[0]
-                all_samples.append(
-                    SandboxSample(
-                        x_mm=0.5 * (prev_s.x_mm + first_s.x_mm),
-                        y_mm=0.5 * (prev_s.y_mm + first_s.y_mm) - 0.8 * w_nib,
-                        vx_mm_s=0.0,
-                        vy_mm_s=0.0,
-                        contact=False,
-                        pressure=0.0,
-                        nib_angle_deg=prof.nib.angle_deg,
-                        letter=" ",
-                        role="air",
+            all_samples.extend(l_res.samples)
+            all_vias.extend(l_res.vias)
+        else:
+            prof = profile or bastarda_nib_calibrated_profile()
+            w_nib = prof.nib.width_mm
+            xh = prof.letterform.x_height_mm
+            baseline_y_mm = xh * 2.1 + line_idx * (xh * 2.5)
+            cursor_wnib = 1.2
+            for w in line.split(" "):
+                if not w:
+                    cursor_wnib += 2.2
+                    continue
+                res = solve_word_coarticulation(
+                    w, profile=prof, start_x_wnib=cursor_wnib, baseline_y_mm=baseline_y_mm
+                )
+                all_samples.extend(res.samples)
+                for vp in res.placed_via_points:
+                    all_vias.append(
+                        {
+                            "x_mm": vp.x_mm,
+                            "y_mm": vp.y_mm,
+                            "sigma_x_mm": vp.sigma_x_wnib * w_nib,
+                            "sigma_y_mm": vp.sigma_y_wnib * w_nib,
+                            "role": "boundary" if vp.role in ("entry", "exit") else "body",
+                            "letter": vp.letter,
+                        }
                     )
-                )
-            all_samples.extend(res.samples)
-            for vp in res.placed_via_points:
-                all_vias.append(
-                    {
-                        "x_mm": vp.x_mm,
-                        "y_mm": vp.y_mm,
-                        "sigma_x_mm": vp.sigma_x_wnib * w_nib,
-                        "sigma_y_mm": vp.sigma_y_wnib * w_nib,
-                        "role": "boundary" if vp.role in ("entry", "exit") else "body",
-                        "letter": vp.letter,
-                    }
-                )
-            last_x_wnib = float(res.solved_x_wnib[-1]) if len(res.solved_x_wnib) else cursor_wnib
-            cursor_wnib = last_x_wnib + 2.2
+                last_x_wnib = float(res.solved_x_wnib[-1]) if len(res.solved_x_wnib) else cursor_wnib
+                cursor_wnib = last_x_wnib + 2.2
 
     return all_samples, all_vias

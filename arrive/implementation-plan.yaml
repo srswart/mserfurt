@@ -1993,12 +1993,13 @@ passes:
     - id: ADV-SS-STATE-002
       advance_id: ADV-SS-STATE-002
       title: "Coarticulated ScribeState, Ink Cycle & CLIO-7 Folio Modifiers"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-TUNING-002
       - ADV-SS-INK-001
       notes: "Wire slow correlated via-point drift (TD-017), contact-distance ink depletion/dips (TD-010), and CLIO-7 folio modifiers (f06r, f07r, f07v, f14r+) into the kinematic composer. Verify Tier-1 A5-ANTI-CLONE."
+      status_changed_at: 2026-10-16T19:21:02.411823Z
     - id: ADV-SS-HANDVALIDATE-027
       advance_id: ADV-SS-HANDVALIDATE-027
       title: "Automated HTR/Distribution Bench & 4-Folio Human Sign-Off"

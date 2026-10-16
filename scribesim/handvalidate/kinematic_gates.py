@@ -224,3 +224,88 @@ def evaluate_a4_topology(
         "failures": failures,
     }
 
+
+def evaluate_a5_anti_clone(
+    text: str = "und der und wir und\nalle seines alle alleine",
+    *,
+    folio_id: str = "f01r",
+    seed: int = 1457,
+    min_dtw_wnib: float = 0.025,
+    max_dtw_wnib: float = 0.45,
+) -> dict:
+    """Evaluate Tier-1 A5-ANTI-CLONE gate: verify repeated words & word-initial letters vary organically."""
+    from scribesim.handflow.coarticulate import (
+        CoarticulatedWordResult,
+        compose_line_kinematic_Stateful,
+    )
+    from scribesim.render.scribe_state import KinematicScribeSession
+
+    session = KinematicScribeSession(folio_id=folio_id, seed=seed)
+    by_word: dict[str, list[CoarticulatedWordResult]] = {}
+    by_initial: dict[str, list[CoarticulatedWordResult]] = {}
+
+    for line_idx, line in enumerate(text.splitlines() or [text]):
+        l_res = compose_line_kinematic_Stateful(line, session=session, line_index=line_idx)
+        for w_res in l_res.word_results:
+            by_word.setdefault(w_res.word, []).append(w_res)
+            if w_res.word:
+                by_initial.setdefault(w_res.word[0], []).append(w_res)
+
+    word_deltas: list[float] = []
+    for instances in by_word.values():
+        if len(instances) < 2:
+            continue
+        for i in range(len(instances)):
+            for j in range(i + 1, len(instances)):
+                w1, w2 = instances[i], instances[j]
+                x0_1 = w1.placed_via_points[0].x_wnib
+                x0_2 = w2.placed_via_points[0].x_wnib
+                dx = (w1.solved_x_wnib - x0_1) - (w2.solved_x_wnib - x0_2)
+                dy = w1.solved_y_wnib - w2.solved_y_wnib
+                dist = float(np.max(np.hypot(dx, dy)))
+                word_deltas.append(dist)
+
+    initial_deltas: list[float] = []
+    for instances in by_initial.values():
+        if len(instances) < 2:
+            continue
+        for i in range(len(instances)):
+            for j in range(i + 1, len(instances)):
+                w1, w2 = instances[i], instances[j]
+                x0_1 = w1.placed_via_points[0].x_wnib
+                x0_2 = w2.placed_via_points[0].x_wnib
+                pts1 = [
+                    (float(w1.solved_x_wnib[vp.sample_index]) - x0_1, float(w1.solved_y_wnib[vp.sample_index]))
+                    for vp in w1.placed_via_points
+                    if vp.letter_index == 0
+                ]
+                pts2 = [
+                    (float(w2.solved_x_wnib[vp.sample_index]) - x0_2, float(w2.solved_y_wnib[vp.sample_index]))
+                    for vp in w2.placed_via_points
+                    if vp.letter_index == 0
+                ]
+                diffs = [math.hypot(p1[0] - p2[0], p1[1] - p2[1]) for p1, p2 in zip(pts1, pts2)]
+                if diffs:
+                    initial_deltas.append(max(diffs))
+
+    min_w = min(word_deltas) if word_deltas else 0.0
+    max_w = max(word_deltas) if word_deltas else 0.0
+    min_init = min(initial_deltas) if initial_deltas else 0.0
+
+    failures: list[str] = []
+    if not (min_dtw_wnib <= min_w <= max_dtw_wnib and max_w <= max_dtw_wnib):
+        failures.append("word_dtw_out_of_bounds")
+    if min_init < min_dtw_wnib:
+        failures.append("word_initial_clones_detected")
+
+    return {
+        "gate": "A5-ANTI-CLONE",
+        "passed": len(failures) == 0,
+        "min_word_dtw_wnib": round(min_w, 4),
+        "max_word_dtw_wnib": round(max_w, 4),
+        "min_initial_letter_delta_wnib": round(min_init, 4),
+        "bounds_wnib": [min_dtw_wnib, max_dtw_wnib],
+        "failures": failures,
+    }
+
+

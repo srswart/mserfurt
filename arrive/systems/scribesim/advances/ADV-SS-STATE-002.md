@@ -6,17 +6,17 @@ advance:
   primary_component: "render"
   components: ["render", "handflow", "ink", "layout", "tests"]
   started_at: "2026-10-16T04:45:00+00:00"
-  implementation_completed_at: ~
+  implementation_completed_at: 2026-10-16T19:21:01.573218Z
   review_time_estimate_minutes: 35
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: []
-  evidence: []
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -48,25 +48,25 @@ Primary component: `render`. Impacted components: `render`, `handflow`, `ink`, `
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: unify `InkState` arc-length consumption interface between `scribesim/ink/cycle.py` and `scribesim/render/scribe_state.py` (no behavior change)
-- [ ] test: add failing unit tests for `A5-ANTI-CLONE` (positive bounded DTW distance between repeated words), continuous contact-distance ink depletion without excessive fading, and measurable `CLIO-7` deltas on `f06r`, `f07r`, `f07v`, and `f14r`
-- [ ] feat/fix: wire `ScribeState`, `InkState`, and `CLIO-7` modifiers into the kinematic line/folio composer
+- [x] branch: create or confirm feature branch for this advance (`feat/adv-ss-state-002`)
+- [x] tidy: unify `InkState` arc-length consumption interface between `scribesim/ink/cycle.py` and `scribesim/render/scribe_state.py` (no behavior change)
+- [x] test: add failing unit tests for `A5-ANTI-CLONE` (positive bounded DTW distance between repeated words and word-initial letters), continuous contact-distance ink depletion without excessive fading, and measurable `CLIO-7` deltas on `f06r`, `f07r`, `f07v`, and `f14r`
+- [x] feat/fix: wire `KinematicScribeSession`, word-initial attack + cross-word air momentum carryover, `InkState`, and `CLIO-7` modifiers into the kinematic line/folio composer
 
 ## Bug Fixes
 
-- [ ] None yet
+- [x] Scoped `f07v` working-register compression (`x_height = 0.85 * 3.5mm`, `letter_spacing_norm = 0.92`) to `line_index >= 16` (`apply_from_line = 16`) so upper vs. lower halves of `f07v` reflect the CLIO-7 apparatus transition accurately.
 
 ## Risk + Rollback
 
 - Risk: Excessive ink depletion caused unreadable fading in earlier Pass 15 synthetic G3 experiments (`ink-three-line.png`). Mitigate by enforcing the `TD-017` darkness floor ($\ge 0.38$) and triggering natural word-boundary dips when reservoir drops below $0.20$.
-- Rollback: Disable state drift flags in `ScribeState` to return to neutral kinematic rendering.
+- Rollback: Disable state drift flags in `ScribeState` (`use_state=False`) to return to neutral kinematic rendering.
 
 ## Evidence
 
-- [ ] tidy:preparatory
-- [ ] tdd:red-green
-- [ ] tests:unit
+- [x] tidy:preparatory
+- [x] tdd:red-green
+- [x] tests:unit
 
 ## CI Evidence Notes
 
@@ -81,3 +81,22 @@ Primary component: `render`. Impacted components: `render`, `handflow`, `ink`, `
 
 ### 2026-10-16 - docs: Draft ADV-SS-STATE-002 for TD-019 Pass 16c
 - `arrive/systems/scribesim/advances/ADV-SS-STATE-002.md`: Created planned advance record for Coarticulated ScribeState, Ink Cycle, and CLIO-7 Folio Modifiers.
+
+### 2026-10-16 - tidy: unify InkState arc-length consumption and process-stable seeding in ScribeState
+- `scribesim/render/scribe_state.py`: Added `_stable_seed()` using `hashlib.sha256` and `ScribeState.consume_contact_distance()`.
+- `arrive/systems/scribesim/components/tests.yaml`: Added path selectors for `tests/test_kinematic_state.py` and `tests/test_tier2_bench.py`.
+
+### 2026-10-16 - test: add word-initial attack, cross-word momentum, ink depletion, CLIO-7, and A5-ANTI-CLONE tests
+- `tests/test_kinematic_state.py`: Added unit tests covering word-initial letter variation across same-initial words (`alle`, `alleine`, `an`), Tier-1 `A5-ANTI-CLONE` gate and determinism, continuous contact-distance ink depletion + `f07r` sitting boundaries, and `CLIO-7` folio overrides (`f01r`, `f06r`, `f07v`, `f14r`).
+
+### 2026-10-16 - feat: implement KinematicScribeSession, word-initial attack, CLIO-7 modifiers, and A5-ANTI-CLONE gate
+- `scribesim/render/scribe_state.py`: Implemented `KinematicScribeSession` (correlated AR(1) motor-memory walk, word-initial entry hook + cross-word air arrival carryover, sitting boundary reloads) and `resolve_clio7_kinematic_profile()`.
+- `scribesim/handflow/coarticulate.py`: Implemented `compose_line_kinematic_Stateful()` and wired `KinematicScribeSession` into `solve_word_coarticulation()` and `compose_text_kinematic()`.
+- `scribesim/handvalidate/kinematic_gates.py`: Implemented `evaluate_a5_anti_clone()`.
+
+## Check for Understanding
+
+1. How does `KinematicScribeSession.next_letter_variation()` address the Checkpoint #2 observation that word-initial letters (`is_word_initial=True`) previously looked too similar across words starting with the same letter?
+2. Why does `ScribeState` use `_stable_seed()` (`hashlib.sha256`) rather than Python's built-in `hash()` for seeding per-folio and per-occurrence random walks?
+3. How does `resolve_clio7_kinematic_profile()` differentiate the upper and lower halves of `f07v` and the multi-sitting reloads of `f07r`?
+
