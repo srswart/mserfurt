@@ -1,0 +1,8 @@
+external_systems:
+  - id: central
+    provider: central
+    display_name: "Arrive Central"
+    base_url: "https://arrive-central-stg.fly.dev"
+    settings:
+      project_id: "ms-erfurt"
+      events: [advance-completed, attestation-recorded, plan-item-status-changed]
