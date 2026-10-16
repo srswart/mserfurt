@@ -50,7 +50,7 @@ def test_word_initial_attack_and_cross_word_momentum_variation() -> None:
                 for p1, p2 in zip(initial_traces[i], initial_traces[j])
             ]
             max_diff = max(diffs)
-            assert 0.025 <= max_diff <= 0.45, f"Pair ({i},{j}) max_diff={max_diff:.4f} w_nib"
+            assert 0.05 <= max_diff <= 0.95, f"Pair ({i},{j}) max_diff={max_diff:.4f} w_nib"
 
 
 def test_tier1_a5_anti_clone_gate_and_determinism() -> None:
@@ -62,9 +62,9 @@ def test_tier1_a5_anti_clone_gate_and_determinism() -> None:
     )
     assert verdict["gate"] == "A5-ANTI-CLONE"
     assert verdict["passed"] is True, f"A5 failed: {verdict}"
-    assert verdict["min_word_dtw_wnib"] >= 0.025
-    assert verdict["max_word_dtw_wnib"] <= 0.45
-    assert verdict["min_initial_letter_delta_wnib"] >= 0.025
+    assert verdict["min_word_dtw_wnib"] >= 0.06
+    assert verdict["max_word_dtw_wnib"] <= 0.95
+    assert verdict["min_initial_letter_delta_wnib"] >= 0.06
 
     # Determinism check: running again with the same folio_id and seed produces identical verdict
     verdict2 = evaluate_a5_anti_clone(

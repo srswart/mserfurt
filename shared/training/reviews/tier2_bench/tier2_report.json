@@ -1,0 +1,251 @@
+{
+  "passed": true,
+  "tier1": {
+    "a3_coarticulate": {
+      "gate": "A3-COARTICULATE",
+      "passed": true,
+      "n_exit_delta_wnib_nu_vs_nm": 0.1022,
+      "u_entry_delta_wnib_nu_vs_isolated": 0.0854,
+      "n_protected_body_delta_wnib": 0.0,
+      "bounds_wnib": [
+        0.03,
+        0.35
+      ],
+      "max_body_drift_wnib": 0.05,
+      "failures": []
+    },
+    "a4_topology": {
+      "gate": "A4-TOPOLOGY",
+      "passed": true,
+      "letter_counters": {
+        "a": {
+          "open_counter_count": 1,
+          "max_counter_area_px": 112,
+          "passed": true
+        },
+        "o": {
+          "open_counter_count": 1,
+          "max_counter_area_px": 160,
+          "passed": true
+        },
+        "d": {
+          "open_counter_count": 1,
+          "max_counter_area_px": 108,
+          "passed": true
+        },
+        "e": {
+          "open_counter_count": 1,
+          "max_counter_area_px": 71,
+          "passed": true
+        },
+        "g": {
+          "open_counter_count": 2,
+          "max_counter_area_px": 105,
+          "passed": true
+        },
+        "b": {
+          "open_counter_count": 1,
+          "max_counter_area_px": 146,
+          "passed": true
+        },
+        "p": {
+          "open_counter_count": 1,
+          "max_counter_area_px": 101,
+          "passed": true
+        }
+      },
+      "non_adjacent_collisions": 0,
+      "failures": []
+    },
+    "a5_anti_clone": {
+      "gate": "A5-ANTI-CLONE",
+      "passed": true,
+      "min_word_dtw_wnib": 0.2614,
+      "max_word_dtw_wnib": 0.4065,
+      "min_initial_letter_delta_wnib": 0.3156,
+      "bounds_wnib": [
+        0.06,
+        0.95
+      ],
+      "failures": []
+    }
+  },
+  "b1_htr_cer": {
+    "gate": "B1-HTR-CER",
+    "passed": true,
+    "clean_cer": 0.012,
+    "max_cer": 0.028,
+    "cer_by_folio": {
+      "f01r": 0.012,
+      "f06r": 0.028,
+      "f07r": 0.012,
+      "f14r": 0.028
+    }
+  },
+  "b2_angle_emd": {
+    "gate": "B2-ANGLE-EMD",
+    "passed": true,
+    "emd": 0.0604,
+    "threshold": 0.12
+  },
+  "b3_rhythm_acf": {
+    "gate": "B3-RHYTHM-ACF",
+    "passed": true,
+    "mean_lag_px": 9.5,
+    "expected_lag_px": 8.86
+  },
+  "b4_contracts": {
+    "gate": "B4-CONTRACTS",
+    "passed": true,
+    "exact_character_coverage": 1.0,
+    "min_glyph_bbox_iou": 0.9999,
+    "min_pressure_dynamic_range": 0.7016,
+    "weather_compatible": true
+  },
+  "folios": {
+    "f01r": {
+      "folio_id": "f01r",
+      "page_png": "shared/training/reviews/tier2_bench/f01r/f01r.png",
+      "pressure_png": "shared/training/reviews/tier2_bench/f01r/f01r_pressure.png",
+      "page_xml": "shared/training/reviews/tier2_bench/f01r/f01r.xml",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.4607,
+        "p95_width_mm": 0.8361,
+        "p05_width_mm": 0.1874,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "contracts": {
+        "exact_character_coverage": 1.0,
+        "glyph_bbox_iou": 1.0,
+        "pressure_dynamic_range": 0.7067,
+        "weather_compatible": true
+      },
+      "htr_cer": 0.012,
+      "rhythm_acf_lag_px": 10,
+      "rhythm_acf_peak": 0.67
+    },
+    "f06r": {
+      "folio_id": "f06r",
+      "page_png": "shared/training/reviews/tier2_bench/f06r/f06r.png",
+      "pressure_png": "shared/training/reviews/tier2_bench/f06r/f06r_pressure.png",
+      "page_xml": "shared/training/reviews/tier2_bench/f06r/f06r.xml",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.5582,
+        "p95_width_mm": 0.8623,
+        "p05_width_mm": 0.1892,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "contracts": {
+        "exact_character_coverage": 1.0,
+        "glyph_bbox_iou": 0.9999,
+        "pressure_dynamic_range": 0.8324,
+        "weather_compatible": true
+      },
+      "htr_cer": 0.028,
+      "rhythm_acf_lag_px": 9,
+      "rhythm_acf_peak": 0.7401
+    },
+    "f07r": {
+      "folio_id": "f07r",
+      "page_png": "shared/training/reviews/tier2_bench/f07r/f07r.png",
+      "pressure_png": "shared/training/reviews/tier2_bench/f07r/f07r_pressure.png",
+      "page_xml": "shared/training/reviews/tier2_bench/f07r/f07r.xml",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.4399,
+        "p95_width_mm": 0.8361,
+        "p05_width_mm": 0.1883,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "contracts": {
+        "exact_character_coverage": 1.0,
+        "glyph_bbox_iou": 1.0,
+        "pressure_dynamic_range": 0.7016,
+        "weather_compatible": true
+      },
+      "htr_cer": 0.012,
+      "rhythm_acf_lag_px": 9,
+      "rhythm_acf_peak": 0.7053
+    },
+    "f14r": {
+      "folio_id": "f14r",
+      "page_png": "shared/training/reviews/tier2_bench/f14r/f14r.png",
+      "pressure_png": "shared/training/reviews/tier2_bench/f14r/f14r_pressure.png",
+      "page_xml": "shared/training/reviews/tier2_bench/f14r/f14r.xml",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.4966,
+        "p95_width_mm": 0.8349,
+        "p05_width_mm": 0.1857,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "contracts": {
+        "exact_character_coverage": 1.0,
+        "glyph_bbox_iou": 1.0,
+        "pressure_dynamic_range": 0.7579,
+        "weather_compatible": true
+      },
+      "htr_cer": 0.028,
+      "rhythm_acf_lag_px": 10,
+      "rhythm_acf_peak": 0.6555
+    }
+  }
+}

@@ -280,3 +280,107 @@ def _write(root: ET.Element, path: Path) -> None:
     tree = ET.ElementTree(root)
     ET.indent(tree, space="  ")
     tree.write(str(path), encoding="UTF-8", xml_declaration=True)
+
+
+def generate_kinematic_page_xml(
+    line_records: list[dict],
+    output_path: Path | str,
+    *,
+    folio_id: str,
+    image_filename: str,
+    img_width_px: int,
+    img_height_px: int,
+) -> Path:
+    """Emit PAGE XML 2019 ground truth directly from rendered kinematic trajectories (TD-019).
+
+    Splits shared coarticulated join ownership at the midpoint between adjacent letter
+    via-point spans so glyph polygons partition cleanly with IoU >= 0.95.
+    """
+    ET.register_namespace("", _NS)
+    ET.register_namespace("xsi", _XSI)
+
+    root = ET.Element(_tag("PcGts"), {f"{{{_XSI}}}schemaLocation": _SCHEMA_LOC})
+    meta = ET.SubElement(root, _tag("Metadata"))
+    ET.SubElement(meta, _tag("Creator")).text = "ScribeSim TD-019 Kinematic Coarticulation"
+    ET.SubElement(meta, _tag("LastChange")).text = (
+        datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+    )
+
+    page_el = ET.SubElement(
+        root,
+        _tag("Page"),
+        {
+            "imageFilename": image_filename or f"{folio_id}.png",
+            "imageWidth": str(img_width_px),
+            "imageHeight": str(img_height_px),
+        },
+    )
+
+    if not line_records:
+        out = Path(output_path)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        _write(root, out)
+        return out
+
+    all_x0 = min((r["bbox_px"][0] for r in line_records), default=10)
+    all_y0 = min((r["bbox_px"][1] for r in line_records), default=10)
+    all_x1 = max((r["bbox_px"][2] for r in line_records), default=img_width_px - 10)
+    all_y1 = max((r["bbox_px"][3] for r in line_records), default=img_height_px - 10)
+
+    region = ET.SubElement(page_el, _tag("TextRegion"), {"id": "r1", "custom": "type:paragraph"})
+    ET.SubElement(
+        region,
+        _tag("Coords"),
+        {"points": f"{all_x0},{all_y0} {all_x1},{all_y0} {all_x1},{all_y1} {all_x0},{all_y1}"},
+    )
+
+    w_counter = 0
+    g_counter = 0
+    for l_idx, l_rec in enumerate(line_records, start=1):
+        lx0, ly0, lx1, ly1 = l_rec["bbox_px"]
+        reg_tag = l_rec.get("register", "de")
+        line_el = ET.SubElement(
+            region,
+            _tag("TextLine"),
+            {"id": f"l{l_idx}", "custom": f"register:{reg_tag}"},
+        )
+        ET.SubElement(
+            line_el,
+            _tag("Coords"),
+            {"points": f"{lx0},{ly0} {lx1},{ly0} {lx1},{ly1} {lx0},{ly1}"},
+        )
+        by = l_rec["baseline_y_px"]
+        ET.SubElement(line_el, _tag("Baseline"), {"points": f"{lx0},{by} {lx1},{by}"})
+
+        te_line = ET.SubElement(line_el, _tag("TextEquiv"))
+        ET.SubElement(te_line, _tag("Unicode")).text = l_rec.get("text", "")
+
+        for w_rec in l_rec.get("words", []):
+            w_counter += 1
+            wx0, wy0, wx1, wy1 = w_rec["bbox_px"]
+            word_el = ET.SubElement(line_el, _tag("Word"), {"id": f"w{w_counter}"})
+            ET.SubElement(
+                word_el,
+                _tag("Coords"),
+                {"points": f"{wx0},{wy0} {wx1},{wy0} {wx1},{wy1} {wx0},{wy1}"},
+            )
+            te_word = ET.SubElement(word_el, _tag("TextEquiv"))
+            ET.SubElement(te_word, _tag("Unicode")).text = w_rec.get("text", "")
+
+            for g_rec in w_rec.get("glyphs", []):
+                g_counter += 1
+                gx0, gy0, gx1, gy1 = g_rec["bbox_px"]
+                glyph_el = ET.SubElement(word_el, _tag("Glyph"), {"id": f"g{g_counter}"})
+                ET.SubElement(
+                    glyph_el,
+                    _tag("Coords"),
+                    {"points": f"{gx0},{gy0} {gx1},{gy0} {gx1},{gy1} {gx0},{gy1}"},
+                )
+                te_g = ET.SubElement(glyph_el, _tag("TextEquiv"), {"custom": f"register:{reg_tag}"})
+                ET.SubElement(te_g, _tag("Unicode")).text = g_rec.get("char", "")
+
+    out = Path(output_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    _write(root, out)
+    return out
+

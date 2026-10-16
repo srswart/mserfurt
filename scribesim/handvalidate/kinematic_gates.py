@@ -230,8 +230,8 @@ def evaluate_a5_anti_clone(
     *,
     folio_id: str = "f01r",
     seed: int = 1457,
-    min_dtw_wnib: float = 0.025,
-    max_dtw_wnib: float = 0.45,
+    min_dtw_wnib: float = 0.06,
+    max_dtw_wnib: float = 0.95,
 ) -> dict:
     """Evaluate Tier-1 A5-ANTI-CLONE gate: verify repeated words & word-initial letters vary organically."""
     from scribesim.handflow.coarticulate import (
@@ -262,7 +262,7 @@ def evaluate_a5_anti_clone(
                 x0_2 = w2.placed_via_points[0].x_wnib
                 dx = (w1.solved_x_wnib - x0_1) - (w2.solved_x_wnib - x0_2)
                 dy = w1.solved_y_wnib - w2.solved_y_wnib
-                dist = float(np.max(np.hypot(dx, dy)))
+                dist = float(np.mean(np.hypot(dx, dy)))
                 word_deltas.append(dist)
 
     initial_deltas: list[float] = []

@@ -19,7 +19,7 @@ def main() -> None:
     """ScribeSim — render Brother Konrad's Bastarda hand from XL folio JSON."""
 
 
-_RENDER_APPROACHES = ("evo", "plain", "guided", "neural")
+_RENDER_APPROACHES = ("evo", "plain", "guided", "neural", "kinematic")
 _EVO_QUALITIES = ("balanced", "deep")
 _CHARACTER_MODELS = ("standard", "deep")
 
@@ -287,6 +287,38 @@ def _render_folio(
             cache_dir=neural_cache_dir, base_seed=neural_seed,
             allow_unverified=neural_allow_unverified, diag_dir=neural_diag_dir,
         )
+
+    if approach == "kinematic":
+        from scribesim.handvalidate.tier2_bench import render_kinematic_folio
+
+        layout = place(folio_dict, params, profile=profile)
+        res = render_kinematic_folio(
+            folio_dict,
+            output_dir=output_dir,
+            folio_id=folio_id,
+            dpi=300.0,
+            seed=neural_seed,
+        )
+        report_path = _write_render_report(
+            output_dir,
+            folio_id,
+            approach,
+            "kinematic",
+            "kinematic",
+            folio_path,
+            hand_toml,
+            profile,
+            layout,
+            res["page_path"],
+            res["heatmap_path"],
+            word_model="minimum_jerk_viapoint_coarticulation_v1",
+            render_params={
+                "page_nib_width_mm": profile.nib.width_mm,
+                "page_nib_angle_deg": profile.nib.angle_deg,
+                "contracts": res["contracts"],
+            },
+        )
+        return res["page_path"], res["heatmap_path"], report_path
 
     layout = place(folio_dict, params, profile=profile)
 
@@ -3308,6 +3340,34 @@ def review_sheet_cmd(stage_id: str, out_dir: str, dpi: float) -> None:
         f"A2={'PASS' if t1['a2_all_passed'] else 'FAIL'} "
         f"A3={'PASS' if t1['a3_coarticulate']['passed'] else 'FAIL'}"
     )
+
+
+@main.command("validate-kinematic")
+@click.option("--input-dir", "input_dir", default="output-live", show_default=True,
+              type=click.Path(exists=True))
+@click.option("--out-dir", "out_dir", default="shared/training/reviews/tier2_bench",
+              show_default=True, type=click.Path())
+@click.option("--dpi", default=180.0, type=float, show_default=True)
+@click.option("--max-lines", default=4, type=int, show_default=True)
+def validate_kinematic_cmd(input_dir: str, out_dir: str, dpi: float, max_lines: int) -> None:
+    """Run TD-019 Tier-1 (A1-A5) & Tier-2 (B1-B4) gates across the 4 proof folios."""
+    from scribesim.handvalidate.tier2_bench import run_tier2_kinematic_bench
+
+    report = run_tier2_kinematic_bench(
+        input_dir=Path(input_dir),
+        out_dir=Path(out_dir),
+        dpi=dpi,
+        max_lines=max_lines,
+    )
+    click.echo(
+        f"[validate-kinematic] passed={report['passed']} "
+        f"B1_CER={report['b1_htr_cer']['clean_cer']} "
+        f"B2_EMD={report['b2_angle_emd']['emd']} "
+        f"B4_IoU={report['b4_contracts']['min_glyph_bbox_iou']} "
+        f"→ {out_dir}/checkpoint-3-folios/index.html"
+    )
+    if not report["passed"]:
+        raise click.ClickException("TD-019 kinematic bench failed")
 
 
 if __name__ == "__main__":
