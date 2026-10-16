@@ -58,6 +58,7 @@ def render_kinematic_folio(
     output_dir: Path | str,
     folio_id: str | None = None,
     dpi: float = 300.0,
+    supersample: int = 3,
     max_lines: int | None = None,
     seed: int = 1457,
     hybrid_texture: bool = False,
@@ -87,18 +88,23 @@ def render_kinematic_folio(
     max_y_mm = max((s.y_mm for s in all_contact), default=160.0) + margin_top_mm + 18.0
 
     px_per_mm = dpi / 25.4
+    ss = max(1, int(supersample))
+    px_per_mm_int = px_per_mm * ss
     img_w = max(240, round(max_x_mm * px_per_mm))
     img_h = max(180, round(max_y_mm * px_per_mm))
+    img_w_int = img_w * ss
+    img_h_int = img_h * ss
 
-    page_img = Image.new("RGB", (img_w, img_h), _PARCHMENT_RGB)
-    draw = ImageDraw.Draw(page_img)
-    heat_img = Image.new("L", (img_w, img_h), 0)
-    heat_draw = ImageDraw.Draw(heat_img)
+    page_alpha_int = Image.new("L", (img_w_int, img_h_int), 0)
+    adraw = ImageDraw.Draw(page_alpha_int)
+    heat_img_int = Image.new("L", (img_w_int, img_h_int), 0)
+    heat_draw = ImageDraw.Draw(heat_img_int)
 
     widths_mm: list[float] = []
     angles_deg: list[float] = []
     pressures_all: list[float] = []
     line_xml_records: list[dict] = []
+    poly_queue: list[tuple[int, int, list[tuple[float, float]], list[tuple[float, float]]]] = []
 
     base_prof = resolve_clio7_kinematic_profile(fid, line_index=0)
     nib = PhysicsNib(
@@ -115,23 +121,21 @@ def render_kinematic_folio(
             flexibility=l_prof.nib.flexibility,
         )
 
-        prev_hx: float | None = None
-        prev_hy: float | None = None
         samples = l_res.samples
+        n_pts = len(samples)
+        raw_eff_w = np.zeros(n_pts, dtype=np.float64)
+        raw_dark = np.zeros(n_pts, dtype=np.float64)
+        raw_heat = np.zeros(n_pts, dtype=np.int32)
 
-        for idx in range(1, len(samples)):
+        for idx in range(1, n_pts):
             prev = samples[idx - 1]
             curr = samples[idx]
             if not (prev.contact and curr.contact):
-                prev_hx, prev_hy = None, None
                 continue
-
             dx = curr.x_mm - prev.x_mm
             dy = curr.y_mm - prev.y_mm
-            seg_len = math.hypot(dx, dy)
-            if seg_len < 1e-6:
+            if math.hypot(dx, dy) < 1e-6:
                 continue
-
             dir_deg = math.degrees(math.atan2(-dy, dx))
             angles_deg.append(dir_deg)
             speed = math.hypot(curr.vx_mm_s, curr.vy_mm_s)
@@ -140,43 +144,64 @@ def render_kinematic_folio(
 
             app_w = chisel_apparent_width_mm(l_nib, dir_deg, avg_p)
             pool_w, pool_i = turn_pooling_factor(speed, nominal_speed_mm_s=12.0)
-            eff_w = app_w * pool_w
-            widths_mm.append(eff_w)
+            raw_eff_w[idx] = app_w * pool_w
+            raw_dark[idx] = min(0.96, max(0.68, (0.72 + 0.24 * avg_p) * pool_i * l_prof.ink_density))
+            raw_heat[idx] = max(1, min(255, round(avg_p * 240.0)))
+            widths_mm.append(float(raw_eff_w[idx]))
 
-            x0 = (prev.x_mm + margin_left_mm) * px_per_mm
-            y0 = (prev.y_mm + margin_top_mm) * px_per_mm
-            x1 = (curr.x_mm + margin_left_mm) * px_per_mm
-            y1 = (curr.y_mm + margin_top_mm) * px_per_mm
+        for _ in range(3):
+            sm_w = raw_eff_w.copy()
+            for idx in range(2, n_pts - 1):
+                if samples[idx - 2].contact and samples[idx - 1].contact and samples[idx].contact and samples[idx + 1].contact:
+                    sm_w[idx] = 0.25 * raw_eff_w[idx - 1] + 0.50 * raw_eff_w[idx] + 0.25 * raw_eff_w[idx + 1]
+            raw_eff_w = sm_w
 
-            ux, uy = dx / seg_len, dy / seg_len
-            perp_x, perp_y = -uy, ux
-            half_w_px = 0.5 * eff_w * px_per_mm
+        prev_hx: float | None = None
+        prev_hy: float | None = None
+        prev_nx: float | None = None
+        prev_ny: float | None = None
+
+        for idx in range(1, n_pts):
+            prev = samples[idx - 1]
+            curr = samples[idx]
+            if not (prev.contact and curr.contact):
+                prev_hx = prev_hy = prev_nx = prev_ny = None
+                continue
+
+            dx = curr.x_mm - prev.x_mm
+            dy = curr.y_mm - prev.y_mm
+            seg_len = math.hypot(dx, dy)
+            if seg_len < 1e-6:
+                continue
+
+            eff_w = float(raw_eff_w[idx])
+            darkness = float(raw_dark[idx])
+            heat_val = int(raw_heat[idx])
+
+            x0 = (prev.x_mm + margin_left_mm) * px_per_mm_int
+            y0 = (prev.y_mm + margin_top_mm) * px_per_mm_int
+            x1 = (curr.x_mm + margin_left_mm) * px_per_mm_int
+            y1 = (curr.y_mm + margin_top_mm) * px_per_mm_int
+
             angle_rad = math.radians(curr.nib_angle_deg)
-            chisel_x = math.cos(angle_rad) * half_w_px
-            chisel_y = -math.sin(angle_rad) * half_w_px
-            if perp_x * chisel_x + perp_y * chisel_y < 0:
-                perp_x, perp_y = -perp_x, -perp_y
-            hx = 0.65 * perp_x * half_w_px + 0.35 * chisel_x
-            hy = 0.65 * perp_y * half_w_px + 0.35 * chisel_y
+            avg_p = 0.5 * (prev.pressure + curr.pressure)
+            splay = 0.85 + 0.18 * avg_p
+            half_edge_px = 0.5 * l_nib.width_mm * splay * px_per_mm_int
+            hx = half_edge_px * math.cos(angle_rad)
+            hy = -half_edge_px * math.sin(angle_rad)
+            t_half_px = 0.5 * l_nib.width_mm * 0.14 * px_per_mm_int
+            nx = -t_half_px * math.sin(angle_rad)
+            ny = -t_half_px * math.cos(angle_rad)
 
-            if prev_hx is not None and prev_hy is not None:
-                if prev_hx * hx + prev_hy * hy < 0:
-                    hx, hy = -hx, -hy
-                h0x, h0y = prev_hx, prev_hy
-            else:
-                h0x, h0y = hx, hy
+            h0x, h0y = (prev_hx, prev_hy) if (prev_hx is not None and prev_hy is not None) else (hx, hy)
+            n0x, n0y = (prev_nx, prev_ny) if (prev_nx is not None and prev_ny is not None) else (nx, ny)
 
-            darkness = min(1.0, max(0.38, (0.62 + 0.32 * avg_p) * pool_i * l_prof.ink_density))
-            quad = [
-                (x0 - h0x, y0 - h0y),
-                (x0 + h0x, y0 + h0y),
-                (x1 + hx, y1 + hy),
-                (x1 - hx, y1 - hy),
-            ]
-            draw.polygon(quad, fill=_ink_rgb(darkness))
-            heat_val = max(1, min(255, round(avg_p * 240.0)))
-            heat_draw.polygon(quad, fill=heat_val)
+            a_byte = max(1, min(255, round(darkness * 255.0)))
+            q1 = [(x0 - h0x, y0 - h0y), (x0 + h0x, y0 + h0y), (x1 + hx, y1 + hy), (x1 - hx, y1 - hy)]
+            q2 = [(x0 - n0x, y0 - n0y), (x0 + n0x, y0 + n0y), (x1 + nx, y1 + ny), (x1 - nx, y1 - ny)]
+            poly_queue.append((a_byte, heat_val, q1, q2))
             prev_hx, prev_hy = hx, hy
+            prev_nx, prev_ny = nx, ny
 
         # Build exact trajectory-owned word & glyph bounding boxes for PAGE XML
         word_xml_list: list[dict] = []
@@ -246,7 +271,28 @@ def render_kinematic_folio(
                 }
             )
 
-    raw_page_arr = np.asarray(page_img, dtype=np.uint8)
+    for a_byte, heat_val, q1, q2 in sorted(poly_queue, key=lambda item: item[0]):
+        adraw.polygon(q1, fill=a_byte)
+        adraw.polygon(q2, fill=a_byte)
+        heat_draw.polygon(q1, fill=heat_val)
+        heat_draw.polygon(q2, fill=heat_val)
+
+    alpha_out = (
+        np.asarray(
+            page_alpha_int.resize((img_w, img_h), Image.LANCZOS) if ss > 1 else page_alpha_int,
+            dtype=np.float32,
+        )
+        / 255.0
+    )
+    parch_f = np.array(_PARCHMENT_RGB, dtype=np.float32)
+    ink_f = np.array(_INK_RGB, dtype=np.float32)
+    raw_page_arr = np.clip(
+        np.round(parch_f[None, None, :] * (1.0 - alpha_out[:, :, None]) + ink_f[None, None, :] * alpha_out[:, :, None]),
+        0,
+        255,
+    ).astype(np.uint8)
+    page_img = Image.fromarray(raw_page_arr, "RGB")
+    heat_img = heat_img_int.resize((img_w, img_h), Image.LANCZOS) if ss > 1 else heat_img_int
     heat_arr = np.asarray(heat_img, dtype=np.uint8)
 
     hybrid_gate: dict | None = None

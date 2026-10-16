@@ -105,7 +105,8 @@ def render_trajectory_samples(
     h_int = max(64, round(h_mm * px_per_mm_int))
 
     img = Image.new("RGB", (w_int, h_int), _PARCHMENT_RGB)
-    draw = ImageDraw.Draw(img)
+    alpha_int = Image.new("L", (w_int, h_int), 0)
+    adraw = ImageDraw.Draw(alpha_int)
 
     widths_mm: list[float] = []
     svg_Paths: list[str] = []
@@ -115,14 +116,47 @@ def render_trajectory_samples(
     svg_w = round(w_mm * svg_scale)
     svg_h = round(h_mm * svg_scale)
 
-    prev_hx_px: float | None = None
-    prev_hy_px: float | None = None
-
-    for idx in range(1, len(samples)):
+    # Precompute smoothed apparent widths along contiguous contact runs
+    n_pts = len(samples)
+    raw_eff_w = np.zeros(n_pts, dtype=np.float64)
+    raw_dark = np.zeros(n_pts, dtype=np.float64)
+    for idx in range(1, n_pts):
         prev = samples[idx - 1]
         curr = samples[idx]
         if not (prev.contact and curr.contact):
-            prev_hx_px, prev_hy_px = None, None
+            continue
+        dx = curr.x_mm - prev.x_mm
+        dy = curr.y_mm - prev.y_mm
+        if math.hypot(dx, dy) < 1e-6:
+            continue
+        dir_deg = math.degrees(math.atan2(-dy, dx))
+        speed = math.hypot(curr.vx_mm_s, curr.vy_mm_s)
+        avg_p = 0.5 * (prev.pressure + curr.pressure)
+        local_nib = PhysicsNib(width_mm=nib.width_mm, angle_deg=curr.nib_angle_deg, flexibility=nib.flexibility)
+        app_w = chisel_apparent_width_mm(local_nib, dir_deg, avg_p)
+        pool_w, pool_i = turn_pooling_factor(speed, nominal_speed_mm_s=12.0)
+        raw_eff_w[idx] = app_w * pool_w
+        raw_dark[idx] = min(0.96, max(0.68, (0.72 + 0.24 * avg_p) * pool_i * prof.ink_density))
+        widths_mm.append(float(raw_eff_w[idx]))
+
+    for _ in range(3):
+        sm_w = raw_eff_w.copy()
+        for idx in range(2, n_pts - 1):
+            if samples[idx - 2].contact and samples[idx - 1].contact and samples[idx].contact and samples[idx + 1].contact:
+                sm_w[idx] = 0.25 * raw_eff_w[idx - 1] + 0.50 * raw_eff_w[idx] + 0.25 * raw_eff_w[idx + 1]
+        raw_eff_w = sm_w
+
+    prev_hx_px: float | None = None
+    prev_hy_px: float | None = None
+    prev_nx_px: float | None = None
+    prev_ny_px: float | None = None
+    poly_queue: list[tuple[int, list[tuple[float, float]], list[tuple[float, float]]]] = []
+
+    for idx in range(1, n_pts):
+        prev = samples[idx - 1]
+        curr = samples[idx]
+        if not (prev.contact and curr.contact):
+            prev_hx_px = prev_hy_px = prev_nx_px = prev_ny_px = None
             continue
 
         dx = curr.x_mm - prev.x_mm
@@ -131,61 +165,35 @@ def render_trajectory_samples(
         if seg_len < 1e-6:
             continue
 
-        # In physical y-up calligraphic angle: dy_up = -dy_canvas
-        dir_deg = math.degrees(math.atan2(-dy, dx))
-        speed = math.hypot(curr.vx_mm_s, curr.vy_mm_s)
-        avg_p = 0.5 * (prev.pressure + curr.pressure)
-
-        local_nib = PhysicsNib(
-            width_mm=nib.width_mm,
-            angle_deg=curr.nib_angle_deg,
-            flexibility=nib.flexibility,
-        )
-        app_w = chisel_apparent_width_mm(local_nib, dir_deg, avg_p)
-        pool_w, pool_i = turn_pooling_factor(speed, nominal_speed_mm_s=12.0)
-        eff_w = app_w * pool_w
-        widths_mm.append(eff_w)
+        eff_w = float(raw_eff_w[idx])
+        darkness = float(raw_dark[idx])
 
         x0 = (prev.x_mm - min_x) * px_per_mm_int
         y0 = (prev.y_mm - min_y) * px_per_mm_int
         x1 = (curr.x_mm - min_x) * px_per_mm_int
         y1 = (curr.y_mm - min_y) * px_per_mm_int
 
-        # Ribbon half-normal perpendicular to segment direction with exact width eff_w,
-        # blended with the 40° chisel edge orientation so stroke starts/ends keep crisp 40° terminals.
-        ux = dx / seg_len
-        uy = dy / seg_len
-        perp_x = -uy
-        perp_y = ux
-        half_w_px = 0.5 * eff_w * px_per_mm_int
-
         angle_rad = math.radians(curr.nib_angle_deg)
-        chisel_x = math.cos(angle_rad) * half_w_px
-        chisel_y = -math.sin(angle_rad) * half_w_px
-        # Ensure consistent sign between perpendicular normal and chisel vector
-        if perp_x * chisel_x + perp_y * chisel_y < 0:
-            perp_x, perp_y = -perp_x, -perp_y
-        hx_px = 0.65 * perp_x * half_w_px + 0.35 * chisel_x
-        hy_px = 0.65 * perp_y * half_w_px + 0.35 * chisel_y
+        # Physical chisel half-edge depends on w_nib and pressure splay ONLY (never multiply by
+        # direction-dependent eff_w a second time, which causes self-intersecting bowtie quads!).
+        splay = 0.85 + 0.18 * (0.5 * (prev.pressure + curr.pressure))
+        half_edge_px = 0.5 * nib.width_mm * splay * px_per_mm_int
+        hx_px = half_edge_px * math.cos(angle_rad)
+        hy_px = -half_edge_px * math.sin(angle_rad)
+        t_half_px = 0.5 * nib.width_mm * 0.14 * px_per_mm_int
+        nx_px = -t_half_px * math.sin(angle_rad)
+        ny_px = -t_half_px * math.cos(angle_rad)
 
-        if prev_hx_px is not None and prev_hy_px is not None:
-            if prev_hx_px * hx_px + prev_hy_px * hy_px < 0:
-                hx_px, hy_px = -hx_px, -hy_px
-            h0x, h0y = prev_hx_px, prev_hy_px
-        else:
-            h0x, h0y = hx_px, hy_px
+        h0x, h0y = (prev_hx_px, prev_hy_px) if (prev_hx_px is not None and prev_hy_px is not None) else (hx_px, hy_px)
+        n0x, n0y = (prev_nx_px, prev_ny_px) if (prev_nx_px is not None and prev_ny_px is not None) else (nx_px, ny_px)
 
-        darkness = min(1.0, max(0.38, (0.62 + 0.32 * avg_p) * pool_i * prof.ink_density))
-        color = _ink_rgb(darkness)
+        a_byte = max(1, min(255, round(darkness * 255.0)))
+        q1 = [(x0 - h0x, y0 - h0y), (x0 + h0x, y0 + h0y), (x1 + hx_px, y1 + hy_px), (x1 - hx_px, y1 - hy_px)]
+        q2 = [(x0 - n0x, y0 - n0y), (x0 + n0x, y0 + n0y), (x1 + nx_px, y1 + ny_px), (x1 - nx_px, y1 - ny_px)]
+        poly_queue.append((a_byte, q1, q2))
 
-        quad_edge = [
-            (x0 - h0x, y0 - h0y),
-            (x0 + h0x, y0 + h0y),
-            (x1 + hx_px, y1 + hy_px),
-            (x1 - hx_px, y1 - hy_px),
-        ]
-        draw.polygon(quad_edge, fill=color)
         prev_hx_px, prev_hy_px = hx_px, hy_px
+        prev_nx_px, prev_ny_px = nx_px, ny_px
         hx_mm = hx_px / px_per_mm_int
         hy_mm = hy_px / px_per_mm_int
 
@@ -219,8 +227,22 @@ def render_trajectory_samples(
             f"<circle cx='{vx:.2f}' cy='{vy:.2f}' r='2.4' fill='{role_color}'/>"
         )
 
-    out_img = img.resize((w_out, h_out), Image.LANCZOS) if supersample > 1 else img
-    arr = np.asarray(out_img, dtype=np.uint8)
+    # Composite in ascending darkness order so light retraces never paint opaque gray over dark stems
+    for a_byte, q1, q2 in sorted(poly_queue, key=lambda item: item[0]):
+        adraw.polygon(q1, fill=a_byte)
+        adraw.polygon(q2, fill=a_byte)
+
+    alpha_out = (
+        np.asarray(alpha_int.resize((w_out, h_out), Image.LANCZOS) if supersample > 1 else alpha_int, dtype=np.float32)
+        / 255.0
+    )
+    parch_f = np.array(_PARCHMENT_RGB, dtype=np.float32)
+    ink_f = np.array(_INK_RGB, dtype=np.float32)
+    arr = np.clip(
+        np.round(parch_f[None, None, :] * (1.0 - alpha_out[:, :, None]) + ink_f[None, None, :] * alpha_out[:, :, None]),
+        0,
+        255,
+    ).astype(np.uint8)
 
     svg = (
         f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {svg_w} {svg_h}' width='100%'>"

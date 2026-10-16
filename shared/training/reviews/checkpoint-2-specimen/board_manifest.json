@@ -10,8 +10,8 @@
     "a3_coarticulate": {
       "gate": "A3-COARTICULATE",
       "passed": true,
-      "n_exit_delta_wnib_nu_vs_nm": 0.1022,
-      "u_entry_delta_wnib_nu_vs_isolated": 0.0854,
+      "n_exit_delta_wnib_nu_vs_nm": 0.1042,
+      "u_entry_delta_wnib_nu_vs_isolated": 0.0868,
       "n_protected_body_delta_wnib": 0.0,
       "bounds_wnib": [
         0.03,
@@ -29,9 +29,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.4163,
-        "p95_width_mm": 0.8442,
-        "p05_width_mm": 0.1912,
+        "width_ratio_p95_p05": 4.5148,
+        "p95_width_mm": 0.8449,
+        "p05_width_mm": 0.1871,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -51,9 +51,9 @@
         "gate": "A2-KINEMATICS",
         "passed": true,
         "word": "in",
-        "dimensionless_jerk": 12.0232,
-        "peak_speed_mm_s": 52.1255,
-        "max_velocity_step_mm_s": 12.6557,
+        "dimensionless_jerk": 11.5027,
+        "peak_speed_mm_s": 48.023,
+        "max_velocity_step_mm_s": 6.65,
         "failures": []
       }
     },
@@ -64,9 +64,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.4445,
-        "p95_width_mm": 0.8452,
-        "p05_width_mm": 0.1902,
+        "width_ratio_p95_p05": 4.4497,
+        "p95_width_mm": 0.8454,
+        "p05_width_mm": 0.19,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -86,9 +86,9 @@
         "gate": "A2-KINEMATICS",
         "passed": true,
         "word": "und",
-        "dimensionless_jerk": 14.0675,
-        "peak_speed_mm_s": 70.2594,
-        "max_velocity_step_mm_s": 16.3291,
+        "dimensionless_jerk": 13.5115,
+        "peak_speed_mm_s": 64.6192,
+        "max_velocity_step_mm_s": 8.6283,
         "failures": []
       }
     },
@@ -99,9 +99,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.3478,
-        "p95_width_mm": 0.8424,
-        "p05_width_mm": 0.1937,
+        "width_ratio_p95_p05": 4.4629,
+        "p95_width_mm": 0.8441,
+        "p05_width_mm": 0.1891,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -121,9 +121,9 @@
         "gate": "A2-KINEMATICS",
         "passed": true,
         "word": "Hie",
-        "dimensionless_jerk": 10.3004,
-        "peak_speed_mm_s": 80.4653,
-        "max_velocity_step_mm_s": 16.9692,
+        "dimensionless_jerk": 9.8633,
+        "peak_speed_mm_s": 73.8276,
+        "max_velocity_step_mm_s": 8.956,
         "failures": []
       }
     }

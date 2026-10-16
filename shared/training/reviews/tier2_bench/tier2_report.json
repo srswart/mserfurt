@@ -4,8 +4,8 @@
     "a3_coarticulate": {
       "gate": "A3-COARTICULATE",
       "passed": true,
-      "n_exit_delta_wnib_nu_vs_nm": 0.1022,
-      "u_entry_delta_wnib_nu_vs_isolated": 0.0854,
+      "n_exit_delta_wnib_nu_vs_nm": 0.1042,
+      "u_entry_delta_wnib_nu_vs_isolated": 0.0868,
       "n_protected_body_delta_wnib": 0.0,
       "bounds_wnib": [
         0.03,
@@ -20,37 +20,37 @@
       "letter_counters": {
         "a": {
           "open_counter_count": 1,
-          "max_counter_area_px": 112,
+          "max_counter_area_px": 104,
           "passed": true
         },
         "o": {
           "open_counter_count": 1,
-          "max_counter_area_px": 160,
+          "max_counter_area_px": 116,
           "passed": true
         },
         "d": {
           "open_counter_count": 1,
-          "max_counter_area_px": 108,
+          "max_counter_area_px": 105,
           "passed": true
         },
         "e": {
           "open_counter_count": 1,
-          "max_counter_area_px": 71,
+          "max_counter_area_px": 47,
           "passed": true
         },
         "g": {
           "open_counter_count": 2,
-          "max_counter_area_px": 105,
+          "max_counter_area_px": 101,
           "passed": true
         },
         "b": {
           "open_counter_count": 1,
-          "max_counter_area_px": 146,
+          "max_counter_area_px": 121,
           "passed": true
         },
         "p": {
           "open_counter_count": 1,
-          "max_counter_area_px": 101,
+          "max_counter_area_px": 107,
           "passed": true
         }
       },
@@ -60,8 +60,8 @@
     "a5_anti_clone": {
       "gate": "A5-ANTI-CLONE",
       "passed": true,
-      "min_word_dtw_wnib": 0.373,
-      "max_word_dtw_wnib": 0.58,
+      "min_word_dtw_wnib": 0.3731,
+      "max_word_dtw_wnib": 0.5802,
       "min_initial_letter_delta_wnib": 0.3877,
       "bounds_wnib": [
         0.06,
@@ -85,21 +85,21 @@
   "b2_angle_emd": {
     "gate": "B2-ANGLE-EMD",
     "passed": true,
-    "emd": 0.0601,
+    "emd": 0.0603,
     "threshold": 0.12
   },
   "b3_rhythm_acf": {
     "gate": "B3-RHYTHM-ACF",
     "passed": true,
-    "mean_lag_px": 9.5,
-    "expected_lag_px": 8.86
+    "mean_lag_px": 5.0,
+    "expected_lag_px": 17.72
   },
   "b4_contracts": {
     "gate": "B4-CONTRACTS",
     "passed": true,
     "exact_character_coverage": 1.0,
-    "min_glyph_bbox_iou": 0.9999,
-    "min_pressure_dynamic_range": 0.7014,
+    "min_glyph_bbox_iou": 1.0,
+    "min_pressure_dynamic_range": 0.7882,
     "weather_compatible": true
   },
   "folios": {
@@ -111,9 +111,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.4729,
-        "p95_width_mm": 0.8365,
-        "p05_width_mm": 0.187,
+        "width_ratio_p95_p05": 4.5923,
+        "p95_width_mm": 0.8372,
+        "p05_width_mm": 0.1823,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -131,25 +131,25 @@
       },
       "contracts": {
         "exact_character_coverage": 1.0,
-        "glyph_bbox_iou": 0.9999,
-        "pressure_dynamic_range": 0.7066,
+        "glyph_bbox_iou": 1.0,
+        "pressure_dynamic_range": 0.7882,
         "weather_compatible": true
       },
       "hybrid_texture": {
         "gate": "HYBRID-STRUCTURE-IOU",
         "passed": true,
-        "centerline_iou": 1.0,
+        "centerline_iou": 0.9962,
         "min_centerline_iou": 0.92,
-        "raw_counters": 139,
-        "textured_counters": 139,
+        "raw_counters": 136,
+        "textured_counters": 136,
         "counter_delta": 0,
-        "edge_micro_roughness_gain": 10.3457,
-        "interior_granulation_gain": 3.8843,
+        "edge_micro_roughness_gain": 3.9564,
+        "interior_granulation_gain": 0.867,
         "failures": []
       },
       "htr_cer": 0.012,
-      "rhythm_acf_lag_px": 10,
-      "rhythm_acf_peak": 0.6661
+      "rhythm_acf_lag_px": 5,
+      "rhythm_acf_peak": 0.7862
     },
     "f06r": {
       "folio_id": "f06r",
@@ -159,9 +159,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.5717,
-        "p95_width_mm": 0.8619,
-        "p05_width_mm": 0.1885,
+        "width_ratio_p95_p05": 4.6924,
+        "p95_width_mm": 0.8629,
+        "p05_width_mm": 0.1839,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -180,24 +180,24 @@
       "contracts": {
         "exact_character_coverage": 1.0,
         "glyph_bbox_iou": 1.0,
-        "pressure_dynamic_range": 0.8325,
+        "pressure_dynamic_range": 0.9255,
         "weather_compatible": true
       },
       "hybrid_texture": {
         "gate": "HYBRID-STRUCTURE-IOU",
         "passed": true,
-        "centerline_iou": 1.0,
+        "centerline_iou": 0.9959,
         "min_centerline_iou": 0.92,
-        "raw_counters": 162,
-        "textured_counters": 162,
+        "raw_counters": 157,
+        "textured_counters": 157,
         "counter_delta": 0,
-        "edge_micro_roughness_gain": 9.8803,
-        "interior_granulation_gain": 3.2602,
+        "edge_micro_roughness_gain": 3.9868,
+        "interior_granulation_gain": 0.8225,
         "failures": []
       },
       "htr_cer": 0.028,
-      "rhythm_acf_lag_px": 9,
-      "rhythm_acf_peak": 0.7321
+      "rhythm_acf_lag_px": 5,
+      "rhythm_acf_peak": 0.7991
     },
     "f07r": {
       "folio_id": "f07r",
@@ -207,9 +207,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.4359,
-        "p95_width_mm": 0.8359,
-        "p05_width_mm": 0.1884,
+        "width_ratio_p95_p05": 4.544,
+        "p95_width_mm": 0.8369,
+        "p05_width_mm": 0.1842,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -228,24 +228,24 @@
       "contracts": {
         "exact_character_coverage": 1.0,
         "glyph_bbox_iou": 1.0,
-        "pressure_dynamic_range": 0.7014,
+        "pressure_dynamic_range": 0.7922,
         "weather_compatible": true
       },
       "hybrid_texture": {
         "gate": "HYBRID-STRUCTURE-IOU",
         "passed": true,
-        "centerline_iou": 1.0,
+        "centerline_iou": 0.9965,
         "min_centerline_iou": 0.92,
-        "raw_counters": 137,
-        "textured_counters": 137,
+        "raw_counters": 134,
+        "textured_counters": 134,
         "counter_delta": 0,
-        "edge_micro_roughness_gain": 9.4086,
-        "interior_granulation_gain": 3.7365,
+        "edge_micro_roughness_gain": 4.0968,
+        "interior_granulation_gain": 0.7487,
         "failures": []
       },
       "htr_cer": 0.012,
-      "rhythm_acf_lag_px": 9,
-      "rhythm_acf_peak": 0.7162
+      "rhythm_acf_lag_px": 5,
+      "rhythm_acf_peak": 0.7655
     },
     "f14r": {
       "folio_id": "f14r",
@@ -255,9 +255,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.5205,
-        "p95_width_mm": 0.836,
-        "p05_width_mm": 0.1849,
+        "width_ratio_p95_p05": 4.5845,
+        "p95_width_mm": 0.8367,
+        "p05_width_mm": 0.1825,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -276,24 +276,24 @@
       "contracts": {
         "exact_character_coverage": 1.0,
         "glyph_bbox_iou": 1.0,
-        "pressure_dynamic_range": 0.7579,
+        "pressure_dynamic_range": 0.7882,
         "weather_compatible": true
       },
       "hybrid_texture": {
         "gate": "HYBRID-STRUCTURE-IOU",
         "passed": true,
-        "centerline_iou": 1.0,
+        "centerline_iou": 0.9956,
         "min_centerline_iou": 0.92,
-        "raw_counters": 116,
-        "textured_counters": 116,
+        "raw_counters": 104,
+        "textured_counters": 104,
         "counter_delta": 0,
-        "edge_micro_roughness_gain": 9.9608,
-        "interior_granulation_gain": 3.9923,
+        "edge_micro_roughness_gain": 3.9193,
+        "interior_granulation_gain": 0.8234,
         "failures": []
       },
       "htr_cer": 0.028,
-      "rhythm_acf_lag_px": 10,
-      "rhythm_acf_peak": 0.6749
+      "rhythm_acf_lag_px": 5,
+      "rhythm_acf_peak": 0.7667
     }
   }
 }

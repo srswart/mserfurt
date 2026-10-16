@@ -122,10 +122,10 @@ def solve_word_coarticulation(
     profile: HandProfile | None = None,
     start_x_wnib: float = 1.2,
     baseline_y_mm: float | None = None,
-    substeps_per_segment: int = 8,
+    substeps_per_segment: int = 14,
     w_jerk: float = 0.0045,
     w_acc: float = 0.025,
-    dt_s: float = 0.008,
+    dt_s: float = 0.005,
     session: KinematicScribeSession | None = None,
 ) -> CoarticulatedWordResult:
     """Solve the global Minimum-Jerk Via-Point QP for `word`."""
@@ -278,13 +278,12 @@ def solve_word_coarticulation(
         p_b = placed[min(k_pts - 1, seg_k + 1)]
         angle_drift = raw_vias[seg_k][6]
 
-        # Smooth cosine interpolation of target pressure, modulated by vertical travel direction
+        # Smooth cosine interpolation of target pressure, smoothly lightened on rising strokes
         p_interp = (p_a.pressure + (0.5 - 0.5 * math.cos(math.pi * u)) * (p_b.pressure - p_a.pressure)) * pressure_scale
-        # Rising strokes (vy_mm_s < 0 in y-down canvas) naturally lighten pressure
-        if vy_arr[idx] < -0.5:
-            p_eff = min(p_interp, 0.30)
-        else:
-            p_eff = min(1.05, p_interp)
+        # Smoothly blend toward hairline pressure (0.28) when moving upward (vy_arr[idx] < 0 in y-down canvas)
+        upward_blend = 0.5 * (1.0 - math.tanh(vy_arr[idx] / 1.5))
+        p_eff = p_interp * (1.0 - upward_blend) + 0.28 * upward_blend
+        p_eff = max(0.18, min(1.05, p_eff))
 
         is_contact = p_a.contact and p_b.contact
         if session is not None and idx > 0 and is_contact:
