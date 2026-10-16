@@ -169,3 +169,182 @@ class ScribeStateUpdater:
         # Ink: process one word boundary per word to advance the dip cycle
         for _ in range(max(1, n_words)):
             s.ink_state.process_word_boundary()
+
+
+# ---------------------------------------------------------------------------
+# TD-019 Phase 16c: KinematicScribeSession & CLIO-7 Folio Modifiers
+# ---------------------------------------------------------------------------
+
+SITTING_BOUNDARIES_BY_FOLIO: dict[str, tuple[int, ...]] = {
+    "07r": (8, 17, 25),
+    "f07r": (8, 17, 25),
+}
+
+
+def resolve_clio7_kinematic_profile(
+    folio_id: str,
+    *,
+    line_index: int = 0,
+    base_profile: "HandProfile | None" = None,
+) -> "HandProfile":
+    """Resolve a Bastarda kinematic HandProfile with CLIO-7 per-folio and per-line overrides."""
+    import copy
+    from scribesim.hand.profile import (
+        bastarda_nib_calibrated_profile,
+        nib_width_for_x_height,
+        resolve_profile,
+    )
+
+    base = copy.deepcopy(base_profile) if base_profile is not None else bastarda_nib_calibrated_profile()
+    prof = resolve_profile(base, folio_id)
+    # Keep Bastarda calibrated 4.2:1 nib proportion unless overridden
+    prof.letterform.x_height_mm = 3.5
+    prof.nib.width_mm = nib_width_for_x_height(prof.letterform.x_height_mm, 4.2)
+
+    fkey = folio_id.lstrip("f")
+    digits = "".join(ch for ch in fkey if ch.isdigit())
+    fnum = int(digits) if digits else 1
+
+    if fkey in ("06r", "06v"):
+        # f06r/v: increased lateral pressure on downstrokes (agitation/tension)
+        prof.folio.base_pressure = 0.84 if fkey == "06r" else 0.82
+        prof.slant_deg = 2.8
+    elif fkey == "07r":
+        # f07r: multi-sitting variable ink density
+        prof.ink_density = 0.91
+    elif fkey == "07v":
+        if line_index >= 16:
+            # f07v lower half (apply_from_line = 16): smaller, economical working register (85% scale)
+            prof.letterform.x_height_mm = round(3.5 * 0.85, 4)
+            prof.nib.width_mm = nib_width_for_x_height(prof.letterform.x_height_mm, 4.2)
+            prof.letter_spacing_norm = 0.92
+            prof.writing_speed = 1.15
+        else:
+            # Upper half of f07v still uses standard register
+            prof.letter_spacing_norm = 1.0
+            prof.writing_speed = 1.0
+            prof.x_height_px = 38
+    elif fnum >= 14:
+        # f14r onward: slower, wider-spaced compensating hand (failing eyes)
+        drift_rate = 0.008 if fnum == 14 else 0.010
+        prof.letter_spacing_norm = round(1.12 + drift_rate * line_index, 4)
+        prof.word.spacing_mean_ratio = round(1.42 + drift_rate * line_index, 4)
+        prof.writing_speed = 0.82
+        prof.nib.angle_deg = 42.0
+        prof.folio.tremor_amplitude = 0.003
+
+    return prof
+
+
+class KinematicScribeSession:
+    """Persistent temporal state for kinematic word/line/folio writing (TD-019 Phase 16c).
+
+    Tracks:
+      - Slow correlated motor-memory walk per glyph & via-point role
+      - Word-initial attack envelope + cross-word air momentum carryover
+        (so words starting with the same letter have distinct onset nuances)
+      - Continuous contact-distance ink depletion & sitting-boundary reloads
+      - Fatigue and nib-angle drift across lines
+    """
+
+    def __init__(
+        self,
+        folio_id: str = "f01r",
+        *,
+        seed: int = 1457,
+        fatigue_rate: float = 0.022,
+        ink_depletion_rate: float = 0.0014,
+    ) -> None:
+        self.folio_id = folio_id
+        self.seed = seed
+        self.fatigue_rate = fatigue_rate
+        self.current_line: int = 0
+        self.word_counter: int = 0
+        self.glyph_occurrence_counter: dict[str, int] = {}
+        self.sitting_reloads: int = 0
+        self.last_word_exit_y_wnib: float | None = None
+
+        rng = random.Random(_stable_seed(folio_id, seed, "session"))
+        ink = InkState(
+            capacity=1.0,
+            base_depletion=ink_depletion_rate,
+            dip_threshold=0.18,
+            preferred_dip_threshold=0.24,
+        )
+        self.state = ScribeState(ink_state=ink, _rng=rng)
+        # Correlated walk state per letter: letter -> [dx, dy, slant, arch, p_bias]
+        self._letter_walk: dict[str, list[float]] = {}
+        self._sitting_boundaries = set(SITTING_BOUNDARIES_BY_FOLIO.get(folio_id, ()))
+
+    def advance_to_line(self, line_index: int) -> None:
+        """Advance session state to `line_index`, checking sitting boundaries and fatigue."""
+        if line_index in self._sitting_boundaries:
+            self.state.ink_state.dip()
+            self.sitting_reloads += 1
+            self.last_word_exit_y_wnib = None
+
+        steps = max(1, line_index - self.current_line) if line_index > self.current_line else 1
+        self.current_line = line_index
+        self.state.fatigue = min(1.0, self.state.fatigue + self.fatigue_rate * steps)
+        self.last_word_exit_y_wnib = None
+
+    def next_letter_variation(
+        self,
+        letter: str,
+        *,
+        is_word_initial: bool,
+        prev_word_exit_y_wnib: float | None = None,
+    ) -> dict[str, float]:
+        """Advance the correlated motor-memory walk for `letter` and return via-point nuances.
+
+        For word-initial letters (`is_word_initial=True`), incorporates cross-word air
+        arrival height from `prev_word_exit_y_wnib` plus a word-onset attack posture so
+        repeated word-initial letters never follow a rigid identical formula.
+        """
+        occ = self.glyph_occurrence_counter.get(letter, 0)
+        self.glyph_occurrence_counter[letter] = occ + 1
+
+        if letter not in self._letter_walk:
+            init_rng = random.Random(_stable_seed(self.folio_id, self.seed, "init", letter))
+            self._letter_walk[letter] = [
+                init_rng.uniform(-0.04, 0.04),  # dx_wnib
+                init_rng.uniform(-0.04, 0.04),  # dy_wnib
+                init_rng.uniform(-0.03, 0.03),  # slant_shear
+                init_rng.uniform(-0.05, 0.05),  # peak_arch_dy
+                init_rng.uniform(-0.03, 0.03),  # x_scale_delta
+            ]
+
+        vec = self._letter_walk[letter]
+        step_rng = random.Random(_stable_seed(self.folio_id, self.seed, "occ", letter, occ, self.word_counter))
+
+        # Correlated AR(1) random walk with bounded reflection so consecutive occurrences differ smoothly
+        deltas = (0.038, 0.038, 0.026, 0.048, 0.025)
+        limits = (0.11, 0.11, 0.065, 0.14, 0.06)
+        phase = (occ + 1) * 1.37 + self.word_counter * 0.73
+        for i in range(5):
+            step = step_rng.gauss(0.0, deltas[i]) + 0.32 * deltas[i] * math.sin(phase + i * 1.1)
+            val = 0.78 * vec[i] + step
+            vec[i] = max(-limits[i], min(limits[i], val))
+
+        entry_hook_dx = 0.0
+        entry_hook_dy = 0.0
+        if is_word_initial:
+            # Cross-word air carryover + word-onset posture variation
+            air_pull = 0.0
+            if prev_word_exit_y_wnib is not None:
+                air_pull = max(-0.14, min(0.14, (prev_word_exit_y_wnib - 1.2) * 0.08))
+            onset_angle = (occ * 1.91 + self.word_counter * 1.13 + self.current_line * 0.57)
+            entry_hook_dx = round(0.095 * math.cos(onset_angle) + step_rng.uniform(-0.035, 0.035), 4)
+            entry_hook_dy = round(0.115 * math.sin(onset_angle) + air_pull, 4)
+
+        return {
+            "dx_wnib": round(vec[0], 4),
+            "dy_wnib": round(vec[1], 4),
+            "slant_shear": round(vec[2], 4),
+            "peak_arch_dy": round(vec[3], 4),
+            "x_scale": round(1.0 + vec[4], 4),
+            "entry_hook_dx": entry_hook_dx,
+            "entry_hook_dy": entry_hook_dy,
+            "nib_angle_drift_deg": round(self.state.nib_angle_drift_deg(self.current_line) + 0.8 * math.sin(phase), 3),
+        }
+
