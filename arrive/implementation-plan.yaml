@@ -1936,12 +1936,13 @@ passes:
     - id: ADV-SS-HAND-004
       advance_id: ADV-SS-HAND-004
       title: "Bastarda Nib-Width Proportions, Natural Chisel Contact & Fast Sandbox CLI"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HAND-003
       - ADV-SS-RENDER-002
       notes: "Recalibrate Bastarda profile to nib-width units (H = 4.2 w_nib, w_nib = 0.83mm for H = 3.5mm), natural 40-deg hairline sweep, tine splay, turn pooling, and <0.5s zero-lockout `scribesim sandbox` CLI + Tier-1 A1-PROPORTION check."
+      status_changed_at: 2026-10-16T18:28:54.766380Z
     - id: ADV-SS-HANDFLOW-012
       advance_id: ADV-SS-HANDFLOW-012
       title: "Global Minimum-Jerk Via-Point Coarticulation Solver"
