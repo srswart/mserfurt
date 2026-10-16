@@ -317,34 +317,85 @@ class KinematicScribeSession:
         vec = self._letter_walk[letter]
         step_rng = random.Random(_stable_seed(self.folio_id, self.seed, "occ", letter, occ, self.word_counter))
 
-        # Correlated AR(1) random walk with bounded reflection so consecutive occurrences differ smoothly
-        deltas = (0.038, 0.038, 0.026, 0.048, 0.025)
-        limits = (0.11, 0.11, 0.065, 0.14, 0.06)
-        phase = (occ + 1) * 1.37 + self.word_counter * 0.73
+        # Correlated AR(1) random walk with visibly organic amplitude across occurrences
+        deltas = (0.085, 0.085, 0.065, 0.14, 0.055)
+        limits = (0.22, 0.20, 0.14, 0.32, 0.11)
+        phase = (occ + 1) * 1.73 + self.word_counter * 0.91 + self.current_line * 0.63
         for i in range(5):
-            step = step_rng.gauss(0.0, deltas[i]) + 0.32 * deltas[i] * math.sin(phase + i * 1.1)
-            val = 0.78 * vec[i] + step
+            step = step_rng.gauss(0.0, deltas[i]) + 0.45 * deltas[i] * math.sin(phase + i * 1.3)
+            val = 0.65 * vec[i] + step
             vec[i] = max(-limits[i], min(limits[i], val))
 
         entry_hook_dx = 0.0
         entry_hook_dy = 0.0
+        loop_spread_dx = round(step_rng.uniform(-0.22, 0.24) + 0.12 * math.cos(phase * 1.3), 4)
+        loop_height_dy = round(step_rng.uniform(-0.28, 0.32) + 0.15 * math.sin(phase * 0.9), 4)
+        word_baseline_dy = round(0.14 * math.sin(self.word_counter * 0.85 + self.current_line * 1.4), 4)
+
         if is_word_initial:
-            # Cross-word air carryover + word-onset posture variation
+            # Cross-word air carryover + visible word-onset attack variation
             air_pull = 0.0
             if prev_word_exit_y_wnib is not None:
-                air_pull = max(-0.14, min(0.14, (prev_word_exit_y_wnib - 1.2) * 0.08))
-            onset_angle = (occ * 1.91 + self.word_counter * 1.13 + self.current_line * 0.57)
-            entry_hook_dx = round(0.095 * math.cos(onset_angle) + step_rng.uniform(-0.035, 0.035), 4)
-            entry_hook_dy = round(0.115 * math.sin(onset_angle) + air_pull, 4)
+                air_pull = max(-0.24, min(0.24, (prev_word_exit_y_wnib - 1.2) * 0.12))
+            onset_angle = (occ * 2.17 + self.word_counter * 1.31 + self.current_line * 0.79)
+            entry_hook_dx = round(0.22 * math.cos(onset_angle) + step_rng.uniform(-0.08, 0.08), 4)
+            entry_hook_dy = round(0.24 * math.sin(onset_angle) + air_pull, 4)
 
         return {
             "dx_wnib": round(vec[0], 4),
-            "dy_wnib": round(vec[1], 4),
+            "dy_wnib": round(vec[1] + word_baseline_dy, 4),
             "slant_shear": round(vec[2], 4),
             "peak_arch_dy": round(vec[3], 4),
             "x_scale": round(1.0 + vec[4], 4),
             "entry_hook_dx": entry_hook_dx,
             "entry_hook_dy": entry_hook_dy,
-            "nib_angle_drift_deg": round(self.state.nib_angle_drift_deg(self.current_line) + 0.8 * math.sin(phase), 3),
+            "loop_spread_dx": loop_spread_dx,
+            "loop_height_dy": loop_height_dy,
+            "nib_angle_drift_deg": round(self.state.nib_angle_drift_deg(self.current_line) + 1.8 * math.sin(phase), 3),
+            "occ": occ,
         }
+
+    def viapoint_internal_nuance(
+        self,
+        letter: str,
+        occ: int,
+        v_idx: int,
+        role: str,
+        *,
+        is_word_initial: bool,
+    ) -> tuple[float, float, float]:
+        """Compute per-via-point internal shape nuance (dx_wnib, dy_wnib, dp) so repeated letters are never rigid translations."""
+        vp_rng = random.Random(
+            _stable_seed(self.folio_id, self.seed, "vp", letter, occ, v_idx, self.word_counter, self.current_line)
+        )
+        if role in ("loop", "peak"):
+            amp_x, amp_y = 0.16, 0.22
+        elif role in ("entry", "exit"):
+            amp_x, amp_y = 0.18, 0.22
+        else:
+            # body and turn points: vary individual stem heights and foot turns slightly
+            amp_x, amp_y = 0.065, 0.11
+
+        dx = vp_rng.uniform(-amp_x, amp_x)
+        dy = vp_rng.uniform(-amp_y, amp_y)
+        dp = vp_rng.uniform(-0.06, 0.06)
+
+        if is_word_initial and v_idx <= 1:
+            # 3 distinct word-initial onset styles (sweeping hook vs upright attack vs deep diamond attack)
+            style = (occ + self.word_counter + self.current_line) % 3
+            if v_idx == 0:
+                if style == 0:
+                    dx -= 0.24
+                    dy -= 0.18
+                elif style == 1:
+                    dx += 0.12
+                    dy += 0.22
+                else:
+                    dx -= 0.10
+                    dy += 0.28
+                    dp += 0.08
+            elif v_idx == 1:
+                dx += 0.08 if style == 1 else -0.06
+
+        return round(dx, 4), round(dy, 4), round(dp, 4)
 

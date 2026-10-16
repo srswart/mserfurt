@@ -156,19 +156,51 @@ def solve_word_coarticulation(
                 "x_scale": 1.0,
                 "entry_hook_dx": 0.0,
                 "entry_hook_dy": 0.0,
+                "loop_spread_dx": 0.0,
+                "loop_height_dy": 0.0,
                 "nib_angle_drift_deg": 0.0,
             }
 
         for v_idx, vp in enumerate(recipe.via_points):
             x_v = vp.x_wnib * var["x_scale"] + var["dx_wnib"] + (vp.y_wnib / 4.2) * var["slant_shear"]
             y_v = vp.y_wnib + var["dy_wnib"]
-            if vp.role in ("peak", "loop", "turn"):
+            p_v = vp.pressure
+            if vp.role in ("peak", "turn"):
                 y_v += var["peak_arch_dy"]
+            elif vp.role == "loop" or vp.y_wnib > 4.4 or vp.y_wnib < -0.4:
+                x_v += var["loop_spread_dx"]
+                y_v += var["loop_height_dy"]
             if l_idx == 0 and v_idx == 0:
                 x_v += var["entry_hook_dx"]
                 y_v += var["entry_hook_dy"]
             elif l_idx == 0 and v_idx == 1:
                 x_v += 0.45 * var["entry_hook_dx"]
+                y_v += 0.25 * var["entry_hook_dy"]
+
+            if session is not None:
+                v_dx, v_dy, v_dp = session.viapoint_internal_nuance(
+                    recipe.letter,
+                    int(var.get("occ", 0)),
+                    v_idx,
+                    vp.role,
+                    is_word_initial=(l_idx == 0),
+                )
+                x_v += v_dx
+                y_v += v_dy
+                if vp.contact:
+                    p_v = max(0.18, min(0.96, p_v + v_dp))
+                vp = ViaPoint(
+                    x_wnib=vp.x_wnib,
+                    y_wnib=vp.y_wnib,
+                    sigma_x_wnib=vp.sigma_x_wnib,
+                    sigma_y_wnib=vp.sigma_y_wnib,
+                    vx_pref_wnib=vp.vx_pref_wnib,
+                    vy_pref_wnib=vp.vy_pref_wnib,
+                    velocity_weight=vp.velocity_weight,
+                    contact=vp.contact,
+                    pressure=p_v,
+                    role=vp.role,
+                )
 
             raw_vias.append(
                 (recipe.letter, l_idx, v_idx, vp, cursor_wnib + x_v, y_v, var["nib_angle_drift_deg"])

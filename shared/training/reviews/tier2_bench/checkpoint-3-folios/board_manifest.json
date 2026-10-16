@@ -1,0 +1,98 @@
+{
+  "stage_id": "checkpoint-3-folios",
+  "passed": true,
+  "b1_htr_cer": {
+    "gate": "B1-HTR-CER",
+    "passed": true,
+    "clean_cer": 0.012,
+    "max_cer": 0.028,
+    "cer_by_folio": {
+      "f01r": 0.012,
+      "f06r": 0.028,
+      "f07r": 0.012,
+      "f14r": 0.028
+    }
+  },
+  "b2_angle_emd": {
+    "gate": "B2-ANGLE-EMD",
+    "passed": true,
+    "emd": 0.0604,
+    "threshold": 0.12
+  },
+  "b3_rhythm_acf": {
+    "gate": "B3-RHYTHM-ACF",
+    "passed": true,
+    "mean_lag_px": 9.5,
+    "expected_lag_px": 8.86
+  },
+  "b4_contracts": {
+    "gate": "B4-CONTRACTS",
+    "passed": true,
+    "exact_character_coverage": 1.0,
+    "min_glyph_bbox_iou": 0.9999,
+    "min_pressure_dynamic_range": 0.7016,
+    "weather_compatible": true
+  },
+  "rubric_questions": [
+    {
+      "id": "join_ductus_flow",
+      "title": "1. Join & Ductus Flow",
+      "prompt": "Do letters flow into one another as continuous pen movements, with natural reciprocal adaptation at boundaries (nu, nm, und, der)?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "bridge_too_flat",
+        "abrupt_shoulder",
+        "too_wide_gap",
+        "artificial_hook",
+        "cramped"
+      ]
+    },
+    {
+      "id": "bastarda_script_identity",
+      "title": "2. Bastarda Script Identity",
+      "prompt": "Do the letter shapes, thick/thin contrast, and feet/crowns read as authentic mid-15th-century German Bastarda?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "nib_too_thin",
+        "nib_too_broad",
+        "missing_foot_turn",
+        "too_modern"
+      ]
+    },
+    {
+      "id": "organic_hand_variation",
+      "title": "3. Organic Hand Variation",
+      "prompt": "Across repeated minims and words, does the sample feel written by a living hand rather than stamped by a font?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "clones_visible",
+        "jitter_looks_random",
+        "baseline_too_rigid",
+        "excessive_messiness"
+      ]
+    },
+    {
+      "id": "overall_stage_verdict",
+      "title": "4. Overall Stage Verdict",
+      "prompt": "Should this checkpoint be promoted to unlock the next curriculum stage?",
+      "options": [
+        "promote_checkpoint",
+        "iterate_with_notes",
+        "reject"
+      ],
+      "tags": []
+    }
+  ]
+}
