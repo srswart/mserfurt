@@ -13,7 +13,7 @@ advance:
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit", "review:owner"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
   status: complete
@@ -56,7 +56,7 @@ Primary component: `annotate`. Impacted components: `annotate`, `handvalidate`, 
 - [x] tidy: preparatory extraction of shared workbench HTTP/static-asset helpers in `scribesim/annotate/` (no behavior change)
 - [x] test: add failing unit tests for 3-way review sheet generation, 4-question rubric serialization, quick-tag parameter recommendation mapping, and `review_gate` verification
 - [x] feat/fix: implement `scribesim/annotate/review_board.py`, `scribesim/handvalidate/review_gate.py`, and `scribesim review-sheet` CLI
-- [ ] review: capture owner visual review for **Human Checkpoint #1** (`n, u, m, nu, nm, um, und, der, mir`) in `shared/training/reviews/checkpoint-1-coarticulation.json` (board generated at `shared/training/reviews/checkpoint-1-coarticulation/index.html`, awaiting owner eyes)
+- [x] review: capture owner visual review for **Human Checkpoint #1** (`n, u, m, nu, nm, um, und, der, mir`) in `shared/training/reviews/checkpoint-1-coarticulation-review.json` (`promote_checkpoint`, candidate `c80eb01f74839ef71cbc952fc49a173f92871a045167ea829d394ffac9fceab1`)
 
 ## Bug Fixes
 
@@ -72,7 +72,7 @@ Primary component: `annotate`. Impacted components: `annotate`, `handvalidate`, 
 - [x] tidy:preparatory
 - [x] tdd:red-green
 - [x] tests:unit
-- [ ] review:owner (board ready at `shared/training/reviews/checkpoint-1-coarticulation/index.html`)
+- [x] review:owner (`shared/training/reviews/checkpoint-1-coarticulation-review.json`)
 
 ## CI Evidence Notes
 

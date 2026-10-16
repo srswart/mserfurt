@@ -1,0 +1,403 @@
+{
+  "stage_id": "checkpoint-1-coarticulation",
+  "candidate_sha256": "c80eb01f74839ef71cbc952fc49a173f92871a045167ea829d394ffac9fceab1",
+  "nib_width_mm": 0.8333,
+  "x_height_mm": 3.5,
+  "nib_angle_deg": 40.0,
+  "tier1_summary": {
+    "a1_all_passed": true,
+    "a2_all_passed": true,
+    "a3_coarticulate": {
+      "gate": "A3-COARTICULATE",
+      "passed": true,
+      "n_exit_delta_wnib_nu_vs_nm": 0.1022,
+      "u_entry_delta_wnib_nu_vs_isolated": 0.0854,
+      "n_protected_body_delta_wnib": 0.0,
+      "bounds_wnib": [
+        0.03,
+        0.35
+      ],
+      "max_body_drift_wnib": 0.05,
+      "failures": []
+    }
+  },
+  "specimens": [
+    {
+      "text": "n",
+      "candidate_png": "00_n_candidate.png",
+      "baseline_png": "00_n_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.2484,
+        "p95_width_mm": 0.8502,
+        "p05_width_mm": 0.2001,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "n",
+        "dimensionless_jerk": 10.7506,
+        "peak_speed_mm_s": 41.8983,
+        "max_velocity_step_mm_s": 10.2544,
+        "failures": []
+      }
+    },
+    {
+      "text": "u",
+      "candidate_png": "01_u_candidate.png",
+      "baseline_png": "01_u_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.2121,
+        "p95_width_mm": 0.829,
+        "p05_width_mm": 0.1968,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "u",
+        "dimensionless_jerk": 16.9562,
+        "peak_speed_mm_s": 64.7599,
+        "max_velocity_step_mm_s": 16.1906,
+        "failures": []
+      }
+    },
+    {
+      "text": "m",
+      "candidate_png": "02_m_candidate.png",
+      "baseline_png": "02_m_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.1471,
+        "p95_width_mm": 0.848,
+        "p05_width_mm": 0.2045,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "m",
+        "dimensionless_jerk": 11.0166,
+        "peak_speed_mm_s": 42.1248,
+        "max_velocity_step_mm_s": 9.9588,
+        "failures": []
+      }
+    },
+    {
+      "text": "nu",
+      "candidate_png": "03_nu_candidate.png",
+      "baseline_png": "03_nu_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.2174,
+        "p95_width_mm": 0.84,
+        "p05_width_mm": 0.1992,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "nu",
+        "dimensionless_jerk": 16.3147,
+        "peak_speed_mm_s": 64.6455,
+        "max_velocity_step_mm_s": 16.3623,
+        "failures": []
+      }
+    },
+    {
+      "text": "nm",
+      "candidate_png": "04_nm_candidate.png",
+      "baseline_png": "04_nm_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.1963,
+        "p95_width_mm": 0.8493,
+        "p05_width_mm": 0.2024,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "nm",
+        "dimensionless_jerk": 11.4134,
+        "peak_speed_mm_s": 42.8396,
+        "max_velocity_step_mm_s": 10.2503,
+        "failures": []
+      }
+    },
+    {
+      "text": "um",
+      "candidate_png": "05_um_candidate.png",
+      "baseline_png": "05_um_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.1967,
+        "p95_width_mm": 0.8464,
+        "p05_width_mm": 0.2017,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "um",
+        "dimensionless_jerk": 14.1008,
+        "peak_speed_mm_s": 64.6933,
+        "max_velocity_step_mm_s": 16.1595,
+        "failures": []
+      }
+    },
+    {
+      "text": "und",
+      "candidate_png": "06_und_candidate.png",
+      "baseline_png": "06_und_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.2796,
+        "p95_width_mm": 0.8512,
+        "p05_width_mm": 0.1989,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "und",
+        "dimensionless_jerk": 13.5597,
+        "peak_speed_mm_s": 78.8899,
+        "max_velocity_step_mm_s": 16.3291,
+        "failures": []
+      }
+    },
+    {
+      "text": "der",
+      "candidate_png": "07_der_candidate.png",
+      "baseline_png": "07_der_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.3554,
+        "p95_width_mm": 0.8384,
+        "p05_width_mm": 0.1925,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "der",
+        "dimensionless_jerk": 11.6529,
+        "peak_speed_mm_s": 78.7665,
+        "max_velocity_step_mm_s": 13.3714,
+        "failures": []
+      }
+    },
+    {
+      "text": "mir",
+      "candidate_png": "08_mir_candidate.png",
+      "baseline_png": "08_mir_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 3.9471,
+        "p95_width_mm": 0.8477,
+        "p05_width_mm": 0.2148,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "mir",
+        "dimensionless_jerk": 13.2048,
+        "peak_speed_mm_s": 51.9017,
+        "max_velocity_step_mm_s": 12.9439,
+        "failures": []
+      }
+    }
+  ],
+  "rubric_questions": [
+    {
+      "id": "join_ductus_flow",
+      "title": "1. Join & Ductus Flow",
+      "prompt": "Do letters flow into one another as continuous pen movements, with natural reciprocal adaptation at boundaries (nu, nm, und, der)?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "bridge_too_flat",
+        "abrupt_shoulder",
+        "too_wide_gap",
+        "artificial_hook",
+        "cramped"
+      ]
+    },
+    {
+      "id": "bastarda_script_identity",
+      "title": "2. Bastarda Script Identity",
+      "prompt": "Do the letter shapes, thick/thin contrast, and feet/crowns read as authentic mid-15th-century German Bastarda?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "nib_too_thin",
+        "nib_too_broad",
+        "missing_foot_turn",
+        "too_modern"
+      ]
+    },
+    {
+      "id": "organic_hand_variation",
+      "title": "3. Organic Hand Variation",
+      "prompt": "Across repeated minims and words, does the sample feel written by a living hand rather than stamped by a font?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "clones_visible",
+        "jitter_looks_random",
+        "baseline_too_rigid",
+        "excessive_messiness"
+      ]
+    },
+    {
+      "id": "overall_stage_verdict",
+      "title": "4. Overall Stage Verdict",
+      "prompt": "Should this checkpoint be promoted to unlock the next curriculum stage?",
+      "options": [
+        "promote_checkpoint",
+        "iterate_with_notes",
+        "reject"
+      ],
+      "tags": []
+    }
+  ]
+}
