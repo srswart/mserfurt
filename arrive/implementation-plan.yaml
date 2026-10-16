@@ -1969,12 +1969,13 @@ passes:
     - id: ADV-SS-GUIDES-002
       advance_id: ADV-SS-GUIDES-002
       title: "Full Bastarda Via-Point Alphabet & Contextual Allographs"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-ANNOTATE-007
       - ADV-SS-HANDFLOW-012
       notes: "Expand ViaPointRecipe catalog to full Early New High German / Latin Bastarda charset (a-z, A-Z, long s, ss, superscript-e umlauts, marks) with TD-012 contextual allographs, 1.0 exact coverage, and Tier-1 A4-TOPOLOGY open-counter checks."
+      status_changed_at: 2026-10-16T18:55:09.849125Z
     - id: ADV-SS-TUNING-002
       advance_id: ADV-SS-TUNING-002
       title: "Differentiable Nib Renderer & Reference Word Grounding"
