@@ -1,0 +1,193 @@
+{
+  "stage_id": "checkpoint-2-specimen",
+  "candidate_sha256": "df1cdcdcc8507b3f0019ed8ae68b5534c6590b80f45a9c68b8c4fdf8ae33fe50",
+  "nib_width_mm": 0.8333,
+  "x_height_mm": 3.5,
+  "nib_angle_deg": 40.0,
+  "tier1_summary": {
+    "a1_all_passed": true,
+    "a2_all_passed": true,
+    "a3_coarticulate": {
+      "gate": "A3-COARTICULATE",
+      "passed": true,
+      "n_exit_delta_wnib_nu_vs_nm": 0.1022,
+      "u_entry_delta_wnib_nu_vs_isolated": 0.0854,
+      "n_protected_body_delta_wnib": 0.0,
+      "bounds_wnib": [
+        0.03,
+        0.35
+      ],
+      "max_body_drift_wnib": 0.05,
+      "failures": []
+    }
+  },
+  "specimens": [
+    {
+      "text": "in seines wercks alle der heiligen kirchen",
+      "candidate_png": "00_in_seines_wercks_alle_der_heiligen_kirchen_candidate.png",
+      "baseline_png": "00_in_seines_wercks_alle_der_heiligen_kirchen_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.2966,
+        "p95_width_mm": 0.8491,
+        "p05_width_mm": 0.1976,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "in",
+        "dimensionless_jerk": 12.0232,
+        "peak_speed_mm_s": 52.1255,
+        "max_velocity_step_mm_s": 12.6557,
+        "failures": []
+      }
+    },
+    {
+      "text": "und glauben wir nicht alleine",
+      "candidate_png": "01_und_glauben_wir_nicht_alleine_candidate.png",
+      "baseline_png": "01_und_glauben_wir_nicht_alleine_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.2879,
+        "p95_width_mm": 0.8475,
+        "p05_width_mm": 0.1976,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "und",
+        "dimensionless_jerk": 14.0675,
+        "peak_speed_mm_s": 70.2594,
+        "max_velocity_step_mm_s": 16.3291,
+        "failures": []
+      }
+    },
+    {
+      "text": "Hie hebt sich an das ein schreiber nit mag lassen",
+      "candidate_png": "02_Hie_hebt_sich_an_das_ein_schreiber_nit_mag_lassen_candidate.png",
+      "baseline_png": "02_Hie_hebt_sich_an_das_ein_schreiber_nit_mag_lassen_baseline_rigid.png",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.2355,
+        "p95_width_mm": 0.8464,
+        "p05_width_mm": 0.1998,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "a2_kinematics": {
+        "gate": "A2-KINEMATICS",
+        "passed": true,
+        "word": "Hie",
+        "dimensionless_jerk": 10.3004,
+        "peak_speed_mm_s": 80.4653,
+        "max_velocity_step_mm_s": 16.9692,
+        "failures": []
+      }
+    }
+  ],
+  "rubric_questions": [
+    {
+      "id": "join_ductus_flow",
+      "title": "1. Join & Ductus Flow",
+      "prompt": "Do letters flow into one another as continuous pen movements, with natural reciprocal adaptation at boundaries (nu, nm, und, der)?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "bridge_too_flat",
+        "abrupt_shoulder",
+        "too_wide_gap",
+        "artificial_hook",
+        "cramped"
+      ]
+    },
+    {
+      "id": "bastarda_script_identity",
+      "title": "2. Bastarda Script Identity",
+      "prompt": "Do the letter shapes, thick/thin contrast, and feet/crowns read as authentic mid-15th-century German Bastarda?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "nib_too_thin",
+        "nib_too_broad",
+        "missing_foot_turn",
+        "too_modern"
+      ]
+    },
+    {
+      "id": "organic_hand_variation",
+      "title": "3. Organic Hand Variation",
+      "prompt": "Across repeated minims and words, does the sample feel written by a living hand rather than stamped by a font?",
+      "options": [
+        "pass",
+        "revise",
+        "reject"
+      ],
+      "tags": [
+        "clones_visible",
+        "jitter_looks_random",
+        "baseline_too_rigid",
+        "excessive_messiness"
+      ]
+    },
+    {
+      "id": "overall_stage_verdict",
+      "title": "4. Overall Stage Verdict",
+      "prompt": "Should this checkpoint be promoted to unlock the next curriculum stage?",
+      "options": [
+        "promote_checkpoint",
+        "iterate_with_notes",
+        "reject"
+      ],
+      "tags": []
+    }
+  ]
+}

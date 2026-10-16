@@ -3284,11 +3284,20 @@ def sandbox_cmd(text: str, out_dir: str, dpi: float, x_height_mm: float,
 @click.option("--dpi", default=180.0, type=float, show_default=True)
 def review_sheet_cmd(stage_id: str, out_dir: str, dpi: float) -> None:
     """Generate the TD-019 Human-Eyes Review Board (`index.html` + `board_manifest.json`)."""
-    from scribesim.annotate.review_board import CHECKPOINT_1_SPECIMENS, build_review_sheet
+    from scribesim.annotate.review_board import (
+        CHECKPOINT_1_SPECIMENS,
+        CHECKPOINT_2_SPECIMENS,
+        build_review_sheet,
+    )
 
+    specimens = (
+        CHECKPOINT_2_SPECIMENS
+        if "checkpoint-2" in stage_id or "specimen" in stage_id
+        else CHECKPOINT_1_SPECIMENS
+    )
     manifest = build_review_sheet(
         stage_id=stage_id,
-        specimens=CHECKPOINT_1_SPECIMENS,
+        specimens=specimens,
         out_dir=Path(out_dir),
         dpi=dpi,
     )

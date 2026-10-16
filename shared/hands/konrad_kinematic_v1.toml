@@ -1,0 +1,31 @@
+# konrad_kinematic_v1.toml — TD-019 Differentiable-Refined Bastarda Profile
+# Grounded on 32 confirmed BSB Cgm 628 reference word crops.
+
+[metadata]
+script = "bastarda"
+dialect_region = "thuringian"
+date_approx = 1457
+
+[nib]
+width_mm = 0.8333
+angle_deg = 39.307
+flexibility = 0.2
+cut_quality = 0.92
+attack_pressure_multiplier = 1.15
+release_taper_length = 0.30
+
+[letterform]
+x_height_mm = 3.5
+ascender_height_ratio = 1.65
+descender_depth_ratio = 0.55
+keypoint_flexibility_mm = 0.18
+
+[material]
+pooling_at_direction_change = 0.22
+overlap_darkening_factor = 0.72
+
+[kinematic_refinement]
+confirmed_reference_words = 32
+curve_angle_roll_deg = -0.693
+initial_loss = 0.175369
+final_loss = 0.165177

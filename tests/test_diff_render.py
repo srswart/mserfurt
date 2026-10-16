@@ -71,8 +71,8 @@ def test_differentiable_soft_ribbon_renderer_gradients() -> None:
         nib_width_mm=nib_width_mm,
     )
     assert ink_img.shape == (48, 96)
-    assert float(ink_img.max()) > 0.4
-    assert float(ink_img.min()) >= 0.0
+    assert float(ink_img.detach().max()) > 0.4
+    assert float(ink_img.detach().min()) >= 0.0
 
     # Target shifted slightly right -> loss gradient must be finite and non-zero
     target_pts = pts_mm.detach() + torch.tensor([0.25, 0.10])
