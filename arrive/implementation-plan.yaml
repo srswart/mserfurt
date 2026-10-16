@@ -1979,12 +1979,13 @@ passes:
     - id: ADV-SS-TUNING-002
       advance_id: ADV-SS-TUNING-002
       title: "Differentiable Nib Renderer & Reference Word Grounding"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-GUIDES-002
       - ADV-SS-ANNOTATE-007
       notes: "Confirm ~30 clean BSB reference word crops with soft baseline-band weighting and refine shared via-point coordinates/tolerances via PyTorch differentiable soft-quad renderer (`diff_render.py`). Capture Human Checkpoint #2 on the 3-line proof specimen."
+      status_changed_at: 2026-10-16T19:00:44.161012Z
   - id: td019-state-and-folio-validation
     title: Coarticulated ScribeState, automated Tier-2 HTR/distribution bench, and 4-folio promotion
     order: 3
