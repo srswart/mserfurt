@@ -6,17 +6,17 @@ advance:
   primary_component: "handflow"
   components: ["handflow", "guides", "tests"]
   started_at: "2026-10-16T04:45:00+00:00"
-  implementation_completed_at: ~
+  implementation_completed_at: 2026-10-16T18:34:20.094719Z
   review_time_estimate_minutes: 35
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -49,14 +49,14 @@ Primary component: `handflow`. Impacted components: `handflow`, `guides`, `tests
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: preparatory refactoring to expose shared trajectory sample conversions in `scribesim/handflow/` (no behavior change)
-- [ ] test: add failing unit tests for `ViaPointRecipe` validation, minimum-jerk QP solver optimality/$C^2$ continuity, `A2-KINEMATICS` jerk bounds, and `A3-COARTICULATE` reciprocal neighbor adaptation (`nu` vs `nm` vs isolated `n` and `u`)
-- [ ] feat/fix: implement `scribesim/guides/viapoint.py`, `scribesim/handflow/coarticulate.py`, and starter recipes for `i, n, u, m, d, e, r`
+- [x] branch: create or confirm feature branch for this advance (`feat/adv-ss-handflow-012`)
+- [x] tidy: preparatory refactoring to expose shared trajectory sample conversions in `scribesim/handflow/` (no behavior change)
+- [x] test: add failing unit tests for `ViaPointRecipe` validation, minimum-jerk QP solver optimality/$C^2$ continuity, `A2-KINEMATICS` jerk bounds, and `A3-COARTICULATE` reciprocal neighbor adaptation (`nu` vs `nm` vs isolated `n` and `u`)
+- [x] feat/fix: implement `scribesim/guides/viapoint.py`, `scribesim/handflow/coarticulate.py`, and starter recipes for `i, n, u, m, d, e, r`
 
 ## Bug Fixes
 
-- [ ] None yet
+- [x] Scaled finite-difference smoothness operators ($D_3^\top D_3, D_2^\top D_2$) by segment substep density and solved via `scipy.linalg.solveh_banded` so coarticulation stiffness is step-invariant and solves in $<1\text{ ms}$.
 
 ## Risk + Rollback
 
@@ -65,9 +65,9 @@ Primary component: `handflow`. Impacted components: `handflow`, `guides`, `tests
 
 ## Evidence
 
-- [ ] tidy:preparatory
-- [ ] tdd:red-green
-- [ ] tests:unit
+- [x] tidy:preparatory
+- [x] tdd:red-green
+- [x] tests:unit
 
 ## CI Evidence Notes
 
@@ -82,3 +82,22 @@ Primary component: `handflow`. Impacted components: `handflow`, `guides`, `tests
 
 ### 2026-10-16 - docs: Draft ADV-SS-HANDFLOW-012 for TD-019 Pass 16a
 - `arrive/systems/scribesim/advances/ADV-SS-HANDFLOW-012.md`: Created planned advance record for the Global Minimum-Jerk Via-Point Coarticulation Solver.
+
+### 2026-10-16 - tidy: add TrackPlanSample.to_trajectory_sample conversion helper
+- `scribesim/handflow/model.py`: Added `to_trajectory_sample()` method on `TrackPlanSample`.
+
+### 2026-10-16 - test: add via-point catalog, minimum-jerk coarticulation solver, and A2/A3 gate tests
+- `tests/test_coarticulate.py`: Added unit tests covering starter `ViaPointRecipe` definitions (`i, n, u, m, d, e, r`), solver execution speed ($<15\text{ ms}$), Tier-1 `A2-KINEMATICS`, Tier-1 `A3-COARTICULATE` reciprocal neighbor adaptation (`nu` vs `nm` vs isolated `n`/`u`), and sandbox integration.
+
+### 2026-10-16 - feat: implement global minimum-jerk via-point coarticulation solver and A2/A3 gates
+- `scribesim/guides/viapoint.py`: Implemented `ViaPoint`, `ViaPointRecipe`, `VIAPOINT_STARTER_CATALOG` (`i, n, u, m, d, e, r`), and `lookup_viapoint_recipe()`.
+- `scribesim/handflow/coarticulate.py`: Implemented `solve_word_coarticulation()` using `scipy.linalg.solveh_banded` over the 7-diagonal minimum-jerk + acceleration quadratic form and `compose_text_kinematic()`.
+- `scribesim/handvalidate/kinematic_gates.py`: Implemented `evaluate_a2_kinematics()` and `evaluate_a3_coarticulate()`.
+- `scribesim/render/nib.py`: Added unloaded rising hairline release in `chisel_apparent_width_mm()`.
+
+## Check for Understanding
+
+1. How does the 7-diagonal banded matrix in `solve_word_coarticulation()` couple the exit trajectory of `n` to the entry height of the following letter (`u` vs `m`) without pair-specific splice rules?
+2. Why do `role="body"` stem via-points use $\sigma_x \approx 0.015\text{–}0.02\,w_{\text{nib}}$ while `role="entry"` and `role="exit"` via-points use $\sigma \approx 0.16\text{–}0.26\,w_{\text{nib}}$?
+3. What three quantities does `evaluate_a3_coarticulate()` compare to verify both reciprocal boundary adaptation and protected stem stability?
+
