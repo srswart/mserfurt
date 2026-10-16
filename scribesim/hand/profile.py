@@ -187,7 +187,7 @@ _RANGES: dict[str, tuple[float, float]] = {
     "glyph.connection_lift_height_mm": (0.5, 4.0),
     "glyph.entry_angle_adaptation": (0.0, 1.0),
     # Nib
-    "nib.width_mm": (0.8, 3.0),
+    "nib.width_mm": (0.6, 3.0),
     "nib.angle_deg": (25.0, 55.0),
     "nib.flexibility": (0.0, 0.5),
     "nib.cut_quality": (0.5, 1.0),
@@ -604,3 +604,29 @@ def validate_ranges(profile: HandProfile) -> list[str]:
         if val < lo or val > hi:
             errors.append(f"{key}={val} out of range [{lo}, {hi}]")
     return errors
+
+
+# ---------------------------------------------------------------------------
+# Nib-width (w_nib) proportion helpers (TD-019 Pillar 1)
+# ---------------------------------------------------------------------------
+
+BASTARDA_DEFAULT_X_HEIGHT_MM: float = 3.5
+BASTARDA_NIB_PROPORTION_RATIO: float = 4.2
+
+
+def nib_width_for_x_height(
+    x_height_mm: float = BASTARDA_DEFAULT_X_HEIGHT_MM,
+    x_height_in_nib_widths: float = BASTARDA_NIB_PROPORTION_RATIO,
+) -> float:
+    """Compute calibrated broad-nib width in mm for a given x-height and ratio."""
+    if x_height_mm <= 0 or x_height_in_nib_widths <= 0:
+        raise ValueError("x_height_mm and x_height_in_nib_widths must be positive")
+    return round(x_height_mm / x_height_in_nib_widths, 4)
+
+
+def x_height_to_nib_ratio(x_height_mm: float, nib_width_mm: float) -> float:
+    """Return the dimensionless ratio H / w_nib."""
+    if x_height_mm <= 0 or nib_width_mm <= 0:
+        raise ValueError("x_height_mm and nib_width_mm must be positive")
+    return x_height_mm / nib_width_mm
+
