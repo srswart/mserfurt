@@ -39,12 +39,16 @@ shared/training/scribehand/**/images/
 shared/training/scribehand/exports/
 shared/models/scribehand/weights/
 
-# TD-019 Human-Eyes Review records: track JSON manifests and review verdicts, ignore rendered PNGs/HTML
+# TD-019 Human-Eyes Review records: track JSON manifests and review verdicts, ignore rendered PNGs/HTML/XML
 !shared/training/reviews/
 /shared/training/reviews/**/*.png
 /shared/training/reviews/**/*.html
+/shared/training/reviews/**/*.xml
 !shared/training/handsim/
+shared/training/handsim/*
 !shared/training/handsim/reviewed_annotations/
+shared/training/handsim/reviewed_annotations/*
+!shared/training/handsim/reviewed_annotations/bsb_confirmed_words_v1.json
 
 # ScribeHand orchestration local state (machine-specific paths)
 diagnostics/.scribehand-orchestration-state.json

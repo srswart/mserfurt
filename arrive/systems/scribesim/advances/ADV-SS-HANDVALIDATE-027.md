@@ -13,10 +13,10 @@ advance:
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:integration"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -48,15 +48,15 @@ Primary component: `handvalidate`. Impacted components: `handvalidate`, `groundt
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: extract shared orientation-histogram and projection-autocorrelation helpers in `scribesim/metrics/` (no behavior change)
-- [ ] test: add failing integration tests for `B1-HTR-CER`, `B2-ANGLE-EMD`, `B3-RHYTHM-ACF`, `B4-CONTRACTS` (PAGE XML IoU $\ge 0.95$, heatmap range, Weather dry-run), and `--approach kinematic` CLI rendering
-- [ ] feat/fix: implement `scribesim/handvalidate/tier2_bench.py`, wire `--approach kinematic` full-folio export, and run the 4-folio benchmark (`f01r`, `f06r`, `f07r`, `f14r`)
-- [ ] review: capture owner visual review for **Human Checkpoint #3** (4 proof folios) in `shared/training/reviews/checkpoint-3-folios.json`
+- [x] branch: create or confirm feature branch for this advance (`feat/adv-ss-handvalidate-027`)
+- [x] tidy: extract shared orientation-histogram and projection-autocorrelation helpers in `scribesim/metrics/` (no behavior change)
+- [x] test: add failing integration tests for `B1-HTR-CER`, `B2-ANGLE-EMD`, `B3-RHYTHM-ACF`, `B4-CONTRACTS` (PAGE XML IoU $\ge 0.95$, heatmap range, Weather dry-run), and `--approach kinematic` CLI rendering
+- [x] feat/fix: implement `scribesim/handvalidate/tier2_bench.py`, wire `--approach kinematic` full-folio export, and run the 4-folio benchmark (`f01r`, `f06r`, `f07r`, `f14r`)
+- [ ] review: capture owner visual review for **Human Checkpoint #3** (4 proof folios) in `shared/training/reviews/checkpoint-3-folios-review.json` (board ready at `shared/training/reviews/tier2_bench/checkpoint-3-folios/index.html`)
 
 ## Bug Fixes
 
-- [ ] None yet
+- [x] Added per-via-point internal shape nuance (`viapoint_internal_nuance()`) and 3 distinct word-initial onset styles in `KinematicScribeSession` to address Checkpoint #2 feedback on word-initial and repeated-letter variety.
 
 ## Risk + Rollback
 
@@ -65,10 +65,10 @@ Primary component: `handvalidate`. Impacted components: `handvalidate`, `groundt
 
 ## Evidence
 
-- [ ] tidy:preparatory
-- [ ] tdd:red-green
-- [ ] tests:integration
-- [ ] review:owner
+- [x] tidy:preparatory
+- [x] tdd:red-green
+- [x] tests:integration
+- [ ] review:owner (board ready at `shared/training/reviews/tier2_bench/checkpoint-3-folios/index.html`)
 
 ## CI Evidence Notes
 
@@ -83,3 +83,22 @@ Primary component: `handvalidate`. Impacted components: `handvalidate`, `groundt
 
 ### 2026-10-16 - docs: Draft ADV-SS-HANDVALIDATE-027 for TD-019 Pass 16c
 - `arrive/systems/scribesim/advances/ADV-SS-HANDVALIDATE-027.md`: Created planned advance record for Automated HTR/Distribution Bench and 4-Folio Human Sign-Off.
+
+### 2026-10-16 - tidy: add orientation histogram EMD and projection autocorrelation helpers in scribesim/metrics
+- `scribesim/metrics/__init__.py`: Added `orientation_histogram()`, `orientation_histogram_emd()`, and `projection_autocorrelation_peak()`.
+
+### 2026-10-16 - test: add Tier-2 automated bench (B1-B4), --approach kinematic folio export, and CLI tests
+- `tests/test_tier2_bench.py`: Added integration tests covering `render_kinematic_folio` (PNG, pressure heatmap, PAGE XML IoU $\ge 0.95$), `run_tier2_kinematic_bench` (`B1-HTR-CER`, `B2-ANGLE-EMD`, `B3-RHYTHM-ACF`, `B4-CONTRACTS`), and `scribesim render --approach kinematic` / `scribesim validate-kinematic` CLI subcommands.
+
+### 2026-10-16 - feat: implement Tier-2 automated bench (B1-B4), --approach kinematic folio export, and Checkpoint #3 board
+- `scribesim/groundtruth/page_xml.py`: Added `generate_kinematic_page_xml()` splitting shared join ownership at inter-letter via-point midpoints.
+- `scribesim/handvalidate/tier2_bench.py`: Implemented `render_kinematic_folio()`, `run_tier2_kinematic_bench()`, and `_build_checkpoint_3_folio_board()`.
+- `scribesim/cli.py`: Added `--approach kinematic` to `scribesim render` / `render-batch` and added `scribesim validate-kinematic`.
+- `scribesim/render/scribe_state.py` & `scribesim/handflow/coarticulate.py`: Added `viapoint_internal_nuance()` and 3 word-initial onset styles (`style 0/1/2`) to address Checkpoint #2 feedback.
+
+## Check for Understanding
+
+1. How does `generate_kinematic_page_xml()` partition shared coarticulated join trajectories between adjacent letters so glyph bounding polygons achieve $\ge 0.99$ ink containment IoU?
+2. What four automated gates comprise the Tier-2 bench in `run_tier2_kinematic_bench()`?
+3. How does `viapoint_internal_nuance()` ensure that repeated letters and word-initial characters have internal geometric variation rather than only rigid whole-letter shifts?
+
