@@ -142,3 +142,85 @@ def evaluate_a3_coarticulate(
         "max_body_drift_wnib": max_body_drift_wnib,
         "failures": failures,
     }
+
+
+def _count_open_counters_in_image(rgb_arr: np.ndarray, min_area_px: int = 6) -> tuple[int, int]:
+    """Count enclosed interior background components (open counters) in an RGB glyph render."""
+    from scipy.ndimage import label
+
+    gray = rgb_arr.mean(axis=2)
+    bg = gray > 210.0
+    labeled, num_features = label(bg)
+    if num_features <= 1:
+        return 0, 0
+
+    border_labels = (
+        set(labeled[0, :].tolist())
+        | set(labeled[-1, :].tolist())
+        | set(labeled[:, 0].tolist())
+        | set(labeled[:, -1].tolist())
+    )
+    open_count = 0
+    max_area = 0
+    for comp_id in range(1, num_features + 1):
+        if comp_id in border_labels:
+            continue
+        area = int(np.sum(labeled == comp_id))
+        if area >= min_area_px:
+            open_count += 1
+            max_area = max(max_area, area)
+    return open_count, max_area
+
+
+def evaluate_a4_topology(
+    *,
+    profile: HandProfile | None = None,
+    words: tuple[str, ...] = ("und", "glauben", "schreiber"),
+    dpi: float = 240.0,
+) -> dict:
+    """Evaluate Tier-1 A4-TOPOLOGY gate: open counters in (a, o, d, e, g, b, p) and zero non-adjacent collisions."""
+    from scribesim.guides.viapoint_catalog import COUNTER_LETTERS
+    from scribesim.render.sandbox import render_trajectory_samples
+
+    prof = profile or bastarda_nib_calibrated_profile()
+    letter_counters: dict[str, dict] = {}
+    failures: list[str] = []
+
+    for ch in COUNTER_LETTERS:
+        res = solve_word_coarticulation(ch, profile=prof)
+        arr, _, _ = render_trajectory_samples(res.samples, profile=prof, dpi=dpi, margin_mm=1.8)
+        count, area_px = _count_open_counters_in_image(arr, min_area_px=6)
+        letter_counters[ch] = {
+            "open_counter_count": count,
+            "max_counter_area_px": area_px,
+            "passed": count >= 1,
+        }
+        if count < 1:
+            failures.append(f"collapsed_counter:{ch}")
+
+    non_adjacent_collisions = 0
+    for w in words:
+        res = solve_word_coarticulation(w, profile=prof)
+        spans: dict[int, list[float]] = {}
+        for vp in res.placed_via_points:
+            if vp.role == "body":
+                x_solved = float(res.solved_x_wnib[vp.sample_index])
+                spans.setdefault(vp.letter_index, []).append(x_solved)
+        indices = sorted(spans.keys())
+        for idx_i, li in enumerate(indices):
+            for lj in indices[idx_i + 1 :]:
+                if abs(lj - li) >= 2:
+                    if max(spans[li]) >= min(spans[lj]):
+                        non_adjacent_collisions += 1
+
+    if non_adjacent_collisions > 0:
+        failures.append("non_adjacent_collisions")
+
+    return {
+        "gate": "A4-TOPOLOGY",
+        "passed": len(failures) == 0,
+        "letter_counters": letter_counters,
+        "non_adjacent_collisions": non_adjacent_collisions,
+        "failures": failures,
+    }
+

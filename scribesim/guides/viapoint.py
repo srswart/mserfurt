@@ -35,6 +35,8 @@ class ViaPointRecipe:
     advance_wnib: float
     ascender: bool = False
     descender: bool = False
+    has_counter: bool = False
+    family: str = "minim"  # "minim", "bowl", "ascender", "descender", "capital", "mark", "digit"
     variants: dict[str, tuple[ViaPoint, ...]] = field(default_factory=dict)
 
 

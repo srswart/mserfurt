@@ -13,6 +13,12 @@ from scribesim.guides.viapoint import (
     ViaPointRecipe,
     lookup_viapoint_recipe,
 )
+from scribesim.guides.viapoint_catalog import (
+    COUNTER_LETTERS,
+    VIAPOINT_CATALOG,
+    check_corpus_exact_coverage,
+    select_contextual_viapoint_recipe,
+)
 
 __all__ = [
     "GUIDE_CATALOG",
@@ -23,4 +29,8 @@ __all__ = [
     "ViaPoint",
     "ViaPointRecipe",
     "lookup_viapoint_recipe",
+    "COUNTER_LETTERS",
+    "VIAPOINT_CATALOG",
+    "check_corpus_exact_coverage",
+    "select_contextual_viapoint_recipe",
 ]

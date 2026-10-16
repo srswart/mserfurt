@@ -26,6 +26,10 @@ from scribesim.guides.viapoint import (
     ViaPointRecipe,
     lookup_viapoint_recipe,
 )
+from scribesim.guides.viapoint_catalog import (
+    VIAPOINT_CATALOG,
+    select_contextual_viapoint_recipe,
+)
 from scribesim.hand.profile import HandProfile, bastarda_nib_calibrated_profile
 from scribesim.render.sandbox import SandboxSample
 
@@ -119,12 +123,10 @@ def solve_word_coarticulation(
     raw_vias: list[tuple[str, int, int, ViaPoint, float, float]] = []
 
     for l_idx, ch in enumerate(word):
-        recipe = VIAPOINT_STARTER_CATALOG.get(ch)
-        if recipe is None:
-            recipe = VIAPOINT_STARTER_CATALOG["n"]
+        recipe = select_contextual_viapoint_recipe(word, l_idx)
         for v_idx, vp in enumerate(recipe.via_points):
             raw_vias.append(
-                (ch, l_idx, v_idx, vp, cursor_wnib + vp.x_wnib, vp.y_wnib)
+                (recipe.letter, l_idx, v_idx, vp, cursor_wnib + vp.x_wnib, vp.y_wnib)
             )
         cursor_wnib += recipe.advance_wnib
 

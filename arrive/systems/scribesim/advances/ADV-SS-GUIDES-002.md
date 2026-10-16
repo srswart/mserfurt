@@ -6,17 +6,17 @@ advance:
   primary_component: "guides"
   components: ["guides", "handflow", "handvalidate", "tests"]
   started_at: "2026-10-16T04:45:00+00:00"
-  implementation_completed_at: ~
+  implementation_completed_at: 2026-10-16T18:55:09.052055Z
   review_time_estimate_minutes: 40
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -48,14 +48,14 @@ Primary component: `guides`. Impacted components: `guides`, `handflow`, `handval
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: organize via-point recipe builders by calligraphic family (minims, bowls, ascender loops, descenders, capitals, marks)
-- [ ] test: add failing unit tests for 100% corpus character coverage (zero aliases), contextual `ſ`/`s` and neighbor-variant selection, and `A4-TOPOLOGY` open-counter preservation
-- [ ] feat/fix: implement complete Bastarda `ViaPointRecipe` catalog, contextual allograph selector, and `A4-TOPOLOGY` gate
+- [x] branch: create or confirm feature branch for this advance (`feat/adv-ss-guides-002`)
+- [x] tidy: organize via-point recipe builders by calligraphic family (minims, bowls, ascender loops, descenders, capitals, marks)
+- [x] test: add failing unit tests for 100% corpus character coverage (zero aliases), contextual `ſ`/`s` and neighbor-variant selection, and `A4-TOPOLOGY` open-counter preservation
+- [x] feat/fix: implement complete Bastarda `ViaPointRecipe` catalog, contextual allograph selector, and `A4-TOPOLOGY` gate
 
 ## Bug Fixes
 
-- [ ] None yet
+- [x] None required
 
 ## Risk + Rollback
 
@@ -64,9 +64,9 @@ Primary component: `guides`. Impacted components: `guides`, `handflow`, `handval
 
 ## Evidence
 
-- [ ] tidy:preparatory
-- [ ] tdd:red-green
-- [ ] tests:unit
+- [x] tidy:preparatory
+- [x] tdd:red-green
+- [x] tests:unit
 
 ## CI Evidence Notes
 
@@ -81,3 +81,22 @@ Primary component: `guides`. Impacted components: `guides`, `handflow`, `handval
 
 ### 2026-10-16 - docs: Draft ADV-SS-GUIDES-002 for TD-019 Pass 16b
 - `arrive/systems/scribesim/advances/ADV-SS-GUIDES-002.md`: Created planned advance record for the full Bastarda via-point alphabet and contextual allographs.
+
+### 2026-10-16 - tidy: add calligraphic family and counter metadata to ViaPointRecipe
+- `scribesim/guides/viapoint.py`: Added `has_counter` and `family` fields to `ViaPointRecipe`.
+- `arrive/systems/scribesim/components/tests.yaml`: Added path selectors for `tests/test_viapoint_catalog.py` and `tests/test_diff_render.py`.
+
+### 2026-10-16 - test: add full Bastarda via-point catalog, contextual allograph, and A4-TOPOLOGY tests
+- `tests/test_viapoint_catalog.py`: Added unit tests verifying 100% character coverage across `output-live` folios (zero aliases), positional `ſ`/`s` and neighbor-adapted entry selection, and `A4-TOPOLOGY` open-counter preservation in `a, o, d, e, g, b, p`.
+
+### 2026-10-16 - feat: implement full Bastarda via-point alphabet, contextual allographs, and A4-TOPOLOGY gate
+- `scribesim/guides/viapoint_catalog.py`: Implemented `VIAPOINT_CATALOG` (covering all 88 unique characters in `output-live` plus Bastarda specials `ſ, ß, ä, ö, ü, Ä, Ö, Ü, ê, î, ⁊, ✦, ¶`), `select_contextual_viapoint_recipe()`, and `check_corpus_exact_coverage()`.
+- `scribesim/handflow/coarticulate.py`: Wired `select_contextual_viapoint_recipe()` into `solve_word_coarticulation()`.
+- `scribesim/handvalidate/kinematic_gates.py`: Implemented `evaluate_a4_topology()` using connected-component background island labeling (`scipy.ndimage.label`) and non-adjacent letter core collision checks.
+
+## Check for Understanding
+
+1. How does `select_contextual_viapoint_recipe()` in `scribesim/guides/viapoint_catalog.py` decide between long `ſ` and round `s`, and how does it adapt entry via-points after high-exit letters (`r, o, v, w, f, t`)?
+2. How does `_count_open_counters_in_image()` in `scribesim/handvalidate/kinematic_gates.py` distinguish an enclosed letter counter from exterior background pixels?
+3. How are 15th-century superscript-`e` umlauts (`ä, ö, ü`) represented in `ViaPointRecipe` without creating unintended ink drag lines from the base vowel?
+
