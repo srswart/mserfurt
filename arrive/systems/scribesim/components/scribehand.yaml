@@ -19,5 +19,6 @@ interfaces:
   - "HTR fidelity gate: score(word_image, expected_text) -> CER/confidence; rejection-sampling loop"
   - "Page composition entry point consumed by `scribesim render --approach neural`"
   - "Model/weights manifest: checksummed external artifact references under shared/models/scribehand/"
+  - "Structure-conditioned hybrid ink-edge micro-texture pass (`scribesim/scribehand/hybrid_texture.py`) over kinematic renders (`--hybrid-texture`)"
 
 invariants: []
