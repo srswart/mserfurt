@@ -1925,3 +1925,93 @@ passes:
       dependencies:
       - ADV-SS-RENDER-006
       notes: "Final decision milestone: G4 four-folio evidence and owner review. Produce an opt-in release recommendation; a default-renderer switch is a separate decision."
+- id: pass-16
+  title: 'Pass 16: TD-019 — Kinematic Coarticulation & Bastarda Hand Recovery'
+  order: 47
+  phases:
+  - id: td019-core-coarticulation
+    title: Fast sandbox, Bastarda nib-width proportions, and global minimum-jerk coarticulation
+    order: 1
+    items:
+    - id: ADV-SS-HAND-004
+      advance_id: ADV-SS-HAND-004
+      title: "Bastarda Nib-Width Proportions, Natural Chisel Contact & Fast Sandbox CLI"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HAND-003
+      - ADV-SS-RENDER-002
+      notes: "Recalibrate Bastarda profile to nib-width units (H = 4.2 w_nib, w_nib = 0.83mm for H = 3.5mm), natural 40-deg hairline sweep, tine splay, turn pooling, and <0.5s zero-lockout `scribesim sandbox` CLI + Tier-1 A1-PROPORTION check."
+    - id: ADV-SS-HANDFLOW-012
+      advance_id: ADV-SS-HANDFLOW-012
+      title: "Global Minimum-Jerk Via-Point Coarticulation Solver"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HAND-004
+      notes: "Replace pairwise cubic spline-splicing with a banded Minimum-Jerk QP trajectory solver over ViaPointRecipe definitions (i, n, u, m, d, e, r). Proves automatic reciprocal neighbor adaptation (A2-KINEMATICS, A3-COARTICULATE) in <1ms per word."
+    - id: ADV-SS-ANNOTATE-007
+      advance_id: ADV-SS-ANNOTATE-007
+      title: "Human-Eyes Review Board & Checkpoint #1 (Core Coarticulation)"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDFLOW-012
+      - ADV-SS-ANNOTATE-002
+      notes: "Add `scribesim review-sheet` 3-way equal-scale comparison board with 4-question rubric and parameter-mapped diagnostic quick-tags. Capture Human Checkpoint #1 on core joins (nu, nm, um, und, der, mir)."
+  - id: td019-alphabet-and-grounding
+    title: Full Bastarda via-point alphabet and differentiable reference word grounding
+    order: 2
+    items:
+    - id: ADV-SS-GUIDES-002
+      advance_id: ADV-SS-GUIDES-002
+      title: "Full Bastarda Via-Point Alphabet & Contextual Allographs"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-ANNOTATE-007
+      - ADV-SS-HANDFLOW-012
+      notes: "Expand ViaPointRecipe catalog to full Early New High German / Latin Bastarda charset (a-z, A-Z, long s, ss, superscript-e umlauts, marks) with TD-012 contextual allographs, 1.0 exact coverage, and Tier-1 A4-TOPOLOGY open-counter checks."
+    - id: ADV-SS-TUNING-002
+      advance_id: ADV-SS-TUNING-002
+      title: "Differentiable Nib Renderer & Reference Word Grounding"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-GUIDES-002
+      - ADV-SS-ANNOTATE-007
+      notes: "Confirm ~30 clean BSB reference word crops with soft baseline-band weighting and refine shared via-point coordinates/tolerances via PyTorch differentiable soft-quad renderer (`diff_render.py`). Capture Human Checkpoint #2 on the 3-line proof specimen."
+  - id: td019-state-and-folio-validation
+    title: Coarticulated ScribeState, automated Tier-2 HTR/distribution bench, and 4-folio promotion
+    order: 3
+    items:
+    - id: ADV-SS-STATE-002
+      advance_id: ADV-SS-STATE-002
+      title: "Coarticulated ScribeState, Ink Cycle & CLIO-7 Folio Modifiers"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-TUNING-002
+      - ADV-SS-INK-001
+      notes: "Wire slow correlated via-point drift (TD-017), contact-distance ink depletion/dips (TD-010), and CLIO-7 folio modifiers (f06r, f07r, f07v, f14r+) into the kinematic composer. Verify Tier-1 A5-ANTI-CLONE."
+    - id: ADV-SS-HANDVALIDATE-027
+      advance_id: ADV-SS-HANDVALIDATE-027
+      title: "Automated HTR/Distribution Bench & 4-Folio Human Sign-Off"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-STATE-002
+      - ADV-SS-ANNOTATE-007
+      notes: "Run Tier-2 automated gates (B1-HTR-CER <= 0.05, B2-ANGLE-EMD, B3-RHYTHM-ACF, B4-CONTRACTS PAGE XML IoU >= 0.95 + pressure heatmap + Weather dry-run) on f01r/f06r/f07r/f14r and capture Human Checkpoint #3."
+  - id: td019-hybrid-texture-optional
+    title: Optional structure-conditioned neural micro-texture pass
+    order: 4
+    items:
+    - id: ADV-SS-SCRIBEHAND-004
+      advance_id: ADV-SS-SCRIBEHAND-004
+      title: "Structure-Conditioned Neural Ink-Edge Texture Pass (Optional Hybrid)"
+      status: planned
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-027
+      notes: "Optional hybrid pass (`--hybrid-texture`) conditioning on the exact kinematic ink and pressure map to add 15th-century quill-on-vellum edge micro-texture while preserving centerline IoU >= 0.92, CER, and PAGE XML coordinates."
