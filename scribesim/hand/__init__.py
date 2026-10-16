@@ -11,6 +11,7 @@ from scribesim.hand.profile import (
     validate_ranges,
     nib_width_for_x_height,
     x_height_to_nib_ratio,
+    bastarda_nib_calibrated_profile,
 )
 
 
@@ -19,4 +20,5 @@ __all__ = [
     "HandProfile", "load_profile", "resolve_profile",
     "parse_overrides", "validate_ranges",
     "nib_width_for_x_height", "x_height_to_nib_ratio",
+    "bastarda_nib_calibrated_profile",
 ]

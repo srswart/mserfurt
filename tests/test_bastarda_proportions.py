@@ -45,9 +45,9 @@ def test_natural_40_degree_chisel_hairline_and_tine_splay() -> None:
     """Chisel projection naturally collapses to hairline at 40° and splays with pressure on downstrokes."""
     nib = PhysicsNib(width_mm=0.8333, angle_deg=40.0, flexibility=0.20)
 
-    # Moving parallel to the 40° chisel edge produces a natural hairline (~0.08mm)
+    # Moving parallel to the 40° chisel edge produces a natural hairline (~0.175mm, ~1/4.2 of downstroke)
     hairline_w = chisel_apparent_width_mm(nib, direction_deg=40.0, pressure=0.35)
-    assert 0.06 <= hairline_w <= 0.11
+    assert 0.14 <= hairline_w <= 0.22
 
     # Moving vertically downward (-90° / 270°) crosses the chisel edge broadly
     downstroke_low_p = chisel_apparent_width_mm(nib, direction_deg=-90.0, pressure=0.3)

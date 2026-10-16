@@ -3246,3 +3246,33 @@ def bench_neural(folio_id: str, input_dir: str, backend: str, htr: str | None,
     if not report.ok:
         raise click.ClickException("neural promotion gates FAILED — see metrics.json")
     click.echo("[bench-neural] all evaluated gates passed")
+
+
+@main.command("sandbox")
+@click.argument("text")
+@click.option("--out-dir", "out_dir", default="debug/sandbox", show_default=True,
+              type=click.Path())
+@click.option("--dpi", default=220.0, type=float, show_default=True)
+@click.option("--x-height-mm", default=3.5, type=float, show_default=True)
+@click.option("--xh-nib-ratio", default=4.2, type=float, show_default=True)
+@click.option("--nib-angle-deg", default=40.0, type=float, show_default=True)
+def sandbox_cmd(text: str, out_dir: str, dpi: float, x_height_mm: float,
+                xh_nib_ratio: float, nib_angle_deg: float) -> None:
+    """Fast zero-lockout Bastarda sandbox renderer (TD-019 Pillar 4)."""
+    from scribesim.render.sandbox import render_sandbox
+
+    metrics = render_sandbox(
+        text,
+        out_dir=Path(out_dir),
+        dpi=dpi,
+        x_height_mm=x_height_mm,
+        xh_in_nib_widths=xh_nib_ratio,
+        nib_angle_deg=nib_angle_deg,
+    )
+    a1 = metrics["a1_proportion"]
+    click.echo(
+        f"[sandbox] {text!r} → {out_dir}/index.html ({metrics['elapsed_seconds']:.3f}s) "
+        f"A1={'PASS' if a1['passed'] else 'FAIL'} "
+        f"ratio={a1['width_ratio_p95_p05']} H/w_nib={a1['x_height_to_nib_ratio']}"
+    )
+

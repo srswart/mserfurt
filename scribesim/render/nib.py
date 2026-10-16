@@ -164,3 +164,110 @@ def stroke_opacity(pressure: float, base_opacity: float,
     combined = pressure * base_opacity * min(1.0, ink_density) * glyph_opacity
     # Map to darkness: 0 = white (255 in L image), 255 = black (0 in L image)
     return max(0, min(255, round(combined * 255)))
+
+
+# ---------------------------------------------------------------------------
+# TD-019 Pillar 1: Natural Chisel Projection, Turn Pooling & A1-PROPORTION
+# ---------------------------------------------------------------------------
+
+def chisel_apparent_width_mm(
+    nib: PhysicsNib,
+    direction_deg: float,
+    pressure: float,
+    *,
+    thickness_ratio: float = 0.21,
+    splay_factor: float = 0.25,
+) -> float:
+    """Compute apparent broad-nib stroke width in mm (TD-019 Pillar 1).
+
+    w(theta, p) = w_nib * (0.85 + k_splay * p) * |sin(theta - alpha_nib)|
+                  + t_nib * |cos(theta - alpha_nib)|
+
+    When moving parallel to the chisel edge (theta == alpha_nib ≈ 40°),
+    sin(theta - alpha_nib) == 0 and the stroke naturally collapses to the
+    chisel hairline thickness t_nib without artificial corner-edge schedules.
+    """
+    theta_rad = math.radians(direction_deg)
+    delta_rad = theta_rad - nib.angle_rad
+    p = max(0.0, min(1.2, pressure))
+    effective_splay = splay_factor * (0.5 + 2.5 * nib.flexibility)
+    t_nib = nib.width_mm * thickness_ratio
+    broad_component = nib.width_mm * (0.82 + effective_splay * p) * abs(math.sin(delta_rad))
+    edge_component = t_nib * abs(math.cos(delta_rad))
+    return max(t_nib * 0.85, broad_component + edge_component)
+
+
+def turn_pooling_factor(
+    speed_mm_s: float,
+    nominal_speed_mm_s: float = 12.0,
+    max_width_boost: float = 0.16,
+    max_ink_boost: float = 0.24,
+) -> tuple[float, float]:
+    """Compute velocity-minimum wet-ink pooling at direction changes / foot turns.
+
+    Returns (width_multiplier, ink_multiplier).
+    When pen speed drops below nominal cruising speed (e.g. at a stem foot or
+    arch reversal), wet ink pools slightly to form organic diamond feet and
+    clubbed heads without self-contact prohibitions.
+    """
+    if nominal_speed_mm_s <= 0 or speed_mm_s >= nominal_speed_mm_s:
+        return 1.0, 1.0
+    slowness = max(0.0, min(1.0, 1.0 - (max(0.0, speed_mm_s) / nominal_speed_mm_s)))
+    # Smooth quadratic pooling profile concentrated near velocity minima
+    pool = slowness * slowness
+    return 1.0 + max_width_boost * pool, 1.0 + max_ink_boost * pool
+
+
+def evaluate_a1_proportion(
+    widths_mm: list[float] | tuple[float, ...],
+    *,
+    x_height_mm: float,
+    nib_width_mm: float,
+    ratio_bounds: tuple[float, float] = (3.2, 5.0),
+    xh_nib_bounds: tuple[float, float] = (3.8, 4.6),
+) -> dict:
+    """Evaluate Tier-1 A1-PROPORTION automated gate (TD-019 §4).
+
+    Checks:
+      1. Thick-to-thin stroke width ratio P95 / P05 in [3.2, 5.0]
+      2. Nib-to-x-height ratio H / w_nib in [3.8, 4.6]
+    """
+    import numpy as np
+
+    if not widths_mm or x_height_mm <= 0 or nib_width_mm <= 0:
+        return {
+            "gate": "A1-PROPORTION",
+            "passed": False,
+            "width_ratio_p95_p05": 0.0,
+            "x_height_to_nib_ratio": 0.0,
+            "failures": ["invalid_inputs"],
+        }
+
+    arr = np.asarray(widths_mm, dtype=float)
+    p05 = float(np.percentile(arr, 5))
+    p95 = float(np.percentile(arr, 95))
+    width_ratio = p95 / max(p05, 1e-6)
+    xh_nib_ratio = x_height_mm / nib_width_mm
+
+    failures: list[str] = []
+    if not (ratio_bounds[0] <= width_ratio <= ratio_bounds[1]):
+        failures.append("width_ratio_p95_p05")
+    if not (xh_nib_bounds[0] <= xh_nib_ratio <= xh_nib_bounds[1]):
+        failures.append("x_height_to_nib_ratio")
+
+    return {
+        "gate": "A1-PROPORTION",
+        "passed": len(failures) == 0,
+        "width_ratio_p95_p05": round(width_ratio, 4),
+        "p95_width_mm": round(p95, 4),
+        "p05_width_mm": round(p05, 4),
+        "x_height_to_nib_ratio": round(xh_nib_ratio, 4),
+        "x_height_mm": round(x_height_mm, 4),
+        "nib_width_mm": round(nib_width_mm, 4),
+        "bounds": {
+            "width_ratio_p95_p05": list(ratio_bounds),
+            "x_height_to_nib_ratio": list(xh_nib_bounds),
+        },
+        "failures": failures,
+    }
+

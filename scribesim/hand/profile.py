@@ -630,3 +630,21 @@ def x_height_to_nib_ratio(x_height_mm: float, nib_width_mm: float) -> float:
         raise ValueError("x_height_mm and nib_width_mm must be positive")
     return x_height_mm / nib_width_mm
 
+
+def bastarda_nib_calibrated_profile(
+    x_height_mm: float = BASTARDA_DEFAULT_X_HEIGHT_MM,
+    x_height_in_nib_widths: float = BASTARDA_NIB_PROPORTION_RATIO,
+    angle_deg: float = 40.0,
+) -> HandProfile:
+    """Return a HandProfile calibrated to historical 15th-c. Bastarda nib proportions (TD-019)."""
+    profile = HandProfile()
+    w_nib = nib_width_for_x_height(x_height_mm, x_height_in_nib_widths)
+    profile.letterform.x_height_mm = x_height_mm
+    profile.nib.width_mm = w_nib
+    profile.nib.angle_deg = angle_deg
+    profile.nib.flexibility = 0.20
+    profile.material.pooling_at_direction_change = 0.22
+    profile.x_height_px = max(16, round(x_height_mm * 300.0 / 25.4))
+    return profile
+
+
