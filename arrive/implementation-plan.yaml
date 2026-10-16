@@ -2003,12 +2003,13 @@ passes:
     - id: ADV-SS-HANDVALIDATE-027
       advance_id: ADV-SS-HANDVALIDATE-027
       title: "Automated HTR/Distribution Bench & 4-Folio Human Sign-Off"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-STATE-002
       - ADV-SS-ANNOTATE-007
       notes: "Run Tier-2 automated gates (B1-HTR-CER <= 0.05, B2-ANGLE-EMD, B3-RHYTHM-ACF, B4-CONTRACTS PAGE XML IoU >= 0.95 + pressure heatmap + Weather dry-run) on f01r/f06r/f07r/f14r and capture Human Checkpoint #3."
+      status_changed_at: 2026-10-16T19:29:24.717575Z
   - id: td019-hybrid-texture-optional
     title: Optional structure-conditioned neural micro-texture pass
     order: 4
