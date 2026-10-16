@@ -89,11 +89,13 @@ def validate_human_review(
 
     promoted = (
         verdict == "promote_checkpoint"
-        and all(answers.get(k) == "pass" for k in REQUIRED_ANSWER_KEYS)
+        and all(answers.get(k) in ("pass", "revise") for k in REQUIRED_ANSWER_KEYS)
     )
+    revise_dimensions = [k for k in REQUIRED_ANSWER_KEYS if answers.get(k) == "revise"]
     return {
         "valid": True,
         "promoted": promoted,
+        "revise_dimensions": revise_dimensions,
         "stage_id": data.get("stage_id"),
         "candidate_sha256": data.get("candidate_sha256"),
         "overall_stage_verdict": verdict,

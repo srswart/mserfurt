@@ -1,0 +1,26 @@
+{
+  "schema_version": "td019-human-review-v1",
+  "stage_id": "checkpoint-2-specimen",
+  "candidate_sha256": "df1cdcdcc8507b3f0019ed8ae68b5534c6590b80f45a9c68b8c4fdf8ae33fe50",
+  "reviewer": "shawn",
+  "reviewed_at": "2026-10-16T19:15:15.789113+00:00",
+  "answers": {
+    "join_ductus_flow": "pass",
+    "bastarda_script_identity": "pass",
+    "organic_hand_variation": "revise"
+  },
+  "overall_stage_verdict": "promote_checkpoint",
+  "quick_tags": [
+    "clones_visible"
+  ],
+  "parameter_recommendations": [
+    {
+      "tag": "clones_visible",
+      "parameter_group": "render",
+      "field": "ScribeState.motor_memory_sigma",
+      "direction": "increase (+0.01 x_height)",
+      "rationale": "Increase slow correlated drift across repeated letter occurrences."
+    }
+  ],
+  "notes": "It looks excellent but a bit seems it's the letters follow a strict formula I notice especially when the first letter of a word is the same the nuances on the letter look very similar. "
+}

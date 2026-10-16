@@ -13,7 +13,7 @@ advance:
   external_refs: []
   reviewability_score: 0
   risk_flags: []
-  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit", "review:owner"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
   status: complete
@@ -52,7 +52,7 @@ Primary component: `tuning`. Impacted components: `tuning`, `annotate`, `handval
 - [x] tidy: preparatory cleanup of shared loss utilities in `scribesim/tuning/` (no behavior change)
 - [x] test: add failing unit tests for differentiable quad SDF forward/backward gradients, baseline-band loss weighting, and bounded via-point refinement preserving `A1–A4` invariants
 - [x] feat/fix: implement `scribesim/tuning/diff_render.py`, confirm ~30 BSB reference word crops, and run bounded gradient refinement of the shared `ViaPointRecipe` catalog
-- [ ] review: capture owner visual review for **Human Checkpoint #2** (3-line specimen) in `shared/training/reviews/checkpoint-2-specimen-review.json` (board ready at `shared/training/reviews/checkpoint-2-specimen/index.html`, awaiting owner eyes)
+- [x] review: capture owner visual review for **Human Checkpoint #2** (3-line specimen) in `shared/training/reviews/checkpoint-2-specimen-review.json` (`promote_checkpoint` with `organic_hand_variation: revise` targeting word-initial letter variation in `ADV-SS-STATE-002`)
 
 ## Bug Fixes
 
@@ -68,7 +68,7 @@ Primary component: `tuning`. Impacted components: `tuning`, `annotate`, `handval
 - [x] tidy:preparatory
 - [x] tdd:red-green
 - [x] tests:unit
-- [ ] review:owner (board ready at `shared/training/reviews/checkpoint-2-specimen/index.html`)
+- [x] review:owner (`shared/training/reviews/checkpoint-2-specimen-review.json`)
 
 ## CI Evidence Notes
 
