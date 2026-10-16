@@ -3276,3 +3276,33 @@ def sandbox_cmd(text: str, out_dir: str, dpi: float, x_height_mm: float,
         f"ratio={a1['width_ratio_p95_p05']} H/w_nib={a1['x_height_to_nib_ratio']}"
     )
 
+
+@main.command("review-sheet")
+@click.option("--stage", "stage_id", default="checkpoint-1-coarticulation", show_default=True)
+@click.option("--out-dir", "out_dir", default="shared/training/reviews/checkpoint-1-coarticulation",
+              show_default=True, type=click.Path())
+@click.option("--dpi", default=180.0, type=float, show_default=True)
+def review_sheet_cmd(stage_id: str, out_dir: str, dpi: float) -> None:
+    """Generate the TD-019 Human-Eyes Review Board (`index.html` + `board_manifest.json`)."""
+    from scribesim.annotate.review_board import CHECKPOINT_1_SPECIMENS, build_review_sheet
+
+    manifest = build_review_sheet(
+        stage_id=stage_id,
+        specimens=CHECKPOINT_1_SPECIMENS,
+        out_dir=Path(out_dir),
+        dpi=dpi,
+    )
+    t1 = manifest["tier1_summary"]
+    click.echo(
+        f"[review-sheet] stage={stage_id} → {out_dir}/index.html "
+        f"A1={'PASS' if t1['a1_all_passed'] else 'FAIL'} "
+        f"A2={'PASS' if t1['a2_all_passed'] else 'FAIL'} "
+        f"A3={'PASS' if t1['a3_coarticulate']['passed'] else 'FAIL'}"
+    )
+
+
+if __name__ == "__main__":
+    main()
+
+
+
