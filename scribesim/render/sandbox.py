@@ -115,10 +115,14 @@ def render_trajectory_samples(
     svg_w = round(w_mm * svg_scale)
     svg_h = round(h_mm * svg_scale)
 
+    prev_hx_px: float | None = None
+    prev_hy_px: float | None = None
+
     for idx in range(1, len(samples)):
         prev = samples[idx - 1]
         curr = samples[idx]
         if not (prev.contact and curr.contact):
+            prev_hx_px, prev_hy_px = None, None
             continue
 
         dx = curr.x_mm - prev.x_mm
@@ -142,46 +146,48 @@ def render_trajectory_samples(
         eff_w = app_w * pool_w
         widths_mm.append(eff_w)
 
-        # Chisel edge half-vector in canvas coordinates (y-down, so -sin for +angle_deg up-right)
-        angle_rad = math.radians(curr.nib_angle_deg)
-        splay_scale = (0.85 + 0.25 * avg_p) * pool_w
-        half_edge = 0.5 * nib.width_mm * splay_scale
-        hx_mm = half_edge * math.cos(angle_rad)
-        hy_mm = -half_edge * math.sin(angle_rad)
-
-        # Normal thickness vector (t_nib) perpendicular to chisel edge so 40° hairlines have finite thickness
-        t_half_mm = 0.5 * nib.width_mm * 0.21
-        nx_mm = -t_half_mm * math.sin(angle_rad)
-        ny_mm = -t_half_mm * math.cos(angle_rad)
-
         x0 = (prev.x_mm - min_x) * px_per_mm_int
         y0 = (prev.y_mm - min_y) * px_per_mm_int
         x1 = (curr.x_mm - min_x) * px_per_mm_int
         y1 = (curr.y_mm - min_y) * px_per_mm_int
 
-        hx_px = hx_mm * px_per_mm_int
-        hy_px = hy_mm * px_per_mm_int
-        nx_px = nx_mm * px_per_mm_int
-        ny_px = ny_mm * px_per_mm_int
+        # Ribbon half-normal perpendicular to segment direction with exact width eff_w,
+        # blended with the 40° chisel edge orientation so stroke starts/ends keep crisp 40° terminals.
+        ux = dx / seg_len
+        uy = dy / seg_len
+        perp_x = -uy
+        perp_y = ux
+        half_w_px = 0.5 * eff_w * px_per_mm_int
+
+        angle_rad = math.radians(curr.nib_angle_deg)
+        chisel_x = math.cos(angle_rad) * half_w_px
+        chisel_y = -math.sin(angle_rad) * half_w_px
+        # Ensure consistent sign between perpendicular normal and chisel vector
+        if perp_x * chisel_x + perp_y * chisel_y < 0:
+            perp_x, perp_y = -perp_x, -perp_y
+        hx_px = 0.65 * perp_x * half_w_px + 0.35 * chisel_x
+        hy_px = 0.65 * perp_y * half_w_px + 0.35 * chisel_y
+
+        if prev_hx_px is not None and prev_hy_px is not None:
+            if prev_hx_px * hx_px + prev_hy_px * hy_px < 0:
+                hx_px, hy_px = -hx_px, -hy_px
+            h0x, h0y = prev_hx_px, prev_hy_px
+        else:
+            h0x, h0y = hx_px, hy_px
 
         darkness = min(1.0, max(0.38, (0.62 + 0.32 * avg_p) * pool_i * prof.ink_density))
         color = _ink_rgb(darkness)
 
-        # Sweep both chisel edge and finite nib thickness
         quad_edge = [
-            (x0 - hx_px - nx_px, y0 - hy_px - ny_px),
-            (x0 + hx_px + nx_px, y0 + hy_px + ny_px),
-            (x1 + hx_px + nx_px, y1 + hy_px + ny_px),
-            (x1 - hx_px - nx_px, y1 - hy_px - ny_px),
+            (x0 - h0x, y0 - h0y),
+            (x0 + h0x, y0 + h0y),
+            (x1 + hx_px, y1 + hy_px),
+            (x1 - hx_px, y1 - hy_px),
         ]
         draw.polygon(quad_edge, fill=color)
-        quad_thick = [
-            (x0 - hx_px + nx_px, y0 - hy_px + ny_px),
-            (x0 + hx_px - nx_px, y0 + hy_px - ny_px),
-            (x1 + hx_px - nx_px, y1 + hy_px - ny_px),
-            (x1 - hx_px + nx_px, y1 - hy_px + ny_px),
-        ]
-        draw.polygon(quad_thick, fill=color)
+        prev_hx_px, prev_hy_px = hx_px, hy_px
+        hx_mm = hx_px / px_per_mm_int
+        hy_mm = hy_px / px_per_mm_int
 
         sx0 = (prev.x_mm - min_x) * svg_scale
         sy0 = (prev.y_mm - min_y) * svg_scale

@@ -6,17 +6,17 @@ advance:
   primary_component: "annotate"
   components: ["annotate", "handvalidate", "cli", "tests"]
   started_at: "2026-10-16T04:45:00+00:00"
-  implementation_completed_at: ~
+  implementation_completed_at: 2026-10-16T18:41:30.728354Z
   review_time_estimate_minutes: 30
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -52,15 +52,15 @@ Primary component: `annotate`. Impacted components: `annotate`, `handvalidate`, 
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: preparatory extraction of shared workbench HTTP/static-asset helpers in `scribesim/annotate/` (no behavior change)
-- [ ] test: add failing unit tests for 3-way review sheet generation, 4-question rubric serialization, quick-tag parameter recommendation mapping, and `review_gate` verification
-- [ ] feat/fix: implement `scribesim/annotate/review_board.py`, `scribesim/handvalidate/review_gate.py`, and `scribesim review-sheet` CLI
-- [ ] review: capture owner visual review for **Human Checkpoint #1** (`n, u, m, nu, nm, um, und, der, mir`) in `shared/training/reviews/checkpoint-1-coarticulation.json`
+- [x] branch: create or confirm feature branch for this advance (`feat/adv-ss-annotate-007`)
+- [x] tidy: preparatory extraction of shared workbench HTTP/static-asset helpers in `scribesim/annotate/` (no behavior change)
+- [x] test: add failing unit tests for 3-way review sheet generation, 4-question rubric serialization, quick-tag parameter recommendation mapping, and `review_gate` verification
+- [x] feat/fix: implement `scribesim/annotate/review_board.py`, `scribesim/handvalidate/review_gate.py`, and `scribesim review-sheet` CLI
+- [ ] review: capture owner visual review for **Human Checkpoint #1** (`n, u, m, nu, nm, um, und, der, mir`) in `shared/training/reviews/checkpoint-1-coarticulation.json` (board generated at `shared/training/reviews/checkpoint-1-coarticulation/index.html`, awaiting owner eyes)
 
 ## Bug Fixes
 
-- [ ] None yet
+- [x] Connected consecutive quad vertices `(prev_hx_px, prev_hy_px)` across curved segments in `scribesim/render/sandbox.py` and separated top-arch overturns (`n`, `m`) from baseline underturns (`u`) in `scribesim/guides/viapoint.py` so ribbon renders are seamless and distinct.
 
 ## Risk + Rollback
 
@@ -69,10 +69,10 @@ Primary component: `annotate`. Impacted components: `annotate`, `handvalidate`, 
 
 ## Evidence
 
-- [ ] tidy:preparatory
-- [ ] tdd:red-green
-- [ ] tests:unit
-- [ ] review:owner
+- [x] tidy:preparatory
+- [x] tdd:red-green
+- [x] tests:unit
+- [ ] review:owner (board ready at `shared/training/reviews/checkpoint-1-coarticulation/index.html`)
 
 ## CI Evidence Notes
 
@@ -87,3 +87,22 @@ Primary component: `annotate`. Impacted components: `annotate`, `handvalidate`, 
 
 ### 2026-10-16 - docs: Draft ADV-SS-ANNOTATE-007 for TD-019 Pass 16a
 - `arrive/systems/scribesim/advances/ADV-SS-ANNOTATE-007.md`: Created planned advance record for the Human-Eyes Review Board and Checkpoint #1.
+
+### 2026-10-16 - tidy: add review-sheet selector and interface to annotate component
+- `arrive/systems/scribesim/components/annotate.yaml`: Added `shared/training/reviews/**` selector and `scribesim review-sheet` interface.
+
+### 2026-10-16 - test: add Human-Eyes Review Board, 4-question rubric, quick-tag mapper, and review gate tests
+- `tests/test_review_board.py`: Added unit and CLI tests covering quick-tag-to-parameter mapping, Checkpoint #1 3-way board generation, `save_human_review` / `validate_human_review`, and `scribesim review-sheet`.
+
+### 2026-10-16 - feat: implement Human-Eyes Review Board, 4-question rubric, quick-tag mapper, and review-sheet CLI
+- `scribesim/annotate/review_board.py`: Implemented `build_review_sheet()`, `map_quick_tags_to_parameters()`, `RUBRIC_QUESTIONS`, and `CHECKPOINT_1_SPECIMENS`.
+- `scribesim/handvalidate/review_gate.py`: Implemented `save_human_review()` and `validate_human_review()`.
+- `scribesim/cli.py`: Added `scribesim review-sheet` subcommand and `__main__` entrypoint.
+- `scribesim/guides/viapoint.py` & `scribesim/render/sandbox.py`: Refined top-arch vs. baseline-underturn via-points and seamless quad vertex chaining.
+
+## Check for Understanding
+
+1. How does `map_quick_tags_to_parameters()` translate qualitative reviewer tags (such as `too_wide_gap` or `abrupt_shoulder`) into concrete parameter adjustments in `guides` and `handflow`?
+2. Why does `validate_human_review()` verify both `stage_id` and `candidate_sha256` before reporting `promoted: True`?
+3. What three views are displayed side-by-side for each specimen on the `scribesim review-sheet` board?
+
