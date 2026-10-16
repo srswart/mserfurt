@@ -25,6 +25,17 @@ class TrackPlanSample:
     corridor_half_width_mm: float
     progress_ratio: float = 0.0
 
+    def to_trajectory_sample(self, width_mm: float | None = None) -> TrajectorySample:
+        """Convert this desired plan sample into a TrajectorySample."""
+        return TrajectorySample(
+            x_mm=self.x_mm,
+            y_mm=self.y_mm,
+            contact=self.contact,
+            width_mm=width_mm,
+            pressure=self.pressure if self.contact else 0.0,
+            nib_angle_deg=self.nib_angle_deg,
+        )
+
 
 @dataclass(frozen=True)
 class TrackPlan:
