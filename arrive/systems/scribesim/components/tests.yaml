@@ -38,6 +38,8 @@ selectors:
     - "tests/test_review_board.py"
     - "tests/test_viapoint_catalog.py"
     - "tests/test_diff_render.py"
+    - "tests/test_kinematic_state.py"
+    - "tests/test_tier2_bench.py"
   build_modules: []
   tags: []
   contracts: []

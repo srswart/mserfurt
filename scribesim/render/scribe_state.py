@@ -19,11 +19,18 @@ Legibility constraints (hard limits):
 
 from __future__ import annotations
 
+import hashlib
 import math
 import random
 from dataclasses import dataclass, field
 
 from scribesim.ink.cycle import InkState, ink_darkness
+
+
+def _stable_seed(*parts: object) -> int:
+    """Compute a deterministic 32-bit seed independent of PYTHONHASHSEED."""
+    raw = ":".join(str(p) for p in parts).encode("utf-8")
+    return int.from_bytes(hashlib.sha256(raw).digest()[:4], "big")
 
 
 # ---------------------------------------------------------------------------
@@ -78,6 +85,17 @@ class ScribeState:
         """Current form drift for a glyph in x-height units."""
         return self.motor_memory.get(glyph_id, (0.0, 0.0))
 
+    def consume_contact_distance(
+        self,
+        stroke_length_mm: float,
+        avg_pressure: float = 0.72,
+        avg_width_mm: float = 0.8333,
+    ) -> float:
+        """Consume ink continuously along on-surface contact arc length and return updated ink_level."""
+        if stroke_length_mm > 0:
+            self.ink_state.deplete_for_step(stroke_length_mm, avg_pressure, avg_width_mm)
+        return self.ink_level
+
 
 # ---------------------------------------------------------------------------
 # ScribeStateUpdater
@@ -100,7 +118,7 @@ class ScribeStateUpdater:
         ink_dip_threshold: float = 0.22,
     ) -> None:
         self._folio_id = folio_id
-        seed = hash(folio_id) & 0xFFFFFFFF
+        seed = _stable_seed(folio_id)
         rng = random.Random(seed)
 
         ink = InkState(
@@ -122,7 +140,7 @@ class ScribeStateUpdater:
             return
         # Each glyph starts at a small non-zero position so that variation
         # is present from line 1 rather than starting at a common zero point.
-        glyph_seed = hash((self._folio_id, glyph_id)) & 0xFFFFFFFF
+        glyph_seed = _stable_seed(self._folio_id, glyph_id)
         init_rng = random.Random(glyph_seed)
         dx = max(-_MOTOR_LIMIT, min(_MOTOR_LIMIT, init_rng.gauss(0, _MOTOR_INIT_SIGMA)))
         dy = max(-_MOTOR_LIMIT, min(_MOTOR_LIMIT, init_rng.gauss(0, _MOTOR_INIT_SIGMA)))
