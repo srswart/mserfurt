@@ -274,6 +274,7 @@ def _render_folio(
     neural_seed: int = 1457,
     neural_allow_unverified: bool = False,
     neural_diag_dir: str | None = None,
+    hybrid_texture: bool = False,
 ) -> tuple[Path, Path, Path]:
     from PIL import Image as PILImage
     from scribesim.layout import place
@@ -298,6 +299,7 @@ def _render_folio(
             folio_id=folio_id,
             dpi=300.0,
             seed=neural_seed,
+            hybrid_texture=hybrid_texture,
         )
         report_path = _write_render_report(
             output_dir,
@@ -316,6 +318,7 @@ def _render_folio(
                 "page_nib_width_mm": profile.nib.width_mm,
                 "page_nib_angle_deg": profile.nib.angle_deg,
                 "contracts": res["contracts"],
+                "hybrid_texture": res.get("hybrid_texture"),
             },
         )
         return res["page_path"], res["heatmap_path"], report_path
@@ -549,6 +552,8 @@ def _render_folio(
               help="Compose words that failed HTR verification (exploratory only)")
 @click.option("--neural-diag-dir", "neural_diag_dir", default=None, type=click.Path(),
               help="Write a TD-018 diagnostic bundle directory for this render")
+@click.option("--hybrid-texture/--no-hybrid-texture", "hybrid_texture", default=False, show_default=True,
+              help="Apply TD-019 structure-conditioned hybrid ink-edge micro-texture pass on kinematic renders")
 @click.option("--dry-run", is_flag=True, default=False,
               help="Resolve hand params and report plan without rendering")
 @click.option("--set", "overrides", multiple=True,
@@ -559,7 +564,7 @@ def render(folio_id: str, input_dir: str, output_dir: str,
            guided_supersample: int, guided_exact_symbols: bool, guided_guide_catalog: str | None,
            neural_backend: str, neural_htr: str | None, neural_cache_dir: str | None,
            neural_seed: int, neural_allow_unverified: bool, neural_diag_dir: str | None,
-           dry_run: bool, overrides: tuple) -> None:
+           hybrid_texture: bool, dry_run: bool, overrides: tuple) -> None:
     """Render a single folio to PNG + pressure heatmap.
 
     FOLIO_ID is the folio identifier, e.g. f01r or 1r.
@@ -631,6 +636,7 @@ def render(folio_id: str, input_dir: str, output_dir: str,
         neural_seed=neural_seed,
         neural_allow_unverified=neural_allow_unverified,
         neural_diag_dir=neural_diag_dir,
+        hybrid_texture=hybrid_texture,
     )
 
     click.echo(f"  page    → {png_path}")
@@ -3349,7 +3355,8 @@ def review_sheet_cmd(stage_id: str, out_dir: str, dpi: float) -> None:
               show_default=True, type=click.Path())
 @click.option("--dpi", default=180.0, type=float, show_default=True)
 @click.option("--max-lines", default=4, type=int, show_default=True)
-def validate_kinematic_cmd(input_dir: str, out_dir: str, dpi: float, max_lines: int) -> None:
+@click.option("--hybrid-texture/--no-hybrid-texture", "hybrid_texture", default=False, show_default=True)
+def validate_kinematic_cmd(input_dir: str, out_dir: str, dpi: float, max_lines: int, hybrid_texture: bool) -> None:
     """Run TD-019 Tier-1 (A1-A5) & Tier-2 (B1-B4) gates across the 4 proof folios."""
     from scribesim.handvalidate.tier2_bench import run_tier2_kinematic_bench
 
@@ -3358,6 +3365,7 @@ def validate_kinematic_cmd(input_dir: str, out_dir: str, dpi: float, max_lines: 
         out_dir=Path(out_dir),
         dpi=dpi,
         max_lines=max_lines,
+        hybrid_texture=hybrid_texture,
     )
     click.echo(
         f"[validate-kinematic] passed={report['passed']} "

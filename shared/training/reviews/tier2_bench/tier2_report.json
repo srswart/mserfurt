@@ -60,12 +60,12 @@
     "a5_anti_clone": {
       "gate": "A5-ANTI-CLONE",
       "passed": true,
-      "min_word_dtw_wnib": 0.2614,
-      "max_word_dtw_wnib": 0.4065,
-      "min_initial_letter_delta_wnib": 0.3156,
+      "min_word_dtw_wnib": 0.373,
+      "max_word_dtw_wnib": 0.58,
+      "min_initial_letter_delta_wnib": 0.3877,
       "bounds_wnib": [
         0.06,
-        0.95
+        1.45
       ],
       "failures": []
     }
@@ -85,7 +85,7 @@
   "b2_angle_emd": {
     "gate": "B2-ANGLE-EMD",
     "passed": true,
-    "emd": 0.0604,
+    "emd": 0.0601,
     "threshold": 0.12
   },
   "b3_rhythm_acf": {
@@ -99,7 +99,7 @@
     "passed": true,
     "exact_character_coverage": 1.0,
     "min_glyph_bbox_iou": 0.9999,
-    "min_pressure_dynamic_range": 0.7016,
+    "min_pressure_dynamic_range": 0.7014,
     "weather_compatible": true
   },
   "folios": {
@@ -111,45 +111,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.4607,
-        "p95_width_mm": 0.8361,
-        "p05_width_mm": 0.1874,
-        "x_height_to_nib_ratio": 4.2002,
-        "x_height_mm": 3.5,
-        "nib_width_mm": 0.8333,
-        "bounds": {
-          "width_ratio_p95_p05": [
-            3.2,
-            5.0
-          ],
-          "x_height_to_nib_ratio": [
-            3.8,
-            4.6
-          ]
-        },
-        "failures": []
-      },
-      "contracts": {
-        "exact_character_coverage": 1.0,
-        "glyph_bbox_iou": 1.0,
-        "pressure_dynamic_range": 0.7067,
-        "weather_compatible": true
-      },
-      "htr_cer": 0.012,
-      "rhythm_acf_lag_px": 10,
-      "rhythm_acf_peak": 0.67
-    },
-    "f06r": {
-      "folio_id": "f06r",
-      "page_png": "shared/training/reviews/tier2_bench/f06r/f06r.png",
-      "pressure_png": "shared/training/reviews/tier2_bench/f06r/f06r_pressure.png",
-      "page_xml": "shared/training/reviews/tier2_bench/f06r/f06r.xml",
-      "a1_proportion": {
-        "gate": "A1-PROPORTION",
-        "passed": true,
-        "width_ratio_p95_p05": 4.5582,
-        "p95_width_mm": 0.8623,
-        "p05_width_mm": 0.1892,
+        "width_ratio_p95_p05": 4.4729,
+        "p95_width_mm": 0.8365,
+        "p05_width_mm": 0.187,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -168,24 +132,36 @@
       "contracts": {
         "exact_character_coverage": 1.0,
         "glyph_bbox_iou": 0.9999,
-        "pressure_dynamic_range": 0.8324,
+        "pressure_dynamic_range": 0.7066,
         "weather_compatible": true
       },
-      "htr_cer": 0.028,
-      "rhythm_acf_lag_px": 9,
-      "rhythm_acf_peak": 0.7401
+      "hybrid_texture": {
+        "gate": "HYBRID-STRUCTURE-IOU",
+        "passed": true,
+        "centerline_iou": 1.0,
+        "min_centerline_iou": 0.92,
+        "raw_counters": 139,
+        "textured_counters": 139,
+        "counter_delta": 0,
+        "edge_micro_roughness_gain": 10.3457,
+        "interior_granulation_gain": 3.8843,
+        "failures": []
+      },
+      "htr_cer": 0.012,
+      "rhythm_acf_lag_px": 10,
+      "rhythm_acf_peak": 0.6661
     },
-    "f07r": {
-      "folio_id": "f07r",
-      "page_png": "shared/training/reviews/tier2_bench/f07r/f07r.png",
-      "pressure_png": "shared/training/reviews/tier2_bench/f07r/f07r_pressure.png",
-      "page_xml": "shared/training/reviews/tier2_bench/f07r/f07r.xml",
+    "f06r": {
+      "folio_id": "f06r",
+      "page_png": "shared/training/reviews/tier2_bench/f06r/f06r.png",
+      "pressure_png": "shared/training/reviews/tier2_bench/f06r/f06r_pressure.png",
+      "page_xml": "shared/training/reviews/tier2_bench/f06r/f06r.xml",
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.4399,
-        "p95_width_mm": 0.8361,
-        "p05_width_mm": 0.1883,
+        "width_ratio_p95_p05": 4.5717,
+        "p95_width_mm": 0.8619,
+        "p05_width_mm": 0.1885,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -204,12 +180,72 @@
       "contracts": {
         "exact_character_coverage": 1.0,
         "glyph_bbox_iou": 1.0,
-        "pressure_dynamic_range": 0.7016,
+        "pressure_dynamic_range": 0.8325,
         "weather_compatible": true
+      },
+      "hybrid_texture": {
+        "gate": "HYBRID-STRUCTURE-IOU",
+        "passed": true,
+        "centerline_iou": 1.0,
+        "min_centerline_iou": 0.92,
+        "raw_counters": 162,
+        "textured_counters": 162,
+        "counter_delta": 0,
+        "edge_micro_roughness_gain": 9.8803,
+        "interior_granulation_gain": 3.2602,
+        "failures": []
+      },
+      "htr_cer": 0.028,
+      "rhythm_acf_lag_px": 9,
+      "rhythm_acf_peak": 0.7321
+    },
+    "f07r": {
+      "folio_id": "f07r",
+      "page_png": "shared/training/reviews/tier2_bench/f07r/f07r.png",
+      "pressure_png": "shared/training/reviews/tier2_bench/f07r/f07r_pressure.png",
+      "page_xml": "shared/training/reviews/tier2_bench/f07r/f07r.xml",
+      "a1_proportion": {
+        "gate": "A1-PROPORTION",
+        "passed": true,
+        "width_ratio_p95_p05": 4.4359,
+        "p95_width_mm": 0.8359,
+        "p05_width_mm": 0.1884,
+        "x_height_to_nib_ratio": 4.2002,
+        "x_height_mm": 3.5,
+        "nib_width_mm": 0.8333,
+        "bounds": {
+          "width_ratio_p95_p05": [
+            3.2,
+            5.0
+          ],
+          "x_height_to_nib_ratio": [
+            3.8,
+            4.6
+          ]
+        },
+        "failures": []
+      },
+      "contracts": {
+        "exact_character_coverage": 1.0,
+        "glyph_bbox_iou": 1.0,
+        "pressure_dynamic_range": 0.7014,
+        "weather_compatible": true
+      },
+      "hybrid_texture": {
+        "gate": "HYBRID-STRUCTURE-IOU",
+        "passed": true,
+        "centerline_iou": 1.0,
+        "min_centerline_iou": 0.92,
+        "raw_counters": 137,
+        "textured_counters": 137,
+        "counter_delta": 0,
+        "edge_micro_roughness_gain": 9.4086,
+        "interior_granulation_gain": 3.7365,
+        "failures": []
       },
       "htr_cer": 0.012,
       "rhythm_acf_lag_px": 9,
-      "rhythm_acf_peak": 0.7053
+      "rhythm_acf_peak": 0.7162
     },
     "f14r": {
       "folio_id": "f14r",
@@ -219,9 +255,9 @@
       "a1_proportion": {
         "gate": "A1-PROPORTION",
         "passed": true,
-        "width_ratio_p95_p05": 4.4966,
-        "p95_width_mm": 0.8349,
-        "p05_width_mm": 0.1857,
+        "width_ratio_p95_p05": 4.5205,
+        "p95_width_mm": 0.836,
+        "p05_width_mm": 0.1849,
         "x_height_to_nib_ratio": 4.2002,
         "x_height_mm": 3.5,
         "nib_width_mm": 0.8333,
@@ -243,9 +279,21 @@
         "pressure_dynamic_range": 0.7579,
         "weather_compatible": true
       },
+      "hybrid_texture": {
+        "gate": "HYBRID-STRUCTURE-IOU",
+        "passed": true,
+        "centerline_iou": 1.0,
+        "min_centerline_iou": 0.92,
+        "raw_counters": 116,
+        "textured_counters": 116,
+        "counter_delta": 0,
+        "edge_micro_roughness_gain": 9.9608,
+        "interior_granulation_gain": 3.9923,
+        "failures": []
+      },
       "htr_cer": 0.028,
       "rhythm_acf_lag_px": 10,
-      "rhythm_acf_peak": 0.6555
+      "rhythm_acf_peak": 0.6749
     }
   }
 }

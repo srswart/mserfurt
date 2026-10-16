@@ -317,29 +317,30 @@ class KinematicScribeSession:
         vec = self._letter_walk[letter]
         step_rng = random.Random(_stable_seed(self.folio_id, self.seed, "occ", letter, occ, self.word_counter))
 
-        # Correlated AR(1) random walk with visibly organic amplitude across occurrences
-        deltas = (0.085, 0.085, 0.065, 0.14, 0.055)
-        limits = (0.22, 0.20, 0.14, 0.32, 0.11)
+        # Correlated AR(1) random walk with human-visible amplitude (2-3.5px at 180 DPI) across occurrences
+        deltas = (0.14, 0.12, 0.11, 0.22, 0.075)
+        limits = (0.32, 0.28, 0.22, 0.45, 0.14)
         phase = (occ + 1) * 1.73 + self.word_counter * 0.91 + self.current_line * 0.63
         for i in range(5):
             step = step_rng.gauss(0.0, deltas[i]) + 0.45 * deltas[i] * math.sin(phase + i * 1.3)
-            val = 0.65 * vec[i] + step
+            val = 0.62 * vec[i] + step
             vec[i] = max(-limits[i], min(limits[i], val))
 
         entry_hook_dx = 0.0
         entry_hook_dy = 0.0
-        loop_spread_dx = round(step_rng.uniform(-0.22, 0.24) + 0.12 * math.cos(phase * 1.3), 4)
-        loop_height_dy = round(step_rng.uniform(-0.28, 0.32) + 0.15 * math.sin(phase * 0.9), 4)
-        word_baseline_dy = round(0.14 * math.sin(self.word_counter * 0.85 + self.current_line * 1.4), 4)
+        loop_spread_dx = round(step_rng.uniform(-0.38, 0.42) + 0.18 * math.cos(phase * 1.3), 4)
+        loop_height_dy = round(step_rng.uniform(-0.42, 0.48) + 0.22 * math.sin(phase * 0.9), 4)
+        word_baseline_dy = round(0.18 * math.sin(self.word_counter * 0.85 + self.current_line * 1.4), 4)
+        y_scale = round(1.0 + step_rng.uniform(-0.065, 0.075), 4)
 
         if is_word_initial:
             # Cross-word air carryover + visible word-onset attack variation
             air_pull = 0.0
             if prev_word_exit_y_wnib is not None:
-                air_pull = max(-0.24, min(0.24, (prev_word_exit_y_wnib - 1.2) * 0.12))
+                air_pull = max(-0.32, min(0.32, (prev_word_exit_y_wnib - 1.2) * 0.15))
             onset_angle = (occ * 2.17 + self.word_counter * 1.31 + self.current_line * 0.79)
-            entry_hook_dx = round(0.22 * math.cos(onset_angle) + step_rng.uniform(-0.08, 0.08), 4)
-            entry_hook_dy = round(0.24 * math.sin(onset_angle) + air_pull, 4)
+            entry_hook_dx = round(0.36 * math.cos(onset_angle) + step_rng.uniform(-0.14, 0.14), 4)
+            entry_hook_dy = round(0.38 * math.sin(onset_angle) + air_pull, 4)
 
         return {
             "dx_wnib": round(vec[0], 4),
@@ -347,11 +348,12 @@ class KinematicScribeSession:
             "slant_shear": round(vec[2], 4),
             "peak_arch_dy": round(vec[3], 4),
             "x_scale": round(1.0 + vec[4], 4),
+            "y_scale": y_scale,
             "entry_hook_dx": entry_hook_dx,
             "entry_hook_dy": entry_hook_dy,
             "loop_spread_dx": loop_spread_dx,
             "loop_height_dy": loop_height_dy,
-            "nib_angle_drift_deg": round(self.state.nib_angle_drift_deg(self.current_line) + 1.8 * math.sin(phase), 3),
+            "nib_angle_drift_deg": round(self.state.nib_angle_drift_deg(self.current_line) + 2.2 * math.sin(phase), 3),
             "occ": occ,
         }
 
