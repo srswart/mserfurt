@@ -2017,8 +2017,9 @@ passes:
     - id: ADV-SS-SCRIBEHAND-004
       advance_id: ADV-SS-SCRIBEHAND-004
       title: "Structure-Conditioned Neural Ink-Edge Texture Pass (Optional Hybrid)"
-      status: planned
+      status: done
       owner: shawn
       dependencies:
       - ADV-SS-HANDVALIDATE-027
       notes: "Optional hybrid pass (`--hybrid-texture`) conditioning on the exact kinematic ink and pressure map to add 15th-century quill-on-vellum edge micro-texture while preserving centerline IoU >= 0.92, CER, and PAGE XML coordinates."
+      status_changed_at: 2026-10-16T20:07:18.272416Z

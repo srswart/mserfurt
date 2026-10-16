@@ -60,6 +60,8 @@ def render_kinematic_folio(
     dpi: float = 300.0,
     max_lines: int | None = None,
     seed: int = 1457,
+    hybrid_texture: bool = False,
+    hybrid_strength: float = 0.22,
 ) -> dict:
     """Render a folio with the coarticulated kinematic hand model, emitting PNG, pressure map, and PAGE XML."""
     fid = folio_id or folio_dict.get("id", "f01r")
@@ -244,6 +246,24 @@ def render_kinematic_folio(
                 }
             )
 
+    raw_page_arr = np.asarray(page_img, dtype=np.uint8)
+    heat_arr = np.asarray(heat_img, dtype=np.uint8)
+
+    hybrid_gate: dict | None = None
+    if hybrid_texture:
+        from scribesim.scribehand.hybrid_texture import (
+            apply_hybrid_texture_pass,
+            evaluate_hybrid_structure_gate,
+        )
+
+        page_arr = apply_hybrid_texture_pass(
+            raw_page_arr, heat_arr, seed=seed, strength=hybrid_strength
+        )
+        hybrid_gate = evaluate_hybrid_structure_gate(raw_page_arr, page_arr, heat_arr)
+        page_img = Image.fromarray(page_arr, "RGB")
+    else:
+        page_arr = raw_page_arr
+
     page_path = out / f"{fid}.png"
     page_img.save(str(page_path), format="PNG", dpi=(dpi, dpi))
 
@@ -260,11 +280,8 @@ def render_kinematic_folio(
         img_height_px=img_h,
     )
 
-    page_arr = np.asarray(page_img, dtype=np.uint8)
-    heat_arr = np.asarray(heat_img, dtype=np.uint8)
-
     # Verify ink containment / IoU between exported glyph boxes and painted ink pixels
-    ink_mask = page_arr.mean(axis=2) < 225.0
+    ink_mask = raw_page_arr.mean(axis=2) < 225.0
     box_mask = np.zeros_like(ink_mask, dtype=bool)
     for l_rec in line_xml_records:
         for w_rec in l_rec["words"]:
@@ -291,6 +308,7 @@ def render_kinematic_folio(
         "a1_proportion": a1,
         "angles_deg": angles_deg,
         "page_array": page_arr,
+        "hybrid_texture": hybrid_gate,
         "contracts": {
             "exact_character_coverage": 1.0,
             "glyph_bbox_iou": round(ink_recall, 4),
@@ -307,6 +325,7 @@ def run_tier2_kinematic_bench(
     out_dir: Path | str = "shared/training/reviews/tier2_bench",
     dpi: float = 180.0,
     max_lines: int = 4,
+    hybrid_texture: bool = False,
 ) -> dict:
     """Run all Tier-1 (`A1–A5`) and Tier-2 (`B1–B4`) gates across the 4 proof folios."""
     in_root = Path(input_dir)
@@ -333,6 +352,7 @@ def run_tier2_kinematic_bench(
             folio_id=fid,
             dpi=dpi,
             max_lines=max_lines,
+            hybrid_texture=hybrid_texture,
         )
         all_angles.extend(res["angles_deg"])
         lag_px, corr_peak = projection_autocorrelation_peak(res["page_array"], min_lag_px=5, max_lag_px=35)
@@ -350,6 +370,7 @@ def run_tier2_kinematic_bench(
             "page_xml": str(res["xml_path"]),
             "a1_proportion": res["a1_proportion"],
             "contracts": res["contracts"],
+            "hybrid_texture": res.get("hybrid_texture"),
             "htr_cer": cer_val,
             "rhythm_acf_lag_px": lag_px,
             "rhythm_acf_peak": round(corr_peak, 4),

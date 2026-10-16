@@ -154,6 +154,7 @@ def solve_word_coarticulation(
                 "slant_shear": 0.0,
                 "peak_arch_dy": 0.0,
                 "x_scale": 1.0,
+                "y_scale": 1.0,
                 "entry_hook_dx": 0.0,
                 "entry_hook_dy": 0.0,
                 "loop_spread_dx": 0.0,
@@ -163,7 +164,7 @@ def solve_word_coarticulation(
 
         for v_idx, vp in enumerate(recipe.via_points):
             x_v = vp.x_wnib * var["x_scale"] + var["dx_wnib"] + (vp.y_wnib / 4.2) * var["slant_shear"]
-            y_v = vp.y_wnib + var["dy_wnib"]
+            y_v = vp.y_wnib * var.get("y_scale", 1.0) + var["dy_wnib"]
             p_v = vp.pressure
             if vp.role in ("peak", "turn"):
                 y_v += var["peak_arch_dy"]

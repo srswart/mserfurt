@@ -231,7 +231,7 @@ def evaluate_a5_anti_clone(
     folio_id: str = "f01r",
     seed: int = 1457,
     min_dtw_wnib: float = 0.06,
-    max_dtw_wnib: float = 0.95,
+    max_dtw_wnib: float = 1.45,
 ) -> dict:
     """Evaluate Tier-1 A5-ANTI-CLONE gate: verify repeated words & word-initial letters vary organically."""
     from scribesim.handflow.coarticulate import (

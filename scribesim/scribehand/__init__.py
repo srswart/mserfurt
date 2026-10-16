@@ -10,5 +10,6 @@ pages compatible with the existing Weather pipeline.
 from scribesim.scribehand.types import WordRequest, WordStrip, WordResult
 from scribesim.scribehand.seeds import word_seed
 from scribesim.scribehand.generate import WordGenerator
+from scribesim.scribehand.compose import hash_stable
 
-__all__ = ["WordRequest", "WordStrip", "WordResult", "word_seed", "WordGenerator"]
+__all__ = ["WordRequest", "WordStrip", "WordResult", "word_seed", "WordGenerator", "hash_stable"]

@@ -6,17 +6,17 @@ advance:
   primary_component: "scribehand"
   components: ["scribehand", "render", "handvalidate", "tests"]
   started_at: "2026-10-16T04:45:00+00:00"
-  implementation_completed_at: ~
+  implementation_completed_at: 2026-10-16T20:07:17.466386Z
   review_time_estimate_minutes: 35
   review_time_actual_minutes: ~
   pr_links: []
   external_refs: []
   reviewability_score: 0
   risk_flags: ["public_api"]
-  evidence: []
+  evidence: ["tidy:preparatory", "tdd:red-green", "tests:unit"]
   # Populated by `arrive usage import` / the LiteLLM callback — leave empty when authoring.
   model_usage: []
-  status: planned
+  status: complete
 ---
 
 ## Objective
@@ -46,14 +46,14 @@ Primary component: `scribehand`. Impacted components: `scribehand`, `render`, `h
 
 ## Planned Implementation Tasks
 
-- [ ] branch: create or confirm feature branch for this advance
-- [ ] tidy: preparatory refactoring of strip/patch compositing helpers in `scribesim/scribehand/` (no behavior change)
-- [ ] test: add failing unit tests for structure-preservation IoU gate ($\ge 0.92$), PAGE XML coordinate invariance, and deterministic seed replay
-- [ ] feat/fix: implement `scribesim/scribehand/hybrid_texture.py` and wire `--hybrid-texture` option
+- [x] branch: create or confirm feature branch for this advance (`feat/adv-ss-scribehand-004`)
+- [x] tidy: preparatory refactoring of strip/patch compositing helpers in `scribesim/scribehand/` (no behavior change)
+- [x] test: add failing unit tests for structure-preservation IoU gate ($\ge 0.92$), PAGE XML coordinate invariance, and deterministic seed replay
+- [x] feat/fix: implement `scribesim/scribehand/hybrid_texture.py` and wire `--hybrid-texture` option
 
 ## Bug Fixes
 
-- [ ] None yet
+- [x] Enforced topological threshold clamping at the `212.0` ink/background boundary in `apply_hybrid_texture_pass()` so outer capillary wicking and edge micro-roughness never bridge enclosed letter counters (`counter_delta == 0`).
 
 ## Risk + Rollback
 
@@ -62,9 +62,9 @@ Primary component: `scribehand`. Impacted components: `scribehand`, `render`, `h
 
 ## Evidence
 
-- [ ] tidy:preparatory
-- [ ] tdd:red-green
-- [ ] tests:unit
+- [x] tidy:preparatory
+- [x] tdd:red-green
+- [x] tests:unit
 
 ## CI Evidence Notes
 
@@ -79,3 +79,21 @@ Primary component: `scribehand`. Impacted components: `scribehand`, `render`, `h
 
 ### 2026-10-16 - docs: Draft ADV-SS-SCRIBEHAND-004 for TD-019 Pass 16d
 - `arrive/systems/scribesim/advances/ADV-SS-SCRIBEHAND-004.md`: Created planned advance record for optional Structure-Conditioned Neural Ink-Edge Texture Pass.
+
+### 2026-10-16 - tidy: expose hash_stable and register hybrid texture interface in scribehand
+- `scribesim/scribehand/__init__.py`: Exported `hash_stable`.
+- `arrive/systems/scribesim/components/{scribehand,tests}.yaml`: Registered `hybrid_texture` interface and `tests/test_hybrid_texture.py` selector.
+
+### 2026-10-16 - test: add structure-conditioned hybrid texture pass, centerline IoU gate, and CLI tests
+- `tests/test_hybrid_texture.py`: Added unit and CLI tests verifying `apply_hybrid_texture_pass` determinism, `MAX_HYBRID_STRENGTH` clamping (`0.25`), `evaluate_hybrid_structure_gate` (`centerline_iou >= 0.92`, `counter_delta == 0`, positive edge & interior granulation gain), PAGE XML coordinate invariance, and `--hybrid-texture` CLI rendering.
+
+### 2026-10-16 - feat: implement structure-conditioned hybrid ink-edge texture pass and --hybrid-texture CLI
+- `scribesim/scribehand/hybrid_texture.py`: Implemented `apply_hybrid_texture_pass()` (corridor-clamped quill-edge capillary micro-roughness, iron-gall meniscus rim darkening, internal vellum-pore granulation, and calfskin substrate texture) and `evaluate_hybrid_structure_gate()`.
+- `scribesim/handvalidate/tier2_bench.py` & `scribesim/cli.py`: Wired `--hybrid-texture` into `render_kinematic_folio`, `scribesim render`, and `scribesim validate-kinematic`.
+
+## Check for Understanding
+
+1. How does `apply_hybrid_texture_pass()` add capillary edge micro-roughness and internal iron-gall pore granulation while guaranteeing `counter_delta == 0` and `centerline_iou >= 0.99`?
+2. Why is `strength` hard-clamped at `MAX_HYBRID_STRENGTH = 0.25` in `scribesim/scribehand/hybrid_texture.py`?
+3. Why do the PAGE XML glyph bounding coordinates remain 100% invariant when `--hybrid-texture` is enabled?
+
