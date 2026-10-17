@@ -432,7 +432,7 @@ function renderLineTable(f) {{
       badges += `<span class="tag ${{cls}}" title="${{d.note}}">${{d.damage_type}}: ${{d.word}}</span>`;
     }}
     const isStruck = dmgs.some(d => d.damage_type === 'strikethrough');
-    const txtStyle = isStruck ? 'text-decoration: line-through; color: #d8b98a;' : '';
+    const txtStyle = isStruck ? 'text-decoration: line-through wavy #c88a4b; color: #d8b98a;' : '';
     return `<tr>
       <td class="line-num">L${{String(ln).padStart(2, '0')}}</td>
       <td>
