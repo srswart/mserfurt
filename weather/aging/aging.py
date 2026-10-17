@@ -19,17 +19,8 @@ def apply_aging(
     """Apply all aging effects to a page image.
 
     Applies effects in order: edge darkening → foxing → binding shadow.
-
-    Args:
-        img:       RGB PIL Image of the page.
-        folio_id:  Folio identifier, e.g. "f01r".
-        profile:   WeatheringProfile.
-        seed:      RNG seed (passed to foxing).
-
-    Returns:
-        RGB PIL Image with aging applied.
     """
-    result = apply_edge_darkening(img, profile)
+    result = apply_edge_darkening(img, profile, folio_id=folio_id, seed=seed)
     result = apply_foxing(result, profile, seed=seed)
     result = apply_binding_shadow(result, folio_id, profile)
     return result

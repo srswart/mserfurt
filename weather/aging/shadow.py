@@ -1,4 +1,4 @@
-"""Binding shadow — gutter-side darkening from centuries of codex compression."""
+"""Binding shadow — organic gutter-side darkening without artificial linear curtain bands."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ import numpy as np
 from PIL import Image
 
 from weather.profile import WeatheringProfile
+from weather.substrate.noise import perlin_noise
 
 _FOLIO_SIDE_RE = re.compile(r"^f?\d+([rv])$")
 
@@ -25,16 +26,8 @@ def apply_binding_shadow(
     """Apply binding shadow along the gutter edge.
 
     Recto folios (side='r') have the gutter on the left; verso on the right.
-    The shadow gradient fades from the gutter inward over `width_fraction` of
-    page width at maximum `opacity`.
-
-    Args:
-        img:       RGB PIL Image of the page.
-        folio_id:  Folio identifier, e.g. "f01r".
-        profile:   WeatheringProfile.
-
-    Returns:
-        New RGB PIL Image with binding shadow applied.
+    Uses a non-linear quadratic falloff toward warm deep umber (rather than pure
+    black linear bands) with subtle vertical organic modulation on full folios.
     """
     bs = profile.aging_shadow
     if not bs.enabled:
@@ -45,19 +38,23 @@ def apply_binding_shadow(
 
     gutter_w = max(1, int(w * bs.width_fraction))
     cols = np.arange(min(gutter_w, w), dtype=np.float32)
-    # Linear gradient: 1.0 at gutter edge → 0.0 at gutter_w columns in
-    gradient = (1.0 - cols / gutter_w) * bs.opacity  # shape (gutter_w,)
+    # Quadratic falloff hugs the spine tightly without creating a wide vertical stripe across the page
+    t = 1.0 - cols / gutter_w
+    gradient = (t ** 1.75) * (bs.opacity * 0.72)
 
-    # Shadow color: pure black blend (darkening)
-    shadow = np.zeros(3, dtype=np.float32)
+    # Warm deep spine umber instead of flat RGB [0,0,0]
+    shadow = np.array([48.0, 36.0, 24.0], dtype=np.float32)
+
+    if min(h, w) >= 320:
+        mod = 1.0 + 0.18 * perlin_noise(gutter_w, h, scale=max(12.0, h * 0.08), octaves=2, seed=911)
+    else:
+        mod = np.ones((h, gutter_w), dtype=np.float32)
 
     if _is_recto(folio_id):
-        # Gutter on left
-        w3 = gradient[np.newaxis, :, np.newaxis]  # (1, gutter_w, 1)
+        w3 = np.clip((gradient[np.newaxis, :] * mod)[:, :, np.newaxis], 0.0, 0.85)
         arr[:, :gutter_w, :] = arr[:, :gutter_w, :] * (1.0 - w3) + shadow * w3
     else:
-        # Gutter on right — reverse gradient
-        w3 = gradient[::-1][np.newaxis, :, np.newaxis]
-        arr[:, w - gutter_w:, :] = arr[:, w - gutter_w:, :] * (1.0 - w3) + shadow * w3
+        w3 = np.clip((gradient[::-1][np.newaxis, :] * mod)[:, :, np.newaxis], 0.0, 0.85)
+        arr[:, w - gutter_w :, :] = arr[:, w - gutter_w :, :] * (1.0 - w3) + shadow * w3
 
     return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), mode="RGB")

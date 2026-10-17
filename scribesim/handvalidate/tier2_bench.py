@@ -80,15 +80,19 @@ def render_kinematic_folio(
         l_res = compose_line_kinematic_Stateful(txt, session=session, line_index=l_idx)
         line_results.append((line_obj, l_res))
 
-    # Page dimensions in mm (standard 195x255mm codex leaf when rendering full page, or fitted to subset)
-    margin_left_mm = 18.0
+    # Page dimensions in mm: MS Erfurt Aug. 12°47 duodecimo/octavo leaf (148 x 204 mm)
+    # Recto ('r') has narrower inner gutter margin on the left (16.5 mm) and wider outer margin on the right;
+    # Verso ('v') has wider outer margin on the left (24.5 mm) and narrower inner gutter margin on the right.
+    is_verso = str(fid).endswith("v")
+    margin_left_mm = 24.5 if is_verso else 16.5
+    margin_right_mm = 16.5 if is_verso else 24.5
     margin_top_mm = 18.0
     all_contact = [s for _, lr in line_results for s in lr.samples if s.contact]
-    max_x_mm = max((s.x_mm for s in all_contact), default=120.0) + margin_left_mm + 18.0
-    max_y_mm = max((s.y_mm for s in all_contact), default=160.0) + margin_top_mm + 18.0
+    max_x_mm = max((s.x_mm for s in all_contact), default=106.0) + margin_left_mm + margin_right_mm
+    max_y_mm = max((s.y_mm for s in all_contact), default=160.0) + margin_top_mm + 22.0
     if max_lines is None:
-        max_x_mm = max(max_x_mm, 195.0)
-        max_y_mm = max(max_y_mm, 255.0)
+        max_x_mm = max(max_x_mm, 148.0)
+        max_y_mm = max(max_y_mm, 204.0)
 
     px_per_mm = dpi / 25.4
     ss = max(1, int(supersample))
@@ -152,10 +156,6 @@ def render_kinematic_folio(
         sample_width_mult = np.ones(n_pts, dtype=np.float64)
         sample_skip = np.zeros(n_pts, dtype=bool)
 
-        if line_conf < 0.85:
-            base_line_mult = max(0.56, 0.38 + 0.62 * line_conf)
-            sample_dark_mult *= base_line_mult
-
         # Map each word result to its character span and sample index range in `samples`
         line_text = line_obj.get("text", "")
         search_pos = 0
@@ -196,41 +196,51 @@ def render_kinematic_folio(
                     if reason == "missing_corner":
                         sample_skip[si] = True
                     else:
-                        # Dissolve literal [—] glyphs into sparse, faint abraded ink remnants near baseline
+                        # Dissolve literal [—] glyphs into sparse, irregular abraded ink remnants
                         phase = (si - s0) / max(1, (s1 - s0))
-                        # Keep only 2 tiny broken ink flecks (<12% of samples) at very low darkness
-                        if (0.18 <= phase <= 0.24) or (0.66 <= phase <= 0.71):
-                            sample_dark_mult[si] = 0.16
-                            sample_width_mult[si] = 0.75
+                        if (0.14 <= phase <= 0.21) or (0.58 <= phase <= 0.64) or (0.81 <= phase <= 0.85):
+                            sample_dark_mult[si] = 0.24 + 0.10 * math.sin(0.9 * si)
+                            sample_width_mult[si] = 0.82
                         else:
                             sample_skip[si] = True
-                # Taper adjacent words into the lacuna gap so strokes visibly fray/dissolve at the edges
+                # Fray/erode adjacent words into the lacuna gap with irregular stroke break-up
                 if idx_rec > 0:
                     _, ps0, ps1, _, _, _, prev_lac = word_sample_ranges[idx_rec - 1]
                     if not prev_lac and ps1 > ps0:
-                        taper_start = ps0 + int(0.60 * (ps1 - ps0))
+                        taper_start = ps0 + int(0.55 * (ps1 - ps0))
                         for si in range(taper_start, ps1):
                             u = (si - taper_start) / max(1, ps1 - taper_start)
-                            sample_dark_mult[si] *= max(0.32, 1.0 - 0.65 * u)
+                            erode = 0.65 + 0.35 * math.sin(0.73 * si + 2.1 * l_idx)
+                            if u > 0.72 and erode < 0.52:
+                                sample_skip[si] = True
+                            sample_dark_mult[si] *= max(0.28, (1.0 - 0.68 * u) * erode)
                 if idx_rec + 1 < len(word_sample_ranges):
                     _, ns0, ns1, _, _, _, next_lac = word_sample_ranges[idx_rec + 1]
                     if not next_lac and ns1 > ns0:
-                        taper_end = ns0 + int(0.40 * (ns1 - ns0))
+                        taper_end = ns0 + int(0.45 * (ns1 - ns0))
                         for si in range(ns0, taper_end):
                             u = (si - ns0) / max(1, taper_end - ns0)
-                            sample_dark_mult[si] *= max(0.32, 0.35 + 0.65 * u)
+                            erode = 0.65 + 0.35 * math.sin(0.67 * si + 1.7 * l_idx)
+                            if u < 0.28 and erode < 0.52:
+                                sample_skip[si] = True
+                            sample_dark_mult[si] *= max(0.28, (0.32 + 0.68 * u) * erode)
             elif matched_reason:
                 for si in range(s0, s1):
                     u = (si - s0) / max(1, s1 - s0)
-                    flake_mod = 0.82 + 0.18 * math.sin(0.37 * si + 1.3 * l_idx)
+                    # Multi-frequency vellum fiber erosion (keeps deep-pressure cores legible while flaking hairlines)
+                    fiber_wave = 0.5 + 0.5 * math.sin(0.43 * si + 1.9 * l_idx) * math.cos(0.19 * si - 0.7 * w_i)
                     if matched_reason == "water_damage":
-                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.38, line_conf * 0.72) * flake_mod)
-                        sample_width_mult[si] = 1.08  # slight moisture feathering
+                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.42, (0.55 + 0.38 * fiber_wave) * max(0.68, line_conf)))
+                        sample_width_mult[si] = 1.06 + 0.08 * (1.0 - fiber_wave)
                     elif matched_reason == "ink_fade":
-                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.44, line_conf * 0.76) * flake_mod)
-                        sample_width_mult[si] = 0.90
+                        if fiber_wave < 0.16 and samples[si].pressure < 0.52:
+                            sample_skip[si] = True
+                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.48, 0.58 + 0.36 * fiber_wave))
+                        sample_width_mult[si] = 0.92
                     elif matched_reason == "missing_corner":
-                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.18, 0.55 * (1.0 - u)))
+                        if u > 0.65:
+                            sample_skip[si] = True
+                        sample_dark_mult[si] = min(sample_dark_mult[si], max(0.20, 0.75 * (1.0 - u)))
 
         raw_eff_w = np.zeros(n_pts, dtype=np.float64)
         raw_dark = np.zeros(n_pts, dtype=np.float64)
