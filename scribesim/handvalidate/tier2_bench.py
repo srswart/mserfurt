@@ -151,11 +151,12 @@ def render_kinematic_folio(
             fid, l_idx, line_text=line_obj.get("text", ""), register=line_obj.get("register", "de")
         )
 
-        # Parse line-level confidence and character-span lacuna/damage annotations
+        # Parse line-level confidence and character-span lacuna/damage/strikethrough annotations
         anns = line_obj.get("annotations", []) or []
         line_conf = 0.95
         line_conf_note = ""
         span_damages: list[tuple[int, int, str, str]] = []
+        span_strikes: list[tuple[int, int, str]] = []
         for ann in anns:
             atype = ann.get("type", "")
             detail = ann.get("detail", {}) or {}
@@ -169,6 +170,12 @@ def render_kinematic_folio(
                 reason = str(detail.get("reason", "water_damage"))
                 note = str(detail.get("note", ""))
                 span_damages.append((c0, c1, reason, note))
+            elif atype == "strikethrough":
+                sp = ann.get("span", {}) or {}
+                c0 = int(sp.get("char_start", 0))
+                c1 = int(sp.get("char_end", len(line_obj.get("text", ""))))
+                note = str(detail.get("note", "scribal strikethrough"))
+                span_strikes.append((c0, c1, note))
 
         samples = l_res.samples
         n_pts = len(samples)
@@ -432,6 +439,49 @@ def render_kinematic_folio(
                         "line_confidence": line_conf,
                         "note": matched_note or line_conf_note,
                         "bbox_px": wbbox,
+                    }
+                )
+
+        # Render any intentional scribal strikethrough spans (`type == "strikethrough"`)
+        for sc0, sc1, s_note in span_strikes:
+            struck_words = [
+                w_i for (w_i, _, _, c0, c1, _, _) in word_sample_ranges if max(c0, sc0) < min(c1, sc1)
+            ]
+            if struck_words and word_xml_list:
+                w_first = word_xml_list[min(struck_words)]["bbox_px"]
+                w_last = word_xml_list[max(struck_words)]["bbox_px"]
+                base_y_mm = l_res.word_results[0].baseline_y_mm
+                strike_y_mm = base_y_mm - 0.52 * l_prof.letterform.x_height_mm
+                sx0_px = w_first[0] * ss
+                sx1_px = w_last[2] * ss
+                sy_base_px = (strike_y_mm + margin_top_mm) * px_per_mm_int
+                n_seg = 28
+                half_th_px = 0.28 * l_nib.width_mm * px_per_mm_int
+                for k_s in range(n_seg):
+                    u0 = k_s / n_seg
+                    u1 = (k_s + 1) / n_seg
+                    px0 = sx0_px + (sx1_px - sx0_px) * u0
+                    px1 = sx0_px + (sx1_px - sx0_px) * u1
+                    py0 = sy_base_px + (1.4 * ss) * math.sin(u0 * math.pi * 1.3 + 0.4)
+                    py1 = sy_base_px + (1.4 * ss) * math.sin(u1 * math.pi * 1.3 + 0.4)
+                    q_strike = [
+                        (px0, py0 - half_th_px),
+                        (px0, py0 + half_th_px),
+                        (px1, py1 + half_th_px),
+                        (px1, py1 - half_th_px),
+                    ]
+                    poly_queue.append((218, 195, q_strike, q_strike))
+                damage_annotations.append(
+                    {
+                        "folio_id": fid,
+                        "line_number": int(line_obj.get("number", l_idx + 1)),
+                        "word": line_obj.get("text", "")[sc0:sc1],
+                        "char_span": (sc0, sc1),
+                        "damage_type": "strikethrough",
+                        "reason": "scribal_strikethrough",
+                        "line_confidence": line_conf,
+                        "note": s_note,
+                        "bbox_px": (w_first[0], w_first[1], w_last[2], w_last[3]),
                     }
                 )
 

@@ -279,11 +279,11 @@ def resolve_emotional_line_state(
     txt_low = (line_text or "").lower()
     l_num = line_index + 1  # 1-based line number matching folio JSON
 
-    # 1. CLIO-7 Garden Blessing Scene on f05r L04-L09: extraordinary steadiness, fresh quill dip at L04
-    if fkey == "05r" and 4 <= l_num <= 9:
+    # 1. CLIO-7 Garden Blessing Scene on f05r L04-L09, or Colophon on f17v L05-L12: extraordinary steadiness
+    if (fkey == "05r" and 4 <= l_num <= 9) or (fkey == "17v" and 5 <= l_num <= 12):
         return EmotionalLineState(
             state_name="sacred_steadiness",
-            rationale="CLIO-7: garden blessing scene — 'the ink unsmeared, the hand steady'",
+            rationale="CLIO-7: deliberate, steady hand ('Some things a man writes carefully because he intends them to last')",
             pressure_mult=1.05,
             width_mult=1.03,
             speed_mult=0.88,
@@ -292,10 +292,26 @@ def resolve_emotional_line_state(
             baseline_undulation_mm=0.0,
             word_gap_mult=1.04,
             motor_calm_factor=0.40,
-            force_fresh_dip=(l_num == 4),
+            force_fresh_dip=(l_num in (4, 5)),
         )
 
-    # 2. Ecclesiastical Latin & Verbatim Augustine Quotations
+    # 2. Verbatim Middle High German (Meister Eckhart's "In sînem grunde" & "Wirt" crux)
+    if register == "mhg" or any(kw in txt_low for kw in ("in sînem grunde", "enpfêhet", "ich schreib: wirt", "ich schreib wirt")):
+        return EmotionalLineState(
+            state_name="deepened_attention",
+            rationale="Meister Eckhart MHG theological crux ('Wirt') — intense focus, fresh dip & deliberate weight",
+            pressure_mult=1.22,
+            width_mult=1.14,
+            speed_mult=0.78,
+            tremor_amp_mm=0.004,
+            slant_delta_deg=+0.4,
+            baseline_undulation_mm=0.0,
+            word_gap_mult=1.08,
+            motor_calm_factor=0.72,
+            force_fresh_dip=True,
+        )
+
+    # 3. Ecclesiastical Latin & Verbatim Augustine / Psalm 42 Quotations
     if register == "la" or any(
         kw in txt_low
         for kw in (
@@ -308,11 +324,20 @@ def resolve_emotional_line_state(
             "fecisti nos",
             "inquietum est",
             "sine licentia",
+            "frater conradus",
+            "haec est theologia",
+            "in agro dominico",
+            "quemadmodum desiderat",
+            "sic desiderat anima",
+            "legunt iudicium",
+            "deo volente",
+            "omnis spiritus",
+            "gloria patri",
         )
     ):
         return EmotionalLineState(
             state_name="latin_formal",
-            rationale="Monastic Latin liturgical/Augustinian register — upright, formal scriptorium cadence",
+            rationale="Monastic Latin liturgical/Augustinian/Psalm register — upright, formal scriptorium cadence",
             pressure_mult=1.04,
             width_mult=1.02,
             speed_mult=0.92,
@@ -321,7 +346,7 @@ def resolve_emotional_line_state(
             baseline_undulation_mm=0.0,
             word_gap_mult=1.03,
             motor_calm_factor=0.62,
-            force_fresh_dip=("augustinus scribit" in txt_low),
+            force_fresh_dip=any(q in txt_low for q in ("augustinus scribit", "quemadmodum desiderat", "sic desiderat")),
         )
 
     # 3. Tremor & Agitation (fear, trembling hands, Mainz press impact)
@@ -399,6 +424,13 @@ def resolve_emotional_line_state(
             "einsamkeit vollkommen",
             "bewegte sich die strömung",
             "winter des jares",
+            "baierisch kalbfell",
+            "kalbspergament",
+            "desiderat — verlanget",
+            "das werck ist immer noch",
+            "nicht verbrennen",
+            "zwischen das breviarium",
+            "ich hielt das blat",
         )
     ):
         return EmotionalLineState(
@@ -412,6 +444,23 @@ def resolve_emotional_line_state(
             baseline_undulation_mm=0.0,
             word_gap_mult=1.05,
             motor_calm_factor=0.82,
+        )
+
+    # 6. Final Gathering Compensating Hand (f14r onward: slower, wider-spaced, compensating for failing winter eyesight)
+    digits = "".join(ch for ch in fkey if ch.isdigit())
+    fnum = int(digits) if digits else 1
+    if fnum >= 14:
+        return EmotionalLineState(
+            state_name="compensating_eyesight",
+            rationale="CLIO-7 Section 7: slower, wider-spaced hand on irregular offcut vellum compensating for failing eyesight",
+            pressure_mult=1.04,
+            width_mult=1.03,
+            speed_mult=0.82,
+            tremor_amp_mm=0.024,
+            slant_delta_deg=+0.8,
+            baseline_undulation_mm=0.12,
+            word_gap_mult=1.12,
+            motor_calm_factor=0.92,
         )
 
     return EmotionalLineState()

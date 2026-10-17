@@ -374,7 +374,12 @@ def compose_line_kinematic_Stateful(
     xh = prof.letterform.x_height_mm
     emo = sess.active_emotion
     baseline_sag_mm = sess.state.baseline_drift_mm(line_index) + emo.baseline_undulation_mm * math.sin(line_index * 1.7)
-    baseline_y_mm = xh * 2.1 + line_index * (xh * 2.5) + baseline_sag_mm
+    # Accumulate line y-positions using standard 3.5mm spacing for lines before a register scale change
+    base_xh = 3.5
+    if xh < base_xh and line_index >= 16:
+        baseline_y_mm = base_xh * 2.1 + 16 * (base_xh * 2.5) + (line_index - 16) * (xh * 2.5) + baseline_sag_mm
+    else:
+        baseline_y_mm = xh * 2.1 + line_index * (xh * 2.5) + baseline_sag_mm
 
     word_gap_wnib = 2.2 * (prof.word.spacing_mean_ratio / 1.2) * emo.word_gap_mult
     cursor_wnib = 1.2

@@ -5,230 +5,188 @@
   "lines": [
     {
       "number": 1,
-      "text": "Er sprach: \"So ist es auf eine Weise unrecht, die",
-      "register": "de",
+      "text": "Quemadmodum desiderat cervus ad fontes aquarum.",
+      "register": "la",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "As the deer longs for the water-brooks."
     },
     {
       "number": 2,
-      "text": "man erkennen und in einer folgenden Ausgabe bessern",
+      "text": "Wie der Hirsch schreiet nach frischem Wasser.",
       "register": "de",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "As the deer longs for fresh water."
     },
     {
       "number": 3,
-      "text": "mag.\"",
+      "text": "Also.",
       "register": "de",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "So."
     },
     {
       "number": 4,
-      "text": "Vnd die nachvolgende ausgabe wirdet auch authoritet",
-      "register": "de",
+      "text": "✦ ✦ ✦",
+      "register": "mixed",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "✦ ✦ ✦"
     },
     {
       "number": 5,
-      "text": "haben. Vnd die nachkommenden leser werden sie lesen",
-      "register": "de",
+      "text": "Finis.",
+      "register": "la",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "Finis."
     },
     {
       "number": 6,
-      "text": "als den text vnd nicht als ein eingreyffen.",
-      "register": "de",
+      "text": "Geschriben zu Erffordt, in dem dreyundviertzigsten",
+      "register": "mixed",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "Written in Erfurt, in the forty-third"
     },
     {
       "number": 7,
-      "text": "Er sprach: \"Ja.\"",
-      "register": "de",
+      "text": "Jare meines Lebens, im Jare unsers Herren tausent",
+      "register": "mixed",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "year of my life, in the year of Our Lord one thousand"
     },
     {
       "number": 8,
-      "text": "\"Also vertauschen wir tausent kleine ungeordente",
-      "register": "de",
+      "text": "vierhundert siebenundfünfftzig, ohne Erlaubnis,",
+      "register": "mixed",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "four hundred and fifty-seven, without permission,"
     },
     {
       "number": 9,
-      "text": "Eingriffe wider eine Reyhe großer herrschender, ein",
-      "register": "de",
+      "text": "ohne Entschuldigung, und am Ende ohne Verbrennen.",
+      "register": "mixed",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "without excuse, and, in the end, without burning."
     },
     {
       "number": 10,
-      "text": "jede unsichtbar, weil sie das Antlitz des Textes",
-      "register": "de",
+      "text": "Scriptum Erfordiae, anno aetatis meae quadragesimo",
+      "register": "la",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "Written in Erfurt, in the forty-third year of my age,"
     },
     {
       "number": 11,
-      "text": "selber träget.\"",
-      "register": "de",
+      "text": "tertio, anno Domini MCCCCLVII, sine licentia, sine",
+      "register": "la",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.96
           }
         }
-      ]
+      ],
+      "english": "in the year of Our Lord 1457, without permission, without"
     },
     {
       "number": 12,
-      "text": "Er schwieg ein wenig. Darnach sprach er: \"Das ist",
-      "register": "de",
+      "text": "excusatione, et sine, in fine, combustione.",
+      "register": "la",
       "annotations": [
         {
           "type": "confidence",
           "detail": {
-            "score": 0.97
+            "score": 0.86,
+            "note": "final colophon tail rub against Lectionary board"
           }
-        }
-      ]
-    },
-    {
-      "number": 13,
-      "text": "eine schöne Beschreibung der Geschichte der",
-      "register": "de",
-      "annotations": [
+        },
         {
-          "type": "confidence",
+          "type": "lacuna",
+          "span": {
+            "char_start": 28,
+            "char_end": 43
+          },
           "detail": {
-            "score": 0.97
+            "reason": "ink_fade",
+            "note": "outermost verso rub against Lectionary"
           }
         }
-      ]
-    },
-    {
-      "number": 14,
-      "text": "Kirchen.\"",
-      "register": "de",
-      "annotations": [
-        {
-          "type": "confidence",
-          "detail": {
-            "score": 0.97
-          }
-        }
-      ]
-    },
-    {
-      "number": 15,
-      "text": "Ich hatte keine Antwort.",
-      "register": "de",
-      "annotations": [
-        {
-          "type": "confidence",
-          "detail": {
-            "score": 0.97
-          }
-        }
-      ]
-    },
-    {
-      "number": 16,
-      "text": "Er gefüllet den Wein widerumb vnd sprach etwas, das",
-      "register": "de",
-      "annotations": [
-        {
-          "type": "confidence",
-          "detail": {
-            "score": 0.97
-          }
-        }
-      ]
-    },
-    {
-      "number": 17,
-      "text": "ich nicht gewertet hette.",
-      "register": "de",
-      "annotations": [
-        {
-          "type": "confidence",
-          "detail": {
-            "score": 0.97
-          }
-        }
-      ]
+      ],
+      "english": "excuse, and without, in the end, burning."
     }
   ],
   "damage": null,
   "hand_notes": {
-    "speed": "compensating",
-    "spacing": "wider"
+    "type": "slower_wider_compensating"
   },
   "section_breaks": [],
   "vellum_stock": "irregular",
@@ -241,5 +199,7 @@
       "mhg": 0.0,
       "mixed": 0.0
     }
-  }
+  },
+  "section": "7",
+  "line_count": 12
 }
