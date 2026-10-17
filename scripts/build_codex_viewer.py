@@ -549,6 +549,10 @@ function updateUI() {{
     `).join('');
     container.innerHTML = `
       <div class="card">
+        <h2>Physical Cut-Edge Nicks, Fibrous Rawhide Bevel &amp; Two-Reader Corner-Curl Inspection</h2>
+        <div class="img-box"><img src="edge_and_corner_curl_callouts.png" /></div>
+      </div>
+      <div class="card">
         <h2>4-Pillar Zoomed Inspection: Deepened Attention &amp; Dip Cycle, Tremor, Sacred Steadiness, and Intra-Letter Brown Iron-Gall</h2>
         <div class="img-box"><img src="scribal_and_material_callouts.png" /></div>
       </div>

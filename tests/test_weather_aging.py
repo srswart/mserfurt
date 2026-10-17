@@ -254,3 +254,33 @@ class TestApplyAging:
         r = np.array(apply_aging(page, "f01r", profile, seed=0))
         v = np.array(apply_aging(page, "f01v", profile, seed=0))
         assert not np.array_equal(r, v)
+
+
+# ---------------------------------------------------------------------------
+# TestEdgeWearAndCornerCurl
+# ---------------------------------------------------------------------------
+
+class TestEdgeWearAndCornerCurl:
+    def test_outer_edges_have_nicks_while_gutter_stays_flush(self, profile):
+        """Cut edges (top, fore-edge, bottom) have nicks and backing mat; gutter stays flush."""
+        from weather.aging.edge import apply_edge_wear_and_corner_curl
+        page = _grey_page(w=360, h=480, value=210)
+        res_r = np.array(apply_edge_wear_and_corner_curl(page, folio_id="f01r", profile=profile, seed=42))
+        # On recto (f01r), gutter is on the left (col 0, mid-height should remain inside the leaf ~210)
+        assert res_r[240, 0, 0] > 150
+        # Fore-edge is on the right (col -1 should be dark backing/shadow < 50)
+        assert res_r[240, -1, 0] < 50
+        # Lower-outer corner (bottom-right on recto) has deeper curl lift than mid-fore-edge
+        br_dark_cols = int(np.sum(res_r[-8, :, 0] < 60))
+        mid_dark_cols = int(np.sum(res_r[240, :, 0] < 60))
+        assert br_dark_cols > mid_dark_cols
+
+    def test_irregular_stock_has_more_uneven_cut_than_standard(self):
+        """Irregular offcut stock (f14r) has larger cut-profile variance than standard stock (f01r)."""
+        from weather.aging.edge import _generate_cut_profile_1d
+        rng1 = np.random.default_rng(1457)
+        rng2 = np.random.default_rng(1457)
+        prof_std = _generate_cut_profile_1d(600, base_inset_px=8.0, is_irregular_stock=False, n_nicks=4, rng=rng1)
+        prof_irr = _generate_cut_profile_1d(600, base_inset_px=8.0, is_irregular_stock=True, n_nicks=6, rng=rng2)
+        assert float(np.std(prof_irr)) > float(np.std(prof_std))
+
