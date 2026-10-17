@@ -61,28 +61,30 @@ def apply_edge_darkening(
         yg = np.linspace(0.0, 1.0, h, dtype=np.float32)[:, np.newaxis]
         xg = np.linspace(0.0, 1.0, w, dtype=np.float32)[np.newaxis, :]
 
-        # 6 organic 2D damp/mold stain colonies around the margins with high-contrast tide rings
+        # 6 organic 2D damp/mold stain colonies around the margins with sharp, irregular blotch boundaries
+        # (leaves the central text area bright and un-vignetted while creating realistic asymmetric edge stains)
         colonies = [
-            (0.02, 0.78, 0.24, 0.30, 0.92),  # deep lower-left water/mold stain
-            (0.01, 0.30, 0.17, 0.26, 0.72),  # upper-left margin stain
-            (0.30, 0.97, 0.30, 0.18, 0.80),  # bottom margin stain lobe
-            (0.97, 0.82, 0.20, 0.26, 0.68),  # lower-right handling stain
-            (0.88, 0.04, 0.24, 0.15, 0.62),  # top-right corner oxidation
-            (0.12, 0.03, 0.22, 0.14, 0.64),  # top-left corner oxidation
+            (0.01, 0.76, 0.25, 0.32, 0.96),  # deep lower-left water/mold stain (matching AI reference!)
+            (0.01, 0.26, 0.16, 0.26, 0.78),  # upper-left margin stain
+            (0.32, 0.98, 0.32, 0.17, 0.85),  # bottom margin stain lobe
+            (0.98, 0.84, 0.17, 0.24, 0.64),  # lower-right handling stain
+            (0.90, 0.03, 0.22, 0.12, 0.58),  # top-right corner oxidation
+            (0.10, 0.03, 0.20, 0.13, 0.66),  # top-left corner oxidation
         ]
         colony_field = np.zeros((h, w), dtype=np.float32)
         ring_field = np.zeros((h, w), dtype=np.float32)
         for cx, cy, rx, ry, strength in colonies:
             eff_cx = (1.0 - cx) if is_verso else cx
             dist = np.sqrt(((xg - eff_cx) / rx) ** 2 + ((yg - cy) / ry) ** 2)
-            warped_d = dist + 0.38 * n_coarse + 0.22 * n_med + 0.11 * n_fine
-            blob = (np.clip(1.0 - warped_d, 0.0, 1.0) ** 1.25) * (0.78 + 0.38 * n_med)
-            ring = np.exp(-((warped_d - 0.86) / 0.075) ** 2) * (0.55 + 0.45 * np.abs(n_fine))
+            warped_d = dist + 0.42 * n_coarse + 0.26 * n_med + 0.13 * n_fine
+            # Sharper transition at warped_d ≈ 0.85 so stains look like distinct liquid/mold patches, not a smooth vignette
+            blob = (np.clip((0.92 - warped_d) / 0.55, 0.0, 1.0) ** 0.85) * (0.72 + 0.45 * np.abs(n_med))
+            ring = np.exp(-((warped_d - 0.88) / 0.055) ** 2) * (0.65 + 0.55 * np.abs(n_fine))
             colony_field = np.maximum(colony_field, blob * strength)
             ring_field = np.maximum(ring_field, ring * strength)
 
-        organic_mod = np.clip(0.70 + 0.48 * n_coarse + 0.32 * n_med, 0.30, 1.45)
-        weight = np.clip(weight * organic_mod + corner_boost + 0.72 * colony_field + 0.48 * ring_field, 0.0, 1.0)
+        organic_mod = np.clip(0.55 + 0.55 * n_coarse + 0.35 * n_med, 0.20, 1.45)
+        weight = np.clip(weight * 0.55 * organic_mod + corner_boost * 0.65 + 0.78 * colony_field + 0.52 * ring_field, 0.0, 1.0)
     else:
         weight = np.clip(weight + corner_boost, 0.0, 1.0)
 

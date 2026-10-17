@@ -236,14 +236,195 @@ def resolve_clio7_kinematic_profile(
     return prof
 
 
+@dataclass(frozen=True)
+class EmotionalLineState:
+    """Content- and CLIO-7-driven emotional/cognitive state of Brother Konrad on a line."""
+    state_name: str = "standard"
+    rationale: str = "standard scriptorium flow"
+    pressure_mult: float = 1.0
+    width_mult: float = 1.0
+    speed_mult: float = 1.0
+    tremor_amp_mm: float = 0.010
+    slant_delta_deg: float = 0.0
+    baseline_undulation_mm: float = 0.0
+    word_gap_mult: float = 1.0
+    motor_calm_factor: float = 1.0
+    force_fresh_dip: bool = False
+
+
+def resolve_emotional_line_state(
+    folio_id: str,
+    line_index: int,
+    line_text: str = "",
+    register: str = "de",
+) -> EmotionalLineState:
+    """Determine Brother Konrad's emotional and motor state from the manuscript content & CLIO-7 apparatus.
+
+    Models five distinct psychomotor states described in `source/ms-erfurt-source-annotated.md`:
+      1. `sacred_steadiness`: The garden blessing scene (`f05r` L04–L09, 0-based 3..8) where CLIO-7 notes:
+         *"The folio is clean here, the ink unsmeared, the hand steady. Some things a man writes carefully
+         because he intends them to last."*
+      2. `deepened_attention`: Where Konrad describes *"the slight thickening of a stroke when my attention
+         deepened, the places where I slowed because the meaning arrived in my hands before it arrived in my mind"*
+         (`f01v` L05–L11, `f02r` L14–L20, `f03r` L21–L23, `f03v` L01–L03 & L09, `f05v` L06–L11).
+      3. `tremor_agitation`: Where Konrad writes of fear, guilt, human hands made to tremble, or standing beside
+         the Mainz printing press feeling its impact in his feet (`f02r` L05–L08, `f02v` L18–L23, `f03r` L11–L14,
+         `f06r/v`).
+      4. `grief_hesitation`: Where Konrad recounts losing Peter and the broken farewell in the rosemary garden
+         (`f04r` L11–L13 & L20–L21, `f04v` L07–L08 & L15–L18, `f05v` L12–L14).
+      5. `latin_formal`: Ecclesiastical Latin prayers & verbatim Augustine quotations (`register == 'la'` or
+         embedded Latin formulas), where monastic habit makes his hand more upright and deliberate.
+    """
+    fkey = folio_id.lstrip("f")
+    txt_low = (line_text or "").lower()
+    l_num = line_index + 1  # 1-based line number matching folio JSON
+
+    # 1. CLIO-7 Garden Blessing Scene on f05r L04-L09: extraordinary steadiness, fresh quill dip at L04
+    if fkey == "05r" and 4 <= l_num <= 9:
+        return EmotionalLineState(
+            state_name="sacred_steadiness",
+            rationale="CLIO-7: garden blessing scene — 'the ink unsmeared, the hand steady'",
+            pressure_mult=1.05,
+            width_mult=1.03,
+            speed_mult=0.88,
+            tremor_amp_mm=0.0,
+            slant_delta_deg=-0.6,
+            baseline_undulation_mm=0.0,
+            word_gap_mult=1.04,
+            motor_calm_factor=0.40,
+            force_fresh_dip=(l_num == 4),
+        )
+
+    # 2. Ecclesiastical Latin & Verbatim Augustine Quotations
+    if register == "la" or any(
+        kw in txt_low
+        for kw in (
+            "domine, confiteor",
+            "secreto meo",
+            "scrutaris corda",
+            "deus misericordiae",
+            "abysso animae",
+            "augustinus scribit",
+            "fecisti nos",
+            "inquietum est",
+            "sine licentia",
+        )
+    ):
+        return EmotionalLineState(
+            state_name="latin_formal",
+            rationale="Monastic Latin liturgical/Augustinian register — upright, formal scriptorium cadence",
+            pressure_mult=1.04,
+            width_mult=1.02,
+            speed_mult=0.92,
+            tremor_amp_mm=0.004,
+            slant_delta_deg=-1.4,
+            baseline_undulation_mm=0.0,
+            word_gap_mult=1.03,
+            motor_calm_factor=0.62,
+            force_fresh_dip=("augustinus scribit" in txt_low),
+        )
+
+    # 3. Tremor & Agitation (fear, trembling hands, Mainz press impact)
+    if fkey in ("06r", "06v") or any(
+        kw in txt_low
+        for kw in (
+            "zu zittern",
+            "zu irren",
+            "stein in der brust",
+            "gefürchtet",
+            "verborgen fewer",
+            "maschine zu mainz",
+            "in meinen füssen",
+            "mit einer kraft",
+        )
+    ):
+        return EmotionalLineState(
+            state_name="tremor_agitation",
+            rationale="Emotional agitation / physical tremor & lateral downstroke pressure",
+            pressure_mult=1.18,
+            width_mult=1.08,
+            speed_mult=0.92,
+            tremor_amp_mm=0.068,
+            slant_delta_deg=+3.4,
+            baseline_undulation_mm=0.22,
+            word_gap_mult=1.08,
+            motor_calm_factor=1.28,
+        )
+
+    # 4. Grief & Hesitation (losing Peter, rosemary garden farewell, failing eyes)
+    if (
+        (fkey == "04v" and (7 <= l_num <= 8 or 15 <= l_num <= 18))
+        or (fkey == "04r" and l_num in (1, 12, 21))
+        or (fkey == "05v" and 12 <= l_num <= 14)
+        or any(
+            kw in txt_low
+            for kw in (
+                "rosmarin",
+                "kräutergarten",
+                "stoltz",
+                "augen, die mir feilen",
+                "morgenlicht, sind",
+                "nicht solde",
+                "ich gedenke",
+            )
+        )
+    ):
+        return EmotionalLineState(
+            state_name="grief_hesitation",
+            rationale="Grief & hesitation in Peter narrative / rosemary garden farewell",
+            pressure_mult=0.90,
+            width_mult=0.94,
+            speed_mult=0.76,
+            tremor_amp_mm=0.048,
+            slant_delta_deg=+1.6,
+            baseline_undulation_mm=0.26,
+            word_gap_mult=1.24,
+            motor_calm_factor=1.18,
+        )
+
+    # 5. Deepened Attention (Konrad slowing down & thickening strokes when meaning arrives in his hands)
+    if any(
+        kw in txt_low
+        for kw in (
+            "verdickung",
+            "aufmerksamkeit",
+            "verlangsamte",
+            "in meine hende kam",
+            "zeugnis, daß ein mensch",
+            "druckunge meiner finger",
+            "froh, daß es meine hand",
+            "gerissenen pergament",
+            "etliche sätze",
+            "übergabe mir etwas",
+            "einsamkeit vollkommen",
+            "bewegte sich die strömung",
+            "winter des jares",
+        )
+    ):
+        return EmotionalLineState(
+            state_name="deepened_attention",
+            rationale="Konrad's deepened attention — slower tempo & thicker, heavier downstrokes",
+            pressure_mult=1.22,
+            width_mult=1.13,
+            speed_mult=0.80,
+            tremor_amp_mm=0.005,
+            slant_delta_deg=+0.6,
+            baseline_undulation_mm=0.0,
+            word_gap_mult=1.05,
+            motor_calm_factor=0.82,
+        )
+
+    return EmotionalLineState()
+
+
 class KinematicScribeSession:
     """Persistent temporal state for kinematic word/line/folio writing (TD-019 Phase 16c).
 
     Tracks:
       - Slow correlated motor-memory walk per glyph & via-point role
       - Word-initial attack envelope + cross-word air momentum carryover
-        (so words starting with the same letter have distinct onset nuances)
-      - Continuous contact-distance ink depletion & sitting-boundary reloads
+      - Realistic quill dip cycle (4-6 dips per folio page) & sitting-boundary reloads
+      - Content- and emotion-driven scribal affect per line (`active_emotion`)
       - Fatigue and nib-angle drift across lines
     """
 
@@ -253,7 +434,7 @@ class KinematicScribeSession:
         *,
         seed: int = 1457,
         fatigue_rate: float = 0.022,
-        ink_depletion_rate: float = 0.0014,
+        ink_depletion_rate: float = 0.0018,
     ) -> None:
         self.folio_id = folio_id
         self.seed = seed
@@ -263,25 +444,38 @@ class KinematicScribeSession:
         self.glyph_occurrence_counter: dict[str, int] = {}
         self.sitting_reloads: int = 0
         self.last_word_exit_y_wnib: float | None = None
+        self.active_emotion: EmotionalLineState = EmotionalLineState()
+        self.dip_events: list[dict] = []
 
         rng = random.Random(_stable_seed(folio_id, seed, "session"))
         ink = InkState(
             capacity=1.0,
             base_depletion=ink_depletion_rate,
             dip_threshold=0.18,
-            preferred_dip_threshold=0.24,
+            preferred_dip_threshold=0.25,
         )
         self.state = ScribeState(ink_state=ink, _rng=rng)
         # Correlated walk state per letter: letter -> [dx, dy, slant, arch, p_bias]
         self._letter_walk: dict[str, list[float]] = {}
         self._sitting_boundaries = set(SITTING_BOUNDARIES_BY_FOLIO.get(folio_id, ()))
 
-    def advance_to_line(self, line_index: int) -> None:
-        """Advance session state to `line_index`, checking sitting boundaries and fatigue."""
-        if line_index in self._sitting_boundaries:
+    def advance_to_line(self, line_index: int, line_text: str = "", register: str = "de") -> None:
+        """Advance session state to `line_index`, updating emotional state, sitting boundaries, and fatigue."""
+        self.active_emotion = resolve_emotional_line_state(
+            self.folio_id, line_index, line_text=line_text, register=register
+        )
+        if line_index in self._sitting_boundaries or self.active_emotion.force_fresh_dip:
             self.state.ink_state.dip()
             self.sitting_reloads += 1
             self.last_word_exit_y_wnib = None
+            self.dip_events.append(
+                {
+                    "folio_id": self.folio_id,
+                    "line_index": line_index,
+                    "word_counter": self.word_counter,
+                    "reason": "sacred_steadiness_dip" if self.active_emotion.force_fresh_dip else "sitting_boundary",
+                }
+            )
 
         steps = max(1, line_index - self.current_line) if line_index > self.current_line else 1
         self.current_line = line_index
@@ -316,9 +510,10 @@ class KinematicScribeSession:
 
         vec = self._letter_walk[letter]
         step_rng = random.Random(_stable_seed(self.folio_id, self.seed, "occ", letter, occ, self.word_counter))
+        calm = self.active_emotion.motor_calm_factor
 
-        # Correlated AR(1) random walk with human-visible amplitude (2-3.5px at 180 DPI) across occurrences
-        deltas = (0.14, 0.12, 0.11, 0.22, 0.075)
+        # Correlated AR(1) random walk with human-visible amplitude across occurrences
+        deltas = (0.14 * calm, 0.12 * calm, 0.11 * calm, 0.22 * calm, 0.075 * calm)
         limits = (0.32, 0.28, 0.22, 0.45, 0.14)
         phase = (occ + 1) * 1.73 + self.word_counter * 0.91 + self.current_line * 0.63
         for i in range(5):
@@ -328,10 +523,10 @@ class KinematicScribeSession:
 
         entry_hook_dx = 0.0
         entry_hook_dy = 0.0
-        loop_spread_dx = round(step_rng.uniform(-0.38, 0.42) + 0.18 * math.cos(phase * 1.3), 4)
-        loop_height_dy = round(step_rng.uniform(-0.42, 0.48) + 0.22 * math.sin(phase * 0.9), 4)
-        word_baseline_dy = round(0.18 * math.sin(self.word_counter * 0.85 + self.current_line * 1.4), 4)
-        y_scale = round(1.0 + step_rng.uniform(-0.065, 0.075), 4)
+        loop_spread_dx = round((step_rng.uniform(-0.38, 0.42) + 0.18 * math.cos(phase * 1.3)) * calm, 4)
+        loop_height_dy = round((step_rng.uniform(-0.42, 0.48) + 0.22 * math.sin(phase * 0.9)) * calm, 4)
+        word_baseline_dy = round(0.18 * calm * math.sin(self.word_counter * 0.85 + self.current_line * 1.4), 4)
+        y_scale = round(1.0 + step_rng.uniform(-0.065 * calm, 0.075 * calm), 4)
 
         if is_word_initial:
             # Cross-word air carryover + visible word-onset attack variation
@@ -339,13 +534,15 @@ class KinematicScribeSession:
             if prev_word_exit_y_wnib is not None:
                 air_pull = max(-0.32, min(0.32, (prev_word_exit_y_wnib - 1.2) * 0.15))
             onset_angle = (occ * 2.17 + self.word_counter * 1.31 + self.current_line * 0.79)
-            entry_hook_dx = round(0.36 * math.cos(onset_angle) + step_rng.uniform(-0.14, 0.14), 4)
-            entry_hook_dy = round(0.38 * math.sin(onset_angle) + air_pull, 4)
+            entry_hook_dx = round((0.36 * math.cos(onset_angle) + step_rng.uniform(-0.14, 0.14)) * calm, 4)
+            entry_hook_dy = round((0.38 * math.sin(onset_angle) + air_pull) * calm, 4)
+
+        slant_from_emotion = math.tan(math.radians(self.active_emotion.slant_delta_deg)) * 0.85
 
         return {
             "dx_wnib": round(vec[0], 4),
             "dy_wnib": round(vec[1] + word_baseline_dy, 4),
-            "slant_shear": round(vec[2], 4),
+            "slant_shear": round(vec[2] + slant_from_emotion, 4),
             "peak_arch_dy": round(vec[3], 4),
             "x_scale": round(1.0 + vec[4], 4),
             "y_scale": y_scale,
@@ -353,7 +550,9 @@ class KinematicScribeSession:
             "entry_hook_dy": entry_hook_dy,
             "loop_spread_dx": loop_spread_dx,
             "loop_height_dy": loop_height_dy,
-            "nib_angle_drift_deg": round(self.state.nib_angle_drift_deg(self.current_line) + 2.2 * math.sin(phase), 3),
+            "nib_angle_drift_deg": round(
+                (self.state.nib_angle_drift_deg(self.current_line) + 2.2 * math.sin(phase)) * calm, 3
+            ),
             "occ": occ,
         }
 

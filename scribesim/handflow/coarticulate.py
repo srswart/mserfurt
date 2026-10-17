@@ -269,7 +269,13 @@ def solve_word_coarticulation(
     vx_arr = np.gradient(x_mm_arr, dt_s)
     vy_arr = np.gradient(y_mm_arr, dt_s)
 
-    pressure_scale = prof.folio.base_pressure / 0.72 if prof.folio else 1.0
+    emo = session.active_emotion if session is not None else None
+    emo_p_mult = emo.pressure_mult if emo is not None else 1.0
+    emo_speed_mult = emo.speed_mult if emo is not None else 1.0
+    emo_tremor_mm = emo.tremor_amp_mm if emo is not None else 0.0
+    emo_name = emo.state_name if emo is not None else "standard"
+
+    pressure_scale = (prof.folio.base_pressure / 0.72 if prof.folio else 1.0) * emo_p_mult
     samples: list[SandboxSample] = []
     for idx in range(n_samples):
         seg_k = min(k_pts - 2, idx // substeps_per_segment) if k_pts > 1 else 0
@@ -280,37 +286,63 @@ def solve_word_coarticulation(
 
         # Smooth cosine interpolation of target pressure, smoothly lightened on rising strokes
         p_interp = (p_a.pressure + (0.5 - 0.5 * math.cos(math.pi * u)) * (p_b.pressure - p_a.pressure)) * pressure_scale
+        # In grief_hesitation, pressure tapers slightly across the word as the scribe's hand hesitates
+        if emo_name == "grief_hesitation":
+            word_prog = idx / max(1, n_samples - 1)
+            p_interp *= (1.06 - 0.18 * word_prog)
         # Smoothly blend toward hairline pressure (0.28) when moving upward (vy_arr[idx] < 0 in y-down canvas)
         upward_blend = 0.5 * (1.0 - math.tanh(vy_arr[idx] / 1.5))
         p_eff = p_interp * (1.0 - upward_blend) + 0.28 * upward_blend
         p_eff = max(0.18, min(1.05, p_eff))
 
         is_contact = p_a.contact and p_b.contact
+        cur_reservoir = session.state.ink_level if session is not None else 0.85
         if session is not None and idx > 0 and is_contact:
             seg_dist = math.hypot(float(x_mm_arr[idx] - x_mm_arr[idx - 1]), float(y_mm_arr[idx] - y_mm_arr[idx - 1]))
-            session.state.consume_contact_distance(seg_dist, avg_pressure=float(p_eff), avg_width_mm=w_nib)
+            cur_reservoir = session.state.consume_contact_distance(seg_dist, avg_pressure=float(p_eff), avg_width_mm=w_nib)
             dark_mult = max(0.75, min(1.08, session.state.darkness_scale()))
             p_eff = max(0.18, min(1.05, p_eff * dark_mult))
+
+        # Apply physiological hand tremor when emotional agitation or grief elevates tremor above baseline
+        tx_mm = 0.0
+        ty_mm = 0.0
+        if emo_tremor_mm > 0.020 and is_contact:
+            t_phase = idx * 0.52 + (session.word_counter * 1.9 if session else 0.0)
+            tx_mm = emo_tremor_mm * math.sin(t_phase)
+            ty_mm = 0.65 * emo_tremor_mm * math.cos(t_phase * 1.37)
 
         role = "join" if (p_a.letter_index != p_b.letter_index or p_b.role in ("exit", "peak", "loop")) else "body"
         samples.append(
             SandboxSample(
-                x_mm=float(x_mm_arr[idx]),
-                y_mm=float(y_mm_arr[idx]),
-                vx_mm_s=float(vx_arr[idx]),
-                vy_mm_s=float(vy_arr[idx]),
+                x_mm=float(x_mm_arr[idx]) + tx_mm,
+                y_mm=float(y_mm_arr[idx]) + ty_mm,
+                vx_mm_s=float(vx_arr[idx]) * emo_speed_mult,
+                vy_mm_s=float(vy_arr[idx]) * emo_speed_mult,
                 contact=is_contact,
                 pressure=float(p_eff),
                 nib_angle_deg=nib_angle + angle_drift,
                 letter=p_a.letter if u < 0.5 else p_b.letter,
                 role=role,
+                ink_reservoir=float(cur_reservoir),
+                emotional_state=emo_name,
             )
         )
 
     if session is not None:
         session.last_word_exit_y_wnib = float(sol_y[-1])
         session.word_counter += 1
-        session.state.ink_state.process_word_boundary()
+        from scribesim.ink.cycle import DipEvent
+        dip_ev = session.state.ink_state.process_word_boundary()
+        if dip_ev in (DipEvent.ForcedDip, DipEvent.PreferredDip):
+            session.dip_events.append(
+                {
+                    "folio_id": session.folio_id,
+                    "line_index": session.current_line,
+                    "word_counter": session.word_counter,
+                    "word": word,
+                    "reason": "forced_dip" if dip_ev == DipEvent.ForcedDip else "preferred_dip",
+                }
+            )
 
     return CoarticulatedWordResult(
         word=word,
@@ -331,19 +363,20 @@ def compose_line_kinematic_Stateful(
     session: KinematicScribeSession | None = None,
     line_index: int = 0,
     profile: HandProfile | None = None,
+    register: str = "de",
 ) -> StatefulLineResult:
-    """Compose a full line of words with ScribeState, word-initial attack, and InkState."""
+    """Compose a full line of words with ScribeState, word-initial attack, EmotionalLineState, and InkState."""
     sess = session or KinematicScribeSession(folio_id="f01r", seed=1457)
-    if line_index != sess.current_line:
-        sess.advance_to_line(line_index)
+    sess.advance_to_line(line_index, line_text=line_text, register=register)
 
     prof = profile or resolve_clio7_kinematic_profile(sess.folio_id, line_index=line_index)
     w_nib = prof.nib.width_mm
     xh = prof.letterform.x_height_mm
-    baseline_sag_mm = sess.state.baseline_drift_mm(line_index)
+    emo = sess.active_emotion
+    baseline_sag_mm = sess.state.baseline_drift_mm(line_index) + emo.baseline_undulation_mm * math.sin(line_index * 1.7)
     baseline_y_mm = xh * 2.1 + line_index * (xh * 2.5) + baseline_sag_mm
 
-    word_gap_wnib = 2.2 * (prof.word.spacing_mean_ratio / 1.2)
+    word_gap_wnib = 2.2 * (prof.word.spacing_mean_ratio / 1.2) * emo.word_gap_mult
     cursor_wnib = 1.2
     word_results: list[CoarticulatedWordResult] = []
     line_samples: list[SandboxSample] = []

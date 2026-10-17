@@ -47,6 +47,8 @@ class SandboxSample:
     nib_angle_deg: float
     letter: str = ""
     role: str = "body"
+    ink_reservoir: float = 0.85
+    emotional_state: str = "standard"
 
 
 def _ink_rgb(alpha: float) -> tuple[int, int, int]:

@@ -116,3 +116,40 @@ def test_clio7_folio_modifiers_f06r_f07v_f14r() -> None:
     assert p_14r.letter_spacing_norm > p_01r.letter_spacing_norm
     assert p_14r.word.spacing_mean_ratio > p_01r.word.spacing_mean_ratio
     assert p_14r.writing_speed < p_01r.writing_speed
+
+
+def test_emotional_line_states_and_quill_dip_cycle() -> None:
+    """EmotionalLineState reflects CLIO-7/narrative content and InkState triggers natural quill dips across a page."""
+    from scribesim.render.scribe_state import resolve_emotional_line_state
+
+    e_bless = resolve_emotional_line_state("f05r", 3, "Ich legte meine Hand auff sein Haupt", "de")
+    assert e_bless.state_name == "sacred_steadiness"
+    assert e_bless.tremor_amp_mm == 0.0
+    assert e_bless.force_fresh_dip is True
+
+    e_deep = resolve_emotional_line_state("f03r", 20, "meine etwas Kleiners: die leise Verdickung des", "de")
+    assert e_deep.state_name == "deepened_attention"
+    assert e_deep.pressure_mult > 1.10
+    assert e_deep.width_mult > 1.05
+
+    e_trem = resolve_emotional_line_state("f03r", 11, "menschlichen hende gemachet hat zu zittern, zu", "de")
+    assert e_trem.state_name == "tremor_agitation"
+    assert e_trem.tremor_amp_mm > 0.04
+
+    e_grief = resolve_emotional_line_state("f04v", 17, "sprach [—]. Ich sprach, daß ich [—] stoltz [—]", "de")
+    assert e_grief.state_name == "grief_hesitation"
+    assert e_grief.speed_mult < 0.85
+
+    e_lat = resolve_emotional_line_state("f05v", 14, "Augustinus scribit: fecisti nos ad te, Domine, et", "la")
+    assert e_lat.state_name == "latin_formal"
+
+    # Verify a multi-line session triggers natural quill dips and records reservoir levels on samples
+    sess = KinematicScribeSession(folio_id="f01r", seed=1457)
+    for l_idx in range(12):
+        compose_line_kinematic_Stateful(
+            "Ich bin ein Schreiber gewesen dreißig Jar und habe das Wort abgeschrieben",
+            session=sess,
+            line_index=l_idx,
+        )
+    assert len(sess.dip_events) >= 2
+

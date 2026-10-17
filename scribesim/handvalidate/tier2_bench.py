@@ -75,10 +75,27 @@ def render_kinematic_folio(
         lines_data = lines_data[:max_lines]
 
     line_results: list[tuple[dict, StatefulLineResult]] = []
+    emotional_lines: list[dict] = []
     for l_idx, line_obj in enumerate(lines_data):
         txt = line_obj.get("text", "")
-        l_res = compose_line_kinematic_Stateful(txt, session=session, line_index=l_idx)
+        reg = line_obj.get("register", "de")
+        l_res = compose_line_kinematic_Stateful(txt, session=session, line_index=l_idx, register=reg)
         line_results.append((line_obj, l_res))
+        emo = session.active_emotion
+        if emo.state_name != "standard":
+            emotional_lines.append(
+                {
+                    "folio_id": fid,
+                    "line_number": int(line_obj.get("number", l_idx + 1)),
+                    "state_name": emo.state_name,
+                    "rationale": emo.rationale,
+                    "pressure_mult": emo.pressure_mult,
+                    "width_mult": emo.width_mult,
+                    "speed_mult": emo.speed_mult,
+                    "tremor_amp_mm": emo.tremor_amp_mm,
+                    "text": txt,
+                }
+            )
 
     # Page dimensions in mm: MS Erfurt Aug. 12°47 duodecimo/octavo leaf (148 x 204 mm)
     # Recto ('r') has narrower inner gutter margin on the left (16.5 mm) and wider outer margin on the right;
@@ -127,6 +144,11 @@ def render_kinematic_folio(
             width_mm=l_prof.nib.width_mm,
             angle_deg=l_prof.nib.angle_deg,
             flexibility=l_prof.nib.flexibility,
+        )
+        from scribesim.render.scribe_state import resolve_emotional_line_state
+        from scribesim.ink.cycle import ink_darkness, ink_width_modifier
+        l_emo = resolve_emotional_line_state(
+            fid, l_idx, line_text=line_obj.get("text", ""), register=line_obj.get("register", "de")
         )
 
         # Parse line-level confidence and character-span lacuna/damage annotations
@@ -266,10 +288,20 @@ def render_kinematic_folio(
             app_w = chisel_apparent_width_mm(l_nib, dir_deg, avg_p)
             pool_w, pool_i = turn_pooling_factor(speed, nominal_speed_mm_s=12.0)
             raw_eff_w[idx] = app_w * pool_w * sample_width_mult[idx]
-            base_d = min(0.96, max(0.68, (0.72 + 0.24 * avg_p) * pool_i * l_prof.ink_density))
-            raw_dark[idx] = max(0.08, base_d * sample_dark_mult[idx])
-            raw_heat[idx] = max(1, min(255, round(avg_p * sample_dark_mult[idx] * 240.0)))
             widths_mm.append(float(raw_eff_w[idx]))
+
+            # Quill dip reservoir effect + intra-stroke pooling vs fast mid-stroke variation
+            res_level = float(getattr(curr, "ink_reservoir", 0.85))
+            # Accentuate the quill dip cycle: reservoir=1.0 -> 1.04 (fresh saturated dip), reservoir=0.20 -> 0.62 (depleted pre-dip)
+            dip_dark = 0.50 + 0.54 * (max(0.0, min(1.0, res_level)) ** 0.55)
+            # Intra-letter ink variation: slow pooled turns & high-pressure stems deposit thicker ink
+            # than fast mid-strokes or thin rising hairlines
+            stroke_flow = 0.48 + 0.42 * avg_p + 0.18 * (pool_i - 1.0) * 3.0
+            base_d = min(0.99, max(0.38, stroke_flow * dip_dark * l_prof.ink_density * (0.90 + 0.12 * l_emo.pressure_mult)))
+            raw_dark[idx] = max(0.08, base_d * sample_dark_mult[idx])
+            # Encode ink film thickness (pressure * dip reservoir * pooling) into heatmap for intra-letter brown weathering
+            film_thickness = min(1.0, max(0.06, (0.35 + 0.65 * avg_p) * dip_dark * pool_i * sample_dark_mult[idx]))
+            raw_heat[idx] = max(1, min(255, round(film_thickness * 250.0)))
 
         for _ in range(3):
             sm_w = raw_eff_w.copy()
@@ -307,7 +339,8 @@ def render_kinematic_folio(
 
             angle_rad = math.radians(curr.nib_angle_deg)
             avg_p = 0.5 * (prev.pressure + curr.pressure)
-            splay = 0.85 + 0.18 * avg_p
+            res_w_mod = ink_width_modifier(float(getattr(curr, "ink_reservoir", 0.85)))
+            splay = (0.85 + 0.18 * avg_p) * res_w_mod * l_emo.width_mult * float(sample_width_mult[idx])
             half_edge_px = 0.5 * l_nib.width_mm * splay * px_per_mm_int
             hx = half_edge_px * math.cos(angle_rad)
             hy = -half_edge_px * math.sin(angle_rad)
@@ -503,6 +536,8 @@ def render_kinematic_folio(
         "page_array": page_arr,
         "hybrid_texture": hybrid_gate,
         "damage_annotations": damage_annotations,
+        "emotional_lines": emotional_lines,
+        "dip_events": session.dip_events,
         "contracts": {
             "exact_character_coverage": 1.0,
             "glyph_bbox_iou": round(ink_recall, 4),
