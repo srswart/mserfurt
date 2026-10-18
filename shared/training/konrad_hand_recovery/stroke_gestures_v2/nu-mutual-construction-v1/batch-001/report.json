@@ -1,0 +1,103 @@
+{
+  "version": "nu-mutual-construction-v1",
+  "status": "stopped_preflight",
+  "approval": {
+    "version": "nu-mutual-construction-v1",
+    "owner_quote": "Yes approved and proceed.",
+    "brief_sha256": "a4d0d564d4123bcc49e5fc070cfb827d5d6f86795a76405d5f939d9badd72eed",
+    "canonical_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "approved_briefs": [
+      "J1",
+      "J2"
+    ],
+    "numeric_regions_and_ports": true,
+    "new_splice_centers_and_window_local_turn_guard": true,
+    "action_and_aggregate_length_partition": true,
+    "construction_check_seconds": 300,
+    "render_seconds": 300,
+    "candidate_limit": 2,
+    "batches": 1,
+    "retries": 0,
+    "max_output_bytes": 26214400,
+    "minimum_free_bytes": 5368709120,
+    "fitting": false,
+    "physical_runs": 0,
+    "mu": false,
+    "nib_rotation": false
+  },
+  "error": "Changed repaired preflight identities or authority: upstream merge changed the frozen source inventory. No bypass, re-pin or automatic retry.",
+  "failure_call": "history.verify -> letter_context_variant_evidence.compare_previous -> freeze_record",
+  "verification_attempts": 1,
+  "batch_construction_started": false,
+  "new_candidates": 0,
+  "candidates": [],
+  "renders": 0,
+  "fitting_evaluations": 0,
+  "physical_runs": 0,
+  "mu_started": false,
+  "nib_rotation": false,
+  "construction_seconds": 0,
+  "nominal_render_seconds": 0,
+  "automatic_retries": 0,
+  "source_head": "3e0e687d6006f94e483bb07f419ed40332a7202d",
+  "code_sha256": "586b862c3ec83f7e7786f1f859cdabe09b99fcaf6cffb5ad32e42319d6cdb835",
+  "tests_sha256": "63291a432f913a7a76270d0a4136a78f9d54413ce35ffac4cd8b9483e34a6395",
+  "software_validation": {
+    "status": "pass",
+    "tests": 123,
+    "scope": "Synthetic/new helper tests plus existing boundary, geometry, receiving, local-contact and nominal regressions; no frozen J1/J2 construction"
+  },
+  "source_inventory": {
+    "frozen_count": 217,
+    "current_count": 239,
+    "changed": {
+      "scribesim/pathguide/io.py": {
+        "frozen": "8d06f2f315d496abf91f5a305015774caea70d20b120b2365d346a732bb78c5b",
+        "current": "46309acacce1d539cbbb2d60211fa1468d1f3dc0b9963a99c9e6d0dcb01d1f2c"
+      },
+      "scribesim/cli.py": {
+        "frozen": "65740e60da7e0efd39b63b31e2e4ae8d4b0007bdae57637e5e51b8ec36beb2f7",
+        "current": "365722444f0db13a96a8d7e4b74711271864d9a5036955829a5d050af43a90e6"
+      }
+    },
+    "added": {
+      "scribesim/handcorpus/builder.py": "76152bc6265b5a97b824469edbe0ff547be156116b36f0901d2d5c9168dd5662",
+      "scribesim/handvalidate/neural_bench.py": "f0589f986750b402c2816489165144d4c2617b44044abd7f4f53667563d6fbba",
+      "scribesim/scribehand/backends/__init__.py": "9dfe19230f537ccec3e8dad15245267e31b17aab790b697bea4a25b7e7906faa",
+      "scribesim/scribehand/backends/command.py": "18a5e79a7c850549e323e3479fc95227c4077f81eaa0f25d786ae1566a4cb9e9",
+      "scribesim/handcorpus/anchor.py": "6e3d607fc7bc8be716de72f1bc592a60d3d703697cb6f9a26018ef66099f1a64",
+      "scribesim/scribehand/types.py": "3558d9762fd333e120a35a4a59b3edd8eb28731674092852f26bd7ad7f654e9a",
+      "scribesim/scribehand/backends/stub.py": "fb5bcd324a90a20c9e20b3da8f9ea964f9915156faae1e12d724ff8452e7a961",
+      "scribesim/handcorpus/gates.py": "6e77895129ec2ae02d5c1f6e0d8878351d1e9c0089619278b6d057ba1da2b655",
+      "scribesim/handcorpus/manifest.py": "bf436a05af37be679d01e574270dab95ef46860b7b6b16f01a903fdebfcf5788",
+      "scribesim/handcorpus/export.py": "acd4093f5e9282384d2694d0c7ebf01c636e778e8bea7c45e2b42fd3b02470d4",
+      "scribesim/handcorpus/charset.py": "f0b29786ff11723270d16abe3a9644378838579fab9e94d9b623e49cd746a52d",
+      "scribesim/scribehand/verify.py": "e9ab2dd641e15a60a974e035bfbdbe94a714be805036bda2a2010000b2e6c66e",
+      "scribesim/handcorpus/__init__.py": "b36352bf45b0ad94761a8d21b27c5b4471726e4651f2d3fd103af9c1d985f388",
+      "scribesim/scribehand/__init__.py": "36943f761b325238b030807154046f53be2993c379cc0a85809c1c9160912a71",
+      "scribesim/scribehand/htr.py": "b8914f852ea714db250ff4b23a2fd31ae0e27d8c7beb4c9b0901d8246675bf9e",
+      "scribesim/scribehand/style.py": "d39c0b2e56ad17e1ae55443bfc7324154117200970d9804d66a04ffe46730cc4",
+      "scribesim/scribehand/compose.py": "55077a6d139f750ff183aaa4380d5ddadef2fa97f7a6ef571214c4b8ab60aa65",
+      "scribesim/scribehand/diagnostics.py": "5740b42e87773a5069a4c216760727d33fc4c6c1f6540b6e40d6e5040b794dd7",
+      "scribesim/scribehand/pagexml.py": "bb7f00fb7c6c88f5fefea16add6d3aaa5c16ccc4ccdcaade42f1ae7adcd09b50",
+      "scribesim/scribehand/generate.py": "8429d530f319865f2f528956988899d66349b0261013ed7265ea0cf07f7e1e05",
+      "scribesim/scribehand/modifiers.py": "8d7f68996095a3d7e33ed79d8c72b662c9ed4d2ffe519c4e14efba12fac3b938",
+      "scribesim/scribehand/seeds.py": "fb06e6c35c631c25f745adb6388b7c2f364c73ef3567c43b5b1d0f0b15ef2c13"
+    },
+    "removed": {},
+    "non_code_freeze_fields_equal": true,
+    "frozen_record_path": "shared/training/konrad_hand_recovery/stroke_gestures_v2/letter_context/bounded-geometry-v1/snapshot-003/freeze.json",
+    "frozen_record_sha256": "760c0393d0e34d9808688bf894e245a0796fb92b37e963f969db505354db8367"
+  },
+  "direct_saved_pins_verified": {
+    "letters/upright/run-001/candidate.json": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+    "nu-corner-contact-v1/geometry-001/nu-candidate.json": "7268952cd29fc7737c726838107e25f6bf0deeb4537992a8b415713150b0db97",
+    "nu-corner-contact-v1/receiving-envelope-review-001/report.json": "053aff33d2b767c622ea63614fd4727a394c1c6bce365740d007915c7e163b8f",
+    "nu-contextual-entry-v1/derived-entry-001/candidate.json": "16872e32eb44d15c2b226a4327a75851bf6a286ba08568930f856c554e97c433",
+    "nu-contextual-entry-v1/local-contact-review-001/report.json": "2531730f4839d2f9c6fce32484406f6e5d858ad4a4af80da3f77143b851ede3b",
+    "nu-contextual-entry-v1/nominal-001/report.json": "ab53f7260b2110d4ea1c9523ea78ab8e5b0e26990d96128d8e27f0261f8ed955"
+  },
+  "evidence_boundary": "Six direct pins match; full recursive source/evidence admission is blocked. No claim of current-foundation readiness or visual acceptance.",
+  "next_gate": "Review merge-aware historical-evidence verification versus current-runtime readiness before authorizing continuation; preserve the old pins and merged features.",
+  "status_board_sha256": "b5ca850ca9edf078b2349eb292dc62b648a600fc0f264cab634377e53425bbd0"
+}

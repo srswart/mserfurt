@@ -1,0 +1,21 @@
+{
+  "version": "nu-mutual-construction-v1",
+  "owner_quote": "Yes approved and proceed.",
+  "brief_sha256": "a4d0d564d4123bcc49e5fc070cfb827d5d6f86795a76405d5f939d9badd72eed",
+  "canonical_sha256": "01f892299fff5b069f1559c3ae7c22bfc1a185a40633a424b670b3a6cfbdd8cd",
+  "approved_briefs": ["J1", "J2"],
+  "numeric_regions_and_ports": true,
+  "new_splice_centers_and_window_local_turn_guard": true,
+  "action_and_aggregate_length_partition": true,
+  "construction_check_seconds": 300,
+  "render_seconds": 300,
+  "candidate_limit": 2,
+  "batches": 1,
+  "retries": 0,
+  "max_output_bytes": 26214400,
+  "minimum_free_bytes": 5368709120,
+  "fitting": false,
+  "physical_runs": 0,
+  "mu": false,
+  "nib_rotation": false
+}

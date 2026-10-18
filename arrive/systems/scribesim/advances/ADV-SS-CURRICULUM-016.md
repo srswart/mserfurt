@@ -14,6 +14,37 @@ advance:
   reviewability_score: 0
   risk_flags: ["public_api"]
   evidence:
+    - "scripts/nu_ramp_contact_measurement.py"
+    - "tests/test_nu_ramp_contact_measurement.py"
+    - "docs/tech-direction/TD-018-ramp-contact-measurement.md"
+    - "docs/tech-direction/TD-018-ramp-contact-measurement-results.md"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/ramp-contact-measurement-approval.json"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/ramp-contact-measurement-001/report.json"
+    - "scripts/nu_j1_receiving_repair.py"
+    - "tests/test_nu_j1_receiving_repair.py"
+    - "docs/tech-direction/TD-018-j1-receiving-repair-results.md"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/j1-receiving-repair-approval.json"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/j1-receiving-repair-001/report.json"
+    - "docs/tech-direction/TD-018-j1-receiving-local-tail-proposal.md"
+    - "scripts/nu_excursion_locality.py"
+    - "tests/test_nu_excursion_locality.py"
+    - "docs/tech-direction/TD-018-saved-excursion-locality-results.md"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/locality-approval.json"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/locality-001/report.json"
+    - "scripts/nu_merge_readiness.py"
+    - "scripts/nu_mutual_resume.py"
+    - "tests/test_nu_merge_readiness.py"
+    - "tests/test_nu_mutual_resume.py"
+    - "docs/tech-direction/TD-018-merge-aware-nominal-readiness.md"
+    - "docs/tech-direction/TD-018-mutual-nu-continuation-results.md"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/continuation-approval.json"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/readiness-001/report.json"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/continuation-001/report.json"
+    - "scripts/nu_mutual_construction.py"
+    - "tests/test_nu_mutual_construction.py"
+    - "docs/tech-direction/TD-018-mutual-nu-preflight-stop.md"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/approval.json"
+    - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-mutual-construction-v1/batch-001/report.json"
     - "docs/tech-direction/TD-018-mutual-nu-construction-briefs.md"
     - "docs/tech-direction/TD-018-addendum-f-mutual-letter-flow.md"
     - "shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/owner-feedback-001.json"
@@ -87,7 +118,102 @@ advance:
 
 ## Objective
 
-### Current checkpoint — F1 reciprocal construction briefs prepared
+### Current checkpoint — saved-ramp measurement complete; departure revisit certified
+
+- [Bounded measurement result](../../../../docs/tech-direction/TD-018-ramp-contact-measurement-results.md)
+  covers all finite-footprint cell pairs, including both receiving cubics and E.
+  Possible overlap arc separation is bounded by 0.182896mm departure,
+  0.128269mm receiving and 0.050579mm across E; these are not new tolerances.
+- Departure has an exact inside/outside/inside paper-point witness at
+  33/64, 39/64 and 25/32. Receiving has no fixed-grid witness, not a continuous
+  pass. Ordinary/nonlocal ramp classification remains unresolved and unchanged.
+- 15 new tests and all 248 nu tests pass; 0.232758s, 7204-byte report. No
+  reconstruction, refit, new candidates/images, physical runs, retries or mu.
+  Saved geometry, actions, limits, policy and historical evidence pins preserved.
+- Next proposed: review the broad-ramp coverage/retrace criterion against the
+  departure witness, then define the remaining receiving proof obligation.
+  No new policy or geometry work started. Advance and validation gates remain
+  open; changes uncommitted.
+
+### Prior checkpoint — J1 receiving repair implemented; self-contact unresolved
+
+- [One approved J1-R1 result](../../../../docs/tech-direction/TD-018-j1-receiving-repair-results.md):
+  all 31 structural checks and 27 external owner-pair checks (59 cubic pairs)
+  pass. Receiving locality is bounded by 0.056250mm against unchanged 0.1125mm.
+- Separate adapter preserves all historical pins and other J1 geometry. One
+  receiving aggregate shares source coverage, action, length and contact gates.
+  Current runtime/context-off n/u/nu exactly match historical fingerprints.
+- Departure active-edge progress and receiving nib-normal monotonicity remain
+  uncertified. No prohibited-contact witness claimed; no nominal render admitted.
+- 23 new tests and 233 nu-suite tests pass. One candidate saved, 2.216139s
+  construction/check phase, 0.330103s text finalization, 115671 output bytes.
+  No retries, fitting, physical runs, mu, nib rotation or changed limits.
+- Next proposed: bounded self-contact measurement on these saved ramps,
+  without refitting or policy changes. Advance and HANDVALIDATE gates remain
+  open; the one-candidate allowance is exhausted. Changes remain uncommitted.
+
+### Prior checkpoint — bounded J1 receiving repair proposed
+
+- [Concrete proposal](../../../../docs/tech-direction/TD-018-j1-receiving-local-tail-proposal.md)
+  replaces only J1's receiving cubic with K→E→C: earlier descent stays left
+  of C; a short terminal tail accommodates the canonical tangent locally.
+- All limits and other J1 geometry remain fixed. Two cubics retain one source
+  interval, one arc-length action profile and one aggregate length/contact gate.
+- Proposed one-candidate budget and stop rules require approval before new
+  geometry. No implementation, new samples, refitting, physical runs or mu.
+- Existing candidates and evidence remain preserved. CURRICULUM-016 stays
+  in progress; numeric feasibility and owner visual review remain gated.
+
+### Prior checkpoint — saved locality measurement proves three violations
+
+- [Exact-rational diagnostic](../../../../docs/tech-direction/TD-018-saved-excursion-locality-results.md)
+  measures saved J1/J2 controls without reconstruction, refitting or changed limits.
+- Genuine interior witnesses exceed the 0.1125mm disk: J1 receiving distance
+  0.146453mm; J2 departure 0.279206mm and receiving 0.258969mm. Prior hull
+  bounds were close to the true suprema, not merely false alarms.
+- Full excursion domains preserved; earlier unresolved report retained. Eight
+  focused diagnostic tests pass; measurement takes 0.428065s. No new geometry,
+  images, fitting, physical runs, mu, nib rotation or retries.
+- Next proposed: bounded J1 receiving-construction revision preserving other
+  geometry where feasible and all limits. No new construction authorized by
+  measurement alone. CURRICULUM-016 remains in progress; uncommitted.
+
+### Prior checkpoint — merge-aware repair passes; J1/J2 locality unresolved
+
+- Owner authorizes merge-aware repair and unchanged continuation. Historical
+  recursive verification passes in exact pinned source bytes; current merged
+  nominal compatibility passes separately. No old pins or checkers changed.
+- 161 focused tests pass. Canonical n/u/nu compiled hashes agree across runtimes;
+  excluded upstream neural/CLI modules do not enter the direct nominal path.
+- [Continuation results](../../../../docs/tech-direction/TD-018-mutual-nu-continuation-results.md):
+  J1 and J2 constructed exactly once in 0.693910s, with unchanged geometry and
+  limits. Receiving locality is unresolved for both; J2 departure locality also
+  unresolved. Hull upper bounds are not violation witnesses.
+- Other executed structural checks pass, including thinness and curvature.
+  External/ramp contact is not run after the unresolved structural gate.
+  No new ink samples, fitting, physical runs, mu, nib rotation or retries.
+- Next proposed gate: measurement-only excursion-locality diagnostic on saved
+  candidates, preserving full domains and limits; no refit or reconstruction.
+  CURRICULUM-016 remains in progress; HANDVALIDATE-025/026 gated; uncommitted.
+
+### Prior checkpoint — F2 approved; source-identity preflight stopped
+
+- Owner approves the complete J1/J2 package. Exact brief bytes and approval
+  preserved; opt-in constructors/checker and stop handling implemented.
+- 123 focused tests pass, using synthetic new-program inputs and existing
+  frozen-regression tests. No J1/J2 study candidate has been constructed.
+- [Preflight stop and next gate](../../../../docs/tech-direction/TD-018-mutual-nu-preflight-stop.md):
+  merged source changes two pinned files and adds 22 to the historical inventory.
+  Recursive source verification fails before construction; no hash bypass,
+  changed thresholds, automatic retry, rendering, fitting, physical runs or mu.
+- Six direct saved candidate/report pins match; full recursive admission does
+  not pass. Preserve the stopped attempt and all original evidence.
+- Next: review merge-aware historical-evidence/current-runtime readiness
+  separation before continuing under unchanged geometry and remaining budget.
+  Admitted-candidate render/overlay delivery remains pending. CURRICULUM-016
+  stays in progress; HANDVALIDATE-025/026 remain gated; changes uncommitted.
+
+### Prior checkpoint — F1 reciprocal construction briefs prepared
 
 - [Review package](../../../../docs/tech-direction/TD-018-mutual-nu-construction-briefs.md)
   specifies J1 receiving-rise-led and J2 shared accommodation as different

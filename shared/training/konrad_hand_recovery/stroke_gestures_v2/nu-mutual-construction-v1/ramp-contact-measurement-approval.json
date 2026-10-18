@@ -1,0 +1,22 @@
+{
+  "version": "saved-ramp-contact-measurement-v1",
+  "owner_quote": "Okay let's handle bounded self-contact measurement on the saved candidate, keeping geometry and limits unchanged.",
+  "saved_report_sha256": "03979c687c1fb027b383e07d0b9c176b8c7e782b08f9df351905dba43f0deda6",
+  "candidate_sha256": "616526b0952f02264d772508bce4342c325cc21a4648e49abd50efdaf01845f5",
+  "dependencies": {
+    "scripts/nu_ramp_contact_measurement.py": "393e9bc87579c4af8230957a2b4f252972c0f7196c680089a177a94a94f3154b",
+    "tests/test_nu_ramp_contact_measurement.py": "eaffa6258ecc909ec5aa29ef87a34339255623ec841278333f8594f56d11d166",
+    "docs/tech-direction/TD-018-ramp-contact-measurement.md": "a4292c066d100f54c9f12a548c4934cc0581bd9a3ca2e9837aa975a1a0bbee70"
+  },
+  "seconds": 300,
+  "max_output_bytes": 2097152,
+  "minimum_free_bytes": 5368709120,
+  "cells_per_cubic": 64,
+  "batches": 1,
+  "retries": 0,
+  "new_candidates": 0,
+  "images": 0,
+  "fitting": false,
+  "physical_runs": 0,
+  "geometry_limits_and_policy_unchanged": true
+}

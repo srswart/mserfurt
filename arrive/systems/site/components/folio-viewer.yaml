@@ -1,0 +1,19 @@
+component:
+  id: folio-viewer
+  name: "Interactive Pan/Zoom Folio Viewer & 34-Leaf Index"
+  type: ui
+  owners:
+    - team: ms-erfurt
+  stage: incubating
+
+selectors:
+  paths:
+    - "site/dist/viewer.html"
+    - "site/dist/folios.html"
+  build_modules: []
+  tags: [site, viewer, folios]
+  contracts: []
+
+interfaces: []
+
+invariants: []

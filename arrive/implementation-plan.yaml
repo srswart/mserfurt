@@ -1,7 +1,7 @@
 schema_version: 1
 metadata:
   created_at: 2026-03-19T00:00:00Z
-  updated_at: 2026-09-08T06:44:10Z
+  updated_at: 2026-10-17T13:04:53.383945Z
   generated_by: arrive-phase bootstrap
 passes:
 - id: pass-1a
@@ -2023,3 +2023,53 @@ passes:
       - ADV-SS-HANDVALIDATE-027
       notes: "Optional hybrid pass (`--hybrid-texture`) conditioning on the exact kinematic ink and pressure map to add 15th-century quill-on-vellum edge micro-texture while preserving centerline IoU >= 0.92, CER, and PAGE XML coordinates."
       status_changed_at: 2026-10-16T20:07:18.272416Z
+- id: pass-17
+  title: 'Pass 17: TD-020 — MS Erfurt Edition & Manuscript Showcase Site & Fly.io Hosting'
+  order: 48
+  phases:
+  - id: td020-site-data-and-edition
+    title: Web dataset & asset bundler, Landing showcase, and 7-section Edition Reader
+    order: 1
+    items:
+    - id: ADV-SITE-DATA-001
+      advance_id: ADV-SITE-DATA-001
+      title: "Manuscript & Edition Asset Pipeline — 34-Folio Web Dataset, Full 7-Section Edition Corpus, and Design Bundle Extraction"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-HANDVALIDATE-027
+      notes: "Extract embedded Möbius strip artwork and EB Garamond WOFF2 fonts from docs/site design bundle, optimize 34 folio & 16 spread images, and compile site_data.json with normalized CLIO-7 overlay coordinates and 7-section English edition."
+      status_changed_at: 2026-10-17T13:04:52.422823Z
+    - id: ADV-SITE-EDITION-001
+      advance_id: ADV-SITE-EDITION-001
+      title: "Landing Showcase & Interactive 7-Section Edition Reader with Confidence Marks and Contested Reading Switcher"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SITE-DATA-001
+      notes: "Implement Landing (/) and 7-section Edition Reader (/reader) matching desktop and phone artboards, including A-/A+ typography controls, confidence marks toggle, stolz/verloren contested reading switcher, and marginal apparatus."
+      status_changed_at: 2026-10-17T13:04:52.882258Z
+  - id: td020-viewer-colophon-and-fly
+    title: Interactive Pan/Zoom Folio Viewer, 34-Leaf Index, Sealed/Unsealed Colophon, and Fly.io Packaging (ms-erfurt)
+    order: 2
+    items:
+    - id: ADV-SITE-VIEWER-001
+      advance_id: ADV-SITE-VIEWER-001
+      title: "Pan-and-Zoom Folio & Opening Viewer, 4-Layer CLIO-7 Apparatus Overlay, and 34-Leaf Filterable Index"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SITE-DATA-001
+      notes: "Implement full-viewport pan/zoom Manuscript Viewer (/viewer) with Leaf/Opening modes, mini-map navigator, 4 toggleable CLIO-7 layers across all 34 folios, FNHD transcription tab, and filterable 34-page Index of Leaves (/folios)."
+      status_changed_at: 2026-10-17T13:04:53.184972Z
+    - id: ADV-SITE-COLOPHON-001
+      advance_id: ADV-SITE-COLOPHON-001
+      title: "Sealed/Unsealed Colophon ('Behind the Work') & Fly.io Production Packaging (ms-erfurt)"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SITE-EDITION-001
+      - ADV-SITE-VIEWER-001
+      notes: "Implement Sealed (CLAUSUM) and Unsealed Behind-the-Work Colophon (/colophon) plus production HTTP server (site/server.py), Dockerfile, and fly.toml configured for Fly.io app `ms-erfurt`."
+      status_changed_at: 2026-10-17T13:04:53.383944Z
+

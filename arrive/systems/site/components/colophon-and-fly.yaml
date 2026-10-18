@@ -1,0 +1,22 @@
+component:
+  id: colophon-and-fly
+  name: "Sealed/Unsealed Colophon & Fly.io Production Server (ms-erfurt)"
+  type: service
+  owners:
+    - team: ms-erfurt
+  stage: incubating
+
+selectors:
+  paths:
+    - "site/dist/colophon.html"
+    - "site_app/server.py"
+    - "fly.toml"
+    - "Dockerfile"
+    - ".dockerignore"
+  build_modules: []
+  tags: [site, colophon, fly]
+  contracts: []
+
+interfaces: []
+
+invariants: []

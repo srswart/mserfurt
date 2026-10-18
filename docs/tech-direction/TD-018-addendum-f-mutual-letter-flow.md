@@ -1,6 +1,38 @@
 # TD-018 Addendum F — Mutual letter construction and nib-flow studies
 
-Status: **F1 construction briefs prepared; numeric choices and F2 execution await approval**.
+Status: **saved-ramp measurement complete; departure revisit certified, classification unresolved**.
+
+[Latest measurement](TD-018-ramp-contact-measurement-results.md) bounds all
+possible overlap and certifies actual disconnected point membership on the
+unchanged departure. Receiving still lacks a complete certificate or witness.
+No ramp permission is inferred from thin-core policy; no render or new geometry.
+Next proposed: explicit review of broad-ramp coverage versus unwanted retrace.
+
+[Prior repair result](TD-018-j1-receiving-repair-results.md): one approved candidate
+passes 31 structural checks and all 27 external owner-pair checks. Departure
+and receiving self-contact remain uncertified, so there is no nominal image.
+233 tests pass; historical evidence and unchanged limits remain intact. Next
+proposed work is bounded measurement on these saved ramps, not refitting.
+
+[Approved repair proposal](TD-018-j1-receiving-local-tail-proposal.md) confines the
+canonical-tangent excursion to a short terminal tail, changing only J1's
+receiving span. Other geometry and all limits stay fixed; one-candidate budget,
+aggregate action/contact gates and stop rules are explicit. Its single
+candidate allowance is now exhausted; the proposal document stays frozen.
+
+[Latest measurement](TD-018-saved-excursion-locality-results.md) proves actual
+outside-disk points in all three formerly unresolved excursions. Candidates,
+full domains and limits remain unchanged; no new samples or refitting.
+
+[Prior continuation result](TD-018-mutual-nu-continuation-results.md): historical
+integrity and current nominal compatibility pass separately; 161 tests pass.
+J1/J2 use unchanged formulas and limits. Neither clears excursion locality, so
+no new ink samples are rendered. Its proposed measurement-only diagnosis is now
+complete in the latest measurement above; the original report stays preserved.
+
+[Preserved prior execution stop](TD-018-mutual-nu-preflight-stop.md): 123
+focused tests pass, but the upstream merge changes the source inventory required
+by the frozen evidence chain. No J1/J2 candidates or samples were generated.
 
 Review package: [two concrete reciprocal nu construction briefs](TD-018-mutual-nu-construction-briefs.md).
 J1 specifies a distinct upright receiving rise; J2 specifies a shared rising
@@ -171,7 +203,8 @@ their later joint optimization is not authorized by this plan.
 
 Continue within CURRICULUM-016 and the existing gesture/curriculum components.
 F1 specifications and the proposed F2 execution package are now prepared in the
-linked review package. Next: owner review before implementation/execution. Do not add redundant advances
+linked review package. Approval and continuation are recorded; source readiness
+is repaired, while the new candidates remain locality-unresolved. Do not add redundant advances
 for every checker; separate future physical work when its scope is defined.
 
 Proposed F2 ceiling: at most two new fixed candidates, one batch, no automatic

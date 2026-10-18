@@ -1,0 +1,29 @@
+# MS Erfurt Aug. 12°47 — public edition and manuscript showcase.
+# Build the static site before deploying:
+#   python -m site_app.generator
+#   fly deploy --app ms-erfurt
+
+app = "ms-erfurt"
+primary_region = "fra"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 50
+    soft_limit = 25
+
+  [[http_service.checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "10s"
+    method = "GET"
+    path = "/healthz"

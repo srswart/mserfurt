@@ -1,0 +1,21 @@
+component:
+  id: data-assets
+  name: "Site Data & Asset Bundler"
+  type: library
+  owners:
+    - team: ms-erfurt
+  stage: incubating
+
+selectors:
+  paths:
+    - "site_app/build_site_data.py"
+    - "site/dist/data/**"
+    - "site/dist/assets/**"
+    - "docs/site/**"
+  build_modules: []
+  tags: [site, data, assets]
+  contracts: []
+
+interfaces: []
+
+invariants: []

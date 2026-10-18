@@ -1,10 +1,34 @@
 # TD-018 — Reference-Grounded Recovery of Konrad's Hand
 
+**Latest measurement:** [Saved ramp overlap and departure revisit](TD-018-ramp-contact-measurement-results.md).
+All pair domains measured without geometry/limit changes. Departure has an
+exact paper-point leave/return witness; receiving has no grid witness, not a
+continuous pass. Admission remains unresolved. Next: review the broad-ramp
+ordinary-coverage/retrace criterion before further repair. 248 tests pass.
+
+**Prior execution:** [J1 receiving repair](TD-018-j1-receiving-repair-results.md).
+One approved candidate passes all structural and external-contact checks;
+departure/receiving ramp self-contact remains unresolved. 233 tests pass;
+no render, retry or refit. Next proposed: bounded measurement-only ramp
+self-contact diagnosis on the saved candidate, with unchanged limits/policy.
+
+**Latest measurement:** [Saved excursion locality proves three violations](TD-018-saved-excursion-locality-results.md).
+Actual points in J1's receiving and J2's departure/receiving excursions exceed
+the unchanged 0.1125mm disk. No refit or new geometry; next proposed work is a
+bounded local construction revision, beginning with J1 receiving.
+
+**Prior execution gate:** [Merge-aware repair passes; J1/J2 excursion locality unresolved](TD-018-mutual-nu-continuation-results.md).
+161 tests pass. Historical integrity and merged nominal compatibility are
+verified separately without changing old pins. Both candidates are constructed
+once; no new ink samples are admitted. Next proposed work is measurement-only
+locality diagnosis on their saved geometry, with unchanged limits and no refit.
+
 **Current direction:** [Mutual letter construction and isolated nib-flow studies](TD-018-addendum-f-mutual-letter-flow.md).
 Owner finds both connectors unsuitable (old better than derived). Pause their
 promotion. [Two bounded reciprocal construction briefs](TD-018-mutual-nu-construction-briefs.md)
-are prepared for review before fixed-angle shape execution and a later separate
-nib-angle comparison. Numeric choices await approval; no new geometry or training.
+are approved for fixed-angle shape execution before a later separate nib-angle
+comparison. The authorized two-candidate continuation is complete but neither
+candidate is admitted; visual preference review and training remain gated.
 
 **Current visual review:** [Canonical / old bridge / derived entry](../../shared/training/konrad_hand_recovery/stroke_gestures_v2/nu-contextual-entry-v1/nominal-001/index.html).
 Same-scale frozen drawings reveal a lower recovery shoulder in the derived

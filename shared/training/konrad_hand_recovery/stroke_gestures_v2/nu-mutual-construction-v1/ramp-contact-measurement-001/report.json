@@ -1,0 +1,161 @@
+{
+  "version": "saved-ramp-contact-measurement-v1",
+  "status": "measurement_complete_admission_unresolved",
+  "accepted": false,
+  "new_candidates": 0,
+  "images": 0,
+  "fitting_evaluations": 0,
+  "physical_runs": 0,
+  "automatic_retries": 0,
+  "approval": {
+    "version": "saved-ramp-contact-measurement-v1",
+    "owner_quote": "Okay let's handle bounded self-contact measurement on the saved candidate, keeping geometry and limits unchanged.",
+    "saved_report_sha256": "03979c687c1fb027b383e07d0b9c176b8c7e782b08f9df351905dba43f0deda6",
+    "candidate_sha256": "616526b0952f02264d772508bce4342c325cc21a4648e49abd50efdaf01845f5",
+    "dependencies": {
+      "scripts/nu_ramp_contact_measurement.py": "393e9bc87579c4af8230957a2b4f252972c0f7196c680089a177a94a94f3154b",
+      "tests/test_nu_ramp_contact_measurement.py": "eaffa6258ecc909ec5aa29ef87a34339255623ec841278333f8594f56d11d166",
+      "docs/tech-direction/TD-018-ramp-contact-measurement.md": "a4292c066d100f54c9f12a548c4934cc0581bd9a3ca2e9837aa975a1a0bbee70"
+    },
+    "seconds": 300,
+    "max_output_bytes": 2097152,
+    "minimum_free_bytes": 5368709120,
+    "cells_per_cubic": 64,
+    "batches": 1,
+    "retries": 0,
+    "new_candidates": 0,
+    "images": 0,
+    "fitting": false,
+    "physical_runs": 0,
+    "geometry_limits_and_policy_unchanged": true
+  },
+  "measurements": {
+    "departure": {
+      "status": "measurement_complete",
+      "classification": "unresolved",
+      "aggregate_cubics": 1,
+      "cells": 64,
+      "domain": "All unordered cell pairs including diagonal and cross-E",
+      "separated_cell_pairs": 1664,
+      "possible_overlap_cell_pairs": 416,
+      "possible_cross_cubic_pairs": 0,
+      "aggregate_length_lower_mm": 1.019783407055801,
+      "aggregate_length_upper_mm": 1.0198263328579191,
+      "possible_overlap_arc_separation_upper_mm": 0.18289546241702834,
+      "possible_cross_cubic_arc_separation_upper_mm": 0.0,
+      "worst_possible_pair": [
+        {
+          "cubic": 0,
+          "parameter_exact": [
+            "1/2",
+            "33/64"
+          ]
+        },
+        {
+          "cubic": 0,
+          "parameter_exact": [
+            "51/64",
+            "13/16"
+          ]
+        }
+      ],
+      "point_membership_witness": {
+        "status": "certified_disconnected_point_membership",
+        "first": {
+          "cubic": 0,
+          "parameter_exact": "33/64"
+        },
+        "outside": {
+          "cubic": 0,
+          "parameter_exact": "39/64"
+        },
+        "return": {
+          "cubic": 0,
+          "parameter_exact": "25/32"
+        },
+        "paper_nib_coordinates_exact": [
+          "2456252114128360704112226349232564900253462454513477496064127545581/3818514759204105889376249074185140530366390202313111436737044807680",
+          "32392270681394104601298324968180603277/42535295865117307932921825928971026432"
+        ],
+        "membership_rectangles_exact": {
+          "first_inner": [
+            [
+              "2805807577381998344955363352762226232876114036755595871/5708990770823839524233143877797980545530986496000000000",
+              "480930501799806079207428842315393096550065721935572242754893088516592811/745803663907051931518798647301785259837185586389279577487704064000000000"
+            ],
+            [
+              "69537982877220771157970499979506839754472801757630549561/91343852333181432387730302044767688728495783936000000000",
+              "71364859741196694941716340327447778934421076514369450439/91343852333181432387730302044767688728495783936000000000"
+            ]
+          ],
+          "outside_outer": [
+            [
+              "3142285873588988510675668749198549602760346993693622879/5708990770823839524233143877797980545530986496000000000",
+              "1822734294304140822678610408241081960884329986306175992764528308431851347/2685006205430206055617372543016806462850372491382099968861929472000000000"
+            ],
+            [
+              "67585754853700821028982468751607929579075573164638981689/91343852333181432387730302044767688728495783936000000000",
+              "69412632083052154145454038650470076938094602835361018311/91343852333181432387730302044767688728495783936000000000"
+            ]
+          ],
+          "return_inner": [
+            [
+              "3663159072667931978236205769514103836175802484755595871/5708990770823839524233143877797980545530986496000000000",
+              "136744322781858189198263759317138903434062467440933010970059430760495859/186450915976762982879699661825446314959296396597319894371926016000000000"
+            ],
+            [
+              "67758883478570620008063084550468152761844352477630549561/91343852333181432387730302044767688728495783936000000000",
+              "69585760342546543791808924898409091941792627234369450439/91343852333181432387730302044767688728495783936000000000"
+            ]
+          ]
+        },
+        "outside_axes": [
+          1
+        ],
+        "classification": "Not automatically prohibited; no ramp ordinary-overlap policy extension"
+      },
+      "proof": "Exact-rational restricted control hulls enclose every center position; chord/control-polygon arc bounds enclose aggregate action progress. Disjoint finite-footprint slab supersets exclude pairs. Every remaining pair has intervening arc bounded by summed cell upper lengths, including complete cross-cubic travel.",
+      "meaning": "Derived separation bound, not a new locality cutoff, collision claim or ordinary-overlap permission"
+    },
+    "receiving": {
+      "status": "measurement_complete",
+      "classification": "unresolved",
+      "aggregate_cubics": 2,
+      "cells": 128,
+      "domain": "All unordered cell pairs including diagonal and cross-E",
+      "separated_cell_pairs": 6300,
+      "possible_overlap_cell_pairs": 1956,
+      "possible_cross_cubic_pairs": 33,
+      "aggregate_length_lower_mm": 0.8921727176807603,
+      "aggregate_length_upper_mm": 0.8922110980783521,
+      "possible_overlap_arc_separation_upper_mm": 0.12826877899158207,
+      "possible_cross_cubic_arc_separation_upper_mm": 0.05057848539609827,
+      "worst_possible_pair": [
+        {
+          "cubic": 0,
+          "parameter_exact": [
+            "1/4",
+            "17/64"
+          ]
+        },
+        {
+          "cubic": 0,
+          "parameter_exact": [
+            "29/64",
+            "15/32"
+          ]
+        }
+      ],
+      "point_membership_witness": {
+        "status": "not_found_on_fixed_grid",
+        "meaning": "Absence is not a continuous no-reentry proof"
+      },
+      "proof": "Exact-rational restricted control hulls enclose every center position; chord/control-polygon arc bounds enclose aggregate action progress. Disjoint finite-footprint slab supersets exclude pairs. Every remaining pair has intervening arc bounded by summed cell upper lengths, including complete cross-cubic travel.",
+      "meaning": "Derived separation bound, not a new locality cutoff, collision claim or ordinary-overlap permission"
+    }
+  },
+  "frozen_inputs_unchanged": true,
+  "saved_checks_reused_not_rerun": true,
+  "scope": "No source-readiness renewal, construction, rendering, limit or policy changes",
+  "elapsed_seconds": 0.23275791690684855
+}

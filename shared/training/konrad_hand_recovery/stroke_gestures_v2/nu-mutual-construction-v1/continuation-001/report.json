@@ -1,0 +1,2446 @@
+{
+  "version": "nu-mutual-continuation-v1",
+  "status": "no_candidate_admitted",
+  "readiness_report_sha256": "c4f2f1fdc6ad4883ae9c6be358669005876dd1042b3c197fb4e12c3f580d8915",
+  "continuation_approval_sha256": "8cbb290705274070c3508f76fa7ce364dca1f998bd862d134404ea014f8e8418",
+  "stopped_report_sha256": "648a8d28cd411426af260fa0cc451eaf2876cf39127bbacf8610b5f8676b0156",
+  "candidates": [
+    {
+      "brief": "J1",
+      "status": "unresolved",
+      "candidate": {
+        "version": "nu-mutual-construction-v1",
+        "brief": "J1",
+        "fixture": "nu",
+        "spec": {
+          "source_cuts": {
+            "0:3": "0.7648068784772746",
+            "1:0": "0.35"
+          },
+          "foot_extension": 0.08,
+          "rise_offset": 0.16,
+          "rise_height": 0.45,
+          "upright_top": 0.88,
+          "crown_offset": 0.08,
+          "crown_height": 1.0,
+          "rise_direction": [
+            0.0,
+            1.0
+          ]
+        },
+        "canonical_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+        "coordinate_frame": "physical-mm-y-up",
+        "rule": "terminal-0.9-receiving-0.75-middle-chord-thirds-v1",
+        "ports_mm": {
+          "A": [
+            0.9672599986155733,
+            0.8689916223825797
+          ],
+          "F": [
+            1.2625566424274426,
+            0.0
+          ],
+          "P": [
+            3.8150000000000004,
+            1.575
+          ],
+          "K": [
+            4.095,
+            3.5
+          ],
+          "C": [
+            4.385773979306343,
+            2.7479394102999484
+          ],
+          "Q": [
+            3.8150000000000004,
+            3.08
+          ]
+        },
+        "directions": {
+          "A": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "F": [
+            1.0,
+            0.0
+          ],
+          "P": [
+            0.0,
+            1.0
+          ],
+          "K": [
+            1.0,
+            0.0
+          ],
+          "C": [
+            -0.027464231629556135,
+            -0.9996227868456172
+          ],
+          "Q": [
+            0.0,
+            1.0
+          ]
+        },
+        "port_order": [
+          "A",
+          "F",
+          "P",
+          "Q",
+          "K",
+          "C"
+        ],
+        "retained": [
+          {
+            "piece_id": "0:0",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "start",
+              "cubics": [
+                [
+                  [
+                    -0.2,
+                    1.0
+                  ],
+                  [
+                    -0.18000000000000002,
+                    0.7
+                  ],
+                  [
+                    -0.22,
+                    0.5399999999999999
+                  ],
+                  [
+                    -0.2,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 0,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:0",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.7000000000000001,
+                  3.5
+                ],
+                [
+                  -0.6300000000000001,
+                  2.4499999999999997
+                ],
+                [
+                  -0.77,
+                  1.8899999999999997
+                ],
+                [
+                  -0.7000000000000001,
+                  0.0
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:1",
+            "canonical_owner": {
+              "primitive": "rise",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "cubics": [
+                [
+                  [
+                    -0.2,
+                    0.0
+                  ],
+                  [
+                    -0.20800000000000002,
+                    0.216
+                  ],
+                  [
+                    -0.1633008944715816,
+                    0.8566554718115462
+                  ],
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ]
+                ]
+              ],
+              "primitive_index": 1,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:1",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.7000000000000001,
+                  0.0
+                ],
+                [
+                  -0.7280000000000001,
+                  0.756
+                ],
+                [
+                  -0.5715531306505356,
+                  2.9982941513404118
+                ],
+                [
+                  -0.42000000000000004,
+                  3.1436614399235783
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:2",
+            "canonical_owner": {
+              "primitive": "upper-return",
+              "offset": [
+                -0.12000000000000001,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ],
+                  [
+                    0.06290601085575874,
+                    1.0736294422275665
+                  ],
+                  [
+                    0.26383636567610086,
+                    1.0180237135802213
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ]
+                ]
+              ],
+              "primitive_index": 2,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:2",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.42000000000000004,
+                  3.1436614399235783
+                ],
+                [
+                  0.22017103799515558,
+                  3.7577030477964826
+                ],
+                [
+                  0.923427279866353,
+                  3.5630829975307745
+                ],
+                [
+                  0.9825566424274426,
+                  2.6761425591144308
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:3",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2807304692649836,
+                0
+              ],
+              "scale": 0.7646121597469803,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ],
+                  [
+                    0.2960227124599232,
+                    0.5352285118228861
+                  ],
+                  [
+                    0.26543822607004397,
+                    0.4128905662633693
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 3,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:3",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "0.7648068784772746"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  0.9825566424274426,
+                  2.6761425591144308
+                ],
+                [
+                  1.0234912871673723,
+                  2.062122888015483
+                ],
+                [
+                  0.9705046383119365,
+                  1.6672529019723887
+                ],
+                [
+                  0.9672599986155734,
+                  0.86899162238258
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:0",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0.24828332068073714
+              ],
+              "scale": 0.7517166793192629,
+              "rotation_deg": 0,
+              "transition": "start",
+              "cubics": [
+                [
+                  [
+                    1.25,
+                    1.0
+                  ],
+                  [
+                    1.2650343335863852,
+                    0.7744849962042211
+                  ],
+                  [
+                    1.2349656664136146,
+                    0.654210327513139
+                  ],
+                  [
+                    1.25,
+                    0.24828332068073714
+                  ]
+                ]
+              ],
+              "primitive_index": 0,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:0",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0.35",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  4.385773979306343,
+                  2.7479394102999484
+                ],
+                [
+                  4.373289844554549,
+                  2.293551108443532
+                ],
+                [
+                  4.340796891090973,
+                  1.7924755629262943
+                ],
+                [
+                  4.375,
+                  0.86899162238258
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:1",
+            "canonical_owner": {
+              "primitive": "lower-return",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    1.25,
+                    0.24828332068073714
+                  ],
+                  [
+                    1.256790325394673,
+                    0.06494453502456013
+                  ],
+                  [
+                    1.6531590692016795,
+                    -0.13109169221828862
+                  ],
+                  [
+                    1.6439719945829872,
+                    0.11695932248640808
+                  ]
+                ]
+              ],
+              "primitive_index": 1,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:1",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  4.375,
+                  0.86899162238258
+                ],
+                [
+                  4.3987661388813555,
+                  0.22730587258596047
+                ],
+                [
+                  5.786056742205878,
+                  -0.45882092276401015
+                ],
+                [
+                  5.753901981040455,
+                  0.4093576287024283
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:2",
+            "canonical_owner": {
+              "primitive": "rise",
+              "offset": [
+                0.19397199458298725,
+                0.11695932248640808
+              ],
+              "scale": 0.9831346124131943,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    1.6439719945829872,
+                    0.11695932248640808
+                  ],
+                  [
+                    1.6361069176836818,
+                    0.32931639876765806
+                  ],
+                  [
+                    1.6800521554725798,
+                    0.9591669677374947
+                  ],
+                  [
+                    1.7226227635760427,
+                    1.0
+                  ]
+                ]
+              ],
+              "primitive_index": 2,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:2",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  5.753901981040455,
+                  0.4093576287024283
+                ],
+                [
+                  5.726374211892886,
+                  1.1526073956868033
+                ],
+                [
+                  5.880182544154029,
+                  3.3570843870812315
+                ],
+                [
+                  6.0291796725161495,
+                  3.5
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:3",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2726227635760428,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "cubics": [
+                [
+                  [
+                    1.7226227635760427,
+                    1.0
+                  ],
+                  [
+                    1.7426227635760427,
+                    0.7
+                  ],
+                  [
+                    1.7026227635760427,
+                    0.5399999999999999
+                  ],
+                  [
+                    1.7226227635760427,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 3,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:3",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "1:1",
+              "overlap_contributors": [
+                "1:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  6.0291796725161495,
+                  3.5
+                ],
+                [
+                  6.09917967251615,
+                  2.4499999999999997
+                ],
+                [
+                  5.959179672516149,
+                  1.8899999999999997
+                ],
+                [
+                  6.0291796725161495,
+                  0.0
+                ]
+              ]
+            ]
+          }
+        ],
+        "boundary": [
+          {
+            "piece_id": "A-F",
+            "ports": [
+              "A",
+              "F"
+            ],
+            "contact_profile": "departure",
+            "cubics_mm": [
+              [
+                [
+                  0.9672599986155733,
+                  0.8689916223825797
+                ],
+                [
+                  0.9640810792475758,
+                  0.086899162238258
+                ],
+                [
+                  1.0656922132195297,
+                  0.0
+                ],
+                [
+                  1.2625566424274426,
+                  0.0
+                ]
+              ]
+            ],
+            "owner": "n",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": {
+              "occurrence_id": "0:3",
+              "interval": [
+                "0.7648068784772746",
+                "1"
+              ]
+            },
+            "added_entry_travel": false
+          },
+          {
+            "piece_id": "F-P",
+            "ports": [
+              "F",
+              "P"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  1.2625566424274426,
+                  0.0
+                ],
+                [
+                  2.2623117287481023,
+                  0.0
+                ],
+                [
+                  3.8150000000000004,
+                  0.57524491367934
+                ],
+                [
+                  3.8150000000000004,
+                  1.575
+                ]
+              ]
+            ],
+            "owner": "n",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "P-Q",
+            "ports": [
+              "P",
+              "Q"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  3.8150000000000004,
+                  1.575
+                ],
+                [
+                  3.8150000000000004,
+                  2.0766666666666667
+                ],
+                [
+                  3.8150000000000004,
+                  2.578333333333333
+                ],
+                [
+                  3.8150000000000004,
+                  3.08
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "Q-K",
+            "ports": [
+              "Q",
+              "K"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  3.8150000000000004,
+                  3.08
+                ],
+                [
+                  3.8150000000000004,
+                  3.248259059521653
+                ],
+                [
+                  3.926740940478347,
+                  3.5
+                ],
+                [
+                  4.095,
+                  3.5
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "K-C",
+            "ports": [
+              "K",
+              "C"
+            ],
+            "contact_profile": "receiving",
+            "cubics_mm": [
+              [
+                [
+                  4.095,
+                  3.5
+                ],
+                [
+                  4.288849319537562,
+                  3.5
+                ],
+                [
+                  4.401270899624777,
+                  3.3119848525749873
+                ],
+                [
+                  4.385773979306343,
+                  2.7479394102999484
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": {
+              "occurrence_id": "1:0",
+              "interval": [
+                "0",
+                "0.35"
+              ]
+            },
+            "added_entry_travel": false
+          }
+        ],
+        "profiles": {
+          "full": [
+            [
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "1"
+            ]
+          ],
+          "departure": [
+            [
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "0.1"
+            ]
+          ],
+          "core": [
+            [
+              "0",
+              "0",
+              "0.1"
+            ],
+            [
+              "1",
+              "0",
+              "0.1"
+            ]
+          ],
+          "receiving": [
+            [
+              "0",
+              "0",
+              "0.1"
+            ],
+            [
+              "1",
+              "0",
+              "1"
+            ]
+          ]
+        },
+        "nib_angle_deg_physical_y_down": 40.0,
+        "nib_dimensions_mm": [
+          0.45,
+          0.02
+        ],
+        "pressure": 0.5,
+        "speed_cap_mm_s": 12.0,
+        "spacing": {
+          "canonical_origin_separation_H": 1.45,
+          "stem_minus_foot_mm": 3.3924433575725574,
+          "thin_span_horizontal_mm": 2.832443357572557
+        },
+        "fitting": false,
+        "physical_acceptance": false
+      },
+      "candidate_sha256": "772fce4a7a8cd8b4e56fb9067cc869ded7c0a4b1f779910e690c5c4c68092333",
+      "evaluation": {
+        "status": "unresolved",
+        "checks": {
+          "identity": {
+            "status": "pass",
+            "scope": "Canonical model, protected source spans and actions"
+          },
+          "A-F_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 8.441463635292152
+          },
+          "A-F_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                0.9125566424274425,
+                1.5075566424274425
+              ],
+              [
+                0.0,
+                0.8689916223825797
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "A-F_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              2.286695220323381e-16,
+              0.0
+            ]
+          },
+          "A-F_excursion": {
+            "status": "pass",
+            "excursion_upper_mm": 7.236127982290785e-05,
+            "limit_mm": 0.0045,
+            "locality_upper_mm": 0.06933665669374148,
+            "locality_limit_mm": 0.1125,
+            "stationary_parameter": 0.015178523233400144,
+            "recovery_parameter": 0.030364048420197062
+          },
+          "F-P_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 6.661972399670195
+          },
+          "F-P_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.2625566424274426,
+                4.095
+              ],
+              [
+                0.0,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "F-P_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              0.0
+            ]
+          },
+          "F-P_progress": {
+            "status": "pass",
+            "upright_interval": false
+          },
+          "P-Q_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 1e-07,
+            "margin_per_mm": 8.88888878888889
+          },
+          "P-Q_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.2625566424274426,
+                4.095
+              ],
+              [
+                0.0,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "P-Q_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              0.0
+            ]
+          },
+          "P-Q_progress": {
+            "status": "pass",
+            "upright_interval": true
+          },
+          "Q-K_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 7.843282576146607
+          },
+          "Q-K_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.2625566424274426,
+                4.095
+              ],
+              [
+                0.0,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "Q-K_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              0.0
+            ]
+          },
+          "Q-K_progress": {
+            "status": "pass",
+            "upright_interval": false
+          },
+          "K-C_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 7.6028681347379585
+          },
+          "K-C_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                4.095,
+                4.390273979306343
+              ],
+              [
+                2.7479394102999484,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "K-C_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              1.1107649934270853e-16
+            ]
+          },
+          "K-C_excursion": {
+            "status": "unresolved",
+            "excursion_upper_mm": 0.001418560169040184,
+            "limit_mm": 0.0045,
+            "locality_upper_mm": 0.19138591146469067,
+            "locality_limit_mm": 0.1125,
+            "stationary_parameter": 0.9387447349263819,
+            "recovery_parameter": 0.8770209684603477
+          },
+          "departure_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 1.0198048396345933,
+            "upper_mm": 1.0198048989660335,
+            "limit_mm": 1.1472429911106874,
+            "subdivisions_share_one_allowance": true
+          },
+          "core_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 5.318625823755557,
+            "upper_mm": 5.318625936268844,
+            "limit_mm": 5.628156804998543,
+            "subdivisions_share_one_allowance": true
+          },
+          "receiving_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 0.8922413276569712,
+            "upper_mm": 0.8922413843685486,
+            "limit_mm": 1.0078943378568037,
+            "subdivisions_share_one_allowance": true
+          },
+          "protected_attachments": {
+            "status": "pass"
+          },
+          "thin_width": {
+            "status": "pass",
+            "width_upper_mm": 0.04924429000898052,
+            "limit_mm": 0.08939393789931772,
+            "domain": "Entire F-K, excluding neither P nor Q; ramps reported separately"
+          },
+          "thin_self_contact": {
+            "status": "pass",
+            "normal_progress_lower": 0.6427876096855393,
+            "overlap_arc_window_upper_mm": 0.031114479648704306,
+            "window_turn_upper_radians": 0.2765731534349272,
+            "turn_limit_radians": 1.5707963267948966,
+            "derivative_certificates": [
+              {
+                "minimum_dx": 0.0,
+                "minimum_dy": 0.0,
+                "minimum_dx_plus_dy": 2.9992652589619793
+              },
+              {
+                "minimum_dx": 0.0,
+                "minimum_dy": 1.505,
+                "minimum_dx_plus_dy": 1.505
+              },
+              {
+                "minimum_dx": 0.0,
+                "minimum_dy": 0.0,
+                "minimum_dx_plus_dy": 0.5047771785649586
+              }
+            ],
+            "join_turn_upper_radians": 2e-12,
+            "scope": "Whole fixed-corner core; window-local turn, no inter-owner permission",
+            "proof": "Strict normal progress makes each normal window contiguous; the fixed finite rectangle spans .02mm along its normal. Integrating progress bounds every overlapping parameter pair. Curvature plus join turns bounds every such arc window."
+          },
+          "external_and_ramp_contact": {
+            "status": "not_run",
+            "reason": "Structural admission failed; no contact or rendering acceptance inferred"
+          }
+        },
+        "render_eligible": false
+      }
+    },
+    {
+      "brief": "J2",
+      "status": "unresolved",
+      "candidate": {
+        "version": "nu-mutual-construction-v1",
+        "brief": "J2",
+        "fixture": "nu",
+        "spec": {
+          "source_cuts": {
+            "0:3": "0.65",
+            "1:0": "0.45"
+          },
+          "foot_extension": 0.12,
+          "rise_offset": 0.22,
+          "rise_height": 0.62,
+          "upright_top": null,
+          "crown_offset": 0.1,
+          "crown_height": 1.02,
+          "rise_direction": [
+            0.4,
+            0.916515138991168
+          ]
+        },
+        "canonical_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+        "coordinate_frame": "physical-mm-y-up",
+        "rule": "terminal-0.9-receiving-0.75-middle-chord-thirds-v1",
+        "ports_mm": {
+          "A": [
+            0.9715978386478689,
+            1.203314120993008
+          ],
+          "F": [
+            1.4025566424274425,
+            0.0
+          ],
+          "P": [
+            3.605,
+            2.17
+          ],
+          "K": [
+            4.0249999999999995,
+            3.5700000000000003
+          ],
+          "C": [
+            4.378907047440763,
+            2.5335385376079054
+          ]
+        },
+        "directions": {
+          "A": [
+            -0.021611770803561622,
+            -0.999766438405858
+          ],
+          "F": [
+            1.0,
+            0.0
+          ],
+          "P": [
+            0.4,
+            0.916515138991168
+          ],
+          "K": [
+            1.0,
+            0.0
+          ],
+          "C": [
+            -0.034708755658085906,
+            -0.9993974696189036
+          ]
+        },
+        "port_order": [
+          "A",
+          "F",
+          "P",
+          "K",
+          "C"
+        ],
+        "retained": [
+          {
+            "piece_id": "0:0",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "start",
+              "cubics": [
+                [
+                  [
+                    -0.2,
+                    1.0
+                  ],
+                  [
+                    -0.18000000000000002,
+                    0.7
+                  ],
+                  [
+                    -0.22,
+                    0.5399999999999999
+                  ],
+                  [
+                    -0.2,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 0,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:0",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.7000000000000001,
+                  3.5
+                ],
+                [
+                  -0.6300000000000001,
+                  2.4499999999999997
+                ],
+                [
+                  -0.77,
+                  1.8899999999999997
+                ],
+                [
+                  -0.7000000000000001,
+                  0.0
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:1",
+            "canonical_owner": {
+              "primitive": "rise",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "cubics": [
+                [
+                  [
+                    -0.2,
+                    0.0
+                  ],
+                  [
+                    -0.20800000000000002,
+                    0.216
+                  ],
+                  [
+                    -0.1633008944715816,
+                    0.8566554718115462
+                  ],
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ]
+                ]
+              ],
+              "primitive_index": 1,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:1",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.7000000000000001,
+                  0.0
+                ],
+                [
+                  -0.7280000000000001,
+                  0.756
+                ],
+                [
+                  -0.5715531306505356,
+                  2.9982941513404118
+                ],
+                [
+                  -0.42000000000000004,
+                  3.1436614399235783
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:2",
+            "canonical_owner": {
+              "primitive": "upper-return",
+              "offset": [
+                -0.12000000000000001,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ],
+                  [
+                    0.06290601085575874,
+                    1.0736294422275665
+                  ],
+                  [
+                    0.26383636567610086,
+                    1.0180237135802213
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ]
+                ]
+              ],
+              "primitive_index": 2,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:2",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.42000000000000004,
+                  3.1436614399235783
+                ],
+                [
+                  0.22017103799515558,
+                  3.7577030477964826
+                ],
+                [
+                  0.923427279866353,
+                  3.5630829975307745
+                ],
+                [
+                  0.9825566424274426,
+                  2.6761425591144308
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:3",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2807304692649836,
+                0
+              ],
+              "scale": 0.7646121597469803,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ],
+                  [
+                    0.2960227124599232,
+                    0.5352285118228861
+                  ],
+                  [
+                    0.26543822607004397,
+                    0.4128905662633693
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 3,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:3",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "0.65"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  0.9825566424274426,
+                  2.6761425591144308
+                ],
+                [
+                  1.01734649569593,
+                  2.1542947600871165
+                ],
+                [
+                  0.9842961350908668,
+                  1.7907407934314212
+                ],
+                [
+                  0.971597838647869,
+                  1.203314120993008
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:0",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0.24828332068073714
+              ],
+              "scale": 0.7517166793192629,
+              "rotation_deg": 0,
+              "transition": "start",
+              "cubics": [
+                [
+                  [
+                    1.25,
+                    1.0
+                  ],
+                  [
+                    1.2650343335863852,
+                    0.7744849962042211
+                  ],
+                  [
+                    1.2349656664136146,
+                    0.654210327513139
+                  ],
+                  [
+                    1.25,
+                    0.24828332068073714
+                  ]
+                ]
+              ],
+              "primitive_index": 0,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:0",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0.45",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  4.378907047440763,
+                  2.5335385376079054
+                ],
+                [
+                  4.364870617746174,
+                  2.129376185680205
+                ],
+                [
+                  4.346058907846209,
+                  1.6504011105349536
+                ],
+                [
+                  4.375,
+                  0.86899162238258
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:1",
+            "canonical_owner": {
+              "primitive": "lower-return",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    1.25,
+                    0.24828332068073714
+                  ],
+                  [
+                    1.256790325394673,
+                    0.06494453502456013
+                  ],
+                  [
+                    1.6531590692016795,
+                    -0.13109169221828862
+                  ],
+                  [
+                    1.6439719945829872,
+                    0.11695932248640808
+                  ]
+                ]
+              ],
+              "primitive_index": 1,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:1",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  4.375,
+                  0.86899162238258
+                ],
+                [
+                  4.3987661388813555,
+                  0.22730587258596047
+                ],
+                [
+                  5.786056742205878,
+                  -0.45882092276401015
+                ],
+                [
+                  5.753901981040455,
+                  0.4093576287024283
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:2",
+            "canonical_owner": {
+              "primitive": "rise",
+              "offset": [
+                0.19397199458298725,
+                0.11695932248640808
+              ],
+              "scale": 0.9831346124131943,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    1.6439719945829872,
+                    0.11695932248640808
+                  ],
+                  [
+                    1.6361069176836818,
+                    0.32931639876765806
+                  ],
+                  [
+                    1.6800521554725798,
+                    0.9591669677374947
+                  ],
+                  [
+                    1.7226227635760427,
+                    1.0
+                  ]
+                ]
+              ],
+              "primitive_index": 2,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:2",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  5.753901981040455,
+                  0.4093576287024283
+                ],
+                [
+                  5.726374211892886,
+                  1.1526073956868033
+                ],
+                [
+                  5.880182544154029,
+                  3.3570843870812315
+                ],
+                [
+                  6.0291796725161495,
+                  3.5
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:3",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2726227635760428,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "cubics": [
+                [
+                  [
+                    1.7226227635760427,
+                    1.0
+                  ],
+                  [
+                    1.7426227635760427,
+                    0.7
+                  ],
+                  [
+                    1.7026227635760427,
+                    0.5399999999999999
+                  ],
+                  [
+                    1.7226227635760427,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 3,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:3",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "1:1",
+              "overlap_contributors": [
+                "1:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  6.0291796725161495,
+                  3.5
+                ],
+                [
+                  6.09917967251615,
+                  2.4499999999999997
+                ],
+                [
+                  5.959179672516149,
+                  1.8899999999999997
+                ],
+                [
+                  6.0291796725161495,
+                  0.0
+                ]
+              ]
+            ]
+          }
+        ],
+        "boundary": [
+          {
+            "piece_id": "A-F",
+            "ports": [
+              "A",
+              "F"
+            ],
+            "contact_profile": "departure",
+            "cubics_mm": [
+              [
+                [
+                  0.9715978386478689,
+                  1.203314120993008
+                ],
+                [
+                  0.9481871967321921,
+                  0.12033141209930087
+                ],
+                [
+                  1.1152507732410601,
+                  0.0
+                ],
+                [
+                  1.4025566424274425,
+                  0.0
+                ]
+              ]
+            ],
+            "owner": "n",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": {
+              "occurrence_id": "0:3",
+              "interval": [
+                "0.65",
+                "1"
+              ]
+            },
+            "added_entry_travel": false
+          },
+          {
+            "piece_id": "F-P",
+            "ports": [
+              "F",
+              "P"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  1.4025566424274425,
+                  0.0
+                ],
+                [
+                  2.4331797949864216,
+                  0.0
+                ],
+                [
+                  3.1927507389764083,
+                  1.2254182780848915
+                ],
+                [
+                  3.605,
+                  2.17
+                ]
+              ]
+            ],
+            "owner": "n",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "P-K",
+            "ports": [
+              "P",
+              "K"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  3.605,
+                  2.17
+                ],
+                [
+                  3.7998857214996637,
+                  2.6165392853191456
+                ],
+                [
+                  3.5377856962508405,
+                  3.5700000000000003
+                ],
+                [
+                  4.0249999999999995,
+                  3.5700000000000003
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "K-C",
+            "ports": [
+              "K",
+              "C"
+            ],
+            "contact_profile": "receiving",
+            "cubics_mm": [
+              [
+                [
+                  4.0249999999999995,
+                  3.5700000000000003
+                ],
+                [
+                  4.260938031627175,
+                  3.5700000000000003
+                ],
+                [
+                  4.405904029678151,
+                  3.3108846344019764
+                ],
+                [
+                  4.378907047440763,
+                  2.5335385376079054
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": {
+              "occurrence_id": "1:0",
+              "interval": [
+                "0",
+                "0.45"
+              ]
+            },
+            "added_entry_travel": false
+          }
+        ],
+        "profiles": {
+          "full": [
+            [
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "1"
+            ]
+          ],
+          "departure": [
+            [
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "0.1"
+            ]
+          ],
+          "core": [
+            [
+              "0",
+              "0",
+              "0.1"
+            ],
+            [
+              "1",
+              "0",
+              "0.1"
+            ]
+          ],
+          "receiving": [
+            [
+              "0",
+              "0",
+              "0.1"
+            ],
+            [
+              "1",
+              "0",
+              "1"
+            ]
+          ]
+        },
+        "nib_angle_deg_physical_y_down": 40.0,
+        "nib_dimensions_mm": [
+          0.45,
+          0.02
+        ],
+        "pressure": 0.5,
+        "speed_cap_mm_s": 12.0,
+        "spacing": {
+          "canonical_origin_separation_H": 1.45,
+          "stem_minus_foot_mm": 3.3924433575725574,
+          "thin_span_horizontal_mm": 2.622443357572557
+        },
+        "fitting": false,
+        "physical_acceptance": false
+      },
+      "candidate_sha256": "c6948219a8286761b5dc4f71ae65abf5b7b501bfc176742b3f5f8a03a2521f71",
+      "evaluation": {
+        "status": "unresolved",
+        "checks": {
+          "identity": {
+            "status": "pass",
+            "scope": "Canonical model, protected source spans and actions"
+          },
+          "A-F_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 7.257128170564414
+          },
+          "A-F_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                0.9125566424274425,
+                1.5075566424274425
+              ],
+              [
+                0.0,
+                1.203314120993008
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "A-F_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              1.1739862079479962e-16,
+              0.0
+            ]
+          },
+          "A-F_excursion": {
+            "status": "unresolved",
+            "excursion_upper_mm": 0.0021745853428174478,
+            "limit_mm": 0.0045,
+            "locality_upper_mm": 0.36218275288159246,
+            "locality_limit_mm": 0.1125,
+            "stationary_parameter": 0.06216605508183069,
+            "recovery_parameter": 0.12482210437962264
+          },
+          "F-P_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 2.073535766589948
+          },
+          "F-P_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.4025566424274425,
+                4.0249999999999995
+              ],
+              [
+                0.0,
+                3.5700000000000003
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "F-P_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              5.551115123125783e-17
+            ]
+          },
+          "F-P_progress": {
+            "status": "pass",
+            "upright_interval": false
+          },
+          "P-K_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 7.231026466551969
+          },
+          "P-K_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.4025566424274425,
+                4.0249999999999995
+              ],
+              [
+                0.0,
+                3.5700000000000003
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "P-K_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              2.482534153247273e-16,
+              0.0
+            ]
+          },
+          "P-K_progress": {
+            "status": "pass",
+            "upright_interval": false
+          },
+          "K-C_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 8.61479605623492
+          },
+          "K-C_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                4.0249999999999995,
+                4.383407047440763
+              ],
+              [
+                2.5335385376079054,
+                3.5700000000000003
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "K-C_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              3.576728904403046e-16
+            ]
+          },
+          "K-C_excursion": {
+            "status": "unresolved",
+            "excursion_upper_mm": 0.003219054889539663,
+            "limit_mm": 0.0045,
+            "locality_upper_mm": 0.3363620437415333,
+            "locality_limit_mm": 0.1125,
+            "stationary_parameter": 0.9199962308936658,
+            "recovery_parameter": 0.8389342726323248
+          },
+          "departure_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 1.432870705016695,
+            "upper_mm": 1.432870755025331,
+            "limit_mm": 1.5976987182430433,
+            "subdivisions_share_one_allowance": true
+          },
+          "core_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 4.827660022460803,
+            "upper_mm": 4.827660130591168,
+            "limit_mm": 5.537106244984326,
+            "subdivisions_share_one_allowance": true
+          },
+          "receiving_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 1.2008655644988897,
+            "upper_mm": 1.2008656193501075,
+            "limit_mm": 1.3690225534871807,
+            "subdivisions_share_one_allowance": true
+          },
+          "protected_attachments": {
+            "status": "pass"
+          },
+          "thin_width": {
+            "status": "pass",
+            "width_upper_mm": 0.04924429000898052,
+            "limit_mm": 0.08939393789931772,
+            "domain": "Entire F-K, excluding neither P nor Q; ramps reported separately"
+          },
+          "thin_self_contact": {
+            "status": "pass",
+            "normal_progress_lower": 0.6427876096855393,
+            "overlap_arc_window_upper_mm": 0.031114479648704306,
+            "window_turn_upper_radians": 0.2765731534339274,
+            "turn_limit_radians": 1.5707963267948966,
+            "derivative_certificates": [
+              {
+                "minimum_dx": 1.2367477830707752,
+                "minimum_dy": 0.0,
+                "minimum_dx_plus_dy": 3.091869457676937
+              },
+              {
+                "minimum_dx": 0.0652939224747145,
+                "minimum_dy": 0.0,
+                "minimum_dx_plus_dy": 1.461642911247477
+              }
+            ],
+            "join_turn_upper_radians": 1.000222044604925e-12,
+            "scope": "Whole fixed-corner core; window-local turn, no inter-owner permission",
+            "proof": "Strict normal progress makes each normal window contiguous; the fixed finite rectangle spans .02mm along its normal. Integrating progress bounds every overlapping parameter pair. Curvature plus join turns bounds every such arc window."
+          },
+          "external_and_ramp_contact": {
+            "status": "not_run",
+            "reason": "Structural admission failed; no contact or rendering acceptance inferred"
+          }
+        },
+        "render_eligible": false
+      }
+    }
+  ],
+  "new_candidates": 2,
+  "renders": 0,
+  "fitting_evaluations": 0,
+  "physical_runs": 0,
+  "mu_started": false,
+  "nib_rotation": false,
+  "automatic_retries": 0,
+  "code_sha256": "fed4bd084c482ee2b17b83d8db2148bc888983a5b4d327d8b742594cf8e86825",
+  "tests_sha256": "0e56b983520d49f48bafb9726614ff175bc71c46b54d9d3c1aa023f2076d4ccf",
+  "original_constructor_sha256": "586b862c3ec83f7e7786f1f859cdabe09b99fcaf6cffb5ad32e42319d6cdb835",
+  "source_and_authority_verified_after": true,
+  "construction_check_seconds": 0.6939097080612555,
+  "render_status": "not_applicable_no_admitted_candidates",
+  "render_phase_seconds": 0.34813541709445417,
+  "artifacts": {
+    "index.html": "355cbdeb4c23910dd69420ba01b74976870141df1ae1c2373325a44c491770f8"
+  }
+}

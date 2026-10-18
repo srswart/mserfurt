@@ -1,0 +1,46 @@
+system:
+  id: site
+  name: "Site — MS Erfurt Aug. 12°47 Edition & Manuscript Web Showcase"
+  description: >
+    Public web edition and interactive manuscript showcase for MS Erfurt Aug. 12°47,
+    presenting the 7-section English critical edition, the 34 weathered/clean folios
+    and 16 bound bifolium openings with 4 toggleable CLIO-7 apparatus layers, the
+    filterable Index of Leaves, and the sealed/unsealed Behind-the-Work Colophon,
+    hosted on Fly.io (`ms-erfurt`).
+  roots:
+    - "site/**"
+    - "site_app/**"
+    - "docs/site/**"
+    - "fly.toml"
+    - "Dockerfile"
+  default_branch: master
+
+pipeline:
+  position: 4
+  inputs:
+    - "Weathered page images (weather-output/{folio_id}_weathered.png)"
+    - "Clean kinematic page images (render-output/{folio_id}.png)"
+    - "Codex apparatus catalog (shared/training/handsim/first_5_folios/damage_and_lacuna_catalog.json)"
+    - "Annotated English & apparatus source (source/ms-erfurt-source-annotated.md)"
+    - "Claude Design specification bundle (docs/site/MS Erfurt Aug. 12°47 — Edition & Manuscript.html)"
+  outputs:
+    - "Built web showcase bundle (site/dist/**)"
+    - "Fly.io container & deployment configuration (fly.toml, Dockerfile)"
+  depends_on: [xl, scribesim, weather]
+  consumers: []
+  tech_direction:
+    - docs/tech-direction/TD-020-edition-and-manuscript-showcase-site.md
+
+policies:
+  advance_required_on_pr: true
+  resident_gates:
+    require_owner_approval: true
+    require_invariant_impact_statement: true
+    require_rollback_plan: true
+    require_evidence_links: true
+
+reviewability:
+  thresholds:
+    green: 30
+    yellow: 60
+  scoring_rules_version: 1

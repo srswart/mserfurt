@@ -1,0 +1,2173 @@
+{
+  "version": "j1-receiving-local-tail-v1",
+  "status": "no_candidate_admitted",
+  "candidates": [
+    {
+      "brief": "J1-R1",
+      "status": "unresolved",
+      "candidate": {
+        "version": "nu-mutual-construction-v1",
+        "brief": "J1",
+        "fixture": "nu",
+        "spec": {
+          "source_cuts": {
+            "0:3": "0.7648068784772746",
+            "1:0": "0.35"
+          },
+          "foot_extension": 0.08,
+          "rise_offset": 0.16,
+          "rise_height": 0.45,
+          "upright_top": 0.88,
+          "crown_offset": 0.08,
+          "crown_height": 1.0,
+          "rise_direction": [
+            0.0,
+            1.0
+          ]
+        },
+        "canonical_sha256": "96aced30b45e5ef09eb219643c4eb068a332fcdab3a3ae466ee5fe5aa7993ca3",
+        "coordinate_frame": "physical-mm-y-up",
+        "rule": "terminal-0.9-receiving-0.75-middle-chord-thirds-v1",
+        "ports_mm": {
+          "A": [
+            0.9672599986155733,
+            0.8689916223825797
+          ],
+          "F": [
+            1.2625566424274426,
+            0.0
+          ],
+          "P": [
+            3.8150000000000004,
+            1.575
+          ],
+          "K": [
+            4.095,
+            3.5
+          ],
+          "C": [
+            4.385773979306343,
+            2.7479394102999484
+          ],
+          "Q": [
+            3.8150000000000004,
+            3.08
+          ]
+        },
+        "directions": {
+          "A": [
+            -0.004064600121423068,
+            -0.9999917394788083
+          ],
+          "F": [
+            1.0,
+            0.0
+          ],
+          "P": [
+            0.0,
+            1.0
+          ],
+          "K": [
+            1.0,
+            0.0
+          ],
+          "C": [
+            -0.027464231629556135,
+            -0.9996227868456172
+          ],
+          "Q": [
+            0.0,
+            1.0
+          ]
+        },
+        "port_order": [
+          "A",
+          "F",
+          "P",
+          "Q",
+          "K",
+          "C"
+        ],
+        "retained": [
+          {
+            "piece_id": "0:0",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "start",
+              "cubics": [
+                [
+                  [
+                    -0.2,
+                    1.0
+                  ],
+                  [
+                    -0.18000000000000002,
+                    0.7
+                  ],
+                  [
+                    -0.22,
+                    0.5399999999999999
+                  ],
+                  [
+                    -0.2,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 0,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:0",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "0:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.7000000000000001,
+                  3.5
+                ],
+                [
+                  -0.6300000000000001,
+                  2.4499999999999997
+                ],
+                [
+                  -0.77,
+                  1.8899999999999997
+                ],
+                [
+                  -0.7000000000000001,
+                  0.0
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:1",
+            "canonical_owner": {
+              "primitive": "rise",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "cubics": [
+                [
+                  [
+                    -0.2,
+                    0.0
+                  ],
+                  [
+                    -0.20800000000000002,
+                    0.216
+                  ],
+                  [
+                    -0.1633008944715816,
+                    0.8566554718115462
+                  ],
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ]
+                ]
+              ],
+              "primitive_index": 1,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:1",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.7000000000000001,
+                  0.0
+                ],
+                [
+                  -0.7280000000000001,
+                  0.756
+                ],
+                [
+                  -0.5715531306505356,
+                  2.9982941513404118
+                ],
+                [
+                  -0.42000000000000004,
+                  3.1436614399235783
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:2",
+            "canonical_owner": {
+              "primitive": "upper-return",
+              "offset": [
+                -0.12000000000000001,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    -0.12000000000000001,
+                    0.8981889828353081
+                  ],
+                  [
+                    0.06290601085575874,
+                    1.0736294422275665
+                  ],
+                  [
+                    0.26383636567610086,
+                    1.0180237135802213
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ]
+                ]
+              ],
+              "primitive_index": 2,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:2",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "8ab7d2dfd85850501a45460f3dab7a473382c2b45de2f92072044c06cfa2b91f",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  -0.42000000000000004,
+                  3.1436614399235783
+                ],
+                [
+                  0.22017103799515558,
+                  3.7577030477964826
+                ],
+                [
+                  0.923427279866353,
+                  3.5630829975307745
+                ],
+                [
+                  0.9825566424274426,
+                  2.6761425591144308
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "0:3",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2807304692649836,
+                0
+              ],
+              "scale": 0.7646121597469803,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    0.2807304692649836,
+                    0.7646121597469803
+                  ],
+                  [
+                    0.2960227124599232,
+                    0.5352285118228861
+                  ],
+                  [
+                    0.26543822607004397,
+                    0.4128905662633693
+                  ],
+                  [
+                    0.2807304692649836,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 3,
+              "recipe": "n",
+              "letter": 0,
+              "span": [
+                0,
+                1
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "0:3",
+              "rules": [],
+              "gesture": "overturn",
+              "gesture_index": 1,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "0:1",
+              "overlap_contributors": [
+                "0:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "435f16979b3d2743f57280b29cc7401158f28133b0bd2bcf2f4c1b80ae24a535",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:0"
+            },
+            "source_interval": [
+              "0",
+              "0.7648068784772746"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  0.9825566424274426,
+                  2.6761425591144308
+                ],
+                [
+                  1.0234912871673723,
+                  2.062122888015483
+                ],
+                [
+                  0.9705046383119365,
+                  1.6672529019723887
+                ],
+                [
+                  0.9672599986155734,
+                  0.86899162238258
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:0",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                -0.2,
+                0.24828332068073714
+              ],
+              "scale": 0.7517166793192629,
+              "rotation_deg": 0,
+              "transition": "start",
+              "cubics": [
+                [
+                  [
+                    1.25,
+                    1.0
+                  ],
+                  [
+                    1.2650343335863852,
+                    0.7744849962042211
+                  ],
+                  [
+                    1.2349656664136146,
+                    0.654210327513139
+                  ],
+                  [
+                    1.25,
+                    0.24828332068073714
+                  ]
+                ]
+              ],
+              "primitive_index": 0,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:0",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0.35",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  4.385773979306343,
+                  2.7479394102999484
+                ],
+                [
+                  4.373289844554549,
+                  2.293551108443532
+                ],
+                [
+                  4.340796891090973,
+                  1.7924755629262943
+                ],
+                [
+                  4.375,
+                  0.86899162238258
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:1",
+            "canonical_owner": {
+              "primitive": "lower-return",
+              "offset": [
+                -0.2,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    1.25,
+                    0.24828332068073714
+                  ],
+                  [
+                    1.256790325394673,
+                    0.06494453502456013
+                  ],
+                  [
+                    1.6531590692016795,
+                    -0.13109169221828862
+                  ],
+                  [
+                    1.6439719945829872,
+                    0.11695932248640808
+                  ]
+                ]
+              ],
+              "primitive_index": 1,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:1",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 1,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "08e5e37c5a4246d53e71537c30197d66d7d44e8275d5dffb16ae05c7a0c3e35d",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  4.375,
+                  0.86899162238258
+                ],
+                [
+                  4.3987661388813555,
+                  0.22730587258596047
+                ],
+                [
+                  5.786056742205878,
+                  -0.45882092276401015
+                ],
+                [
+                  5.753901981040455,
+                  0.4093576287024283
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:2",
+            "canonical_owner": {
+              "primitive": "rise",
+              "offset": [
+                0.19397199458298725,
+                0.11695932248640808
+              ],
+              "scale": 0.9831346124131943,
+              "rotation_deg": 0,
+              "transition": "smooth",
+              "cubics": [
+                [
+                  [
+                    1.6439719945829872,
+                    0.11695932248640808
+                  ],
+                  [
+                    1.6361069176836818,
+                    0.32931639876765806
+                  ],
+                  [
+                    1.6800521554725798,
+                    0.9591669677374947
+                  ],
+                  [
+                    1.7226227635760427,
+                    1.0
+                  ]
+                ]
+              ],
+              "primitive_index": 2,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:2",
+              "rules": [],
+              "gesture": "underturn",
+              "gesture_index": 0,
+              "gesture_primitive_index": 2,
+              "action_profile": "fixed",
+              "overlap_with": [],
+              "gesture_occurrence_id": "1:0",
+              "overlap_contributors": [],
+              "primitive_sha256": "803ba892d1d5473f3ed071a235fdb1e3396478de2e6ae61a5f34408bbc5dd39c",
+              "gesture_sha256": "f17314ae3c9eb950482273a1acceb8de6dae219d6c625e39a143658b799872b3",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  5.753901981040455,
+                  0.4093576287024283
+                ],
+                [
+                  5.726374211892886,
+                  1.1526073956868033
+                ],
+                [
+                  5.880182544154029,
+                  3.3570843870812315
+                ],
+                [
+                  6.0291796725161495,
+                  3.5
+                ]
+              ]
+            ]
+          },
+          {
+            "piece_id": "1:3",
+            "canonical_owner": {
+              "primitive": "stem",
+              "offset": [
+                0.2726227635760428,
+                0
+              ],
+              "scale": 1.0,
+              "rotation_deg": 0,
+              "transition": "corner",
+              "cubics": [
+                [
+                  [
+                    1.7226227635760427,
+                    1.0
+                  ],
+                  [
+                    1.7426227635760427,
+                    0.7
+                  ],
+                  [
+                    1.7026227635760427,
+                    0.5399999999999999
+                  ],
+                  [
+                    1.7226227635760427,
+                    0.0
+                  ]
+                ]
+              ],
+              "primitive_index": 3,
+              "recipe": "u",
+              "letter": 1,
+              "span": [
+                1,
+                2
+              ],
+              "word": 0,
+              "line": 0,
+              "occurrence_id": "1:3",
+              "rules": [],
+              "gesture": "stem",
+              "gesture_index": 1,
+              "gesture_primitive_index": 0,
+              "action_profile": "fixed",
+              "overlap_with": [
+                0
+              ],
+              "gesture_occurrence_id": "1:1",
+              "overlap_contributors": [
+                "1:0"
+              ],
+              "primitive_sha256": "80e7c3f8f3ce2bf7ef58a7f405cd8aa269cd122732408f99cab9483797753131",
+              "gesture_sha256": "8308403b3602adc7a9e7a854120ad95298604ad6501a79a87f2f825d04515af6",
+              "action_sha256": "ae0b2313c77f4634219e32111f7725245fbb322d64cce9cf2ada075690044b4e",
+              "contact_run_id": "contact:1"
+            },
+            "source_interval": [
+              "0",
+              "1"
+            ],
+            "contact_profile": "full",
+            "cubics_mm": [
+              [
+                [
+                  6.0291796725161495,
+                  3.5
+                ],
+                [
+                  6.09917967251615,
+                  2.4499999999999997
+                ],
+                [
+                  5.959179672516149,
+                  1.8899999999999997
+                ],
+                [
+                  6.0291796725161495,
+                  0.0
+                ]
+              ]
+            ]
+          }
+        ],
+        "boundary": [
+          {
+            "piece_id": "A-F",
+            "ports": [
+              "A",
+              "F"
+            ],
+            "contact_profile": "departure",
+            "cubics_mm": [
+              [
+                [
+                  0.9672599986155733,
+                  0.8689916223825797
+                ],
+                [
+                  0.9640810792475758,
+                  0.086899162238258
+                ],
+                [
+                  1.0656922132195297,
+                  0.0
+                ],
+                [
+                  1.2625566424274426,
+                  0.0
+                ]
+              ]
+            ],
+            "owner": "n",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": {
+              "occurrence_id": "0:3",
+              "interval": [
+                "0.7648068784772746",
+                "1"
+              ]
+            },
+            "added_entry_travel": false
+          },
+          {
+            "piece_id": "F-P",
+            "ports": [
+              "F",
+              "P"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  1.2625566424274426,
+                  0.0
+                ],
+                [
+                  2.2623117287481023,
+                  0.0
+                ],
+                [
+                  3.8150000000000004,
+                  0.57524491367934
+                ],
+                [
+                  3.8150000000000004,
+                  1.575
+                ]
+              ]
+            ],
+            "owner": "n",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "P-Q",
+            "ports": [
+              "P",
+              "Q"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  3.8150000000000004,
+                  1.575
+                ],
+                [
+                  3.8150000000000004,
+                  2.0766666666666667
+                ],
+                [
+                  3.8150000000000004,
+                  2.578333333333333
+                ],
+                [
+                  3.8150000000000004,
+                  3.08
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "Q-K",
+            "ports": [
+              "Q",
+              "K"
+            ],
+            "contact_profile": "core",
+            "cubics_mm": [
+              [
+                [
+                  3.8150000000000004,
+                  3.08
+                ],
+                [
+                  3.8150000000000004,
+                  3.248259059521653
+                ],
+                [
+                  3.926740940478347,
+                  3.5
+                ],
+                [
+                  4.095,
+                  3.5
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": null,
+            "added_entry_travel": true
+          },
+          {
+            "piece_id": "K-C",
+            "ports": [
+              "K",
+              "C"
+            ],
+            "contact_profile": "receiving",
+            "cubics_mm": [
+              [
+                [
+                  4.095,
+                  3.5
+                ],
+                [
+                  4.288849319537562,
+                  3.5
+                ],
+                [
+                  4.385773979306343,
+                  3.326047352574987
+                ],
+                [
+                  4.385773979306343,
+                  2.8041894102999483
+                ]
+              ],
+              [
+                [
+                  4.385773979306343,
+                  2.8041894102999483
+                ],
+                [
+                  4.385773979306343,
+                  2.7854394102999485
+                ],
+                [
+                  4.386288933649397,
+                  2.766682337553304
+                ],
+                [
+                  4.385773979306343,
+                  2.7479394102999484
+                ]
+              ]
+            ],
+            "owner": "u",
+            "contributors": [
+              "n",
+              "u"
+            ],
+            "contact": "pen-down",
+            "replacement_source_span": {
+              "occurrence_id": "1:0",
+              "interval": [
+                "0",
+                "0.35"
+              ]
+            },
+            "added_entry_travel": false
+          }
+        ],
+        "profiles": {
+          "full": [
+            [
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "1"
+            ]
+          ],
+          "departure": [
+            [
+              "0",
+              "0",
+              "1"
+            ],
+            [
+              "1",
+              "0",
+              "0.1"
+            ]
+          ],
+          "core": [
+            [
+              "0",
+              "0",
+              "0.1"
+            ],
+            [
+              "1",
+              "0",
+              "0.1"
+            ]
+          ],
+          "receiving": [
+            [
+              "0",
+              "0",
+              "0.1"
+            ],
+            [
+              "1",
+              "0",
+              "1"
+            ]
+          ]
+        },
+        "nib_angle_deg_physical_y_down": 40.0,
+        "nib_dimensions_mm": [
+          0.45,
+          0.02
+        ],
+        "pressure": 0.5,
+        "speed_cap_mm_s": 12.0,
+        "spacing": {
+          "canonical_origin_separation_H": 1.45,
+          "stem_minus_foot_mm": 3.3924433575725574,
+          "thin_span_horizontal_mm": 2.832443357572557
+        },
+        "fitting": false,
+        "physical_acceptance": false,
+        "receiving_revision": {
+          "version": "j1-receiving-local-tail-v1",
+          "parent_sha256": "772fce4a7a8cd8b4e56fb9067cc869ded7c0a4b1f779910e690c5c4c68092333",
+          "internal_port": "E",
+          "action_domain": "aggregate-arclength-K-C"
+        }
+      },
+      "candidate_sha256": "616526b0952f02264d772508bce4342c325cc21a4648e49abd50efdaf01845f5",
+      "evaluation": {
+        "status": "unresolved",
+        "render_eligible": false,
+        "checks": {
+          "identity": {
+            "status": "pass",
+            "scope": "Exact parent protection and approved receiving-only replacement"
+          },
+          "A-F_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 8.441463635292152
+          },
+          "A-F_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                0.9125566424274425,
+                1.5075566424274425
+              ],
+              [
+                0.0,
+                0.8689916223825797
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "A-F_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              2.286695220323381e-16,
+              0.0
+            ]
+          },
+          "A-F_excursion": {
+            "status": "pass",
+            "excursion_upper_mm": 7.236127982290785e-05,
+            "limit_mm": 0.0045,
+            "locality_upper_mm": 0.06933665669374148,
+            "locality_limit_mm": 0.1125,
+            "stationary_parameter": 0.015178523233400144,
+            "recovery_parameter": 0.030364048420197062
+          },
+          "F-P_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 6.661972399670195
+          },
+          "F-P_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.2625566424274426,
+                4.095
+              ],
+              [
+                0.0,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "F-P_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              0.0
+            ]
+          },
+          "F-P_progress": {
+            "status": "pass",
+            "upright_interval": false
+          },
+          "P-Q_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 1e-07,
+            "margin_per_mm": 8.88888878888889
+          },
+          "P-Q_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.2625566424274426,
+                4.095
+              ],
+              [
+                0.0,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "P-Q_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              0.0
+            ]
+          },
+          "P-Q_progress": {
+            "status": "pass",
+            "upright_interval": true
+          },
+          "Q-K_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 7.843282576146607
+          },
+          "Q-K_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                1.2625566424274426,
+                4.095
+              ],
+              [
+                0.0,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "Q-K_joins": {
+            "status": "pass",
+            "position_errors_mm": [
+              0.0,
+              0.0
+            ],
+            "unit_tangent_errors": [
+              0.0,
+              0.0
+            ]
+          },
+          "Q-K_progress": {
+            "status": "pass",
+            "upright_interval": false
+          },
+          "departure_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 1.0198048396345933,
+            "upper_mm": 1.0198048989660335,
+            "limit_mm": 1.1472429911106874,
+            "subdivisions_share_one_allowance": true
+          },
+          "core_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 5.318625823755557,
+            "upper_mm": 5.318625936268844,
+            "limit_mm": 5.628156804998543,
+            "subdivisions_share_one_allowance": true
+          },
+          "receiving_aggregate_length": {
+            "status": "pass",
+            "lower_mm": 0.8921918591133193,
+            "upper_mm": 0.8921919656077437,
+            "limit_mm": 1.0078943378568037,
+            "subdivisions_share_one_allowance": true
+          },
+          "protected_attachments": {
+            "status": "pass",
+            "departure": "unchanged from validated parent",
+            "receiving": {
+              "status": "pass",
+              "position_error_mm": 0.0,
+              "unit_tangent_error": 5.323289488463373e-15
+            }
+          },
+          "thin_width": {
+            "status": "pass",
+            "width_upper_mm": 0.04924429000898052,
+            "limit_mm": 0.08939393789931772,
+            "domain": "Entire F-K, excluding neither P nor Q; ramps reported separately"
+          },
+          "thin_self_contact": {
+            "status": "pass",
+            "normal_progress_lower": 0.6427876096855393,
+            "overlap_arc_window_upper_mm": 0.031114479648704306,
+            "window_turn_upper_radians": 0.2765731534349272,
+            "turn_limit_radians": 1.5707963267948966,
+            "derivative_certificates": [
+              {
+                "minimum_dx": 0.0,
+                "minimum_dy": 0.0,
+                "minimum_dx_plus_dy": 2.9992652589619793
+              },
+              {
+                "minimum_dx": 0.0,
+                "minimum_dy": 1.505,
+                "minimum_dx_plus_dy": 1.505
+              },
+              {
+                "minimum_dx": 0.0,
+                "minimum_dy": 0.0,
+                "minimum_dx_plus_dy": 0.5047771785649586
+              }
+            ],
+            "join_turn_upper_radians": 2e-12,
+            "scope": "Whole fixed-corner core; window-local turn, no inter-owner permission",
+            "proof": "Strict normal progress makes each normal window contiguous; the fixed finite rectangle spans .02mm along its normal. Integrating progress bounds every overlapping parameter pair. Curvature plus join turns bounds every such arc window."
+          },
+          "K-E_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 7.811855634786229
+          },
+          "K-E_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                4.095,
+                4.390273979306343
+              ],
+              [
+                2.7479394102999484,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "E-C_curvature": {
+            "status": "pass",
+            "certified_upper_per_mm": 1.9552239008832557,
+            "margin_per_mm": 6.933664988005633
+          },
+          "E-C_envelope": {
+            "status": "pass",
+            "envelope": [
+              [
+                4.095,
+                4.390273979306343
+              ],
+              [
+                2.7479394102999484,
+                3.5
+              ]
+            ],
+            "method": "Analytic cubic extrema with guarded interior bounds"
+          },
+          "receiving_locality": {
+            "status": "pass",
+            "prefix_left_of_C": true,
+            "tail_radius_upper_mm": 0.05624999999999991,
+            "tail_horizontal_upper_mm": 0.0005149543430542637,
+            "locality_limit_mm": 0.1125,
+            "horizontal_limit_mm": 0.0045,
+            "domain": "Whole prefix and whole tail; exact-rational control hulls"
+          },
+          "E_join": {
+            "status": "pass",
+            "position_error_mm": 0.0,
+            "unit_tangent_error": 0.0
+          },
+          "K_join": {
+            "status": "pass",
+            "position_error_mm": 0.0,
+            "unit_tangent_error": 0.0
+          },
+          "C_join": {
+            "status": "pass",
+            "position_error_mm": 0.0,
+            "unit_tangent_error": 5.323289488463373e-15
+          },
+          "external_and_ramp_contact": {
+            "status": "unresolved",
+            "ramp_self_contact": {
+              "departure": {
+                "status": "unresolved",
+                "reason": "Active-edge boundary progress not certified"
+              },
+              "receiving": {
+                "status": "unresolved",
+                "reason": "Whole-ramp footprint monotonicity not certified",
+                "axis": [
+                  0.6427876096865393,
+                  0.766044443118978
+                ],
+                "projection_range": [
+                  -1.1992991303318936,
+                  0.3738118222347347
+                ]
+              }
+            },
+            "pairs": [
+              {
+                "owners": [
+                  "departure",
+                  "0:0"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "0:1"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "0:2"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "0:3"
+                ],
+                "splice_port": "A",
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "1:0"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "1:1"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "1:2"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "1:3"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 1,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "core"
+                ],
+                "splice_port": "F",
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "departure",
+                  "receiving"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "0:0"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "0:1"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "0:2"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "0:3"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "1:0"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "1:1"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "1:2"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "1:3"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 3,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "core",
+                  "receiving"
+                ],
+                "splice_port": "K",
+                "cubic_pairs": 6,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "0:0"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "0:1"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "0:2"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "0:3"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "1:0"
+                ],
+                "splice_port": "C",
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "1:1"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "1:2"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              },
+              {
+                "owners": [
+                  "receiving",
+                  "1:3"
+                ],
+                "splice_port": null,
+                "cubic_pairs": 2,
+                "status": "pass"
+              }
+            ],
+            "method": "Whole aggregate self-contact; all external cubic pairs use conservative full-nib ramp supersets"
+          }
+        }
+      }
+    }
+  ],
+  "new_candidates": 1,
+  "renders": 0,
+  "fitting_evaluations": 0,
+  "physical_runs": 0,
+  "mu_started": false,
+  "automatic_retries": 0,
+  "approval_sha256": "54d142dbd290a79fb5c5f7870a5f51cb4dafc01420761792ba4b6e90c2c18068",
+  "readiness": {
+    "status": "pass",
+    "runtime": {
+      "canonical_compiled_sha256": {
+        "n": "ad209964aa891db48f6f0a0aff719011fa1a89e772ea65ba14b475046718cf12",
+        "nu": "c3d915a49d3d09b693fba7bee4b1fe079bd08303f21cad9752ee718bd21f3671",
+        "u": "3767824c5f1c60c2444c5d93fccf6d7f3b2280c9738083e3c9faeed65028ea42"
+      },
+      "current_exact_inventory_gate": "pass",
+      "excluded_modules_imported": [],
+      "loaded_scribesim_sources": {
+        "scribesim/__init__.py": "f04851b751fb18d6a1066c89f771c70434a40eb34ec15f1f8be12857b31a86bf",
+        "scribesim/curriculum/__init__.py": "f4ff8f02bd99fc7328b9fb6e7ae6b0a35844b6750e30f8065fb2117ca6860c50",
+        "scribesim/curriculum/foundation_gestures.py": "9e89542b7369b1e5f47b9b57b928dd6666bb00535aafdd51e5a71bb1afede320",
+        "scribesim/curriculum/foundation_measurement.py": "9845b93615fda56aa9539a9c378f3cb645aa6e150b19993c0e5908c7e3d1249a",
+        "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+        "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+        "scribesim/curriculum/gesture_refinements.py": "64bf34282a00e9d96145dae4c6e81525f2edba161fb5083ebbd26d251b4c1c0d",
+        "scribesim/curriculum/gesture_targets.py": "8a62b41e9246ec948dd178551fe731b4b37cae0933de97d40a370c1fc88dc91a",
+        "scribesim/curriculum/glyph_join.py": "910528a23e12a06fb643a92ebb460ae197f74bcd3c39bf1203d6867300387ac0",
+        "scribesim/curriculum/model.py": "034cad4a509ef37ba4faa02e1b2cfa093454d785c2595dc5f42a1cf8075ad5da",
+        "scribesim/curriculum/primitive.py": "a6b44aed858abea31aba813f0871b360aee58ea652de28f8b2c675dc20909c82",
+        "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+        "scribesim/curriculum/word_line.py": "599b0fa4de8a3d0e95dd044d60adbe131f784d270cff90fa0b4ce780d2f3794f",
+        "scribesim/evo/__init__.py": "48de8f5b3b73069253c2e79a0b7064175fe2c5af2189fbf72c50c7f929fe2755",
+        "scribesim/evo/allograph.py": "90abec41882f6721f6110d05c322cdf9ac2712ff4ea162c8b38ac4007b7025a0",
+        "scribesim/evo/compose.py": "d9e68dc182bca421610fe513bc94c15498702ddb241251a5fc5a7b867cef0f87",
+        "scribesim/evo/engine.py": "bd4225919aa43fa3879700b29a6319e1919b74d18021f43de8d325eb112ed0be",
+        "scribesim/evo/fitness.py": "24486a690d38b9be611de3cc7a2c44c64dbec580fbb2549316aba650be3bfa48",
+        "scribesim/evo/genome.py": "bc90893d993e39be2623559d68cfa60182f70c64ef597498028d241e35a3f32c",
+        "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+        "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+        "scribesim/evo/style.py": "346697ee022ce0556beecda32f12183acfd1efafe4245c2ca67ec388b05dc857",
+        "scribesim/evofit/__init__.py": "07e98c9516cdb23e2d0832c651e6a037d94adaff1dcf2d9e0d4d2814b05220da",
+        "scribesim/evofit/connected_contract.py": "54716b960d104049f7521c33deffdd96799bbbeaa27e92dbb408d4443fb95b27",
+        "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+        "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+        "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+        "scribesim/evofit/stroke_gestures.py": "2e984b572704f14354513915d658088f0e243761661c0c8d179eff136dc2421b",
+        "scribesim/evofit/stroke_language.py": "e985209595af7277bd071ffafa048721892c2a05c8c7ee96aa9033d3f2a0d196",
+        "scribesim/evofit/word_recovery.py": "4a03e7069df765b661bc66d2c060aff502fb7c8774fd91da8d7992b895f0aa12",
+        "scribesim/evofit/workflow.py": "515beee70c8442fd09f5cba6821e98060bb290c17f1b7dd7a8ead5ed289434d2",
+        "scribesim/glyphs/__init__.py": "281721f2716be83c3dfb7c69416a4c8facab7886b70712f944d22b93db79a60c",
+        "scribesim/glyphs/catalog.py": "003a4ff79963dc41cc79eedaaf7b449b82b28df04792d112baa840b074a3d197",
+        "scribesim/glyphs/glyph.py": "d07c30e9a2896ae572e0ff8e42c040808fa6a7ba793423d3307efc2eeeab4c37",
+        "scribesim/glyphs/strokes.py": "be104aeb1cc0654ec32806964c8f81f9aba55c0d62f751ce8686b97dce9d49fd",
+        "scribesim/guides/__init__.py": "eed79c388a94ca6e5acea9b2780842dd67e67a78249ad008ba902e113c765a4f",
+        "scribesim/guides/catalog.py": "fdbb5a9c7a03e22a25b86928b73a46508cd2564804d087976e0c6fe3a6a82688",
+        "scribesim/guides/keypoint.py": "2aa34ca3997db54232633966e19d08c8ac821d8879bf30c7e8b2cd5a106b226f",
+        "scribesim/hand/__init__.py": "468e72cbdfc48fb715bd6b9f2784261323188b972afc583cce9e52409b5f6b84",
+        "scribesim/hand/model.py": "19205f15df39921df0f652933aaeefc3039d9af46a966caca9a3f20d393e1960",
+        "scribesim/hand/modifiers.py": "9738218ad6cd49e1f4aaa2b29df8ddb98c96145d0aa0932e1096f12c0f38b82d",
+        "scribesim/hand/params.py": "f8c1150d3ce43502017e6626ebcd07f0282d8490610b233593947588b7789427",
+        "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+        "scribesim/handflow/__init__.py": "4d659804a9a08fdcc3fd98db93e1f7c0b20015e423c85b47e8ec9bdf7bd087ec",
+        "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+        "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+        "scribesim/handflow/curve_tangents.py": "7595a900f29e93ab8b558fe640b305eb34d1cd441a21dbe4b7680f13b00d75ee",
+        "scribesim/handflow/folio.py": "1fa2a2923a19b31851c66f970f81a1ae08a354063783c80b6ea5cf51380a3844",
+        "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+        "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+        "scribesim/handflow/proof.py": "4d0556197525981457bc0160d837ad4f4e10590e43fa4d04c8db8ee8b875e1b0",
+        "scribesim/handflow/render.py": "ba0dd4f7819b766e84ecc4f6c75120283b24f666f8a54c98f7e48bb9bd1fd094",
+        "scribesim/handflow/session.py": "bf7f3eb03db6fc269c7e7409b933c4a4b0fb92e2df27d714ad316c68d2ba277e",
+        "scribesim/handvalidate/__init__.py": "011ce1f86f0cb14d5e07e302bc27b8ac2a9015a25ede7554dbdffd89c59e03c2",
+        "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+        "scribesim/handvalidate/foundation_gestures.py": "b72bbf01b168d083d579e4ac5338f01ccd097ad80677545765ff47906caaf25d",
+        "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+        "scribesim/handvalidate/foundation_primitives.py": "c6bd9526d8f75b7b8c7975e51674ad5c38f227244e00fca6280e820573aa4411",
+        "scribesim/handvalidate/frozen_replay.py": "55377eccfaf699815abe450bd33fff902bdc7ce035e0065756ad018b44d9e8a7",
+        "scribesim/handvalidate/gates.py": "ff6502a55748e6aea8034fd7f55a5bdb1ea086d231913c13f8eb4c6c3d868d6e",
+        "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+        "scribesim/handvalidate/metrics.py": "84a82082ea9678e25c4902c878b0546efa347138b31ecb48e5507008f12cd3cc",
+        "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+        "scribesim/handvalidate/nominal_review.py": "a76d65c041fe1c475be5ee7321f63c07eaa4612b6ba80406b160e42f1033b1cd",
+        "scribesim/handvalidate/report.py": "65d03d3ee482fb6f415d01ecec7c3866cc009b04288e9d1d417aa40c9652947a",
+        "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+        "scribesim/handvalidate/tangent_evaluation.py": "e58743c881c9ab8231ca3dc5a76df91117e8fa4eb1f5fd9f3d86ac9591051a0a",
+        "scribesim/handvalidate/tangent_motion.py": "87a05731b62d58dad8821d4802b2804dae0cc427185b2034b3ea47ba16920b3a",
+        "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2",
+        "scribesim/handvalidate/upright_continuation.py": "0c510fc522b6279938163863cbdaf76c38b099272e2e71c39926ae00a1477ebb",
+        "scribesim/handvalidate/upright_event_replay.py": "b53d8e3f44e68c12c73e04b8b5ecac1178860b9e60f95a0c65357de57b1aa831",
+        "scribesim/handvalidate/upright_evidence.py": "08c1b6715ffb188f13b55d543e54d015c8b4839c6c02d0dcb120d4127fa88df6",
+        "scribesim/handvalidate/upright_letters.py": "489af6613967f7bed19580c936f65cef4acbcfd6a9559b0313f2e3ef54c96e1d",
+        "scribesim/handvalidate/upright_measurement.py": "f0f42e995662d9c7949e1d1a0b161b347e186011b1b3e108787ca1a9dc0ce785",
+        "scribesim/handvalidate/upright_targets.py": "ffb58d1f1015bff0982d54df4cc5a684b16bffdfa680d1309a92534525571d00",
+        "scribesim/ink/__init__.py": "49a874271fac643d11dea53edf5813786dc1446c42a3b6dd4e07360d23dba482",
+        "scribesim/ink/cycle.py": "7846e0f840248f36f4814da0631b111ab8278dc50abeefb04608839d01c16871",
+        "scribesim/ink/filters.py": "a3f6cf1412afbbeb42ed9ab3d9a43cff1630af82832ee82e4762e49ed3d110ae",
+        "scribesim/layout/__init__.py": "b3497fa4f98a0a3e4b5b26b0c0fb784494e8f108597e48ea6bcae9a189119cfb",
+        "scribesim/layout/geometry.py": "f5e65550e4284499610b7384bc84168e97da083c804945c7b15163d2b6b5d826",
+        "scribesim/layout/kerning.py": "e0cddadcf7ffd6b9742dfecdb6679557df18d33881d946b40f8cd52ad53eda0c",
+        "scribesim/layout/lacuna.py": "0d3210822a4b637bd6be203283622b512cacb25e189cc6c2ac272a1617c1673c",
+        "scribesim/layout/linebreak.py": "26cfe93991d83cdebef8322d0989f2b9d41783bdd3fe74a00a2d656c5460ac47",
+        "scribesim/layout/placer.py": "881a32085b89aee9c521fc6bbf25d3e7548e484e8f7e4b2bb0f082b0b581e44b",
+        "scribesim/layout/positioned.py": "f2a3c139a6b8cb817beef932c35226d136db6ecd58135a482fd706ffdcaf393b",
+        "scribesim/metrics/__init__.py": "4002c8b799873e672cbc79dbf1e726334663f3c7ab8b60c166f19b64c45215d9",
+        "scribesim/metrics/suite.py": "3eaf2f3b19db8d9b28166c82033b970fcdc1d767718a2bc2f112fe326e5ace07",
+        "scribesim/pathguide/__init__.py": "b429e593d37144cbdff6b23ec826b831f89a04b9d0781272b4f515bce1374f24",
+        "scribesim/pathguide/catalog.py": "0cc52b2af25c2f8db20c8a6b7f4aacf7ddf1e1208e2bf764b550ae066b7f783c",
+        "scribesim/pathguide/freeze.py": "b9c632b9f160b7bd9fe5031c3ae5ada4e1b47a3ec85a0a886a89935a4b241873",
+        "scribesim/pathguide/gesture_actions.py": "e125003308d86b5e5eb5df1b092580e5b585d708abe46aab642863e28674f052",
+        "scribesim/pathguide/io.py": "46309acacce1d539cbbb2d60211fa1468d1f3dc0b9963a99c9e6d0dcb01d1f2c",
+        "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+        "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+        "scribesim/pathguide/review.py": "f587711f2fde3b1a02966d12c1d6482084eaadf0e1ecf11adb24d43999e13776",
+        "scribesim/pathguide/validate.py": "2126b41f2186f0a2238efb099428821f0a48f895000342e81a1a1ab7c1c5fb3f",
+        "scribesim/render/__init__.py": "daf54b04cd1556cda884ef2952c7889ffec6c3dc8f8082659e9d2d1c0211c7c8",
+        "scribesim/render/bezier.py": "14fad5bd050d666454a040714b549deb42d408a529bf971060a9175bef052ecc",
+        "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+        "scribesim/render/rasteriser.py": "679c47f333864abda44bc4a360fc6af017cf17dd1cd14f4307657ba3507634c6"
+      },
+      "python": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]"
+    },
+    "context_off_sha256": {
+      "n": "ad209964aa891db48f6f0a0aff719011fa1a89e772ea65ba14b475046718cf12",
+      "u": "3767824c5f1c60c2444c5d93fccf6d7f3b2280c9738083e3c9faeed65028ea42",
+      "nu": "c3d915a49d3d09b693fba7bee4b1fe079bd08303f21cad9752ee718bd21f3671"
+    },
+    "historical_receipt_sha256": "c4f2f1fdc6ad4883ae9c6be358669005876dd1042b3c197fb4e12c3f580d8915",
+    "dependencies": {
+      "scribesim/__init__.py": "f04851b751fb18d6a1066c89f771c70434a40eb34ec15f1f8be12857b31a86bf",
+      "scribesim/__main__.py": "f1a045eacad16be280daf09de1f6c5b9052320606e3e7aebb04b42bf230c3731",
+      "scribesim/annotate/__init__.py": "d375daa615fb9dc3c0a84f236595358984df10ff8bf867df95374e1417041398",
+      "scribesim/annotate/freeze.py": "0e71f40ccca80c84b007be4b15d6ddc058bcad5f026dfa1d3e7e5280b763e560",
+      "scribesim/annotate/ledger.py": "33eb7f6d4c7d50b41233a8f6df86929f4831a5fe9e70561cfadd557e51444dc1",
+      "scribesim/annotate/strokeassist.py": "9c2f194f9f1cf410236d90ca7d89a4660b5c104e42f7653230500f54c8649837",
+      "scribesim/annotate/wordassist.py": "4c5ce413fb847f4ac9f737029b2ef925e4c95828e970f4d58a195ff6c5bdc6be",
+      "scribesim/annotate/workbench.py": "03b68e53d561895dc61861b33e6d827ba5bb347c14e2fad89943d8c30acbef31",
+      "scribesim/cli.py": "365722444f0db13a96a8d7e4b74711271864d9a5036955829a5d050af43a90e6",
+      "scribesim/curriculum/__init__.py": "f4ff8f02bd99fc7328b9fb6e7ae6b0a35844b6750e30f8065fb2117ca6860c50",
+      "scribesim/curriculum/finer_scales.py": "d6a24451c497250897cc4378aba5d8d0ab111c2af760c71451dcb54641ae913d",
+      "scribesim/curriculum/foundation_actions.py": "8d34c65574f4f0833953235908b9f683ef2164e5d5fd86284c45c82891ac7aee",
+      "scribesim/curriculum/foundation_gestures.py": "9e89542b7369b1e5f47b9b57b928dd6666bb00535aafdd51e5a71bb1afede320",
+      "scribesim/curriculum/foundation_measurement.py": "9845b93615fda56aa9539a9c378f3cb645aa6e150b19993c0e5908c7e3d1249a",
+      "scribesim/curriculum/foundation_primitives.py": "2f6d1235f70f0c104a6246de0d15be2d68b67860a086c5379c3f67b400e13dba",
+      "scribesim/curriculum/gesture_coverage.py": "b9fbb7e529682a6f46d994f5acf217a21a37b70e54539631a37f4aaf299db0a7",
+      "scribesim/curriculum/gesture_learning.py": "c9533d77a8d209d7c045dd98b391c7be3efff710959c4da545181ac3fc121eba",
+      "scribesim/curriculum/gesture_refinements.py": "64bf34282a00e9d96145dae4c6e81525f2edba161fb5083ebbd26d251b4c1c0d",
+      "scribesim/curriculum/gesture_targets.py": "8a62b41e9246ec948dd178551fe731b4b37cae0933de97d40a370c1fc88dc91a",
+      "scribesim/curriculum/glyph_join.py": "910528a23e12a06fb643a92ebb460ae197f74bcd3c39bf1203d6867300387ac0",
+      "scribesim/curriculum/letter_alignment.py": "c3b056bdec4ccbe16ce87c283d01dc54b40af2df91d1a9948f10b91d4a51dc45",
+      "scribesim/curriculum/letter_alignment_evidence.py": "d33033095b9711ec3453e26f0a340709af72392e809a145876bc732ab26912d2",
+      "scribesim/curriculum/letter_recipe_evidence.py": "4d64ea8c79c753044d344bb0ce3513c25f16a05862e02db24aed9071fdad3d03",
+      "scribesim/curriculum/letter_recipes.py": "a55820b48b37a19c704282559495834a085d173641cf516a8a788bd282863c45",
+      "scribesim/curriculum/model.py": "034cad4a509ef37ba4faa02e1b2cfa093454d785c2595dc5f42a1cf8075ad5da",
+      "scribesim/curriculum/pen_actions.py": "a26036cc304ef499ae4f31ac1023fc3e405b79e3998240ebf5dc4cc7c8eaf5e4",
+      "scribesim/curriculum/primitive.py": "a6b44aed858abea31aba813f0871b360aee58ea652de28f8b2c675dc20909c82",
+      "scribesim/curriculum/stroke_learning.py": "c4e8c7270d99f13c0a60f42bcbe0e582428012936ff3082e8fa96538b1ec24ea",
+      "scribesim/curriculum/upright_letters.py": "f0645cad60cbab16b76bd5fc1f7f7a71dc3630007e508d73a4db7c25ffe7378c",
+      "scribesim/curriculum/word_line.py": "599b0fa4de8a3d0e95dd044d60adbe131f784d270cff90fa0b4ce780d2f3794f",
+      "scribesim/evo/__init__.py": "48de8f5b3b73069253c2e79a0b7064175fe2c5af2189fbf72c50c7f929fe2755",
+      "scribesim/evo/allograph.py": "90abec41882f6721f6110d05c322cdf9ac2712ff4ea162c8b38ac4007b7025a0",
+      "scribesim/evo/char_model.py": "abf6468124ab1ba9f3decd171a335c18c88df88a81840ef0f43483dcbd2b418d",
+      "scribesim/evo/compose.py": "d9e68dc182bca421610fe513bc94c15498702ddb241251a5fc5a7b867cef0f87",
+      "scribesim/evo/engine.py": "bd4225919aa43fa3879700b29a6319e1919b74d18021f43de8d325eb112ed0be",
+      "scribesim/evo/fitness.py": "24486a690d38b9be611de3cc7a2c44c64dbec580fbb2549316aba650be3bfa48",
+      "scribesim/evo/genome.py": "bc90893d993e39be2623559d68cfa60182f70c64ef597498028d241e35a3f32c",
+      "scribesim/evo/nib_contact.py": "233eef98bdaea74d4063db91ac66f2583f305177b90101748e6f4456da799cb0",
+      "scribesim/evo/renderer.py": "6039b5c062d4c796d982ffe6ca6842bf2689096c6cba336d283ae992591b84a2",
+      "scribesim/evo/style.py": "346697ee022ce0556beecda32f12183acfd1efafe4245c2ca67ec388b05dc857",
+      "scribesim/evofit/__init__.py": "07e98c9516cdb23e2d0832c651e6a037d94adaff1dcf2d9e0d4d2814b05220da",
+      "scribesim/evofit/connected_contract.py": "54716b960d104049f7521c33deffdd96799bbbeaa27e92dbb408d4443fb95b27",
+      "scribesim/evofit/foundation_contract.py": "4abcb6a0ea56fb9781bc669032a24126bef8027bc91be146e17e939abb2a625d",
+      "scribesim/evofit/recovery.py": "753e03cb769d533b5160069390eb1c111b16109b85abad61b004098a6fc9b876",
+      "scribesim/evofit/reference_dataset.py": "a542a258dc27cd7c47f530592d4e0c5d094c53db712cb2eee82b149c00c9a246",
+      "scribesim/evofit/reference_repair.py": "6a5af4e4cc25eb6f4af0c6d06e771519927ea97e03b13f77b83d96b310cd254c",
+      "scribesim/evofit/repertoire.py": "c57b477568811f45bbcc9c794b921d08683c64de371c24466aaa8e29c9dc890a",
+      "scribesim/evofit/stroke_gestures.py": "2e984b572704f14354513915d658088f0e243761661c0c8d179eff136dc2421b",
+      "scribesim/evofit/stroke_language.py": "e985209595af7277bd071ffafa048721892c2a05c8c7ee96aa9033d3f2a0d196",
+      "scribesim/evofit/word_recovery.py": "4a03e7069df765b661bc66d2c060aff502fb7c8774fd91da8d7992b895f0aa12",
+      "scribesim/evofit/workflow.py": "515beee70c8442fd09f5cba6821e98060bb290c17f1b7dd7a8ead5ed289434d2",
+      "scribesim/glyphs/__init__.py": "281721f2716be83c3dfb7c69416a4c8facab7886b70712f944d22b93db79a60c",
+      "scribesim/glyphs/catalog.py": "003a4ff79963dc41cc79eedaaf7b449b82b28df04792d112baa840b074a3d197",
+      "scribesim/glyphs/glyph.py": "d07c30e9a2896ae572e0ff8e42c040808fa6a7ba793423d3307efc2eeeab4c37",
+      "scribesim/glyphs/strokes.py": "be104aeb1cc0654ec32806964c8f81f9aba55c0d62f751ce8686b97dce9d49fd",
+      "scribesim/groundtruth/__init__.py": "0e8da58d0885dad2b7f04bac08e4abf9eb0b91f58b44898acbdbaff24b371be5",
+      "scribesim/groundtruth/page_xml.py": "30da29c3fb03abbfb25f8d0fb95073c0c4e0899c3d9c928e623fe1b66f4cb903",
+      "scribesim/guides/__init__.py": "eed79c388a94ca6e5acea9b2780842dd67e67a78249ad008ba902e113c765a4f",
+      "scribesim/guides/catalog.py": "fdbb5a9c7a03e22a25b86928b73a46508cd2564804d087976e0c6fe3a6a82688",
+      "scribesim/guides/keypoint.py": "2aa34ca3997db54232633966e19d08c8ac821d8879bf30c7e8b2cd5a106b226f",
+      "scribesim/hand/__init__.py": "468e72cbdfc48fb715bd6b9f2784261323188b972afc583cce9e52409b5f6b84",
+      "scribesim/hand/model.py": "19205f15df39921df0f652933aaeefc3039d9af46a966caca9a3f20d393e1960",
+      "scribesim/hand/modifiers.py": "9738218ad6cd49e1f4aaa2b29df8ddb98c96145d0aa0932e1096f12c0f38b82d",
+      "scribesim/hand/params.py": "f8c1150d3ce43502017e6626ebcd07f0282d8490610b233593947588b7789427",
+      "scribesim/hand/profile.py": "6a35ea8f1ed40c40221ffaf3e5b922b7dfe66796bae5fedc0ecf2329eedab8e2",
+      "scribesim/handcorpus/__init__.py": "b36352bf45b0ad94761a8d21b27c5b4471726e4651f2d3fd103af9c1d985f388",
+      "scribesim/handcorpus/anchor.py": "6e3d607fc7bc8be716de72f1bc592a60d3d703697cb6f9a26018ef66099f1a64",
+      "scribesim/handcorpus/builder.py": "76152bc6265b5a97b824469edbe0ff547be156116b36f0901d2d5c9168dd5662",
+      "scribesim/handcorpus/charset.py": "f0b29786ff11723270d16abe3a9644378838579fab9e94d9b623e49cd746a52d",
+      "scribesim/handcorpus/export.py": "acd4093f5e9282384d2694d0c7ebf01c636e778e8bea7c45e2b42fd3b02470d4",
+      "scribesim/handcorpus/gates.py": "6e77895129ec2ae02d5c1f6e0d8878351d1e9c0089619278b6d057ba1da2b655",
+      "scribesim/handcorpus/manifest.py": "bf436a05af37be679d01e574270dab95ef46860b7b6b16f01a903fdebfcf5788",
+      "scribesim/handflow/__init__.py": "4d659804a9a08fdcc3fd98db93e1f7c0b20015e423c85b47e8ec9bdf7bd087ec",
+      "scribesim/handflow/controller.py": "5bd34a2258ca9e20f246e38c939eafe1ebd9a0147d41325ae990d81ee0ec5a9d",
+      "scribesim/handflow/controls.py": "c547b50587d22827630a4a7bd398c8db9e19b8f1be035bb50494e5a2d487a3f1",
+      "scribesim/handflow/curve_tangents.py": "7595a900f29e93ab8b558fe640b305eb34d1cd441a21dbe4b7680f13b00d75ee",
+      "scribesim/handflow/execution.py": "84bd0fefc7d064c1b14b429a97b8519d52e4736c75133c8dffeddb1aed25b9a3",
+      "scribesim/handflow/folio.py": "1fa2a2923a19b31851c66f970f81a1ae08a354063783c80b6ea5cf51380a3844",
+      "scribesim/handflow/model.py": "1b07d95b1219738e712bed62a09600ae9dae187006fa12a3c7026ca1f055fa77",
+      "scribesim/handflow/planning.py": "ec90e2a4ff1f31eb276d82e2c2297fb36eb1a0e1c123529fd3ccb20faf1edf87",
+      "scribesim/handflow/proof.py": "4d0556197525981457bc0160d837ad4f4e10590e43fa4d04c8db8ee8b875e1b0",
+      "scribesim/handflow/render.py": "ba0dd4f7819b766e84ecc4f6c75120283b24f666f8a54c98f7e48bb9bd1fd094",
+      "scribesim/handflow/session.py": "bf7f3eb03db6fc269c7e7409b933c4a4b0fb92e2df27d714ad316c68d2ba277e",
+      "scribesim/handsim/__init__.py": "996f4f7f8d0111f8404c73cd7ecddda4bb49c7561a25457c208939023fc6a51d",
+      "scribesim/handsim/planner.py": "dcac520a71be36e3d0163c734939fafc325c1e8ea98d226d04233caf13420f9f",
+      "scribesim/handsim/state.py": "4f0be4dacc61560b0e8870bd92dbc94f5dcd460ea1b6c3d42b65ecffda0d0978",
+      "scribesim/handsim/targets.py": "b55eb1d43523429a011a43599d6bb6f85b54ee02d6517950a3dfc529e1acec9f",
+      "scribesim/handvalidate/__init__.py": "011ce1f86f0cb14d5e07e302bc27b8ac2a9015a25ede7554dbdffd89c59e03c2",
+      "scribesim/handvalidate/action_bridge.py": "87f9659d338834f4ce813f760b510ba0cc4ebd1c216754ce1ff9c116a3a3ddeb",
+      "scribesim/handvalidate/bridge.py": "703008736483b2c4ef0feef7f6133f8fde0544774d6103661f1901e6c9574e64",
+      "scribesim/handvalidate/expressive.py": "a3b13196b7bdb5c54f498bc8e1b0221d1c6551b560e8a3bb3a4fd777533d7f68",
+      "scribesim/handvalidate/finer_scales.py": "9221a72aad5062c3d72f704205da1757398ae8396df6f3959d52598b1e172f5b",
+      "scribesim/handvalidate/folio_bench.py": "0db44202c171f1236c95ec4e47bf66820976c64f7c9ef32648804164f2b4409f",
+      "scribesim/handvalidate/foundation_actions.py": "c22fa4921bc0a830d1d5b2d88eb707da6cee710e08d7f53efb6a43bf54fd6c37",
+      "scribesim/handvalidate/foundation_gestures.py": "b72bbf01b168d083d579e4ac5338f01ccd097ad80677545765ff47906caaf25d",
+      "scribesim/handvalidate/foundation_motion.py": "47aec98ac7f9df7ecf03dc43b0dd2f5c4e8e9f48451670b5b2bdb5ada0fa449f",
+      "scribesim/handvalidate/foundation_primitives.py": "c6bd9526d8f75b7b8c7975e51674ad5c38f227244e00fca6280e820573aa4411",
+      "scribesim/handvalidate/frozen_replay.py": "55377eccfaf699815abe450bd33fff902bdc7ce035e0065756ad018b44d9e8a7",
+      "scribesim/handvalidate/gates.py": "ff6502a55748e6aea8034fd7f55a5bdb1ea086d231913c13f8eb4c6c3d868d6e",
+      "scribesim/handvalidate/gestures.py": "72b5bfd1aefccc1c9bb4d296c0d0c47431dafb68f1c528987fa14f2a9484c7b7",
+      "scribesim/handvalidate/letter_assembly.py": "a49bb939d446aea07c3a5543d02593ebf14392e1fe2b4a257b371e74e39536bf",
+      "scribesim/handvalidate/letter_assembly_evidence.py": "4d485374cfdd3efad9b2a40718db4a95c954d1f2aebe9645deb75c558fb6d0b8",
+      "scribesim/handvalidate/metrics.py": "84a82082ea9678e25c4902c878b0546efa347138b31ecb48e5507008f12cd3cc",
+      "scribesim/handvalidate/model.py": "4609fb3f8ae0922ef4a6c67da89ef2ee693eee7fc506aafece7e499404de584c",
+      "scribesim/handvalidate/neural_bench.py": "f0589f986750b402c2816489165144d4c2617b44044abd7f4f53667563d6fbba",
+      "scribesim/handvalidate/nib_contact.py": "bb4e630252ac620699fa1e2122422f9371b1bd56f256ac4850428ebbd6c0e84e",
+      "scribesim/handvalidate/nominal.py": "232f8b41db5c0aef112ef427668fbffda0b33b288597952d85310d428de8cf7a",
+      "scribesim/handvalidate/nominal_review.py": "a76d65c041fe1c475be5ee7321f63c07eaa4612b6ba80406b160e42f1033b1cd",
+      "scribesim/handvalidate/pen_actions.py": "103de6792cc5829dfc79ce4e4ecb36ff112fef5ddaa1d537adb856d6106d59cc",
+      "scribesim/handvalidate/report.py": "65d03d3ee482fb6f415d01ecec7c3866cc009b04288e9d1d417aa40c9652947a",
+      "scribesim/handvalidate/specimen.py": "9e7f8338bca9a25bd5b9ca0301d4040c6f0d810f699b70fff081cc28ab10dc67",
+      "scribesim/handvalidate/standalone_stem.py": "0963ae1bcda4857e7a7b5b3d8452ac2caf47332ad38ab24e1a7fe5d026c794d3",
+      "scribesim/handvalidate/tangent_evaluation.py": "e58743c881c9ab8231ca3dc5a76df91117e8fa4eb1f5fd9f3d86ac9591051a0a",
+      "scribesim/handvalidate/tangent_motion.py": "87a05731b62d58dad8821d4802b2804dae0cc427185b2034b3ea47ba16920b3a",
+      "scribesim/handvalidate/tool_contract.py": "65db9ff418dc6c6aca7dd4fd9d622eed5f2014b879a910a0b79594e28b99f6b2",
+      "scribesim/handvalidate/upright_continuation.py": "0c510fc522b6279938163863cbdaf76c38b099272e2e71c39926ae00a1477ebb",
+      "scribesim/handvalidate/upright_event_replay.py": "b53d8e3f44e68c12c73e04b8b5ecac1178860b9e60f95a0c65357de57b1aa831",
+      "scribesim/handvalidate/upright_evidence.py": "08c1b6715ffb188f13b55d543e54d015c8b4839c6c02d0dcb120d4127fa88df6",
+      "scribesim/handvalidate/upright_letters.py": "489af6613967f7bed19580c936f65cef4acbcfd6a9559b0313f2e3ef54c96e1d",
+      "scribesim/handvalidate/upright_measurement.py": "f0f42e995662d9c7949e1d1a0b161b347e186011b1b3e108787ca1a9dc0ce785",
+      "scribesim/handvalidate/upright_targets.py": "ffb58d1f1015bff0982d54df4cc5a684b16bffdfa680d1309a92534525571d00",
+      "scribesim/ink/__init__.py": "49a874271fac643d11dea53edf5813786dc1446c42a3b6dd4e07360d23dba482",
+      "scribesim/ink/cycle.py": "7846e0f840248f36f4814da0631b111ab8278dc50abeefb04608839d01c16871",
+      "scribesim/ink/filters.py": "a3f6cf1412afbbeb42ed9ab3d9a43cff1630af82832ee82e4762e49ed3d110ae",
+      "scribesim/layout/__init__.py": "b3497fa4f98a0a3e4b5b26b0c0fb784494e8f108597e48ea6bcae9a189119cfb",
+      "scribesim/layout/connections.py": "7f40752a00435f41dccb30f6236213e085462b2ac19a6a229f252237cfa2a231",
+      "scribesim/layout/geometry.py": "f5e65550e4284499610b7384bc84168e97da083c804945c7b15163d2b6b5d826",
+      "scribesim/layout/kerning.py": "e0cddadcf7ffd6b9742dfecdb6679557df18d33881d946b40f8cd52ad53eda0c",
+      "scribesim/layout/lacuna.py": "0d3210822a4b637bd6be203283622b512cacb25e189cc6c2ac272a1617c1673c",
+      "scribesim/layout/linebreak.py": "26cfe93991d83cdebef8322d0989f2b9d41783bdd3fe74a00a2d656c5460ac47",
+      "scribesim/layout/placer.py": "881a32085b89aee9c521fc6bbf25d3e7548e484e8f7e4b2bb0f082b0b581e44b",
+      "scribesim/layout/positioned.py": "f2a3c139a6b8cb817beef932c35226d136db6ecd58135a482fd706ffdcaf393b",
+      "scribesim/metrics/__init__.py": "4002c8b799873e672cbc79dbf1e726334663f3c7ab8b60c166f19b64c45215d9",
+      "scribesim/metrics/suite.py": "3eaf2f3b19db8d9b28166c82033b970fcdc1d767718a2bc2f112fe326e5ace07",
+      "scribesim/movement/__init__.py": "a2bb3b54e29a49b8664eb33ea2ef95d5f34eec411bca12ff81b4602c063b0582",
+      "scribesim/movement/imprecision.py": "80a282061efa1abe4815e18f29ed56012d3d4f36c4de8e2f04e002b48a6c0ff1",
+      "scribesim/movement/movement.py": "85f552e6fbe183b540d4b78de3995b70aed3107d8a612566833c334c37fbb443",
+      "scribesim/pathguide/__init__.py": "b429e593d37144cbdff6b23ec826b831f89a04b9d0781272b4f515bce1374f24",
+      "scribesim/pathguide/catalog.py": "0cc52b2af25c2f8db20c8a6b7f4aacf7ddf1e1208e2bf764b550ae066b7f783c",
+      "scribesim/pathguide/freeze.py": "b9c632b9f160b7bd9fe5031c3ae5ada4e1b47a3ec85a0a886a89935a4b241873",
+      "scribesim/pathguide/gesture_actions.py": "e125003308d86b5e5eb5df1b092580e5b585d708abe46aab642863e28674f052",
+      "scribesim/pathguide/io.py": "46309acacce1d539cbbb2d60211fa1468d1f3dc0b9963a99c9e6d0dcb01d1f2c",
+      "scribesim/pathguide/model.py": "94fe324f3ecd5fd4d0c9b97a2273ce6d7dfaee7b99fb8f6dc89f3b916f4f062a",
+      "scribesim/pathguide/repertoire.py": "6b6f5545821bd95b0f4ebd1769570c3d122cf98693006605e3b70a5018ff3d06",
+      "scribesim/pathguide/review.py": "f587711f2fde3b1a02966d12c1d6482084eaadf0e1ecf11adb24d43999e13776",
+      "scribesim/pathguide/validate.py": "2126b41f2186f0a2238efb099428821f0a48f895000342e81a1a1ab7c1c5fb3f",
+      "scribesim/refextract/__init__.py": "88ce7d048d010ae4e3fd06484b97d03d71bb4832d3d110ef04ebbc024bfc60f1",
+      "scribesim/refextract/centerline.py": "284c48af63a8ccf87bb3ffbad4dc1db8210e05ed546c107b89d2c647505a1872",
+      "scribesim/refextract/corpus.py": "add03ce00d64a8bbebcdfaec03d04f795e6fadfff201458710b040566d3ff00f",
+      "scribesim/refextract/exemplar.py": "5f839a48efc32b482022eea3a12054b6c71a981f0923ea36849ffaff0379a4f6",
+      "scribesim/refextract/guidegen.py": "6ab571f607162f2dfecae12198a9bfb0435b8fa87f29a201f3e65c300d2050f3",
+      "scribesim/refextract/nibcal.py": "ffa846707ae563513c9ea5fc03753b15ad8d2e15148d5e40990202fc0292ca47",
+      "scribesim/refextract/segment.py": "f28c1fcdbc2ca2bc6da3e523195b12483c56a33a9961145828df0f377dbc9c1b",
+      "scribesim/refextract/utils.py": "dceffba317c81323ba9810a6fc59b12f8b521f93975966803c97bd98f7fa912f",
+      "scribesim/refselect/__init__.py": "d357c5a82d23af21105b7f9f398775ebe7692c14248400e70a16a9f0a1c848d3",
+      "scribesim/refselect/analysis.py": "0b08cdb6293375e99a8a62e137586aeb7541f7500f01cba84ea6d99c6435bde2",
+      "scribesim/refselect/harvest.py": "3ea7723c524724627dd3ce8d607071f6ff31f513e8fc742dae017abd883d31ec",
+      "scribesim/refselect/iiif.py": "e5146670942133f83bc89fad4a5385d0995bd9df1e2b73505dafd7d224f0c409",
+      "scribesim/refselect/provenance.py": "f2ee622b49b10804756720543b83a17954e7b8370fa987fbe3610a40e8d578aa",
+      "scribesim/refselect/report.py": "79e4fc734d9f7c75ba87caccebe5606802d325484fc569495ab4969cddbc19bb",
+      "scribesim/render/__init__.py": "daf54b04cd1556cda884ef2952c7889ffec6c3dc8f8082659e9d2d1c0211c7c8",
+      "scribesim/render/bezier.py": "14fad5bd050d666454a040714b549deb42d408a529bf971060a9175bef052ecc",
+      "scribesim/render/diagnostic.py": "50ff831e682649fcb96ce09440d0d15958bb6e6b12182c04f93a8da38608bd47",
+      "scribesim/render/nib.py": "41911470623378974cfe00bea4f38345887be8cd9a9d08684c2335b92d0f95c1",
+      "scribesim/render/pipeline.py": "1ac32c8b381d6189b1d80971deacaba86921640224d016ccfad834c9caece56e",
+      "scribesim/render/rasteriser.py": "679c47f333864abda44bc4a360fc6af017cf17dd1cd14f4307657ba3507634c6",
+      "scribesim/render/scribe_state.py": "754af1d6e33d6979a7a6ef7da2e6fb2ac55123130ad05896d2da8dbabf8af956",
+      "scribesim/scribehand/__init__.py": "36943f761b325238b030807154046f53be2993c379cc0a85809c1c9160912a71",
+      "scribesim/scribehand/backends/__init__.py": "9dfe19230f537ccec3e8dad15245267e31b17aab790b697bea4a25b7e7906faa",
+      "scribesim/scribehand/backends/command.py": "18a5e79a7c850549e323e3479fc95227c4077f81eaa0f25d786ae1566a4cb9e9",
+      "scribesim/scribehand/backends/stub.py": "fb5bcd324a90a20c9e20b3da8f9ea964f9915156faae1e12d724ff8452e7a961",
+      "scribesim/scribehand/compose.py": "55077a6d139f750ff183aaa4380d5ddadef2fa97f7a6ef571214c4b8ab60aa65",
+      "scribesim/scribehand/diagnostics.py": "5740b42e87773a5069a4c216760727d33fc4c6c1f6540b6e40d6e5040b794dd7",
+      "scribesim/scribehand/generate.py": "8429d530f319865f2f528956988899d66349b0261013ed7265ea0cf07f7e1e05",
+      "scribesim/scribehand/htr.py": "b8914f852ea714db250ff4b23a2fd31ae0e27d8c7beb4c9b0901d8246675bf9e",
+      "scribesim/scribehand/modifiers.py": "8d7f68996095a3d7e33ed79d8c72b662c9ed4d2ffe519c4e14efba12fac3b938",
+      "scribesim/scribehand/pagexml.py": "bb7f00fb7c6c88f5fefea16add6d3aaa5c16ccc4ccdcaade42f1ae7adcd09b50",
+      "scribesim/scribehand/seeds.py": "fb06e6c35c631c25f745adb6388b7c2f364c73ef3567c43b5b1d0f0b15ef2c13",
+      "scribesim/scribehand/style.py": "d39c0b2e56ad17e1ae55443bfc7324154117200970d9804d66a04ffe46730cc4",
+      "scribesim/scribehand/types.py": "3558d9762fd333e120a35a4a59b3edd8eb28731674092852f26bd7ad7f654e9a",
+      "scribesim/scribehand/verify.py": "e9ab2dd641e15a60a974e035bfbdbe94a714be805036bda2a2010000b2e6c66e",
+      "scribesim/training/__init__.py": "37e53d027331fb28774660392bb21fe235f564c9e79aa794782c2438789051ab",
+      "scribesim/training/extract.py": "a3e6dc8db901ca15ea5d086a576b19a3f026beee36df8b1599ffb1b52480fdcf",
+      "scribesim/training/path_extract.py": "1d07f5bde5c67e3031a926a7cce5fe1c0c789992f36e0e720832587a7b3c9143",
+      "scribesim/training/trainer.py": "348b63a8943f12780ebb67e7b181b1173c4471606511ea3e74d83b5404dd449e",
+      "scribesim/training/word_trainer.py": "a0ade46e1fb16e19279d2d82615b8ebcc880bbdcdb626f5b8d5ae678aff3f386",
+      "scribesim/transcribe/__init__.py": "59fcbf8f4c8ec6cd36dd89aa2536fb39426d1e1cb74ca2c36d7d413a17c9d40c",
+      "scribesim/transcribe/batch.py": "8ab482236181c5f964d5a47f94ace56c2aa369e79a152ffff78dffef7419bba8",
+      "scribesim/transcribe/examples.py": "270e0c5944d5f0647e7e46fcb0c8606e97ae8d6b3e8d28809bcf1b908a439582",
+      "scribesim/tuning/__init__.py": "f3610ba63805e68c0edfeb189e4efb20bb210d67e5d419852ffa7a7890e9c59f",
+      "scribesim/tuning/cmaes_optimizer.py": "77c54712d0d7e2bc48635fa55fa61ea8a9c438460f15973f84bda4e86dd2b592",
+      "scribesim/tuning/compare.py": "81e4ce4408626f39737d1b16ee1b2e33c94cfda731dc942ca6bf717c070bed89",
+      "scribesim/tuning/diff.py": "a7b66c01bc249abde805563fa79acedd09b6950990a93c5bae37c6f147be5875",
+      "scribesim/tuning/fitting_loop.py": "b0aaa538960bf7d18680ebe2a52fd7c282bbd8df0bfed304b0628ddbc686cbc6",
+      "scribesim/tuning/optimizer.py": "f2838b896cd853c276c913677b92d389680821340cc2d14fd9d3e11914a18c41",
+      "scribesim/tuning/report.py": "6fa19c949382bd6a9190cd464c4c9c69f75aa6df7b1672f417fc9472cd623080",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_bridge/spec-v1.json": "c154d44494b2af73befba34087c93872e780e1dd0f30912198419a561053b575",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/action_evaluation/spec-v1.json": "3bb71b19da2f6cd09e9d64dd4773cf6c0838031eb0127c08c7e25398b0403312",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/actions/spec-v1.json": "41a3f98ff7b9739d7df6999e9b8130954e2a4458b6ab0670f4a98b085e5ab344",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v1.json": "0f2576801903a1290cccf0c92269c699bb50bf396b2143553e2b88575428b34c",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/action_evaluation/spec-v2.json": "d068a03bbe1aaf9bb3a967f44e7c7b20120961533b91212ce786fab91e389266",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/actions/spec-v1.json": "d20fb9071edc19757456719db28f7fb7db7da11915215022e6502f7f66e04af3",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/contract/spec-v1.json": "2a818671665c889959e965b5e95c50454bb14928b72cdba337d424a8e2bea7d5",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/evaluation/spec-v1.json": "71a857879bafe4e3c6f2c84ea13f6d57c0f6d6fe67a69c080e5ad836917cf35d",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/finer_scales/spec-v1.json": "db79b5c01789af8df85c77b64e75ac50ac4edcf06ae2c1ac446fb328f26db347",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v1.json": "5950f6881c0dc850606526ee116a750daa15ee3d020506a3b150922dc3f6629e",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/gestures/spec-v2.json": "030bc8c36399d153b0917cecab6af1e610f3a97e3d84d9691261230ae3db6c8f",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v1.json": "ab058363433bac4038976e482ace915357d609e696fa576de53ff0d04ba17d51",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v2.json": "211c41e9fdbc85ab38e507c3b0bddfbd26c508ea7b17fd6a5db8f456aa962f80",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v3.json": "983ee6b125dee0a3b3231f6dbd5d003d71829c0010d026e67f6b25caaf87121c",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v4.json": "53c428945e2ed861553fc9a53297a09dc8e31194c7857ca359751fd24c570b44",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/motion/spec-v5.json": "6ebe2bc340ce3b34eacd44575b267950fd693d5acee2dcf8edeed391e1833f81",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitive_evaluation/spec-v1.json": "e92dd81238e0a0ffcf473c2999e7e59d7881f15a04000d17db65558f64466af5",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v1.json": "4e5798d95e46f26b7eeb9eb77b1b5eaee25031d5f7d025d774f1d60d5a8c8c67",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/primitives/spec-v2.json": "2ca7e3b7d3652de7992985a5d6e46039d30224b7994aece30c2d6f0101e56fd2",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/scale_evaluation/spec-v1.json": "89bfdfb98ee6f8927f7b2e53a43d2e8db8124e8e6f54c33704c803983e34a4cf",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/stem_evaluation/spec-v1.json": "2e901e20af5c3c5de4c35d78ae90d586da73c533f0daa05b5087de40ca9c8afd",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v1.json": "4f49543a4ccc17925585208cb8d6c4f0bdfed9ccee14436c21d6eaa222093d71",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/foundation_repair/tangent_evaluation/spec-v2.json": "a31cb39abddda710611b55097725ccbd4f75ebd5bb10648964c38a91a6e11ff1",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/gesture_evaluation/spec-v1.json": "5fbc75684f549535f5471e39e1090f23be58046b7898110ed1aef5c2253a9df2",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/gestures/spec-v1.json": "f9ae4f7eb375266a71a53c3f160aa52248697e2b88dc0b8e51c46c51c9ac2448",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/alignment/spec-v1.json": "c86f5ef17c0c287f250032cdc291e9c71d1bb81116d0b9002c37bd910de0be5f",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/spec-v1.json": "f415b3cb63f5f4ca8f26ac053f9cd90679d25a8479aca0b281609dfd9071dfbe",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/spec-v1.json": "c2914547e33bfac657ad6aad78ae1864fee05a8ed140cc64b65a790c82a346c0",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/validation/spec-v1.json": "8a5598911cb3da300ba5ec376bca42c74ab776ccec72b44553133c489e85b090",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/tool_contract/spec-v1.json": "f267680ed6313862ab4bd8771fb52c4937a7f20c3b711988b5d746cc6ca924b7",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/continuation-002/authorization.json": "0c17bde42bfea9b054cf81d82b94af90f8feedea6e9c35d3892e9cb5beff12f2",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/continuation-001/authorization.json": "1b27656547a9dad2caaff4fc705c026db01c5a995addb343d352715913665681",
+      "scripts/upright_placement_validation.py": "ac5a31176ee5324978a2e312a2880a38ff86c2f5848a4d3b419c3c9c075514a0",
+      "scripts/upright_placement_evidence.py": "2705e18f1dadb320a3ade9641298054e61132b83d98b20b4b30917614f999b84",
+      "shared/training/konrad_hand_recovery/stroke_gestures_v2/letters/upright/validation/placement-validation-v1/authorization.json": "88f924cafba1a5f2de509f30240ed7d136a1314f736eb093897fd6ff18ba58de",
+      "scripts/upright_reference_contract.py": "59d94162d3f87519153dadf51cf6332eb3627dbce01006b2102b9bb34d6ff7a4",
+      "scripts/handvalidate_upright_events.py": "b52f53d330c569f5c50b16908d52ddee3a2263ed04c4c9c20fbc6b8de8455c20",
+      "scripts/handvalidate_upright_targets.py": "cbfdf52d0f98b529a69d242fd0e3d49934704938dd1e3a8cb8b9e6faa41f7822",
+      "scripts/current_foundation_readiness.py": "19c9570aaa65280d0356f856dbb493a5bf812058eadb307f50a40a6446e55bf3",
+      "scripts/letter_context_evidence.py": "fb48a1a1a3393d86aed562bc7455a96e0602b2026576fdad0dc731a25d39deb3",
+      "scripts/letter_context_contract.py": "d29ef859dc2fa5b9def106a4e6a690b13bdf7216a6d2f2d85121bd8f85b96bfb",
+      "scripts/letter_context_variant_evidence.py": "2c02e5c205e69e23ae7e316f00482b8b168cd9781389e1c65c8b6981ea3d5376",
+      "scripts/letter_context_variants.py": "3cdb4d88ecd3cff234504fbf38a97a0b4e21e31659b7f05c5365a888c2ab15f1",
+      "scripts/stroke_nm_construction.py": "1b8fa1266579ea06086af80f4300e4279eea8b098b76c8b93c49dbd90e95d303",
+      "scripts/stroke_context_preview.py": "d63bba560200e4c7eea135b2b67c19e5e3e462b6fc6a7abf41ebb07d91163a28",
+      "scripts/nu_nominal_review.py": "f10d6c4bc5f9efa054bce561bb4eeb6bd65ff4e0ef71e36d393b131505ff081e",
+      "scripts/nu_derived_entry.py": "94c9fee35678948c421be2495a6285dbcbb945673c0b6e9987baa10fff5918fa",
+      "scripts/nu_self_contact_review.py": "ca265c4910de5bc0fbe8410d9b1ac651706b2ef00ea42e640462f1b7eb746037",
+      "scripts/letter_context_dimension_evidence.py": "6cc5283e443b188810233d9ead266c562e8ab9ab3fb8ac9d4fecf70d5742540c",
+      "scripts/nu_j1_receiving_repair.py": "17bf9167563fa9f1a488041f044ebe349540ac6bd1f30d8faf1f9404f266255e",
+      "scripts/render_all.py": "ab7809b3e14708b91ea23dbb9c98e332b8dbcc28d77aa142a7b7a24f23066d5c",
+      "scripts/nu_corner_geometry.py": "1d8042685f5854749876de4a8a213d004a64555ce90e00210d817645c29b9c0e",
+      "scripts/nu_boundary_actions.py": "ad13391556b413f5552118e41847687c327c8aff0aa2ce001243f4a5b0d3e300",
+      "scripts/nu_entry_port_audit.py": "a536f13263038651759993e3bc6711337cd2caa242abaa1985a95d0adf1f2d35",
+      "scripts/render_f01r.py": "dbf57ba06da632744cbd9632f4057ca77dbcd654147aa241ef1098db5ccb091a",
+      "scripts/render_f01v.py": "708da6a78d718c4cfd2c80d5d10e8fc182fadfc63cd6226b2d3eb45f72d0a590",
+      "scripts/render_f02r.py": "802f86c25a848d233df22a36ec34e00111c6147d95cf3e1230be4d65e2908bbf",
+      "scripts/stroke_context_audit.py": "38c534637eb8196fd284f89e17d46c565a3165966fb387670b170c0fff197b60",
+      "scripts/letter_context_physical.py": "cd1cfe4293854f1f90342b6112b2189f666d8067a107119f037c931a91d492fa",
+      "scripts/letter_context_review.py": "1116fc767633caa801c366f3a4a67a59f027f4bfd3616f48d29d12bf24809f43",
+      "scripts/handvalidate_upright_partial.py": "d2b3151c681b7569a0e63c57861a2280acb5bee4a8fcd154468c0904055639f1",
+      "scripts/build_guides_from_alphabet.py": "147719abd6cd46faba074e36b86ca9fb7c4e22e66ace45e49886e810084ea89e",
+      "scripts/stroke_nm_nominal.py": "920c094861e8442d06a47baaa33824384edec913607e9beddb76216f73e2b72d",
+      "scripts/thin_connection_investigation.py": "1edf2e4fc909881c69bf00c4fce33010041246a50121cbad64f0770727edcfb7",
+      "scripts/nu_mutual_construction.py": "586b862c3ec83f7e7786f1f859cdabe09b99fcaf6cffb5ad32e42319d6cdb835",
+      "scripts/letter_context_recovery_evidence.py": "b1f251517b2275e23af5d9f042813ce32296ba8fc1dd5135e9b459c79f1f84e9",
+      "scripts/letter_context_recovery.py": "06d08c707ae36c0a26f05ca7c2ab571eed777cf6556239ce6fc44faf8a60b182",
+      "scripts/nu_merge_readiness.py": "7f430d653eea0d705d34754d416e3a2b0234e1ca12438dab53906a8d512b83df",
+      "scripts/stroke_nm_envelope.py": "e9e31cff349a8caba796982d2c751a2571c3c7ae7544da936aa1f840e8cb66e7",
+      "scripts/nu_excursion_locality.py": "6aea3348488f024edff571ba4b4f76225f4d057db526d7239283bfdd69e3ec28",
+      "scripts/nu_local_contact.py": "c1bf31b44440a9ee65c58276c64c20fcb7cecc405e39f1a2b900316c5b71097e",
+      "scripts/stroke_context_contract.py": "d8165613b76f83bf6e1cd429d354125056006c80176ff06d2a9f539d43feca7a",
+      "scripts/nu_receiving_envelope.py": "ecac8382fea5c167c4c9f8b3edfd317e1e9564f21317c9b7e0acfb575a832e5f",
+      "scripts/stroke_clearance_audit.py": "4e9ce7887f91dfdfd4e3662155f3ba0b1642d80cff23bda285edbd096e296643",
+      "scripts/nu_corner_contact.py": "eb8c5dc6e8777f05a24f9ad0d363984c78d6ca1ab197e3bcd3e9f16359f29f1c",
+      "scripts/stroke_attachment_audit.py": "ce8cb69d64a270c770480a6464881ac168e7f141e38b334e3f95fee9a52e5ce5",
+      "scripts/nu_mutual_resume.py": "fed4bd084c482ee2b17b83d8db2148bc888983a5b4d327d8b742594cf8e86825",
+      "scripts/nu_three_way_review.py": "21dc2f39c2913120d3fe4057b42bdb1e1357d27badc963db5c4f520fd56773f2",
+      "scripts/stroke_context_nominal.py": "737075c2239d29b844555e91c8bc4c0ba6d9b61c77923c6a43835d8dddd4abdf",
+      "scripts/letter_context_physical_evidence.py": "f9a8ea56112634cfa7c39419c2af0ed8a77136531e48d612fe3514bd2f3490e1",
+      "scripts/scribehand/train_htr_trocr.py": "016fcc658e6a98f6cc35b3e403e0b87b29f63af710cdbc7a2560235cef3a95c1",
+      "scripts/scribehand/orchestrate.py": "69df40fde7a0a9594fa3a9d75219e918ed56580a83a9b4fb7731332c1a4f2acb",
+      "scripts/scribehand/diffusionpen_runner.py": "39584a47d22141296f3561be302c52dbf28766340d0bfe9338f031819f5c7219",
+      "scripts/scribehand/onedm_runner.py": "730b20b4e4a67f952bdd2702d35084b7e477d112ab478e3e4ebcf7e49142ec96",
+      "scripts/scribehand/env_check.py": "8c5232c070f3e996edc916639bbd89f5e0cdcad403b3d9d24746e064a39a63d8",
+      "tests/test_nu_receiving_envelope.py": "37a773c98bb617f59c3ae3f07e31adbdb6001ba5f6e3b32d5db19f61e1d9a2b2",
+      "tests/test_evo_heatmap.py": "d67b0cf2550f34573efd65620787eec2d9ceb207fc71e1e68249568aae518145",
+      "tests/test_foundation_gestures.py": "a73816029529bb6a64a82d94ca93159f65465cfeee20c572016f7685244f448b",
+      "tests/test_handflow_reentry.py": "62b2c003462875c84f80b2424ae1fd2745df854424af7cebf220af26ff24c84a",
+      "tests/test_upright_event_replay.py": "7bb6e3f71f45230d47febfb778f1cf1ac9aca0a937dde169bf70cec6feaa1f72",
+      "tests/test_refselect_roundtrip.py": "88de1848b11ffc49bf844296f57ec31135c8d5cc9de5c88b9d3e147cc53aee51",
+      "tests/test_hand_profile.py": "2fa97f0c36715467f7a886852362be6a5b4820fd3719ba4368c960cd97d7e428",
+      "tests/test_v2_integration.py": "7c2836ff3cb9ea7f8d926548b9734c637402fd7273f79e3e9d668bd3b2ef3d57",
+      "tests/test_optimizer.py": "e991a92d4d5a9aa58defe99a4949a6db875cfa0a006cbfd9ac1a2916c265ebb1",
+      "tests/test_upright_continuation.py": "84fe2fc0933a14fb743c68acb5763c1391a7ac5d2c7a76844aeed7318d974c82",
+      "tests/test_scribehand_cli.py": "5dc5f9982f81f44c167fb7c3af1856081ca07e5293956c472f6732c9cc803bae",
+      "tests/test_handvalidate_expressive.py": "fc63168befe42155602162ca110f2036db42620b84411bd68e7217fd14bc7ae2",
+      "tests/test_handvalidate_finer_scales.py": "7320854fdc48a685dcbf4875c046357de0bffe242434ae5c29d4d2f14cc8e709",
+      "tests/test_handvalidate_nominal_specimen.py": "18e819d5a7a7f3387ba56c735f03ac88495ccdf75538b07a0f4e884e37eca584",
+      "tests/test_neural_bench.py": "59fb580152bfd149a996983ea9a1dd48dde646b3a8df1980d664cba913f9043e",
+      "tests/test_nu_excursion_locality.py": "f51ddab274670204c5dbbe3dcdd07ec43c88d3e3c33a2497f2cc9a02ce09dafb",
+      "tests/test_refselect_report.py": "77038c50a32982dc404d7eb73d9f3dac468fbe048dd9d3770f70d9e573ddaede",
+      "tests/test_upright_reference_contract.py": "85f0fad58d06df7b652387bdd115bf6fe761f246d3a8ea29e40e7ead67121001",
+      "tests/test_upright_event_reader.py": "d9cca06182fc07e224f849573b88c560bf1aa51d0e67f207e1da97fd6cfc9e0a",
+      "tests/test_gesture_action_bridge.py": "87acc3f6308c1c468c2db429e7b8ce90f1b58669c529888489fac0ebadc010d8",
+      "tests/test_annotate_freeze.py": "f7adc350e874abf5f28d7e2e87d995921fb59e2c071c890bdcd734e4e767d2ea",
+      "tests/test_scribesim_integration.py": "52b8a1675a02f1aff9545b3cc9315db84a326a2626d5167264eee60ed4983c83",
+      "tests/test_nu_local_contact.py": "ee02bcd1bbacfc1f680716c7821627a697c5dc4d6316d987c7194b4bd4217801",
+      "tests/test_weather_cli.py": "2ce2b8298ebab2707aa28775e775c9acdf220a269813cd9cfcab63b3b24b7679",
+      "tests/test_centerline.py": "1506ae5fb03d2ae1a20a97b0faf13728e8831e8cb7fd6a50ce4d2bdd6f49d192",
+      "tests/test_curve_tangents.py": "0ea931c087fa8f9346e34df691b477371dd617f4d0b382320031d66be2fa397d",
+      "tests/test_groundtruth.py": "17bf395636ad483d604bb421d4ed8508a6eabeb41533578a35f3bd63b3e15a1d",
+      "tests/test_word_recovery.py": "ba39bd8d9520f72f8f9110f7b3862ebfac66b0cab183aaef8f1a001f92b0849a",
+      "tests/test_letter_context_contract.py": "ac8b47d2cf73c99003031ecb04221ed97d90dfc29b69447b761d3ccb1a8d8a13",
+      "tests/test_scribehand.py": "320f6b5fa6e9c2430f25bce368681b9efb58f30d76dc97761c1b8365beac33ba",
+      "tests/test_nib_coupling.py": "3586ce5608fbe31453f24454d194002a17a333164a912a508852fa2615be9bd7",
+      "tests/test_letter_context_physical.py": "851aa7075f2aadc046a1f88a335ef194c4d7563c9a8eda1bf9f8c6ee53c1f785",
+      "tests/test_scribesim_cli.py": "94bd24e3d6edcfe38cb3678f8237e1140ea2e0c4b9b8ca0503f3514580b96273",
+      "tests/test_evo_style.py": "89a284318390b8f35570e3e2a456dedcdc8fee80bff9d5cb7414447f3b99aa5a",
+      "tests/test_reference_dataset.py": "808898bf787dc202b08dd1b7868e199d2e4f8e9eac68ae30e4baf1467a250547",
+      "tests/test_handvalidate_letter_assembly_evidence.py": "3cfb92ed2707b17f6a232e1aee95af8ff002df855a4d1c53a016987a0a1a60cf",
+      "tests/test_guidegen_integration.py": "6e4df27accfe849e43533143bd9050252b1398cab233ddafecdb8b7aa078d434",
+      "tests/test_upright_events.py": "fdbda6c95216d13fd2481b2bbd4b32e1a69dc0d529536cebd7c727aa6071ee6b",
+      "tests/test_aivalidation.py": "99532d33bbad3667aa54706fc6b88f7eedfbc664b9234a7a3455ccdf3dc98cf5",
+      "tests/test_pathguide.py": "2bbb0343527c1a3b5061763c986e4666332933e1b38b2ddc219040a846041480",
+      "tests/test_upright_partial.py": "2dab705c1b874740010b67948210cc771e0bfafa1dcf28d0071ced74d7e5e89e",
+      "tests/test_exemplar.py": "683d1ecb22368e0b5c75439038d1d60bbc3f04561ea21547f381b014d7a5720e",
+      "tests/test_handcorpus.py": "25b4cd4b577ee8b85bc171f2de28710d446f9e96df93ea8852bb6c3edeb699dd",
+      "tests/test_handflow_corner_timing.py": "2a47c131df8aac7f427e82a387b7d633909e91acce3e8bac954e199a15549cab",
+      "tests/test_movement.py": "135e237ae2f20d4e4bd4bf7e5fa128ffdaf81bc222e498771d5db9d07993e43f",
+      "tests/test_refselect_analysis_a3a7.py": "86806176f87eb1c448413e283388cbbebbd32bee4b095571e1b1277fea4ff5c4",
+      "tests/test_hand_model.py": "27564fbb7f610dc3d917e7b8e3a829c307e4d22d68d518e5e9e30124fd70233a",
+      "tests/test_annotate.py": "dd2af4081e1d9f308a1dc8f19504d5d47381552992f0cfa67cc480c3bb1a38b5",
+      "tests/test_metrics.py": "60e63a9d0572a00ec020e4bb7eb1eef8001fb953814d91b2a5ffe1595e557a17",
+      "tests/test_tuning.py": "d210c329f5044dfc1d2531eeee4db157ae96c9317c79ef4a56204c304cdb1645",
+      "tests/test_nu_mutual_resume.py": "0e56b983520d49f48bafb9726614ff175bc71c46b54d9d3c1aa023f2076d4ccf",
+      "tests/test_handvalidate_gestures.py": "c60ad54cb61db6ddc52038bf09cec609e0f244bd4fa04c4ad09eae0c9e03f772",
+      "tests/test_strokeassist.py": "d05dc5dff31550ee8facd0a54f5c72429656b0fbec0263e63910914bf108e03e",
+      "tests/test_render_pipeline.py": "a4d41d2e10d57d636d2ade9532954810ed059f695a9e08f3cf3c980341716965",
+      "tests/test_nu_merge_readiness.py": "78ddf996d70b4632fc653fb87f414b13f2b1d3f2c5bf10558ff43c2513ed1175",
+      "tests/test_gesture_learning.py": "1625e33bf25319054857c662e177c9b65974fd663961cb56c9f8b1a8d0ccaedb",
+      "tests/test_letter_context_dimension_evidence.py": "5ff94b14ae482268308d17a64391475e6b0dfba82d4436f323eaec5602afe407",
+      "tests/test_exemplar_corpus.py": "2840c0e090ff6d967de65fb4f86744e1a4e5ab84f80c4ab4936e1d1699123f9e",
+      "tests/test_stroke_context_nominal.py": "a5c2df9fde9d229e04758892c41c5621dccc741a1cbd9418303010f01ed68a71",
+      "tests/test_promptgen.py": "61692414c5819573ede2b076a5ab1b890e6b7b0ab483d009377a9d344a47e969",
+      "tests/test_glyphs.py": "2df23fe3a27970b320be2432bc090931f5cd092fe0990a41238d22f32b91588f",
+      "tests/test_refselect_iiif.py": "57b8d1519979f634bafb61f061475d92c59e2e82be1e734bd416e058d1c42f56",
+      "tests/test_letter_recipe_evidence.py": "51251887dc21e29ab0148741b9b49e8db7c0b7b9e7796d717425fda458996086",
+      "tests/test_refselect_harvest.py": "15fc238bf5345a51fda381df0b9009aa01171f97beda17cd596e608c5c54914e",
+      "tests/test_diagnostic.py": "bd85a1f40fe28be5847756d7389760ec748d8ac4363224a3c4ee1afde3ef2e5e",
+      "tests/test_cli_args.py": "40eb7824f6116d2220e7605811e3e46b32a11458227ac66b18871048d81bed20",
+      "tests/test_folio.py": "3b5ddc014b13040819792aa1b9fb226c65774072ffd19e8d32d15e8dec7faafc",
+      "tests/test_scribe_state.py": "9224dc8b8b360fdc16d210452c80dcd4d966911e0d2ced18bf15e998ed7c825c",
+      "tests/test_worddegrade.py": "f43c09e50604387df9d5330b03be1ffb888d9890e7b940dac39c38e761b90b62",
+      "tests/test_handvalidate_nominal_review.py": "31299d5493e903ac7cca73d34066b5d34fa5537e89a1312204fcaf7df552c082",
+      "tests/test_refselect_provenance.py": "441f8a3edeed6a5c560c86454ff2899213d23483ad453789748c31a99100d7eb",
+      "tests/test_handflow_folio.py": "5594d6ec466492c3df5f7757bb00b42f29a3289c97dea9b272b164767a886b2f",
+      "tests/test_repertoire_recovery.py": "88fda41bd8320a68e4ab078e8503a13e3263f4da0cf6728cf98546f7bd4c9f1d",
+      "tests/test_hand_repertoire.py": "c0dc50e37aa1e76dbcd3a25e300e4a9f9eef8747f4d3df79e13fc13e6eef20b9",
+      "tests/test_physics_nib.py": "c3d61c2027c796dcd573535ba229896f700d36c2f667b8a73d6ae8c0a7505af0",
+      "tests/test_nu_entry_port_audit.py": "12a2872c3f5b4a4f579ec1a4d544034c9a7240caeea1deb99f4fe8f897debf8f",
+      "tests/test_nu_boundary_actions.py": "1cd8010df440592fe44ab74ef4c63077daeb6c780da641e34ffed5d6f9922e6a",
+      "tests/test_letter_alignment.py": "c764303f304a3f307b3839cd60021e398b18b2445c9e5fe3a0ea20f7e7ea3609",
+      "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tests/test_stroke_nm_envelope.py": "886ef4ea3f5a1b9757d472b9a586598f472c520fe1cbd4fb96b2af0c048f4961",
+      "tests/test_stroke_clearance_audit.py": "16275e5992f7100006d4be1f66efcf664887caaee8da4333f1d846726a3a3cad",
+      "tests/test_foundation_contract.py": "447533738956f076ae16e8b0e2bddf919602185b2bbc0da0c14ffa9ebdad3d2c",
+      "tests/test_upright_target_reconciliation.py": "2909ff1fe31f2bfdeacdc43b9e937b1e136d33bbbfcc6a64ebcbd27c9e5c0d7d",
+      "tests/test_nu_corner_contact.py": "60c551e48ce5c388ae0a75381899e8d2f73c70f1d007083e9b53860f023842ad",
+      "tests/test_guidegen.py": "237af756a197adf0db25fc6af77f2a5a945000577a299b1d72f64e4759a16b22",
+      "tests/test_reference_repair.py": "3a96436e58659f642ac0743c6e708813efaecadb5b2fd92adb12389842fd74a8",
+      "tests/test_pathguide_dataset.py": "d43881173cd634d5c19bee17a88f805059b69691216ff253326cc0ee4aa4afce",
+      "tests/test_cmaes.py": "a70c70faa5832d688d728a107953e84228d982c936f9d5a342d86c9223acd02a",
+      "tests/test_finer_scales.py": "0911446fade6454f1e3562d0e24127168caaf504400be2c6921b05ea7869d9bf",
+      "tests/test_register.py": "766a2ae75179a97a7646ee62d5aaf4db2a73b4565e4961226c3842bb20981c06",
+      "tests/test_weather_groundtruth.py": "1d5328f77f9f8cbf3343c602e1a8f9a927c4f63fb6af55b3762bf0afa1ea5933",
+      "tests/test_ink_cycle.py": "2a2f933e46a7ac8ec5b40623d54f28bb1bc3c9194d5d01aa441bf96756a0289b",
+      "tests/test_transcribe_batch.py": "7e703a31c59a5eb94fe385f7eccb2017a6529de0fb7ae233038c6aa680b49a82",
+      "tests/test_handflow.py": "f195e71f1aa623353d6575b198b242286a21166db54dc8e6cca70e2b8ce7e8de",
+      "tests/test_handvalidate_foundation_primitives.py": "b2d9a012e9adc1681e918137bccaf15d8506d5e26c945c7064dc32074b3d991d",
+      "tests/test_stroke_learning.py": "cccdd5b33083a0c2a98b9db95e43b9c9d0727caba5ecd87ebefe78b007dca90d",
+      "tests/test_nu_j1_receiving_repair.py": "d00c2f61e01742fb269ba30eacb0113333c662bd9b380e33bf73d47dc41f9d43",
+      "tests/test_refselect_provenance3.py": "563291dfcbb713372bb7653256eb5d07529382cf1c137a54103ebe63002f31e4",
+      "tests/test_weather_compositor.py": "754ce1c4b05e0c38ad9d6388c7080d51238c45c58221e1bbb9baea521fbc4d1e",
+      "tests/test_pen_action_learning.py": "066f7f52c866a35c33cb1a5c31983ee1693ff1d3ec2ba219e856559583cfe976",
+      "tests/test_handvalidate_standalone_stem.py": "01484ca252a2515e9e0e742fdf3388ab0454408df2662ff1bdfb4a3c27f8caa0",
+      "tests/test_ai_cli.py": "ed851c3f66ca5c118da73259490401894edc8f51824c8dbe29d118944c9ce7d3",
+      "tests/test_ingest.py": "f8e49f9220c365d9f12e02b855354e0b456e628126c22b79f55b9a9b25747ef7",
+      "tests/test_stroke_attachment_audit.py": "8874422f675fc9d1827a207fbd5070d8800adcf0d4fc6848339b56e35ba2cb67",
+      "tests/test_handvalidate_letter_assembly.py": "8c022862b90c0bacea6d61f155c1fe3fdcbc61c32485332a9a6be5098814ce29",
+      "tests/test_foundation_measurement.py": "103b3915870e19fb4e593ebe7e51067a6b92fea75277ba7f75fe6af24493e268",
+      "tests/test_weather_ink.py": "3d17eccb7e3a3936dc6aa1f7a6259b713fa9e0d4ab1c414d070410448fa1bf71",
+      "tests/test_foundation_primitives.py": "ecfd3f4f1bad97db9e305bf173ae2699af18127d72ca7d24d39f327e4f46204b",
+      "tests/test_evo_progress.py": "1c7979bba649d01e31302925c8cc0a1757cb1216d5ffd6aa70792c6304965ae3",
+      "tests/test_weather_substrate.py": "fc5d1a41b94d352515e1b3ced67da16bbc59a5e9495949e8b0e463ecf769d39d",
+      "tests/test_repertoire_pathguide.py": "ee088f0ff54d50222d73e07666473af6484b1b1f22aabe44f1c5093c7c0d91fe",
+      "tests/test_nu_nominal_review.py": "0cb1d5484a9baee251f233c02d6de8a63f36008449a5d6726f39d9f89688ebf6",
+      "tests/test_refselect_analysis.py": "bfece4c48129877296154e4da16fb3f107a4e790d93ae6ed95a45f4ee38e13a6",
+      "tests/test_handvalidate_integration.py": "b2764ea2b636603a7482a1015b6798d84b4e967d14350e441fe5555c2d21c9e2",
+      "tests/test_weather_integration.py": "af59c6e569d7bdae906a6f2303523f060a4acc273f56cd172adc903af591ff73",
+      "tests/test_handvalidate_foundation_actions.py": "c0793ed3c7b60cde6d18702fbc9333012cf92245d42ee7a534136e175c86eabb",
+      "tests/test_curriculum_integration.py": "25b5a82133f862785af3b6eb5549b97fc2acf5a732ba07ad3e843ec8ba0cd9ff",
+      "tests/test_ink_blob.py": "f9241276bfb7b8baca863cfe4bb57a4239aee6793889794d1bfa2011736ebf1a",
+      "tests/test_stroke_context_contract.py": "5b49f2458c3b606adfab47aad2cc277184ae36917a8905d011c23675ba700be7",
+      "tests/test_nib_contact.py": "93aa94e7e702c5ffd2048cb0fb3bb711184b30d4fa2839567bb853754b8944af",
+      "tests/test_weather_damage.py": "e5e58814fba4016729ac94ae13ce393e9d3b2b09908d21e350c4be346e657a04",
+      "tests/test_nu_self_contact_review.py": "492522f71a412a00a85791bc1bb0cb72f9e68da41268c1b1b0f3dc6035a5537d",
+      "tests/test_translate.py": "440f944a5f50147138a0a3ff8a7cce1f7e98ea61209162236f9bed1d1de0b1cd",
+      "tests/test_nu_three_way_review.py": "3bf4cb66c1b3b7c001f0544b1155a908c2ef0e056262b54eaedd7b8d6b985840",
+      "tests/test_handflow_curve_clock.py": "cc9b0bd83ee64379484a5012c1e77d9bba58198f6affe5e054e70106d9494d56",
+      "tests/test_handvalidate_folio_bench.py": "a98643fe77b7382320376330cd8058dce60f4f00563ca8f646dd6d2ee107f77f",
+      "tests/test_upright_validation.py": "e37f61989cb2e18fddd1cecbc1f91fb7b257914e1e845c0bb034409198008da0",
+      "tests/test_stroke_nm_construction.py": "2692af34b5c115e30a4c0afea29a0be92d42454e55759ba73f6d902b3f478fed",
+      "tests/test_aiweather.py": "e24572c2f217618021d398ba3cd17df7822c4bf007ac4430c6d36a5287dd0dfe",
+      "tests/test_letter_context_review.py": "b8e8d3ff754766552a540a85f50431acdf652098fe39129443151dedef163d20",
+      "tests/test_evofit.py": "145bda0e0dccc668039f3c08edb63182af7f007feee205f03f0e3dec2ca3b77a",
+      "tests/test_weather_aging.py": "c0dd283aed30a5e6519c21b961455fea64de72d591a5b2889adad6f467415046",
+      "tests/test_render.py": "cfb19931c546a72bc9bfa00701217576b78ebdf9c8188f2e8ce32bb7429f7bbc",
+      "tests/test_handvalidate_specimen.py": "51ca7280afe11e9d4e04ce3e7c7755d2ea715cdfdf2b9c6a96160a2452b153fa",
+      "tests/test_refselect_provenance2.py": "5c359234f9e40eb23e52a0a7a337501a90ce16484120f6ae7f4689da58856852",
+      "tests/test_connected_gestures.py": "1ec4039c817764f90d7d0eea5fae1316cb6a6b3d9a256b6fa64db9c5dd55e940",
+      "tests/test_evo_engine.py": "0d7ee3c0a53f1d34ef742c4d491bbe1c40bf65f943ad78f44fe66db574d028e6",
+      "tests/test_refselect_multi.py": "4bc4b9b37f9cec6cd76667bbd30da9e328a91bd15b5513977d708c1a51691daf",
+      "tests/test_stroke_context_preview.py": "8d0cf4b5bb9cb30fcd54e84b0010f4df1e0924eb319fc723cb771b2539730a98",
+      "tests/test_handflow_integration.py": "2be09595d6ce516d52bd2b09af517c5c530fb8871b3fb21cd7ab902127534420",
+      "tests/test_handvalidate.py": "26e18ea8463565fdbfb82403b62e2b1f868b48e52e97d732d8a0319e55f774be",
+      "tests/test_annotate_workbench.py": "d54c8ede6e00ed543b41ac8c534e2b8b898edb2b344eb06e8242066b78477de2",
+      "tests/test_letter_recipes.py": "b2856ad673f3d56172ba131756c1171128b2870afe98c910435ba196d2ee06d8",
+      "tests/test_letter_alignment_evidence.py": "6977ae8132dee97794413c834af6401557c600d083e49dbdfbac8057a9034afc",
+      "tests/test_nibcal.py": "9f98ae0ef7ecee3c447d278f24bae0a44daa7c8ad2df250f61e763dd9fdd7b6a",
+      "tests/test_layout.py": "63e9f8750bef2c2d98a508b994141f340add903e58198622d4516647a25f6bd7",
+      "tests/test_imprecision.py": "5df60302b86412415911ae9ece7d025269c4470ff8c638265312bd7cb88c8fdc",
+      "tests/test_nu_mutual_construction.py": "63291a432f913a7a76270d0a4136a78f9d54413ce35ffac4cd8b9483e34a6395",
+      "tests/test_annotate_ledger.py": "6db79d262a85edbe1587d8b695352003e4d5fcd2e5487ac80fcc9fc61c3f34ce",
+      "tests/test_upright_placement_validation.py": "6f222efd89222eef96dd63904e4c2bed987d8d91f7531ab894bc8a218c714cb2",
+      "tests/test_weather_optics.py": "c83ce905ed294d95e4be87a749bed888280fe37a468a9b855e1297aa23cb98b9",
+      "tests/test_nib_contact_investigation.py": "e83336dcd032aebe2a2bd998a4930108ed9ffaf4e85b960e79d4fda7ffb6240c",
+      "tests/test_foundation_actions.py": "9e48cc97a2940e9ec45b8cf62d41555e975b24845589c814f4299987655312a1",
+      "tests/test_ink_filters.py": "6ee39e659cfc9fdcbd4df40e7880da8be8b0d4c6ee90befead6ce6411faba6d0",
+      "tests/test_nu_derived_entry.py": "80ca5e1fd1e3fc8d77745bfda8777146dfe485f4f53cdbd6a826f67e0a48f3c8",
+      "tests/test_current_foundation_readiness.py": "06b2f7fed71ec04400a7e3771bcf76b37c9bddc654fa7664e27c473547e21b38",
+      "tests/test_stroke_language.py": "dae6393e231ee8982c826494261b982cf5f6a0685c8fe96b104a46d2982044d4",
+      "tests/test_segment.py": "cb7cba646383ffddbf69825652fe8a11ee091a247dfc0e03d04b0b85987d5ed8",
+      "tests/test_golden.py": "95368deca5ea137b43edca4b1231d1fd2d04494a89edf915f252e4d87916a36d",
+      "tests/test_gesture_coverage.py": "cffebfca1d99c2e7e252e11705e7fe1ea3ef568a60bcb6a6f8a16f9179fea053",
+      "tests/test_refselect_provenance_chain.py": "4a0aaa92ce21f5f28f40754663083702cc22941e06eec3e2692b278fe08b4934",
+      "tests/test_handflow_repertoire_state.py": "82cccf41ba08d6c7df2947bfcbff06c8c46c31c40c1df34d03106aab8a037e33",
+      "tests/test_upright_letters.py": "734dae861a1ed48fcc1dbea81dc64308ac4cb227050e3c8b7ee7d1edf7becbf5",
+      "tests/test_nu_corner_geometry.py": "e6fad3a4d144e31d7058fa2c67f15e1632fff65adc6f34af1194f521e1ba6193",
+      "tests/test_codexmap.py": "112d3001c4ed585b3f54fe640e3501ff13175d8bcef4f977ddcaf80577ee2420",
+      "tests/test_scribehand_compose.py": "3849c066151437e71f9c2b08943b22fa7ff46b4c37ca474131e3cd95e942c1be",
+      "tests/test_letter_context_recovery.py": "b94989608d0e528d929c642177828da86d2a80f3ab094c03878c9b26ce49a67a",
+      "tests/test_letter_context_variants.py": "a51a39fdbc08537a12152cf0e606c504e13ec6f21c5b3d465dbf7cabfe684c5d",
+      "tests/test_export.py": "0e08ae6772fca81a95aa949d75f6196a44d80ab6b75e831fa25d557a5c442c6e",
+      "tests/test_handvalidate_pen_actions.py": "df7c0cc63748d2fe48441f7980472690e716c7a174827a07fc813c6e60dd1e09",
+      "tests/test_pathguide_freeze.py": "91348b59f36119cf4cf3442a8a7b59422ccb19f5031b992b922f3626fe51acc3",
+      "tests/test_render_compositor.py": "c3568767bf699c4fd718a55a301903c5fe3dfdd8e14717da6293eb3b5ee53d40",
+      "tests/test_stroke_nm_nominal.py": "00e9bea3d2084f471733fac10c5a9717f5f66e298e66ca0f7c2153ec0824410c",
+      "tests/test_evo_allograph.py": "40b4450b4df7b6c60b6a581ba486f47640063471b8828e97bd5fdbdc4451d04e",
+      "tests/test_thin_connection_investigation.py": "60cbc1f1dfae7f297b1f75a9f7efb7bc43177ebea4511fd6e3c6204819fa121a",
+      "tests/test_stroke_context_audit.py": "a62d86c4a1dabb212a04f72e781ec2f10ae7996b37bc8c4cfe20f1fe539e8541",
+      "tests/test_stroke_gestures.py": "0a1086f7fccb55a3b2fbe63f7cbea6a182a5132e7319aca74db9ef9bd0d71ad4",
+      "tests/test_wordassist.py": "be882eb8d0c2e532a968a76ef962db87defe14550a692ecce66a0b813b54dbb3",
+      "tests/test_handvalidate_foundation_gestures.py": "5bc22396734b22a492df27176611444a0f8f92989ffd01c5df5803b0a8858fce",
+      "tests/test_curriculum.py": "7b6143ddda7db2e6568600afb2663b0db70dcb05e1a8f1142caaefd95a51c62e",
+      "tests/helpers/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tests/helpers/phash.py": "b56a41de4e73a9209904c8b111ab7c27aefab1ef5d9074fc4cbde9cece711101",
+      "tests/helpers/iou.py": "48f84dab3d6af9c63ccb3f43a0213642486aa6b2b66b94ea7c6dc5dc21c7ade7"
+    }
+  },
+  "construction_check_seconds": 2.2161389579996467,
+  "render_seconds": 0.33010316698346287,
+  "artifacts": {
+    "index.html": "ca2d635eee6e6fab18261eaa385d1308b342a83af3527f2f8411868670169898"
+  }
+}

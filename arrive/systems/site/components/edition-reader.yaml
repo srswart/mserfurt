@@ -1,0 +1,20 @@
+component:
+  id: edition-reader
+  name: "Landing Showcase & 7-Section Scholarly Edition Reader"
+  type: ui
+  owners:
+    - team: ms-erfurt
+  stage: incubating
+
+selectors:
+  paths:
+    - "site/dist/index.html"
+    - "site/dist/reader.html"
+    - "site_app/generator.py"
+  build_modules: []
+  tags: [site, edition, reader]
+  contracts: []
+
+interfaces: []
+
+invariants: []
