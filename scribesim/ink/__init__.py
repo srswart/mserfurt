@@ -13,6 +13,8 @@ from scribesim.ink.filters import apply_ink_filters
 from scribesim.ink.cycle import (
     DipEvent, InkState,
     ink_darkness, ink_width_modifier,
+    smoothstep, capillary_flow_curve,
+    ink_darkness_capillary, ink_width_modifier_capillary,
     HairlineEffects, hairline_effects,
     BlobParams, post_dip_blob,
 )
@@ -21,6 +23,8 @@ __all__ = [
     "apply_ink_filters",
     "DipEvent", "InkState",
     "ink_darkness", "ink_width_modifier",
+    "smoothstep", "capillary_flow_curve",
+    "ink_darkness_capillary", "ink_width_modifier_capillary",
     "HairlineEffects", "hairline_effects",
     "BlobParams", "post_dip_blob",
 ]

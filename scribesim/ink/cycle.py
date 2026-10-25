@@ -52,6 +52,61 @@ def ink_width_modifier(reservoir: float) -> float:
 
 
 # ---------------------------------------------------------------------------
+# Three-regime capillary plateau curves (TD-021)
+# ---------------------------------------------------------------------------
+
+def smoothstep(edge0: float, edge1: float, x: float) -> float:
+    """Hermite C¹ smoothstep interpolation in [0.0, 1.0]."""
+    if edge1 <= edge0:
+        return 1.0 if x >= edge1 else 0.0
+    t = max(0.0, min(1.0, (x - edge0) / (edge1 - edge0)))
+    return t * t * (3.0 - 2.0 * t)
+
+
+def capillary_flow_curve(reservoir: float) -> tuple[float, float, float]:
+    """Return (shoulder, plateau, fresh_settle) smoothstep components for TD-021.
+
+    - `shoulder`:     smoothstep(0.08, 0.42, r) — gradual meniscus roll-off below 0.42
+    - `plateau`:      smoothstep(0.40, 0.90, r) — nearly flat capillary working hold
+    - `fresh_settle`: smoothstep(0.86, 1.00, r) — brief post-dip bead richness
+    """
+    r = max(0.0, min(1.0, reservoir))
+    shoulder = smoothstep(0.08, 0.42, r)
+    plateau = smoothstep(0.40, 0.90, r)
+    fresh = smoothstep(0.86, 1.00, r)
+    return shoulder, plateau, fresh
+
+
+def ink_darkness_capillary(reservoir: float) -> float:
+    """Map reservoir level to darkness via TD-021 three-regime capillary plateau curve.
+
+    Key points:
+      r = 1.00 → 1.000 (fresh dip bead)
+      r = 0.85 → 0.960 (settled capillary plateau)
+      r = 0.50 → 0.922 (still on plateau; < 4% change across 0.45..0.85)
+      r = 0.35 → 0.885 (upper shoulder where an attentive scribe dips)
+      r = 0.22 → 0.805 (late dip under agitation/fatigue)
+      r = 0.00 → 0.720 (dry floor)
+    """
+    shoulder, plateau, fresh = capillary_flow_curve(reservoir)
+    return 0.72 + 0.19 * shoulder + 0.055 * plateau + 0.035 * fresh
+
+
+def ink_width_modifier_capillary(reservoir: float) -> float:
+    """Map reservoir level to nib width modifier with a flat capillary plateau.
+
+    Key points:
+      r = 1.00 → 1.035 (subtle fresh-dip spread)
+      r = 0.70 → 1.005 (steady working width)
+      r = 0.45 → 0.992 (nearly unchanged across the plateau)
+      r = 0.20 → 0.950 (gentle thinning in the shoulder)
+      r = 0.00 → 0.920 (dry floor)
+    """
+    shoulder, plateau, fresh = capillary_flow_curve(reservoir)
+    return 0.92 + 0.068 * shoulder + 0.022 * plateau + 0.025 * fresh
+
+
+# ---------------------------------------------------------------------------
 # Hairline degradation curves (TD-010 Part 2.3)
 # ---------------------------------------------------------------------------
 
@@ -174,6 +229,7 @@ class InkState:
         self.strokes_since_dip: int = 0
         self.words_since_dip: int = 0
         self.total_dips: int = 0
+        self.last_dip_trigger: str = ""
 
     # ------------------------------------------------------------------
     # State queries
@@ -182,10 +238,55 @@ class InkState:
         """Reservoir critically low — must dip at next opportunity."""
         return self.reservoir < self.dip_threshold
 
-    def wants_to_dip(self) -> bool:
+    def wants_to_dip(
+        self,
+        *,
+        word_text: str = "",
+        next_word_len: int = 0,
+        is_line_end: bool = False,
+        attention: float = 1.0,
+    ) -> bool:
         """Reservoir getting low — prefer to dip between words rather than
-        risk running dry mid-word."""
-        return self.reservoir < self.preferred_dip_threshold
+        risk running dry mid-word.
+
+        Under TD-021, an attentive scribe also looks ahead at clause pauses,
+        line ends, and long upcoming words, and modulates vigilance by `attention`.
+        """
+        return self._evaluate_dip_trigger(
+            word_text=word_text,
+            next_word_len=next_word_len,
+            is_line_end=is_line_end,
+            attention=attention,
+        ) is not None
+
+    def _evaluate_dip_trigger(
+        self,
+        *,
+        word_text: str = "",
+        next_word_len: int = 0,
+        is_line_end: bool = False,
+        attention: float = 1.0,
+    ) -> str | None:
+        """Return the trigger reason if the scribe prefers to dip now, else None."""
+        att_shift = max(-0.08, min(0.08, (attention - 1.0) * 0.25))
+        eff_pref = self.preferred_dip_threshold + att_shift
+
+        if self.reservoir < eff_pref:
+            return "preferred_shoulder"
+
+        stripped = word_text.strip()
+        if stripped and stripped[-1] in ".,;:?!—)" and self.reservoir < eff_pref + 0.08:
+            return "punctuation_pause"
+
+        if is_line_end and self.reservoir < eff_pref + 0.07:
+            return "line_end"
+
+        if next_word_len >= 7:
+            est_demand = 0.011 * next_word_len
+            if (self.reservoir - est_demand) < (self.dip_threshold + 0.11 + max(0.0, att_shift)):
+                return "long_word_lookahead"
+
+        return None
 
     # ------------------------------------------------------------------
     # State transitions
@@ -245,7 +346,14 @@ class InkState:
         """Record that one stroke has completed."""
         self.strokes_since_dip += 1
 
-    def process_word_boundary(self) -> DipEvent:
+    def process_word_boundary(
+        self,
+        *,
+        word_text: str = "",
+        next_word_len: int = 0,
+        is_line_end: bool = False,
+        attention: float = 1.0,
+    ) -> DipEvent:
         """Called after each word is rendered.
 
         Decides whether the scribe dips. Returns the dip event for logging.
@@ -253,9 +361,20 @@ class InkState:
         self.words_since_dip += 1
 
         if self.should_dip():
+            self.last_dip_trigger = "forced_low"
             self.dip()
             return DipEvent.ForcedDip
-        elif self.wants_to_dip():
+
+        trigger = self._evaluate_dip_trigger(
+            word_text=word_text,
+            next_word_len=next_word_len,
+            is_line_end=is_line_end,
+            attention=attention,
+        )
+        if trigger is not None:
+            self.last_dip_trigger = trigger
             self.dip()
             return DipEvent.PreferredDip
+
+        self.last_dip_trigger = ""
         return DipEvent.NoDip

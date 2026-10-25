@@ -127,6 +127,8 @@ def solve_word_coarticulation(
     w_acc: float = 0.025,
     dt_s: float = 0.005,
     session: KinematicScribeSession | None = None,
+    next_word_len: int = 0,
+    is_line_end: bool = False,
 ) -> CoarticulatedWordResult:
     """Solve the global Minimum-Jerk Via-Point QP for `word`."""
     prof = profile or bastarda_nib_calibrated_profile()
@@ -300,16 +302,21 @@ def solve_word_coarticulation(
         if session is not None and idx > 0 and is_contact:
             seg_dist = math.hypot(float(x_mm_arr[idx] - x_mm_arr[idx - 1]), float(y_mm_arr[idx] - y_mm_arr[idx - 1]))
             cur_reservoir = session.state.consume_contact_distance(seg_dist, avg_pressure=float(p_eff), avg_width_mm=w_nib)
-            dark_mult = max(0.75, min(1.08, session.state.darkness_scale()))
-            p_eff = max(0.18, min(1.05, p_eff * dark_mult))
+            # TD-021: Do NOT multiply mechanical pressure by optical darkness_scale() (avoids squared depletion).
+            # Instead, as the quill enters the dry shoulder (<0.38), the scribe subtly presses up to +2.5%
+            # harder to coax capillary ink from the slit, while optical darkness is owned once by the renderer.
+            if cur_reservoir < 0.38:
+                coax = max(0.0, min(1.0, (0.38 - cur_reservoir) / 0.22))
+                p_eff = max(0.18, min(1.05, p_eff * (1.0 + 0.025 * coax)))
 
-        # Apply physiological hand tremor when emotional agitation or grief elevates tremor above baseline
+        # Apply subtle low-frequency hand micro-unsteadiness only when emotional agitation or grief elevates it
         tx_mm = 0.0
         ty_mm = 0.0
         if emo_tremor_mm > 0.020 and is_contact:
-            t_phase = idx * 0.52 + (session.word_counter * 1.9 if session else 0.0)
-            tx_mm = emo_tremor_mm * math.sin(t_phase)
-            ty_mm = 0.65 * emo_tremor_mm * math.cos(t_phase * 1.37)
+            eff_tremor_mm = min(0.026, emo_tremor_mm * 0.42)
+            t_phase = idx * 0.24 + (session.word_counter * 1.9 if session else 0.0)
+            tx_mm = eff_tremor_mm * math.sin(t_phase)
+            ty_mm = 0.55 * eff_tremor_mm * math.cos(t_phase * 1.21)
 
         role = "join" if (p_a.letter_index != p_b.letter_index or p_b.role in ("exit", "peak", "loop")) else "body"
         samples.append(
@@ -332,7 +339,13 @@ def solve_word_coarticulation(
         session.last_word_exit_y_wnib = float(sol_y[-1])
         session.word_counter += 1
         from scribesim.ink.cycle import DipEvent
-        dip_ev = session.state.ink_state.process_word_boundary()
+        pre_dip_res = round(float(session.state.ink_level), 4)
+        dip_ev = session.state.ink_state.process_word_boundary(
+            word_text=word,
+            next_word_len=next_word_len,
+            is_line_end=is_line_end,
+            attention=session.dip_attention_factor(),
+        )
         if dip_ev in (DipEvent.ForcedDip, DipEvent.PreferredDip):
             session.dip_events.append(
                 {
@@ -340,6 +353,8 @@ def solve_word_coarticulation(
                     "line_index": session.current_line,
                     "word_counter": session.word_counter,
                     "word": word,
+                    "pre_dip_reservoir": pre_dip_res,
+                    "trigger": session.state.ink_state.last_dip_trigger,
                     "reason": "forced_dip" if dip_ev == DipEvent.ForcedDip else "preferred_dip",
                 }
             )
@@ -387,16 +402,27 @@ def compose_line_kinematic_Stateful(
     line_samples: list[SandboxSample] = []
     line_vias: list[dict] = []
 
-    for w in line_text.split(" "):
+    tokens = line_text.split(" ")
+    nonempty_indices = [idx for idx, tok in enumerate(tokens) if tok]
+    last_nonempty_idx = nonempty_indices[-1] if nonempty_indices else -1
+
+    for tok_i, w in enumerate(tokens):
         if not w:
             cursor_wnib += word_gap_wnib
             continue
+        next_len = 0
+        for nxt_tok in tokens[tok_i + 1 :]:
+            if nxt_tok:
+                next_len = len(nxt_tok)
+                break
         res = solve_word_coarticulation(
             w,
             profile=prof,
             start_x_wnib=cursor_wnib,
             baseline_y_mm=baseline_y_mm,
             session=sess,
+            next_word_len=next_len,
+            is_line_end=(tok_i == last_nonempty_idx),
         )
         word_results.append(res)
         if line_samples and res.samples:

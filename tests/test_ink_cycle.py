@@ -4,6 +4,7 @@ import pytest
 from scribesim.ink.cycle import (
     DipEvent, InkState,
     ink_darkness, ink_width_modifier,
+    ink_darkness_capillary, ink_width_modifier_capillary,
     HairlineEffects, hairline_effects,
 )
 
@@ -365,3 +366,66 @@ def test_folio_dip_count():
     assert 4 <= ink.total_dips <= 12, (
         f"Expected 4–12 dips for a 28-line folio, got {ink.total_dips}"
     )
+
+
+# ---------------------------------------------------------------------------
+# TD-021 — Capillary plateau curves & attentive scribe dip discipline
+# ---------------------------------------------------------------------------
+
+def test_capillary_plateau_flatness_and_soft_shoulder():
+    """TD-021 capillary curve stays nearly flat across [0.45, 0.86] and rolls off smoothly below 0.40."""
+    # Post-dip bead settles from 1.0 -> 0.86
+    d_full = ink_darkness_capillary(1.0)
+    d_plat_top = ink_darkness_capillary(0.86)
+    d_plat_bot = ink_darkness_capillary(0.45)
+    d_shoulder = ink_darkness_capillary(0.24)
+    d_floor = ink_darkness_capillary(0.0)
+
+    assert d_full == pytest.approx(1.0, abs=0.01)
+    # Plateau variation across 41% of the reservoir is <= 0.055 (vs >0.15 in power law)
+    assert (d_plat_top - d_plat_bot) <= 0.055
+    assert d_plat_bot >= 0.91
+    # Gradual shoulder falloff without dropping below 0.72 floor
+    assert 0.80 <= d_shoulder < d_plat_bot
+    assert d_floor >= 0.72
+
+    # Width modifier also stays steady on the plateau
+    w_top = ink_width_modifier_capillary(0.85)
+    w_bot = ink_width_modifier_capillary(0.45)
+    assert (w_top - w_bot) <= 0.025
+
+
+def test_attentive_dip_on_punctuation_line_end_and_long_word():
+    """Scribe dips earlier at punctuation pauses, line ends, or before a long word than mid-clause."""
+    # At r = 0.41 (above base preferred_dip_threshold=0.36):
+    # 1. Bare short mid-clause word does NOT dip
+    ink_mid = InkState(dip_threshold=0.22, preferred_dip_threshold=0.36)
+    ink_mid.reservoir = 0.41
+    assert ink_mid.process_word_boundary(word_text="und", next_word_len=3, is_line_end=False) == DipEvent.NoDip
+
+    # 2. Clause-ending punctuation pause DOES dip early
+    ink_punct = InkState(dip_threshold=0.22, preferred_dip_threshold=0.36)
+    ink_punct.reservoir = 0.41
+    assert ink_punct.process_word_boundary(word_text="Amen.", next_word_len=4, is_line_end=False) == DipEvent.PreferredDip
+
+    # 3. Line-end carriage return DOES dip early
+    ink_eol = InkState(dip_threshold=0.22, preferred_dip_threshold=0.36)
+    ink_eol.reservoir = 0.41
+    assert ink_eol.process_word_boundary(word_text="der", next_word_len=4, is_line_end=True) == DipEvent.PreferredDip
+
+    # 4. Upcoming long compound word (len >= 8) DOES dip early to avoid running dry mid-word
+    ink_long = InkState(dip_threshold=0.22, preferred_dip_threshold=0.36)
+    ink_long.reservoir = 0.41
+    assert ink_long.process_word_boundary(word_text="die", next_word_len=11, is_line_end=False) == DipEvent.PreferredDip
+
+
+def test_attention_modulates_dip_threshold():
+    """High scribal attention dips on the upper shoulder; low attention (agitation/fatigue) rides lower."""
+    ink_careful = InkState(dip_threshold=0.22, preferred_dip_threshold=0.36)
+    ink_careful.reservoir = 0.39
+    assert ink_careful.process_word_boundary(word_text="wir", attention=1.20) == DipEvent.PreferredDip
+
+    ink_agitated = InkState(dip_threshold=0.22, preferred_dip_threshold=0.36)
+    ink_agitated.reservoir = 0.33
+    assert ink_agitated.process_word_boundary(word_text="wir", attention=0.75) == DipEvent.NoDip
+

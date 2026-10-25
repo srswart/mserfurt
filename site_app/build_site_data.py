@@ -137,19 +137,19 @@ def _export_web_folio_images(dist_dir: Path, cat: dict) -> None:
         out_clean_jpg = folios_dir / f"{fid}_clean.jpg"
         out_thumb = folios_dir / f"{fid}_thumb.jpg"
 
-        if w_src.exists() and not out_jpg.exists():
+        if w_src.exists() and (not out_jpg.exists() or w_src.stat().st_mtime > out_jpg.stat().st_mtime):
             im = Image.open(w_src).convert("RGB")
             im.save(str(out_jpg), format="JPEG", quality=88, optimize=True)
             th_w = round(im.width * (340.0 / im.height))
             im.resize((th_w, 340), Image.LANCZOS).save(str(out_thumb), format="JPEG", quality=84, optimize=True)
-        if c_src.exists() and not out_clean_jpg.exists():
+        if c_src.exists() and (not out_clean_jpg.exists() or c_src.stat().st_mtime > out_clean_jpg.stat().st_mtime):
             im_c = Image.open(c_src).convert("RGB")
             im_c.save(str(out_clean_jpg), format="JPEG", quality=86, optimize=True)
 
     for sp in cat.get("spreads", []):
         sp_png = GALLERY_DIR / sp["image"]
         sp_jpg = folios_dir / sp["image"].replace(".png", ".jpg")
-        if sp_png.exists() and not sp_jpg.exists():
+        if sp_png.exists() and (not sp_jpg.exists() or sp_png.stat().st_mtime > sp_jpg.stat().st_mtime):
             im_sp = Image.open(sp_png).convert("RGB")
             im_sp.save(str(sp_jpg), format="JPEG", quality=86, optimize=True)
 

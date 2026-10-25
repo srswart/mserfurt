@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "mserfurt.com in front of Fly",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "reader",
+      "type": "external",
+      "label": "Reader",
+      "sublabel": "Browser",
+      "pos": [48, 340],
+      "size": [150, 72]
+    },
+    {
+      "id": "registrar",
+      "type": "external",
+      "label": "GoDaddy",
+      "sublabel": "mserfurt.com",
+      "pos": [293, 108],
+      "size": [150, 72]
+    },
+    {
+      "id": "edge",
+      "type": "cloud",
+      "label": "Cloudflare",
+      "sublabel": "DNS and proxy",
+      "brand": "cloudflare",
+      "pos": [280, 340],
+      "size": [176, 72]
+    },
+    {
+      "id": "fly",
+      "type": "cloud",
+      "label": "Fly",
+      "sublabel": "ms-erfurt.fly.dev",
+      "brand": "fly-io",
+      "pos": [548, 340],
+      "size": [190, 72]
+    },
+    {
+      "id": "origin",
+      "type": "backend",
+      "label": "Site server",
+      "sublabel": "site_app.server :8080",
+      "pos": [828, 340],
+      "size": [200, 72]
+    },
+    {
+      "id": "pages",
+      "type": "frontend",
+      "label": "Edition pages",
+      "sublabel": "Static HTML",
+      "pos": [1116, 340],
+      "size": [170, 72]
+    },
+    {
+      "id": "media",
+      "type": "frontend",
+      "label": "Folio plates",
+      "sublabel": "Images and PDF",
+      "pos": [828, 540],
+      "size": [200, 72]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Frankfurt · fra",
+      "wraps": ["fly", "origin", "pages", "media"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "nameservers",
+      "from": "registrar",
+      "to": "edge",
+      "label": "nameservers",
+      "variant": "dashed",
+      "labelDy": 36
+    },
+    {
+      "id": "request",
+      "from": "reader",
+      "to": "edge",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "origin-fetch",
+      "from": "edge",
+      "to": "fly",
+      "label": "origin HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "app-port",
+      "from": "fly",
+      "to": "origin",
+      "label": "port 8080"
+    },
+    {
+      "id": "pages",
+      "from": "origin",
+      "to": "pages",
+      "label": "HTML"
+    },
+    {
+      "id": "plates",
+      "from": "origin",
+      "to": "media",
+      "label": "images and PDF",
+      "variant": "dashed",
+      "labelDy": 24
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "DNS",
+      "items": [
+        "GoDaddy keeps the registration and hands Cloudflare the nameservers",
+        "CNAME @ and www to ms-erfurt.fly.dev",
+        "Grey cloud until the Fly certificate is issued, then orange cloud"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Origin",
+      "items": [
+        "Fly app ms-erfurt in fra, HTTPS on the shared address",
+        "Machines stop when idle and wake on the next request",
+        "site_app.server reads the static files on port 8080"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Cache",
+      "items": [
+        "SSL/TLS mode is Full (strict)",
+        "Folio images and fonts are cacheable for a year",
+        "HTML stays no-cache so a deploy is visible without a purge"
+      ]
+    }
+  ]
+}

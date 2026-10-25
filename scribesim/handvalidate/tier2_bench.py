@@ -146,7 +146,11 @@ def render_kinematic_folio(
             flexibility=l_prof.nib.flexibility,
         )
         from scribesim.render.scribe_state import resolve_emotional_line_state
-        from scribesim.ink.cycle import ink_darkness, ink_width_modifier
+        from scribesim.ink.cycle import (
+            capillary_flow_curve,
+            ink_darkness_capillary,
+            ink_width_modifier_capillary,
+        )
         l_emo = resolve_emotional_line_state(
             fid, l_idx, line_text=line_obj.get("text", ""), register=line_obj.get("register", "de")
         )
@@ -297,10 +301,14 @@ def render_kinematic_folio(
             raw_eff_w[idx] = app_w * pool_w * sample_width_mult[idx]
             widths_mm.append(float(raw_eff_w[idx]))
 
-            # Quill dip reservoir effect + intra-stroke pooling vs fast mid-stroke variation
+            # TD-021: Capillary plateau ink curve + hairline-first shoulder softening
             res_level = float(getattr(curr, "ink_reservoir", 0.85))
-            # Accentuate the quill dip cycle: reservoir=1.0 -> 1.04 (fresh saturated dip), reservoir=0.20 -> 0.62 (depleted pre-dip)
-            dip_dark = 0.50 + 0.54 * (max(0.0, min(1.0, res_level)) ** 0.55)
+            shoulder_f, _, _ = capillary_flow_curve(res_level)
+            cap_dark = ink_darkness_capillary(res_level)
+            # In the lower shoulder (shoulder_f < 1.0), thin low-pressure hairlines lose ink first,
+            # while high-pressure downward stems draw out the remaining capillary bead.
+            hairline_dry_soften = (1.0 - min(1.0, avg_p)) * 0.08 * (1.0 - shoulder_f)
+            dip_dark = max(0.70, cap_dark - hairline_dry_soften)
             # Intra-letter ink variation: slow pooled turns & high-pressure stems deposit thicker ink
             # than fast mid-strokes or thin rising hairlines
             stroke_flow = 0.48 + 0.42 * avg_p + 0.18 * (pool_i - 1.0) * 3.0
@@ -346,7 +354,7 @@ def render_kinematic_folio(
 
             angle_rad = math.radians(curr.nib_angle_deg)
             avg_p = 0.5 * (prev.pressure + curr.pressure)
-            res_w_mod = ink_width_modifier(float(getattr(curr, "ink_reservoir", 0.85)))
+            res_w_mod = ink_width_modifier_capillary(float(getattr(curr, "ink_reservoir", 0.85)))
             splay = (0.85 + 0.18 * avg_p) * res_w_mod * l_emo.width_mult * float(sample_width_mult[idx])
             half_edge_px = 0.5 * l_nib.width_mm * splay * px_per_mm_int
             hx = half_edge_px * math.cos(angle_rad)

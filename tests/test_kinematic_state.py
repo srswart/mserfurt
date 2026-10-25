@@ -153,3 +153,36 @@ def test_emotional_line_states_and_quill_dip_cycle() -> None:
         )
     assert len(sess.dip_events) >= 2
 
+
+def test_td021_no_double_pressure_drop_and_attentive_dips() -> None:
+    """TD-021: Coarticulated word pressure does not decay with ink darkness, and dips record context."""
+    sess = KinematicScribeSession(folio_id="f01r", seed=1457)
+    # Set reservoir to pre-dip shoulder (0.37) and compare downstroke pressure against full reservoir (1.0)
+    sess.state.ink_state.reservoir = 1.0
+    l_full = compose_line_kinematic_Stateful("und", session=sess, line_index=0)
+    p_full = max(s.pressure for s in l_full.samples if s.contact)
+
+    sess_low = KinematicScribeSession(folio_id="f01r", seed=1457)
+    sess_low.state.ink_state.reservoir = 0.30
+    l_low = compose_line_kinematic_Stateful("und", session=sess_low, line_index=0)
+    p_low = max(s.pressure for s in l_low.samples if s.contact)
+
+    # Mechanical contact pressure must not be crushed by ink darkness (no double-depletion)
+    assert p_low >= p_full * 0.98
+
+    # Across a multi-line session under normal attention, the scribe dips before reservoir collapses below 0.24
+    sess_page = KinematicScribeSession(folio_id="f01r", seed=1457)
+    min_res_seen = 1.0
+    for l_idx in range(10):
+        res_line = compose_line_kinematic_Stateful(
+            "Ich bin ein Schreiber gewesen, dreißig Jar, und habe das Wort abgeschrieben.",
+            session=sess_page,
+            line_index=l_idx,
+        )
+        for s in res_line.samples:
+            if s.contact:
+                min_res_seen = min(min_res_seen, s.ink_reservoir)
+    assert min_res_seen >= 0.24
+    assert any(ev.get("trigger") in ("punctuation_pause", "line_end", "long_word_lookahead", "preferred_shoulder") for ev in sess_page.dip_events)
+
+

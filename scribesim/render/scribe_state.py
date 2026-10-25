@@ -369,11 +369,11 @@ def resolve_emotional_line_state(
             pressure_mult=1.18,
             width_mult=1.08,
             speed_mult=0.92,
-            tremor_amp_mm=0.068,
-            slant_delta_deg=+3.4,
-            baseline_undulation_mm=0.22,
-            word_gap_mult=1.08,
-            motor_calm_factor=1.28,
+            tremor_amp_mm=0.044,
+            slant_delta_deg=+2.4,
+            baseline_undulation_mm=0.14,
+            word_gap_mult=1.06,
+            motor_calm_factor=1.16,
         )
 
     # 4. Grief & Hesitation (losing Peter, rosemary garden farewell, failing eyes)
@@ -400,11 +400,11 @@ def resolve_emotional_line_state(
             pressure_mult=0.90,
             width_mult=0.94,
             speed_mult=0.76,
-            tremor_amp_mm=0.048,
-            slant_delta_deg=+1.6,
-            baseline_undulation_mm=0.26,
-            word_gap_mult=1.24,
-            motor_calm_factor=1.18,
+            tremor_amp_mm=0.032,
+            slant_delta_deg=+1.2,
+            baseline_undulation_mm=0.15,
+            word_gap_mult=1.18,
+            motor_calm_factor=1.12,
         )
 
     # 5. Deepened Attention (Konrad slowing down & thickening strokes when meaning arrives in his hands)
@@ -456,11 +456,11 @@ def resolve_emotional_line_state(
             pressure_mult=1.04,
             width_mult=1.03,
             speed_mult=0.82,
-            tremor_amp_mm=0.024,
+            tremor_amp_mm=0.018,
             slant_delta_deg=+0.8,
-            baseline_undulation_mm=0.12,
+            baseline_undulation_mm=0.10,
             word_gap_mult=1.12,
-            motor_calm_factor=0.92,
+            motor_calm_factor=1.06,
         )
 
     return EmotionalLineState()
@@ -500,13 +500,30 @@ class KinematicScribeSession:
         ink = InkState(
             capacity=1.0,
             base_depletion=ink_depletion_rate,
-            dip_threshold=0.18,
-            preferred_dip_threshold=0.25,
+            dip_threshold=0.22,
+            preferred_dip_threshold=0.36,
         )
         self.state = ScribeState(ink_state=ink, _rng=rng)
         # Correlated walk state per letter: letter -> [dx, dy, slant, arch, p_bias]
         self._letter_walk: dict[str, list[float]] = {}
         self._sitting_boundaries = set(SITTING_BOUNDARIES_BY_FOLIO.get(folio_id, ()))
+
+    def dip_attention_factor(self) -> float:
+        """Compute scribal dip vigilance (TD-021) from emotional state and accumulated fatigue.
+
+        > 1.0: extra-careful (dips early on the upper capillary plateau)
+        < 1.0: distracted / agitated / fatigued (occasionally rides lower into the soft shoulder)
+        """
+        emo_name = self.active_emotion.state_name
+        if emo_name in ("sacred_steadiness", "deepened_attention"):
+            base_att = 1.22
+        elif emo_name in ("latin_formal", "controlled_correction"):
+            base_att = 1.12
+        elif emo_name in ("tremor_agitation", "grief_hesitation", "compensating_eyes"):
+            base_att = 0.80
+        else:
+            base_att = 1.02
+        return max(0.72, min(1.28, base_att - 0.14 * self.state.fatigue))
 
     def advance_to_line(self, line_index: int, line_text: str = "", register: str = "de") -> None:
         """Advance session state to `line_index`, updating emotional state, sitting boundaries, and fatigue."""
@@ -550,41 +567,44 @@ class KinematicScribeSession:
         if letter not in self._letter_walk:
             init_rng = random.Random(_stable_seed(self.folio_id, self.seed, "init", letter))
             self._letter_walk[letter] = [
-                init_rng.uniform(-0.04, 0.04),  # dx_wnib
-                init_rng.uniform(-0.04, 0.04),  # dy_wnib
-                init_rng.uniform(-0.03, 0.03),  # slant_shear
-                init_rng.uniform(-0.05, 0.05),  # peak_arch_dy
-                init_rng.uniform(-0.03, 0.03),  # x_scale_delta
+                init_rng.uniform(-0.027, 0.027),  # dx_wnib
+                init_rng.uniform(-0.022, 0.022),  # dy_wnib
+                init_rng.uniform(-0.020, 0.020),  # slant_shear
+                init_rng.uniform(-0.031, 0.031),  # peak_arch_dy
+                init_rng.uniform(-0.020, 0.020),  # x_scale_delta
             ]
 
         vec = self._letter_walk[letter]
         step_rng = random.Random(_stable_seed(self.folio_id, self.seed, "occ", letter, occ, self.word_counter))
-        calm = self.active_emotion.motor_calm_factor
+        # Subtle fatigue modulation (+10% across a full page, never erratic)
+        calm = self.active_emotion.motor_calm_factor * (1.0 + 0.10 * self.state.fatigue)
 
-        # Correlated AR(1) random walk with human-visible amplitude across occurrences
-        deltas = (0.14 * calm, 0.12 * calm, 0.11 * calm, 0.22 * calm, 0.075 * calm)
-        limits = (0.32, 0.28, 0.22, 0.45, 0.14)
+        # Correlated AR(1) random walk calibrated 85% toward seasoned 30-year scribe consistency:
+        # steady x-height ribbon and parallel stems, with gentle personal-journal life.
+        deltas = (0.093 * calm, 0.064 * calm, 0.059 * calm, 0.122 * calm, 0.047 * calm)
+        cap_mult = min(1.15, max(0.85, calm))
+        limits = (0.20 * cap_mult, 0.144 * cap_mult, 0.118 * cap_mult, 0.255 * cap_mult, 0.085 * cap_mult)
         phase = (occ + 1) * 1.73 + self.word_counter * 0.91 + self.current_line * 0.63
         for i in range(5):
-            step = step_rng.gauss(0.0, deltas[i]) + 0.45 * deltas[i] * math.sin(phase + i * 1.3)
-            val = 0.62 * vec[i] + step
+            step = step_rng.gauss(0.0, deltas[i]) + 0.40 * deltas[i] * math.sin(phase + i * 1.3)
+            val = 0.65 * vec[i] + step
             vec[i] = max(-limits[i], min(limits[i], val))
 
         entry_hook_dx = 0.0
         entry_hook_dy = 0.0
-        loop_spread_dx = round((step_rng.uniform(-0.38, 0.42) + 0.18 * math.cos(phase * 1.3)) * calm, 4)
-        loop_height_dy = round((step_rng.uniform(-0.42, 0.48) + 0.22 * math.sin(phase * 0.9)) * calm, 4)
-        word_baseline_dy = round(0.18 * calm * math.sin(self.word_counter * 0.85 + self.current_line * 1.4), 4)
-        y_scale = round(1.0 + step_rng.uniform(-0.065 * calm, 0.075 * calm), 4)
+        loop_spread_dx = round((step_rng.uniform(-0.24, 0.26) + 0.11 * math.cos(phase * 1.3)) * calm, 4)
+        loop_height_dy = round((step_rng.uniform(-0.26, 0.29) + 0.13 * math.sin(phase * 0.9)) * calm, 4)
+        word_baseline_dy = round(0.090 * calm * math.sin(self.word_counter * 0.85 + self.current_line * 1.4), 4)
+        y_scale = round(1.0 + step_rng.uniform(-0.032 * calm, 0.035 * calm), 4)
 
         if is_word_initial:
-            # Cross-word air carryover + visible word-onset attack variation
+            # Cross-word air carryover + word-onset attack variation
             air_pull = 0.0
             if prev_word_exit_y_wnib is not None:
-                air_pull = max(-0.32, min(0.32, (prev_word_exit_y_wnib - 1.2) * 0.15))
+                air_pull = max(-0.20, min(0.20, (prev_word_exit_y_wnib - 1.2) * 0.10))
             onset_angle = (occ * 2.17 + self.word_counter * 1.31 + self.current_line * 0.79)
-            entry_hook_dx = round((0.36 * math.cos(onset_angle) + step_rng.uniform(-0.14, 0.14)) * calm, 4)
-            entry_hook_dy = round((0.38 * math.sin(onset_angle) + air_pull) * calm, 4)
+            entry_hook_dx = round((0.23 * math.cos(onset_angle) + step_rng.uniform(-0.09, 0.09)) * calm, 4)
+            entry_hook_dy = round((0.24 * math.sin(onset_angle) + air_pull) * calm, 4)
 
         slant_from_emotion = math.tan(math.radians(self.active_emotion.slant_delta_deg)) * 0.85
 
@@ -600,7 +620,7 @@ class KinematicScribeSession:
             "loop_spread_dx": loop_spread_dx,
             "loop_height_dy": loop_height_dy,
             "nib_angle_drift_deg": round(
-                (self.state.nib_angle_drift_deg(self.current_line) + 2.2 * math.sin(phase)) * calm, 3
+                (self.state.nib_angle_drift_deg(self.current_line) + 1.30 * math.sin(phase)) * calm, 3
             ),
             "occ": occ,
         }
@@ -618,34 +638,37 @@ class KinematicScribeSession:
         vp_rng = random.Random(
             _stable_seed(self.folio_id, self.seed, "vp", letter, occ, v_idx, self.word_counter, self.current_line)
         )
-        if role in ("loop", "peak"):
-            amp_x, amp_y = 0.16, 0.22
+        calm = self.active_emotion.motor_calm_factor * (1.0 + 0.08 * self.state.fatigue)
+        if role == "loop":
+            amp_x, amp_y = 0.105 * calm, 0.140 * calm
+        elif role == "peak":
+            amp_x, amp_y = 0.068 * calm, 0.090 * calm
         elif role in ("entry", "exit"):
-            amp_x, amp_y = 0.18, 0.22
+            amp_x, amp_y = 0.108 * calm, 0.130 * calm
         else:
-            # body and turn points: vary individual stem heights and foot turns slightly
-            amp_x, amp_y = 0.065, 0.11
+            # body and turn points: 85% toward seasoned consistency
+            amp_x, amp_y = 0.033 * calm, 0.050 * calm
 
         dx = vp_rng.uniform(-amp_x, amp_x)
         dy = vp_rng.uniform(-amp_y, amp_y)
-        dp = vp_rng.uniform(-0.06, 0.06)
+        dp = vp_rng.uniform(-0.040, 0.040)
 
         if is_word_initial and v_idx <= 1:
-            # 3 distinct word-initial onset styles (sweeping hook vs upright attack vs deep diamond attack)
+            # 3 word-initial onset styles (sweeping hook vs upright attack vs diamond attack)
             style = (occ + self.word_counter + self.current_line) % 3
             if v_idx == 0:
                 if style == 0:
-                    dx -= 0.24
-                    dy -= 0.18
+                    dx -= 0.155 * calm
+                    dy -= 0.115 * calm
                 elif style == 1:
-                    dx += 0.12
-                    dy += 0.22
+                    dx += 0.085 * calm
+                    dy += 0.135 * calm
                 else:
-                    dx -= 0.10
-                    dy += 0.28
-                    dp += 0.08
+                    dx -= 0.065 * calm
+                    dy += 0.170 * calm
+                    dp += 0.055
             elif v_idx == 1:
-                dx += 0.08 if style == 1 else -0.06
+                dx += (0.050 if style == 1 else -0.040) * calm
 
         return round(dx, 4), round(dy, 4), round(dp, 4)
 

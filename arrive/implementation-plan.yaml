@@ -2072,4 +2072,23 @@ passes:
       - ADV-SITE-VIEWER-001
       notes: "Implement Sealed (CLAUSUM) and Unsealed Behind-the-Work Colophon (/colophon) plus production HTTP server (site/server.py), Dockerfile, and fly.toml configured for Fly.io app `ms-erfurt`."
       status_changed_at: 2026-10-17T13:04:53.383944Z
+- id: pass-18
+  title: 'Pass 18: TD-021 — Capillary Plateau Ink Cycle & Attentive Scribe Dip Discipline'
+  order: 49
+  phases:
+  - id: td021-capillary-ink-and-attentive-dip
+    title: Capillary plateau curve, single-owner depletion, and anticipatory scribe dip discipline
+    order: 1
+    items:
+    - id: ADV-SS-INK-006
+      advance_id: ADV-SS-INK-006
+      title: "Capillary Plateau Ink Curve & Attentive Scribe Dip Discipline"
+      status: done
+      owner: shawn
+      dependencies:
+      - ADV-SS-INK-001
+      - ADV-SS-STATE-002
+      notes: "Replace squared power-law ink fade with a 3-regime capillary plateau + soft sigmoid shoulder curve, eliminate double-multiplied pressure/darkness depletion, and add anticipatory dipping at punctuation pauses, line ends, and before long words."
+      status_changed_at: 2026-10-18T15:52:00Z
+
 

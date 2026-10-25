@@ -206,10 +206,7 @@
 
   function initColophon() {
     var seal = document.getElementById("seal-view");
-    if (!seal) {
-      bindCliCopy();
-      return;
-    }
+    if (!seal) return;
     var read = readList();
     var unsealed = localStorage.getItem(UNSEAL_KEY) === "1" || read.indexOf("sec-7") >= 0;
     var work = document.getElementById("work-view");
@@ -248,21 +245,6 @@
       });
     }
     if (breakBtn) breakBtn.addEventListener("click", showWork);
-    bindCliCopy();
-  }
-
-  function bindCliCopy() {
-    var copy = document.getElementById("copy-cli");
-    var block = document.getElementById("cli-block");
-    if (copy && block) {
-      copy.addEventListener("click", function () {
-        var text = block.innerText;
-        var done = function () { copy.textContent = "Copied"; };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done, function () { copy.textContent = "Copy"; });
-        }
-      });
-    }
   }
 
   function openingPair(id) {

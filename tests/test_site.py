@@ -74,8 +74,9 @@ def test_adv_site_edition_viewer_colophon_html_generation() -> None:
     assert "Seventeen folios, bound between two liturgical texts." in landing
     assert "Where the vellum is damaged, the type changes its face." in landing
     assert "CLAUSUM" in landing
-    assert "unwritten journal" in landing
-    assert "what of us remains in the ideas we pass on?" in landing
+    assert "This site gives an unwritten journal a visible form." in landing
+    assert "Join us as we give" not in landing
+    assert "what of us remains in the ideas we pass on?" not in landing
     assert "There is more below" in landing
     assert 'href="/colophon">Colophon</a>' in landing
 
@@ -111,16 +112,23 @@ def test_adv_site_edition_viewer_colophon_html_generation() -> None:
     assert "This translation is their source." in colophon
     aside = colophon.split('class="stack note-aside"', 1)[1].split("</div>", 1)[0]
     assert 'class="note-callout"' in aside
+    assert "custom scribe simulator" in aside
+    assert "weathering simulation" in aside
+    assert "a model instructed to write" not in colophon
     assert aside.index("synthetic reconstructions") < aside.index("They are not the source of this translation.")
     assert "synthetic reconstructions" not in colophon.split("note-aside", 1)[0]
     assert colophon.count("Whether anything was lost in translation") == 1
-    assert colophon.index("Whether anything was lost in translation") > colophon.index("Spill some ink.")
+    assert colophon.index("Whether anything was lost in translation") > colophon.index("03 · Weather")
     assert colophon.count("S. R. Swart") == 1
     assert "The narrator is called Konrad once" in colophon
     assert "one Cologne witness" in colophon
     assert "surviving transmission" in colophon
     assert "surviving ink" not in colophon
-    assert "Spill some ink." in colophon
+    assert "The simulator" not in colophon
+    assert "Spill some ink." not in colophon
+    assert "cli-block" not in colophon
+    assert "github.com/srswart/mserfurt" not in colophon
+    assert "View the repository" not in colophon
     assert "A stroke across the nib goes broad" in colophon
     assert "minimum-jerk quadratic program" in colophon
     assert "Bastarda hand recovery is the letter" in colophon

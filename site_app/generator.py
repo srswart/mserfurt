@@ -31,17 +31,6 @@ _CHEVRON_R = (
     'stroke="currentColor" stroke-width="1.5"><path d="M1 1l5 5-5 5"></path></svg>'
 )
 
-_CLI = """# 1 · install
-uv sync
-# 2 · render every folio in the hand
-uv run python scripts/render_all.py
-# 3 · compute the codex damage map
-uv run weather weather-map --gathering-size 17 \\
-  --output weather/codex_map.json
-# 4 · age the gathering, epicentre first
-uv run weather weather-codex --clean-dir render-output \\
-  --map weather/codex_map.json --output-dir weather-output"""
-
 
 def _esc(value: object) -> str:
     return html.escape(str(value), quote=True)
@@ -58,12 +47,12 @@ def _shell(title: str, page: str, body: str) -> str:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v=11">
+<link rel="stylesheet" href="/assets/site.css?v=12">
 </head>
 <body data-page="{_esc(page)}">
 <a class="skip" href="#content">Skip to content</a>
 {body}
-<script src="/assets/site.js?v=2" defer></script>
+<script src="/assets/site.js?v=3" defer></script>
 </body>
 </html>
 """
@@ -128,7 +117,7 @@ def _landing(data: dict) -> str:
       <p class="kicker">A scribal confession · Erfurt · 1457</p>
       <h1>MS ERFURT<span>AUG. 12°47</span></h1>
       <p class="byline">S. R. SWART</p>
-      <p class="lede">Join us as we give an unwritten journal a visible form. As you explore, its question becomes ours: in this age of AI, what of us remains in the ideas we pass on?</p>
+      <p class="lede">This site gives an unwritten journal a visible form.</p>
       <div class="hero-actions">
         <a class="cta" href="/reader">Begin reading {_ARROW}</a>
         <a class="ghost" href="/viewer">Turn the folios</a>
@@ -216,7 +205,7 @@ def _landing(data: dict) -> str:
   <footer class="site-footer">
     <div class="wrap">
       <span>Translated and annotated by CLIO-7 Manuscript Intelligence System · Institut für Digitale Paläographie, Erfurt</span>
-      <span>© S. R. Swart</span>
+      <span>© S. R. Swart · <a href="mailto:info@mserfurt.com">info@mserfurt.com</a></span>
     </div>
   </footer>
 </div>
@@ -561,7 +550,7 @@ def _colophon(data: dict) -> str:
           <p>At the damaged Eckhart sentence, the three readings do not possess equal material authority. Among the surviving witnesses to Eckhart’s German sermons, the line most readily supports <em>ist — is</em>. A later hand supplies <em>enpfêhet — receives</em> — in the margin of one Cologne witness. <em>Wirt — becomes</em> appears nowhere in the surviving transmission.</p>
         </div>
         <div class="stack note-aside">
-          <p class="note-callout">The folios reproduced before this note are not photographs of Konrad’s manuscript. They are synthetic reconstructions. The English words attributed to Konrad were extracted from this edition, translated back into a conjectural form of mid-fifteenth-century German, passed to a model instructed to write them in a hand Konrad might have used, and subjected to simulated age and damage.</p>
+          <p class="note-callout">The folios reproduced before this note are not photographs of Konrad’s manuscript. They are synthetic reconstructions. The English words attributed to Konrad were extracted from this edition, translated back into a conjectural form of mid-fifteenth-century German, passed to a custom scribe simulator to write them in a hand Konrad might have used, and subjected to simulated age and damage with a weathering simulation. Konrad’s journal, CLIO-7, and the Institut für Digitale Paläographie are fictional elements of this work.</p>
           <p class="twist">They are not the source of this translation.</p>
           <p class="twist"><em>This translation is their source.</em></p>
         </div>
@@ -664,28 +653,12 @@ def _colophon(data: dict) -> str:
       </div>
     </section>
     <section class="stage-block"><dl class="stats wrap">{stat_html}</dl></section>
-    <section>
-      <div class="wrap stage-grid">
-        <div class="stack">
-          <p class="kicker">The simulator</p>
-          <h2>Spill some ink.</h2>
-          <p>The full pipeline is open: folio JSON, the ScribeSim engine, the weathering system and its validators. Python 3.11+ and uv; the weathering stage needs an OpenAI key with image access.</p>
-          <div class="hero-actions">
-            <a class="cta" href="https://github.com/srswart/mserfurt">View the repository</a>
-            <a class="ghost" href="/viewer">Look again at the folios</a>
-          </div>
-        </div>
-        <div class="terminal">
-          <header><span class="caption">terminal</span><button class="copy" id="copy-cli" type="button">Copy</button></header>
-          <pre id="cli-block">{_esc(_CLI)}</pre>
-        </div>
-      </div>
-    </section>
     <footer class="site-footer">
       <div class="closing">
         <span class="stars" aria-hidden="true">✦ ✦ ✦</span>
         <p>Whether anything was lost in translation, CLIO-7 cannot determine. That determination, if it can be made at all, belongs to You.</p>
         <p class="kicker">S. R. Swart</p>
+        <p class="kicker"><a href="mailto:info@mserfurt.com">info@mserfurt.com</a></p>
       </div>
     </footer>
   </div>
